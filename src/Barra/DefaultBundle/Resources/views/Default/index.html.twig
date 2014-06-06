@@ -12,5 +12,12 @@
         </ul>
     </nav>
 
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div class="flash-message">
+            {{ flashMessage }}
+        </div>
+
+    {% endfor %}
+
     index here
 {% endblock %}

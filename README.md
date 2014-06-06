@@ -189,3 +189,11 @@ Response Obj	            use Symfony\Component\HttpFoundation\Response;
 
 // without URL change:      return $this->forward('BarraDefaultBundle:Default:recipe', array('id' => 1));
 // with URL change:         return $this->redirect($this->generateUrl('barra_default_recipe', array('id' => 1))); // = return new RedirectResponse(...);
+
+
+public function checkRequest(Request $request) {
+        $request->isXmlHttpRequest(); // Ajax
+        $request->getPreferredLanguage(array('de', 'en'));
+        $request->query->get('page'); // $_GET
+        $request->request->get('page'); // $_POST
+    }

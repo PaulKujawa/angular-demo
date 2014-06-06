@@ -2,28 +2,46 @@
 
 namespace Barra\DefaultBundle\Controller;
 
-use Doctrine\DBAL\Driver\IBMDB2\DB2Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\BrowserKit\Request;
-use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
-    public function indexAction()
+    public function indexAction($lang)
     {
+        if ($lang == 'de') {
+            // db german content
+        } else {
+            // db english content
+        }
+
         return $this->render('BarraDefaultBundle:Default:index.html.twig');
     }
 
 
-    public function recipeAction($id)
+
+    public function contactGetAction(Request $request)
     {
-        $dbResponse = true;
-        if (!$dbResponse) {
-            throw $this->createNotFoundException('This recipe does not exist yet');
+        $form = $this->createForm("foo");
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            // processing
+
+            $this->get('session')->getFlashBag()->add(
+                'notice',
+                'I am informed.'
+            );
+
+            return $this->redirect($this->generateUrl('barra_default_home'));
         }
 
-        return $this->render('BarraDefaultBundle:Default:recipe.html.twig', array('id' => $id));
+        return $this->render('BarraDefaultBundle:Default:contact.html.twig'); // TODO alert
     }
 
-    
+
+    public function contactPostAction()
+    {
+        return $this->render('BarraDefaultBundle:Default:contact.html.twig');
+    }
 }

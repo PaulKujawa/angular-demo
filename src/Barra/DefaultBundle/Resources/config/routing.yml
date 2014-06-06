@@ -1,8 +1,34 @@
 barra_default_home:
-    pattern: /
-    defaults: { _controller: BarraDefaultBundle:Default:index }
+    path:     /{lang}
+    defaults: { _controller: BarraDefaultBundle:Default:index, lang: de }
+    requirements:
+      lang: de|en
+
+
+
+
+barra_default_contact:
+    path: /contact
+    defaults: { _controller: BarraDefaultBundle:Default:contactGet }
+    methods: [ GET ]
+
+
+barra_default_contact:
+    path: /contact
+    defaults: { _controller: BarraDefaultBundle:Default:contactPost }
+    methods : [ POST ]
+
+
+
+
+
+barra_default_recipes:
+    path:     /recipes
+    defaults: { _controller: BarraDefaultBundle:Recipe:list }
 
 
 barra_default_recipe:
-    pattern:  /recipe/{id}
-    defaults: { _controller: BarraDefaultBundle:Default:recipe }
+    path:     /recipe/{id}
+    defaults: { _controller: BarraDefaultBundle:Recipe:show, id: 1 }
+    requirements:
+      id: \d+
