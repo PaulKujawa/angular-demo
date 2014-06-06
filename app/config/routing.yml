@@ -1,0 +1,3 @@
+barra_default:
+    resource: "@BarraDefaultBundle/Resources/config/routing.yml"
+    prefix:   /

@@ -1,0 +1,8 @@
+barra_default_home:
+    pattern: /
+    defaults: { _controller: BarraDefaultBundle:Default:index }
+
+
+barra_default_recipe:
+    pattern:  /recipe/{id}
+    defaults: { _controller: BarraDefaultBundle:Default:recipe }

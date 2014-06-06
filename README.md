@@ -168,3 +168,24 @@ Enjoy!
 [11]: http://symfony.com/doc/2.4/cookbook/logging/monolog.html
 [12]: http://symfony.com/doc/2.4/cookbook/assetic/asset_management.html
 [13]: http://symfony.com/doc/2.4/bundles/SensioGeneratorBundle/index.html
+
+
+
+Commandline
+---------------------------------------------------------------------------------------------------
+create bundle	            php app/console generate:bundle --namespace=Acme/HelloBundle --format=yml
+		                    -> creates src/… & extends app/appkernel.php & app/config/routing.yml
+
+Cache clear	                php app/console cache:clear —env=prod —no-debug
+		                    -> necessary when debug is inactive like in prod environment
+
+Base Controller Services    php app/console container:debug
+
+
+
+Controller
+----------------------------------------------------------------------------------------------------
+Response Obj	            use Symfony\Component\HttpFoundation\Response;
+
+// without URL change:      return $this->forward('BarraDefaultBundle:Default:recipe', array('id' => 1));
+// with URL change:         return $this->redirect($this->generateUrl('barra_default_recipe', array('id' => 1))); // = return new RedirectResponse(...);
