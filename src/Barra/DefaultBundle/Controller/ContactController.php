@@ -5,22 +5,10 @@ namespace Barra\DefaultBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class DefaultController extends Controller
+class ContactController extends Controller
 {
-    public function indexAction($lang)
-    {
-        if ($lang == 'de') {
-            // db german content
-        } else {
-            // db english content
-        }
 
-        return $this->render('BarraDefaultBundle:Default:index.html.twig');
-    }
-
-
-
-    public function contactGetAction(Request $request)
+    public function getAction(Request $request)
     {
         $form = $this->createForm("foo");
         $form->handleRequest($request);
@@ -36,11 +24,11 @@ class DefaultController extends Controller
             return $this->redirect($this->generateUrl('barra_default_home'));
         }
 
-        return $this->render('BarraDefaultBundle:Default:contact.html.twig'); // TODO alert
+        return $this->render('BarraDefaultBundle:contact.html.twig'); // TODO alert
     }
 
 
-    public function contactPostAction()
+    public function postAction()
     {
         return $this->render('BarraDefaultBundle:Default:contact.html.twig');
     }

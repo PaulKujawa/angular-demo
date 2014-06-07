@@ -1,34 +1,55 @@
-barra_default_home:
+barra_default_me:
     path:     /{lang}
-    defaults: { _controller: BarraDefaultBundle:Default:index, lang: de }
+    defaults: { _controller: BarraDefaultBundle:Me:show, lang: de }
     requirements:
       lang: de|en
 
 
 
 
-barra_default_contact:
-    path: /contact
-    defaults: { _controller: BarraDefaultBundle:Default:contactGet }
-    methods: [ GET ]
+barra_default_references:
+    path:     /references/{lang}
+    defaults: { _controller: BarraDefaultBundle:References:show, lang: de }
+    requirements:
+      lang: de|en
 
-
-barra_default_contact:
-    path: /contact
-    defaults: { _controller: BarraDefaultBundle:Default:contactPost }
-    methods : [ POST ]
-
+barra_default_reference:
+    path:     /references/{id}/{lang}
+    defaults: { _controller: BarraDefaultBundle:Reference:show, id: 1, lang: de }
+    requirements:
+      id: \d+
+      lang: de|en
 
 
 
 
 barra_default_recipes:
     path:     /recipes
-    defaults: { _controller: BarraDefaultBundle:Recipe:list }
-
+    defaults: { _controller: BarraDefaultBundle:Recipes:show }
 
 barra_default_recipe:
-    path:     /recipe/{id}
+    path:     /recipes/{id}
     defaults: { _controller: BarraDefaultBundle:Recipe:show, id: 1 }
     requirements:
       id: \d+
+
+
+
+
+barra_default_contact:
+    path:     /contact/{lang}
+    defaults: { _controller: BarraDefaultBundle:Contact:get, lang: de }
+    methods: [ GET ]
+    requirements:
+      lang: de|en
+
+barra_default_contact:
+    path:     /contact/{lang}
+    defaults: { _controller: BarraDefaultBundle:Contact:post, lang: de }
+    methods : [ POST ]
+    requirements:
+      lang: de|en
+
+
+
+
