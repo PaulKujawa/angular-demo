@@ -4,13 +4,16 @@
     box-sizing: border-box;
 }
 
-html, body {
+html {
     height: 100%;
 }
 
 body {
+    min-height: 100%;
     margin: 0;
+    position: relative;
 }
+
 
 nav, section, footer {
     width: 100%;
@@ -67,6 +70,7 @@ section {
     max-width: 980px;
     margin: 0px auto;
     padding-top: 112px; /* 98+14 */
+    padding-bottom: 84px;/* 70+14 */
     background-color: white;
 }
 

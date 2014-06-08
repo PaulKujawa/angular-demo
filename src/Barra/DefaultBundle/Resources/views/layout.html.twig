@@ -18,9 +18,11 @@
                 <li><a href="{{ path('barra_default_recipes') }}">Rezepte</a></li>
                 <li><a href="{{ path('barra_default_contact', {'lang': 'de'}) }}">Kontakt</a></li>
             </ul>
-            <div id="languageButton">
-                    <a href="{{ path('barra_default_me', {'lang': 'en'}) }}">En</a>
-            </div>
+            {% block languageButton %}
+                <div id="languageButton">
+                        <a href="{{ path('barra_default_me', {'lang': 'en'}) }}">En</a>
+                </div>
+            {% endblock %}
         {% endblock %}
     </nav>
 
