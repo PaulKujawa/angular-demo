@@ -14,6 +14,6 @@ class RecipeController extends Controller
             throw $this->createNotFoundException('This recipe does not exist yet');
         }
 
-        return $this->render('BarraDefaultBundle:Default:recipe.html.twig', array('id' => $id));
+        return $this->render('BarraDefaultBundle:Recipe:recipe.html.twig', array('id' => $id));
     }
 }

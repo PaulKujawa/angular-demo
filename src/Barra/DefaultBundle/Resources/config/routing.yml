@@ -39,14 +39,14 @@ barra_default_recipe:
 barra_default_contact:
     path:     /contact/{lang}
     defaults: { _controller: BarraDefaultBundle:Contact:get, lang: de }
-    methods: [ GET ]
+    #methods: [ GET ]
     requirements:
       lang: de|en
 
 barra_default_contact:
     path:     /contact/{lang}
     defaults: { _controller: BarraDefaultBundle:Contact:post, lang: de }
-    methods : [ POST ]
+    #methods : [ POST ]
     requirements:
       lang: de|en
 

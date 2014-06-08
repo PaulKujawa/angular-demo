@@ -9,6 +9,6 @@ class RecipesController extends Controller
 {
     public function showAction()
     {
-        return $this->render('BarraDefaultBundle:Default:recipes.html.twig');
+        return $this->render('BarraDefaultBundle:Recipes:recipes.html.twig');
     }
 }

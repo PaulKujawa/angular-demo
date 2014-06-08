@@ -1,0 +1,40 @@
+{% extends '::base.html.twig' %}
+
+{% block URLicon %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+{% endblock URLicon %}
+
+{% block stylesheets %}
+    <link href="{{ asset('bundles/barradefault/css/main.css') }}" rel="stylesheet" />
+{% endblock %}
+
+
+{% block body %}
+    <nav>
+        {% block nav %}
+            <ul>
+                <li><a href="{{ path('barra_default_me', {'lang': 'de'}) }}">Über mich</a></li>
+                <li><a href="{{ path('barra_default_references', {'lang': 'de'}) }}">Referenzen</a></li>
+                <li><a href="{{ path('barra_default_recipes') }}">Rezepte</a></li>
+                <li><a href="{{ path('barra_default_contact', {'lang': 'de'}) }}">Kontakt</a></li>
+            </ul>
+            <div id="languageButton">
+                    <a href="{{ path('barra_default_me', {'lang': 'en'}) }}">En</a>
+            </div>
+        {% endblock %}
+    </nav>
+
+    <section>
+        {% block section %}{% endblock %}
+    </section>
+
+    <footer>
+        {% block footer %}
+            <span>Copyright © 2014 Paul Kujawa - Berlin, Germany - All rights reserved</span>
+        {% endblock %}
+    </footer>
+
+    {# block javascripts %}
+        <script src="{{ asset('bundles/barradefault/js/main.js') }}"></script>
+    {% endblock #}
+{% endblock %}

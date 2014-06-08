@@ -15,6 +15,6 @@ class ReferencesController extends Controller
             // db english content
         }
 
-        return $this->render('BarraDefaultBundle:Default:references.html.twig');
+        return $this->render('BarraDefaultBundle:References:references.html.twig');
     }
 }

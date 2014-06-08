@@ -5,9 +5,9 @@ namespace Barra\DefaultBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class DefaultController extends Controller
+class MeController extends Controller
 {
-    public function indexAction($lang)
+    public function showAction($lang)
     {
         if ($lang == 'de') {
             // db german content
@@ -15,6 +15,9 @@ class DefaultController extends Controller
             // db english content
         }
 
-        return $this->render('BarraDefaultBundle:Default:index.html.twig');
+
+
+
+        return $this->render('BarraDefaultBundle:Me:me.html.twig');
     }
 }

@@ -181,6 +181,19 @@ Cache clear	                php app/console cache:clear —env=prod —no-debug
 
 Base Controller Services    php app/console container:debug
 
+List Routes                 php app/console router:debug
+
+Route <-> URL               php app/console router:match /givenPage
+
+
+include assets in bundle    php app/console assets:install web --symlink
+
+
+Routing
+------------------------------------------------------------------------------------------------------
+User-Agent                  Condition:"request.headers.get('User-Agent') matches'/firefox/i'
+                            -> not taken into account when generating url
+
 
 
 Controller
@@ -189,7 +202,7 @@ Response Obj	            use Symfony\Component\HttpFoundation\Response;
 
 // without URL change:      return $this->forward('BarraDefaultBundle:Default:recipe', array('id' => 1));
 // with URL change:         return $this->redirect($this->generateUrl('barra_default_recipe', array('id' => 1))); // = return new RedirectResponse(...);
-
+// for absolute links "true" as 3th param
 
 public function checkRequest(Request $request) {
         $request->isXmlHttpRequest(); // Ajax
@@ -197,3 +210,53 @@ public function checkRequest(Request $request) {
         $request->query->get('page'); // $_GET
         $request->request->get('page'); // $_POST
     }
+
+
+
+
+
+TWIG
+--------------------------------------------------------------------------------------------------------
+{% for i in 0..10 %}
+    <div class="{{ cycle(['odd', 'even'], i) }}"> ....
+
+{% for item in stack if item.active %}
+    ....
+{% else %}
+    ....
+
+{{ parent() }} <- content of parent block element
+
+
+{{ include('BarraDefaultBundle:References:article.html.twig', {'id': 3}) }}
+include instead of inherit
+
+{{ render(controller('BarraDefaultBundle:References:show', {'id': 3} )) }}
+include a complete controller with template for db queries
+
+
+Asynchronus include via hinclude.js
+    {{ render_include(url(...)) }}
+    {{ render_include(controller(...)) }}
+        -> for controller add "fragments: { path: /_fragment } to framework: at app/config/config.yml
+        -> default content when js is deactive also there
+            framework:
+                templating:
+                    hinclude_default_template: BarraDefaultBundle::hinclude.html.twig
+        -> ovveride this default via:
+            {{ render_hinclude(controller('...'), { 'default': '.....twig'}) }}
+
+
+-<ul>
+    {#
+    {% for item in navigation %}
+        <li><a href="{{ item.href }}">{{ item.caption }}</a></li>
+    {% endfor #}
+</ul>
+
+JS
+------------------------------------------------------------------------------------------------------
+Routing based generated URLS for AJax requests via JS through budnle FOSJsRoutingBundle
+
+
+

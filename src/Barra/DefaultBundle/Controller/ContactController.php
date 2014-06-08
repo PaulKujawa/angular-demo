@@ -10,7 +10,7 @@ class ContactController extends Controller
 
     public function getAction(Request $request)
     {
-        $form = $this->createForm("foo");
+       /* $form = $this->createForm("foo");
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -22,14 +22,14 @@ class ContactController extends Controller
             );
 
             return $this->redirect($this->generateUrl('barra_default_home'));
-        }
+        }*/
 
-        return $this->render('BarraDefaultBundle:contact.html.twig'); // TODO alert
+        return $this->render('BarraDefaultBundle:Contact:contact.html.twig');
     }
 
 
     public function postAction()
     {
-        return $this->render('BarraDefaultBundle:Default:contact.html.twig');
+        return $this->render('BarraDefaultBundle:Contact:contact.html.twig');
     }
 }
