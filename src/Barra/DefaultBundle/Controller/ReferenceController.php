@@ -7,14 +7,14 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ReferenceController extends Controller
 {
-    public function showAction($lang, $id)
+    public function showReferencesAction()
     {
-        if ($lang == 'de') {
-            // db german content
-        } else {
-            // db english content
-        }
+        return $this->render('BarraDefaultBundle:Reference:references.html.twig');
+    }
 
-        return $this->render('BarraDefaultBundle:Reference:reference.html.twig', array('id' => $id));
+
+    public function showReferenceAction()
+    {
+        return $this->render('BarraDefaultBundle:Reference:reference.html.twig');
     }
 }

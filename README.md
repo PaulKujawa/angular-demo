@@ -170,6 +170,8 @@ Enjoy!
 [13]: http://symfony.com/doc/2.4/bundles/SensioGeneratorBundle/index.html
 
 
+######################################################################################################
+#####################################################################################################
 
 Commandline
 ---------------------------------------------------------------------------------------------------
@@ -189,6 +191,40 @@ Route <-> URL               php app/console router:match /givenPage
 include assets in bundle    php app/console assets:install web --symlink
 
 
+check twig syntax           php app/console twig:lint path_of_bundle|folder|twig-file
+
+
+
+
+/*
+        $em = $this->getDoctrine()->getManager();
+        $recipes = $em->getRepository('BarraDefaultBundle:Recipe')->selectAllOrderedByTitel();
+        return $this->render('BarraDefaultBundle:Recipe:recipes.html.twig', array('recipes' => $recipes));
+        */
+
+
+
+DB
+---------------------------------------------------------------------------------------------------
+
+create & fields             php app/console doctrine:generate:entity --entity="BarraDefaultBundle:Product"
+updates get/set/repo        php app/console doctrine:generate:entities Barra
+
+
+create DB                   php app/console doctrine:database:create
+update tables               php app/console doctrine:schema:update --force
+delete DB                   php app/console doctrine:database:drop --force
+
+
+
+
+
+
+
+######################################################################################################
+######################################################################################################
+
+
 Routing
 ------------------------------------------------------------------------------------------------------
 User-Agent                  Condition:"request.headers.get('User-Agent') matches'/firefox/i'
@@ -196,6 +232,8 @@ User-Agent                  Condition:"request.headers.get('User-Agent') matches
 
 
 
+#####################################################################################################
+#####################################################################################################
 Controller
 ----------------------------------------------------------------------------------------------------
 Response Obj	            use Symfony\Component\HttpFoundation\Response;
@@ -212,10 +250,114 @@ public function checkRequest(Request $request) {
     }
 
 
+template in different formats       $format = $this->getRequest()->getRequestFormat(); && render...
 
 
 
-TWIG
+DB Controller
+############################################################################################################
+###########################################################################################################
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Barra\DefaultBundle\Entity\Recipe;
+use Symfony\Component\HttpFoundation\Response;
+
+    public function select($id)
+    {
+        $recipe = $this->getDoctrine()->getRepository('BarraDefaultBundle:Recipe')->find($id);
+        return $this->render('BarraDefaultBundle:Recipe:recipe.html.twig', array('recipe' => $recipe));
+    }
+
+    public function insert()
+    {
+        $m = new Manufacturer();
+        $m->setName('first');
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($m);
+
+        try {
+            $em->flush();
+        } catch (\Doctrine\DBAL\DBALException $e) {
+            return new Response('DBAL Exception thrown');
+        }
+
+        return new Response('Created with id '.$m->getId());
+    }
+
+    public function update($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $recipe = $em->getRepository('BarraDefaultBundle:Recipe')->find($id);
+        $recipe->setTitel('new titel');
+        $em->flush();
+        return $this->redirect($this->generateUrl('barra_default_me'));
+    }
+
+    public function deleteRecipesAction($id)
+    {
+         $em = $this->getDoctrine()->getManager();
+         $m = $em->getRepository('BarraDefaultBundle:Manufacturer')->find($id);
+
+         if ($m) {
+             $tmp = $m->getId();
+             $em->remove($m);
+             $em->flush();
+             return new Response('Deleted manufacturer with id '.$tmp);
+         } else
+         return new Response('Manufacturer not found');
+    }
+
+
+
+select
+    $repository = $this->getDoctrine()->getRepository('BarraDefaultBundle:Recipe')
+    $repository
+    ->find('foo') 1 with PK
+    ->findOneByColumnName('c1') 1 with c1
+    ->findOneBy(array('c1'=>'foo', 'c2'=>'bar')) 1 with c1&c2
+    ->findByPrice(12.32) more with c1
+    ->findBy(array('c1'=>'foo'), array('c2'=>'ASC')) more ordered by c2
+    ->findAll();
+
+    $recipes = $query->getResult(); -> {{ recipes[0].titel }}
+    $recipe = $query->getSingleResult(); // throws exception when null
+    $recipe = $query->getOneOrNullResult(); -> {{ recipes.titel }}
+
+
+DB Repository (DCL)
+################################################################################################################
+################################################################################################################
+
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery(
+          'SELECT r FROM BarraDefaultBundle:Recipe r
+          WHERE r.price > :price
+          ORDER BY r.price ASC'
+        )->setParameter('price', '20.22');
+
+        $recipes = $query->getResult(); -> {{ recipes[0].titel }}
+
+
+
+Lacy load
+------------------------------------------------------------------------------------------------------
+    $recipe = new Recipe();
+    $recipe->setName('foo');
+    $product= new Product();
+    $product->setName('bar');
+    $product->setRecipe($recipe);
+
+    $em = $this->getDoctrine()->getManager();
+    $em->persist($recipe);
+    $em->persist($product);
+    $em->flush();
+
+
+Foreign Keys : http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/association-mapping.html
+
+######################################################################################################
+######################################################################################################
+Template
 --------------------------------------------------------------------------------------------------------
 {% for i in 0..10 %}
     <div class="{{ cycle(['odd', 'even'], i) }}"> ....
@@ -254,9 +396,7 @@ Asynchronus include via hinclude.js
     {% endfor #}
 </ul>
 
-JS
-------------------------------------------------------------------------------------------------------
-Routing based generated URLS for AJax requests via JS through budnle FOSJsRoutingBundle
 
-
+template override: app/Resources/myDemoBundle/views/[SomeController/]newPage.html.twig
+    -> cache clear may be necessary
 

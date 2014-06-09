@@ -9,13 +9,13 @@ barra_default_me:
 
 barra_default_references:
     path:     /references/{lang}
-    defaults: { _controller: BarraDefaultBundle:References:show, lang: de }
+    defaults: { _controller: BarraDefaultBundle:Reference:showReferences, lang: de }
     requirements:
       lang: de|en
 
 barra_default_reference:
     path:     /references/{id}/{lang}
-    defaults: { _controller: BarraDefaultBundle:Reference:show, id: 1, lang: de }
+    defaults: { _controller: BarraDefaultBundle:Reference:showReference, id: 1, lang: de }
     requirements:
       id: \d+
       lang: de|en
@@ -25,14 +25,17 @@ barra_default_reference:
 
 barra_default_recipes:
     path:     /recipes
-    defaults: { _controller: BarraDefaultBundle:Recipes:show }
+    defaults: { _controller: BarraDefaultBundle:Recipe:showRecipes }
 
 barra_default_recipe:
     path:     /recipes/{id}
-    defaults: { _controller: BarraDefaultBundle:Recipe:show, id: 1 }
+    defaults: { _controller: BarraDefaultBundle:Recipe:showRecipe, id: 1 }
     requirements:
       id: \d+
 
+barra_Default_recipe_delete:
+    path:     /recipes/d/{id}
+    defaults: { _controller: BarraDefaultBundle:Recipe:deleteRecipes, id: 1 }
 
 
 
