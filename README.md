@@ -202,6 +202,7 @@ check twig syntax           php app/console twig:lint path_of_bundle|folder|twig
         return $this->render('BarraDefaultBundle:Recipe:recipes.html.twig', array('recipes' => $recipes));
         */
 
+ <a href="{{ path('barra_default_recipe', {'id': 3}) }}">3. Recipe</a>
 
 
 DB
@@ -261,12 +262,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Barra\DefaultBundle\Entity\Recipe;
 use Symfony\Component\HttpFoundation\Response;
 
-    public function select($id)
-    {
-        $recipe = $this->getDoctrine()->getRepository('BarraDefaultBundle:Recipe')->find($id);
-        return $this->render('BarraDefaultBundle:Recipe:recipe.html.twig', array('recipe' => $recipe));
-    }
-
     public function insert()
     {
         $m = new Manufacturer();
@@ -292,21 +287,6 @@ use Symfony\Component\HttpFoundation\Response;
         $em->flush();
         return $this->redirect($this->generateUrl('barra_default_me'));
     }
-
-    public function deleteRecipesAction($id)
-    {
-         $em = $this->getDoctrine()->getManager();
-         $m = $em->getRepository('BarraDefaultBundle:Manufacturer')->find($id);
-
-         if ($m) {
-             $tmp = $m->getId();
-             $em->remove($m);
-             $em->flush();
-             return new Response('Deleted manufacturer with id '.$tmp);
-         } else
-         return new Response('Manufacturer not found');
-    }
-
 
 
 select
