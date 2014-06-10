@@ -3,39 +3,57 @@
 namespace Barra\DefaultBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
+ * Recipe
+ *
+ * @ORM\Table()
  * @ORM\Entity(repositoryClass="Barra\DefaultBundle\Entity\RecipeRepository")
- * @ORM\Table(name="recipe")
  */
 class Recipe
 {
     /**
-     * @ORM\Column(type="integer")
+     * @var integer
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    private $id;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @var string
+     * @ORM\Column(name="name", type="string", length=30, unique=true, nullable=false)
      */
-    protected $titel;
-
+    private $name;
 
     /**
-     * @ORM\Column(type="decimal", scale=2)
+     * @var integer
+     * @ORM\Column(name="rating", type="smallint", nullable=false)
      */
-    protected $price;
-
+    private $rating;
 
     /**
-     * @ORM\Column(type="text")
+     * @var integer
+     * @ORM\Column(name="votes", type="integer", nullable=false)
      */
-    protected $description;
+    private $votes;
 
     /**
+     * @var integer
+     * @ORM\OneToOne(targetEntity="RecipeIngredient")
+     * @ORM\JoinColumn(name="mainIngredient", referencedColumnName="id")
+     **/
+    private $mainIngredient;
+
+
+    /**
+     * @var string
+     * @ORM\OneToMany(targetEntity="RecipeIngredient", mappedBy="Recipe")
+     */
+    private $ingredients;
+
+
+    /**ß
      * Get id
      *
      * @return integer 
@@ -46,104 +64,147 @@ class Recipe
     }
 
     /**
-     * Set titel
+     * Set name
      *
-     * @param string $titel
+     * @param string $name
      * @return Recipe
      */
-    public function setTitel($titel)
+    public function setName($name)
     {
-        $this->titel = $titel;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get titel
+     * Get name
      *
      * @return string 
      */
-    public function getTitel()
+    public function getName()
     {
-        return $this->titel;
+        return $this->name;
     }
 
     /**
-     * Set price
+     * Set rating
      *
-     * @param string $price
+     * @param integer $rating
      * @return Recipe
      */
-    public function setPrice($price)
+    public function setRating($rating)
     {
-        $this->price = $price;
+        $this->rating = $rating;
 
         return $this;
     }
 
     /**
-     * Get price
+     * Get rating
+     *
+     * @return integer 
+     */
+    public function getRating()
+    {
+        return $this->rating;
+    }
+
+    /**
+     * Set votes
+     *
+     * @param integer $votes
+     * @return Recipe
+     */
+    public function setVotes($votes)
+    {
+        $this->votes = $votes;
+
+        return $this;
+    }
+
+    /**
+     * Get votes
+     *
+     * @return integer 
+     */
+    public function getVotes()
+    {
+        return $this->votes;
+    }
+
+    /**
+     * Set ingredients
+     *
+     * @param string $ingredients
+     * @return Recipe
+     */
+    public function setIngredients($ingredients)
+    {
+        $this->ingredients = $ingredients;
+
+        return $this;
+    }
+
+    /**
+     * Get ingredients
      *
      * @return string 
      */
-    public function getPrice()
+    public function getIngredients()
     {
-        return $this->price;
+        return $this->ingredients;
     }
 
     /**
-     * Set description
+     * Set mainIngredient
      *
-     * @param string $description
+     * @param \Barra\DefaultBundle\Entity\RecipeIngredient $mainIngredient
      * @return Recipe
      */
-    public function setDescription($description)
+    public function setMainIngredient(\Barra\DefaultBundle\Entity\RecipeIngredient $mainIngredient = null)
     {
-        $this->description = $description;
+        $this->mainIngredient = $mainIngredient;
 
         return $this;
     }
 
     /**
-     * Get description
+     * Get mainIngredient
      *
-     * @return string 
+     * @return \Barra\DefaultBundle\Entity\RecipeIngredient 
      */
-    public function getDescription()
+    public function getMainIngredient()
     {
-        return $this->description;
+        return $this->mainIngredient;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->ingredients = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Add products
+     * Add ingredients
      *
-     * @param \Barra\DefaultBundle\Entity\Product $products
+     * @param \Barra\DefaultBundle\Entity\RecipeIngredient $ingredients
      * @return Recipe
      */
-    public function addProduct(\Barra\DefaultBundle\Entity\Product $products)
+    public function addIngredient(\Barra\DefaultBundle\Entity\RecipeIngredient $ingredients)
     {
-        $this->products[] = $products;
+        $this->ingredients[] = $ingredients;
 
         return $this;
     }
 
     /**
-     * Remove products
+     * Remove ingredients
      *
-     * @param \Barra\DefaultBundle\Entity\Product $products
+     * @param \Barra\DefaultBundle\Entity\RecipeIngredient $ingredients
      */
-    public function removeProduct(\Barra\DefaultBundle\Entity\Product $products)
+    public function removeIngredient(\Barra\DefaultBundle\Entity\RecipeIngredient $ingredients)
     {
-        $this->products->removeElement($products);
-    }
-
-    /**
-     * Get products
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getProducts()
-    {
-        return $this->products;
+        $this->ingredients->removeElement($ingredients);
     }
 }

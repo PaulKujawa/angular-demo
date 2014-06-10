@@ -14,7 +14,7 @@ class RecipeController extends Controller
         $manufacturer = $this->getDoctrine()->getRepository('BarraDefaultBundle:Manufacturer')->selectOneById(2);
 
         if (!$manufacturer)
-            return new Response('eee');
+            return new Response('Manufacturer with id 2 not found');
 
         $ingredient = new Ingredient();
         $ingredient->setName('potato')

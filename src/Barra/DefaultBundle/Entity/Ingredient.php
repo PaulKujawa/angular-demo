@@ -85,6 +85,15 @@ class Ingredient
     private $manufacturer;
 
     /**
+     * @var string
+     * @ORM\OneToMany(targetEntity="RecipeIngredient", mappedBy="Ingredient")
+     */
+    private $recipes;
+
+
+
+
+    /**
      * Get id
      *
      * @return integer 
@@ -299,5 +308,58 @@ class Ingredient
     public function getManufacturer()
     {
         return $this->manufacturer;
+    }
+
+    /**
+     * Set recipes
+     *
+     * @param string $recipes
+     * @return Ingredient
+     */
+    public function setRecipes($recipes)
+    {
+        $this->recipes = $recipes;
+
+        return $this;
+    }
+
+    /**
+     * Get recipes
+     *
+     * @return string 
+     */
+    public function getRecipes()
+    {
+        return $this->recipes;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->recipes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add recipes
+     *
+     * @param \Barra\DefaultBundle\Entity\RecipeIngredient $recipes
+     * @return Ingredient
+     */
+    public function addRecipe(\Barra\DefaultBundle\Entity\RecipeIngredient $recipes)
+    {
+        $this->recipes[] = $recipes;
+
+        return $this;
+    }
+
+    /**
+     * Remove recipes
+     *
+     * @param \Barra\DefaultBundle\Entity\RecipeIngredient $recipes
+     */
+    public function removeRecipe(\Barra\DefaultBundle\Entity\RecipeIngredient $recipes)
+    {
+        $this->recipes->removeElement($recipes);
     }
 }

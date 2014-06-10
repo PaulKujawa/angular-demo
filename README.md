@@ -212,7 +212,7 @@ updates get/set/repo        php app/console doctrine:generate:entities Barra
 
 
 create DB                   php app/console doctrine:database:create
-update tables               php app/console doctrine:schema:update --force
+cr/update t                 php app/console doctrine:schema:update --force
 delete DB                   php app/console doctrine:database:drop --force
 
 
