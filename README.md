@@ -258,26 +258,6 @@ template in different formats       $format = $this->getRequest()->getRequestFor
 DB Controller
 ############################################################################################################
 ###########################################################################################################
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Barra\DefaultBundle\Entity\Recipe;
-use Symfony\Component\HttpFoundation\Response;
-
-    public function insert()
-    {
-        $m = new Manufacturer();
-        $m->setName('first');
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($m);
-
-        try {
-            $em->flush();
-        } catch (\Doctrine\DBAL\DBALException $e) {
-            return new Response('DBAL Exception thrown');
-        }
-
-        return new Response('Created with id '.$m->getId());
-    }
 
     public function update($id)
     {
@@ -289,7 +269,7 @@ use Symfony\Component\HttpFoundation\Response;
     }
 
 
-select
+Controller - Einfache selects
     $repository = $this->getDoctrine()->getRepository('BarraDefaultBundle:Recipe')
     $repository
     ->find('foo') 1 with PK
@@ -299,41 +279,6 @@ select
     ->findBy(array('c1'=>'foo'), array('c2'=>'ASC')) more ordered by c2
     ->findAll();
 
-    $recipes = $query->getResult(); -> {{ recipes[0].titel }}
-    $recipe = $query->getSingleResult(); // throws exception when null
-    $recipe = $query->getOneOrNullResult(); -> {{ recipes.titel }}
-
-
-DB Repository (DCL)
-################################################################################################################
-################################################################################################################
-
-        $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery(
-          'SELECT r FROM BarraDefaultBundle:Recipe r
-          WHERE r.price > :price
-          ORDER BY r.price ASC'
-        )->setParameter('price', '20.22');
-
-        $recipes = $query->getResult(); -> {{ recipes[0].titel }}
-
-
-
-Lacy load
-------------------------------------------------------------------------------------------------------
-    $recipe = new Recipe();
-    $recipe->setName('foo');
-    $product= new Product();
-    $product->setName('bar');
-    $product->setRecipe($recipe);
-
-    $em = $this->getDoctrine()->getManager();
-    $em->persist($recipe);
-    $em->persist($product);
-    $em->flush();
-
-
-Foreign Keys : http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/association-mapping.html
 
 ######################################################################################################
 ######################################################################################################

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Cooking
  *
  * @ORM\Table()
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Barra\DefaultBundle\Entity\CookingRepository")
  */
 class Cooking
 {

@@ -332,4 +332,34 @@ class Ingredient
     {
         return $this->recipes;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->recipes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add recipes
+     *
+     * @param \Barra\DefaultBundle\Entity\RecipeIngredient $recipes
+     * @return Ingredient
+     */
+    public function addRecipe(\Barra\DefaultBundle\Entity\RecipeIngredient $recipes)
+    {
+        $this->recipes[] = $recipes;
+
+        return $this;
+    }
+
+    /**
+     * Remove recipes
+     *
+     * @param \Barra\DefaultBundle\Entity\RecipeIngredient $recipes
+     */
+    public function removeRecipe(\Barra\DefaultBundle\Entity\RecipeIngredient $recipes)
+    {
+        $this->recipes->removeElement($recipes);
+    }
 }
