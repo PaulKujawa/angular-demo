@@ -1,0 +1,11 @@
+section > ul {
+    list-style: none;
+}
+
+nav > ul > li:nth-child(1) > a { /* TODO to select via shown page */
+    background-color: #000000;
+}
+
+nav > ul > li:nth-child(2) > a { /* TODO to select via shown page */
+    background-color: #2C2C2C
+}

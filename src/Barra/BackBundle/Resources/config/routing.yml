@@ -1,0 +1,3 @@
+barra_front_admin:
+    path:     /admino
+    defaults: { _controller: BarraBackBundle:Admin:index }

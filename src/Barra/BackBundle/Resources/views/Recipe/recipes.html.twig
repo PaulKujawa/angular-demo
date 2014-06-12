@@ -1,0 +1,15 @@
+{% extends 'BarraBackBundle::layout.html.twig' %}
+
+{% block title %} vPit Recipes {% endblock %}
+
+{% block section %}
+    all recipes
+
+    <ul>
+    {% for recipe in recipes %}
+        <li>
+           {{ recipe.id}) }} & {{ recipe.name }}
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}

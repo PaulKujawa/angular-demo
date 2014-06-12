@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9c76b38715fafc1cd9de5a905c64f964",
+    "hash": "b4acc9f6a507fac434b831def82ff9e8",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -554,16 +554,16 @@
         },
         {
             "name": "doctrine/orm",
-            "version": "v2.4.2",
+            "version": "v2.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/doctrine2.git",
-                "reference": "0363a5548d9263f979f9ca149decb9cfc66419ab"
+                "reference": "8a13376d42b5ea467727ffe730aa0e14ca3c5e29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/0363a5548d9263f979f9ca149decb9cfc66419ab",
-                "reference": "0363a5548d9263f979f9ca149decb9cfc66419ab",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/8a13376d42b5ea467727ffe730aa0e14ca3c5e29",
+                "reference": "8a13376d42b5ea467727ffe730aa0e14ca3c5e29",
                 "shasum": ""
             },
             "require": {
@@ -626,7 +626,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2014-02-08 16:35:09"
+            "time": "2014-06-10 11:49:08"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1181,20 +1181,21 @@
         },
         {
             "name": "symfony/icu",
-            "version": "v1.0.1",
+            "version": "v1.2.1",
             "target-dir": "Symfony/Component/Icu",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Icu.git",
-                "reference": "fdba214b1e087c149843bde976263c53ac10c975"
+                "reference": "98e197da54df1f966dd5e8a4992135703569c987"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Icu/zipball/fdba214b1e087c149843bde976263c53ac10c975",
-                "reference": "fdba214b1e087c149843bde976263c53ac10c975",
+                "url": "https://api.github.com/repos/symfony/Icu/zipball/98e197da54df1f966dd5e8a4992135703569c987",
+                "reference": "98e197da54df1f966dd5e8a4992135703569c987",
                 "shasum": ""
             },
             "require": {
+                "lib-icu": ">=4.4",
                 "php": ">=5.3.3",
                 "symfony/intl": "~2.3"
             },
@@ -1224,7 +1225,7 @@
                 "icu",
                 "intl"
             ],
-            "time": "2013-10-04 09:12:07"
+            "time": "2013-10-04 10:06:38"
         },
         {
             "name": "symfony/monolog-bundle",

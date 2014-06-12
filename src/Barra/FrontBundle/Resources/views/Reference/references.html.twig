@@ -1,0 +1,27 @@
+{% extends 'BarraFrontBundle::layout.html.twig' %}
+
+{% block title %} vPit References {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/barrafront/css/references.css') }}" rel="stylesheet" />
+{% endblock %}
+
+
+{% block section %}
+    <ul>
+        <li>
+            <h1>Magicscience.ch</h1>
+            <span>Frontendediting</span>
+        </li>
+
+        <li>
+            <h1>fertalys.ch</h1>
+            <span>Ich wars</span>
+        </li>
+
+
+    </ul>
+
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends '::base.html.twig' %}
+
+{% block URLicon %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+{% endblock URLicon %}
+
+{% block stylesheets %}
+    <link href="{{ asset('bundles/barrafront/css/main.css') }}" rel="stylesheet" />
+{% endblock %}
+
+
+{% block body %}
+    <nav>
+        {% block nav %}
+            <ul>
+                <li><a href="{{ path('barra_front_admin') }}">Overview</a></li>
+                <li><a href="{{ path('barra_front_references', {'lang': 'de'}) }}">Referenzen</a></li>
+                <li><a href="{{ path('barra_front_recipes') }}">Rezepte</a></li>
+            </ul>
+            {% block languageButton %}
+                <div id="languageButton">
+                        <a href="{{ path('barra_front_me', {'lang': 'en'}) }}">En</a>
+                </div>
+            {% endblock %}
+        {% endblock %}
+    </nav>
+
+    <section>
+        {% block section %}{% endblock %}
+    </section>
+
+    <footer>
+        {% block footer %}
+            <span>Copyright © 2014 Paul Kujawa - Berlin, Germany - All rights reserved</span>
+        {% endblock %}
+    </footer>
+
+    {# block javascripts %}
+        <script src="{{ asset('bundles/barrafront/js/main.js') }}"></script>
+    {% endblock #}
+{% endblock %}

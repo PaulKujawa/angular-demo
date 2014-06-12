@@ -1,0 +1,55 @@
+barra_front_me:
+    path:     /{lang}
+    defaults: { _controller: BarraFrontBundle:Me:index, lang: de }
+    requirements:
+      lang: de|en
+
+
+
+
+barra_front_references:
+    path:     /references/{lang}
+    defaults: { _controller: BarraFrontBundle:Reference:index, lang: de }
+    requirements:
+      lang: de|en
+
+barra_front_reference:
+    path:     /references/{id}/{lang}
+    defaults: { _controller: BarraFrontBundle:Reference:showReference, id: 1, lang: de }
+    requirements:
+      id: \d+
+      lang: de|en
+
+
+
+
+barra_front_recipes:
+    path:     /recipes
+    defaults: { _controller: BarraFrontBundle:Recipe:index }
+
+barra_front_recipe:
+    path:     /recipe/{id}
+    defaults: { _controller: BarraFrontBundle:Recipe:showRecipe, id: 1 }
+    requirements:
+      id: \d+
+
+
+
+
+barra_front_contact:
+    path:     /contact/{lang}
+    defaults: { _controller: BarraFrontBundle:Contact:get, lang: de }
+    #methods: [ GET ]
+    requirements:
+      lang: de|en
+
+barra_front_contact:
+    path:     /contact/{lang}
+    defaults: { _controller: BarraFrontBundle:Contact:post, lang: de }
+    #methods : [ POST ]
+    requirements:
+      lang: de|en
+
+
+
+
