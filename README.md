@@ -194,17 +194,6 @@ include assets in bundle    php app/console assets:install web --symlink
 check twig syntax           php app/console twig:lint path_of_bundle|folder|twig-file
 
 
-
-
-/*
-        $em = $this->getDoctrine()->getManager();
-        $recipes = $em->getRepository('BarraDefaultBundle:Recipe')->selectAllOrderedByTitel();
-        return $this->render('BarraDefaultBundle:Recipe:recipes.html.twig', array('recipes' => $recipes));
-        */
-
- <a href="{{ path('barra_default_recipe', {'id': 3}) }}">3. Recipe</a>
-
-
 DB
 ---------------------------------------------------------------------------------------------------
 
@@ -255,7 +244,7 @@ template in different formats       $format = $this->getRequest()->getRequestFor
 
 
 
-DB Controller
+DB
 ############################################################################################################
 ###########################################################################################################
 
@@ -280,6 +269,21 @@ Controller - Einfache selects
     ->findAll();
 
 
+DB - Repository
+ public function findMaxId()
+    {
+        $query = $this->createQueryBuilder('ri')
+            ->select('MAX(ri.id)')
+            ->getQuery();
+
+        $recipes = $query->getSingleResult();
+
+        if ($recipes[1] == null)
+            return 0;
+
+        return $recipes[1];
+    }
+
 ######################################################################################################
 ######################################################################################################
 Template
@@ -291,9 +295,6 @@ Template
     ....
 {% else %}
     ....
-
-{{ parent() }} <- content of parent block element
-
 
 {{ include('BarraDefaultBundle:References:article.html.twig', {'id': 3}) }}
 include instead of inherit
@@ -314,14 +315,24 @@ Asynchronus include via hinclude.js
             {{ render_hinclude(controller('...'), { 'default': '.....twig'}) }}
 
 
--<ul>
-    {#
-    {% for item in navigation %}
-        <li><a href="{{ item.href }}">{{ item.caption }}</a></li>
-    {% endfor #}
-</ul>
-
 
 template override: app/Resources/myDemoBundle/views/[SomeController/]newPage.html.twig
     -> cache clear may be necessary
 
+
+---------------------------------------------------------------------------------------------------------------------
+
+newRecipeIngredient->setIngredient($ingredient)
+    => aktuallisiert autom.  Recipe->RecipeIngredient
+    => Recipe->getRecipeIngredients() funktioniert automatisch
+
+
+Ingredient->removeRecipeIngredient($recipeIngredient)
+    => entfernt nur den Attributswert im Datensatz
+    => unpraktisch, da Datensatz (relation) erhalten bliebe
+    => wirft sowieso fehlermeldung, da Attribut auf not nullable gesetzt
+
+
+Ingredient->addRecipeIngredient($recipeIngredient)
+    => unnütz. das recipeIngredient müsste bereits bestehen
+    => verlinkung zu Ingredient wird autom. gesetzt

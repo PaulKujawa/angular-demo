@@ -1,15 +1,22 @@
 barra_default_me:
     path:     /{lang}
-    defaults: { _controller: BarraDefaultBundle:Me:show, lang: de }
+    defaults: { _controller: BarraDefaultBundle:Me:index, lang: de }
     requirements:
       lang: de|en
 
 
 
 
+barra_default_admin:
+    path:     /admino
+    defaults: { _controller: BarraDefaultBundle:Admin:index }
+
+
+
+
 barra_default_references:
     path:     /references/{lang}
-    defaults: { _controller: BarraDefaultBundle:Reference:showReferences, lang: de }
+    defaults: { _controller: BarraDefaultBundle:Reference:index, lang: de }
     requirements:
       lang: de|en
 
@@ -25,7 +32,7 @@ barra_default_reference:
 
 barra_default_recipes:
     path:     /recipes
-    defaults: { _controller: BarraDefaultBundle:Recipe:showRecipes }
+    defaults: { _controller: BarraDefaultBundle:Recipe:index }
 
 barra_default_recipe:
     path:     /recipes/{id}
@@ -33,9 +40,6 @@ barra_default_recipe:
     requirements:
       id: \d+
 
-barra_Default_recipe_delete:
-    path:     /recipes/d/{id}
-    defaults: { _controller: BarraDefaultBundle:Recipe:deleteRecipes, id: 1 }
 
 
 

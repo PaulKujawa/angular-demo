@@ -7,7 +7,9 @@
 
     <ul>
     {% for recipe in recipes %}
-        <li> ID: {{ recipe.id }} Name: {{ recipe.name }}</li>
+        <li>
+            <a href="{{ path('barra_default_recipe', {'id': 1}) }}">{{ recipe.name }}</a>
+        </li>
     {% endfor %}
     </ul>
 {% endblock %}

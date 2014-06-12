@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ReferenceController extends Controller
 {
-    public function showReferencesAction()
+    public function indexAction()
     {
         return $this->render('BarraDefaultBundle:Reference:references.html.twig');
     }

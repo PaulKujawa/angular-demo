@@ -88,7 +88,29 @@ class Ingredient
      * @var string
      * @ORM\OneToMany(targetEntity="RecipeIngredient", mappedBy="Ingredient")
      */
-    private $recipes;
+    private $recipeIngredients;
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->recipeIngredients = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+
+    /**
+     * Own shortcut-method for direct access to related recipes
+     * @return array
+     */
+    public function getRecipes()
+    {
+        $recipes = array();
+        foreach ($this->getRecipeIngredients() as $recipeIngredient) {
+            $recipes[] = $recipeIngredient->getRecipe();
+        }
+        return $recipes;
+    }
+
 
 
 
@@ -293,7 +315,7 @@ class Ingredient
      * @param \Barra\DefaultBundle\Entity\Manufacturer $manufacturer
      * @return Ingredient
      */
-    public function setManufacturer(\Barra\DefaultBundle\Entity\Manufacturer $manufacturer = null)
+    public function setManufacturer(\Barra\DefaultBundle\Entity\Manufacturer $manufacturer)
     {
         $this->manufacturer = $manufacturer;
 
@@ -311,44 +333,14 @@ class Ingredient
     }
 
     /**
-     * Set recipes
-     *
-     * @param string $recipes
-     * @return Ingredient
-     */
-    public function setRecipes($recipes)
-    {
-        $this->recipes = $recipes;
-
-        return $this;
-    }
-
-    /**
-     * Get recipes
-     *
-     * @return string 
-     */
-    public function getRecipes()
-    {
-        return $this->recipes;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->recipes = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
      * Add recipes
      *
      * @param \Barra\DefaultBundle\Entity\RecipeIngredient $recipes
      * @return Ingredient
      */
-    public function addRecipe(\Barra\DefaultBundle\Entity\RecipeIngredient $recipes)
+    public function addRecipeIngredient(\Barra\DefaultBundle\Entity\RecipeIngredient $recipeIngredient)
     {
-        $this->recipes[] = $recipes;
+        $this->recipeIngredients[] = $recipeIngredient;
 
         return $this;
     }
@@ -358,8 +350,18 @@ class Ingredient
      *
      * @param \Barra\DefaultBundle\Entity\RecipeIngredient $recipes
      */
-    public function removeRecipe(\Barra\DefaultBundle\Entity\RecipeIngredient $recipes)
+    public function removeRecipeIngredient(\Barra\DefaultBundle\Entity\RecipeIngredient $recipeIngredient)
     {
-        $this->recipes->removeElement($recipes);
+        $this->recipeIngredients->removeElement($recipeIngredient);
+    }
+
+    /**
+     * Get recipes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRecipeIngredients()
+    {
+        return $this->recipeIngredients;
     }
 }

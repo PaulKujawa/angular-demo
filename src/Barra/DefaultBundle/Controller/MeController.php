@@ -7,17 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class MeController extends Controller
 {
-    public function showAction($lang)
+    public function indexAction($lang)
     {
-        if ($lang == 'de') {
-            // db german content
-        } else {
-            // db english content
-        }
-
-
-
-
         return $this->render('BarraDefaultBundle:Me:me.html.twig');
     }
 }

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Recipe
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Barra\DefaultBundle\Entity\RecipeRepository")
+ * @ORM\Entity()
  */
 class Recipe
 {
@@ -39,21 +39,38 @@ class Recipe
     private $votes;
 
     /**
-     * @var integer
-     * @ORM\OneToOne(targetEntity="RecipeIngredient")
-     * @ORM\JoinColumn(name="mainIngredient", referencedColumnName="id")
-     **/
-    private $mainIngredient;
-
-
-    /**
      * @var string
      * @ORM\OneToMany(targetEntity="RecipeIngredient", mappedBy="Recipe")
      */
-    private $ingredients;
+    private $recipeIngredient;
 
 
-    /**ß
+    /**
+     * Own shortcut-method for direct access to related recipes
+     * @return array
+     */
+    public function getIngredients()
+    {
+        $ingredients = array();
+
+
+         foreach ($this->getRecipeIngredient() as $recipeIngredient) {
+        //    $ingredients[] = $recipeIngredient->getIngredients();
+         }
+
+
+        // return $ingredients;
+
+        return 1;
+    }
+
+
+
+
+
+
+
+    /**
      * Get id
      *
      * @return integer 
@@ -131,80 +148,44 @@ class Recipe
     {
         return $this->votes;
     }
-
-    /**
-     * Set ingredients
-     *
-     * @param string $ingredients
-     * @return Recipe
-     */
-    public function setIngredients($ingredients)
-    {
-        $this->ingredients = $ingredients;
-
-        return $this;
-    }
-
-    /**
-     * Get ingredients
-     *
-     * @return string 
-     */
-    public function getIngredients()
-    {
-        return $this->ingredients;
-    }
-
-    /**
-     * Set mainIngredient
-     *
-     * @param \Barra\DefaultBundle\Entity\RecipeIngredient $mainIngredient
-     * @return Recipe
-     */
-    public function setMainIngredient(\Barra\DefaultBundle\Entity\RecipeIngredient $mainIngredient = null)
-    {
-        $this->mainIngredient = $mainIngredient;
-
-        return $this;
-    }
-
-    /**
-     * Get mainIngredient
-     *
-     * @return \Barra\DefaultBundle\Entity\RecipeIngredient 
-     */
-    public function getMainIngredient()
-    {
-        return $this->mainIngredient;
-    }
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->ingredients = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->recipeIngredient = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Add ingredients
+     * Add recipeIngredient
      *
-     * @param \Barra\DefaultBundle\Entity\RecipeIngredient $ingredients
+     * @param \Barra\DefaultBundle\Entity\RecipeIngredient $recipeIngredient
      * @return Recipe
      */
-    public function addIngredient(\Barra\DefaultBundle\Entity\RecipeIngredient $ingredients)
+    public function addRecipeIngredient(\Barra\DefaultBundle\Entity\RecipeIngredient $recipeIngredient)
     {
-        $this->ingredients[] = $ingredients;
+        $this->recipeIngredient[] = $recipeIngredient;
 
         return $this;
     }
 
     /**
-     * Remove ingredients
+     * Remove recipeIngredient
      *
-     * @param \Barra\DefaultBundle\Entity\RecipeIngredient $ingredients
+     * @param \Barra\DefaultBundle\Entity\RecipeIngredient $recipeIngredient
      */
-    public function removeIngredient(\Barra\DefaultBundle\Entity\RecipeIngredient $ingredients)
+    public function removeRecipeIngredient(\Barra\DefaultBundle\Entity\RecipeIngredient $recipeIngredient)
     {
-        $this->ingredients->removeElement($ingredients);
+        $this->recipeIngredient->removeElement($recipeIngredient);
+    }
+
+    /**
+     * Get recipeIngredient
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRecipeIngredient()
+    {
+        return $this->recipeIngredient;
     }
 }

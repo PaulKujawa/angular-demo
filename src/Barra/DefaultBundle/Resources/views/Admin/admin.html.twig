@@ -1,0 +1,33 @@
+{% extends 'BarraDefaultBundle::layout.html.twig' %}
+
+{% block title %} vPit Recipes {% endblock %}
+
+{% block section %}
+    <h1>Recipes</h1>
+    <ul>
+        {% for recipe in recipes %}
+            <li> ID: {{ recipe.id }} Name: {{ recipe.name }}</li>
+            <ol>
+                {% for cookingStep in cookingSteps if cookingStep.recipe == recipe %}
+                    <li> {{ cookingStep.description }}</li>
+                {% endfor %}
+            </ol>
+        {% endfor %}
+    </ul>
+
+
+    <h1>Ingredients</h1>
+    <ul>
+    {% for ingredient in ingredients %}
+        <li> ID: {{ ingredient.id }} Name: {{ ingredient.name }}</li>
+    {% endfor %}
+    </ul>
+
+
+    <h1>Manufacturers</h1>
+    <ul>
+        {% for manufacturer in manufacturers %}
+            <li> ID: {{ manufacturer.id }} Name: {{ manufacturer.name }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

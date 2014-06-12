@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Reference
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Barra\DefaultBundle\Entity\ReferenceRepository")
+ * @ORM\Entity()
  */
 class Reference
 {

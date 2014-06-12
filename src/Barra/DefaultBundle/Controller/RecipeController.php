@@ -2,14 +2,14 @@
 
 namespace Barra\DefaultBundle\Controller;
 
-use Barra\DefaultBundle\Entity\RecipeIngredient;
 use Barra\DefaultBundle\Entity\Recipe;
+use Barra\DefaultBundle\Entity\CookingStep;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class RecipeController extends Controller
 {
-    public function showRecipesAction()
+    public function indexAction()
     {
         $recipes = $this->getDoctrine()->getRepository('BarraDefaultBundle:Recipe')->findAll();
         if ($recipes)
@@ -27,6 +27,13 @@ class RecipeController extends Controller
         if (!$recipe)
             throw $this->createNotFoundException('Recipe with id '.$id.' not found');
 
-        return $this->render('BarraDefaultBundle:Recipe:recipe.html.twig', array('recipe' => $recipe));
+        $cookingSteps = $em->getRepository('BarraDefaultBundle:CookingStep')->findBy(
+            array('recipe'=>$recipe), array('step'=>'ASC'));
+
+
+        return $this->render('BarraDefaultBundle:Recipe:recipe.html.twig', array(
+            'recipe' => $recipe,
+            'cookingSteps'=> $cookingSteps
+        ));
     }
 }

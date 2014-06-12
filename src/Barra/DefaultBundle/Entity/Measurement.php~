@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Measurement
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Barra\DefaultBundle\Entity\MeasurementRepository")
+ * @ORM\Entity()
  */
 class Measurement
 {
