@@ -1,3 +1,24 @@
-barra_front_admin:
-    path:     /admino
+barra_back_admin:
+    path:     /
     defaults: { _controller: BarraBackBundle:Admin:index }
+
+barra_back_references:
+    path:     /references
+    defaults: { _controller: BarraBackBundle:Reference:index}
+
+barra_back_recipes:
+    path:     /recipes
+    defaults: { _controller: BarraBackBundle:Recipe:index }
+
+barra_back_ingredients:
+    path:     /ingredients
+    defaults: { _controller: BarraBackBundle:Ingredient:index }
+
+barra_back_manufacturers:
+    path:     /manufacturers
+    defaults: { _controller: BarraBackBundle:Manufacturer:index }
+
+barra_back_measurements:
+    path:     /measurements
+    defaults: { _controller: BarraBackBundle:Measurement:index }
+

@@ -4,5 +4,5 @@ barra_front:
 
 barra_back:
     resource: "@BarraBackBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /admino
 

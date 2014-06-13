@@ -13,9 +13,12 @@
     <nav>
         {% block nav %}
             <ul>
-                <li><a href="{{ path('barra_front_admin') }}">Overview</a></li>
-                <li><a href="{{ path('barra_front_references', {'lang': 'de'}) }}">Referenzen</a></li>
-                <li><a href="{{ path('barra_front_recipes') }}">Rezepte</a></li>
+                <li><a href="{{ path('barra_back_admin') }}">Overview</a></li>
+                <li><a href="{{ path('barra_back_references') }}">References</a></li>
+                <li><a href="{{ path('barra_back_recipes') }}">Recipes</a></li>
+                <li><a href="{{ path('barra_back_ingredients') }}">Ingredients</a></li>
+                <li><a href="{{ path('barra_back_manufacturers') }}">Manufacturers</a></li>
+                <li><a href="{{ path('barra_back_measurements') }}">Measurements</a></li>
             </ul>
             {% block languageButton %}
                 <div id="languageButton">

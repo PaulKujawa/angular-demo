@@ -1,6 +1,6 @@
 <?php
 
-namespace Barra\DefaultBundle\Entity;
+namespace Barra\FrontBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -24,9 +24,9 @@ class Measurement
     /**
      * @var string
      *
-     * @ORM\Column(name="typ", type="string", length=10, unique=true, nullable=false)
+     * @ORM\Column(name="type", type="string", length=10, unique=true, nullable=false)
      */
-    private $typ;
+    private $type;
 
     /**
      * @var integer
@@ -52,9 +52,9 @@ class Measurement
      * @param string $typ
      * @return Measurement
      */
-    public function setTyp($typ)
+    public function setType($type)
     {
-        $this->typ = $typ;
+        $this->type = $type;
 
         return $this;
     }
@@ -64,9 +64,9 @@ class Measurement
      *
      * @return string 
      */
-    public function getTyp()
+    public function getType()
     {
-        return $this->typ;
+        return $this->type;
     }
 
     /**

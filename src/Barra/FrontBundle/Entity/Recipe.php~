@@ -1,6 +1,6 @@
 <?php
 
-namespace Barra\DefaultBundle\Entity;
+namespace Barra\FrontBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -159,10 +159,10 @@ class Recipe
     /**
      * Add recipeIngredient
      *
-     * @param \Barra\DefaultBundle\Entity\RecipeIngredient $recipeIngredient
+     * @param \Barra\FrontBundle\Entity\RecipeIngredient $recipeIngredient
      * @return Recipe
      */
-    public function addRecipeIngredient(\Barra\DefaultBundle\Entity\RecipeIngredient $recipeIngredient)
+    public function addRecipeIngredient(\Barra\FrontBundle\Entity\RecipeIngredient $recipeIngredient)
     {
         $this->recipeIngredient[] = $recipeIngredient;
 
@@ -172,9 +172,9 @@ class Recipe
     /**
      * Remove recipeIngredient
      *
-     * @param \Barra\DefaultBundle\Entity\RecipeIngredient $recipeIngredient
+     * @param \Barra\FrontBundle\Entity\RecipeIngredient $recipeIngredient
      */
-    public function removeRecipeIngredient(\Barra\DefaultBundle\Entity\RecipeIngredient $recipeIngredient)
+    public function removeRecipeIngredient(\Barra\FrontBundle\Entity\RecipeIngredient $recipeIngredient)
     {
         $this->recipeIngredient->removeElement($recipeIngredient);
     }

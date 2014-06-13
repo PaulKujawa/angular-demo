@@ -1,6 +1,6 @@
 <?php
 
-namespace Barra\DefaultBundle\Entity;
+namespace Barra\FrontBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -83,10 +83,10 @@ class CookingStep
     /**
      * Set recipe
      *
-     * @param \Barra\DefaultBundle\Entity\Recipe $recipe
+     * @param \Barra\FrontBundle\Entity\Recipe $recipe
      * @return Cooking
      */
-    public function setRecipe(\Barra\DefaultBundle\Entity\Recipe $recipe)
+    public function setRecipe(\Barra\FrontBundle\Entity\Recipe $recipe)
     {
         $this->recipe = $recipe;
 
@@ -96,7 +96,7 @@ class CookingStep
     /**
      * Get recipe
      *
-     * @return \Barra\DefaultBundle\Entity\Recipe 
+     * @return \Barra\FrontBundle\Entity\Recipe
      */
     public function getRecipe()
     {

@@ -9,19 +9,13 @@
 
 
 {% block section %}
+    <h1>References</h1>
     <ul>
-        <li>
-            <h1>Magicscience.ch</h1>
-            <span>Frontendediting</span>
-        </li>
-
-        <li>
-            <h1>fertalys.ch</h1>
-            <span>Ich wars</span>
-        </li>
-
-
+        {% for reference in references %}
+            <li>Company: {{ reference.company }}
+                Description: {{ reference.description }}
+                Started: {{ reference.started|date('m.Y') }}
+                Finished: {{ reference.finished|date('m.Y') }}</li>
+        {% endfor %}
     </ul>
-
-
 {% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'BarraBackBundle::layout.html.twig' %}
+
+{% block title %} vPit Recipes {% endblock %}
+
+{% block section %}
+    <h1>Measurements</h1>
+    <ul>
+    {% for measurement in measurements %}
+        <li>ID: {{ measurement.id }} Type: {{ measurement.type }} In gr:{{ measurement.gr }}</li>
+    {% endfor %}
+    </ul>
+{% endblock %}

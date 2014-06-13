@@ -1,6 +1,6 @@
 <?php
 
-namespace Barra\DefaultBundle\Entity;
+namespace Barra\FrontBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -109,10 +109,10 @@ class RecipeIngredient
     /**
      * Set recipe
      *
-     * @param \Barra\DefaultBundle\Entity\Recipe $recipe
+     * @param \Barra\FrontBundle\Entity\Recipe $recipe
      * @return RecipeIngredient
      */
-    public function setRecipe(\Barra\DefaultBundle\Entity\Recipe $recipe)
+    public function setRecipe(\Barra\FrontBundle\Entity\Recipe $recipe)
     {
         $this->recipe = $recipe;
 
@@ -122,7 +122,7 @@ class RecipeIngredient
     /**
      * Get recipe
      *
-     * @return \Barra\DefaultBundle\Entity\Recipe 
+     * @return \Barra\FrontBundle\Entity\Recipe 
      */
     public function getRecipe()
     {
@@ -132,10 +132,10 @@ class RecipeIngredient
     /**
      * Set ingredient
      *
-     * @param \Barra\DefaultBundle\Entity\Ingredient $ingredient
+     * @param \Barra\FrontBundle\Entity\Ingredient $ingredient
      * @return RecipeIngredient
      */
-    public function setIngredient(\Barra\DefaultBundle\Entity\Ingredient $ingredient)
+    public function setIngredient(\Barra\FrontBundle\Entity\Ingredient $ingredient)
     {
         $this->ingredient = $ingredient;
 
@@ -145,7 +145,7 @@ class RecipeIngredient
     /**
      * Get ingredient
      *
-     * @return \Barra\DefaultBundle\Entity\Ingredient 
+     * @return \Barra\FrontBundle\Entity\Ingredient 
      */
     public function getIngredient()
     {
@@ -155,10 +155,10 @@ class RecipeIngredient
     /**
      * Set measurement
      *
-     * @param \Barra\DefaultBundle\Entity\Measurement $measurement
+     * @param \Barra\FrontBundle\Entity\Measurement $measurement
      * @return RecipeIngredient
      */
-    public function setMeasurement(\Barra\DefaultBundle\Entity\Measurement $measurement)
+    public function setMeasurement(\Barra\FrontBundle\Entity\Measurement $measurement)
     {
         $this->measurement = $measurement;
 
@@ -168,7 +168,7 @@ class RecipeIngredient
     /**
      * Get measurement
      *
-     * @return \Barra\DefaultBundle\Entity\Measurement 
+     * @return \Barra\FrontBundle\Entity\Measurement 
      */
     public function getMeasurement()
     {

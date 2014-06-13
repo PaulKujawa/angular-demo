@@ -1,6 +1,6 @@
 <?php
 
-namespace Barra\DefaultBundle\Entity;
+namespace Barra\FrontBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Ingredient
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Barra\DefaultBundle\Entity\IngredientRepository")
+ * @ORM\Entity(repositoryClass="Barra\FrontBundle\Entity\IngredientRepository")
  */
 class Ingredient
 {
@@ -312,10 +312,10 @@ class Ingredient
     /**
      * Set manufacturer
      *
-     * @param \Barra\DefaultBundle\Entity\Manufacturer $manufacturer
+     * @param \Barra\FrontBundle\Entity\Manufacturer $manufacturer
      * @return Ingredient
      */
-    public function setManufacturer(\Barra\DefaultBundle\Entity\Manufacturer $manufacturer)
+    public function setManufacturer(\Barra\FrontBundle\Entity\Manufacturer $manufacturer)
     {
         $this->manufacturer = $manufacturer;
 
@@ -325,7 +325,7 @@ class Ingredient
     /**
      * Get manufacturer
      *
-     * @return \Barra\DefaultBundle\Entity\Manufacturer 
+     * @return \Barra\FrontBundle\Entity\Manufacturer 
      */
     public function getManufacturer()
     {
@@ -335,10 +335,10 @@ class Ingredient
     /**
      * Add recipes
      *
-     * @param \Barra\DefaultBundle\Entity\RecipeIngredient $recipes
+     * @param \Barra\FrontBundle\Entity\RecipeIngredient $recipes
      * @return Ingredient
      */
-    public function addRecipeIngredient(\Barra\DefaultBundle\Entity\RecipeIngredient $recipeIngredient)
+    public function addRecipeIngredient(\Barra\FrontBundle\Entity\RecipeIngredient $recipeIngredient)
     {
         $this->recipeIngredients[] = $recipeIngredient;
 
@@ -348,9 +348,9 @@ class Ingredient
     /**
      * Remove recipes
      *
-     * @param \Barra\DefaultBundle\Entity\RecipeIngredient $recipes
+     * @param \Barra\FrontBundle\Entity\RecipeIngredient $recipes
      */
-    public function removeRecipeIngredient(\Barra\DefaultBundle\Entity\RecipeIngredient $recipeIngredient)
+    public function removeRecipeIngredient(\Barra\FrontBundle\Entity\RecipeIngredient $recipeIngredient)
     {
         $this->recipeIngredients->removeElement($recipeIngredient);
     }

@@ -248,16 +248,6 @@ DB
 ############################################################################################################
 ###########################################################################################################
 
-    public function update($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $recipe = $em->getRepository('BarraDefaultBundle:Recipe')->find($id);
-        $recipe->setTitel('new titel');
-        $em->flush();
-        return $this->redirect($this->generateUrl('barra_default_me'));
-    }
-
-
 Controller - Einfache selects
     $repository = $this->getDoctrine()->getRepository('BarraDefaultBundle:Recipe')
     $repository

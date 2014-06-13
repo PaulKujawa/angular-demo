@@ -9,12 +9,14 @@ class ReferenceController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('BarraFrontBundle:Reference:references.html.twig');
-    }
+        $em = $this->getDoctrine()->getManager();
+        $references = $em->getRepository('BarraFrontBundle:Reference')->findAll();
 
+        if (!$references)
+            throw $this->createNotFoundException('References not found');
 
-    public function showReferenceAction()
-    {
-        return $this->render('BarraFrontBundle:Reference:reference.html.twig');
+        return $this->render('BarraFrontBundle:Reference:references.html.twig', array(
+            'references' => $references,
+        ));
     }
 }
