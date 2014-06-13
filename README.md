@@ -172,9 +172,8 @@ Enjoy!
 
 ######################################################################################################
 #####################################################################################################
-
 Commandline
----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 create bundle	            php app/console generate:bundle --namespace=Acme/HelloBundle --format=yml
 		                    -> creates src/… & extends app/appkernel.php & app/config/routing.yml
 
@@ -192,6 +191,12 @@ include assets in bundle    php app/console assets:install web --symlink
 
 
 check twig syntax           php app/console twig:lint path_of_bundle|folder|twig-file
+
+
+Tests
+-----------------------------------------------------------------------------------------------
+run phpunit tests           php phpunit -c app src/Barra/BackBundle
+
 
 
 DB
@@ -281,11 +286,6 @@ Template
 {% for i in 0..10 %}
     <div class="{{ cycle(['odd', 'even'], i) }}"> ....
 
-{% for item in stack if item.active %}
-    ....
-{% else %}
-    ....
-
 {{ include('BarraDefaultBundle:References:article.html.twig', {'id': 3}) }}
 include instead of inherit
 
@@ -305,9 +305,13 @@ Asynchronus include via hinclude.js
             {{ render_hinclude(controller('...'), { 'default': '.....twig'}) }}
 
 
-
-template override: app/Resources/myDemoBundle/views/[SomeController/]newPage.html.twig
+bundle template override: app/Resources/myDemoBundle/views/[SomeController/]newPage.html.twig
     -> cache clear may be necessary
+
+######################################################################################################
+######################################################################################################
+Functional & Unit Tests
+
 
 
 ---------------------------------------------------------------------------------------------------------------------
