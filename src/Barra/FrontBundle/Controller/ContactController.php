@@ -7,9 +7,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ContactController extends Controller
 {
-
     public function getAction(Request $request)
     {
+
+
+
        /* $form = $this->createForm("foo");
         $form->handleRequest($request);
 

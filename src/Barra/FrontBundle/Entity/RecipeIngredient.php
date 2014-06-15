@@ -35,21 +35,17 @@ class RecipeIngredient
     private $position;
 
     /**
-     * @var integer
      * @ORM\Column(name="amount", type="smallint", nullable=false)
      */
     private $amount;
 
     /**
-     * @var integer
      * @ORM\ManyToOne(targetEntity="Measurement")
      * @ORM\JoinColumn(name="measurement", referencedColumnName="id", nullable=false)
      */
     private $measurement;
 
     /**
-     * Set position
-     *
      * @param integer $position
      * @return RecipeIngredient
      */
@@ -61,9 +57,7 @@ class RecipeIngredient
     }
 
     /**
-     * Get position
-     *
-     * @return integer 
+     * @return integer
      */
     public function getPosition()
     {
@@ -71,39 +65,21 @@ class RecipeIngredient
     }
 
     /**
-     * Set amount
-     *
      * @param integer $amount
      * @return RecipeIngredient
      */
     public function setAmount($amount)
     {
         $this->amount = $amount;
-
         return $this;
     }
 
     /**
-     * Get amount
-     *
-     * @return integer 
+     * @return integer
      */
     public function getAmount()
     {
         return $this->amount;
-    }
-
-    /**
-     * Set id
-     *
-     * @param integer $id
-     * @return RecipeIngredient
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
     }
 
     /**

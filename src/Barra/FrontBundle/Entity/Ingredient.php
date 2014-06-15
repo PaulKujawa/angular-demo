@@ -13,8 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Ingredient
 {
     /**
-     * @var integer
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -22,70 +20,52 @@ class Ingredient
     private $id;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="name", type="string", length=30, unique=true, nullable=false)
      */
     private $name;
 
     /**
-     * @var boolean
-     *
      * @ORM\Column(name="vegan", type="boolean", nullable=false)
      */
     private $vegan;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="kcal", type="decimal", scale=2, nullable=false)
      */
     private $kcal;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="protein", type="decimal", scale=2, nullable=false)
      */
     private $protein;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="carbs", type="decimal", scale=2, nullable=false)
      */
     private $carbs;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="sugar", type="decimal", scale=2, nullable=false)
      */
     private $sugar;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="fat", type="decimal", scale=2, nullable=false)
      */
     private $fat;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="gfat", type="decimal", scale=2, nullable=false)
      */
     private $gfat;
 
     /**
-     * @var string
      * @ORM\ManyToOne(targetEntity="Manufacturer")
      * @ORM\JoinColumn(name="manufacturer", referencedColumnName="id", nullable=false)
      */
     private $manufacturer;
 
     /**
-     * @var string
      * @ORM\OneToMany(targetEntity="RecipeIngredient", mappedBy="Ingredient")
      */
     private $recipeIngredients;

@@ -1,0 +1,40 @@
+Barra\FrontBundle\Entity\Manufacturer:
+  properties:
+    name:
+      - NotBlank: ~
+      - Type: alpha
+
+
+Barra\FrontBundle\Entity\Ingredient:
+  properties:
+    name:
+      - NotBlank: ~
+      - Type: alpha
+    vegan:
+      - NotBlank: ~
+      - Type: bool
+    kcal:
+      - NotBlank: ~
+      - Type: float
+    protein:
+      - NotBlank: ~
+      - Type: float
+    carbs:
+      - NotBlank: ~
+      - Type: float
+    sugar:
+      - NotBlank: ~
+      - Type: float
+    fat:
+      - NotBlank: ~
+      - Type: float
+    gfat:
+      - NotBlank: ~
+      - Type: float
+
+
+Barra\FrontBundle\Entity\Recipe:
+  properties:
+    name:
+      - NotBlank: ~
+      - Type: alpha

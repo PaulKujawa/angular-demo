@@ -3,31 +3,44 @@
 namespace Barra\BackBundle\Controller;
 
 use Barra\FrontBundle\Entity\Ingredient;
+use Barra\BackBundle\Form\Type\IngredientType;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class IngredientController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        // Form
+        $ingredient = new Ingredient();
+        $form = $this->createForm(new IngredientType(), $ingredient);
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $sqlError = $this->newIngredientAction($ingredient);
+
+            if ($sqlError)
+                return new Response($sqlError);
+            else
+                return $this->redirect($this->generateUrl('barra_back_ingredients'));
+        }
+
+
+        // Overview
         $em = $this->getDoctrine()->getManager();
         $ingredients = $em->getRepository('BarraFrontBundle:Ingredient')->findAll();
 
-        if (!$ingredients)
-            throw $this->createNotFoundException('Ingredients not found');
-
         return $this->render('BarraBackBundle:Ingredient:ingredients.html.twig', array(
-            'ingredients' => $ingredients,
-        ));
+                'ingredients' => $ingredients,
+                'form' => $form->createView()
+            ));
     }
 
 
-    public function newIngredientAction($name, $vegan, $kcal, $protein, $carbs, $sugar, $fat, $gfat, $manufacturer)
+    public function newIngredientAction($ingredient)
     {
-        $ingredient = new Ingredient();
-        $ingredient->setName($name)->setVegan($vegan)->setKcal($kcal)->setProtein($protein)->setCarbs($carbs)
-            ->setSugar($sugar)->setFat($fat)->setGfat($gfat)->setManufacturer($manufacturer);
-
         $em = $this->getDoctrine()->getManager();
         $em->persist($ingredient);
 
@@ -36,7 +49,7 @@ class IngredientController extends Controller
         } catch (\Doctrine\DBAL\DBALException $e) {
             return new Response('Ingredient could not be inserted');
         }
-        return new Response('Success! Inserted ingredient');
+        return null;
     }
 
 
