@@ -330,3 +330,131 @@ Ingredient->removeRecipeIngredient($recipeIngredient)
 Ingredient->addRecipeIngredient($recipeIngredient)
     => unnütz. das recipeIngredient müsste bereits bestehen
     => verlinkung zu Ingredient wird autom. gesetzt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public function updateRecipe($id, $name, $ingredient, $measurement, $amount, $firstCookingStep)
+        {
+            $em = $this->getDoctrine()->getManager();
+            $recipe = $em->getRepository('BarraFrontBundle:Recipe')->find($id);
+            $recipe->setName($name)->setRating(50)->setVotes(2);
+            $em->flush();
+            return new Response('Success! Updated recipe');
+        }
+
+
+        public function deleteRecipeAction($id)
+        {
+            $em = $this->getDoctrine()->getManager();
+            $recipe = $em->getRepository('BarraFrontBundle:Recipe')->find($id);
+
+            if (!$recipe)
+                throw $this->createNotFoundException('Recipe with id '.$id.' not found');
+
+            $em->remove($recipe);
+            $em->flush();
+            return new Response('Success! Deleted recipe with id '.$id);
+        }
+
+
+
+
+
+
+
+
+
+
+        public function updateRecipeIngredient($id, $recipe, $ingredient, $position, $measurement, $amount)
+        {
+            $em = $this->getDoctrine()->getManager();
+            $recipeIngredient = $em->getepository('BarraFrontBundle:RecipeIngredient')->find($id);
+            $recipeIngredient->setRecipe($recipe)->setIngredient($ingredient)->setPosition($position)
+                ->setMeasurement($measurement)->setAmount($amount);
+            $em->flush();
+            return new Response('Success! Updated relation');
+        }
+
+
+        public function deleteRecipeIngredientAction($id)
+        {
+            $em = $this->getDoctrine()->getManager();
+            $recipeIngredient = $em->getRepository('BarraFrontBundle:RecipeIngredient')->find($id);
+
+            if (!$recipeIngredient)
+                throw $this->createNotFoundException('Relation with id '.$id.' not found');
+
+            $em->remove($recipeIngredient);
+            $em->flush();
+            return new Response('Success! Deleted relation with id '.$id);
+        }
+
+
+
+
+
+
+
+        public function newCookingStepAction($cookingStep)
+        {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($cookingStep);
+
+            try {
+                $em->flush();
+            } catch (\Doctrine\DBAL\DBALException $e) {
+                return new Response('Cooking step could not be inserted');
+            }
+            return null;
+        }
+
+
+        public function updateCookingStep($recipe, $step, $description)
+        {
+            $em = $this->getDoctrine()->getManager();
+            $cooking = $em->getRepository('BarraFrontBundle:CookingStep')->findOneBy(array(
+                    'recipe'=>$recipe, 'step'=>$step)
+            );
+            $cooking->setRecipe($recipe)->setStep($step)->setDescription($description);
+            $em->flush();
+            return new Response('Success! Updated cooking step');
+        }
+
+
+        public function deleteCookingStepAction($recipe, $step)
+        {
+            $em = $this->getDoctrine()->getManager();
+            $cooking = $em->getRepository('BarraFrontBundle:CookingStep')->findOneBy(array(
+                    'recipe'=>$recipe, 'step'=>$step)
+            );
+
+            if (!$cooking)
+                throw $this->createNotFoundException('Cooking step not found');
+
+            $em->remove($cooking);
+            $em->flush();
+            return new Response('Success! Deleted cooking step');
+        }

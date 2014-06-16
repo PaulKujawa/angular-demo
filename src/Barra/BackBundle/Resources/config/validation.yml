@@ -48,8 +48,8 @@ Barra\FrontBundle\Entity\Ingredient:
 Barra\FrontBundle\Entity\Recipe:
   properties:
     name:
-      - NotBlank: { groups: [recipeIngredient] }
-      - Type: { type: alpha , groups: [recipeIngredient] }
+      - NotBlank:
+      - Type: alpha
 
 
 Barra\FrontBundle\Entity\Measurement:
@@ -64,10 +64,21 @@ Barra\FrontBundle\Entity\Measurement:
       - GreaterThanOrEqual:
           value: 0
 
-
 Barra\FrontBundle\Entity\RecipeIngredient:
   properties:
     amount:
       - NotBlank: { groups: [recipeIngredient] }
       - Type: { type: integer , groups: [recipeIngredient] }
       - GreaterThanOrEqual: { value: 0, groups: [recipeIngredient] }
+
+Barra\FrontBundle\Entity\CookingStep:
+  properties:
+    description:
+      - NotBlank: ~
+      - Type: alpha
+
+    step:
+      - NotBlank: ~
+      - Type: integer
+      - GreaterThanOrEqual:
+          value: 0

@@ -3,15 +3,17 @@
 {% block title %} vPit Recipes {% endblock %}
 
 {% block section %}
-    all recipes
+    {{ form(formNew) }}
+
+
+    <h1>all recipes</h1>
 
     <ul>
     {% for recipe in recipes %}
         <li>
-           {{ recipe.id }}. {{ recipe.name }}
+            <a href="{{ path('barra_back_recipe', {'id': recipe.id}) }}">{{ recipe.name }}</a>
         </li>
     {% endfor %}
     </ul>
 
-    {{ form(form) }}
 {% endblock %}

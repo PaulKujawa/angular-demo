@@ -8,7 +8,13 @@ barra_back_references:
 
 barra_back_recipes:
     path:     /recipes
-    defaults: { _controller: BarraBackBundle:Recipe:index }
+    defaults: { _controller: BarraBackBundle:Recipes:index }
+
+barra_back_recipe:
+    path:     /recipe/{id}
+    defaults: { _controller: BarraBackBundle:Recipe:index, id: 1 }
+    requirements:
+        id: \d+
 
 barra_back_ingredients:
     path:     /ingredients
@@ -21,4 +27,3 @@ barra_back_manufacturers:
 barra_back_measurements:
     path:     /measurements
     defaults: { _controller: BarraBackBundle:Measurement:index }
-
