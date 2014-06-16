@@ -15,7 +15,6 @@ class IngredientController extends Controller
         // Form
         $ingredient = new Ingredient();
         $form = $this->createForm(new IngredientType(), $ingredient);
-
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -26,7 +25,6 @@ class IngredientController extends Controller
             else
                 return $this->redirect($this->generateUrl('barra_back_ingredients'));
         }
-
 
         // Overview
         $em = $this->getDoctrine()->getManager();

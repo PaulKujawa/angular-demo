@@ -3,30 +3,43 @@
 namespace Barra\BackBundle\Controller;
 
 use Barra\FrontBundle\Entity\Measurement;
+use Barra\BackBundle\Form\Type\MeasurementType;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class MeasurementController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $measurement = $em->getRepository('BarraFrontBundle:Measurement')->findAll();
+        // Form
+        $measurement = new Measurement();
+        $form = $this->createForm(new MeasurementType(), $measurement);
+        $form->handleRequest($request);
 
-        if (!$measurement)
-            throw $this->createNotFoundException('Measurements not found');
+        if ($form->isValid()) {
+            $sqlError = $this->newMeasurementAction($measurement);
+
+            if ($sqlError)
+                return new Response($sqlError);
+            else
+                return $this->redirect($this->generateUrl('barra_back_recipes'));
+        }
+
+        // Overview
+        $em = $this->getDoctrine()->getManager();
+        $measurements = $em->getRepository('BarraFrontBundle:Measurement')->findAll();
 
         return $this->render('BarraBackBundle:Measurement:measurements.html.twig', array(
-            'measurements' => $measurement
+            'measurements' => $measurements,
+            'form' => $form->createView()
         ));
     }
 
 
-    public function newMeasurementAction($type, $inGr)
-    {
-        $measurement = new Measurement($type, $inGr);
-        $measurement->setType($type)->setGr($inGr);
 
+    public function newMeasurementAction($measurement)
+    {
         $em = $this->getDoctrine()->getManager();
         $em->persist($measurement);
 
@@ -35,7 +48,7 @@ class MeasurementController extends Controller
         } catch (\Doctrine\DBAL\DBALException $e) {
             return new Response('Measurement could not be inserted');
         }
-        return new Response('Success! Inserted measurement');
+        return null;
     }
 
 

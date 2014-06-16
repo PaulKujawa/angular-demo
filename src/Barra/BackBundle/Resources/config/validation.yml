@@ -16,25 +16,58 @@ Barra\FrontBundle\Entity\Ingredient:
     kcal:
       - NotBlank: ~
       - Type: float
+      - GreaterThanOrEqual:
+          value: 0
     protein:
       - NotBlank: ~
       - Type: float
+      - GreaterThanOrEqual:
+          value: 0
     carbs:
       - NotBlank: ~
       - Type: float
+      - GreaterThanOrEqual:
+          value: 0
     sugar:
       - NotBlank: ~
       - Type: float
+      - GreaterThanOrEqual:
+          value: 0
     fat:
       - NotBlank: ~
       - Type: float
+      - GreaterThanOrEqual:
+          value: 0
     gfat:
       - NotBlank: ~
       - Type: float
+      - GreaterThanOrEqual:
+          value: 0
 
 
 Barra\FrontBundle\Entity\Recipe:
   properties:
     name:
+      - NotBlank: { groups: [recipeIngredient] }
+      - Type: { type: alpha , groups: [recipeIngredient] }
+
+
+Barra\FrontBundle\Entity\Measurement:
+  properties:
+    type:
       - NotBlank: ~
       - Type: alpha
+
+    gr:
+      - NotBlank: ~
+      - Type: integer
+      - GreaterThanOrEqual:
+          value: 0
+
+
+Barra\FrontBundle\Entity\RecipeIngredient:
+  properties:
+    amount:
+      - NotBlank: { groups: [recipeIngredient] }
+      - Type: { type: integer , groups: [recipeIngredient] }
+      - GreaterThanOrEqual: { value: 0, groups: [recipeIngredient] }

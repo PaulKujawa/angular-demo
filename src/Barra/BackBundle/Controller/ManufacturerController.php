@@ -15,11 +15,10 @@ class ManufacturerController extends Controller
         // Form
         $manufacturer = new Manufacturer();
         $form = $this->createForm(new ManufacturerType(), $manufacturer);
-
-        $form->handleRequest($request); // sets obj fields after form submit
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
-            if ($form->get('submit')->isClicked()) // different submit btns possible
+            if ($form->get('submit')->isClicked())
                 $sqlError = $this->newManufacturer($manufacturer);
             // else DB update
 
@@ -28,7 +27,6 @@ class ManufacturerController extends Controller
             else
                 return $this->redirect($this->generateUrl('barra_back_ingredients'));
         }
-
 
         // Overview
         $em = $this->getDoctrine()->getManager();

@@ -12,7 +12,6 @@ class IngredientType extends AbstractType
     {
         $builder
             ->add('name', 'text')
-            //          ->add('vegan', 'choice', array('choices'=> array(1 => 'Yes', 0 => 'No'), 'expanded'=>false, 'multiple'=>false))
             ->add('vegan', 'checkbox', array('required'=>false))
             ->add('kcal', 'number', array('precision'=>2))
             ->add('protein', 'number', array('precision'=>2))

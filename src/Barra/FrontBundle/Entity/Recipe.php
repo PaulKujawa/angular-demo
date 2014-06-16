@@ -13,7 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Recipe
 {
     /**
-     * @var integer
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -21,25 +20,21 @@ class Recipe
     private $id;
 
     /**
-     * @var string
      * @ORM\Column(name="name", type="string", length=30, unique=true, nullable=false)
      */
     private $name;
 
     /**
-     * @var integer
      * @ORM\Column(name="rating", type="smallint", nullable=false)
      */
     private $rating;
 
     /**
-     * @var integer
      * @ORM\Column(name="votes", type="integer", nullable=false)
      */
     private $votes;
 
     /**
-     * @var string
      * @ORM\OneToMany(targetEntity="RecipeIngredient", mappedBy="Recipe")
      */
     private $recipeIngredient;
@@ -53,14 +48,11 @@ class Recipe
     {
         $ingredients = array();
 
-
          foreach ($this->getRecipeIngredient() as $recipeIngredient) {
         //    $ingredients[] = $recipeIngredient->getIngredients();
          }
 
-
         // return $ingredients;
-
         return 1;
     }
 
@@ -71,9 +63,7 @@ class Recipe
 
 
     /**
-     * Get id
-     *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -81,8 +71,6 @@ class Recipe
     }
 
     /**
-     * Set name
-     *
      * @param string $name
      * @return Recipe
      */
@@ -94,9 +82,7 @@ class Recipe
     }
 
     /**
-     * Get name
-     *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -104,8 +90,6 @@ class Recipe
     }
 
     /**
-     * Set rating
-     *
      * @param integer $rating
      * @return Recipe
      */
@@ -117,9 +101,7 @@ class Recipe
     }
 
     /**
-     * Get rating
-     *
-     * @return integer 
+     * @return integer
      */
     public function getRating()
     {
@@ -127,8 +109,6 @@ class Recipe
     }
 
     /**
-     * Set votes
-     *
      * @param integer $votes
      * @return Recipe
      */
@@ -140,9 +120,7 @@ class Recipe
     }
 
     /**
-     * Get votes
-     *
-     * @return integer 
+     * @return integer
      */
     public function getVotes()
     {
@@ -157,8 +135,6 @@ class Recipe
     }
 
     /**
-     * Add recipeIngredient
-     *
      * @param \Barra\FrontBundle\Entity\RecipeIngredient $recipeIngredient
      * @return Recipe
      */
@@ -170,8 +146,6 @@ class Recipe
     }
 
     /**
-     * Remove recipeIngredient
-     *
      * @param \Barra\FrontBundle\Entity\RecipeIngredient $recipeIngredient
      */
     public function removeRecipeIngredient(\Barra\FrontBundle\Entity\RecipeIngredient $recipeIngredient)
@@ -180,9 +154,7 @@ class Recipe
     }
 
     /**
-     * Get recipeIngredient
-     *
-     * @return \Doctrine\Common\Collections\Collection 
+    * @return \Doctrine\Common\Collections\Collection
      */
     public function getRecipeIngredient()
     {

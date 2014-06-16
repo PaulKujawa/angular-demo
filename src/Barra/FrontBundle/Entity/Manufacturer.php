@@ -13,8 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Manufacturer
 {
     /**
-     * @var integer
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -22,16 +20,12 @@ class Manufacturer
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=30, unique=true, nullable=false)
+     *@ORM\Column(name="name", type="string", length=30, unique=true, nullable=false)
      */
     private $name;
 
     /**
-     * Get id
-     *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -39,8 +33,6 @@ class Manufacturer
     }
 
     /**
-     * Set name
-     *
      * @param string $name
      * @return Manufacturer
      */
@@ -52,9 +44,7 @@ class Manufacturer
     }
 
     /**
-     * Get name
-     *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
