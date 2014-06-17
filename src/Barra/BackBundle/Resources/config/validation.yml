@@ -2,14 +2,12 @@ Barra\FrontBundle\Entity\Manufacturer:
   properties:
     name:
       - NotBlank: ~
-      - Type: alpha
-
-
+      - Type: string
 Barra\FrontBundle\Entity\Ingredient:
   properties:
     name:
       - NotBlank: ~
-      - Type: alpha
+      - Type: string
     vegan:
       - NotBlank: ~
       - Type: bool
@@ -49,15 +47,14 @@ Barra\FrontBundle\Entity\Recipe:
   properties:
     name:
       - NotBlank:
-      - Type: alpha
+      - Type: string
 
 
 Barra\FrontBundle\Entity\Measurement:
   properties:
     type:
       - NotBlank: ~
-      - Type: alpha
-
+      - Type: string
     gr:
       - NotBlank: ~
       - Type: integer
@@ -75,8 +72,7 @@ Barra\FrontBundle\Entity\CookingStep:
   properties:
     description:
       - NotBlank: ~
-      - Type: alpha
-
+      - Type: string
     step:
       - NotBlank: ~
       - Type: integer

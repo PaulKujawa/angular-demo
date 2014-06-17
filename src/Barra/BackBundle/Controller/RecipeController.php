@@ -2,7 +2,8 @@
 
 namespace Barra\BackBundle\Controller;
 
-use Barra\FrontBundle\Entity\Recipe;
+use Barra\FrontBundle\Entity\CookingStep;
+use Barra\BackBundle\Form\Type\CookingStepType;
 use Barra\FrontBundle\Entity\RecipeIngredient;
 use Barra\BackBundle\Form\Type\RecipeIngredientType;
 
@@ -12,62 +13,66 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class RecipeController extends Controller
 {
-
-    // TODO simple view action
-    public function indexAction($id)
+    public function indexAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $recipe = $em->getRepository('BarraFrontBundle:Recipe')->find($id);
 
+        $cookingSteps = $em->getRepository('BarraFrontBundle:CookingStep')->findBy(
+            array('recipe'=>$recipe), array('step'=>'ASC'));
+
+        $recipeIngredients = $em->getRepository('BarraFrontBundle:RecipeIngredient')->findBy(
+            array('recipe'=>$recipe), array('position'=>'ASC'));
+
         $recipeIngredient = new RecipeIngredient();
-        $form = $this->createForm(new RecipeIngredientType(), $recipeIngredient);
+        $formIngredient = $this->createForm(new RecipeIngredientType(), $recipeIngredient);
+
+        $cookingStep = new CookingStep();
+        $formCookingStep = $this->createForm(new CookingStepType(), $cookingStep);
 
 
-        return $this->render('BarraBackBundle:Recipe:recipe.html.twig', array(
-            'recipe' => $recipe,
-            'formIngredients' => $form->createView()
-        ));
-    }
+        if ($request->getMethod() === 'POST' && $request->request->has($formIngredient->getName()))
+        {
+            $formIngredient->handleRequest($request);
+            if ($formIngredient->isValid()) {
+                $recipeIngredient->setRecipe($recipe);
+                $recipeIngredient->setPosition(1);
+                $sqlError = $this->newRecipeIngredientAction($recipeIngredient);
 
-    // TODO choose different (form) actions depending on request & POST
-    public function formIngredientAction($id, Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $recipe = $em->getRepository('BarraFrontBundle:Recipe')->find($id);
+                if ($sqlError)
+                    return new Response($sqlError);
 
-        // Form
-        $recipeIngredient = new RecipeIngredient();
-        $form = $this->createForm(new RecipeIngredientType(), $recipeIngredient);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $recipeIngredient->setRecipe($recipe);
-            $recipeIngredient->setPosition(1);
-            $sqlError = $this->newRecipeIngredientAction($recipeIngredient);
-
-            if ($request->request->has(''))
-
-
-            if ($sqlError)
-                return new Response($sqlError);
-
-            /*
-
-             $cookingStep = $recipeIngredient->
-                $cookingStep->setRecipe($recipe)->setStep(1);
-            $cookingStep->newCookingStepAction($recipe);*/
-
-            $id = $recipe->getId();
-            return $this->redirect($this->generateUrl('barra_back_recipe', array('id' => $id)));
-
+                $id = $recipe->getId();
+                return $this->redirect($this->generateUrl('barra_back_recipe', array('id' => $id)));
+            }
         }
 
-        // Overview
+
+        if ($request->getMethod() === 'POST' && $request->request->has($formCookingStep->getName()))
+        {
+            $formCookingStep->handleRequest($request);
+            if ($formCookingStep->isValid()) {
+                $cookingStep->setRecipe($recipe);
+                $sqlError = $this->newCookingStepAction($cookingStep);
+
+                if ($sqlError)
+                    return new Response($sqlError);
+
+                $id = $recipe->getId();
+                return $this->redirect($this->generateUrl('barra_back_recipe', array('id' => $id)));
+            }
+        }
+
+
         return $this->render('BarraBackBundle:Recipe:recipe.html.twig', array(
             'recipe' => $recipe,
-            'formIngredients' => $form->createView()
+            'recipeIngredients' => $recipeIngredients,
+            'cookingSteps'=> $cookingSteps,
+            'formIngredient' => $formIngredient->createView(),
+            'formCookingStep' => $formCookingStep->createView()
         ));
     }
+
 
 
 
@@ -85,4 +90,17 @@ class RecipeController extends Controller
         return null;
     }
 
+
+    public function newCookingStepAction($cookingStep)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($cookingStep);
+
+        try {
+            $em->flush();
+        } catch (\Doctrine\DBAL\DBALException $e) {
+            return new Response('Cooking step could not be inserted');
+        }
+        return null;
+    }
 }

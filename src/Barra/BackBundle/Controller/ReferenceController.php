@@ -12,14 +12,8 @@ class ReferenceController extends Controller
     public function indexAction()
     {
 
-       //$this->newReferenceAction("artd webdesign GmbH", "kujawa.de", "internsship", '2014-05-01', '2014-07-01');
-
-
         $em = $this->getDoctrine()->getManager();
         $references = $em->getRepository('BarraFrontBundle:Reference')->findAll();
-
-        if (!$references)
-            throw $this->createNotFoundException('References not found');
 
         return $this->render('BarraBackBundle:Reference:references.html.twig', array(
             'references' => $references,

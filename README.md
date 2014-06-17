@@ -418,18 +418,6 @@ Ingredient->addRecipeIngredient($recipeIngredient)
 
 
 
-        public function newCookingStepAction($cookingStep)
-        {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($cookingStep);
-
-            try {
-                $em->flush();
-            } catch (\Doctrine\DBAL\DBALException $e) {
-                return new Response('Cooking step could not be inserted');
-            }
-            return null;
-        }
 
 
         public function updateCookingStep($recipe, $step, $description)

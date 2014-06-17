@@ -23,7 +23,7 @@ class IngredientController extends Controller
             if ($sqlError)
                 return new Response($sqlError);
             else
-                return $this->redirect($this->generateUrl('barra_back_ingredients'));
+                return $this->redirect($this->generateUrl('barra_back_recipes'));
         }
 
         // Overview
