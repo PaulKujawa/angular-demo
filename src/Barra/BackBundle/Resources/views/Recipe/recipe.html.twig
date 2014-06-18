@@ -1,5 +1,6 @@
 {% extends 'BarraBackBundle::layout.html.twig' %}
-{% form_theme form 'BarraBackBundle:Form:fields.html.twig' %}
+{% form_theme formCookingStep 'BarraBackBundle:Form:recipeRow.html.twig' %}
+{% form_theme formIngredient 'BarraBackBundle:Form:recipeRow.html.twig' %}
 
 {% block title %} vPit Recipes {% endblock %}
 
@@ -7,25 +8,31 @@
         <h1>{{ recipe.name }}</h1>
 
         <h3>ingredients</h3>
+        <ul>
         {% for recipeIngredient in recipeIngredients %}
             <li> {{ recipeIngredient.amount }} {{ recipeIngredient.measurement.type }} {{ recipeIngredient.ingredient.name }}</li>
         {% endfor %}
+        </ul>
 
         <h4>new ingredient</h4>
-        {{ form(formIngredient) }}
+        {{ form_start(formIngredient) }}
+            {{ form_row(formIngredient.ingredient) }}
+            {{ form_row(formIngredient.amount) }}
+            {{ form_row(formIngredient.measurement) }}
+        {{ form_end(formIngredient) }}
+
 
         <h3>cooking steps</h3>
+        <ul>
         {% for cookingStep in cookingSteps %}
             <li> {{ cookingStep.description }}</li>
         {% endfor %}
+        </ul>
 
         <h4>new ingredient</h4>
-
-
-
         {{ form_start(formCookingStep) }}
             {{ form_row(formCookingStep.step) }}
             {{ form_row(formCookingStep.description) }}
-        {{ form_end(formCookingStep) }} <!-- renders any fields that have not rendered -->
+        {{ form_end(formCookingStep) }}
 
 {% endblock %}

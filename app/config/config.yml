@@ -28,6 +28,9 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form:
+        resources:
+            - 'BarraBackBundle:Form:rows.html.twig' # for autoinclude
 
 # Assetic Configuration
 assetic:

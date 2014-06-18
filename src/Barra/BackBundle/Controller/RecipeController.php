@@ -25,16 +25,16 @@ class RecipeController extends Controller
             array('recipe'=>$recipe), array('position'=>'ASC'));
 
         $recipeIngredient = new RecipeIngredient();
-        $formIngredient = $this->createForm(new RecipeIngredientType(), $recipeIngredient);
+        $formRecipeIngredient = $this->createForm(new RecipeIngredientType(), $recipeIngredient);
 
         $cookingStep = new CookingStep();
         $formCookingStep = $this->createForm(new CookingStepType(), $cookingStep);
 
 
-        if ($request->getMethod() === 'POST' && $request->request->has($formIngredient->getName()))
+        if ($request->getMethod() === 'POST' && $request->request->has($formRecipeIngredient->getName()))
         {
-            $formIngredient->handleRequest($request);
-            if ($formIngredient->isValid()) {
+            $formRecipeIngredient->handleRequest($request);
+            if ($formRecipeIngredient->isValid()) {
                 $recipeIngredient->setRecipe($recipe);
                 $recipeIngredient->setPosition(1);
                 $sqlError = $this->newRecipeIngredientAction($recipeIngredient);
@@ -68,7 +68,7 @@ class RecipeController extends Controller
             'recipe' => $recipe,
             'recipeIngredients' => $recipeIngredients,
             'cookingSteps'=> $cookingSteps,
-            'formIngredient' => $formIngredient->createView(),
+            'formIngredient' => $formRecipeIngredient->createView(),
             'formCookingStep' => $formCookingStep->createView()
         ));
     }

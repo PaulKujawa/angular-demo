@@ -28,7 +28,10 @@ class IngredientType extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('data_class'=>'Barra\FrontBundle\Entity\Ingredient'));
+        $resolver->setDefaults(array(
+            'data_class'=>'Barra\FrontBundle\Entity\Ingredient',
+            'intention' =>'ingredient'
+        ));
     }
 
     public function getName()

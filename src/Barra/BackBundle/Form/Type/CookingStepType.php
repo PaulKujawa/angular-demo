@@ -22,7 +22,10 @@ class CookingStepType extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('data_class'=>'Barra\FrontBundle\Entity\CookingStep'));
+        $resolver->setDefaults(array(
+            'data_class'=>'Barra\FrontBundle\Entity\CookingStep',
+            'intention' =>'cooking_step'
+        ));
     }
 
     public function getName()

@@ -23,7 +23,9 @@ class MeasurementType extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('data_class'=>'Barra\FrontBundle\Entity\Measurement'));
+        $resolver->setDefaults(array('data_class'=>'Barra\FrontBundle\Entity\Measurement',
+            'intention' =>'measurement'
+        ));
     }
 
     public function getName()

@@ -25,7 +25,8 @@ class RecipeIngredientType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Barra\FrontBundle\Entity\RecipeIngredient',
             'cascade_validation' => true,
-            'validation_groups' => array('recipeIngredient')
+            'validation_groups' => array('recipeIngredient'),
+            'intention' => 'recipeIngredient'
         ));
     }
 
