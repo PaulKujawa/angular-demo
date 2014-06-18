@@ -6,3 +6,12 @@ barra_back:
     resource: "@BarraBackBundle/Resources/config/routing.yml"
     prefix:   /admino
 
+barra_login:
+    path: /admino/login
+    defaults: { _controller: BarraSecurityBundle:Security:login }
+
+barra_login_check:
+    path: /admino/login_check
+
+barra_logout:
+    path: /admino/logout
