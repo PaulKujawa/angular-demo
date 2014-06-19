@@ -1,11 +1,16 @@
-{% if error %}
-    <div>{{ error.message }}</div>
-{% endif %}
+{% extends 'BarraSecurityBundle::layout.html.twig' %}
 
-<form action="{{ path('barra_login_check') }}" method="post">
-    <label for="username">Username</label>
-    <input type="text" id="username" name="_username" value="{{ last_username }}" />
-    <label for="password">Password</label>
-    <input type="password" id="password" name="_password" />
-    <button type="submit">login</button>
-</form>
+{% block title %} vPit Recipes {% endblock %}
+
+{% block section %}
+    {% if error %}
+        <div>{{ error.message }}</div>
+    {% endif %}
+
+    <form id="loginForm" action="{{ path('barra_login_check') }}" method="post">
+        <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" placeholder="Name"/>
+        <input type="password" id="password" name="_password" required="required" placeholder="Password" />
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('loginToken') }}">
+        <button type="submit">Login</button>
+    </form>
+{% endblock %}

@@ -2,6 +2,7 @@
 
 namespace Barra\SecurityBundle\Controller;
 
+use Symfony\Component\Security\Core\Util\SecureRandom;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContextInterface;
@@ -28,5 +29,12 @@ class SecurityController extends Controller
         return $this->render('BarraSecurityBundle:Security:login.html.twig', array(
             'last_username' => $lastUsername, 'error' => $error
         ));
+    }
+
+
+    private function secureRandomNumber()
+    {
+        $generator = new SecureRandom();
+        $random = $generator->nextBytes(10);
     }
 }

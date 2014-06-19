@@ -4,12 +4,14 @@ security:
             pattern:   ^/admino/
             anonymous: ~
             form_login:
-                login_path: barra_login
-                check_path: barra_login_check
-             #   default_target_path: barra_back
+                login_path:           barra_login
+                check_path:           barra_login_check
+                default_target_path:  barra_back
+                csrf_provider:        form.csrf_provider
+                intention:            loginToken
             logout:
-                path:   barra_logout
-                target: admino/
+                path:                 /admino/logout
+                target:               /
             http_basic:
                 realm: "Secured Demo Area"
 
@@ -28,14 +30,20 @@ security:
 
     access_control:
         - { path: ^/admino/login, roles: IS_AUTHENTICATED_ANONYMOUSLY } #requires_channel: https }
-        - { path: ^/admino/, roles: ROLE_ADMIN, }
+        - { path: ^/admino/, roles: ROLE_ADMIN }
 
     providers:
         in_memory:
             memory:
                 users:
-                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+                    artd:
+                        password: $2a$12$MVwSTFYn6K/wiXs2AYx/UesK4PVHNww2iYLpvL65sTXMtt8LnjNVG
+                        roles: 'ROLE_USER'
+                    barra:
+                        password: $2a$12$c2wRxCd4fCzLt3gWhnKuh.BLFYl/sgqjpHrxRB32.gVXtdDnr7GVi
+                        roles: 'ROLE_ADMIN'
 
     encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
+        Symfony\Component\Security\Core\User\User:
+            algorithm: bcrypt
+            cost: 12
