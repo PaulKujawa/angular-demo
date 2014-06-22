@@ -3,15 +3,14 @@
 {% block title %} {{ recipe.name }} {% endblock %}
 
 {% block section %}
-    <h1> {{ recipe.name }} </h1>
+    <section>
+        <h1> {{ recipe.name }} </h1>
 
-
-    <h2> Cooking steps</h2>
-    <ol>
-        {% for cookingStep in cookingSteps %}
-            <li> {{ cookingStep.description }}</li>
-        {% endfor %}
-    </ol>
-
-
+        <h2> Cooking steps</h2>
+        <ol>
+            {% for cookingStep in cookingSteps %}
+                <li> {{ cookingStep.description }}</li>
+            {% endfor %}
+        </ol>
+    </section>
 {% endblock %}

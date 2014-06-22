@@ -3,8 +3,7 @@
 {% block title %} vPit Recipes {% endblock %}
 
 {% block section %}
-    all recipes
-
+    <section>
     <ul>
     {% for recipe in recipes %}
         <li>
@@ -12,4 +11,5 @@
         </li>
     {% endfor %}
     </ul>
+    </section>
 {% endblock %}

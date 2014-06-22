@@ -3,13 +3,61 @@
     <head>
         {% block head %}
             <meta http-equiv="content-type" content="text/html; charset=utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
             <title>{% block title %}Paul Kujawa{% endblock %}</title>
             {% block URLicon %}{% endblock URLicon %}
-            {% block stylesheets %}{% endblock %}
+
+            {% block stylesheets %}
+                <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+                <link href="{{ asset('Bootstrap/css/bootstrap.css') }}" rel='stylesheet' />
+                <link href="{{ asset('bundles/barrafront/css/main.css') }}" rel="stylesheet" />
+            {% endblock %}
+
+            {% block javaScript %}
+                <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+                <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+                <!--[if lt IE 9]>
+                <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+                <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+                <![endif]-->
+                <script src="{{ asset('Bootstrap/js/bootstrap.min.js') }}"></script>
+            {% endblock %}
         {% endblock %}
     </head>
 
     <body>
-        {% block body %}{% endblock %}
+        {% block nav %}
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" id="translationAnchor" href=href="{{ path('barra_front_me', {'lang': 'en'}) }}">EN</a>
+                    </div>
+
+
+                    <!-- all elements for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            {% block navLis %}{% endblock %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        {% endblock %}
+
+        {% block aside %}{% endblock %}
+        {% block section %}{% endblock %}
+
+        {% block footer %}
+            <footer>
+                <span>Copyright © 2014 Paul Kujawa - Berlin, Germany - All rights reserved</span>
+            </footer>
+        {% endblock %}
     </body>
 </html>

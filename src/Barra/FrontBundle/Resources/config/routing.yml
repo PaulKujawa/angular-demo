@@ -43,13 +43,6 @@ barra_front_contact:
     requirements:
       lang: de|en
 
-barra_front_contact:
-    path:     /contact/{lang}
-    defaults: { _controller: BarraFrontBundle:Contact:post, lang: de }
-    #methods : [ POST ]
-    requirements:
-      lang: de|en
-
 
 
 

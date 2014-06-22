@@ -2,20 +2,19 @@
 
 {% block title %} vPit References {% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <link href="{{ asset('bundles/barrafront/css/references.css') }}" rel="stylesheet" />
-{% endblock %}
-
 
 {% block section %}
-    <h1>References</h1>
-    <ul>
-        {% for reference in references %}
-            <li>Company: {{ reference.company }}
-                Description: {{ reference.description }}
-                Started: {{ reference.started|date('m.Y') }}
-                Finished: {{ reference.finished|date('m.Y') }}</li>
-        {% endfor %}
-    </ul>
+    <section>
+        <h1>References</h1>
+        <ul>
+            {% for reference in references %}
+                <li>
+                    Company: {{ reference.company }}
+                    Description: {{ reference.description }}
+                    Started: {{ reference.started|date('m.Y') }}
+                    Finished: {{ reference.finished|date('m.Y') }}
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
 {% endblock %}

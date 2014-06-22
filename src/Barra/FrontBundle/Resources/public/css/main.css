@@ -1,4 +1,4 @@
-* {
+/** {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -32,6 +32,7 @@ nav {
     text-transform: uppercase;
 }
 
+
 nav > ul {
     margin: 0;
     padding: 0;
@@ -40,12 +41,12 @@ nav > ul {
 }
 
 nav > ul > li {
-    margin: 0 -3px; /* gab through inline-block (whitespace) */
+    margin: 0 -3px; /* gab through inline-block (whitespace) *//*
     padding: 40px 0 39px 0;
     display: inline-block;
 }
 
-nav > ul > li:nth-child(1) > a { /* TODO to select via shown page */
+nav > ul > li:nth-child(1) > a { /* TODO to select via shown page *//*
     background-color: #2C2C2C
 }
 
@@ -59,19 +60,12 @@ nav a {
     color: white;
 }
 
-#languageButton {
-    padding: 40px 0 39px 40px;
-    height: 98px;
-    position: absolute;
-    right: 0;
-    top: 0;
-}
 
 section {
     max-width: 980px;
     margin: 0px auto;
-    padding-top: 112px; /* 98+14 */
-    padding-bottom: 84px;/* 70+14 */
+    padding-top: 112px; /* 98+14 *//*
+    padding-bottom: 84px;/* 70+14 *//*
     background-color: white;
 }
 
@@ -113,6 +107,93 @@ form button {
 p {
     margin: 14px 0;
 }
+*/
 
 
 
+/* BODY */
+html {
+    height: 100%;
+}
+body {
+    min-height: 100%;
+    position: relative;
+}
+
+
+
+
+/* NAVIGATION */
+#translationAnchor {
+    position: absolute;
+    right: 60px;
+}
+nav {
+    position: fixed !important; /* BT _relative */
+    width: 100%;
+    border: none !important; /* BT 3645 _1px */
+    text-transform: uppercase;
+    background-color: #141414 !important; /* BT 3036 _.navbar-default */
+}
+nav ul.navbar-nav {
+    margin: 0 -15px; /* BT _7.5 */
+}
+.navbar {
+    border-radius: 0;
+}
+nav.navbar-default .navbar-nav > li > a:hover, #translationAnchor:hover,
+nav.navbar-default .navbar-nav > li > a:focus, #translationAnchor:focus {
+    color: #fff; /* BT _#333 */
+}
+@media (min-width: 768px) {
+    nav a {
+        padding: 30px 15px !important;
+    }
+    .navbar-collapse.collapse {
+        text-align: center;
+    }
+    nav ul.navbar-nav {
+        display: inline-block;
+        float: none; /* BT 3812 _left */
+    }
+    #bs-example-navbar-collapse-1 {
+        height: 80px !important; /* fixes height-bug since display:inline-block (85px) */
+    }
+}
+
+
+
+
+
+/* SECTION */
+section {
+    padding-top: 70px; /* 50 +20 margin */
+    padding-bottom: 90px; /* since linebreak */
+}
+@media (min-width: 768px) {
+    section {
+        padding-top: 100px; /* 80+20 nav */
+        padding-bottom: 70px; /* 50+20 footer */
+    }
+}
+
+
+
+
+
+/* FOOTER */
+footer {
+    position: absolute;
+        bottom: 0px;
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+    min-height: 50px; /* equal to one line with padding */
+    /* TODO smallest width: 3 lines=>not enough margin, between mobil&desktop 1 line with height for 2 */
+
+    color: #777777;
+    text-align: center;
+    line-height: 20px;
+    text-transform: uppercase;
+    background-color: #141414 !important;
+}
