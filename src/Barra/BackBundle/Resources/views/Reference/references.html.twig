@@ -1,15 +1,17 @@
 {% extends 'BarraBackBundle::layout.html.twig' %}
 
-{% block title %} vPit Recipes {% endblock %}
+{% block title %} vPit References {% endblock %}
 
 {% block section %}
-    <h1>References</h1>
-    <ul>
-    {% for reference in references %}
-        <li>Company: {{ reference.company }}
-            Description: {{ reference.description }}
-            Started: {{ reference.started|date('m.Y') }}
-            Finished: {{ reference.finished|date('m.Y') }}</li>
-    {% endfor %}
-    </ul>
+    <section>
+        <h1>References</h1>
+        <ul>
+        {% for reference in references %}
+            <li>Company: {{ reference.company }}
+                Description: {{ reference.description }}
+                Started: {{ reference.started|date('m.Y') }}
+                Finished: {{ reference.finished|date('m.Y') }}</li>
+        {% endfor %}
+        </ul>
+    </section>
 {% endblock %}

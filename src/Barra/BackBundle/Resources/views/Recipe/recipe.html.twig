@@ -2,9 +2,10 @@
 {% form_theme formCookingStep 'BarraBackBundle:Form:recipeRow.html.twig' %}
 {% form_theme formIngredient 'BarraBackBundle:Form:recipeRow.html.twig' %}
 
-{% block title %} vPit Recipes {% endblock %}
+{% block title %} vPit {{ recipe.name }} {% endblock %}
 
 {% block section %}
+    <section>
         <h1>{{ recipe.name }}</h1>
 
         <h3>ingredients</h3>
@@ -34,5 +35,5 @@
             {{ form_row(formCookingStep.step) }}
             {{ form_row(formCookingStep.description) }}
         {{ form_end(formCookingStep) }}
-
+    </section>
 {% endblock %}

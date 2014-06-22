@@ -3,12 +3,14 @@
 {% block title %} vPit Recipes {% endblock %}
 
 {% block section %}
-    <h1>Manufacturers</h1>
-    <ul>
-    {% for manufacturer in manufacturers %}
-        <li>ID: {{ manufacturer.id }} Name: {{ manufacturer.name }}</li>
-    {% endfor %}
-    </ul>
+    <section>
+        <h1>Manufacturers</h1>
+        <ul>
+        {% for manufacturer in manufacturers %}
+            <li>ID: {{ manufacturer.id }} Name: {{ manufacturer.name }}</li>
+        {% endfor %}
+        </ul>
 
-    {{ form(form) }}
+        {{ form(form) }}
+    </section>
 {% endblock %}

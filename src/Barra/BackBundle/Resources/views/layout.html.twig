@@ -6,10 +6,54 @@
 
 
 {% block navLis %}
-    <li><a href="{{ path('barra_back_admin') }}">Overview</a></li>
-    <li><a href="{{ path('barra_back_references') }}">References</a></li>
-    <li><a href="{{ path('barra_back_recipes') }}">Recipes</a></li>
-    <li><a href="{{ path('barra_back_ingredients') }}">Ingredients</a></li>
-    <li><a href="{{ path('barra_back_manufacturers') }}">Manufacturers</a></li>
-    <li><a href="{{ path('barra_back_measurements') }}">Measurements</a></li>
+    {% if app.request.get('_route') == 'barra_back_admin' %}
+        <li class="active"><a href="{{ path('barra_back_admin', {'lang': 'de'}) }}">Über mich</a></li>
+        <li><a href="{{ path('barra_back_references', {'lang': 'de'}) }}">Referenzen</a></li>
+        <li><a href="{{ path('barra_back_recipes') }}">Rezepte</a></li>
+        <li><a href="{{ path('barra_back_ingredients', {'lang': 'de'}) }}">Kontakt</a></li>
+        <li><a href="{{ path('barra_back_manufacturers') }}">Manufacturers</a></li>
+        <li><a href="{{ path('barra_back_measurements') }}">Measurements</a></li>
+
+    {% else %}
+        <li><a href="{{ path('barra_back_admin', {'lang': 'de'}) }}">Über mich</a></li>
+
+        {% if app.request.get('_route') == 'barra_back_references' %}
+            <li class="active"><a href="{{ path('barra_back_references', {'lang': 'de'}) }}">Referenzen</a></li>
+            <li><a href="{{ path('barra_back_recipes') }}">Rezepte</a></li>
+            <li><a href="{{ path('barra_back_ingredients', {'lang': 'de'}) }}">Kontakt</a></li>
+            <li><a href="{{ path('barra_back_manufacturers') }}">Manufacturers</a></li>
+            <li><a href="{{ path('barra_back_measurements') }}">Measurements</a></li>
+
+        {% else %}
+            <li><a href="{{ path('barra_back_references', {'lang': 'de'}) }}">Referenzen</a></li>
+
+            {% if app.request.get('_route') == 'barra_back_recipes' %}
+                <li class="active"><a href="{{ path('barra_back_recipes') }}">Rezepte</a></li>
+                <li><a href="{{ path('barra_back_ingredients', {'lang': 'de'}) }}">Kontakt</a></li>
+                <li><a href="{{ path('barra_back_manufacturers') }}">Manufacturers</a></li>
+                <li><a href="{{ path('barra_back_measurements') }}">Measurements</a></li>
+
+            {% else %}
+                <li><a href="{{ path('barra_back_recipes') }}">Rezepte</a></li>
+
+                {% if app.request.get('_route') == 'barra_back_ingredients' %}
+                    <li class="active"><a href="{{ path('barra_back_ingredients', {'lang': 'de'}) }}">Kontakt</a></li>
+                    <li><a href="{{ path('barra_back_manufacturers') }}">Manufacturers</a></li>
+                    <li><a href="{{ path('barra_back_measurements') }}">Measurements</a></li>
+
+                {% else %}
+                    <li><a href="{{ path('barra_back_ingredients', {'lang': 'de'}) }}">Kontakt</a></li>
+
+                    {% if app.request.get('_route') == 'barra_back_manufacturers' %}
+                        <li class="active"><a href="{{ path('barra_back_manufacturers') }}">Manufacturers</a></li>
+                        <li><a href="{{ path('barra_back_measurements') }}">Measurements</a></li>
+
+                    {% else %}
+                        <li><a href="{{ path('barra_back_manufacturers') }}">Manufacturers</a></li>
+                        <li class="active"><a href="{{ path('barra_back_measurements') }}">Measurements</a></li>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
 {% endblock %}
