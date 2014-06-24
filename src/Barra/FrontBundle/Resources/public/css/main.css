@@ -95,10 +95,10 @@ nav.navbar-default .navbar-nav > li > a:focus, #translationAnchor:focus {
 
 /* SECTION */
 section {
-    padding: 70px 0px 90px; /* t50, s20, b70 since linebreak */
+    padding: 70px 0 90px; /* t50, s20, b70 since linebreak */
     margin: 0 20px;
 }
-@media (min-width: 768px) {
+@media (min-width: 768px) { /* TODO content width is too large for this break point. 3 media queries necessary? */
     section {
         max-width: 974px;
         margin: 0 auto;

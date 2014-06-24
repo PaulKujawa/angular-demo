@@ -14,7 +14,7 @@ barra_front_references:
       lang: de|en
 
 barra_front_reference:
-    path:     /references/{id}/{lang}
+    path:     /reference/{id}/{lang}
     defaults: { _controller: BarraFrontBundle:Reference:showReference, id: 1, lang: de }
     requirements:
       id: \d+

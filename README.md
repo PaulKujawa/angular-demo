@@ -54,12 +54,9 @@ Commandline
 create bundle	            php app/console generate:bundle --namespace=Acme/HelloBundle --format=yml
 		                    -> creates src/… & extends app/appkernel.php & app/config/routing.yml
 
-Cache clear	                php app/console cache:clear —env=prod —no-debug
-		                    -> necessary when debug is inactive like in prod environment
+Cache clear	                ./app/console —-env=prod cache:clear
 
-Base Controller Services    php app/console container:debug
-
-List Routes                 php app/console router:debug
+List Routes                 ./app/console router:debug
 
 Route <-> URL               php app/console router:match /givenPage
 
@@ -211,12 +208,32 @@ Ingredient->addRecipeIngredient($recipeIngredient)
 
 
 
+CACHE
+---------------------------------------------------------------------------------------------------------------------
+
+use Symfony\Component\HttpFoundation\Response;
+$response = newResponse();
+// mark the response as either public or private
+$response->setPublic();
+$response->setPrivate();
+
+// set the private or shared max age$response->
+setMaxAge(600);
+$response->setSharedMaxAge(600);
+
+// set a custom Cache-Control directive
+$response->headers->addCacheControlDirective('must-revalidate', true);
 
 
-
-
-
-
+$response
+->setCache(array(
+    'etag'=>$etag,
+    'last_modified'=>$date,
+    'max_age'=>10,
+    's_maxage'=>10,
+    'public'=>true,
+    // 'private' => true
+));
 
 
 
