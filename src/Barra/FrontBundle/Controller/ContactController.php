@@ -4,29 +4,30 @@ namespace Barra\FrontBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Translation\Translator;
+use Symfony\Component\Translation\Loader\ArrayLoader;
+
 
 class ContactController extends Controller
 {
     public function getAction(Request $request)
     {
+        /*
+            TODO language button
+            $request->setLocale('en');
+        */
 
 
+        $msg = $this->get('translator')->trans('hey', array(), 'messages');
+        return new Response($msg);
 
-       /* $form = $this->createForm("foo");
-        $form->handleRequest($request);
+        //return new Response($msg);
 
-        if ($form->isValid()) {
-            // processing
 
-            $this->get('session')->getFlashBag()->add(
-                'notice',
-                'I am informed.'
-            );
-
-            return $this->redirect($this->generateUrl('barra_default_home'));
-        }*/
-
-        return $this->render('BarraFrontBundle:Contact:contact.html.twig');
+    //   return $this->render('BarraFrontBundle:Contact:contact.html.twig', array (
+     //      'foo'=>$msg
+      //  ));
     }
 
 

@@ -37,12 +37,7 @@ barra_front_recipe:
 
 
 barra_front_contact:
-    path:     /contact/{lang}
-    defaults: { _controller: BarraFrontBundle:Contact:get, lang: de }
-    #methods: [ GET ]
+    path:     /{_locale}/contact
+    defaults: { _controller: BarraFrontBundle:Contact:get }
     requirements:
-      lang: de|en
-
-
-
-
+      _locale: en|de

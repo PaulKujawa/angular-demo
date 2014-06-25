@@ -47,6 +47,8 @@ playing with it, you can remove it by following these steps:
   * empty the `security.yml` file or tweak the security configuration to fit
     your needs.
 
+
+
 ######################################################################################################
 #####################################################################################################
 Commandline
@@ -124,7 +126,7 @@ template in different formats       $format = $this->getRequest()->getRequestFor
 
 
 DB
-############################################################################################################
+###########################################################################################################
 ###########################################################################################################
 
 Controller - Einfache selects
@@ -204,6 +206,16 @@ Ingredient->removeRecipeIngredient($recipeIngredient)
 Ingredient->addRecipeIngredient($recipeIngredient)
     => unnütz. das recipeIngredient müsste bereits bestehen
     => verlinkung zu Ingredient wird autom. gesetzt
+
+
+
+
+
+Users Locale
+---------------------------------------------------------------------------------------------------------------------
+$locale = $request->getLocale();
+$request->setLocale('en_US');
+
 
 
 
