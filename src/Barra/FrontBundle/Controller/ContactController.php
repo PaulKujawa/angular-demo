@@ -19,20 +19,13 @@ class ContactController extends Controller
         */
 
 
-        $msg = $this->get('translator')->trans('hey', array(), 'messages');
-        return new Response($msg);
-
-        //return new Response($msg);
+        $name = 'Paul';
+        $translated = $this->get('translator')->trans('hey');
 
 
-    //   return $this->render('BarraFrontBundle:Contact:contact.html.twig', array (
-     //      'foo'=>$msg
-      //  ));
-    }
 
-
-    public function postAction()
-    {
-        return $this->render('BarraFrontBundle:Contact:contact.html.twig');
+       return $this->render('BarraFrontBundle:Contact:contact.html.twig', array (
+           'name'=>$name
+        ));
     }
 }

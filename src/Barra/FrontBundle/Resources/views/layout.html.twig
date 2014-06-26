@@ -7,29 +7,29 @@
 
 {% block navLis %}
     {% if app.request.get('_route') == 'barra_front_me' %}
-        <li class="active"><a href="{{ path('barra_front_me', {'lang': 'de'}) }}">Über mich</a></li>
-        <li><a href="{{ path('barra_front_references', {'lang': 'de'}) }}">Referenzen</a></li>
+        <li class="active"><a href="{{ path('barra_front_me') }}">über mich</a></li>
+        <li><a href="{{ path('barra_front_references') }}">Referenzen</a></li>
         <li><a href="{{ path('barra_front_recipes') }}">Rezepte</a></li>
         <li><a href="{{ path('barra_front_contact') }}">Kontakt</a></li>
 
     {% else %}
-        <li><a href="{{ path('barra_front_me', {'lang': 'de'}) }}">Über mich</a></li>
+        <li><a href="{{ path('barra_front_me') }}">Über mich</a></li>
 
         {% if app.request.get('_route') == 'barra_front_references' %}
-            <li class="active"><a href="{{ path('barra_front_references', {'lang': 'de'}) }}">Referenzen</a></li>
+            <li class="active"><a href="{{ path('barra_front_references') }}">Referenzen</a></li>
             <li><a href="{{ path('barra_front_recipes') }}">Rezepte</a></li>
-            <li><a href="{{ path('barra_front_contact', {'lang': 'de'}) }}">Kontakt</a></li>
+            <li><a href="{{ path('barra_front_contact') }}">Kontakt</a></li>
 
         {% else %}
-            <li><a href="{{ path('barra_front_references', {'lang': 'de'}) }}">Referenzen</a></li>
+            <li><a href="{{ path('barra_front_references') }}">Referenzen</a></li>
 
             {% if app.request.get('_route') == 'barra_front_recipes' %}
                 <li class="active"><a href="{{ path('barra_front_recipes') }}">Rezepte</a></li>
-                <li><a href="{{ path('barra_front_contact', {'lang': 'de'}) }}">Kontakt</a></li>
+                <li><a href="{{ path('barra_front_contact') }}">Kontakt</a></li>
 
             {% else %}
                 <li><a href="{{ path('barra_front_recipes') }}">Rezepte</a></li>
-                <li class="active"><a href="{{ path('barra_front_contact', {'lang': 'de'}) }}">Kontakt</a></li>
+                <li class="active"><a href="{{ path('barra_front_contact') }}">{% trans %}contact{% endtrans %}</a></li>
             {% endif %}
         {% endif %}
     {% endif %}

@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class MeController extends Controller
 {
-    public function indexAction($lang)
+    public function indexAction()
     {
         return $this->render('BarraFrontBundle:Me:me.html.twig');
     }

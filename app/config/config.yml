@@ -22,7 +22,7 @@ framework:
     fragments:       ~
     http_method_override: true
     translator: { fallback: en } # if no translations are given
-    default_locale:  en          # if no language is requested
+    default_locale:  de          # for links, when no favorite given
 
 
 # Twig Configuration
