@@ -1,36 +1,5 @@
 {% extends '::base.html.twig' %}
 
-{% block URLicon %}
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-{% endblock URLicon %}
-
-
-{% block navLis %}
-    {% if app.request.get('_route') == 'barra_front_me' %}
-        <li class="active"><a href="{{ path('barra_front_me') }}">über mich</a></li>
-        <li><a href="{{ path('barra_front_references') }}">Referenzen</a></li>
-        <li><a href="{{ path('barra_front_recipes') }}">Rezepte</a></li>
-        <li><a href="{{ path('barra_front_contact') }}">Kontakt</a></li>
-
-    {% else %}
-        <li><a href="{{ path('barra_front_me') }}">Über mich</a></li>
-
-        {% if app.request.get('_route') == 'barra_front_references' %}
-            <li class="active"><a href="{{ path('barra_front_references') }}">Referenzen</a></li>
-            <li><a href="{{ path('barra_front_recipes') }}">Rezepte</a></li>
-            <li><a href="{{ path('barra_front_contact') }}">Kontakt</a></li>
-
-        {% else %}
-            <li><a href="{{ path('barra_front_references') }}">Referenzen</a></li>
-
-            {% if app.request.get('_route') == 'barra_front_recipes' %}
-                <li class="active"><a href="{{ path('barra_front_recipes') }}">Rezepte</a></li>
-                <li><a href="{{ path('barra_front_contact') }}">Kontakt</a></li>
-
-            {% else %}
-                <li><a href="{{ path('barra_front_recipes') }}">Rezepte</a></li>
-                <li class="active"><a href="{{ path('barra_front_contact') }}">{% trans %}contact{% endtrans %}</a></li>
-            {% endif %}
-        {% endif %}
-    {% endif %}
+{% block navController %}
+    {{ render(controller('BarraFrontBundle:Layout:nav')) }}
 {% endblock %}

@@ -1,0 +1,10 @@
+about me: About me
+reference: Reference
+recipe: Recipe
+contact: Contact
+
+
+comment:
+  zero: no comment
+  one: one comment
+  other: %{count} comments

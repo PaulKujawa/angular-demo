@@ -21,7 +21,7 @@ framework:
         handler_id:  ~
     fragments:       ~
     http_method_override: true
-    translator: { fallback: en } # if no translations are given
+    translator: { fallback: en } # language(-file) if requested translation file is not found
     default_locale:  de          # for links, when no favorite given
 
 

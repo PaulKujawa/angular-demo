@@ -1,0 +1,23 @@
+{% trans_default_domain "layout" %}
+
+{% block navLis %}
+    {% for entry in entries %}
+        {% if app.request.get('_route') == entry['path'] %}
+            <li class="active">
+        {% else %}
+            <li>
+        {% endif %}
+        <a href="{{ path(entry.path) }}">
+                {{ 'comment'|transchoice(count) }}
+        </a>
+        </li>
+    {% endfor %}
+{% endblock %}
+
+
+
+
+
+
+
+{ entry['label']|trans }}

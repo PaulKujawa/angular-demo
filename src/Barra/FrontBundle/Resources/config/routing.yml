@@ -39,5 +39,5 @@ barra_front_recipe:
 
 barra_front_contact:
     path:     /{_locale}/contact
-    defaults: { _controller: BarraFrontBundle:Contact:get }
+    defaults: { _controller: BarraFrontBundle:Contact:index }
 

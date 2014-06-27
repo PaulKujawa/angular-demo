@@ -165,9 +165,6 @@ Template
 {{ include('BarraDefaultBundle:References:article.html.twig', {'id': 3}) }}
 include instead of inherit
 
-{{ render(controller('BarraDefaultBundle:References:show', {'id': 3} )) }}
-include a complete controller with template for db queries
-
 
 Asynchronus include via hinclude.js
     {{ render_include(url(...)) }}
@@ -206,6 +203,31 @@ Ingredient->removeRecipeIngredient($recipeIngredient)
 Ingredient->addRecipeIngredient($recipeIngredient)
     => unnütz. das recipeIngredient müsste bereits bestehen
     => verlinkung zu Ingredient wird autom. gesetzt
+
+
+
+
+Trans
+---------------------------------------------------------------------------------------------------------------------
+yml for file:       {% trans_default_domain "layout" %}
+
+tag:                {% trans from 'layout' %}reference{% endtrans %}
+
+filter:             {{ 'reference'|trans({}, 'layout') }}
+
+variable value:     {{ 'reference'|trans({'%name%':'Max'}, 'layout') }}
+                    reference: Referenz %name%
+
+variable key:       {{ entry['label']|trans({}, 'layout') }}
+
+
+
+
+Transchoice
+---------------------------------------------------------------------------------------------------------------------
+tag                 {% transchoice count %}
+                        {0} no reference|{1} one reference|]1,Inf] %count% references
+                    {% endtranschoice %}
 
 
 
