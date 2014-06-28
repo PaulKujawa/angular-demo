@@ -8,6 +8,8 @@ barra_back_admin_redirect:
 barra_back_admin:
     path:     /{_locale}
     defaults: { _controller: BarraBackBundle:Admin:index }
+    requirements:
+      _locale: en|de
 
 barra_back_references:
     path:     /{_locale}/references

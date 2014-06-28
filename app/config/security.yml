@@ -10,7 +10,7 @@ security:
                 csrf_provider:        form.csrf_provider
                 intention:            loginToken
             logout:
-                path:                 /admino/logout
+                path:                 barra_logout
                 target:               /
             http_basic:
                 realm: "Secured Demo Area"
