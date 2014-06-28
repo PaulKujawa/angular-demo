@@ -1,29 +1,36 @@
+barra_back_admin_redirect:
+    path: /
+    defaults:
+      _controller: FrameworkBundle:Redirect:redirect
+      route: barra_back_admin
+      permanent: true
+
 barra_back_admin:
-    path:     /
+    path:     /{_locale}
     defaults: { _controller: BarraBackBundle:Admin:index }
 
 barra_back_references:
-    path:     /references
+    path:     /{_locale}/references
     defaults: { _controller: BarraBackBundle:Reference:index}
 
 barra_back_recipes:
-    path:     /recipes
+    path:     /{_locale}/recipes
     defaults: { _controller: BarraBackBundle:Recipes:index }
 
 barra_back_recipe:
-    path:     /recipe/{id}
+    path:     /{_locale}/recipe/{id}
     defaults: { _controller: BarraBackBundle:Recipe:index, id: 1 }
     requirements:
         id: \d+
 
 barra_back_ingredients:
-    path:     /ingredients
+    path:     /{_locale}/ingredients
     defaults: { _controller: BarraBackBundle:Ingredient:index }
 
 barra_back_manufacturers:
-    path:     /manufacturers
+    path:     /{_locale}/manufacturers
     defaults: { _controller: BarraBackBundle:Manufacturer:index }
 
 barra_back_measurements:
-    path:     /measurements
+    path:     /{_locale}/measurements
     defaults: { _controller: BarraBackBundle:Measurement:index }

@@ -1,3 +1,9 @@
-barra_security_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: BarraSecurityBundle:Default:index }
+barra_login:
+    path: /login
+    defaults: { _controller: BarraSecurityBundle:Security:login }
+
+barra_login_check:
+    path: /login_check
+
+barra_logout:
+    path: /logout

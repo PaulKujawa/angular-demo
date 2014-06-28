@@ -1,0 +1,13 @@
+about me: About me
+reference: Reference
+recipe: Recipe
+contact: Contact
+overview: Overview
+ingredient: Ingredient
+manufacturer: Manufacturer
+measurement: Measurement
+
+comment:
+  zero: no comment
+  one: one comment
+  other: %{count} comments

@@ -1,0 +1,9 @@
+{% trans_default_domain "layout" %}
+
+{% block navLis %}
+    {% for entry in entries %}
+        <li {% if app.request.get('_route') == entry['path'] %}class="active"{% endif %}>
+            <a href="{{ path(entry.path) }}">{{  entry['label']|trans }}</a>
+        </li>
+    {% endfor %}
+{% endblock %}
