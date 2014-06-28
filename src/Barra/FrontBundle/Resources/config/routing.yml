@@ -1,8 +1,11 @@
-barra_front_me:
-    path:     /
-    defaults: { _controller: BarraFrontBundle:Me:index }
+barra_front_me_redirect:
+    path: /
+    defaults:
+      _controller: FrameworkBundle:Redirect:redirect
+      route: barra_front_me
+      permanent: true
 
-barra_front_meLocale:
+barra_front_me:
     path:     /{_locale}
     defaults: { _controller: BarraFrontBundle:Me:index }
     requirements:

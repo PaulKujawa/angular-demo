@@ -39,7 +39,12 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" id="translationAnchor" href=href="{{ path('barra_front_me', {'lang': 'en'}) }}">EN</a>
+
+                        {% if app.request.locale == "en" %}
+                            <a class="navbar-brand" id="translationAnchor" href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({_locale: 'de'})) }}">DE</a>
+                        {% else %}
+                            <a class="navbar-brand" id="translationAnchor" href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({_locale: 'en'})) }}">EN</a>
+                        {% endif %}
                     </div>
 
 

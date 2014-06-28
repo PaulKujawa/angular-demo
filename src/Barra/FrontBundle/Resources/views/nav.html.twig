@@ -2,22 +2,8 @@
 
 {% block navLis %}
     {% for entry in entries %}
-        {% if app.request.get('_route') == entry['path'] %}
-            <li class="active">
-        {% else %}
-            <li>
-        {% endif %}
-        <a href="{{ path(entry.path) }}">
-                {{ 'comment'|transchoice(count) }}
-        </a>
+        <li {% if app.request.get('_route') == entry['path'] %}class="active"{% endif %}>
+            <a href="{{ path(entry.path) }}">{{  entry['label']|trans }}</a>
         </li>
     {% endfor %}
 {% endblock %}
-
-
-
-
-
-
-
-{ entry['label']|trans }}
