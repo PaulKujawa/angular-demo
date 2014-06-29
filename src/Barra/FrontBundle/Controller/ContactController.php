@@ -13,7 +13,8 @@ class ContactController extends Controller
         $translated = $this->get('translator')->trans('hey');
 
         return $this->render('BarraFrontBundle:Contact:contact.html.twig', array (
-           'name'=>$name
+           'name'=>$name,
+           'count'=>3
         ));
     }
 }

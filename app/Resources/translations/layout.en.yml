@@ -7,7 +7,4 @@ ingredient: Ingredient
 manufacturer: Manufacturer
 measurement: Measurement
 
-comment:
-  zero: no comment
-  one: one comment
-  other: %{count} comments
+comment: '{0} no comment|{1} one comment|]1,Inf] %count% comments'

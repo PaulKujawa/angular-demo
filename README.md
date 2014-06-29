@@ -225,20 +225,10 @@ variable key:       {{ entry['label']|trans({}, 'layout') }}
 
 Transchoice
 ---------------------------------------------------------------------------------------------------------------------
-tag                 {% transchoice count %}
-                        {0} no reference|{1} one reference|]1,Inf] %count% references
+Tag trans           {% transchoice count with {'%count%': count} from "layout" %}
+                        comment
                     {% endtranschoice %}
-
-
-
-
-
-Users Locale
----------------------------------------------------------------------------------------------------------------------
-$locale = $request->getLocale();
-$request->setLocale('en_US');
-
-
+                    comment: '{0} no comment|{1} one comment|]1,Inf] %count% comments'
 
 
 

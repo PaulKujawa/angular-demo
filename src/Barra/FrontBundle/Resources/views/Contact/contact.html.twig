@@ -3,6 +3,13 @@
 
 {% block section %}
     <section>
-        {% trans %}hey{% endtrans %}
+
+        {{ 'comment'|transchoice(count, {}, 'layout') }}
+
+
+        {% transchoice count with {'%count%': count} from "layout" %}
+            comment
+        {% endtranschoice %}
+
     </section>
 {% endblock %}
