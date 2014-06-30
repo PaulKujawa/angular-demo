@@ -1,15 +1,15 @@
 {% extends 'BarraFrontBundle::layout.html.twig' %}
-
-{% block title %} vPit Recipes {% endblock %}
+{% trans_default_domain "messages" %}
+{% block title %}{{ 'front.title.recipes'|trans() }}{% endblock %}
 
 {% block section %}
     <section>
-    <ul>
-    {% for recipe in recipes %}
-        <li>
-            <a href="{{ path('barra_front_recipe', {'id': recipe.id}) }}">{{ recipe.name }}</a>
-        </li>
-    {% endfor %}
-    </ul>
+        <ul>
+        {% for recipe in recipes %}
+            <li> {# TODO doctrine trans #}
+                <a href="{{ path('barra_front_recipe', {'id': recipe.id}) }}">{{ recipe.name }}</a>
+            </li>
+        {% endfor %}
+        </ul>
     </section>
 {% endblock %}

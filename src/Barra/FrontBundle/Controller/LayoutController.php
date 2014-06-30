@@ -9,9 +9,9 @@ class LayoutController extends Controller
     public function navAction()
     {
         $entries = array(
-            0 => array('path'=>'barra_front_me',         'label' => 'about me'),
-            1 => array('path'=>'barra_front_references', 'label' => 'reference'),
-            2 => array('path'=>'barra_front_recipes',    'label' => 'recipe'),
+            0 => array('path'=>'barra_front_me',         'label' => 'aboutMe'),
+            1 => array('path'=>'barra_front_references', 'label' => 'references'),
+            2 => array('path'=>'barra_front_recipes',    'label' => 'recipes'),
             3 => array('path'=>'barra_front_contact',    'label' => 'contact')
         );
 

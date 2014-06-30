@@ -1,15 +1,9 @@
 {% extends 'BarraFrontBundle::layout.html.twig' %}
-{% block title %} vPit Contact {% endblock %}
+{% trans_default_domain "messages" %}
+{% block title %}{{ 'front.title.contact'|trans() }}{% endblock %}
 
 {% block section %}
     <section>
-
-        {{ 'comment'|transchoice(count, {}, 'layout') }}
-
-
-        {% transchoice count with {'%count%': count} from "layout" %}
-            comment
-        {% endtranschoice %}
-
+        {{ 'front.word.comment'|transchoice(count) }}
     </section>
 {% endblock %}

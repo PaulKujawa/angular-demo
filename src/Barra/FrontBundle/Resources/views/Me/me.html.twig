@@ -1,6 +1,6 @@
 {% extends 'BarraFrontBundle::layout.html.twig' %}
-
-{% block title %} vPit {% endblock %}
+{% trans_default_domain "messages" %}
+{% block title %}{{ 'front.title.pageAboutMe'|trans() }}{% endblock %}
 
 {% block section %}
     <section>

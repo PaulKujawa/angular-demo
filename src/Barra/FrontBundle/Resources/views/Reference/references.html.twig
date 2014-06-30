@@ -1,6 +1,6 @@
 {% extends 'BarraFrontBundle::layout.html.twig' %}
-
-{% block title %} vPit References {% endblock %}
+{% trans_default_domain "messages" %}
+{% block title %}{{ 'front.title.references'|trans() }}{% endblock %}
 
 
 {% block section %}
@@ -9,10 +9,10 @@
         <ul>
             {% for reference in references %}
                 <li>
-                    Company: {{ reference.company }}
-                    Description: {{ reference.description }}
-                    Started: {{ reference.started|date('m.Y') }}
-                    Finished: {{ reference.finished|date('m.Y') }}
+                    {{ 'front.reference.word.company'|trans() }}: {{ reference.company }}
+                    {{ 'front.reference.word.description'|trans() }}: {{ reference.description }}
+                    {{ 'front.reference.word.started'|trans() }}: {{ reference.started|date('m.Y') }}
+                    {{ 'front.reference.word.finished'|trans() }}: {{ reference.finished|date('m.Y') }}
                 </li>
             {% endfor %}
         </ul>

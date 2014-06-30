@@ -213,9 +213,7 @@ yml for file:       {% trans_default_domain "layout" %}
 
 tag:                {% trans from 'layout' %}reference{% endtrans %}
 
-filter:             {{ 'reference'|trans({}, 'layout') }}
-
-variable value:     {{ 'reference'|trans({'%name%':'Max'}, 'layout') }}
+filter:             {{ 'reference'|trans({'%name%':'Max'}, 'layout') }}
                     reference: Referenz %name%
 
 variable key:       {{ entry['label']|trans({}, 'layout') }}
@@ -225,8 +223,10 @@ variable key:       {{ entry['label']|trans({}, 'layout') }}
 
 Transchoice
 ---------------------------------------------------------------------------------------------------------------------
-Tag trans           {% transchoice count with {'%count%': count} from "layout" %}
-                        comment
+filter              {{ 'front.word.comment'|transchoice(count, {}, 'layout') }}
+
+tag                 {% transchoice count with {'%count%': count} from "layout" %}
+                        front.word.comment
                     {% endtranschoice %}
                     comment: '{0} no comment|{1} one comment|]1,Inf] %count% comments'
 

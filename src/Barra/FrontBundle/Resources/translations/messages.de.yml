@@ -1,0 +1,17 @@
+front:
+  title:
+    pageAboutMe: Kujawa
+    aboutMe: Über mich
+    references: Referenzen
+    recipes: Rezepte
+    contact: Kontakt
+
+  word:
+    comment: '{0} no comment|{1} one comment|]1,Inf] %count% comments'
+
+  reference:
+    word:
+      company: Firma
+      description: Beschreibung
+      started: Begonnen
+      finished: Abgeschlossen
