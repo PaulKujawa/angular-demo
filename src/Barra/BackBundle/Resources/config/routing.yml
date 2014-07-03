@@ -38,8 +38,8 @@ barra_back_measurements:
     path:     /{_locale}/measurements
     defaults: { _controller: BarraBackBundle:Measurement:index }
 
-barra_back_measurements:
-    path:     /{_locale}/measurements/del/{id}
-    defaults: { _controller: BarraBackBundle:Measurement:delete }
+barra_back_measurement_delete:
+    path:     /{_locale}/measurements/delete/{id}
+    defaults: { _controller: BarraBackBundle:Measurement:deleteMeasurement }
     requirements:
         id: \d+

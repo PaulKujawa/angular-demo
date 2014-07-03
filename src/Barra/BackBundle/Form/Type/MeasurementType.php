@@ -14,8 +14,6 @@ class MeasurementType extends AbstractType
         $builder
             ->add('type', 'text')
             ->add('gr', 'integer')
-
-            ->add('clear', 'reset')
             ->add('submit', 'submit')
             ->getForm();
     }

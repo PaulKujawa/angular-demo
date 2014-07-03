@@ -1,4 +1,6 @@
 {% extends 'BarraBackBundle::layout.html.twig' %}
+{% form_theme form 'BarraBackBundle:Form:rows.html.twig' %}
+
 
 {% block title %} vPit Measurements {% endblock %}
 
@@ -6,23 +8,34 @@
     <section>
         <table class="table table-striped">
             <tr>
-                <th>Id</th>
                 <th>Type</th>
                 <th>Gr</th>
+                <th>Delete</th>
             </tr>
             {# TODO set Contextual classes after insert/update/del #}
             {% for measurement in measurements %}
                 <tr>
-                    <td>{{ measurement.id }}</td>
                     <td>{{ measurement.type }}</td>
-                    <td>{{ measurement.gr }} gr</td>
+                    <td>{{ measurement.gr }}</td>
+                    <td><a href="{{ path('barra_back_measurement_delete', {'id': measurement.id}) }}">
+                            <span class="glyphicon glyphicon-minus"></span>
+                    </a></td>
                 </tr>
             {% endfor %}
+            <tr>
+                {{ form_start(form) }}
+                {{ form_row(form.type) }}
+                {{ form_row(form.gr) }}
+               <td> {{ form_widget(form.submit) }}</td>
+
+                {{ form_end(form) }}
+
+            </tr>
         </table>
 
 
 
         <div style="height: 100px"></div>
-        {{ form(form) }}
+
     </section>
 {% endblock %}

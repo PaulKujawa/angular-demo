@@ -48,4 +48,24 @@ class MeasurementController extends Controller
         }
         return null;
     }
+
+
+
+    public function deleteMeasurementAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $measurement = $em->getRepository('BarraFrontBundle:Measurement')->find($id);
+
+        if (!$measurement)
+            throw $this->createNotFoundException('Measurement not found');
+        $em->remove($measurement);
+
+        try {
+            $em->flush();
+        } catch (\Doctrine\DBAL\DBALException $e) {
+            return new Response('Measurement could not be deleted');
+        }
+
+        return $this->redirect($this->generateUrl('barra_back_measurements'));
+    }
 }
