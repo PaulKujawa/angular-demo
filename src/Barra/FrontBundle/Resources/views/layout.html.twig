@@ -1,5 +1,5 @@
 {% extends '::base.html.twig' %}
 
 {% block navController %}
-    {{ render(controller('BarraFrontBundle:Layout:nav')) }}
+    {{ render(controller('BarraFrontBundle:Layout:nav', {'request': app.request})) }}
 {% endblock %}

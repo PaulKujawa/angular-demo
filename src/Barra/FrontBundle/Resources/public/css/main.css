@@ -63,6 +63,10 @@ nav {
     text-transform: uppercase;
     background-color: #141414 !important; /* BT 3036 _.navbar-default */
 }
+nav li.active > a { /* BT 3959 */
+    background-color: transparent !important;
+    color: #ffffff !important;
+}
 nav ul.navbar-nav {
     margin: 0 -15px; /* BT _7.5 */
 }

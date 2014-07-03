@@ -2,7 +2,7 @@
 
 {% block navLis %}
     {% for entry in entries %}
-        <li {% if app.request.get('_route') == entry['path'] %}class="active"{% endif %}>
+        <li {% if request.get('_route') == entry['path'] %}class="active"{% endif %}>
             <a href="{{ path(entry.path) }}">{{ ('back.title.'~entry['label'])|trans }}</a>
         </li>
     {% endfor %}

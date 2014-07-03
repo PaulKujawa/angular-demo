@@ -263,6 +263,16 @@ $response
 
 
 
+    public function updateMeasurement($id, $type, $inGr)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $measurement = $em->getRepository('BarraFrontBundle:Measurement')->find($id);
+        $measurement->setType($type)->setGr($inGr);
+        $em->flush();
+        return new Response('Success! Updated measurement');
+    }
+
+
 
 
 

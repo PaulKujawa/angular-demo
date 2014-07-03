@@ -12,7 +12,6 @@ class MeasurementController extends Controller
 {
     public function indexAction(Request $request)
     {
-        // Form
         $measurement = new Measurement();
         $form = $this->createForm(new MeasurementType(), $measurement);
         $form->handleRequest($request);
@@ -26,7 +25,6 @@ class MeasurementController extends Controller
                 return $this->redirect($this->generateUrl('barra_back_recipes'));
         }
 
-        // Overview
         $em = $this->getDoctrine()->getManager();
         $measurements = $em->getRepository('BarraFrontBundle:Measurement')->findAll();
 
@@ -49,29 +47,5 @@ class MeasurementController extends Controller
             return new Response('Measurement could not be inserted');
         }
         return null;
-    }
-
-
-    public function updateMeasurement($id, $type, $inGr)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $measurement = $em->getRepository('BarraFrontBundle:Measurement')->find($id);
-        $measurement->setType($type)->setGr($inGr);
-        $em->flush();
-        return new Response('Success! Updated measurement');
-    }
-
-
-    public function deleteMeasurementAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $measurement = $em->getRepository('BarraFrontBundle:Measurement')->find($id);
-
-        if (!$measurement)
-            throw $this->createNotFoundException('Ingredient with id '.$id.' not found');
-
-        $em->remove($measurement);
-        $em->flush();
-        return new Response('Success! Deleted measurement with id '.$id);
     }
 }

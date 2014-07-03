@@ -1,5 +1,10 @@
 {% extends '::base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/barraback/css/main.css') }}" rel="stylesheet" />
+{% endblock %}
+
 {% block navController %}
-    {{ render(controller('BarraBackBundle:Layout:nav')) }}
+    {{ render(controller('BarraBackBundle:Layout:nav', {'request': app.request})) }}
 {% endblock %}

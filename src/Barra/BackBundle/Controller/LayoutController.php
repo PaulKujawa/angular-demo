@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class LayoutController extends Controller
 {
-    public function navAction()
+    public function navAction($request)
     {
         $entries = array(
             0 => array('path'=>'barra_back_admin',          'label' => 'overview'),
@@ -15,11 +15,11 @@ class LayoutController extends Controller
             3 => array('path'=>'barra_back_ingredients',    'label' => 'ingredients'),
             4 => array('path'=>'barra_back_manufacturers',  'label' => 'manufacturers'),
             5 => array('path'=>'barra_back_measurements',   'label' => 'measurements'),
-
         );
 
         return $this->render('BarraBackBundle::nav.html.twig', array (
-           'entries'=>$entries
+            'entries'=>$entries,
+            'request'=>$request
         ));
     }
 }

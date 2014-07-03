@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class LayoutController extends Controller
 {
-    public function navAction()
+    public function navAction($request)
     {
         $entries = array(
             0 => array('path'=>'barra_front_me',         'label' => 'aboutMe'),
@@ -16,8 +16,8 @@ class LayoutController extends Controller
         );
 
         return $this->render('BarraFrontBundle::nav.html.twig', array (
-           'entries'=>$entries,
-           'count'=>0
+            'entries'=>$entries,
+            'request'=>$request
         ));
     }
 }

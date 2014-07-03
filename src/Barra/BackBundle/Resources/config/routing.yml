@@ -33,6 +33,13 @@ barra_back_manufacturers:
     path:     /{_locale}/manufacturers
     defaults: { _controller: BarraBackBundle:Manufacturer:index }
 
+
 barra_back_measurements:
     path:     /{_locale}/measurements
     defaults: { _controller: BarraBackBundle:Measurement:index }
+
+barra_back_measurements:
+    path:     /{_locale}/measurements/del/{id}
+    defaults: { _controller: BarraBackBundle:Measurement:delete }
+    requirements:
+        id: \d+

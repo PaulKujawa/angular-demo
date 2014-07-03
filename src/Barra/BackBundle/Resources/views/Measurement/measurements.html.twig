@@ -4,13 +4,25 @@
 
 {% block section %}
     <section>
-        <h1>Measurements</h1>
-        <ul>
-        {% for measurement in measurements %}
-            <li>ID: {{ measurement.id }} Type: {{ measurement.type }} In gr:{{ measurement.gr }}</li>
-        {% endfor %}
-        </ul>
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>Type</th>
+                <th>Gr</th>
+            </tr>
+            {# TODO set Contextual classes after insert/update/del #}
+            {% for measurement in measurements %}
+                <tr>
+                    <td>{{ measurement.id }}</td>
+                    <td>{{ measurement.type }}</td>
+                    <td>{{ measurement.gr }} gr</td>
+                </tr>
+            {% endfor %}
+        </table>
 
+
+
+        <div style="height: 100px"></div>
         {{ form(form) }}
     </section>
 {% endblock %}
