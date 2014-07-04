@@ -1,44 +1,3 @@
-/**
-section {
-    max-width: 980px;
-    margin: 0px auto;
-    padding-top: 112px; /* 98+14 *//*
-    padding-bottom: 84px;/* 70+14 *//*
-    background-color: white;
-}
-
-
-#loginForm {
-    margin: auto;
-    width: 28%;
-}
-
-form input, form button {
-    width: 100%;
-    height: 28px;
-    display: block;
-    border-radius: 3px;
-    font-size: 14px;
-}
-
-form input {
-    margin-bottom: 7px;
-    padding: 4px 8px;
-    border: 1px solid #ccc;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-}
-
-form button {
-    background-color: #4cae4c;
-    border-color: #4cae4c;
-    color: #ffffff;
-    cursor: pointer;
-}
-
-*/
-
-
-
 /* BODY */
 html {
     height: 100%;
@@ -56,6 +15,7 @@ body {
     position: absolute;
     right: 60px;
 }
+
 nav {
     position: fixed !important; /* BT _relative */
     width: 100%;
@@ -63,20 +23,25 @@ nav {
     text-transform: uppercase;
     background-color: #141414 !important; /* BT 3036 _.navbar-default */
 }
+
 nav li.active > a { /* BT 3959 */
     background-color: transparent !important;
     color: #ffffff !important;
 }
+
 nav ul.navbar-nav {
     margin: 0 -15px; /* BT _7.5 */
 }
+
 .navbar {
     border-radius: 0;
 }
+
 nav.navbar-default .navbar-nav > li > a:hover, #translationAnchor:hover,
 nav.navbar-default .navbar-nav > li > a:focus, #translationAnchor:focus {
     color: #fff; /* BT _#333 */
 }
+
 @media (min-width: 768px) {
     nav a {
         padding: 30px 15px !important;
@@ -102,6 +67,7 @@ section {
     padding: 70px 0 90px; /* t50, s20, b70 since linebreak */
     margin: 0 20px;
 }
+
 @media (min-width: 768px) { /* TODO content width is too large for this break point. 3 media queries necessary? */
     section {
         max-width: 974px;

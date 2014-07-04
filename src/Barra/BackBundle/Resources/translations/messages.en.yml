@@ -1,4 +1,8 @@
 back:
+  action:
+    new: New
+
+
   title:
     overview: Overview
     references: References
@@ -6,3 +10,8 @@ back:
     ingredients: Ingredients
     manufacturers: Manufacturer
     measurements: Measurements
+
+  word:
+    type: Type
+    gr: Gr
+    delete: Delete

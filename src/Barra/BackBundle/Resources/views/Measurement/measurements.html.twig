@@ -1,6 +1,6 @@
 {% extends 'BarraBackBundle::layout.html.twig' %}
-{% form_theme form 'BarraBackBundle:Form:rows.html.twig' %}
-
+{% form_theme form 'BarraBackBundle:Form:tableRow.html.twig' %}
+{% trans_default_domain "messages" %}
 
 {% block title %} vPit Measurements {% endblock %}
 
@@ -8,34 +8,28 @@
     <section>
         <table class="table table-striped">
             <tr>
-                <th>Type</th>
-                <th>Gr</th>
-                <th>Delete</th>
+                <th>{{ 'back.word.type'|trans() }}</th>
+                <th>{{ 'back.word.gr'|trans() }}</th>
+                <th>{{ 'back.word.delete'|trans() }}</th>
             </tr>
+
             {# TODO set Contextual classes after insert/update/del #}
             {% for measurement in measurements %}
                 <tr>
                     <td>{{ measurement.type }}</td>
                     <td>{{ measurement.gr }}</td>
-                    <td><a href="{{ path('barra_back_measurement_delete', {'id': measurement.id}) }}">
-                            <span class="glyphicon glyphicon-minus"></span>
-                    </a></td>
+                    <td><a href="{{ path('barra_back_measurement_delete', {'id': measurement.id}) }}"><span class="glyphicon glyphicon-minus"></span></a></td>
                 </tr>
             {% endfor %}
+
+
             <tr>
                 {{ form_start(form) }}
-                {{ form_row(form.type) }}
-                {{ form_row(form.gr) }}
-               <td> {{ form_widget(form.submit) }}</td>
-
+                    {{ form_row(form.type) }}
+                    {{ form_row(form.gr) }}
+                    {{ form_widget(form.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default btn-block glyphicon glyphicon-plus'} }) }}
                 {{ form_end(form) }}
-
             </tr>
         </table>
-
-
-
-        <div style="height: 100px"></div>
-
     </section>
 {% endblock %}

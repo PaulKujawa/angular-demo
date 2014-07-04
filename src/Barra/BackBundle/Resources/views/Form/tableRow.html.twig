@@ -1,0 +1,24 @@
+{# fieldType_part #}
+
+{% block form_row %}
+    {% spaceless %}
+        <td>
+            {{ form_label(form, null, {'label_attr': {'class': 'sr-only'}}) }}
+            {{ form_errors(form) }}
+            {{ form_widget(form, {'attr': {'class': 'form-control borderLine'}}) }}
+        </td>
+    {% endspaceless %}
+{% endblock form_row %}
+
+
+{% block button_widget %}
+    {% spaceless %}
+        <td>
+            {% if label is empty %}
+                {% set label = name|humanize %}
+            {% endif %}
+            <button type="{{ type|default('button') }}" {{ block('button_attributes') }}> {{ label|trans({}, translation_domain) }}</button>
+        </td>
+    {% endspaceless %}
+{% endblock %}
+

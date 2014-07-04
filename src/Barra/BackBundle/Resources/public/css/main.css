@@ -1,3 +1,28 @@
 .glyphicon-minus {
-    color: darkred;
+    color: #DF6C4F;
+}
+
+.glyphicon-plus {
+    color: #3C948B;
+}
+
+.btn-default {
+    border-color: #3C948B;
+    text-transform: uppercase;
+}
+
+/* TABLE FORMULAR */
+table .glyphicon { /* BT 2379 */
+    line-height: inherit;
+    position: static;
+    top: 0px;
+}
+
+.btn-default:focus,
+.btn-default:hover,
+.btn-default:active,
+.btn-default.active { /* BT 2044 */
+    border-color: #3C948B;
+    color: #3C948B;
+    background-color: #f9f9f9;
 }

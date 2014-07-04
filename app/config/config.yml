@@ -32,7 +32,7 @@ twig:
     strict_variables: "%kernel.debug%"
     form:
         resources:
-            - 'BarraBackBundle:Form:rows.html.twig' # for autoinclude
+            - 'BarraBackBundle:Form:tableRow.html.twig' # for autoinclude
 
 # Assetic Configuration
 assetic:
