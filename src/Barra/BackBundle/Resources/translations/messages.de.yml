@@ -14,3 +14,16 @@ back:
     type: Typ
     gr: Gr
     delete: Löschen
+
+
+  ingredient: #object
+    name: Name
+    vegan: Vegan
+    kcal: Kcal
+    protein: Eiweiß
+    carbs: Kohlenhydrate
+    sugar: Zucker
+    fat: Fett
+    gfat: ges. Fett
+    manufacturer: Hersteller
+

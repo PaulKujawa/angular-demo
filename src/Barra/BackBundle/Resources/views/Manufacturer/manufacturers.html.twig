@@ -1,9 +1,11 @@
 {% extends 'BarraBackBundle::layout.html.twig' %}
+{% form_theme form 'BarraBackBundle:Form:tableRow.html.twig' %}
+{% trans_default_domain "messages" %}
 
 {% block title %} vPit Recipes {% endblock %}
 
 {% block section %}
-    <section>
+    <section id="no-more-tables" class="container">
         <h1>Manufacturers</h1>
         <ul>
         {% for manufacturer in manufacturers %}

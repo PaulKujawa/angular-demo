@@ -12,8 +12,8 @@ class MeasurementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('type', 'text')
-            ->add('gr', 'integer')
+            ->add('type', 'text', array('attr'=>array('placeholder'=>'fb1')))
+            ->add('gr', 'integer', array('attr'=>array('placeholder'=>'fb2')))
             ->add('submit', 'submit')
             ->getForm();
     }
@@ -22,8 +22,7 @@ class MeasurementType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array('data_class'=>'Barra\FrontBundle\Entity\Measurement',
-            'intention' =>'measurement'
-        ));
+            'intention' =>'measurement'));
     }
 
     public function getName()

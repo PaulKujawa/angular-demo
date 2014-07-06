@@ -11,9 +11,15 @@ barra_back_admin:
     requirements:
       _locale: en|de
 
+
+
+
 barra_back_references:
     path:     /{_locale}/references
     defaults: { _controller: BarraBackBundle:Reference:index}
+
+
+
 
 barra_back_recipes:
     path:     /{_locale}/recipes
@@ -25,13 +31,27 @@ barra_back_recipe:
     requirements:
         id: \d+
 
+
+
+
 barra_back_ingredients:
     path:     /{_locale}/ingredients
     defaults: { _controller: BarraBackBundle:Ingredient:index }
 
+barra_back_ingredient_delete:
+    path:     /{_locale}/measurements/delete/{id}
+    defaults: { _controller: BarraBackBundle:Ingredient:deleteIngredient }
+    requirements:
+        id: \d+
+
+
+
+
 barra_back_manufacturers:
     path:     /{_locale}/manufacturers
     defaults: { _controller: BarraBackBundle:Manufacturer:index }
+
+
 
 
 barra_back_measurements:

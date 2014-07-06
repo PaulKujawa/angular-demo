@@ -5,31 +5,37 @@
 {% block title %} vPit Measurements {% endblock %}
 
 {% block section %}
-    <section>
+    <section id="no-more-tables" class="container">
         <table class="table table-striped">
-            <tr>
-                <th>{{ 'back.word.type'|trans() }}</th>
-                <th>{{ 'back.word.gr'|trans() }}</th>
-                <th>{{ 'back.word.delete'|trans() }}</th>
-            </tr>
-
-            {# TODO set Contextual classes after insert/update/del #}
-            {% for measurement in measurements %}
+            <thead>
                 <tr>
-                    <td>{{ measurement.type }}</td>
-                    <td>{{ measurement.gr }}</td>
-                    <td><a href="{{ path('barra_back_measurement_delete', {'id': measurement.id}) }}"><span class="glyphicon glyphicon-minus"></span></a></td>
+                    <th>{{ 'back.word.type'|trans() }}</th>
+                    <th>{{ 'back.word.gr'|trans() }}</th>
+                    <th>{{ 'back.word.delete'|trans() }}</th>
                 </tr>
-            {% endfor %}
+            </thead>
+            <tbody>
+                {# TODO set Contextual classes after insert/update/del #}
+                {% for measurement in measurements %}
+                    <tr>
+                        <td data-title={{ 'back.word.type'|trans() }}>{{ measurement.type }}</td>
+                        <td data-title={{ 'back.word.gr'|trans() }}>{{ measurement.gr }}</td>
+                        <td data-title={{ 'back.word.delete'|trans() }}>
+                            <a href="{{ path('barra_back_measurement_delete', {'id': measurement.id}) }}">
+                                <span class="glyphicon glyphicon-minus"></span>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    {{ form_start(form) }}
 
-
-            <tr>
-                {{ form_start(form) }}
-                    {{ form_row(form.type) }}
-                    {{ form_row(form.gr) }}
-                    {{ form_widget(form.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default btn-block glyphicon glyphicon-plus'} }) }}
-                {{ form_end(form) }}
-            </tr>
+                        {{ form_row(form.type, {'attr': {'placeholder': 'back.word.type'|trans()} }) }}
+                        {{ form_row(form.gr) }}
+                        {{ form_widget(form.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
+                    {{ form_end(form) }}
+                </tr>
+            </tbody>
         </table>
     </section>
 {% endblock %}

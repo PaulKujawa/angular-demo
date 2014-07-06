@@ -21,7 +21,6 @@ class IngredientType extends AbstractType
             ->add('gfat', 'number', array('precision'=>2))
             ->add('manufacturer', 'entity', array('class' => 'BarraFrontBundle:Manufacturer', 'property' => 'name'))
 
-            ->add('clear', 'reset')
             ->add('submit', 'submit')
             ->getForm();
     }

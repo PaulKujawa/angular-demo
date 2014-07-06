@@ -1,22 +1,14 @@
-.glyphicon-minus {
-    color: #DF6C4F;
-}
-
-.glyphicon-plus {
-    color: #3C948B;
-}
+/* BUTTON & ICONS */
+.glyphicon-minus { color: #DF6C4F; }
+.glyphicon-plus { color: #3C948B; }
 
 .btn-default {
+    color: #3C948B;
     border-color: #3C948B;
     text-transform: uppercase;
 }
 
-/* TABLE FORMULAR */
-table .glyphicon { /* BT 2379 */
-    line-height: inherit;
-    position: static;
-    top: 0px;
-}
+.btn { padding: 6px 12px !important; } /* BT 1991 overriden by BT .bt-block */
 
 .btn-default:focus,
 .btn-default:hover,
@@ -25,4 +17,57 @@ table .glyphicon { /* BT 2379 */
     border-color: #3C948B;
     color: #3C948B;
     background-color: #f9f9f9;
+}
+
+
+
+/* TABLE FORMULAR */
+table .btn-default { min-width: 100%; } /* instead of width by bt-block, since conflicts with td-with & padding */
+
+table input[type="radio"], input[type="checkbox"]  { margin-top: 0px; }
+
+
+
+/* TABLE MOBILE */
+@media only screen and (max-width: 768px) {
+    #no-more-tables table,
+    #no-more-tables thead,
+    #no-more-tables tbody,
+    #no-more-tables th,
+    #no-more-tables td,
+    #no-more-tables tr {
+        display: block;
+    }
+
+    #no-more-tables thead tr { /* Hide table headers at the top (not none since accessibility) */
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    #no-more-tables tr { border-bottom: 1px solid #ddd; }
+    #no-more-tables tr:last-child { border-bottom: none; }
+    #no-more-tables tbody tr:first-child td:first-child { border-top: none}
+
+
+    #no-more-tables td { /* Behave like a "row" */
+        position: relative;
+        padding-left: 50%;
+        white-space: normal;
+        text-align:left;
+    }
+
+    #no-more-tables td:before {
+        position: absolute;
+            top: 8px;
+            left: 8px;
+        padding-right: 8px;
+        text-align:left;
+        white-space: nowrap;
+        font-weight: bold;
+    }
+
+    table tr:last-child td { padding-left: 8px !important; }
+
+    #no-more-tables td:before { content: attr(data-title); }
 }

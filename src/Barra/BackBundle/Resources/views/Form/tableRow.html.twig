@@ -17,7 +17,7 @@
             {% if label is empty %}
                 {% set label = name|humanize %}
             {% endif %}
-            <button type="{{ type|default('button') }}" {{ block('button_attributes') }}> {{ label|trans({}, translation_domain) }}</button>
+            <button type="{{ type|default('button') }}" {{ block('button_attributes') }}><i class="glyphicon glyphicon-plus"></i> {{ label|trans({}, translation_domain) }}</button>
         </td>
     {% endspaceless %}
 {% endblock %}

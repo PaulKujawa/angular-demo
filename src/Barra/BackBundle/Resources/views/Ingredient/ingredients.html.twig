@@ -1,16 +1,63 @@
 {% extends 'BarraBackBundle::layout.html.twig' %}
+{% form_theme form 'BarraBackBundle:Form:tableRow.html.twig' %}
+{% trans_default_domain "messages" %}
 
-{% block title %} vPit Ingredients {% endblock %}
+{% block title %}{{ 'back.title.ingredients'|trans() }}{% endblock %}
+
 
 {% block section %}
-    <section>
-        <h1>Ingredients</h1>
-        <ul>
-        {% for ingredient in ingredients %}
-            <li> ID: {{ ingredient.id }} Name: {{ ingredient.name }}</li>
-        {% endfor %}
-        </ul>
+    <section id="no-more-tables" class="container">
 
-        {{ form(form) }}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ 'back.ingredient.name'|trans() }}</th>
+                <th>{{ 'back.ingredient.vegan'|trans() }}</th>
+                <th>{{ 'back.ingredient.kcal'|trans() }}</th>
+                <th>{{ 'back.ingredient.protein'|trans() }}</th>
+                <th>{{ 'back.ingredient.carbs'|trans() }}</th>
+                <th>{{ 'back.ingredient.sugar'|trans() }}</th>
+                <th>{{ 'back.ingredient.fat'|trans() }}</th>
+                <th>{{ 'back.ingredient.gfat'|trans() }}</th>
+                <th>{{ 'back.ingredient.manufacturer'|trans() }}</th>
+                <th>{{ 'back.word.delete'|trans() }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {# TODO set Contextual classes after insert/update/del #}
+            {% for ingredient in ingredients %}
+                <tr>
+                    <td data-title={{ 'back.ingredient.name'|trans() }}>{{ ingredient.name }}</td>
+                    <td data-title={{ 'back.ingredient.vegan'|trans() }}>{{ ingredient.vegan }}</td>
+                    <td data-title={{ 'back.ingredient.kcal'|trans() }}>{{ ingredient.kcal }}</td>
+                    <td data-title={{ 'back.ingredient.protein'|trans() }}>{{ ingredient.protein }}</td>
+                    <td data-title={{ 'back.ingredient.carbs'|trans() }}>{{ ingredient.carbs }}</td>
+                    <td data-title={{ 'back.ingredient.sugar'|trans() }}>{{ ingredient.sugar }}</td>
+                    <td data-title={{ 'back.ingredient.fat'|trans() }}>{{ ingredient.fat }}</td>
+                    <td data-title={{ 'back.ingredient.gfat'|trans() }}>{{ ingredient.gfat }}</td>
+                    <td data-title={{ 'back.ingredient.manufacturer'|trans() }}>{{ ingredient.manufacturer.name }}</td>
+                    <td data-title={{ 'back.word.delete'|trans() }}>
+                        <a href="{{ path('barra_back_ingredient_delete', {'id': ingredient.id}) }}">
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            <tr>
+                {{ form_start(form) }}
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.vegan) }}
+                    {{ form_row(form.kcal) }}
+                    {{ form_row(form.protein) }}
+                    {{ form_row(form.carbs) }}
+                    {{ form_row(form.sugar) }}
+                    {{ form_row(form.fat) }}
+                    {{ form_row(form.gfat) }}
+                    {{ form_row(form.manufacturer) }}
+                    {{ form_widget(form.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
+                {{ form_end(form) }}
+            </tr>
+            </tbody>
+        </table>
     </section>
 {% endblock %}

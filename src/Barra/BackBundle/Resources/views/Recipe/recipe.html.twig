@@ -1,11 +1,15 @@
 {% extends 'BarraBackBundle::layout.html.twig' %}
+{% form_theme form 'BarraBackBundle:Form:tableRow.html.twig' %}
+{% trans_default_domain "messages" %}
+
+
 {% form_theme formCookingStep 'BarraBackBundle:Form:recipeRow.html.twig' %}
 {% form_theme formIngredient 'BarraBackBundle:Form:recipeRow.html.twig' %}
 
 {% block title %} vPit {{ recipe.name }} {% endblock %}
 
 {% block section %}
-    <section>
+    <section id="no-more-tables" class="container">
         <h1>{{ recipe.name }}</h1>
 
         <h3>ingredients</h3>

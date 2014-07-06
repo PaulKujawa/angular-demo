@@ -53,7 +53,7 @@ Barra\FrontBundle\Entity\Recipe:
 Barra\FrontBundle\Entity\Measurement:
   properties:
     type:
-      - NotBlank: ~
+      - NotBlank: { message: "back.measurement.type.notBlank" }
       - Type: string
     gr:
       - NotBlank: ~
