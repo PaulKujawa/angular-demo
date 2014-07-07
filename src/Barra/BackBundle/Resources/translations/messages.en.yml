@@ -17,12 +17,16 @@ back:
     delete: Delete
 
   ingredient: #object
-      name: Name
-      vegan: Vegan
-      kcal: Kcal
-      protein: Protein
-      carbs: Carbs
-      sugar: Sugar
-      fat: Fat
-      gfat: sat. fat
-      manufacturer: Manufacturer
+    name: Name
+    vegan: Vegan
+    kcal: Kcal
+    protein: Protein
+    carbs: Carbs
+    sugar: Sugar
+    fat: Fat
+    gfat: sat. fat
+    manufacturer: Manufacturer
+
+  measurement:
+    type: Type
+    gr: Gr

@@ -53,13 +53,14 @@ Barra\FrontBundle\Entity\Recipe:
 Barra\FrontBundle\Entity\Measurement:
   properties:
     type:
-      - NotBlank: { message: "back.measurement.type.notBlank" }
+      - NotBlank:
       - Type: string
     gr:
       - NotBlank: ~
       - Type: integer
       - GreaterThanOrEqual:
           value: 0
+
 
 Barra\FrontBundle\Entity\RecipeIngredient:
   properties:

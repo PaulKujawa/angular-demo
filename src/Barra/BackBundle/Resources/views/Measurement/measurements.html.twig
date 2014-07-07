@@ -29,8 +29,7 @@
                 {% endfor %}
                 <tr>
                     {{ form_start(form) }}
-
-                        {{ form_row(form.type, {'attr': {'placeholder': 'back.word.type'|trans()} }) }}
+                        {{ form_row(form.type) }}
                         {{ form_row(form.gr) }}
                         {{ form_widget(form.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
                     {{ form_end(form) }}

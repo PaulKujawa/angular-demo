@@ -27,3 +27,6 @@ back:
     gfat: ges. Fett
     manufacturer: Hersteller
 
+  measurement:
+    type: Typ
+    gr: Gr
