@@ -24,8 +24,12 @@
 /* TABLE FORMULAR */
 table .btn-default { min-width: 100%; } /* instead of width by bt-block, since conflicts with td-with & padding */
 
-table input[type="radio"], input[type="checkbox"]  { margin-top: 0px; }
-
+table input[type="radio"], input[type="checkbox"]  {
+    margin-top: 0px;
+    height: 13px;
+    width: 13px;
+    margin: 0 auto;
+}
 
 
 /* TABLE MOBILE */
