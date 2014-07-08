@@ -12,7 +12,6 @@ class ManufacturerController extends Controller
 {
     public function indexAction(Request $request)
     {
-        // Form
         $manufacturer = new Manufacturer();
         $form = $this->createForm(new ManufacturerType(), $manufacturer);
         $form->handleRequest($request);
@@ -20,7 +19,6 @@ class ManufacturerController extends Controller
         if ($form->isValid()) {
             if ($form->get('submit')->isClicked())
                 $sqlError = $this->newManufacturer($manufacturer);
-            // else DB update
 
             if ($sqlError)
                 return new Response($sqlError);
@@ -28,7 +26,6 @@ class ManufacturerController extends Controller
                 return $this->redirect($this->generateUrl('barra_back_ingredients'));
         }
 
-        // Overview
         $em = $this->getDoctrine()->getManager();
         $manufacturers = $em->getRepository('BarraFrontBundle:Manufacturer')->findAll();
 
@@ -53,15 +50,6 @@ class ManufacturerController extends Controller
     }
 
 
-    public function updateManufacturer($id, $name)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $Manufacturer = $em->getRepository('BarraFrontBundle:Manufacturer')->find($id);
-        $Manufacturer->setName($name);
-        $em->flush();
-        return new Response('Success! Updated manufacturer');
-    }
-
 
     public function deleteManufacturerAction($id)
     {
@@ -69,11 +57,15 @@ class ManufacturerController extends Controller
         $manufacturer = $em->getRepository('BarraFrontBundle:Manufacturer')->find($id);
 
         if (!$manufacturer)
-            throw $this->createNotFoundException('Manufacturer with id '.$id.' not found');
-
-        $tmp = $manufacturer->getId();
+            throw $this->createNotFoundException('Manufacturer not found');
         $em->remove($manufacturer);
-        $em->flush();
-        return new Response('Success! Deleted manufacturer with id '.$tmp);
+
+        try {
+            $em->flush();
+        } catch (\Doctrine\DBAL\DBALException $e) {
+            return new Response('Manufacturer could not be deleted');
+        }
+
+        return $this->redirect($this->generateUrl('barra_back_manufacturers'));
     }
 }

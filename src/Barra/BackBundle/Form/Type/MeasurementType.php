@@ -12,8 +12,8 @@ class MeasurementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('type', 'text', array('attr'=>array('placeholder'=>'fb1')))
-            ->add('gr', 'integer', array('attr'=>array('placeholder'=>'fb2')))
+            ->add('type', 'text', array('attr'=>array('placeholder'=>'back.measurement.type')))
+            ->add('gr', 'integer', array('attr'=>array('placeholder'=>'back.measurement.gr')))
             ->add('submit', 'submit')
             ->getForm();
     }

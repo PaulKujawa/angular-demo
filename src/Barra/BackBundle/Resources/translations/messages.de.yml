@@ -1,6 +1,7 @@
 back:
   action:
     new: Neu
+    delete: Löschen
 
   title:
     overview: Übersicht
@@ -9,12 +10,6 @@ back:
     ingredients: Zutaten
     manufacturers: Hersteller
     measurements: Messeinheit
-
-  word:
-    type: Typ
-    gr: Gr
-    delete: Löschen
-
 
   ingredient: #object
     name: Name
@@ -27,3 +22,10 @@ back:
     gfat: ges. Fett
     manufacturer: Hersteller
 
+
+  measurement: #object
+    type: Typ
+    gr: Gr
+
+  manufacturer: #object
+    name: Name

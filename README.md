@@ -383,3 +383,27 @@ $response
             $em->flush();
             return new Response('Success! Deleted cooking step');
         }
+
+
+
+
+    public function updateReference($company, $website, $description, $started, $finished)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $reference = $em->getRepository('BarraFrontBundle:Reference')->findOneBy(array(
+                'company'=>$company, 'website'=>$website)
+        );
+        $reference->setCompany($company)->setWebsite($website)->setDescription($description)
+            ->setStarted(new \DateTime($started))->setFinished(new \DateTime($finished));
+        $em->flush();
+        return new Response('Success! Updated reference');
+    }
+
+    public function updateManufacturer($id, $name)
+        {
+            $em = $this->getDoctrine()->getManager();
+            $Manufacturer = $em->getRepository('BarraFrontBundle:Manufacturer')->find($id);
+            $Manufacturer->setName($name);
+            $em->flush();
+            return new Response('Success! Updated manufacturer');
+        }

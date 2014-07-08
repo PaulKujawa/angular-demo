@@ -1,7 +1,7 @@
 back:
   action:
     new: New
-
+    delete: Delete
 
   title:
     overview: Overview
@@ -11,18 +11,20 @@ back:
     manufacturers: Manufacturer
     measurements: Measurements
 
-  word:
+  ingredient: #object
+    name: Name
+    vegan: Vegan
+    kcal: Kcal
+    protein: Protein
+    carbs: Carbs
+    sugar: Sugar
+    fat: Fat
+    gfat: sat. fat
+    manufacturer: Manufacturer
+
+  measurement: #object
     type: Type
     gr: Gr
-    delete: Delete
 
-  ingredient: #object
-      name: Name
-      vegan: Vegan
-      kcal: Kcal
-      protein: Protein
-      carbs: Carbs
-      sugar: Sugar
-      fat: Fat
-      gfat: sat. fat
-      manufacturer: Manufacturer
+  manufacturer: #object
+    name: Name

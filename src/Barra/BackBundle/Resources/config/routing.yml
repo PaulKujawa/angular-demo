@@ -51,6 +51,11 @@ barra_back_manufacturers:
     path:     /{_locale}/manufacturers
     defaults: { _controller: BarraBackBundle:Manufacturer:index }
 
+barra_back_manufacturer_delete:
+    path:     /{_locale}/manufacturers/delete/{id}
+    defaults: { _controller: BarraBackBundle:Manufacturer:deleteManufacturer }
+    requirements:
+        id: \d+
 
 
 

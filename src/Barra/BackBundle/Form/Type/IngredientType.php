@@ -11,16 +11,15 @@ class IngredientType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text')
+            ->add('name', 'text', array('attr'=>array('placeholder'=>'back.ingredient.name')))
             ->add('vegan', 'checkbox', array('required'=>false))
-            ->add('kcal', 'number', array('precision'=>2))
-            ->add('protein', 'number', array('precision'=>2))
-            ->add('carbs', 'number', array('precision'=>2))
-            ->add('sugar', 'number', array('precision'=>2))
-            ->add('fat', 'number', array('precision'=>2))
-            ->add('gfat', 'number', array('precision'=>2))
+            ->add('kcal', 'number', array('precision'=>2, 'attr'=>array('placeholder'=>'back.ingredient.kcal')))
+            ->add('protein', 'number', array('precision'=>2, 'attr'=>array('placeholder'=>'back.ingredient.protein')))
+            ->add('carbs', 'number', array('precision'=>2, 'attr'=>array('placeholder'=>'back.ingredient.carbs')))
+            ->add('sugar', 'number', array('precision'=>2, 'attr'=>array('placeholder'=>'back.ingredient.sugar')))
+            ->add('fat', 'number', array('precision'=>2, 'attr'=>array('placeholder'=>'back.ingredient.fat')))
+            ->add('gfat', 'number', array('precision'=>2, 'attr'=>array('placeholder'=>'back.ingredient.gfat')))
             ->add('manufacturer', 'entity', array('class' => 'BarraFrontBundle:Manufacturer', 'property' => 'name'))
-
             ->add('submit', 'submit')
             ->getForm();
     }
