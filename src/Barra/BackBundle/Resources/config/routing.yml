@@ -1,12 +1,5 @@
-barra_back_admin_redirect:
-    path: /
-    defaults:
-      _controller: FrameworkBundle:Redirect:redirect
-      route: barra_back_admin
-      permanent: true
-
 barra_back_admin:
-    path:     /{_locale}
+    path:     /
     defaults: { _controller: BarraBackBundle:Admin:index }
     requirements:
       _locale: en|de
@@ -15,19 +8,30 @@ barra_back_admin:
 
 
 barra_back_references:
-    path:     /{_locale}/references
+    path:     /references
     defaults: { _controller: BarraBackBundle:Reference:index}
+
+barra_back_reference_delete:
+    path:     /reference/delete/{website}
+    defaults: { _controller: BarraBackBundle:Reference:deleteReference }
+
 
 
 
 
 barra_back_recipes:
-    path:     /{_locale}/recipes
+    path:     /recipes
     defaults: { _controller: BarraBackBundle:Recipes:index }
 
 barra_back_recipe:
-    path:     /{_locale}/recipe/{id}
+    path:     /recipe/{id}
     defaults: { _controller: BarraBackBundle:Recipe:index, id: 1 }
+    requirements:
+        id: \d+
+
+barra_back_recipe_delete:
+    path:     /recipe/delete/{id}
+    defaults: { _controller: BarraBackBundle:Recipes:deleteRecipe }
     requirements:
         id: \d+
 
@@ -35,11 +39,11 @@ barra_back_recipe:
 
 
 barra_back_ingredients:
-    path:     /{_locale}/ingredients
+    path:     /ingredients
     defaults: { _controller: BarraBackBundle:Ingredient:index }
 
 barra_back_ingredient_delete:
-    path:     /{_locale}/measurements/delete/{id}
+    path:     /ingredients/delete/{id}
     defaults: { _controller: BarraBackBundle:Ingredient:deleteIngredient }
     requirements:
         id: \d+
@@ -48,11 +52,11 @@ barra_back_ingredient_delete:
 
 
 barra_back_manufacturers:
-    path:     /{_locale}/manufacturers
+    path:     /manufacturers
     defaults: { _controller: BarraBackBundle:Manufacturer:index }
 
 barra_back_manufacturer_delete:
-    path:     /{_locale}/manufacturers/delete/{id}
+    path:     /manufacturers/delete/{id}
     defaults: { _controller: BarraBackBundle:Manufacturer:deleteManufacturer }
     requirements:
         id: \d+
@@ -60,11 +64,11 @@ barra_back_manufacturer_delete:
 
 
 barra_back_measurements:
-    path:     /{_locale}/measurements
+    path:     /measurements
     defaults: { _controller: BarraBackBundle:Measurement:index }
 
 barra_back_measurement_delete:
-    path:     /{_locale}/measurements/delete/{id}
+    path:     /measurements/delete/{id}
     defaults: { _controller: BarraBackBundle:Measurement:deleteMeasurement }
     requirements:
         id: \d+

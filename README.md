@@ -294,27 +294,6 @@ $response
         }
 
 
-        public function deleteRecipeAction($id)
-        {
-            $em = $this->getDoctrine()->getManager();
-            $recipe = $em->getRepository('BarraFrontBundle:Recipe')->find($id);
-
-            if (!$recipe)
-                throw $this->createNotFoundException('Recipe with id '.$id.' not found');
-
-            $em->remove($recipe);
-            $em->flush();
-            return new Response('Success! Deleted recipe with id '.$id);
-        }
-
-
-
-
-
-
-
-
-
 
         public function updateRecipeIngredient($id, $recipe, $ingredient, $position, $measurement, $amount)
         {

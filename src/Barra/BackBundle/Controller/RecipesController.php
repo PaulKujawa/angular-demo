@@ -34,7 +34,7 @@ class RecipesController extends Controller
 
         return $this->render('BarraBackBundle:Recipe:recipes.html.twig', array(
             'recipes' => $recipes,
-            'formNew' => $form->createView()
+            'form' => $form->createView()
         ));
     }
 
@@ -50,5 +50,24 @@ class RecipesController extends Controller
             return new Response('Recipe could not be inserted');
         }
         return null;
+    }
+
+
+    public function deleteRecipeAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $recipe = $em->getRepository('BarraFrontBundle:Recipe')->find($id);
+
+        if (!$recipe)
+            throw $this->createNotFoundException('Recipe with id '.$id.' not found');
+        $em->remove($recipe);
+
+        try {
+            $em->flush();
+        } catch (\Doctrine\DBAL\DBALException $e) {
+            return new Response('Recipe could not be deleted');
+        }
+
+        return $this->redirect($this->generateUrl('barra_back_recipes'));
     }
 }

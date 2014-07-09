@@ -1,12 +1,5 @@
-barra_front_me_redirect:
-    path: /
-    defaults:
-      _controller: FrameworkBundle:Redirect:redirect
-      route: barra_front_me
-      permanent: true
-
 barra_front_me:
-    path:     /{_locale}
+    path:     /
     defaults: { _controller: BarraFrontBundle:Me:index }
     requirements:
       _locale: en|de
@@ -15,11 +8,11 @@ barra_front_me:
 
 
 barra_front_references:
-    path:     /{_locale}/references
+    path:     /references
     defaults: { _controller: BarraFrontBundle:Reference:index }
 
 barra_front_reference:
-    path:     /{_locale}/reference/{id}
+    path:     /reference/{id}
     defaults: { _controller: BarraFrontBundle:Reference:showReference, id: 1 }
     requirements:
       id: \d+
@@ -28,11 +21,11 @@ barra_front_reference:
 
 
 barra_front_recipes:
-    path:     /{_locale}/recipes
+    path:     /recipes
     defaults: { _controller: BarraFrontBundle:Recipe:index }
 
 barra_front_recipe:
-    path:     /{_locale}/recipe/{id}
+    path:     /recipe/{id}
     defaults: { _controller: BarraFrontBundle:Recipe:showRecipe, id: 1 }
     requirements:
       id: \d+
@@ -41,6 +34,6 @@ barra_front_recipe:
 
 
 barra_front_contact:
-    path:     /{_locale}/contact
+    path:     /contact
     defaults: { _controller: BarraFrontBundle:Contact:index }
 

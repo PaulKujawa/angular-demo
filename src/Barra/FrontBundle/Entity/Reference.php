@@ -13,37 +13,31 @@ use Doctrine\ORM\Mapping as ORM;
 class Reference
 {
     /**
-     * @var string
-     * @ORM\Id
      * @ORM\Column(name="company", type="string", length=30, nullable=false)
      */
     private $company;
 
     /**
-     * @var string
      * @ORM\Id
      * @ORM\Column(name="website", type="string", length=30, nullable=false)
      */
     private $website;
 
     /**
-     * @var string
      * @ORM\Column(name="description", type="string", length=30, nullable=false)
      */
     private $description;
 
     /**
-     * @var \DateTime
      * @ORM\Column(name="started", type="date", nullable=false)
      */
     private $started;
 
     /**
-     * @var \DateTime
      * @ORM\Column(name="finished", type="date", nullable=false)
      */
     private $finished;
-
+ 
     /**
      * Set company
      *

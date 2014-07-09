@@ -2,19 +2,38 @@
 {% form_theme form 'BarraBackBundle:Form:tableRow.html.twig' %}
 {% trans_default_domain "messages" %}
 
-{% block title %} vPit Recipes {% endblock %}
+{% block title %}{{ 'back.title.recipes'|trans() }}{% endblock %}
 
 {% block section %}
     <section id="no-more-tables" class="container">
-        {{ form(formNew) }}
-
-        <h1>all recipes</h1>
-        <ul>
-        {% for recipe in recipes %}
-            <li>
-                <a href="{{ path('barra_back_recipe', {'id': recipe.id}) }}">{{ recipe.name }}</a>
-            </li>
-        {% endfor %}
-        </ul>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ 'back.recipe.name'|trans() }}</th>
+                <th>{{ 'back.action.delete'|trans() }}</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for recipe in recipes %}
+                    <tr>
+                        <td data-title={{ 'back.recipe.name'|trans() }}>{{ recipe.name }}</td>
+                        <td data-title={{ 'back.action.delete'|trans() }}>
+                            <a href="{{ path('barra_back_recipe_delete', {'id': recipe.id}) }}">
+                                <span class="glyphicon glyphicon-minus"></span>
+                            </a>
+                            <a href="{{ path('barra_back_recipe', {'id': recipe.id}) }}">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    {{ form_start(form) }}
+                        {{ form_row(form.name) }}
+                        {{ form_widget(form.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
+                    {{ form_end(form) }}
+                </tr>
+            </tbody>
+        </table>
     </section>
 {% endblock %}

@@ -2,6 +2,7 @@ back:
   action:
     new: New
     delete: Delete
+    logout: Logout
 
   title:
     overview: Overview
@@ -10,6 +11,7 @@ back:
     ingredients: Ingredients
     manufacturers: Manufacturer
     measurements: Measurements
+    references: References
 
   ingredient: #object
     name: Name
@@ -28,3 +30,15 @@ back:
 
   manufacturer: #object
     name: Name
+
+  recipe:
+    name: Name
+
+  reference:
+    website: Website
+    company: Company
+    description: Description
+    started: Started
+    finished: Finished
+    startedPlaceholder: from dd.mm.yyyy
+    finishedPlaceholder: until dd.mm.yyyy

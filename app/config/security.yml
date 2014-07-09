@@ -1,17 +1,17 @@
 security:
     firewalls:
         secured_area:
-            pattern:   ^/admino/
+            pattern:   ^/[a-z][a-z]/admino/
             anonymous: ~
             form_login:
-                login_path:           barra_login
-                check_path:           barra_login_check
-                default_target_path:  barra_back
+                login_path:           barra_security_login
+                check_path:           barra_security_login_check
+                default_target_path:  barra_back_admin
                 csrf_provider:        form.csrf_provider
                 intention:            loginToken
             logout:
-                path:                 barra_logout
-                target:               /
+                path:                 barra_security_logout
+                target:               barra_front_me
             http_basic:
                 realm: "Secured Demo Area"
 
@@ -19,9 +19,6 @@ security:
 #            pattern:  ^/(_(profiler|wdt)|css|images|js)/
 #            security: false
 
-#        login:
-#            pattern:  ^/demo/secured/login$
-#            security: false
 
 
 #    role_hierarchy:
@@ -29,8 +26,8 @@ security:
 #        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     access_control:
-        - { path: ^/admino/login, roles: IS_AUTHENTICATED_ANONYMOUSLY } #requires_channel: https }
-        - { path: ^/admino/, roles: ROLE_ADMIN }
+        - { path: ^/[a-z][a-z]/admino/login, roles: IS_AUTHENTICATED_ANONYMOUSLY } #requires_channel: https }
+        - { path: ^/[a-z][a-z]/admino/, roles: ROLE_ADMIN }
 
     providers:
         in_memory:

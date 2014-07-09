@@ -1,9 +1,11 @@
-barra_login:
+barra_security_login:
     path: /login
     defaults: { _controller: BarraSecurityBundle:Security:login }
+    requirements:
+      _locale: en|de
 
-barra_login_check:
+barra_security_login_check:
     path: /login_check
 
-barra_logout:
+barra_security_logout:
     path: /logout

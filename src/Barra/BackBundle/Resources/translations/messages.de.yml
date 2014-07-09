@@ -2,6 +2,7 @@ back:
   action:
     new: Neu
     delete: Löschen
+    logout: Abmelden
 
   title:
     overview: Übersicht
@@ -10,6 +11,7 @@ back:
     ingredients: Zutaten
     manufacturers: Hersteller
     measurements: Messeinheit
+    references: Referenzen
 
   ingredient: #object
     name: Name
@@ -28,3 +30,15 @@ back:
 
   manufacturer: #object
     name: Name
+
+  recipe:
+    name: Name
+
+  reference:
+    website: Webseite
+    company: Firma
+    description: Beschreibung
+    started: Begonnen
+    finished: Abgeschlossen
+    startedPlaceholder: von tt.mm.jjjj
+    finishedPlaceholder: bis tt.mm.jjjj

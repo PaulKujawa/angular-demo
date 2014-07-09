@@ -1,1 +1,6 @@
 {% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/barrasecurity/css/main.css') }}" rel="stylesheet" />
+{% endblock %}

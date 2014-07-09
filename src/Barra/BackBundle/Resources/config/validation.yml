@@ -9,7 +9,6 @@ Barra\FrontBundle\Entity\Ingredient:
       - NotBlank: ~
       - Type: string
     vegan:
-      - NotBlank: ~
       - Type: bool
     kcal:
       - NotBlank: ~
@@ -68,6 +67,7 @@ Barra\FrontBundle\Entity\RecipeIngredient:
       - NotBlank: { groups: [recipeIngredient] }
       - Type: { type: integer , groups: [recipeIngredient] }
       - GreaterThanOrEqual: { value: 0, groups: [recipeIngredient] }
+
 
 Barra\FrontBundle\Entity\CookingStep:
   properties:

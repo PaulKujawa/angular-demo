@@ -13,8 +13,6 @@ class RecipeType extends AbstractType
     {
         $builder
             ->add('name', 'text')
-
-            ->add('clear', 'reset')
             ->add('submit', 'submit')
             ->getForm();
     }

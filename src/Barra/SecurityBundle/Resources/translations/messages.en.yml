@@ -1,0 +1,10 @@
+security:
+  action:
+    login: Login
+
+  title:
+    login: Login
+
+  word:
+    name: Name
+    password: Password

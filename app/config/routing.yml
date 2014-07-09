@@ -1,12 +1,23 @@
+barra_front_me_redirect:
+    path: /
+    defaults:
+      _controller: FrameworkBundle:Redirect:redirect
+      route: barra_front_me
+      permanent: true
+
+
+
 barra_front:
     resource: "@BarraFrontBundle/Resources/config/routing.yml"
-    prefix:   /
-
-barra_back:
-    resource: "@BarraBackBundle/Resources/config/routing.yml"
-    prefix:   /admino
+    prefix:   /{_locale}
 
 barra_security:
     resource: "@BarraSecurityBundle/Resources/config/routing.yml"
-    prefix:   /admino
+    prefix:   /{_locale}/admino
+
+barra_back:
+    resource: "@BarraBackBundle/Resources/config/routing.yml"
+    prefix:   /{_locale}/admino
+
+
 
