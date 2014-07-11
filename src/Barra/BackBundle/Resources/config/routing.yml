@@ -21,19 +21,36 @@ barra_back_reference_delete:
 
 barra_back_recipes:
     path:     /recipes
-    defaults: { _controller: BarraBackBundle:Recipes:index }
+    defaults: { _controller: BarraBackBundle:Recipe:index }
 
 barra_back_recipe:
     path:     /recipe/{id}
-    defaults: { _controller: BarraBackBundle:Recipe:index, id: 1 }
+    defaults: { _controller: BarraBackBundle:RecipeDetail:index, id: 1 }
     requirements:
         id: \d+
 
 barra_back_recipe_delete:
     path:     /recipe/delete/{id}
-    defaults: { _controller: BarraBackBundle:Recipes:deleteRecipe }
+    defaults: { _controller: BarraBackBundle:Recipe:deleteRecipe }
     requirements:
         id: \d+
+
+
+
+
+barra_back_recipeDetail_ingredient_delete:
+    path:     /recipe/ingredient/delete/{recipeId}/{ingredientId}
+    defaults: { _controller: BarraBackBundle:RecipeDetail:deleteIngredient }
+    requirements:
+        recipeId: \d+
+        ingredientId: \d+
+
+barra_back_recipeDetail_cookingStep_delete:
+    path:     /recipe/cookingStep/delete/{recipeId}/{step}
+    defaults: { _controller: BarraBackBundle:RecipeDetail:deleteCookingStep }
+    requirements:
+        recipeId: \d+
+        step: \d+
 
 
 
@@ -60,6 +77,7 @@ barra_back_manufacturer_delete:
     defaults: { _controller: BarraBackBundle:Manufacturer:deleteManufacturer }
     requirements:
         id: \d+
+
 
 
 

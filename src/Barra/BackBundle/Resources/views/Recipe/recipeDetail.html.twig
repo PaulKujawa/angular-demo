@@ -1,0 +1,90 @@
+{% extends 'BarraBackBundle::layout.html.twig' %}
+{% form_theme formIngredient 'BarraBackBundle:Form:tableRow.html.twig' %}
+{% form_theme formCookingStep 'BarraBackBundle:Form:tableRow.html.twig' %}
+{% trans_default_domain "messages" %}
+
+{% block title %}{{ recipe.name }}{% endblock %}
+
+{% block section %}
+    <section id="no-more-tables" class="container">
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ 'back.recipeIngredient.amount'|trans() }}</th>
+                <th>{{ 'back.measurement.type'|trans() }}</th>
+                <th>{{ 'back.word.ingredient'|trans() }}</th>
+                <th>{{ 'back.action.delete'|trans() }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for recipeIngredient in recipeIngredients %}
+                <tr>
+                    <td data-title={{ 'back.recipeIngredient.amount'|trans() }}>{{ recipeIngredient.amount }}</td>
+                    <td data-title={{ 'back.measurement.type'|trans() }}>{{ recipeIngredient.measurement.type }}</td>
+                    <td data-title={{ 'back.ingredient.name'|trans() }}>{{ recipeIngredient.ingredient.name }}</td>
+                    <td data-title={{ 'back.action.delete'|trans() }}>
+                        <a href="{{ path('barra_back_recipeDetail_ingredient_delete', {'recipeId': recipe.id, 'ingredientId': recipeIngredient.ingredient.id}) }}">
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            <tr>
+                {{ form_start(formIngredient) }}
+                    {{ form_row(formIngredient.amount) }}
+                    {{ form_row(formIngredient.measurement) }}
+                    {{ form_row(formIngredient.ingredient) }}
+                    {{ form_widget(formIngredient.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
+                {{ form_end(formIngredient) }}
+            </tr>
+            </tbody>
+        </table>
+
+
+
+
+
+
+        <div style="margin-bottom: 200px"></div>
+
+
+
+
+
+
+
+
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ 'back.cookingStep.step'|trans() }}</th>
+                <th>{{ 'back.cookingStep.description'|trans() }}</th>
+                <th>{{ 'back.action.delete'|trans() }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for cookingStep in cookingSteps %}
+                <tr>
+                    <td data-title={{ 'back.cookingStep.step'|trans() }}>{{ cookingStep.step }}</td>
+                    <td data-title={{ 'back.cookingStep.description'|trans() }}>{{ cookingStep.description }}</td>
+                    <td data-title={{ 'back.action.delete'|trans() }}>
+                        <a href="{{ path('barra_back_recipeDetail_cookingStep_delete', {'recipeId': recipe.id, 'step': cookingStep.step}) }}">
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            <tr>
+                {{ form_start(formCookingStep) }}
+                    {{ form_row(formCookingStep.step) }}
+                    {{ form_row(formCookingStep.description) }}
+                    {{ form_widget(formCookingStep.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
+                {{ form_end(formCookingStep) }}
+            </tr>
+            </tbody>
+        </table>
+
+    </section>
+{% endblock %}

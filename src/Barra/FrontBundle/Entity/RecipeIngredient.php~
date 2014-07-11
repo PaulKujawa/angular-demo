@@ -16,7 +16,7 @@ class RecipeIngredient
      * @var integer
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Recipe", inversedBy="RecipeIngredient")
-     * @ORM\JoinColumn(name="recipe", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="recipe", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $recipe;
 

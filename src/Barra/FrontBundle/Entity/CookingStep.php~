@@ -30,7 +30,7 @@ class CookingStep
      * @var string
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Recipe")
-     * @ORM\JoinColumn(name="recipe", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="recipe", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $recipe;
 

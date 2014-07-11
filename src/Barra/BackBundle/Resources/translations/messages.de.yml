@@ -31,10 +31,10 @@ back:
   manufacturer: #object
     name: Name
 
-  recipe:
+  recipe: #object
     name: Name
 
-  reference:
+  reference: #object
     website: Webseite
     company: Firma
     description: Beschreibung
@@ -42,3 +42,13 @@ back:
     finished: Abgeschlossen
     startedPlaceholder: von tt.mm.jjjj
     finishedPlaceholder: bis tt.mm.jjjj
+
+  cookingStep: #object
+    step: Schritt
+    description: Beschreibung
+
+  recipeIngredient: #object
+    amount: Menge
+
+  word:
+    ingredient: Zutat

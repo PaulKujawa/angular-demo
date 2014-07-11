@@ -263,26 +263,14 @@ $response
 
 
 
-    public function updateMeasurement($id, $type, $inGr)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $measurement = $em->getRepository('BarraFrontBundle:Measurement')->find($id);
-        $measurement->setType($type)->setGr($inGr);
-        $em->flush();
-        return new Response('Success! Updated measurement');
-    }
-
-
-
-
-
-
-
-
-
-
-
-
+        public function updateMeasurement($id, $type, $inGr)
+        {
+            $em = $this->getDoctrine()->getManager();
+            $measurement = $em->getRepository('BarraFrontBundle:Measurement')->find($id);
+            $measurement->setType($type)->setGr($inGr);
+            $em->flush();
+            return new Response('Success! Updated measurement');
+        }
 
         public function updateRecipe($id, $name, $ingredient, $measurement, $amount, $firstCookingStep)
         {
@@ -292,8 +280,6 @@ $response
             $em->flush();
             return new Response('Success! Updated recipe');
         }
-
-
 
         public function updateRecipeIngredient($id, $recipe, $ingredient, $position, $measurement, $amount)
         {
@@ -305,36 +291,15 @@ $response
             return new Response('Success! Updated relation');
         }
 
-
-        public function deleteRecipeIngredientAction($id)
+         public function updateIngredient($id, $name, $vegan, $kcal, $protein, $carbs, $sugar, $fat, $gfat, $manufacturer)
         {
             $em = $this->getDoctrine()->getManager();
-            $recipeIngredient = $em->getRepository('BarraFrontBundle:RecipeIngredient')->find($id);
-
-            if (!$recipeIngredient)
-                throw $this->createNotFoundException('Relation with id '.$id.' not found');
-
-            $em->remove($recipeIngredient);
+            $ingredient = $em->getRepository('BarraFrontBundle:Ingredient')->find($id);
+            $ingredient->setName($name)->setVegan($vegan)->setKcal($kcal)->setProtein($protein)->setCarbs($carbs)
+                ->setSugar($sugar)->setFat($fat)->setGfat($gfat)->setManufacturer($manufacturer);
             $em->flush();
-            return new Response('Success! Deleted relation with id '.$id);
+            return new Response('Success! Updated Ingredient');
         }
-
-
-
-   public function updateIngredient($id, $name, $vegan, $kcal, $protein, $carbs, $sugar, $fat, $gfat, $manufacturer)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $ingredient = $em->getRepository('BarraFrontBundle:Ingredient')->find($id);
-        $ingredient->setName($name)->setVegan($vegan)->setKcal($kcal)->setProtein($protein)->setCarbs($carbs)
-            ->setSugar($sugar)->setFat($fat)->setGfat($gfat)->setManufacturer($manufacturer);
-        $em->flush();
-        return new Response('Success! Updated Ingredient');
-    }
-
-
-
-
-
 
         public function updateCookingStep($recipe, $step, $description)
         {
@@ -347,38 +312,19 @@ $response
             return new Response('Success! Updated cooking step');
         }
 
-
-        public function deleteCookingStepAction($recipe, $step)
+        public function updateReference($company, $website, $description, $started, $finished)
         {
             $em = $this->getDoctrine()->getManager();
-            $cooking = $em->getRepository('BarraFrontBundle:CookingStep')->findOneBy(array(
-                    'recipe'=>$recipe, 'step'=>$step)
+            $reference = $em->getRepository('BarraFrontBundle:Reference')->findOneBy(array(
+                    'company'=>$company, 'website'=>$website)
             );
-
-            if (!$cooking)
-                throw $this->createNotFoundException('Cooking step not found');
-
-            $em->remove($cooking);
+            $reference->setCompany($company)->setWebsite($website)->setDescription($description)
+                ->setStarted(new \DateTime($started))->setFinished(new \DateTime($finished));
             $em->flush();
-            return new Response('Success! Deleted cooking step');
+            return new Response('Success! Updated reference');
         }
 
-
-
-
-    public function updateReference($company, $website, $description, $started, $finished)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $reference = $em->getRepository('BarraFrontBundle:Reference')->findOneBy(array(
-                'company'=>$company, 'website'=>$website)
-        );
-        $reference->setCompany($company)->setWebsite($website)->setDescription($description)
-            ->setStarted(new \DateTime($started))->setFinished(new \DateTime($finished));
-        $em->flush();
-        return new Response('Success! Updated reference');
-    }
-
-    public function updateManufacturer($id, $name)
+        public function updateManufacturer($id, $name)
         {
             $em = $this->getDoctrine()->getManager();
             $Manufacturer = $em->getRepository('BarraFrontBundle:Manufacturer')->find($id);
