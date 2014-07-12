@@ -12,7 +12,6 @@ class IngredientController extends Controller
 {
     public function indexAction(Request $request)
     {
-        // Form
         $ingredient = new Ingredient();
         $form = $this->createForm(new IngredientType(), $ingredient);
         $form->handleRequest($request);
@@ -26,7 +25,6 @@ class IngredientController extends Controller
                 return $this->redirect($this->generateUrl('barra_back_recipes'));
         }
 
-        // Overview
         $em = $this->getDoctrine()->getManager();
         $ingredients = $em->getRepository('BarraFrontBundle:Ingredient')->findAll();
 
