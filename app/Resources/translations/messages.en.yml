@@ -1,0 +1,7 @@
+app:
+  message:
+    errorpaggeHeadline: DAMN! An Error Occurred
+    errorpageInfotext: Sorry, I have a %code% for you. That stands for '%text%'.
+
+  word:
+    startpage: Startpage

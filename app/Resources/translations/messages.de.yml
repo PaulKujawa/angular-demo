@@ -1,0 +1,7 @@
+app:
+  message:
+    errorpageHeadline: Verdammt! Ein Fehler kam auf
+    errorpageInfotext: Leider habe ich eine %code% für dich. Das steht für '%text%'.
+
+  word:
+    startpage: Startseite

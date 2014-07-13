@@ -1,0 +1,14 @@
+{% extends '::base.html.twig' %}
+{% trans_default_domain "messages" %}
+{% block title %}404{% endblock %}
+
+{% block languageBtn %}{% endblock %}
+
+{% block section %}
+    <section class="container">
+        <h1>{{ 'app.message.errorpageHeadline'|trans() }}</h1>
+        <h2>{{ 'app.message.errorpageInfotext'|trans({'%code%':status_code, '%text%':status_text}) }}</h2>
+        
+        <a href="{{ path('barra_front_me') }}">{{ 'app.word.startpage'|trans() }}</a>
+    </section>
+{% endblock %}
