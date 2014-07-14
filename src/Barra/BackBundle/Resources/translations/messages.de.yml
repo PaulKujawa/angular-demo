@@ -1,33 +1,32 @@
 back:
   action:
-    new: Neu
     delete: Löschen
     logout: Abmelden
     manage: Bearbeiten
+    new: Neu
 
   title:
-    overview: Übersicht
-    references: Referenzen
-    recipes: Rezepte
     ingredients: Zutaten
     manufacturers: Hersteller
     measurements: Messeinheiten
+    recipes: Rezepte
     references: Referenzen
+    overview: Übersicht
 
   ingredient: #object
-    name: Name
-    vegan: Vegan
-    kcal: Kcal
-    protein: Eiweiß
     carbs: Kohlenhydrate
-    sugar: Zucker
     fat: Fett
+    kcal: Kcal
     gfat: ges. Fett
     manufacturer: Hersteller
+    name: Name
+    protein: Eiweiß
+    sugar: Zucker
+    vegan: Vegan
 
   measurement: #object
-    type: Typ
     gr: Gr
+    type: Typ
 
   manufacturer: #object
     name: Name
@@ -36,17 +35,17 @@ back:
     name: Name
 
   reference: #object
-    website: Webseite
     company: Firma
     description: Beschreibung
-    started: Begonnen
     finished: Abgeschlossen
-    startedPlaceholder: von tt.mm.jjjj
     finishedPlaceholder: bis tt.mm.jjjj
+    started: Begonnen
+    startedPlaceholder: von tt.mm.jjjj
+    website: Webseite
 
   cookingStep: #object
-    step: Schritt
     description: Beschreibung
+    step: Schritt
 
   recipeIngredient: #object
     amount: Menge

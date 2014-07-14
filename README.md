@@ -1,41 +1,8 @@
-Symfony Standard Edition
-========================
+Kujawa / vpit
+==============
 
-2) Checking your System Configuration
--------------------------------------
-
-Before starting coding, make sure that your local system is properly
-configured for Symfony.
-
-Execute the `check.php` script from the command line:
-
-    php app/check.php
-
-The script returns a status code of `0` if all mandatory requirements are met,
-`1` otherwise.
-
-Access the `config.php` script from a browser:
-
-    http://localhost/path/to/symfony/app/web/config.php
-
-If you get any warnings or recommendations, fix them before moving on.
-
-4) Getting started with Symfony
--------------------------------
-
-This distribution is meant to be the starting point for your Symfony
-applications, but it also contains some sample code that you can learn from
-and play with.
-
-A great way to start learning Symfony is via the [Quick Tour][4], which will
-take you through all the basic features of Symfony2.
-
-Once you're feeling good, you can move onto reading the official
-[Symfony2 book][5].
-
-A default bundle, `AcmeDemoBundle`, shows you Symfony2 in action. After
-playing with it, you can remove it by following these steps:
-
+1) Delete Demo Bundle
+----------------------
   * delete the `src/Acme` directory;
 
   * remove the routing entry referencing AcmeDemoBundle in `app/config/routing_dev.yml`;
@@ -48,80 +15,52 @@ playing with it, you can remove it by following these steps:
     your needs.
 
 
+2) Commandline
+---------------
+  * create bundle `php app/console generate:bundle --namespace=Acme/HelloBundle --format=yml`
 
-######################################################################################################
-#####################################################################################################
-Commandline
-----------------------------------------------------------------------------------------------------
-create bundle	            php app/console generate:bundle --namespace=Acme/HelloBundle --format=yml
-		                    -> creates src/… & extends app/appkernel.php & app/config/routing.yml
+  * Cache clear `./app/console —-env=prod cache:clear`
 
-Cache clear	                ./app/console —-env=prod cache:clear
+  * List Routes `./app/console router:debug`
 
-List Routes                 ./app/console router:debug
+  * Check Route `php app/console router:match /givenPage`
 
-Route <-> URL               php app/console router:match /givenPage
+  * include assets `php app/console assets:install web --symlink`
 
-
-include assets in bundle    php app/console assets:install web --symlink
+  * check twig syntax `hp app/console twig:lint path_of_bundle|folder|twig-file`
 
 
-check twig syntax           php app/console twig:lint path_of_bundle|folder|twig-file
+3) Tests
+---------
+  * run phpunit tests `php phpunit -c app src/Barra/BackBundle`
 
 
-Tests
------------------------------------------------------------------------------------------------
-run phpunit tests           php phpunit -c app src/Barra/BackBundle
+4) DB
+------
+  * create entity `php app/console doctrine:generate:entity --entity="BarraDefaultBundle:Product"`
+
+  * updates get/set/repo `php app/console doctrine:generate:entities Barra`
+
+  * create DB `php app/console doctrine:database:create`
+
+  * update DB `php app/console doctrine:schema:update --force`
+
+  * delete DB `php app/console doctrine:database:drop --force`
 
 
+5) Redirects
+-------------
+  * without URL change `return $this->forward('BarraDefaultBundle:Default:recipe', array('id' => 1));`
 
-DB
----------------------------------------------------------------------------------------------------
+  * with URL change `return $this->redirect($this->generateUrl('barra_default_recipe', array('id' => 1)));`
 
-create entity               php app/console doctrine:generate:entity --entity="BarraDefaultBundle:Product"
-updates get/set/repo        php app/console doctrine:generate:entities Barra
-
-
-create DB                   php app/console doctrine:database:create
-cr/update t                 php app/console doctrine:schema:update --force
-delete DB                   php app/console doctrine:database:drop --force
-
-
-
-
-
-
-
-######################################################################################################
-######################################################################################################
-
-
-Routing
-------------------------------------------------------------------------------------------------------
-User-Agent                  Condition:"request.headers.get('User-Agent') matches'/firefox/i'
-                            -> not taken into account when generating url
-
-
-
-#####################################################################################################
-#####################################################################################################
-Controller
-----------------------------------------------------------------------------------------------------
-Response Obj	            use Symfony\Component\HttpFoundation\Response;
-
-// without URL change:      return $this->forward('BarraDefaultBundle:Default:recipe', array('id' => 1));
-// with URL change:         return $this->redirect($this->generateUrl('barra_default_recipe', array('id' => 1))); // = return new RedirectResponse(...);
-// for absolute links "true" as 3th param
-
-public function checkRequest(Request $request) {
-        $request->isXmlHttpRequest(); // Ajax
-        $request->getPreferredLanguage(array('de', 'en'));
-        $request->query->get('page'); // $_GET
-        $request->request->get('page'); // $_POST
-    }
-
-
-template in different formats       $format = $this->getRequest()->getRequestFormat(); && render...
+6) Check kind of request
+-------------------------
+  * GET `$request->query->get('page');`
+  * POST `$request->request->get('page');`
+  * AJAX `$request->isXmlHttpRequest();`
+  * Lang `$request->getPreferredLanguage(array('de', 'en'));`
+  * Requested format `$format = $this->getRequest()->getRequestFormat();`
 
 
 

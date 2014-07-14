@@ -1,33 +1,32 @@
 back:
   action:
-    new: New
     delete: Delete
     logout: Logout
     manage: Manage
+    new: New
 
   title:
-    overview: Overview
-    references: References
-    recipes: Recipes
     ingredients: Ingredients
     manufacturers: Manufacturer
     measurements: Measurements
+    recipes: Recipes
     references: References
+    overview: Overview
 
   ingredient: #object
-    name: Name
-    vegan: Vegan
-    kcal: Kcal
-    protein: Protein
     carbs: Carbs
-    sugar: Sugar
     fat: Fat
+    kcal: Kcal
     gfat: sat. fat
     manufacturer: Manufacturer
+    name: Name
+    protein: Protein
+    sugar: Sugar
+    vegan: Vegan
 
   measurement: #object
-    type: Type
     gr: Gr
+    type: Type
 
   manufacturer: #object
     name: Name
@@ -36,17 +35,17 @@ back:
     name: Name
 
   reference: #object
-    website: Website
     company: Company
     description: Description
-    started: Started
     finished: Finished
-    startedPlaceholder: from dd.mm.yyyy
     finishedPlaceholder: until dd.mm.yyyy
+    started: Started
+    startedPlaceholder: from dd.mm.yyyy
+    website: Website
 
   cookingStep:
-    step: Step
     description: Description
+    step: Step
 
   recipeIngredient:
     amount: Amount
