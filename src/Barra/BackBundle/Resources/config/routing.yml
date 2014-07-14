@@ -24,10 +24,8 @@ barra_back_recipes:
     defaults: { _controller: BarraBackBundle:Recipe:index }
 
 barra_back_recipe:
-    path:     /recipe/{id}
-    defaults: { _controller: BarraBackBundle:RecipeDetail:index, id: 1 }
-    requirements:
-        id: \d+
+    path:     /recipe/{name}
+    defaults: { _controller: BarraBackBundle:RecipeDetail:index }
 
 barra_back_recipe_delete:
     path:     /recipe/delete/{id}

@@ -16,23 +16,4 @@ class RecipeController extends Controller
 
         return new Response('No recipes found.');
     }
-
-
-    public function showRecipeAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $recipe = $em->getRepository('BarraFrontBundle:Recipe')->find($id);
-
-        if (!$recipe)
-            throw $this->createNotFoundException('Recipe with id '.$id.' not found');
-
-        $cookingSteps = $em->getRepository('BarraFrontBundle:CookingStep')->findBy(
-            array('recipe'=>$recipe), array('step'=>'ASC'));
-
-
-        return $this->render('BarraFrontBundle:Recipe:recipe.html.twig', array(
-            'recipe' => $recipe,
-            'cookingSteps'=> $cookingSteps
-        ));
-    }
 }

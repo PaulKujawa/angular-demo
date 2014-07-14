@@ -3,6 +3,7 @@ back:
     new: New
     delete: Delete
     logout: Logout
+    manage: Manage
 
   title:
     overview: Overview

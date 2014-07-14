@@ -9,10 +9,8 @@
         <ul>
             {% for reference in references %}
                 <li>
-                    {{ 'front.reference.word.company'|trans() }}: {{ reference.company }}
-                    {{ 'front.reference.word.description'|trans() }}: {{ reference.description }}
-                    {{ 'front.reference.word.started'|trans() }}: {{ reference.started|date('m.Y') }}
-                    {{ 'front.reference.word.finished'|trans() }}: {{ reference.finished|date('m.Y') }}
+                    {{ 'front.reference.company'|trans() }}: {{ reference.company }}
+                    <a href="{{ path('barra_front_reference', {'website': reference.website}) }}">{{ reference.website }}</a>
                 </li>
             {% endfor %}
         </ul>

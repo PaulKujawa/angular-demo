@@ -1,13 +1,10 @@
 {% extends 'BarraFrontBundle::layout.html.twig' %}
 {% trans_default_domain "messages" %}
-{% block title %}{{ ('front.title.'~ recipe.name) |trans() }}{% endblock %}
-{# TODO translate recipe.name via doctrine #}
-
-
+{% block title %}{{ recipe.name }}{% endblock %}
 
 {% block section %}
     <section class="container">
-        <h1> {{ recipe.name|trans() }} </h1>
+        <h1> {{ recipe.name }} </h1>
 
         <h2> Cooking steps</h2>
         <ol>

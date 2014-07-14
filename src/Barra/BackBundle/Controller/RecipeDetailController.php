@@ -14,10 +14,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class RecipeDetailController extends Controller
 {
-    public function indexAction($id, Request $request)
+    public function indexAction($name, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $recipe = $em->getRepository('BarraFrontBundle:Recipe')->find($id);
+        $recipe = $em->getRepository('BarraFrontBundle:Recipe')->findOneByName(str_replace('_', ' ', $name));
 
         $cookingSteps = $em->getRepository('BarraFrontBundle:CookingStep')->findBy(
             array('recipe'=>$recipe), array('step'=>'ASC'));

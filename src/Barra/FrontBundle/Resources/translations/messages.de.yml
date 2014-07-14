@@ -9,9 +9,9 @@ front:
   word:
     comment: '{0} no comment|{1} one comment|]1,Inf] %count% comments'
 
-  reference:
-    word:
-      company: Firma
-      description: Beschreibung
-      started: Begonnen
-      finished: Abgeschlossen
+  reference: #object
+    website: Webseite
+    company: Firma
+    description: Beschreibung
+    started: Begonnen
+    finished: Abgeschlossen

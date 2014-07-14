@@ -12,10 +12,8 @@ barra_front_references:
     defaults: { _controller: BarraFrontBundle:Reference:index }
 
 barra_front_reference:
-    path:     /reference/{id}
-    defaults: { _controller: BarraFrontBundle:Reference:showReference, id: 1 }
-    requirements:
-      id: \d+
+    path:     /reference/{website}
+    defaults: { _controller: BarraFrontBundle:ReferenceDetail:index }
 
 
 
@@ -25,11 +23,8 @@ barra_front_recipes:
     defaults: { _controller: BarraFrontBundle:Recipe:index }
 
 barra_front_recipe:
-    path:     /recipe/{id}
-    defaults: { _controller: BarraFrontBundle:Recipe:showRecipe, id: 1 }
-    requirements:
-      id: \d+
-
+    path:     /recipe/{name}
+    defaults: { _controller: BarraFrontBundle:RecipeDetail:index }
 
 
 

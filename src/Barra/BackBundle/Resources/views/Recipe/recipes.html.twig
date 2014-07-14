@@ -10,7 +10,7 @@
             <thead>
             <tr>
                 <th>{{ 'back.recipe.name'|trans() }}</th>
-                <th>{{ 'back.action.delete'|trans() }}</th>
+                <th>{{ 'back.action.manage'|trans() }}</th>
             </tr>
             </thead>
             <tbody>
@@ -21,7 +21,7 @@
                             <a href="{{ path('barra_back_recipe_delete', {'id': recipe.id}) }}">
                                 <span class="glyphicon glyphicon-minus"></span>
                             </a>
-                            <a href="{{ path('barra_back_recipe', {'id': recipe.id}) }}">
+                            <a href="{{ path('barra_back_recipe', {'name': recipe.name|replace({' ': '_'})}) }}">
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </a>
                         </td>
