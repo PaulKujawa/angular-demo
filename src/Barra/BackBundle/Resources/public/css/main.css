@@ -40,34 +40,34 @@ table input[type="radio"], input[type="checkbox"]  {
 
 /* TABLE MOBILE */
 @media only screen and (max-width: 768px) {
-    #no-more-tables table,
-    #no-more-tables thead,
-    #no-more-tables tbody,
-    #no-more-tables th,
-    #no-more-tables td,
-    #no-more-tables tr {
+    .mobileTables table,
+    .mobileTables thead,
+    .mobileTables tbody,
+    .mobileTables th,
+    .mobileTables td,
+    .mobileTables tr {
         display: block;
     }
 
-    #no-more-tables thead tr { /* Hide table headers at the top (not none since accessibility) */
+    .mobileTables thead tr { /* Hide table headers at the top (not none since accessibility) */
         position: absolute;
         top: -9999px;
         left: -9999px;
     }
 
-    #no-more-tables tr { border-bottom: 1px solid #ddd; }
-    #no-more-tables tr:last-child { border-bottom: none; }
-    #no-more-tables tbody tr:first-child td:first-child { border-top: none}
+    .mobileTables tr { border-bottom: 1px solid #ddd; }
+    .mobileTables tr:last-child { border-bottom: none; }
+    .mobileTables tbody tr:first-child td:first-child { border-top: none}
 
 
-    #no-more-tables td { /* Behave like a "row" */
+    .mobileTables td { /* Behave like a "row" */
         position: relative;
-        padding-left: 50%;
+        padding-left: 50% !important;
         white-space: normal;
         text-align:left;
     }
 
-    #no-more-tables td:before {
+    .mobileTables td:before {
         position: absolute;
             top: 8px;
             left: 8px;
@@ -79,5 +79,5 @@ table input[type="radio"], input[type="checkbox"]  {
 
     table tr:last-child td { padding-left: 8px !important; }
 
-    #no-more-tables td:before { content: attr(data-title); }
+    .mobileTables td:before { content: attr(data-title); }
 }

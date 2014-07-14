@@ -10,7 +10,7 @@ back:
     recipes: Rezepte
     ingredients: Zutaten
     manufacturers: Hersteller
-    measurements: Messeinheit
+    measurements: Messeinheiten
     references: Referenzen
 
   ingredient: #object

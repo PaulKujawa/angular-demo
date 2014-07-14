@@ -12,7 +12,7 @@ class RecipeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text')
+            ->add('name', 'text', array('attr'=>array('placeholder'=>'back.recipe.name')))
             ->add('submit', 'submit')
             ->getForm();
     }
