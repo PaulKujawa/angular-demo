@@ -52,12 +52,6 @@ class Recipe
         return $ingredients;
     }
 
-
-
-
-
-
-
     /**
      * @return integer
      */

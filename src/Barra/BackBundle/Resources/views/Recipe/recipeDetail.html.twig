@@ -18,7 +18,7 @@
             </tr>
             </thead>
             <tbody>
-            {% for recipeIngredient in recipeIngredients %}
+            {% for recipeIngredient in recipe.getRecipeIngredient() %}
                 <tr>
                     <td data-title={{ 'back.recipeIngredient.amount'|trans() }}>{{ recipeIngredient.amount }}</td>
                     <td data-title={{ 'back.measurement.type'|trans() }}>{{ recipeIngredient.measurement.type }}</td>

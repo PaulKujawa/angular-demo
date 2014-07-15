@@ -36,6 +36,7 @@ class Recipe
 
     /**
      * @ORM\OneToMany(targetEntity="RecipeIngredient", mappedBy="recipe")
+     * @ORM\OrderBy({"position" = "ASC"})
      */
     private $recipeIngredient;
 
@@ -51,12 +52,6 @@ class Recipe
         }
         return $ingredients;
     }
-
-
-
-
-
-
 
     /**
      * @return integer

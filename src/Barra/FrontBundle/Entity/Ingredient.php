@@ -90,10 +90,6 @@ class Ingredient
         return $recipes;
     }
 
-
-
-
-
     /**
      * Get id
      *

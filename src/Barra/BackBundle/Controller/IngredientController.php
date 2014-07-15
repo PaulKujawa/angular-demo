@@ -29,9 +29,9 @@ class IngredientController extends Controller
         $ingredients = $em->getRepository('BarraFrontBundle:Ingredient')->findAll();
 
         return $this->render('BarraBackBundle:Ingredient:ingredients.html.twig', array(
-                'ingredients' => $ingredients,
-                'form' => $form->createView()
-            ));
+            'ingredients' => $ingredients,
+            'form' => $form->createView()
+        ));
     }
 
     public function newIngredientAction($ingredient)
@@ -55,14 +55,11 @@ class IngredientController extends Controller
         $ingredient = $em->getRepository('BarraFrontBundle:Ingredient')->find($id);
 
         if (!$ingredient)
-            throw $this->createNotFoundException('Ingredient with id '.$id.' not found');
-        $em->remove($ingredient);
+            throw $this->createNotFoundException('Ingredient not found');
 
-        try {
-            $em->flush();
-        } catch (\Doctrine\DBAL\DBALException $e) {
-            return new Response('Ingredient could not be deleted');
-        }
+        $em->remove($ingredient);
+        $em->flush();
+
         return $this->redirect($this->generateUrl('barra_back_ingredients'));
     }
 }

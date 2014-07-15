@@ -36,7 +36,7 @@
                         <td data-title={{ 'back.ingredient.manufacturer'|trans() }}>{{ ingredient.manufacturer.name }}</td>
 
                         <td data-title={{ 'back.action.delete'|trans() }}>
-                            <a {% if ingredient.getRecipes() is empty %}
+                            <a {% if ingredient.getRecipeIngredients() is empty %}
                                     href="{{ path('barra_back_ingredient_delete', {'id': ingredient.id}) }}"
                                 {% else %}
                                     class="notDeletable"

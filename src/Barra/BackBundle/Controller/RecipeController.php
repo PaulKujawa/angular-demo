@@ -23,7 +23,7 @@ class RecipeController extends Controller
                 return new Response($sqlError);
 
             $id = $recipe->getId();
-            return $this->redirect($this->generateUrl('barra_back_recipe', array('id' => $id)));
+            return $this->redirect($this->generateUrl('barra_back_recipe', array('name' => $recipe->getId())));
         }
 
 

@@ -1,7 +1,8 @@
 app:
   message:
-    errorpageHeadline: Verdammt! Ein Fehler kam auf
-    errorpageInfotext: Leider habe ich eine %code% für dich. Das steht für '%text%'.
+    errorCode: Leider habe ich eine %code% für dich.
+    e404: Das steht für '%text%' und erfolgt bei ungültigen Seiten.
+    e500: Das steht für '%text%' und erfolgt oft bei Problemen mit der Datenbank.
 
   word:
     startpage: Startseite

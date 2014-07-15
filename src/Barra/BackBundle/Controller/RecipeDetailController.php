@@ -18,12 +18,7 @@ class RecipeDetailController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $recipe = $em->getRepository('BarraFrontBundle:Recipe')->findOneByName(str_replace('_', ' ', $name));
-
-        $cookingSteps = $em->getRepository('BarraFrontBundle:CookingStep')->findBy(
-            array('recipe'=>$recipe), array('step'=>'ASC'));
-
-        $recipeIngredients = $em->getRepository('BarraFrontBundle:RecipeIngredient')->findBy(
-            array('recipe'=>$recipe), array('position'=>'ASC'));
+        $cookingSteps = $em->getRepository('BarraFrontBundle:CookingStep')->findBy(array('recipe'=>$recipe), array('step'=>'ASC'));
 
         $recipeIngredient = new RecipeIngredient();
         $formRecipeIngredient = $this->createForm(new RecipeIngredientType(), $recipeIngredient);
@@ -43,8 +38,7 @@ class RecipeDetailController extends Controller
                 if ($sqlError)
                     return new Response($sqlError);
 
-                $id = $recipe->getId();
-                return $this->redirect($this->generateUrl('barra_back_recipe', array('id' => $id)));
+                return $this->redirect($this->generateUrl('barra_back_recipe', array('name' => $name)));
             }
         }
 
@@ -59,19 +53,17 @@ class RecipeDetailController extends Controller
                 if ($sqlError)
                     return new Response($sqlError);
 
-                $id = $recipe->getId();
-                return $this->redirect($this->generateUrl('barra_back_recipe', array('id' => $id)));
+                return $this->redirect($this->generateUrl('barra_back_recipe', array('name' => $name)));
             }
         }
 
 
         return $this->render('BarraBackBundle:Recipe:recipeDetail.html.twig', array(
-            'recipe' => $recipe,
-            'recipeIngredients' => $recipeIngredients,
-            'cookingSteps'=> $cookingSteps,
-            'formIngredient' => $formRecipeIngredient->createView(),
-            'formCookingStep' => $formCookingStep->createView()
-        ));
+                'recipe' => $recipe,
+                'cookingSteps'=> $cookingSteps,
+                'formIngredient' => $formRecipeIngredient->createView(),
+                'formCookingStep' => $formCookingStep->createView()
+            ));
     }
 
 
@@ -109,18 +101,15 @@ class RecipeDetailController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $recipeIngredient = $em->getRepository('BarraFrontBundle:RecipeIngredient')->findOneBy(array(
-            'recipe'=>$recipeId, 'ingredient'=>$ingredientId));
+                'recipe'=>$recipeId, 'ingredient'=>$ingredientId));
 
         if (!$recipeIngredient)
             throw $this->createNotFoundException('Relation not found');
-        $em->remove($recipeIngredient);
 
-        try {
-            $em->flush();
-        } catch (\Doctrine\DBAL\DBALException $e) {
-            return new Response('Relation could not be deleted');
-        }
-        return $this->redirect($this->generateUrl('barra_back_recipe', array('id'=>$recipeId)));
+        $em->remove($recipeIngredient);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('barra_back_recipe', array('name'=>$recipeId)));
     }
 
 
