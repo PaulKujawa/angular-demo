@@ -15,21 +15,19 @@ class RecipeIngredient
     /**
      * @var integer
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Recipe", inversedBy="RecipeIngredient")
+     * @ORM\ManyToOne(targetEntity="Recipe", inversedBy="recipeIngredient")
      * @ORM\JoinColumn(name="recipe", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $recipe;
 
     /**
-     * @var integer
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Ingredient", inversedBy="RecipeIngredient")
+     * @ORM\ManyToOne(targetEntity="Ingredient", inversedBy="recipeIngredient")
      * @ORM\JoinColumn(name="ingredient", referencedColumnName="id", nullable=false)
      */
     private $ingredient;
 
     /**
-     * @var integer
      * @ORM\Column(name="position", type="smallint", nullable=false)
      */
     private $position;

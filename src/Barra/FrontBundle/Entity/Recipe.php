@@ -35,25 +35,21 @@ class Recipe
     private $votes;
 
     /**
-     * @ORM\OneToMany(targetEntity="RecipeIngredient", mappedBy="Recipe")
+     * @ORM\OneToMany(targetEntity="RecipeIngredient", mappedBy="recipe")
      */
     private $recipeIngredient;
 
 
     /**
-     * Own shortcut-method for direct access to related recipes
-     * @return array
+     * Own method for direct access to required ingredients
      */
     public function getIngredients()
     {
         $ingredients = array();
-
-         foreach ($this->getRecipeIngredient() as $recipeIngredient) {
-        //    $ingredients[] = $recipeIngredient->getIngredients();
-         }
-
-        // return $ingredients;
-        return 1;
+        foreach ($this->getRecipeIngredient() as $relation) {
+            $ingredients[] = $relation->getIngredient();
+        }
+        return $ingredients;
     }
 
 
@@ -141,7 +137,6 @@ class Recipe
     public function addRecipeIngredient(\Barra\FrontBundle\Entity\RecipeIngredient $recipeIngredient)
     {
         $this->recipeIngredient[] = $recipeIngredient;
-
         return $this;
     }
 

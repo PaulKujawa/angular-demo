@@ -11,8 +11,7 @@ Kujawa / vpit
 
   * remove the `web/bundles/acmedemo` directory;
 
-  * empty the `security.yml` file or tweak the security configuration to fit
-    your needs.
+  * empty the `security.yml` file or tweak the security configuration to fit your needs.
 
 
 2) Commandline
@@ -30,13 +29,13 @@ Kujawa / vpit
   * check twig syntax `hp app/console twig:lint path_of_bundle|folder|twig-file`
 
 
-3) Tests
----------
+2) Commandline Tests
+--------------------
   * run phpunit tests `php phpunit -c app src/Barra/BackBundle`
 
 
-4) DB
-------
+4) Commandline DB
+------------------
   * create entity `php app/console doctrine:generate:entity --entity="BarraDefaultBundle:Product"`
 
   * updates get/set/repo `php app/console doctrine:generate:entities Barra`
@@ -54,6 +53,7 @@ Kujawa / vpit
 
   * with URL change `return $this->redirect($this->generateUrl('barra_default_recipe', array('id' => 1)));`
 
+
 6) Check kind of request
 -------------------------
   * GET `$request->query->get('page');`
@@ -63,24 +63,25 @@ Kujawa / vpit
   * Requested format `$format = $this->getRequest()->getRequestFormat();`
 
 
+7) DB Default-Selects
+----------------------
+  * 1 via PK `find('foo')`
 
-DB
-###########################################################################################################
-###########################################################################################################
+  * 1 with c1 `findOneByColumnName('c1')`
 
-Controller - Einfache selects
-    $repository = $this->getDoctrine()->getRepository('BarraDefaultBundle:Recipe')
-    $repository
-    ->find('foo') 1 with PK
-    ->findOneByColumnName('c1') 1 with c1
-    ->findOneBy(array('c1'=>'foo', 'c2'=>'bar')) 1 with c1&c2
-    ->findByPrice(12.32) more with c1
-    ->findBy(array('c1'=>'foo'), array('c2'=>'ASC')) more ordered by c2
-    ->findAll();
+  * 1 with c1&c2 `findOneBy(array('c1'=>'foo', 'c2'=>'bar'))`
+
+  * more with c1 `findByPrice(12.32)`
+
+  * more ordered by c2 `findBy(array('c1'=>'foo'), array('c2'=>'ASC'))`
+
+  * all `findAll()`
 
 
-DB - Repository
- public function findMaxId()
+8) DB Repository
+-----------------
+
+  * Max Id public function findMaxId()
     {
         $query = $this->createQueryBuilder('ri')
             ->select('MAX(ri.id)')
@@ -94,19 +95,17 @@ DB - Repository
         return $recipes[1];
     }
 
-######################################################################################################
-######################################################################################################
-Template
---------------------------------------------------------------------------------------------------------
-{% for i in 0..10 %}
-    <div class="{{ cycle(['odd', 'even'], i) }}"> ....
 
-{{ include('BarraDefaultBundle:References:article.html.twig', {'id': 3}) }}
-include instead of inherit
+9) Template
+------------
+  * Toggle Table `{% for i in 0..10 %}
+    <div class="{{ cycle(['odd', 'even'], i) }}"></div>`
+
+  * Direct template include `{{ include('BarraDefaultBundle:References:article.html.twig', {'id': 3}) }}`
 
 
-Asynchronus include via hinclude.js
-    {{ render_include(url(...)) }}
+  * Asynchronus include via hinclude.js
+    `{{ render_include(url(...)) }}
     {{ render_include(controller(...)) }}
         -> for controller add "fragments: { path: /_fragment } to framework: at app/config/config.yml
         -> default content when js is deactive also there
@@ -114,94 +113,75 @@ Asynchronus include via hinclude.js
                 templating:
                     hinclude_default_template: BarraDefaultBundle::hinclude.html.twig
         -> ovveride this default via:
-            {{ render_hinclude(controller('...'), { 'default': '.....twig'}) }}
+            {{ render_hinclude(controller('...'), { 'default': '.....twig'}) }}`
 
 
-bundle template override: app/Resources/myDemoBundle/views/[SomeController/]newPage.html.twig
-    -> cache clear may be necessary
-
-######################################################################################################
-######################################################################################################
-Functional & Unit Tests
-
-
-
----------------------------------------------------------------------------------------------------------------------
-
-newRecipeIngredient->setIngredient($ingredient)
-    => aktuallisiert autom.  Recipe->RecipeIngredient
-    => Recipe->getRecipeIngredients() funktioniert automatisch
+10) DB One2Many
+----------------
+  * funktioniert bereits automatisch
+    `newRecipeIngredient->setIngredient($ingredient)
+     Recipe->RecipeIngredient
+     Recipe->getRecipeIngredients()`
 
 
-Ingredient->removeRecipeIngredient($recipeIngredient)
-    => entfernt nur den Attributswert im Datensatz
-    => unpraktisch, da Datensatz (relation) erhalten bliebe
-    => wirft sowieso fehlermeldung, da Attribut auf not nullable gesetzt
+  * entfernt nur den Attributswert im Datensatz. unpraktisch, da Datensatz (relation) erhalten bliebe.
+    wirft sowieso fehlermeldung, da Attribut auf not nullable gesetzt
+    `Ingredient->removeRecipeIngredient($recipeIngredient)`
 
 
-Ingredient->addRecipeIngredient($recipeIngredient)
-    => unnütz. das recipeIngredient müsste bereits bestehen
-    => verlinkung zu Ingredient wird autom. gesetzt
+  * unnütz. das recipeIngredient müsste bereits bestehen. verlinkung zu Ingredient wird autom. gesetzt
+    `Ingredient->addRecipeIngredient($recipeIngredient)`
 
 
+11) Trans
+----------
+  * tag: `{% trans from 'layout' %}reference{% endtrans %}`
+
+  * filter: `{{ 'reference'|trans({'%name%':'Max'}, 'layout') }}`
+  ** reference: `Referenz %name%
+
+  * variable key `{{ entry['label']|trans({}, 'layout') }}`
 
 
-Trans
----------------------------------------------------------------------------------------------------------------------
-yml for file:       {% trans_default_domain "layout" %}
+12) Transchoice
+----------------
+  * filter `{{ 'front.word.comment'|transchoice(count, {}, 'layout') }}
 
-tag:                {% trans from 'layout' %}reference{% endtrans %}
-
-filter:             {{ 'reference'|trans({'%name%':'Max'}, 'layout') }}
-                    reference: Referenz %name%
-
-variable key:       {{ entry['label']|trans({}, 'layout') }}
+  * tag `{% transchoice count with {'%count%': count} from "layout" %}
+  ** front.word.comment
+     `{% endtranschoice %}
+        comment: '{0} no comment|{1} one comment|]1,Inf] %count% comments'
 
 
+13) CACHE
+----------
+  * preparation
+    use Symfony\Component\HttpFoundation\Response;
+    $response = newResponse();
+    // mark the response as either public or private
+    $response->setPublic();
+    $response->setPrivate();
 
+    // set the private or shared max age$response->
+    setMaxAge(600);
+    $response->setSharedMaxAge(600);
 
-Transchoice
----------------------------------------------------------------------------------------------------------------------
-filter              {{ 'front.word.comment'|transchoice(count, {}, 'layout') }}
+    // set a custom Cache-Control directive
+    $response->headers->addCacheControlDirective('must-revalidate', true);
 
-tag                 {% transchoice count with {'%count%': count} from "layout" %}
-                        front.word.comment
-                    {% endtranschoice %}
-                    comment: '{0} no comment|{1} one comment|]1,Inf] %count% comments'
-
-
-
-CACHE
----------------------------------------------------------------------------------------------------------------------
-
-use Symfony\Component\HttpFoundation\Response;
-$response = newResponse();
-// mark the response as either public or private
-$response->setPublic();
-$response->setPrivate();
-
-// set the private or shared max age$response->
-setMaxAge(600);
-$response->setSharedMaxAge(600);
-
-// set a custom Cache-Control directive
-$response->headers->addCacheControlDirective('must-revalidate', true);
-
-
-$response
-->setCache(array(
+  * example 2
+    $response->setCache(array(
     'etag'=>$etag,
     'last_modified'=>$date,
     'max_age'=>10,
     's_maxage'=>10,
     'public'=>true,
     // 'private' => true
-));
+    ));
 
 
-
-
-
+14) Notices
+------------
         public function updateMeasurement($id, $type, $inGr)
         {
             $em = $this->getDoctrine()->getManager();

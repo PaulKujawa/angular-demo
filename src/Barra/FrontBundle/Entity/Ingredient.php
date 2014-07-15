@@ -66,7 +66,7 @@ class Ingredient
     private $manufacturer;
 
     /**
-     * @ORM\OneToMany(targetEntity="RecipeIngredient", mappedBy="Ingredient")
+     * @ORM\OneToMany(targetEntity="RecipeIngredient", mappedBy="ingredient")
      */
     private $recipeIngredients;
     /**
@@ -79,14 +79,13 @@ class Ingredient
 
 
     /**
-     * Own shortcut-method for direct access to related recipes
-     * @return array
+     * Own method for direct access to using recipes
      */
     public function getRecipes()
     {
         $recipes = array();
-        foreach ($this->getRecipeIngredients() as $recipeIngredient) {
-            $recipes[] = $recipeIngredient->getRecipe();
+        foreach ($this->getRecipeIngredients() as $relation) {
+            $recipes[] = $relation->getRecipe();
         }
         return $recipes;
     }

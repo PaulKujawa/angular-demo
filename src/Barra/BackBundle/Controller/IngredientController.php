@@ -34,7 +34,6 @@ class IngredientController extends Controller
             ));
     }
 
-
     public function newIngredientAction($ingredient)
     {
         $em = $this->getDoctrine()->getManager();
