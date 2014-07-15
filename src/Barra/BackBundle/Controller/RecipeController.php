@@ -17,7 +17,6 @@ class RecipeController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $recipe->setRating(50)->setVotes(2);
             $sqlError = $this->newRecipeAction($recipe);
 
             if ($sqlError)
@@ -41,6 +40,7 @@ class RecipeController extends Controller
     public function newRecipeAction($recipe)
     {
         $em = $this->getDoctrine()->getManager();
+        $recipe->setRating(50)->setVotes(2);
         $em->persist($recipe);
 
         try {

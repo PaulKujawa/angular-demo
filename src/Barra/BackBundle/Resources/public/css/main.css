@@ -32,7 +32,9 @@ table input[type="radio"], input[type="checkbox"]  {
     margin: 0 auto;
 }
 
-
+a.notDeletable span.glyphicon-minus {
+    color: #777777;
+}
 
 
 
