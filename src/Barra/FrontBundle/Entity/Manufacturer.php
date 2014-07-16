@@ -25,6 +25,11 @@ class Manufacturer
     private $name;
 
     /**
+     * @ORM\OneToMany(targetEntity="Ingredient", mappedBy="manufacturer")
+     */
+    private $ingredients;
+
+    /**
      * @return integer
      */
     public function getId()
@@ -49,5 +54,45 @@ class Manufacturer
     public function getName()
     {
         return $this->name;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->ingredients = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add ingredients
+     *
+     * @param \Barra\FrontBundle\Entity\Ingredient $ingredients
+     * @return Manufacturer
+     */
+    public function addIngredient(\Barra\FrontBundle\Entity\Ingredient $ingredients)
+    {
+        $this->ingredients[] = $ingredients;
+
+        return $this;
+    }
+
+    /**
+     * Remove ingredients
+     *
+     * @param \Barra\FrontBundle\Entity\Ingredient $ingredients
+     */
+    public function removeIngredient(\Barra\FrontBundle\Entity\Ingredient $ingredients)
+    {
+        $this->ingredients->removeElement($ingredients);
+    }
+
+    /**
+     * Get ingredients
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getIngredients()
+    {
+        return $this->ingredients;
     }
 }

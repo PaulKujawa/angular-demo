@@ -35,24 +35,6 @@ class Recipe
     private $votes;
 
     /**
-     * @ORM\OneToMany(targetEntity="RecipeIngredient", mappedBy="recipe")
-     */
-    private $recipeIngredient;
-
-
-    /**
-     * Own method for direct access to required ingredients
-     */
-    public function getIngredients()
-    {
-        $ingredients = array();
-        foreach ($this->getRecipeIngredient() as $relation) {
-            $ingredients[] = $relation->getIngredient();
-        }
-        return $ingredients;
-    }
-
-    /**
      * @return integer
      */
     public function getId()
@@ -115,38 +97,5 @@ class Recipe
     public function getVotes()
     {
         return $this->votes;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->recipeIngredient = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * @param \Barra\FrontBundle\Entity\RecipeIngredient $recipeIngredient
-     * @return Recipe
-     */
-    public function addRecipeIngredient(\Barra\FrontBundle\Entity\RecipeIngredient $recipeIngredient)
-    {
-        $this->recipeIngredient[] = $recipeIngredient;
-        return $this;
-    }
-
-    /**
-     * @param \Barra\FrontBundle\Entity\RecipeIngredient $recipeIngredient
-     */
-    public function removeRecipeIngredient(\Barra\FrontBundle\Entity\RecipeIngredient $recipeIngredient)
-    {
-        $this->recipeIngredient->removeElement($recipeIngredient);
-    }
-
-    /**
-    * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getRecipeIngredient()
-    {
-        return $this->recipeIngredient;
     }
 }

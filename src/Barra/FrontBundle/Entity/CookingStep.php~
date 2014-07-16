@@ -13,21 +13,17 @@ use Doctrine\ORM\Mapping as ORM;
 class CookingStep
 {
     /**
-     * @var integer
      * @ORM\Id
      * @ORM\Column(name="step", type="smallint", nullable=false)
      */
     private $step;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="description", type="string", length=255, nullable=false)
      */
     private $description;
 
     /**
-     * @var string
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Recipe")
      * @ORM\JoinColumn(name="recipe", referencedColumnName="id", nullable=false, onDelete="CASCADE")

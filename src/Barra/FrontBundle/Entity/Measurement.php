@@ -13,8 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Measurement
 {
     /**
-     * @var integer
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -22,19 +20,19 @@ class Measurement
     private $id;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="type", type="string", length=10, unique=true, nullable=false)
      */
     private $type;
 
     /**
-     * @var integer
-     *
      * @ORM\Column(name="gr", type="smallint", nullable=false)
      */
     private $gr;
 
+    /**
+     * @ORM\OneToMany(targetEntity="RecipeIngredient", mappedBy="measurement")
+     */
+    private $recipeIngredients;
 
     /**
      * Get id
@@ -90,5 +88,45 @@ class Measurement
     public function getGr()
     {
         return $this->gr;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->recipeIngredients = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add recipeIngredients
+     *
+     * @param \Barra\FrontBundle\Entity\RecipeIngredient $recipeIngredients
+     * @return Measurement
+     */
+    public function addRecipeIngredient(\Barra\FrontBundle\Entity\RecipeIngredient $recipeIngredients)
+    {
+        $this->recipeIngredients[] = $recipeIngredients;
+
+        return $this;
+    }
+
+    /**
+     * Remove recipeIngredients
+     *
+     * @param \Barra\FrontBundle\Entity\RecipeIngredient $recipeIngredients
+     */
+    public function removeRecipeIngredient(\Barra\FrontBundle\Entity\RecipeIngredient $recipeIngredients)
+    {
+        $this->recipeIngredients->removeElement($recipeIngredients);
+    }
+
+    /**
+     * Get recipeIngredients
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRecipeIngredients()
+    {
+        return $this->recipeIngredients;
     }
 }

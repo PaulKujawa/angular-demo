@@ -60,7 +60,7 @@ class Ingredient
     private $gfat;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Manufacturer")
+     * @ORM\ManyToOne(targetEntity="Manufacturer", inversedBy="ingredients")
      * @ORM\JoinColumn(name="manufacturer", referencedColumnName="id", nullable=false)
      */
     private $manufacturer;
@@ -69,6 +69,7 @@ class Ingredient
      * @ORM\OneToMany(targetEntity="RecipeIngredient", mappedBy="ingredient")
      */
     private $recipeIngredients;
+
     /**
      * Constructor
      */
@@ -76,7 +77,6 @@ class Ingredient
     {
         $this->recipeIngredients = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
 
     /**
      * Own method for direct access to using recipes

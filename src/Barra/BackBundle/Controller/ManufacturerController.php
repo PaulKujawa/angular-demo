@@ -30,9 +30,9 @@ class ManufacturerController extends Controller
         $manufacturers = $em->getRepository('BarraFrontBundle:Manufacturer')->findAll();
 
         return $this->render('BarraBackBundle:Manufacturer:manufacturers.html.twig', array(
-                'manufacturers' => $manufacturers,
-                'form' => $form->createView()
-            ));
+            'manufacturers' => $manufacturers,
+            'form' => $form->createView()
+        ));
     }
 
 
@@ -58,13 +58,9 @@ class ManufacturerController extends Controller
 
         if (!$manufacturer)
             throw $this->createNotFoundException('Manufacturer not found');
-        $em->remove($manufacturer);
 
-        try {
-            $em->flush();
-        } catch (\Doctrine\DBAL\DBALException $e) {
-            return new Response('Manufacturer could not be deleted');
-        }
+        $em->remove($manufacturer);
+        $em->flush();
 
         return $this->redirect($this->generateUrl('barra_back_manufacturers'));
     }

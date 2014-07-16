@@ -25,6 +25,11 @@ class Manufacturer
     private $name;
 
     /**
+     * @ORM\OneToMany(targetEntity="Ingredient", mappedBy="manufacturer")
+     */
+    private $ingredients;
+
+    /**
      * @return integer
      */
     public function getId()

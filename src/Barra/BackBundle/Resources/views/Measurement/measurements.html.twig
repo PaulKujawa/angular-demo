@@ -15,13 +15,17 @@
                 </tr>
             </thead>
             <tbody>
-                {# TODO set Contextual classes after insert/update/del #}
                 {% for measurement in measurements %}
                     <tr>
                         <td data-title={{ 'back.measurement.type'|trans() }}>{{ measurement.type }}</td>
                         <td data-title={{ 'back.measurement.gr'|trans() }}>{{ measurement.gr }}</td>
                         <td data-title={{ 'back.action.delete'|trans() }}>
-                            <a href="{{ path('barra_back_measurement_delete', {'id': measurement.id}) }}">
+                            <a {% if measurement.getRecipeIngredients() is empty %}
+                                    href="{{ path('barra_back_measurement_delete', {'id': measurement.id}) }}"
+                                {% else %}
+                                    class="notDeletable"
+                                {% endif %}
+                            >
                                 <span class="glyphicon glyphicon-minus"></span>
                             </a>
                         </td>

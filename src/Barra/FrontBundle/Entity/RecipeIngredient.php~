@@ -13,9 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 class RecipeIngredient
 {
     /**
-     * @var integer
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Recipe", inversedBy="recipeIngredient")
+     * @ORM\ManyToOne(targetEntity="Recipe")
      * @ORM\JoinColumn(name="recipe", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $recipe;
@@ -38,7 +37,7 @@ class RecipeIngredient
     private $amount;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Measurement")
+     * @ORM\ManyToOne(targetEntity="Measurement", inversedBy="recipeIngredient")
      * @ORM\JoinColumn(name="measurement", referencedColumnName="id", nullable=false)
      */
     private $measurement;

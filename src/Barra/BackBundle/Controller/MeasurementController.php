@@ -58,13 +58,9 @@ class MeasurementController extends Controller
 
         if (!$measurement)
             throw $this->createNotFoundException('Measurement not found');
-        $em->remove($measurement);
 
-        try {
-            $em->flush();
-        } catch (\Doctrine\DBAL\DBALException $e) {
-            return new Response('Measurement could not be deleted');
-        }
+        $em->remove($measurement);
+        $em->flush();
 
         return $this->redirect($this->generateUrl('barra_back_measurements'));
     }
