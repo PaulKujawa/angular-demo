@@ -7,7 +7,6 @@ use Barra\BackBundle\Form\Type\CookingStepType;
 use Barra\FrontBundle\Entity\Recipe;
 use Barra\FrontBundle\Entity\RecipeIngredient;
 use Barra\BackBundle\Form\Type\RecipeIngredientType;
-
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

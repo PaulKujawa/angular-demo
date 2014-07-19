@@ -3,6 +3,8 @@ Barra\FrontBundle\Entity\Manufacturer:
     name:
       - NotBlank: ~
       - Type: string
+
+
 Barra\FrontBundle\Entity\Ingredient:
   properties:
     name:

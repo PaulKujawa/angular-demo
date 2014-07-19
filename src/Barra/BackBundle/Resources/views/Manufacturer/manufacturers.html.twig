@@ -1,5 +1,5 @@
 {% extends 'BarraBackBundle::layout.html.twig' %}
-{% form_theme form 'BarraBackBundle:Form:tableRow.html.twig' %}
+{% form_theme formInsert 'BarraBackBundle:Form:tableRow.html.twig' %}
 {% trans_default_domain "messages" %}
 
 {% block title %}{{ 'back.title.manufacturers'|trans() }}{% endblock %}
@@ -30,10 +30,13 @@
                     </tr>
                 {% endfor %}
             <tr>
-                {{ form_start(form) }}
-                    {{ form_row(form.name) }}
-                    {{ form_widget(form.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
-                {{ form_end(form) }}
+                {{ form_start(formInsert) }}
+                    {{ form_row(formInsert.name) }}
+                    {{ form_widget(formInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
+                {{ form_end(formInsert) }}
+            </tr>
+            <tr>
+                {{ form(formUpdate) }}
             </tr>
             </tbody>
         </table>

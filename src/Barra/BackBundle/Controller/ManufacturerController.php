@@ -4,6 +4,7 @@ namespace Barra\BackBundle\Controller;
 
 use Barra\FrontBundle\Entity\Manufacturer;
 use Barra\BackBundle\Form\Type\ManufacturerType;
+use Barra\BackBundle\Form\Type\ManufacturerUpdateType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -13,12 +14,11 @@ class ManufacturerController extends Controller
     public function indexAction(Request $request)
     {
         $manufacturer = new Manufacturer();
-        $form = $this->createForm(new ManufacturerType(), $manufacturer);
-        $form->handleRequest($request);
+        $formInsert = $this->createForm(new ManufacturerType(), $manufacturer);
+        $formInsert->handleRequest($request);
 
-        if ($form->isValid()) {
-            if ($form->get('submit')->isClicked())
-                $sqlError = $this->newManufacturer($manufacturer);
+        if ($formInsert->isValid()) {
+            $sqlError = $this->newManufacturer($manufacturer);
 
             if ($sqlError)
                 return new Response($sqlError);
@@ -28,12 +28,16 @@ class ManufacturerController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $manufacturers = $em->getRepository('BarraFrontBundle:Manufacturer')->findAll();
+        $formUpdate = $this->createForm(new ManufacturerUpdateType(), $manufacturer, array('action'=>$this->generateUrl('barra_back_manufacturer_update')));
+
 
         return $this->render('BarraBackBundle:Manufacturer:manufacturers.html.twig', array(
             'manufacturers' => $manufacturers,
-            'form' => $form->createView()
+            'formInsert' => $formInsert->createView(),
+            'formUpdate' => $formUpdate->createView()
         ));
     }
+
 
 
     public function newManufacturer($manufacturer)
@@ -51,7 +55,25 @@ class ManufacturerController extends Controller
 
 
 
-    public function deleteManufacturerAction($id)
+    public function updateAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $manufacturer = $em->getRepository('BarraFrontBundle:Manufacturer')->find($request->request->get('formUpdate')['id']);
+        if (!$manufacturer)
+            throw $this->createNotFoundException('Manufacturer not found');
+
+        $formUpdate = $this->createForm(new ManufacturerUpdateType(), $manufacturer);
+        $formUpdate->handleRequest($request);
+
+        if ($formUpdate->isValid())
+            $em->flush();
+
+        return $this->redirect($this->generateUrl('barra_back_manufacturers'));
+    }
+
+
+
+    public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $manufacturer = $em->getRepository('BarraFrontBundle:Manufacturer')->find($id);

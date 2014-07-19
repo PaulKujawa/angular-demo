@@ -70,12 +70,15 @@ barra_back_manufacturers:
     path:     /manufacturers
     defaults: { _controller: BarraBackBundle:Manufacturer:index }
 
+barra_back_manufacturer_update:
+    path:     /manufacturers/update
+    defaults: { _controller: BarraBackBundle:Manufacturer:update }
+
 barra_back_manufacturer_delete:
     path:     /manufacturers/delete/{id}
-    defaults: { _controller: BarraBackBundle:Manufacturer:deleteManufacturer }
+    defaults: { _controller: BarraBackBundle:Manufacturer:delete }
     requirements:
         id: \d+
-
 
 
 

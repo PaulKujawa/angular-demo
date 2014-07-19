@@ -243,11 +243,38 @@ Kujawa / vpit
             return new Response('Success! Updated reference');
         }
 
-        public function updateManufacturer($id, $name)
-        {
-            $em = $this->getDoctrine()->getManager();
-            $Manufacturer = $em->getRepository('BarraFrontBundle:Manufacturer')->find($id);
-            $Manufacturer->setName($name);
-            $em->flush();
-            return new Response('Success! Updated manufacturer');
-        }
+
+
+x) inline Editing
+==================
+Forms
+------
+form nach iForm umbennen
+eine uForm hinzufügen
+
+
+Controller
+-----------
+uForm bei index() generieren
+
+
+JS
+---
+uForm ausblenden bis click
+uForm verschieben, beschreiben, einblenden & row ausblenden
+
+AJAX
+-----
+ bei erfolgreicher html5-browser-validation,
+ form an index controller schicken
+
+Controller
+-----------
+ form validierung (e:json)
+ doctrine update (e:page)
+ AJAX request? ja:json nein:template
+
+AJAX
+-----
+ return auf error prüfen
+ ja: zuweisen nein:form leeren, verstecken, row updaten & einblenden
