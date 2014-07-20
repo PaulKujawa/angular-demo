@@ -1,44 +1,43 @@
 {% extends 'BarraBackBundle::layout.html.twig' %}
 {% form_theme formInsert 'BarraBackBundle:Form:tableRow.html.twig' %}
+{% form_theme formUpdate 'BarraBackBundle:Form:tableRow.html.twig' %}
+
 {% trans_default_domain "messages" %}
 
 {% block title %}{{ 'back.title.manufacturers'|trans() }}{% endblock %}
 
 {% block section %}
     <section class="container mobileTables">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>{{ 'back.manufacturer.name'|trans() }}</th>
-                <th>{{ 'back.action.delete'|trans() }}</th>
-            </tr>
-            </thead>
-            <tbody>
-                {% for manufacturer in manufacturers %}
-                    <tr>
-                        <td data-title={{ 'back.manufacturer.name'|trans() }}>{{ manufacturer.name }}</td>
-                        <td data-title={{ 'back.action.delete'|trans() }}>
-                            <a {% if manufacturer.getIngredients() is empty %}
-                                href="{{ path('barra_back_manufacturer_delete', {'id': manufacturer.id}) }}"
-                            {% else %}
-                                class="notDeletable"
-                            {% endif %}
-                                    >
-                                <span class="glyphicon glyphicon-minus"></span>
-                            </a>
-                        </td>
-                    </tr>
-                {% endfor %}
-            <tr>
-                {{ form_start(formInsert) }}
-                    {{ form_row(formInsert.name) }}
-                    {{ form_widget(formInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
-                {{ form_end(formInsert) }}
-            </tr>
-            <tr>
-                {{ form(formUpdate) }}
-            </tr>
-            </tbody>
-        </table>
+        {{ form_start(formInsert) }}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>{{ 'back.manufacturer.name'|trans() }}</th>
+                    <th>{{ 'back.action.delete'|trans() }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for manufacturer in manufacturers %}
+                        <tr data-id={{ manufacturer.id }}>
+                            <td contenteditable="true" class="editableCell" data-title={{ 'back.manufacturer.name'|trans() }}>{{ manufacturer.name }}</td>
+                            <td data-title={{ 'back.action.delete'|trans() }}>
+                                <a {% if manufacturer.getIngredients() is empty %}
+                                    href="{{ path('barra_back_manufacturer_delete', {'id': manufacturer.id}) }}"
+                                {% else %}
+                                    class="inactiveLink"
+                                {% endif %}
+                                        >
+                                    <span class="glyphicon glyphicon-minus"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                <tr>
+                     {{ form_row(formInsert.name) }}
+                     {{ form_widget(formInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
+                </tr>
+                </tbody>
+            </table>
+        {{ form_end(formInsert) }}
     </section>
 {% endblock %}

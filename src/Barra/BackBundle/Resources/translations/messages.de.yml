@@ -4,6 +4,7 @@ back:
     logout: Abmelden
     manage: Bearbeiten
     new: Neu
+    update: Aktualisieren
 
   title:
     ingredients: Zutaten

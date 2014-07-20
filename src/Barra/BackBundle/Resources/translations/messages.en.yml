@@ -4,6 +4,7 @@ back:
     logout: Logout
     manage: Manage
     new: New
+    update: Update
 
   title:
     ingredients: Ingredients

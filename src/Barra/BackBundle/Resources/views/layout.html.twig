@@ -5,6 +5,11 @@
     <link href="{{ asset('bundles/barraback/css/main.css') }}" rel="stylesheet" />
 {% endblock %}
 
+{% block javaScript %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/barraback/js/main.js') }}"></script>
+{% endblock %}
+
 {% block navController %}
     {{ render(controller('BarraBackBundle:Layout:nav', {'request': app.request})) }}
 {% endblock %}

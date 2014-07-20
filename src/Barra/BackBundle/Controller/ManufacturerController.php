@@ -58,7 +58,7 @@ class ManufacturerController extends Controller
     public function updateAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $manufacturer = $em->getRepository('BarraFrontBundle:Manufacturer')->find($request->request->get('formUpdate')['id']);
+        $manufacturer = $em->getRepository('BarraFrontBundle:Manufacturer')->find($request->request->get('formManufacturerUpdate')['id']);
         if (!$manufacturer)
             throw $this->createNotFoundException('Manufacturer not found');
 

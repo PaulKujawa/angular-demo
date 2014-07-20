@@ -1,15 +1,20 @@
-/* BUTTON & ICONS */
+/* ICONS
+---------------------------------------------------------*/
 span.glyphicon { margin-right: 9px; }
 .glyphicon-minus { color: #DF6C4F; }
 .glyphicon-plus { color: #3C948B; }
+.inactiveLink span.glyphicon-minus { color: #777777; }
+
+
+/* BUTTONS
+---------------------------------------------------------*/
+.btn { padding: 6px 12px !important; } /* BT 1991 overriden by BT .bt-block */
 
 .btn-default {
     color: #3C948B;
     border-color: #3C948B;
     text-transform: uppercase;
 }
-
-.btn { padding: 6px 12px !important; } /* BT 1991 overriden by BT .bt-block */
 
 .btn-default:focus,
 .btn-default:hover,
@@ -22,7 +27,8 @@ span.glyphicon { margin-right: 9px; }
 
 
 
-/* TABLE FORMULAR */
+/* FORM IN TABLE
+---------------------------------------------------------*/
 table .btn-default { min-width: 100%; } /* instead of width by bt-block, since conflicts with td-with & padding */
 
 table input[type="radio"], input[type="checkbox"]  {
@@ -32,10 +38,18 @@ table input[type="radio"], input[type="checkbox"]  {
     margin: 0 auto;
 }
 
-a.notDeletable span.glyphicon-minus {
-    color: #777777;
+table.tableInForm {
+    background-color: inherit;
+    margin-bottom: 0;
 }
 
+table.tableInForm td {
+    border-top: none !important;
+}
+
+td.tableInForm {
+    padding: 0 !important;
+}
 
 
 
