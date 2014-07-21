@@ -58,18 +58,25 @@ class ManufacturerController extends Controller
 
     public function updateAction(Request $request)
     {
-        $editedData = $request->request->get('editedData');
+        $id = $request->request->get('pk');
+        $content = $request->request->get('content');
 
+        if ($content == "")
+            $returnData = array("responseCode"=>400, "content"=>"Not blank");
 
-        if ($editedData == "a") {
-            $returnData = array("responseCode"=>400, "content"=>"Not blank please!");
-        } else {
-            $returnData = array("responseCode"=>200, "content"=>$editedData);
+        else {
+            $em = $this->getDoctrine()->getManager();
+            $manufacturer = $em->getRepository('BarraFrontBundle:Manufacturer')->find($id);
+            if (!$manufacturer)
+                throw $this->createNotFoundException('Manufacturer not found');
+
+            $manufacturer->setName($content);
+            $em->flush();
+            $returnData = array("responseCode"=>200, "content"=>$content);
         }
 
         $returnData = json_encode($returnData);
         return new Response($returnData, 200, array('Content-Type'=>'application/json'));
-
     }
 
 

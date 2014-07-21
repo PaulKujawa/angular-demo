@@ -1,37 +1,56 @@
 $(window).ready(function() {
+    clipBoard = "";
+
+    $('td[contenteditable=true]').click(function() {
+        clipBoard = $(this).text();
+    });
+
     $('td[contenteditable=true]').blur(function() {
-        routePath = $(this).closest('table').attr('data-routePath');
         td = $(this);
+        data = $.trim(td.text());
+        td.text(data);
 
-        $.post(routePath, {editedData:$(this).html(), other:"attributes"}, function(returnData) {
-            if (returnData.responseCode == 200)
-                response(td, '#3c948b');
+        id = td.parent().attr('data-id');
+        routePath = td.closest('table').attr('data-routePath');
 
-            else if (returnData.responseCode == 400)
-                response(td, '#df6c4f', returnData.content);
+        $.post(
+            routePath, {
+                pk:id,
+                content:data
 
-            else
-                response(td, '#df6c4f', 'Could not get response');
-        });/* no 4th parameter for post() so jQuery guess the data-type based on our given content-Type */
+            }, function(returnData) {
+                if (returnData.responseCode == 200)
+                    response(td, '#3c948b');
+
+                else if (returnData.responseCode == 400)
+                    response(td, '#df6c4f', returnData.content);
+
+                else
+                    response(td, '#df6c4f', 'Could not get response');
+            }/* no 4th parameter for post() so jQuery guess the data-type based on our given content-Type */
+        );
     });
 
 
 
     var response = function(td, color, error) {
         td.css('color', color);
-        data = td.html();
-        time = 1500;
-
 
         if (error !== undefined) {
-            td.html(error);
-            time = 2500;
+            td.text(error);
+
+            setTimeout(function(){
+                td.text(clipBoard);
+                td.css('color', 'inherit');
+            }, 2500);
+
+        } else {
+            setTimeout(function(){
+                td.text(td.text());
+                td.css('color', 'inherit');
+            }, 1500);
         }
 
-        setTimeout(function(){
-            td.html(data);
-            td.css('color', 'inherit');
-        }, time);
     }
 });
 

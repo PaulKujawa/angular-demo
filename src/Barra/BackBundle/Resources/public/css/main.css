@@ -33,6 +33,7 @@ td[contenteditable=true]:focus {
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
 }
 
+
 /* FORM IN TABLE
 ---------------------------------------------------------*/
 table .btn-default { min-width: 100%; } /* instead of width by bt-block, since conflicts with td-with & padding */

@@ -3,7 +3,6 @@
 {% form_theme formUpdate 'BarraBackBundle:Form:tableRow.html.twig' %}
 
 {% trans_default_domain "messages" %}
-
 {% block title %}{{ 'back.title.manufacturers'|trans() }}{% endblock %}
 
 {% block section %}
@@ -19,34 +18,22 @@
                 <tbody>
                     {% for manufacturer in manufacturers %}
                         <tr data-id={{ manufacturer.id }}>
-
-                            <td contenteditable="true" class="editableCell" data-title={{ 'back.manufacturer.name'|trans() }}>{{ manufacturer.name }}</td>
-
+                            <td contenteditable="true" data-title={{ 'back.manufacturer.name'|trans() }}>{{ manufacturer.name }}</td>
                             <td data-title={{ 'back.action.delete'|trans() }}>
-                                <a {% if manufacturer.getIngredients() is empty %}
-                                    href="{{ path('barra_back_manufacturer_delete', {'id': manufacturer.id}) }}"
-                                {% else %}
-                                    class="inactiveLink"
-                                {% endif %}
-                                        >
+                                <a {% if manufacturer.getIngredients() is empty %} href="{{ path('barra_back_manufacturer_delete', {'id': manufacturer.id}) }}"
+                                   {% else %}                                      class="inactiveLink" {% endif %} >
                                     <span class="glyphicon glyphicon-minus"></span>
                                 </a>
+
                             </td>
                         </tr>
                     {% endfor %}
-
-
                     <tr>
-                     {{ form_row(formInsert.name) }}
-                     {{ form_widget(formInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
-                </tr>
+                        {{ form_row(formInsert.name) }}
+                         {{ form_widget(formInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
+                    </tr>
                 </tbody>
             </table>
-
-        <div>
-            <td id="status"></td>
-        </div>
-
         {{ form_end(formInsert) }}
     </section>
 {% endblock %}
