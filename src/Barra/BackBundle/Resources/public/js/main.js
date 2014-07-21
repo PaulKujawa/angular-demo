@@ -1,35 +1,49 @@
-$( window ).ready(function() {
+$(window).ready(function() {
+    $('td[contenteditable=true]').blur(function() {
+        routePath = $(this).closest('table').attr('data-routePath');
+        td = $(this);
 
-    rows = $('table tr');
-    editableCells = rows.find('.editableCell'); // td:not(:last-child)
+        $.post(routePath, {editedData:$(this).html(), other:"attributes"}, function(returnData) {
+            if (returnData.responseCode == 200)
+                response(td, '#3c948b');
 
-    updateForm = rows.last().find('form');
-    updateFormFields = updateForm.find('input');
+            else if (returnData.responseCode == 400)
+                response(td, '#df6c4f', returnData.content);
 
-    updateFormFields.each(function() {
-  //      $(this).val('hallo');
+            else
+                response(td, '#df6c4f', 'Could not get response');
+        });/* no 4th parameter for post() so jQuery guess the data-type based on our given content-Type */
     });
 
 
 
+    var response = function(td, color, error) {
+        td.css('color', color);
+        data = td.html();
+        time = 1500;
 
-    editableCells.click(function () {
-        rowData = $(this).parent().find('.editableCell'); // td:not(:last-child)
 
-        rowData.each(function() {
-//            window.alert( $(this).html() );
-        });
+        if (error !== undefined) {
+            td.html(error);
+            time = 2500;
+        }
 
-        rowId = $(this).parent().data('id');
-
-    //    window.alert( rowId );
-    });
+        setTimeout(function(){
+            td.html(data);
+            td.css('color', 'inherit');
+        }, time);
+    }
 });
 
-//$('#formUpdate_id').val(10);
 
-//var name = $(this).html();
-//$('#formUpdate_name').val(name);
 
-// window.alert( $('#formUpdate_id').val() );
-// .css( "background-color", "red" );
+
+/*
+ var url=$("#myForm").attr("action");
+ $.post(url,
+ $("#myForm").serialize(),
+ function(data){
+
+ }
+ );
+ */

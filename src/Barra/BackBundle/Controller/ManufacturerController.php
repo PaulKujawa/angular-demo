@@ -55,7 +55,25 @@ class ManufacturerController extends Controller
 
 
 
+
     public function updateAction(Request $request)
+    {
+        $editedData = $request->request->get('editedData');
+
+
+        if ($editedData == "a") {
+            $returnData = array("responseCode"=>400, "content"=>"Not blank please!");
+        } else {
+            $returnData = array("responseCode"=>200, "content"=>$editedData);
+        }
+
+        $returnData = json_encode($returnData);
+        return new Response($returnData, 200, array('Content-Type'=>'application/json'));
+
+    }
+
+
+    /*public function updateAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $manufacturer = $em->getRepository('BarraFrontBundle:Manufacturer')->find($request->request->get('formManufacturerUpdate')['id']);
@@ -69,7 +87,7 @@ class ManufacturerController extends Controller
             $em->flush();
 
         return $this->redirect($this->generateUrl('barra_back_manufacturers'));
-    }
+    }*/
 
 
 

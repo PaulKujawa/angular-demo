@@ -9,7 +9,7 @@
 {% block section %}
     <section class="container mobileTables">
         {{ form_start(formInsert) }}
-            <table class="table table-striped">
+            <table class="table table-striped" data-routePath="{{ path('barra_back_manufacturer_update') }}">
                 <thead>
                 <tr>
                     <th>{{ 'back.manufacturer.name'|trans() }}</th>
@@ -19,7 +19,9 @@
                 <tbody>
                     {% for manufacturer in manufacturers %}
                         <tr data-id={{ manufacturer.id }}>
+
                             <td contenteditable="true" class="editableCell" data-title={{ 'back.manufacturer.name'|trans() }}>{{ manufacturer.name }}</td>
+
                             <td data-title={{ 'back.action.delete'|trans() }}>
                                 <a {% if manufacturer.getIngredients() is empty %}
                                     href="{{ path('barra_back_manufacturer_delete', {'id': manufacturer.id}) }}"
@@ -32,12 +34,19 @@
                             </td>
                         </tr>
                     {% endfor %}
-                <tr>
+
+
+                    <tr>
                      {{ form_row(formInsert.name) }}
                      {{ form_widget(formInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
                 </tr>
                 </tbody>
             </table>
+
+        <div>
+            <td id="status"></td>
+        </div>
+
         {{ form_end(formInsert) }}
     </section>
 {% endblock %}

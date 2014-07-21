@@ -25,7 +25,13 @@ span.glyphicon { margin-right: 9px; }
     background-color: #f9f9f9;
 }
 
-
+/* FORM INLINE EDITING
+---------------------------------------------------------*/
+td[contenteditable=true]:focus {
+    outline: 0;
+    border: 1px solid #66afe9;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
 
 /* FORM IN TABLE
 ---------------------------------------------------------*/

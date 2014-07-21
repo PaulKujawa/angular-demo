@@ -71,8 +71,10 @@ barra_back_manufacturers:
     defaults: { _controller: BarraBackBundle:Manufacturer:index }
 
 barra_back_manufacturer_update:
-    path:     /manufacturers/update
+    path:     /manufacturers/update/ajax
     defaults: { _controller: BarraBackBundle:Manufacturer:update }
+    requirements:
+        _method: POST
 
 barra_back_manufacturer_delete:
     path:     /manufacturers/delete/{id}
