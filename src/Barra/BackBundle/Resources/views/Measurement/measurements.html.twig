@@ -17,9 +17,9 @@
             <tbody>
                 {% for measurement in measurements %}
                     <tr>
-                        <td data-title={{ 'back.measurement.type'|trans() }}>{{ measurement.type }}</td>
-                        <td data-title={{ 'back.measurement.gr'|trans() }}>{{ measurement.gr }}</td>
-                        <td data-title={{ 'back.action.delete'|trans() }}>
+                        <td data-mobile-title={{ 'back.measurement.type'|trans() }}>{{ measurement.type }}</td>
+                        <td data-mobile-title={{ 'back.measurement.gr'|trans() }}>{{ measurement.gr }}</td>
+                        <td data-mobile-title={{ 'back.action.delete'|trans() }}>
                             <a {% if measurement.getRecipeIngredients() is empty %}
                                     href="{{ path('barra_back_measurement_delete', {'id': measurement.id}) }}"
                                 {% else %}

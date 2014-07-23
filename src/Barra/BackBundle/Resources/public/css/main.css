@@ -48,7 +48,7 @@ table .form-control { /* BT 1689 */
     box-shadow: none;
 }
 
-tr.insertFormRow td, tr.updateFormRow td {
+tr.formInRow td {
     padding: 0px !important; /* BT 1412 */
 }
 
@@ -100,5 +100,5 @@ table tr:last-child td {
 
     table tr:last-child td { padding-left: 8px !important; }
 
-    .mobileTables td:before { content: attr(data-title); }
+    .mobileTables td:before { content: attr(data-mobile-title); }
 }

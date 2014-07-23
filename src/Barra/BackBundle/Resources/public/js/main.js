@@ -1,47 +1,43 @@
 $(document).ready(function() {
+    // ugly part to find rows & forms
+    var entity = {};
+    entity['table'] = $('table').first();
+    entity['iForm'] = entity['table'].parent();
+    entity['type'] = entity['table'].attr('data-type');
+    entity['iFormRow'] = entity['iForm'].find('.formInRow');
+    entity['uFormRow'] = $('.jsStorage[data-type="'+entity['type']+'"] tr').detach();
+    entity['uForm'] = $('.jsStorage[data-type="'+entity['type']+'"] form').detach();
+    entity['oldTr'] = null;
 
 
-    
     var editableCells   = $('.editableCell');
-    var tr = null;
-
-    var insertFormRow = null;
-    var insertForm = null;
-
-    var updateFormRow   = $('#deletedByJS .updateFormRow').detach();
-    var updateForm      = $('#deletedByJS form').detach();
-    $('#deletedByJS').remove();
+    $('.jsStorage[data-type="'+entity['type']+'"]').remove();
 
 
     editableCells.click(function() {
-        if (tr !== null) return;
+        if (entity['oldTr'] !== null) return;
+        entity['oldTr'] = $(this).parent();
 
-        tr                  = $(this).parent();
-        var insertForm      = tr.closest('form');
-        var insertFormRow   = insertForm.find('.insertFormRow');
+        // remove iForm
+        entity['table'].unwrap();
+        entity['table'].wrap(entity['uForm']);
+        entity['iFormRow'] = entity['iFormRow'].detach();
 
-        // switch forms tags
-        var table = insertForm.find('table');
-        table.unwrap();
-        table.wrap(updateForm);
-
-        // switch rows
-        insertFormRow = insertFormRow.detach();
-        id = tr.attr('data-id');
-        tr.replaceWith(updateFormRow);
-        $('#formManufacturerUpdate_id').val(id);
+        // insert uForm
+        var id = entity['oldTr'].attr('data-id');
+        entity['oldTr'].replaceWith(entity['uFormRow']);
+        entity['uFormRow'].find('.formPk').val(id);
     });
 
 
 
-    updateForm.submit(function() {
-        formUrl = updateForm.attr('action');
-        updateForm = $(this);
+    entity['uForm'].submit(function() {
+        entity['uForm'] = $(this);
 
         $.ajax({
-                url: formUrl,
+                url: entity['uForm'].attr('action'),
                 type: "POST",
-                data: updateForm.serialize()
+                data: entity['uForm'].serialize()
 
         }).done(function(response) {
             if (response.code == 200) { //response(td, '#3c948b');
@@ -99,6 +95,9 @@ $(document).ready(function() {
             }, 1500);
         }
     }
+
+
+
 });
 
 

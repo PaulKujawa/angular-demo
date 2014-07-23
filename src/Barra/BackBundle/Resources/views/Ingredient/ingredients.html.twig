@@ -25,17 +25,17 @@
             <tbody>
                 {% for ingredient in ingredients %}
                     <tr>
-                        <td data-title={{ 'back.ingredient.name'|trans() }}>{{ ingredient.name }}</td>
-                        <td data-title={{ 'back.ingredient.vegan'|trans() }}>{{ ingredient.vegan }}</td>
-                        <td data-title={{ 'back.ingredient.kcal'|trans() }}>{{ ingredient.kcal }}</td>
-                        <td data-title={{ 'back.ingredient.protein'|trans() }}>{{ ingredient.protein }}</td>
-                        <td data-title={{ 'back.ingredient.carbs'|trans() }}>{{ ingredient.carbs }}</td>
-                        <td data-title={{ 'back.ingredient.sugar'|trans() }}>{{ ingredient.sugar }}</td>
-                        <td data-title={{ 'back.ingredient.fat'|trans() }}>{{ ingredient.fat }}</td>
-                        <td data-title={{ 'back.ingredient.gfat'|trans() }}>{{ ingredient.gfat }}</td>
-                        <td data-title={{ 'back.ingredient.manufacturer'|trans() }}>{{ ingredient.manufacturer.name }}</td>
+                        <td data-mobile-title={{ 'back.ingredient.name'|trans() }}>{{ ingredient.name }}</td>
+                        <td data-mobile-title={{ 'back.ingredient.vegan'|trans() }}>{{ ingredient.vegan }}</td>
+                        <td data-mobile-title={{ 'back.ingredient.kcal'|trans() }}>{{ ingredient.kcal }}</td>
+                        <td data-mobile-title={{ 'back.ingredient.protein'|trans() }}>{{ ingredient.protein }}</td>
+                        <td data-mobile-title={{ 'back.ingredient.carbs'|trans() }}>{{ ingredient.carbs }}</td>
+                        <td data-mobile-title={{ 'back.ingredient.sugar'|trans() }}>{{ ingredient.sugar }}</td>
+                        <td data-mobile-title={{ 'back.ingredient.fat'|trans() }}>{{ ingredient.fat }}</td>
+                        <td data-mobile-title={{ 'back.ingredient.gfat'|trans() }}>{{ ingredient.gfat }}</td>
+                        <td data-mobile-title={{ 'back.ingredient.manufacturer'|trans() }}>{{ ingredient.manufacturer.name }}</td>
 
-                        <td data-title={{ 'back.action.delete'|trans() }}>
+                        <td data-mobile-title={{ 'back.action.delete'|trans() }}>
                             <a {% if ingredient.getRecipeIngredients() is empty %}
                                     href="{{ path('barra_back_ingredient_delete', {'id': ingredient.id}) }}"
                                 {% else %}

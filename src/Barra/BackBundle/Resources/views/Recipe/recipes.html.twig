@@ -16,8 +16,8 @@
             <tbody>
                 {% for recipe in recipes %}
                     <tr>
-                        <td data-title={{ 'back.recipe.name'|trans() }}>{{ recipe.name }}</td>
-                        <td data-title={{ 'back.action.delete'|trans() }}>
+                        <td data-mobile-title={{ 'back.recipe.name'|trans() }}>{{ recipe.name }}</td>
+                        <td data-mobile-title={{ 'back.action.delete'|trans() }}>
                             <a href="{{ path('barra_back_recipe_delete', {'id': recipe.id}) }}">
                                 <span class="glyphicon glyphicon-minus"></span>
                             </a>

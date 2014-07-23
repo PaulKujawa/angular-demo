@@ -8,7 +8,7 @@
 {% block section %}
     <section class="container mobileTables">
         {{ form_start(formInsert) }}
-            <table class="table table-striped" data-routePath="{{ path('barra_back_manufacturer_update') }}">
+            <table class="table table-striped" data-type="manufacturer" data-routePath="{{ path('barra_back_manufacturer_update') }}">
                 <thead>
                 <tr>
                     <th>{{ 'back.manufacturer.name'|trans() }}</th>
@@ -18,8 +18,8 @@
                 <tbody>
                     {% for manufacturer in manufacturers %}
                         <tr data-id={{ manufacturer.id }}>
-                            <td class="editableCell" data-title={{ 'back.manufacturer.name'|trans() }}>{{ manufacturer.name }}</td>
-                            <td data-title={{ 'back.action.delete'|trans() }}>
+                            <td class="editableCell" data-mobile-title={{ 'back.manufacturer.name'|trans() }}>{{ manufacturer.name }}</td>
+                            <td data-mobile-title={{ 'back.action.delete'|trans() }}>
                                 <a {% if manufacturer.getIngredients() is empty %} href="{{ path('barra_back_manufacturer_delete', {'id': manufacturer.id}) }}"
                                    {% else %}                                      class="inactiveLink" {% endif %} >
                                     <span class="glyphicon glyphicon-minus"></span>
@@ -27,7 +27,7 @@
                             </td>
                         </tr>
                     {% endfor %}
-                    <tr class="insertFormRow">
+                    <tr class="formInRow">
                         {{ form_widget(formInsert._token) }}
                         {{ form_row(formInsert.name) }}
                         {{ form_widget(formInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
@@ -38,15 +38,17 @@
 
         <div id="foo"></div>
 
-        <table id="deletedByJS">
-            {{ form_start(formUpdate, {'action': path('barra_back_manufacturer_update') }) }}
-                <tr class="updateFormRow">
-                    {{ form_widget(formUpdate._token) }}
-                    {{ form_row(formUpdate.id) }}
-                    {{ form_row(formUpdate.name) }}
-                    {{ form_widget(formUpdate.submit, {'label': 'back.action.update', 'attr': {'class': 'btn btn-default'} }) }}
-                </tr>
-            {{ form_end(formUpdate) }}
+        <table class="jsStorage" data-type="manufacturer" style="visibility: hidden">
+            <tbody>
+                {{ form_start(formUpdate, {'action': path('barra_back_manufacturer_update')}) }}
+                    <tr class="formInRow">
+                        {{ form_widget(formUpdate._token) }}
+                        {{ form_row(formUpdate.id, {'attr': {'class': 'formPk'} }) }}
+                        {{ form_row(formUpdate.name) }}
+                        {{ form_widget(formUpdate.submit, {'label': 'back.action.update', 'attr': {'class': 'btn btn-default'} }) }}
+                    </tr>
+                {{ form_end(formUpdate) }}
+            </tbody>
         </table>
     </section>
 {% endblock %}

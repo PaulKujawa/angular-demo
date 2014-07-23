@@ -20,10 +20,10 @@
             <tbody>
             {% for recipeIngredient in recipeIngredients %}
                 <tr>
-                    <td data-title={{ 'back.recipeIngredient.amount'|trans() }}>{{ recipeIngredient.amount }}</td>
-                    <td data-title={{ 'back.measurement.type'|trans() }}>{{ recipeIngredient.measurement.type }}</td>
-                    <td data-title={{ 'back.ingredient.name'|trans() }}>{{ recipeIngredient.ingredient.name }}</td>
-                    <td data-title={{ 'back.action.delete'|trans() }}>
+                    <td data-mobile-title={{ 'back.recipeIngredient.amount'|trans() }}>{{ recipeIngredient.amount }}</td>
+                    <td data-mobile-title={{ 'back.measurement.type'|trans() }}>{{ recipeIngredient.measurement.type }}</td>
+                    <td data-mobile-title={{ 'back.ingredient.name'|trans() }}>{{ recipeIngredient.ingredient.name }}</td>
+                    <td data-mobile-title={{ 'back.action.delete'|trans() }}>
                         <a href="{{ path('barra_back_recipeDetail_ingredient_delete', {'recipeId': recipe.id, 'ingredientId': recipeIngredient.ingredient.id}) }}">
                             <span class="glyphicon glyphicon-minus"></span>
                         </a>
@@ -67,9 +67,9 @@
             <tbody>
             {% for cookingStep in cookingSteps %}
                 <tr>
-                    <td data-title={{ 'back.cookingStep.step'|trans() }}>{{ cookingStep.step }}</td>
-                    <td data-title={{ 'back.cookingStep.description'|trans() }}>{{ cookingStep.description }}</td>
-                    <td data-title={{ 'back.action.delete'|trans() }}>
+                    <td data-mobile-title={{ 'back.cookingStep.step'|trans() }}>{{ cookingStep.step }}</td>
+                    <td data-mobile-title={{ 'back.cookingStep.description'|trans() }}>{{ cookingStep.description }}</td>
+                    <td data-mobile-title={{ 'back.action.delete'|trans() }}>
                         <a href="{{ path('barra_back_recipeDetail_cookingStep_delete', {'recipeId': recipe.id, 'step': cookingStep.step}) }}">
                             <span class="glyphicon glyphicon-minus"></span>
                         </a>
