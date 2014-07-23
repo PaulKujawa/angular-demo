@@ -1,35 +1,83 @@
-$(window).ready(function() {
-    clipBoard = "";
+$(document).ready(function() {
 
-    $('td[contenteditable=true]').click(function() {
-        clipBoard = $(this).text();
+
+    
+    var editableCells   = $('.editableCell');
+    var tr = null;
+
+    var insertFormRow = null;
+    var insertForm = null;
+
+    var updateFormRow   = $('#deletedByJS .updateFormRow').detach();
+    var updateForm      = $('#deletedByJS form').detach();
+    $('#deletedByJS').remove();
+
+
+    editableCells.click(function() {
+        if (tr !== null) return;
+
+        tr                  = $(this).parent();
+        var insertForm      = tr.closest('form');
+        var insertFormRow   = insertForm.find('.insertFormRow');
+
+        // switch forms tags
+        var table = insertForm.find('table');
+        table.unwrap();
+        table.wrap(updateForm);
+
+        // switch rows
+        insertFormRow = insertFormRow.detach();
+        id = tr.attr('data-id');
+        tr.replaceWith(updateFormRow);
+        $('#formManufacturerUpdate_id').val(id);
     });
 
-    $('td[contenteditable=true]').blur(function() {
-        td = $(this);
-        data = $.trim(td.text());
-        td.text(data);
 
-        id = td.parent().attr('data-id');
-        routePath = td.closest('table').attr('data-routePath');
 
-        $.post(
-            routePath, {
-                pk:id,
-                content:data
+    updateForm.submit(function() {
+        formUrl = updateForm.attr('action');
+        updateForm = $(this);
 
-            }, function(returnData) {
-                if (returnData.responseCode == 200)
-                    response(td, '#3c948b');
+        $.ajax({
+                url: formUrl,
+                type: "POST",
+                data: updateForm.serialize()
 
-                else if (returnData.responseCode == 400)
-                    response(td, '#df6c4f', returnData.content);
+        }).done(function(response) {
+            if (response.code == 200) { //response(td, '#3c948b');
+                $('#foo').html('200 '+ response.message);
 
-                else
-                    response(td, '#df6c4f', 'Could not get response');
-            }/* no 4th parameter for post() so jQuery guess the data-type based on our given content-Type */
-        );
+            }
+            else if (response.code == 400) {
+                errors = response.message;
+                $('#foo').html('400 '+errors);
+
+            } else if (response.code == 404)
+                $('#foo').html('404 '+response.message);
+                //response(td, '#df6c4f', ajaxResponse.content);
+
+            else
+                $('#foo').html("error");
+                //response(td, '#df6c4f', 'Could not get response');
+
+
+            switchForms();
+        });
+
+        return false;
     });
+
+
+    // remove insertForm
+    //form.replaceWith(form.html());
+    //$('.insertFormRow').remove();
+
+    //updateFormRow.appendTo( row.parent() );
+
+    var switchForms = function() {
+        tr = null;
+
+    }
 
 
 
@@ -50,19 +98,9 @@ $(window).ready(function() {
                 td.css('color', 'inherit');
             }, 1500);
         }
-
     }
 });
 
 
 
 
-/*
- var url=$("#myForm").attr("action");
- $.post(url,
- $("#myForm").serialize(),
- function(data){
-
- }
- );
- */

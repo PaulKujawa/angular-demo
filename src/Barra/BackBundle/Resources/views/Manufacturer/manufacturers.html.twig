@@ -18,22 +18,35 @@
                 <tbody>
                     {% for manufacturer in manufacturers %}
                         <tr data-id={{ manufacturer.id }}>
-                            <td contenteditable="true" data-title={{ 'back.manufacturer.name'|trans() }}>{{ manufacturer.name }}</td>
+                            <td class="editableCell" data-title={{ 'back.manufacturer.name'|trans() }}>{{ manufacturer.name }}</td>
                             <td data-title={{ 'back.action.delete'|trans() }}>
                                 <a {% if manufacturer.getIngredients() is empty %} href="{{ path('barra_back_manufacturer_delete', {'id': manufacturer.id}) }}"
                                    {% else %}                                      class="inactiveLink" {% endif %} >
                                     <span class="glyphicon glyphicon-minus"></span>
                                 </a>
-
                             </td>
                         </tr>
                     {% endfor %}
-                    <tr>
+                    <tr class="insertFormRow">
+                        {{ form_widget(formInsert._token) }}
                         {{ form_row(formInsert.name) }}
-                         {{ form_widget(formInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
+                        {{ form_widget(formInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
                     </tr>
                 </tbody>
             </table>
         {{ form_end(formInsert) }}
+
+        <div id="foo"></div>
+
+        <table id="deletedByJS">
+            {{ form_start(formUpdate, {'action': path('barra_back_manufacturer_update') }) }}
+                <tr class="updateFormRow">
+                    {{ form_widget(formUpdate._token) }}
+                    {{ form_row(formUpdate.id) }}
+                    {{ form_row(formUpdate.name) }}
+                    {{ form_widget(formUpdate.submit, {'label': 'back.action.update', 'attr': {'class': 'btn btn-default'} }) }}
+                </tr>
+            {{ form_end(formUpdate) }}
+        </table>
     </section>
 {% endblock %}

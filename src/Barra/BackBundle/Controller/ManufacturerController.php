@@ -5,8 +5,10 @@ namespace Barra\BackBundle\Controller;
 use Barra\FrontBundle\Entity\Manufacturer;
 use Barra\BackBundle\Form\Type\ManufacturerType;
 use Barra\BackBundle\Form\Type\ManufacturerUpdateType;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\FormError;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class ManufacturerController extends Controller
@@ -28,7 +30,7 @@ class ManufacturerController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $manufacturers = $em->getRepository('BarraFrontBundle:Manufacturer')->findAll();
-        $formUpdate = $this->createForm(new ManufacturerUpdateType(), $manufacturer, array('action'=>$this->generateUrl('barra_back_manufacturer_update')));
+        $formUpdate = $this->createForm(new ManufacturerUpdateType(), $manufacturer);
 
 
         return $this->render('BarraBackBundle:Manufacturer:manufacturers.html.twig', array(
@@ -55,46 +57,55 @@ class ManufacturerController extends Controller
 
 
 
-
     public function updateAction(Request $request)
     {
-        $id = $request->request->get('pk');
-        $content = $request->request->get('content');
+        $em = $this->getDoctrine()->getManager();
+        $id = $request->request->get('formManufacturerUpdate')['id'];
+        $manufacturer = $em->getRepository('BarraFrontBundle:Manufacturer')->find($id);
 
-        if ($content == "")
-            $returnData = array("responseCode"=>400, "content"=>"Not blank");
-
-        else {
-            $em = $this->getDoctrine()->getManager();
-            $manufacturer = $em->getRepository('BarraFrontBundle:Manufacturer')->find($id);
-            if (!$manufacturer)
-                throw $this->createNotFoundException('Manufacturer not found');
-
-            $manufacturer->setName($content);
-            $em->flush();
-            $returnData = array("responseCode"=>200, "content"=>$content);
+        if (!$manufacturer) {
+            $ajaxResponse = array("code"=>404, "message"=>'Not found');
+            return new Response(json_encode($ajaxResponse), 200, array('Content-Type'=>'application/json'));
         }
 
-        $returnData = json_encode($returnData);
-        return new Response($returnData, 200, array('Content-Type'=>'application/json'));
-    }
-
-
-    /*public function updateAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $manufacturer = $em->getRepository('BarraFrontBundle:Manufacturer')->find($request->request->get('formManufacturerUpdate')['id']);
-        if (!$manufacturer)
-            throw $this->createNotFoundException('Manufacturer not found');
 
         $formUpdate = $this->createForm(new ManufacturerUpdateType(), $manufacturer);
         $formUpdate->handleRequest($request);
 
-        if ($formUpdate->isValid())
+        if ($formUpdate->isValid()) {
             $em->flush();
+            $ajaxResponse = array("code"=>200, "message"=>"ok");
+        } else
+            $ajaxResponse = array("code"=>400, "message"=>"invalid"); /* TODO invalid msg */
 
-        return $this->redirect($this->generateUrl('barra_back_manufacturers'));
-    }*/
+        return new Response(json_encode($ajaxResponse), 200, array('Content-Type'=>'application/json'));
+    }
+
+
+
+    private function updateParseErrors(Form $form)
+    {
+        $errors = array();
+
+        foreach($form->getErrors() as $key => $error) {
+            $params = $error->getMessageParameters();
+            $template = $error->getMessageTemplate();
+
+            foreach($params as $var => $val)
+                $template = str_replace($var, $val, $template);
+
+            $errors[$key] = $template;
+        }
+
+        if ($form->count()) {
+            foreach($form as $child) {
+                if ($child->isValid() == false ) {
+                    $errors[$child->getName()] = $this->updateParseErrors($child);
+                }
+            }
+        }
+        return $errors;
+    }
 
 
 

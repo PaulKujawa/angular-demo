@@ -8,7 +8,10 @@ span.glyphicon { margin-right: 9px; }
 
 /* BUTTONS
 ---------------------------------------------------------*/
-.btn { padding: 6px 12px !important; } /* BT 1991 overriden by BT .bt-block */
+.btn { /* BT 1991 overriden by BT .bt-block */
+    padding: 6px 12px !important;
+    border-radius: 0px;
+}
 
 .btn-default {
     color: #3C948B;
@@ -25,16 +28,9 @@ span.glyphicon { margin-right: 9px; }
     background-color: #f9f9f9;
 }
 
-/* FORM INLINE EDITING
----------------------------------------------------------*/
-td[contenteditable=true]:focus {
-    outline: 0;
-    border: 1px solid #66afe9;
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
-}
 
 
-/* FORM IN TABLE
+/* FORM FIELDS IN TABLES
 ---------------------------------------------------------*/
 table .btn-default { min-width: 100%; } /* instead of width by bt-block, since conflicts with td-with & padding */
 
@@ -45,17 +41,19 @@ table input[type="radio"], input[type="checkbox"]  {
     margin: 0 auto;
 }
 
-table.tableInForm {
-    background-color: inherit;
-    margin-bottom: 0;
+table .form-control { /* BT 1689 */
+    border: none !important;
+    padding: 8px !important;
+    border-radius: 0px;
+    box-shadow: none;
 }
 
-table.tableInForm td {
-    border-top: none !important;
+tr.insertFormRow td, tr.updateFormRow td {
+    padding: 0px !important; /* BT 1412 */
 }
 
-td.tableInForm {
-    padding: 0 !important;
+table tr:last-child td {
+    border-bottom: 1px solid #dddddd;
 }
 
 
