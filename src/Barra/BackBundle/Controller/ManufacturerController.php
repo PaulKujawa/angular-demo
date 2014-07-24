@@ -75,34 +75,31 @@ class ManufacturerController extends Controller
         if ($formUpdate->isValid()) {
             $em->flush();
             $ajaxResponse = array("code"=>200, "message"=>"ok");
-        } else
-            $ajaxResponse = array("code"=>400, "message"=>"invalid"); /* TODO invalid msg */
+        } else {
+            $validationErrors = $this->getErrorMessages($formUpdate);
+            $ajaxResponse = array("code"=>400, "message"=>$validationErrors);
+        }
 
         return new Response(json_encode($ajaxResponse), 200, array('Content-Type'=>'application/json'));
     }
 
 
 
-    private function updateParseErrors(Form $form)
-    {
+    /**
+     * @param Form $form
+     * @return array[fieldName][number] e.g. array['name'][0]
+     */
+    private function getErrorMessages(Form $form) {
         $errors = array();
+        $formErrors = $form->getErrors();
 
-        foreach($form->getErrors() as $key => $error) {
-            $params = $error->getMessageParameters();
-            $template = $error->getMessageTemplate();
-
-            foreach($params as $var => $val)
-                $template = str_replace($var, $val, $template);
-
-            $errors[$key] = $template;
+        foreach ($formErrors as $key => $error) {
+            $errors[] = $error->getMessage();
         }
 
-        if ($form->count()) {
-            foreach($form as $child) {
-                if ($child->isValid() == false ) {
-                    $errors[$child->getName()] = $this->updateParseErrors($child);
-                }
-            }
+        foreach ($form->all() as $child) {
+            if (!$child->isValid())
+                $errors[$child->getName()] = $this->getErrorMessages($child);
         }
         return $errors;
     }

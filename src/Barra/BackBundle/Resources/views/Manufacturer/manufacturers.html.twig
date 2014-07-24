@@ -28,7 +28,6 @@
                         </tr>
                     {% endfor %}
                     <tr class="formInRow">
-                        {{ form_widget(formInsert._token) }}
                         {{ form_row(formInsert.name) }}
                         {{ form_widget(formInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
                     </tr>
@@ -36,19 +35,19 @@
             </table>
         {{ form_end(formInsert) }}
 
-        <div id="foo"></div>
-
         <table class="jsStorage" data-type="manufacturer" style="visibility: hidden">
             <tbody>
                 {{ form_start(formUpdate, {'action': path('barra_back_manufacturer_update')}) }}
                     <tr class="formInRow">
-                        {{ form_widget(formUpdate._token) }}
-                        {{ form_row(formUpdate.id, {'attr': {'class': 'formPk'} }) }}
                         {{ form_row(formUpdate.name) }}
                         {{ form_widget(formUpdate.submit, {'label': 'back.action.update', 'attr': {'class': 'btn btn-default'} }) }}
+                        {{ form_row(formUpdate.id, {'attr': {'class': 'formPk'} }) }}
+                        {{ form_rest(formUpdate) }}
                     </tr>
                 {{ form_end(formUpdate) }}
             </tbody>
         </table>
+
+        <div id="foo"></div>
     </section>
 {% endblock %}
