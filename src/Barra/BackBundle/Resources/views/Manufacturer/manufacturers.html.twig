@@ -1,19 +1,19 @@
 {% extends 'BarraBackBundle::layout.html.twig' %}
 {% form_theme formInsert 'BarraBackBundle:Form:tableRow.html.twig' %}
 {% form_theme formUpdate 'BarraBackBundle:Form:tableRow.html.twig' %}
-
 {% trans_default_domain "messages" %}
+
 {% block title %}{{ 'back.title.manufacturers'|trans() }}{% endblock %}
 
 {% block section %}
     <section class="container mobileTables">
         {{ form_start(formInsert) }}
-            <table class="table table-striped" data-type="manufacturer" data-routePath="{{ path('barra_back_manufacturer_update') }}">
+            <table class="table table-striped" data-type="manufacturer">
                 <thead>
-                <tr>
-                    <th>{{ 'back.manufacturer.name'|trans() }}</th>
-                    <th>{{ 'back.action.delete'|trans() }}</th>
-                </tr>
+                    <tr>
+                        <th>{{ 'back.manufacturer.name'|trans() }}</th>
+                        <th>{{ 'back.action.delete'|trans() }}</th>
+                    </tr>
                 </thead>
                 <tbody>
                     {% for manufacturer in manufacturers %}
@@ -47,7 +47,5 @@
                 {{ form_end(formUpdate) }}
             </tbody>
         </table>
-
-        <div id="foo"></div>
     </section>
 {% endblock %}

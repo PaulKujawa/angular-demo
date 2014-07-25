@@ -29,7 +29,7 @@ Kujawa / vpit
   * check twig syntax `hp app/console twig:lint path_of_bundle|folder|twig-file`
 
 
-2) Commandline Tests
+3) Commandline Tests
 --------------------
   * run phpunit tests `php phpunit -c app src/Barra/BackBundle`
 
@@ -115,25 +115,7 @@ Kujawa / vpit
         -> ovveride this default via:
             {{ render_hinclude(controller('...'), { 'default': '.....twig'}) }}`
 
-
-10) DB One2Many
-----------------
-  * funktioniert bereits automatisch
-    `newRecipeIngredient->setIngredient($ingredient)
-     Recipe->RecipeIngredient
-     Recipe->getRecipeIngredients()`
-
-
-  * entfernt nur den Attributswert im Datensatz. unpraktisch, da Datensatz (relation) erhalten bliebe.
-    wirft sowieso fehlermeldung, da Attribut auf not nullable gesetzt
-    `Ingredient->removeRecipeIngredient($recipeIngredient)`
-
-
-  * unnütz. das recipeIngredient müsste bereits bestehen. verlinkung zu Ingredient wird autom. gesetzt
-    `Ingredient->addRecipeIngredient($recipeIngredient)`
-
-
-11) Trans
+10) Trans
 ----------
   * tag: `{% trans from 'layout' %}reference{% endtrans %}`
 
@@ -143,7 +125,7 @@ Kujawa / vpit
   * variable key `{{ entry['label']|trans({}, 'layout') }}`
 
 
-12) Transchoice
+11) Transchoice
 ----------------
   * filter `{{ 'front.word.comment'|transchoice(count, {}, 'layout') }}
 
@@ -153,7 +135,7 @@ Kujawa / vpit
         comment: '{0} no comment|{1} one comment|]1,Inf] %count% comments'
 
 
-13) CACHE
+12) CACHE
 ----------
   * preparation
     use Symfony\Component\HttpFoundation\Response;
@@ -180,7 +162,7 @@ Kujawa / vpit
     ));
 
 
-14) Notices
+13) Notices
 ------------
         public function updateMeasurement($id, $type, $inGr)
         {
@@ -200,17 +182,7 @@ Kujawa / vpit
             return new Response('Success! Updated recipe');
         }
 
-        public function updateRecipeIngredient($id, $recipe, $ingredient, $position, $measurement, $amount)
-        {
-            $em = $this->getDoctrine()->getManager();
-            $recipeIngredient = $em->getepository('BarraFrontBundle:RecipeIngredient')->find($id);
-            $recipeIngredient->setRecipe($recipe)->setIngredient($ingredient)->setPosition($position)
-                ->setMeasurement($measurement)->setAmount($amount);
-            $em->flush();
-            return new Response('Success! Updated relation');
-        }
-
-         public function updateIngredient($id, $name, $vegan, $kcal, $protein, $carbs, $sugar, $fat, $gfat, $manufacturer)
+        public function updateIngredient($id, $name, $vegan, $kcal, $protein, $carbs, $sugar, $fat, $gfat, $manufacturer)
         {
             $em = $this->getDoctrine()->getManager();
             $ingredient = $em->getRepository('BarraFrontBundle:Ingredient')->find($id);
@@ -242,39 +214,3 @@ Kujawa / vpit
             $em->flush();
             return new Response('Success! Updated reference');
         }
-
-
-
-x) inline Editing
-==================
-Forms
-------
-form nach iForm umbennen
-eine uForm hinzufügen
-
-
-Controller
------------
-uForm bei index() generieren
-
-
-JS
----
-uForm ausblenden bis click
-uForm verschieben, beschreiben, einblenden & row ausblenden
-
-AJAX
------
- bei erfolgreicher html5-browser-validation,
- form an index controller schicken
-
-Controller
------------
- form validierung (e:json)
- doctrine update (e:page)
- AJAX request? ja:json nein:template
-
-AJAX
------
- return auf error prüfen
- ja: zuweisen nein:form leeren, verstecken, row updaten & einblenden

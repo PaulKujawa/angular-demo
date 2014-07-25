@@ -1,106 +1,146 @@
-$(document).ready(function() {
+$(window).load(function() {
+    var entities = [];
 
-    // ugly part to find rows & forms
-    var entity = {};
-    entity['table'] = $('table').first();
-    entity['iForm'] = entity['table'].parent();
-    entity['type'] = entity['table'].attr('data-type');
-    entity['iFormRow'] = entity['iForm'].find('.formInRow');
-    entity['uFormRow'] = $('.jsStorage[data-type="'+entity['type']+'"] tr').detach();
-    entity['uForm'] = $('.jsStorage[data-type="'+entity['type']+'"] form').detach();
-    entity['oldTr'] = null;
-    $('.jsStorage[data-type="'+entity['type']+'"]').remove();
+    var collectEntities = function() {
+        var tables = $('table:not(.jsStorage)');
+
+        tables.each(function() {
+            var e = [];
+
+            e['table'] = $(this);
+            e['action'] = e['table'].attr('data-type');
+
+            e['iFormRow'] = e['table'].find('.formInRow');
+            e['iForm'] = e['table'].parent();
+
+            var wrapper = $('.jsStorage[data-type="'+e["action"]+'"]');
+            e['uFormRow'] = wrapper.find('tr').detach();
+            e['uForm'] = wrapper.find('form').detach();
+            wrapper.remove();
+
+            e['activeTr'] = null;
+            entities.push(e);
+        });
+    };
 
 
+    var chooseEntity = function(action) {
+        if (entities.length === 0)
+            collectEntities();
+
+        for (var i=0; i < entities.length; i++) {
+            if (entities[i]['action'] === action)
+                return i;
+        }
+        window.alert('something went wrong, please reload the site.');
+    };
 
 
-    entity['table'].on('click', '.editableCell', function() {
-        if (entity['oldTr'] !== null) return;
-        entity['oldTr'] = $(this).parent();
+    $('section').on('click', 'td.editableCell', function() {
+        var compareString = $(this).closest('table').attr('data-type');
+        var i = chooseEntity( compareString );
+
+        if (entities[i]['activeTr'] !== null) return;
+        entities[i]['activeTr'] = $(this).parent();
 
         // remove iForm
-        entity['table'].unwrap();
-        entity['table'].wrap(entity['uForm']);
-        entity['iFormRow'] = entity['iFormRow'].detach();
+        entities[i]['table'].unwrap();
+        entities[i]['table'].wrap(entities[i]['uForm']);
+        entities[i]['iFormRow'] = entities[i]['iFormRow'].detach();
 
         // insert uForm
-        var id = entity['oldTr'].attr('data-id');
-        entity['oldTr'].replaceWith(entity['uFormRow']);
-        entity['uFormRow'].find('.formPk').val(id);
+        var id = entities[i]['activeTr'].attr('data-id');
+        entities[i]['activeTr'].replaceWith(entities[i]['uFormRow']);
+        entities[i]['uFormRow'].find('.formPk').val(id);
 
-        var values = [];
-        entity['oldTr'].children('.editableCell').each(function() {
-            values.push( $(this).html() );
-        });
-
-        values.reverse();
-        entity['uFormRow'].find('.form-control').each(function() {
-            $(this).val( values.pop() );
-        });
-
+        // fill uForm
+        fillUForm(i);
         var index = $(this).index();
-        entity['uFormRow'].find('.form-control').eq(index).focus();
+        entities[i]['uFormRow'].find('.form-control').eq(index).focus();
     });
 
 
 
-    entity['uForm'].submit(function(event) {
+    var fillUForm = function(i) {
+        var values = [];
+        entities[i]['activeTr'].children('.editableCell').each(function() {
+            values.push( $(this).html() );
+        });
+        values.reverse();
+
+        entities[i]['uFormRow'].find('.form-control').each(function() {
+
+            if ($(this).prop('type') == 'select-one') {
+
+
+                $(this).find("option").filter(function() {
+                    return $(this).text() == values.pop();
+                }).prop('selected', true);
+
+            } else {
+                $(this).val( values.pop() );
+            }
+        });
+    };
+
+
+
+    $('section').on('submit', "[name$='Update']", function(event) {
+        var compareString = $(this).find('table').attr('data-type');
+        var i = chooseEntity(compareString);
         event.preventDefault();
-        var mystery = $(this);
+        var uForm = $(this);
 
         $.ajax({
-            url: mystery.attr('action'),
+            url: uForm.attr('action'),
             type: "POST",
-            data: mystery.serialize()
+            data: uForm.serialize()
 
         }).done(function(response) {
             if (response.code == 200)
-                hideUForm();
+                hideUForm(i);
 
             else if (response.code == 400)
-                manageValidationErrors(response.message);
+                manageValidationErrors(i, response.message);
 
-             else if (response.code == 404)
-                $('#foo').html('404 '+response.message);
-            //response(td, '#df6c4f', ajaxResponse.content);
+            else if (response.code == 404)
+                window.alert('404 '+response.message);
 
             else
-                $('#foo').html("error");
-            //response(td, '#df6c4f', 'Could not get response');
+                window.alert("uuups fatal error");
         });
     });
 
 
 
-    var hideUForm = function() {
+    var hideUForm = function(i) {
         var values = [];
-        entity['uFormRow'].find('.form-control').each(function() {
-                values.push( $(this).val() );
-            }
-        );
+        entities[i]['uFormRow'].find('.form-control').each(function() {
+            values.push( $(this).val() );
+        });
 
         values.reverse();
-        entity['oldTr'].children('.editableCell').each(function() {
-                $(this).text(values.pop());
-            }
-        );
+        entities[i]['activeTr'].children('.editableCell').each(function() {
+            $(this).text(values.pop());
+        });
 
         // toggle Forms
-        entity['table'].unwrap();
-        entity['table'].wrap(entity['iForm']);
-        entity['uFormRow'].replaceWith(entity['oldTr']);
-        entity['table'].append(entity['iFormRow']);
+        entities[i]['table'].unwrap();
+        entities[i]['table'].wrap(entities[i]['iForm']);
+        entities[i]['uFormRow'].replaceWith(entities[i]['activeTr']);
+        entities[i]['table'].append(entities[i]['iFormRow']);
 
         // optical feedback
-        entity['oldTr'].addClass('trUpdated')
+        entities[i]['activeTr'].addClass('trUpdated')
         setTimeout(function() {
-            entity['oldTr'].removeClass('trUpdated');
-            entity['oldTr'] = null;
+            entities[i]['activeTr'].removeClass('trUpdated');
+            entities[i]['activeTr'] = null;
         }, 1500);
     };
 
 
-    var manageValidationErrors = function(errors) {
+
+    var manageValidationErrors = function(i, errors) {
         $.each(errors, function(fieldname, number) {
             var output = "<ul>";
 
@@ -109,7 +149,7 @@ $(document).ready(function() {
             });
 
             output += '</ul>';
-            var field = entity['uFormRow'].find("[name$='["+ fieldname +"]']");
+            var field = entities[i]['uFormRow'].find("[name$='["+ fieldname +"]']");
             field.before(output);
         });
     }

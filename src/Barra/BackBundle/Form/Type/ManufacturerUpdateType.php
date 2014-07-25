@@ -11,7 +11,7 @@ class ManufacturerUpdateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('id', 'hidden', array('mapped' => false, 'label'=>false)) // instead of make setId() possible
+            ->add('id', 'hidden', array('mapped' => false, 'label'=>false))
             ->add('name', 'text', array('attr'=>array('placeholder'=>'back.manufacturer.name')))
             ->add('submit', 'submit')
             ->getForm();

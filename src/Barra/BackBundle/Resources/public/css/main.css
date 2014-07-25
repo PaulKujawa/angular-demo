@@ -5,7 +5,6 @@ span.glyphicon { margin-right: 9px; }
 .glyphicon-plus { color: #3C948B; }
 .inactiveLink span.glyphicon-minus { color: #777777; }
 
-
 /* BUTTONS
 ---------------------------------------------------------*/
 .btn { /* BT 1991 overriden by BT .bt-block */
@@ -28,8 +27,6 @@ span.glyphicon { margin-right: 9px; }
     background-color: #f9f9f9;
 }
 
-
-
 /* FORM FIELDS IN TABLES
 ---------------------------------------------------------*/
 table .btn-default { min-width: 100%; } /* instead of width by bt-block, since conflicts with td-with & padding */
@@ -46,6 +43,7 @@ table .form-control { /* BT 1689 */
     padding: 8px !important;
     border-radius: 0px;
     box-shadow: none;
+    background-color: inherit;
 }
 
 tr.formInRow td {
@@ -63,8 +61,8 @@ tr.trUpdated {
 }
 
 
-
-/* TABLE MOBILE */
+/* TABLE MOBILE
+---------------------------------------------------------*/
 @media only screen and (max-width: 768px) {
     .mobileTables table,
     .mobileTables thead,

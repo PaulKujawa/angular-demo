@@ -1,8 +1,29 @@
+/* COLORS
+
+BLACK           141414 ( 20,  20,  20)
+
+GREY DARKER     555555 ( 85,  85,  85) BT
+GREY DARK       777777 (119, 119, 119) BT
+GREY BORDER     dddddd (221, 221, 221) BT
+GREY BRIGHT     f9f9f9 (249, 249, 249) BT
+
+RED             DF6C4F (223, 108,  79)
+GREEN           3C948B ( 60, 148, 139)
+
+
+
+
+
+*/
+
+
+
 /* BODY */
 html {
     height: 100%;
 }
 body {
+    color: #141414 !important;
     min-height: 100%;
     position: relative;
 }

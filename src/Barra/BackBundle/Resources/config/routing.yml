@@ -7,6 +7,7 @@ barra_back_admin:
 
 
 
+
 barra_back_references:
     path:     /references
     defaults: { _controller: BarraBackBundle:Reference:index}
@@ -23,10 +24,6 @@ barra_back_recipes:
     path:     /recipes
     defaults: { _controller: BarraBackBundle:Recipe:index }
 
-barra_back_recipe:
-    path:     /recipe/{name}
-    defaults: { _controller: BarraBackBundle:RecipeDetail:index }
-
 barra_back_recipe_delete:
     path:     /recipe/delete/{id}
     defaults: { _controller: BarraBackBundle:Recipe:deleteRecipe }
@@ -36,6 +33,21 @@ barra_back_recipe_delete:
 
 
 
+
+barra_back_recipe:
+    path:     /recipe/{name}
+    defaults: { _controller: BarraBackBundle:RecipeDetail:index }
+
+
+
+
+
+barra_back_recipeDetail_ingredient_update:
+    path:     /recipe/ingredient/update/ajax
+    defaults: { _controller: BarraBackBundle:RecipeDetail:upgradeIngredient }
+    requirements:
+        _method: POST
+
 barra_back_recipeDetail_ingredient_delete:
     path:     /recipe/ingredient/delete/{recipeId}/{ingredientId}
     defaults: { _controller: BarraBackBundle:RecipeDetail:deleteIngredient }
@@ -43,12 +55,23 @@ barra_back_recipeDetail_ingredient_delete:
         recipeId: \d+
         ingredientId: \d+
 
+
+
+
+
+barra_back_recipeDetail_ingredient_update:
+    path:     /recipe/ingredient/update/ajax
+    defaults: { _controller: BarraBackBundle:RecipeDetail:upgradeIngredient }
+    requirements:
+        _method: POST
+
 barra_back_recipeDetail_cookingStep_delete:
     path:     /recipe/cookingStep/delete/{recipeId}/{step}
     defaults: { _controller: BarraBackBundle:RecipeDetail:deleteCookingStep }
     requirements:
         recipeId: \d+
         step: \d+
+
 
 
 
@@ -62,6 +85,7 @@ barra_back_ingredient_delete:
     defaults: { _controller: BarraBackBundle:Ingredient:deleteIngredient }
     requirements:
         id: \d+
+
 
 
 
@@ -81,6 +105,8 @@ barra_back_manufacturer_delete:
     defaults: { _controller: BarraBackBundle:Manufacturer:delete }
     requirements:
         id: \d+
+
+
 
 
 

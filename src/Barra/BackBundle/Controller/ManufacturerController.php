@@ -8,7 +8,6 @@ use Barra\BackBundle\Form\Type\ManufacturerUpdateType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\FormError;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class ManufacturerController extends Controller
@@ -20,7 +19,7 @@ class ManufacturerController extends Controller
         $formInsert->handleRequest($request);
 
         if ($formInsert->isValid()) {
-            $sqlError = $this->newManufacturer($manufacturer);
+            $sqlError = $this->add($manufacturer);
 
             if ($sqlError)
                 return new Response($sqlError);
@@ -42,7 +41,7 @@ class ManufacturerController extends Controller
 
 
 
-    public function newManufacturer($manufacturer)
+    public function add($manufacturer)
     {
         $em = $this->getDoctrine()->getManager();
         $em->persist($manufacturer);
@@ -67,7 +66,6 @@ class ManufacturerController extends Controller
             $ajaxResponse = array("code"=>404, "message"=>'Not found');
             return new Response(json_encode($ajaxResponse), 200, array('Content-Type'=>'application/json'));
         }
-
 
         $formUpdate = $this->createForm(new ManufacturerUpdateType(), $manufacturer);
         $formUpdate->handleRequest($request);
