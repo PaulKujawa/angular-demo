@@ -24,9 +24,15 @@ barra_back_recipes:
     path:     /recipes
     defaults: { _controller: BarraBackBundle:Recipe:index }
 
+barra_back_recipe_update:
+    path:     /recipes/update/ajax
+    defaults: { _controller: BarraBackBundle:Recipe:update }
+    requirements:
+        _method: POST
+
 barra_back_recipe_delete:
     path:     /recipe/delete/{id}
-    defaults: { _controller: BarraBackBundle:Recipe:deleteRecipe }
+    defaults: { _controller: BarraBackBundle:Recipe:delete }
     requirements:
         id: \d+
 
@@ -34,17 +40,15 @@ barra_back_recipe_delete:
 
 
 
-barra_back_recipe:
+barra_back_recipeDetail:
     path:     /recipe/{name}
     defaults: { _controller: BarraBackBundle:RecipeDetail:index }
 
 
 
-
-
 barra_back_recipeDetail_ingredient_update:
     path:     /recipe/ingredient/update/ajax
-    defaults: { _controller: BarraBackBundle:RecipeDetail:upgradeIngredient }
+    defaults: { _controller: BarraBackBundle:RecipeDetail:updateIngredient }
     requirements:
         _method: POST
 
@@ -57,11 +61,9 @@ barra_back_recipeDetail_ingredient_delete:
 
 
 
-
-
-barra_back_recipeDetail_ingredient_update:
-    path:     /recipe/ingredient/update/ajax
-    defaults: { _controller: BarraBackBundle:RecipeDetail:upgradeIngredient }
+barra_back_recipeDetail_cookingStep_update:
+    path:     /recipe/cookingStep/update/ajax
+    defaults: { _controller: BarraBackBundle:RecipeDetail:updateCookingStep }
     requirements:
         _method: POST
 
@@ -80,9 +82,15 @@ barra_back_ingredients:
     path:     /ingredients
     defaults: { _controller: BarraBackBundle:Ingredient:index }
 
+barra_back_ingredient_update:
+    path:     /ingredients/update/ajax
+    defaults: { _controller: BarraBackBundle:Ingredient:update }
+    requirements:
+        _method: POST
+
 barra_back_ingredient_delete:
     path:     /ingredients/delete/{id}
-    defaults: { _controller: BarraBackBundle:Ingredient:deleteIngredient }
+    defaults: { _controller: BarraBackBundle:Ingredient:delete }
     requirements:
         id: \d+
 
@@ -114,8 +122,14 @@ barra_back_measurements:
     path:     /measurements
     defaults: { _controller: BarraBackBundle:Measurement:index }
 
+barra_back_measurement_update:
+    path:     /measurements/update/ajax
+    defaults: { _controller: BarraBackBundle:Measurement:update }
+    requirements:
+        _method: POST
+
 barra_back_measurement_delete:
     path:     /measurements/delete/{id}
-    defaults: { _controller: BarraBackBundle:Measurement:deleteMeasurement }
+    defaults: { _controller: BarraBackBundle:Measurement:delete }
     requirements:
         id: \d+

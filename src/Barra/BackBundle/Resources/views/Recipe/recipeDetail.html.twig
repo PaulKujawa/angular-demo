@@ -1,15 +1,16 @@
 {% extends 'BarraBackBundle::layout.html.twig' %}
-{% form_theme formIngredient 'BarraBackBundle:Form:tableRow.html.twig' %}
+{% form_theme formIngredientInsert 'BarraBackBundle:Form:tableRow.html.twig' %}
 {% form_theme formIngredientUpdate 'BarraBackBundle:Form:tableRow.html.twig' %}
-{% form_theme formCookingStep 'BarraBackBundle:Form:tableRow.html.twig' %}
+{% form_theme formCookingStepInsert 'BarraBackBundle:Form:tableRow.html.twig' %}
+{% form_theme formCookingStepUpdate 'BarraBackBundle:Form:tableRow.html.twig' %}
 {% trans_default_domain "messages" %}
 
 {% block title %}{{ recipe.name }}{% endblock %}
 
 {% block section %}
     <section class="container mobileTables">
-        {{ form_start(formIngredient) }}
-            <table class="table table-striped" data-type="ingredient" data-id={{ recipe.id }}>
+        {{ form_start(formIngredientInsert) }}
+            <table class="table table-striped" data-type="ingredient">
                 <thead>
                     <tr>
                         <th>{{ 'back.recipeIngredient.amount'|trans() }}</th>
@@ -32,14 +33,14 @@
                         </tr>
                     {% endfor %}
                     <tr class="formInRow">
-                        {{ form_row(formIngredient.amount) }}
-                        {{ form_row(formIngredient.measurement) }}
-                        {{ form_row(formIngredient.ingredient) }}
-                        {{ form_widget(formIngredient.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
+                        {{ form_row(formIngredientInsert.amount) }}
+                        {{ form_row(formIngredientInsert.measurement) }}
+                        {{ form_row(formIngredientInsert.ingredient) }}
+                        {{ form_widget(formIngredientInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
                     </tr>
                 </tbody>
             </table>
-        {{ form_end(formIngredient) }}
+        {{ form_end(formIngredientInsert) }}
 
         <table class="jsStorage" data-type="ingredient" style="visibility: hidden">
             <tbody>
@@ -47,9 +48,9 @@
                     <tr class="formInRow">
                         {{ form_row(formIngredientUpdate.amount) }}
                         {{ form_row(formIngredientUpdate.measurement) }}
-                        {{ form_row(formIngredientUpdate.ingredient, {'attr': {'class': 'formPk'} }) }}
+                        {{ form_row(formIngredientUpdate.ingredient) }}
                         {{ form_widget(formIngredientUpdate.submit, {'label': 'back.action.update', 'attr': {'class': 'btn btn-default'} }) }}
-                        {{ form_row(formIngredientUpdate.recipe, {'attr': {'class': 'formPk'} }) }}
+                        {{ form_row(formIngredientUpdate.ingredientId, {'attr': {'class': 'formPk'} }) }}
                         {{ form_rest(formIngredientUpdate) }}
                     </tr>
                 {{ form_end(formIngredientUpdate) }}
@@ -62,7 +63,7 @@
 
 
 
-        {{ form_start(formCookingStep) }}
+        {{ form_start(formCookingStepInsert) }}
             <table class="table table-striped" data-type="cookingStep" data-id={{ recipe.id }}>
                 <thead>
                     <tr>
@@ -74,9 +75,9 @@
                 <tbody>
                     {% for cookingStep in cookingSteps %}
                         <tr data-id={{ cookingStep.step }}>
-                            <td class="editableCell2" data-mobile-title={{ 'back.cookingStep.step'|trans() }}>{{ cookingStep.step }}</td>
-                            <td class="editableCell2" data-mobile-title={{ 'back.cookingStep.description'|trans() }}>{{ cookingStep.description }}</td>
-                            <td class="editableCell2" data-mobile-title={{ 'back.action.delete'|trans() }}>
+                            <td class="editableCell" data-mobile-title={{ 'back.cookingStep.step'|trans() }}>{{ cookingStep.step }}</td>
+                            <td class="editableCell" data-mobile-title={{ 'back.cookingStep.description'|trans() }}>{{ cookingStep.description }}</td>
+                            <td class="editableCell" data-mobile-title={{ 'back.action.delete'|trans() }}>
                                 <a href="{{ path('barra_back_recipeDetail_cookingStep_delete', {'recipeId': recipe.id, 'step': cookingStep.step}) }}">
                                     <span class="glyphicon glyphicon-minus"></span>
                                 </a>
@@ -84,12 +85,25 @@
                         </tr>
                     {% endfor %}
                     <tr class="formInRow">
-                        {{ form_row(formCookingStep.step) }}
-                        {{ form_row(formCookingStep.description) }}
-                        {{ form_widget(formCookingStep.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
+                        {{ form_row(formCookingStepInsert.step) }}
+                        {{ form_row(formCookingStepInsert.description) }}
+                        {{ form_widget(formCookingStepInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
                     </tr>
                 </tbody>
             </table>
-        {{ form_end(formCookingStep) }}
+        {{ form_end(formCookingStepInsert) }}
+
+        <table class="jsStorage" data-type="cookingStep" style="visibility: hidden">
+            <tbody>
+            {{ form_start(formCookingStepUpdate, {'action': path('barra_back_recipeDetail_cookingStep_update')}) }}
+            <tr class="formInRow">
+                {{ form_row(formCookingStepUpdate.step) }}
+                {{ form_row(formCookingStepUpdate.description) }}
+                {{ form_widget(formCookingStepUpdate.submit, {'label': 'back.action.update', 'attr': {'class': 'btn btn-default'} }) }}
+                {{ form_rest(formCookingStepUpdate) }}
+            </tr>
+            {{ form_end(formCookingStepUpdate) }}
+            </tbody>
+        </table>
     </section>
 {% endblock %}

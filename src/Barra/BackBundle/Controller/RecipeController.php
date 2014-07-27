@@ -4,6 +4,7 @@ namespace Barra\BackBundle\Controller;
 
 use Barra\FrontBundle\Entity\Recipe;
 use Barra\BackBundle\Form\Type\RecipeType;
+use Barra\BackBundle\Form\Type\RecipeUpdateType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -13,26 +14,28 @@ class RecipeController extends Controller
     public function indexAction(Request $request)
     {
         $recipe = new Recipe();
-        $form = $this->createForm(new RecipeType(), $recipe);
-        $form->handleRequest($request);
+        $formInsert = $this->createForm(new RecipeType(), $recipe);
+        $formInsert->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($formInsert->isValid()) {
             $sqlError = $this->newRecipeAction($recipe);
 
             if ($sqlError)
                 return new Response($sqlError);
 
             $id = $recipe->getId();
-            return $this->redirect($this->generateUrl('barra_back_recipe', array('name' => $recipe->getId())));
+            return $this->redirect($this->generateUrl('barra_back_recipe', array('name' => $recipe->getName())));
         }
 
 
         $em = $this->getDoctrine()->getManager();
         $recipes = $em->getRepository('BarraFrontBundle:Recipe')->findAll();
+        $formUpdate = $this->createForm(new RecipeUpdateType(), $recipe);
 
         return $this->render('BarraBackBundle:Recipe:recipes.html.twig', array(
             'recipes' => $recipes,
-            'form' => $form->createView()
+            'formInsert' => $formInsert->createView(),
+            'formUpdate' => $formUpdate->createView()
         ));
     }
 
@@ -52,7 +55,56 @@ class RecipeController extends Controller
     }
 
 
-    public function deleteRecipeAction($id)
+
+    public function updateAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $id = $request->request->get('formRecipeUpdate')['id'];
+        $recipe = $em->getRepository('BarraFrontBundle:Recipe')->find($id);
+
+        if (!$recipe) {
+            $ajaxResponse = array("code"=>404, "message"=>'Not found');
+            return new Response(json_encode($ajaxResponse), 200, array('Content-Type'=>'application/json'));
+        }
+
+        $formUpdate = $this->createForm(new RecipeUpdateType(), $recipe);
+        $formUpdate->handleRequest($request);
+
+        if ($formUpdate->isValid()) {
+            $em->flush();
+            $ajaxResponse = array("code"=>200, "message"=>"ok");
+        } else {
+            $validationErrors = $this->getErrorMessages($formUpdate);
+            $ajaxResponse = array("code"=>400, "message"=>$validationErrors);
+        }
+
+        return new Response(json_encode($ajaxResponse), 200, array('Content-Type'=>'application/json'));
+    }
+
+
+
+    /**
+     * @param Form $form
+     * @return array[fieldName][number] e.g. array['name'][0]
+     */
+    private function getErrorMessages(Form $form) {
+        $errors = array();
+        $formErrors = $form->getErrors();
+
+        foreach ($formErrors as $key => $error) {
+            $errors[] = $error->getMessage();
+        }
+
+        foreach ($form->all() as $child) {
+            if (!$child->isValid())
+                $errors[$child->getName()] = $this->getErrorMessages($child);
+        }
+        return $errors;
+    }
+
+
+
+    public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $recipe = $em->getRepository('BarraFrontBundle:Recipe')->find($id);

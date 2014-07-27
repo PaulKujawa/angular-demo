@@ -1,38 +1,53 @@
 {% extends 'BarraBackBundle::layout.html.twig' %}
-{% form_theme form 'BarraBackBundle:Form:tableRow.html.twig' %}
+{% form_theme formInsert 'BarraBackBundle:Form:tableRow.html.twig' %}
+{% form_theme formUpdate 'BarraBackBundle:Form:tableRow.html.twig' %}
+
 {% trans_default_domain "messages" %}
 
 {% block title %}{{ 'back.title.recipes'|trans() }}{% endblock %}
 
 {% block section %}
     <section class="container mobileTables">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>{{ 'back.recipe.name'|trans() }}</th>
-                <th>{{ 'back.action.manage'|trans() }}</th>
-            </tr>
-            </thead>
-            <tbody>
-                {% for recipe in recipes %}
+        {{ form_start(formInsert) }}
+            <table class="table table-striped" data-type="recipe">
+                <thead>
                     <tr>
-                        <td data-mobile-title={{ 'back.recipe.name'|trans() }}>{{ recipe.name }}</td>
-                        <td data-mobile-title={{ 'back.action.delete'|trans() }}>
-                            <a href="{{ path('barra_back_recipe_delete', {'id': recipe.id}) }}">
-                                <span class="glyphicon glyphicon-minus"></span>
-                            </a>
-                            <a href="{{ path('barra_back_recipe', {'name': recipe.name|replace({' ': '_'})}) }}">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                            </a>
-                        </td>
+                        <th>{{ 'back.recipe.name'|trans() }}</th>
+                        <th>{{ 'back.action.manage'|trans() }}</th>
                     </tr>
-                {% endfor %}
-                <tr>
-                    {{ form_start(form) }}
-                        {{ form_row(form.name) }}
-                        {{ form_widget(form.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
-                    {{ form_end(form) }}
-                </tr>
+                </thead>
+                <tbody>
+                    {% for recipe in recipes %}
+                        <tr data-id={{ recipe.id }}>
+                            <td class="editableCell" data-mobile-title={{ 'back.recipe.name'|trans() }}>{{ recipe.name }}</td>
+                            <td class="editableCell" data-mobile-title={{ 'back.action.delete'|trans() }}>
+                                <a href="{{ path('barra_back_recipe_delete', {'id': recipe.id}) }}">
+                                    <span class="glyphicon glyphicon-minus"></span>
+                                </a>
+                                <a href="{{ path('barra_back_recipeDetail', {'name': recipe.name|replace({' ': '_'})}) }}">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr class="formInRow">
+                            {{ form_row(formInsert.name) }}
+                            {{ form_widget(formInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
+                    </tr>
+                </tbody>
+            </table>
+        {{ form_end(formInsert) }}
+
+        <table class="jsStorage" data-type="recipe" style="visibility: hidden">
+            <tbody>
+                {{ form_start(formUpdate, {'action': path('barra_back_recipe_update')}) }}
+                    <tr class="formInRow">
+                        {{ form_row(formUpdate.name) }}
+                        {{ form_widget(formUpdate.submit, {'label': 'back.action.update', 'attr': {'class': 'btn btn-default'} }) }}
+                        {{ form_row(formUpdate.id, {'attr': {'class': 'formPk'} }) }}
+                        {{ form_rest(formUpdate) }}
+                    </tr>
+                {{ form_end(formUpdate) }}
             </tbody>
         </table>
     </section>

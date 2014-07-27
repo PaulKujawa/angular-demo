@@ -1,6 +1,4 @@
 $(window).load(function() {
-    var entities = [];
-
     var collectEntities = function() {
         var tables = $('table:not(.jsStorage)');
 
@@ -23,11 +21,11 @@ $(window).load(function() {
         });
     };
 
+    var entities = [];
+    collectEntities();
+
 
     var chooseEntity = function(action) {
-        if (entities.length === 0)
-            collectEntities();
-
         for (var i=0; i < entities.length; i++) {
             if (entities[i]['action'] === action)
                 return i;
@@ -69,17 +67,18 @@ $(window).load(function() {
         values.reverse();
 
         entities[i]['uFormRow'].find('.form-control').each(function() {
+            var val = values.pop();
 
             if ($(this).prop('type') == 'select-one') {
-
-
                 $(this).find("option").filter(function() {
-                    return $(this).text() == values.pop();
+                    return $(this).text() == val
                 }).prop('selected', true);
 
-            } else {
-                $(this).val( values.pop() );
-            }
+            } else if ($(this).prop('type') == 'checkbox') {
+                $(this).prop('checked', val);
+
+            } else
+                $(this).val( val );
         });
     };
 
@@ -116,7 +115,11 @@ $(window).load(function() {
     var hideUForm = function(i) {
         var values = [];
         entities[i]['uFormRow'].find('.form-control').each(function() {
-            values.push( $(this).val() );
+            if ($(this).prop('type') == 'select-one') {
+                values.push( $(this).find("option:selected").text() );
+
+            } else
+                values.push( $(this).val() );
         });
 
         values.reverse();

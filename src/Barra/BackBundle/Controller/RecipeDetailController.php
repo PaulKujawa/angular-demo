@@ -5,6 +5,7 @@ namespace Barra\BackBundle\Controller;
 use Barra\FrontBundle\Entity\CookingStep;
 use Barra\FrontBundle\Entity\RecipeIngredient;
 use Barra\BackBundle\Form\Type\CookingStepType;
+use Barra\BackBundle\Form\Type\CookingStepUpdateType;
 use Barra\BackBundle\Form\Type\RecipeIngredientType;
 use Barra\BackBundle\Form\Type\RecipeIngredientUpdateType;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,43 +18,52 @@ class RecipeDetailController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $recipe = $em->getRepository('BarraFrontBundle:Recipe')->findOneByName(str_replace('_', ' ', $name));
+        if (!$recipe)
+            throw $this->createNotFoundException('Recipe not found');
+
+
         $cookingSteps = $em->getRepository('BarraFrontBundle:CookingStep')->findBy(array('recipe'=>$recipe), array('step'=>'ASC'));
         $recipeIngredients = $em->getRepository('BarraFrontBundle:RecipeIngredient')->findByRecipe($recipe, array('position'=>'ASC'));
 
 
         $recipeIngredient = new RecipeIngredient();
-        $formIngredient = $this->createForm(new RecipeIngredientType(), $recipeIngredient);
+        $formIngredientInsert = $this->createForm(new RecipeIngredientType(), $recipeIngredient);
 
         $cookingStep = new CookingStep();
-        $formCookingStep = $this->createForm(new CookingStepType(), $cookingStep);
+        $formCookingStepInsert = $this->createForm(new CookingStepType(), $cookingStep);
 
 
         if ($request->getMethod() === 'POST') {
-            if ($request->request->has($formIngredient->getName())) {
-                $formIngredient->handleRequest($request);
-                if ($formIngredient->isValid())
+            if ($request->request->has($formIngredientInsert->getName())) {
+                $formIngredientInsert->handleRequest($request);
+                if ($formIngredientInsert->isValid())
                    $sqlError = $this->newIngredientAction($recipe, $recipeIngredient);
 
-            } elseif ($request->request->has($formCookingStep->getName())) {
-                $formCookingStep->handleRequest($request);
-                if ($formCookingStep->isValid())
+            } elseif ($request->request->has($formCookingStepInsert->getName())) {
+                $formCookingStepInsert->handleRequest($request);
+                if ($formCookingStepInsert->isValid())
                     $sqlError = $this->newCookingStepAction($recipe, $cookingStep);
             }
 
             if ($sqlError)
                 return new Response($sqlError);
-            return $this->redirect($this->generateUrl('barra_back_recipe', array('name' => $name)));
+            return $this->redirect($this->generateUrl('barra_back_recipeDetail', array('name' => $name)));
         }
 
         $formIngredientUpdate = $this->createForm(new RecipeIngredientUpdateType(), $recipeIngredient);
+        $formIngredientUpdate->get('recipe')->setData($recipe->getId()); // since mapped=false
+
+        $formCookingStepUpdate = $this->createForm(new CookingStepUpdateType(), $cookingStep);
+        $formCookingStepUpdate->get('recipe')->setData($recipe->getId()); // since mapped=false
 
         return $this->render('BarraBackBundle:Recipe:recipeDetail.html.twig', array(
             'recipe' => $recipe,
             'cookingSteps'=> $cookingSteps,
             'recipeIngredients'=>$recipeIngredients,
-            'formIngredient' => $formIngredient->createView(),
+            'formIngredientInsert' => $formIngredientInsert->createView(),
             'formIngredientUpdate' => $formIngredientUpdate->createView(),
-            'formCookingStep' => $formCookingStep->createView()
+            'formCookingStepInsert' => $formCookingStepInsert->createView(),
+            'formCookingStepUpdate' => $formCookingStepUpdate->createView()
         ));
     }
 
@@ -93,9 +103,11 @@ class RecipeDetailController extends Controller
     public function updateIngredientAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $ingredientId = $request->request->get('formRecipeIngredientUpdate')['ingredientId'];
         $recipeId = $request->request->get('formRecipeIngredientUpdate')['recipe'];
-        $ingredientId = $request->request->get('formRecipeIngredientUpdate')['ingredient'];
+
         $recipeIngredient = $em->getRepository('BarraFrontBundle:RecipeIngredient')->findOneBy(array('recipe'=>$recipeId, 'ingredient'=>$ingredientId));
+
 
         if (!$recipeIngredient) {
             $ajaxResponse = array("code"=>404, "message"=>'Not found');
@@ -118,6 +130,27 @@ class RecipeDetailController extends Controller
 
 
 
+    /**
+     * @param Form $form
+     * @return array[fieldName][number] e.g. array['name'][0]
+     */
+    private function getErrorMessages(Form $form) {
+        $errors = array();
+        $formErrors = $form->getErrors();
+
+        foreach ($formErrors as $key => $error) {
+            $errors[] = $error->getMessage();
+        }
+
+        foreach ($form->all() as $child) {
+            if (!$child->isValid())
+                $errors[$child->getName()] = $this->getErrorMessages($child);
+        }
+        return $errors;
+    }
+
+
+
     public function deleteIngredientAction($recipeId, $ingredientId)
     {
         $em = $this->getDoctrine()->getManager();
@@ -130,41 +163,8 @@ class RecipeDetailController extends Controller
         $em->flush();
 
         $recipe = $em->getRepository('BarraFrontBundle:Recipe')->find($recipeId);
-        return $this->redirect($this->generateUrl('barra_back_recipe', array('name'=>$recipe->getName())));
+        return $this->redirect($this->generateUrl('barra_back_recipeDetail', array('name'=>$recipe->getName())));
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -184,19 +184,20 @@ class RecipeDetailController extends Controller
 
 
 
-    /*public function updateCookingStepAction(Request $request)
+    public function updateCookingStepAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $id = $request->request->get('formManufacturerUpdate')['id'];
-        $manufacturer = $em->getRepository('BarraFrontBundle:Manufacturer')->find($id);
+        $recipeId = $request->request->get('formCookingStepUpdate')['recipe'];
+        $step = $request->request->get('formCookingStepUpdate')['step'];
+        $cookingStep = $em->getRepository('BarraFrontBundle:CookingStep')->findOneBy(array('recipe'=>$recipeId, 'step'=>$step));
 
-        if (!$manufacturer) {
+        if (!$cookingStep) {
             $ajaxResponse = array("code"=>404, "message"=>'Not found');
             return new Response(json_encode($ajaxResponse), 200, array('Content-Type'=>'application/json'));
         }
 
 
-        $formUpdate = $this->createForm(new RecipeIngredientUpdateType(), $manufacturer);
+        $formUpdate = $this->createForm(new CookingStepUpdateType(), $cookingStep);
         $formUpdate->handleRequest($request);
 
         if ($formUpdate->isValid()) {
@@ -208,27 +209,6 @@ class RecipeDetailController extends Controller
         }
 
         return new Response(json_encode($ajaxResponse), 200, array('Content-Type'=>'application/json'));
-    }*/
-
-
-
-    /**
-     * @param Form $form
-     * @return array[fieldName][number] e.g. array['name'][0]
-     */
-    private function getErrorMessages(Form $form) {
-        $errors = array();
-        $formErrors = $form->getErrors();
-
-        foreach ($formErrors as $key => $error) {
-            $errors[] = $error->getMessage();
-        }
-
-        foreach ($form->all() as $child) {
-            if (!$child->isValid())
-                $errors[$child->getName()] = $this->getErrorMessages($child);
-        }
-        return $errors;
     }
 
 
