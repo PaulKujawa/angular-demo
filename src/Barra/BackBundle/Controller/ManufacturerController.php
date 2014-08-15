@@ -5,7 +5,6 @@ namespace Barra\BackBundle\Controller;
 use Barra\FrontBundle\Entity\Manufacturer;
 use Barra\BackBundle\Form\Type\ManufacturerType;
 use Barra\BackBundle\Form\Type\ManufacturerUpdateType;
-use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -73,33 +72,13 @@ class ManufacturerController extends Controller
         if ($formUpdate->isValid()) {
             $em->flush();
             $ajaxResponse = array("code"=>200, "message"=>"ok");
+
         } else {
-            $validationErrors = $this->getErrorMessages($formUpdate);
+            $validationErrors = $this->get('barra_back.formValidation')->getErrorMessages($formUpdate);
             $ajaxResponse = array("code"=>400, "message"=>$validationErrors);
         }
 
         return new Response(json_encode($ajaxResponse), 200, array('Content-Type'=>'application/json'));
-    }
-
-
-
-    /**
-     * @param Form $form
-     * @return array[fieldName][number] e.g. array['name'][0]
-     */
-    private function getErrorMessages(Form $form) {
-        $errors = array();
-        $formErrors = $form->getErrors();
-
-        foreach ($formErrors as $key => $error) {
-            $errors[] = $error->getMessage();
-        }
-
-        foreach ($form->all() as $child) {
-            if (!$child->isValid())
-                $errors[$child->getName()] = $this->getErrorMessages($child);
-        }
-        return $errors;
     }
 
 

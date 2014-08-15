@@ -1,3 +1,19 @@
+parameters:
+    barra_back.formValidation.class:    Barra\BackBundle\Service\FormValidation
+    barra_back.formValidation.myParam: "unused Parameter"
+
+services:
+    barra_back.formValidation:
+        class:     %barra_back.formValidation.class%
+        arguments: ["%barra_back.formValidation.myParam%"]
+
+
+
+
+
+
+
+
 #parameters:
 #    barra_back.mailer.class:             Barra\BackBundle\Mailer
 #    barra_back.mailer.transport:         sendmail

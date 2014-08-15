@@ -121,7 +121,7 @@ class RecipeDetailController extends Controller
             $em->flush();
             $ajaxResponse = array("code"=>200, "message"=>"ok");
         } else {
-            $validationErrors = $this->getErrorMessages($formUpdate);
+            $validationErrors = $this->get('barra_back.formValidation')->getErrorMessages($formUpdate);
             $ajaxResponse = array("code"=>400, "message"=>$validationErrors);
         }
 
@@ -130,24 +130,7 @@ class RecipeDetailController extends Controller
 
 
 
-    /**
-     * @param Form $form
-     * @return array[fieldName][number] e.g. array['name'][0]
-     */
-    private function getErrorMessages(Form $form) {
-        $errors = array();
-        $formErrors = $form->getErrors();
 
-        foreach ($formErrors as $key => $error) {
-            $errors[] = $error->getMessage();
-        }
-
-        foreach ($form->all() as $child) {
-            if (!$child->isValid())
-                $errors[$child->getName()] = $this->getErrorMessages($child);
-        }
-        return $errors;
-    }
 
 
 
@@ -204,7 +187,7 @@ class RecipeDetailController extends Controller
             $em->flush();
             $ajaxResponse = array("code"=>200, "message"=>"ok");
         } else {
-            $validationErrors = $this->getErrorMessages($formUpdate);
+            $validationErrors = $this->get('barra_back.formValidation')->getErrorMessages($formUpdate);
             $ajaxResponse = array("code"=>400, "message"=>$validationErrors);
         }
 
