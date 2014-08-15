@@ -5,6 +5,7 @@ namespace Barra\BackBundle\Controller;
 use Barra\FrontBundle\Entity\Ingredient;
 use Barra\BackBundle\Form\Type\IngredientType;
 use Barra\BackBundle\Form\Type\IngredientUpdateType;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -18,10 +19,10 @@ class IngredientController extends Controller
         $formInsert->handleRequest($request);
 
         if ($formInsert->isValid()) {
-            $sqlError = $this->newIngredientAction($ingredient);
+            $sqlError = $this->newIngredient($ingredient);
 
             if ($sqlError)
-                return new Response($sqlError);
+                $formInsert->addError(new FormError($sqlError));
             else
                 return $this->redirect($this->generateUrl('barra_back_recipes'));
         }
@@ -37,7 +38,7 @@ class IngredientController extends Controller
         ));
     }
 
-    public function newIngredientAction($ingredient)
+    public function newIngredient($ingredient)
     {
         $em = $this->getDoctrine()->getManager();
         $em->persist($ingredient);
@@ -45,7 +46,7 @@ class IngredientController extends Controller
         try {
             $em->flush();
         } catch (\Doctrine\DBAL\DBALException $e) {
-            return new Response('Ingredient could not be inserted');
+            return $this->get('translator')->trans("back.message.insertError");
         }
         return null;
     }

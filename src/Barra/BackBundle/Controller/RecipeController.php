@@ -5,6 +5,7 @@ namespace Barra\BackBundle\Controller;
 use Barra\FrontBundle\Entity\Recipe;
 use Barra\BackBundle\Form\Type\RecipeType;
 use Barra\BackBundle\Form\Type\RecipeUpdateType;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -21,10 +22,9 @@ class RecipeController extends Controller
             $sqlError = $this->newRecipeAction($recipe);
 
             if ($sqlError)
-                return new Response($sqlError);
-
-            $id = $recipe->getId();
-            return $this->redirect($this->generateUrl('barra_back_recipe', array('name' => $recipe->getName())));
+                $formInsert->addError(new FormError($sqlError));
+            else
+                return $this->redirect($this->generateUrl('barra_back_recipe', array('name' => $recipe->getName())));
         }
 
 
@@ -49,7 +49,7 @@ class RecipeController extends Controller
         try {
             $em->flush();
         } catch (\Doctrine\DBAL\DBALException $e) {
-            return new Response('Recipe could not be inserted');
+            return $this->get('translator')->trans("back.message.insertError");
         }
         return null;
     }

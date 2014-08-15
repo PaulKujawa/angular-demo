@@ -4,9 +4,9 @@ namespace Barra\BackBundle\Controller;
 
 use Barra\FrontBundle\Entity\Reference;
 use Barra\BackBundle\Form\Type\ReferenceType;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class ReferenceController extends Controller
@@ -14,14 +14,14 @@ class ReferenceController extends Controller
     public function indexAction(Request $request)
     {
         $reference = new Reference();
-        $form = $this->createForm(new ReferenceType(), $reference);
-        $form->handleRequest($request);
+        $formInsert = $this->createForm(new ReferenceType(), $reference);
+        $formInsert->handleRequest($request);
 
-        if ($form->isValid()) {
-            $sqlError = $this->newReferenceAction($reference);
+        if ($formInsert->isValid()) {
+            $sqlError = $this->newReference($reference);
 
             if ($sqlError)
-                return new Response($sqlError);
+                $formInsert->addError(new FormError($sqlError));
             else
                 return $this->redirect($this->generateUrl('barra_back_references'));
         }
@@ -31,11 +31,11 @@ class ReferenceController extends Controller
 
         return $this->render('BarraBackBundle:Reference:references.html.twig', array(
                 'references' => $references,
-                'form' => $form->createView()
+                'form' => $formInsert->createView()
             ));
     }
 
-    public function newReferenceAction($reference)
+    public function newReference($reference)
     {
         $em = $this->getDoctrine()->getManager();
         $em->persist($reference);
@@ -43,7 +43,7 @@ class ReferenceController extends Controller
         try {
             $em->flush();
         } catch (\Doctrine\DBAL\DBALException $e) {
-            return new Response('reference could not be inserted');
+            return $this->get('translator')->trans("back.message.insertError");
         }
         return null;
     }

@@ -5,6 +5,7 @@ namespace Barra\BackBundle\Controller;
 use Barra\FrontBundle\Entity\Measurement;
 use Barra\BackBundle\Form\Type\MeasurementType;
 use Barra\BackBundle\Form\Type\MeasurementUpdateType;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -21,7 +22,7 @@ class MeasurementController extends Controller
             $sqlError = $this->newMeasurementAction($measurement);
 
             if ($sqlError)
-                return new Response($sqlError);
+                $formInsert->addError(new FormError($sqlError));
             else
                 return $this->redirect($this->generateUrl('barra_back_recipes'));
         }
@@ -48,7 +49,7 @@ class MeasurementController extends Controller
         try {
             $em->flush();
         } catch (\Doctrine\DBAL\DBALException $e) {
-            return new Response('Measurement could not be inserted');
+            return $this->get('translator')->trans("back.message.insertError");
         }
         return null;
     }

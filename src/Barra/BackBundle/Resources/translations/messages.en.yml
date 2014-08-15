@@ -14,6 +14,9 @@ back:
     references: References
     overview: Overview
 
+  message:
+    insertError: Invalid entry
+
   ingredient: #object
     carbs: Carbs
     fat: Fat
@@ -44,11 +47,11 @@ back:
     startedPlaceholder: from dd.mm.yyyy
     website: Website
 
-  cookingStep:
+  cookingStep: #object
     description: Description
     step: Step
 
-  recipeIngredient:
+  recipeIngredient: #object
     amount: Amount
 
   word:

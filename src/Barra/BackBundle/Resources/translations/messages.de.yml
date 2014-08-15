@@ -14,6 +14,9 @@ back:
     references: Referenzen
     overview: Übersicht
 
+  message:
+    insertError: Ungültiger Eintrag
+
   ingredient: #object
     carbs: Kohlenhydrate
     fat: Fett

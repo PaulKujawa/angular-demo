@@ -8,6 +8,7 @@ use Barra\BackBundle\Form\Type\CookingStepType;
 use Barra\BackBundle\Form\Type\CookingStepUpdateType;
 use Barra\BackBundle\Form\Type\RecipeIngredientType;
 use Barra\BackBundle\Form\Type\RecipeIngredientUpdateType;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -21,23 +22,27 @@ class RecipeDetailController extends Controller
         if (!$recipe)
             throw $this->createNotFoundException('Recipe not found');
 
-
         $cookingSteps = $em->getRepository('BarraFrontBundle:CookingStep')->findBy(array('recipe'=>$recipe), array('step'=>'ASC'));
         $recipeIngredients = $em->getRepository('BarraFrontBundle:RecipeIngredient')->findByRecipe($recipe, array('position'=>'ASC'));
 
-
+        $cookingStep = new CookingStep();
         $recipeIngredient = new RecipeIngredient();
+        $formCookingStepInsert = $this->createForm(new CookingStepType(), $cookingStep);
         $formIngredientInsert = $this->createForm(new RecipeIngredientType(), $recipeIngredient);
 
-        $cookingStep = new CookingStep();
-        $formCookingStepInsert = $this->createForm(new CookingStepType(), $cookingStep);
+        // since mapped=false
+        $formCookingStepUpdate = $this->createForm(new CookingStepUpdateType(), $cookingStep);
+        $formIngredientUpdate = $this->createForm(new RecipeIngredientUpdateType(), $recipeIngredient);
+        $formCookingStepUpdate->get('recipe')->setData($recipe->getId());
+        $formIngredientUpdate->get('recipe')->setData($recipe->getId());
+
 
 
         if ($request->getMethod() === 'POST') {
             if ($request->request->has($formIngredientInsert->getName())) {
                 $formIngredientInsert->handleRequest($request);
                 if ($formIngredientInsert->isValid())
-                   $sqlError = $this->newIngredientAction($recipe, $recipeIngredient);
+                   $sqlError = $this->newIngredient($recipe, $recipeIngredient);
 
             } elseif ($request->request->has($formCookingStepInsert->getName())) {
                 $formCookingStepInsert->handleRequest($request);
@@ -46,15 +51,11 @@ class RecipeDetailController extends Controller
             }
 
             if ($sqlError)
-                return new Response($sqlError);
-            return $this->redirect($this->generateUrl('barra_back_recipeDetail', array('name' => $name)));
+                $formIngredientInsert->addError(new FormError($sqlError));
+            else
+                return $this->redirect($this->generateUrl('barra_back_recipeDetail', array('name' => $name)));
         }
 
-        $formIngredientUpdate = $this->createForm(new RecipeIngredientUpdateType(), $recipeIngredient);
-        $formIngredientUpdate->get('recipe')->setData($recipe->getId()); // since mapped=false
-
-        $formCookingStepUpdate = $this->createForm(new CookingStepUpdateType(), $cookingStep);
-        $formCookingStepUpdate->get('recipe')->setData($recipe->getId()); // since mapped=false
 
         return $this->render('BarraBackBundle:Recipe:recipeDetail.html.twig', array(
             'recipe' => $recipe,
@@ -84,7 +85,7 @@ class RecipeDetailController extends Controller
 
 
 
-    public function newIngredientAction($recipe, $recipeIngredient)
+    public function newIngredient($recipe, $recipeIngredient)
     {
         $recipeIngredient->setRecipe($recipe)->setPosition(1);
         $em = $this->getDoctrine()->getManager();
@@ -93,7 +94,7 @@ class RecipeDetailController extends Controller
         try {
             $em->flush();
         } catch (\Doctrine\DBAL\DBALException $e) {
-            return new Response('Recipe relation could not be inserted');
+            return $this->get('translator')->trans("back.message.insertError");
         }
         return null;
     }

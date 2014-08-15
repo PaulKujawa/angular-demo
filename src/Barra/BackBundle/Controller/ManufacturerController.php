@@ -5,6 +5,7 @@ namespace Barra\BackBundle\Controller;
 use Barra\FrontBundle\Entity\Manufacturer;
 use Barra\BackBundle\Form\Type\ManufacturerType;
 use Barra\BackBundle\Form\Type\ManufacturerUpdateType;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -18,10 +19,10 @@ class ManufacturerController extends Controller
         $formInsert->handleRequest($request);
 
         if ($formInsert->isValid()) {
-            $sqlError = $this->add($manufacturer);
+            $sqlError = $this->newManufacturer($manufacturer);
 
             if ($sqlError)
-                return new Response($sqlError);
+                $formInsert->addError(new FormError($sqlError));
             else
                 return $this->redirect($this->generateUrl('barra_back_ingredients'));
         }
@@ -40,7 +41,7 @@ class ManufacturerController extends Controller
 
 
 
-    public function add($manufacturer)
+    public function newManufacturer($manufacturer)
     {
         $em = $this->getDoctrine()->getManager();
         $em->persist($manufacturer);
@@ -48,7 +49,7 @@ class ManufacturerController extends Controller
         try {
             $em->flush();
         } catch (\Doctrine\DBAL\DBALException $e) {
-            return 'Manufacturer could not be inserted';
+            return $this->get('translator')->trans("back.message.insertError");
         }
         return null;
     }

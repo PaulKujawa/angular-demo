@@ -10,6 +10,7 @@
 {% block section %}
     <section class="container mobileTables">
         {{ form_start(formIngredientInsert) }}
+            {{ form_errors(formIngredientInsert) }}
             <table class="table table-striped" data-type="ingredient">
                 <thead>
                     <tr>
