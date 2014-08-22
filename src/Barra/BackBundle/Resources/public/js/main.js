@@ -24,7 +24,6 @@ $(window).load(function() {
     var entities = [];
     collectEntities();
 
-
     var chooseEntity = function(action) {
         for (var i=0; i < entities.length; i++) {
             if (entities[i]['action'] === action)
@@ -32,6 +31,7 @@ $(window).load(function() {
         }
         window.alert('something went wrong, please reload the site.');
     };
+
 
 
     $('section').on('click', 'td.editableCell', function() {
@@ -87,6 +87,7 @@ $(window).load(function() {
     $('section').on('submit', "[name$='Update']", function(event) {
         var compareString = $(this).find('table').attr('data-type');
         var i = chooseEntity(compareString);
+        resetValidationMarkup(i);
         event.preventDefault();
         var uForm = $(this);
 
@@ -112,6 +113,42 @@ $(window).load(function() {
 
 
 
+    var resetValidationMarkup = function(i) {
+        var tds = entities[i]['uFormRow'].children('.danger');
+        tds.removeClass('danger has-error');
+        tds.find('.form-control').tooltip("destroy");
+    };
+
+
+
+    var manageValidationErrors = function(i, errors) {
+        $.each(errors, function(fieldname, number) {
+            var output = "<ul>";
+
+            $.each(number, function(index, error) {
+                output += '<li>'+ error +'</li>';
+            });
+
+            output += '</ul>';
+            var field = entities[i]['uFormRow'].find("[name$='["+ fieldname +"]']");
+
+
+            field.tooltip({
+                items: field,
+                content: output,
+                position: {
+                    my: 'center top', /* position of base element */
+                    at: 'center-10 bottom+10' /* position of tooltip */
+                }
+            });
+
+            field.parent().addClass('danger has-error');
+            field.focus()
+        });
+    }
+
+
+
     var hideUForm = function(i) {
         var values = [];
         entities[i]['uFormRow'].find('.form-control').each(function() {
@@ -134,28 +171,12 @@ $(window).load(function() {
         entities[i]['table'].append(entities[i]['iFormRow']);
 
         // optical feedback
-        entities[i]['activeTr'].addClass('trUpdated')
+        entities[i]['activeTr'].addClass('success')
         setTimeout(function() {
-            entities[i]['activeTr'].removeClass('trUpdated');
+            entities[i]['activeTr'].removeClass('success');
             entities[i]['activeTr'] = null;
         }, 1500);
     };
-
-
-
-    var manageValidationErrors = function(i, errors) {
-        $.each(errors, function(fieldname, number) {
-            var output = "<ul>";
-
-            $.each(number, function(index, error) {
-                output += '<li>'+ error +'</li>';
-            });
-
-            output += '</ul>';
-            var field = entities[i]['uFormRow'].find("[name$='["+ fieldname +"]']");
-            field.before(output);
-        });
-    }
 });
 
 

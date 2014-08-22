@@ -113,3 +113,15 @@ footer {
     text-transform: uppercase;
     background-color: #141414 !important;
 }
+
+
+
+.ui-tooltip {
+    box-shadow: none !important;
+    border: 1px solid #dddddd;
+}
+
+.ui-tooltip ul {
+    list-style: none;
+    padding-left: 0px !important;
+}

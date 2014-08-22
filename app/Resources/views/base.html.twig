@@ -11,6 +11,7 @@
             {% endblock URLicon %}
 
             {% block stylesheets %}
+                <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
                 <link href="{{ asset('css/main.css') }}" rel="stylesheet" />
                 <link href="{{ asset('Bootstrap/css/bootstrap.css') }}" rel='stylesheet' />
             {% endblock %}
@@ -21,8 +22,9 @@
                     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
                     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
                 <![endif]-->
-                <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+                <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
                 <script src="{{ asset('Bootstrap/js/bootstrap.min.js') }}"></script>
+                <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
             {% endblock %}
         {% endblock %}
     </head>
