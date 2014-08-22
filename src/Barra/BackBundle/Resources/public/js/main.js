@@ -21,8 +21,18 @@ $(window).load(function() {
         });
     };
 
-    var entities = [];
-    collectEntities();
+
+
+    var createInsertTooltips = function() {
+        $('.formInRow').find('ul').each(function(){
+            var list = $(this);
+            var formWidget = list.next();
+            list.remove();
+            createTooltip(formWidget, "<ul>"+list.html()+"</ul>");
+        });
+    };
+
+
 
     var chooseEntity = function(action) {
         for (var i=0; i < entities.length; i++) {
@@ -87,7 +97,7 @@ $(window).load(function() {
     $('section').on('submit', "[name$='Update']", function(event) {
         var compareString = $(this).find('table').attr('data-type');
         var i = chooseEntity(compareString);
-        resetValidationMarkup(i);
+        removeValidationMarkup(i);
         event.preventDefault();
         var uForm = $(this);
 
@@ -101,7 +111,7 @@ $(window).load(function() {
                 hideUForm(i);
 
             else if (response.code == 400)
-                manageValidationErrors(i, response.message);
+                createValidationMarkup(i, response.message);
 
             else if (response.code == 404)
                 window.alert('404 '+response.message);
@@ -113,7 +123,7 @@ $(window).load(function() {
 
 
 
-    var resetValidationMarkup = function(i) {
+    var removeValidationMarkup = function(i) {
         var tds = entities[i]['uFormRow'].children('.danger');
         tds.removeClass('danger has-error');
         tds.find('.form-control').tooltip("destroy");
@@ -121,7 +131,7 @@ $(window).load(function() {
 
 
 
-    var manageValidationErrors = function(i, errors) {
+    var createValidationMarkup = function(i, errors) {
         $.each(errors, function(fieldname, number) {
             var output = "<ul>";
 
@@ -130,22 +140,26 @@ $(window).load(function() {
             });
 
             output += '</ul>';
-            var field = entities[i]['uFormRow'].find("[name$='["+ fieldname +"]']");
-
-
-            field.tooltip({
-                items: field,
-                content: output,
-                position: {
-                    my: 'center top', /* position of base element */
-                    at: 'center-10 bottom+10' /* position of tooltip */
-                }
-            });
-
-            field.parent().addClass('danger has-error');
-            field.focus()
+            var formWidget = entities[i]['uFormRow'].find("[name$='["+ fieldname +"]']");
+            createTooltip(formWidget, output);
         });
     }
+
+
+
+    var createTooltip = function(formWidget, output) {
+        formWidget.tooltip({
+            items: formWidget,
+            content: output,
+            position: {
+                my: 'center top', /* position of base element */
+                at: 'center-10 bottom+10' /* position of tooltip */
+            }
+        });
+
+        formWidget.parent().addClass('danger has-error');
+        formWidget.focus()
+    };
 
 
 
@@ -177,6 +191,11 @@ $(window).load(function() {
             entities[i]['activeTr'] = null;
         }, 1500);
     };
+
+
+    var entities = [];
+    collectEntities();
+    createInsertTooltips();
 });
 
 
