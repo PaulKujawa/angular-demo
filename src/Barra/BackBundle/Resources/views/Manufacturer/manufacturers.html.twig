@@ -29,13 +29,13 @@
                     {% endfor %}
                     <tr class="formInRow">
                         {{ form_row(formInsert.name) }}
-                        {{ form_widget(formInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
+                        {{ form_widget(formInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn'} }) }}
                     </tr>
                     <tr class="formInRowError">
                         <td>
                             {{ form_errors(formInsert) }}
                         </td>
-                    </tr>   
+                    </tr>
                 </tbody>
             </table>
         {{ form_end(formInsert) }}
@@ -45,7 +45,7 @@
                 {{ form_start(formUpdate, {'action': path('barra_back_manufacturer_update')}) }}
                     <tr class="formInRow">
                         {{ form_row(formUpdate.name) }}
-                        {{ form_widget(formUpdate.submit, {'label': 'back.action.update', 'attr': {'class': 'btn btn-default'} }) }}
+                        {{ form_widget(formUpdate.submit, {'label': 'back.action.update', 'attr': {'class': 'btn'} }) }}
                         {{ form_row(formUpdate.id, {'attr': {'class': 'formPk'} }) }}
                         {{ form_rest(formUpdate) }}
                     </tr>

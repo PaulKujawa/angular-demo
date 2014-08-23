@@ -8,24 +8,19 @@ span.glyphicon { margin-right: 9px; }
 /* BUTTONS
 ---------------------------------------------------------*/
 .btn { /* BT 1991 overriden by BT .bt-block */
-    padding: 6px 12px !important;
     border-radius: 0px;
-}
-
-.btn-default {
-    color: #3C948B;
-    border-color: #3C948B;
     text-transform: uppercase;
 }
 
-.btn-default:focus,
-.btn-default:hover,
-.btn-default:active,
-.btn-default.active { /* BT 2044 */
-    border-color: #3C948B;
-    color: #3C948B;
-    background-color: #f9f9f9;
+table .btn {
+    width: 100%;
+    padding-left: 8px;
+    text-align: left;
+    background-color: inherit;
 }
+
+
+
 
 /* FORM FIELDS IN TABLES
 ---------------------------------------------------------*/
@@ -33,9 +28,7 @@ table .btn-default { min-width: 100%; } /* instead of width by bt-block, since c
 
 table input[type="radio"], input[type="checkbox"]  {
     margin-top: 0px;
-    height: 13px;
-    width: 13px;
-    margin: 0 auto;
+    width: inherit;
 }
 
 table .form-control { /* BT 1689 */

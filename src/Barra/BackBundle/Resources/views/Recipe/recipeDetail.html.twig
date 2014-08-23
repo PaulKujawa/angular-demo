@@ -92,7 +92,7 @@
                     <tr class="formInRow">
                         {{ form_row(formCookingStepInsert.step) }}
                         {{ form_row(formCookingStepInsert.description) }}
-                        {{ form_widget(formCookingStepInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
+                        {{ form_widget(formCookingStepInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn'} }) }}
                     </tr>
                     <tr class="formInRowError">
                         <td>
@@ -109,7 +109,7 @@
             <tr class="formInRow">
                 {{ form_row(formCookingStepUpdate.step) }}
                 {{ form_row(formCookingStepUpdate.description) }}
-                {{ form_widget(formCookingStepUpdate.submit, {'label': 'back.action.update', 'attr': {'class': 'btn btn-default'} }) }}
+                {{ form_widget(formCookingStepUpdate.submit, {'label': 'back.action.update', 'attr': {'class': 'btn'} }) }}
                 {{ form_rest(formCookingStepUpdate) }}
             </tr>
             {{ form_end(formCookingStepUpdate) }}

@@ -54,7 +54,7 @@
                             {{ form_row(formInsert.fat) }}
                             {{ form_row(formInsert.gfat) }}
                             {{ form_row(formInsert.manufacturer) }}
-                            {{ form_widget(formInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
+                            {{ form_widget(formInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn'} }) }}
                     </tr>
                     <tr class="formInRowError">
                         <td>
@@ -78,7 +78,7 @@
                         {{ form_row(formUpdate.fat) }}
                         {{ form_row(formUpdate.gfat) }}
                         {{ form_row(formUpdate.manufacturer) }}
-                        {{ form_widget(formUpdate.submit, {'label': 'back.action.update', 'attr': {'class': 'btn btn-default'} }) }}
+                        {{ form_widget(formUpdate.submit, {'label': 'back.action.update', 'attr': {'class': 'btn'} }) }}
                         {{ form_row(formUpdate.id, {'attr': {'class': 'formPk'} }) }}
                         {{ form_rest(formUpdate) }}
                     </tr>
