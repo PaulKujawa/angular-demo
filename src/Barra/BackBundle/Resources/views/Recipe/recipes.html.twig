@@ -31,8 +31,13 @@
                         </tr>
                     {% endfor %}
                     <tr class="formInRow">
-                            {{ form_row(formInsert.name) }}
-                            {{ form_widget(formInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
+                        {{ form_row(formInsert.name) }}
+                        {{ form_widget(formInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
+                    </tr>
+                    <tr class="formInRowError">
+                        <td>
+                            {{ form_errors(formInsert) }}
+                        </td>
                     </tr>
                 </tbody>
             </table>

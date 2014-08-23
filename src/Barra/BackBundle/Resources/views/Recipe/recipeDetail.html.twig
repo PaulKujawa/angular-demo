@@ -10,7 +10,6 @@
 {% block section %}
     <section class="container mobileTables">
         {{ form_start(formIngredientInsert) }}
-            {{ form_errors(formIngredientInsert) }}
             <table class="table table-striped" data-type="ingredient">
                 <thead>
                     <tr>
@@ -38,6 +37,11 @@
                         {{ form_row(formIngredientInsert.measurement) }}
                         {{ form_row(formIngredientInsert.ingredient) }}
                         {{ form_widget(formIngredientInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
+                    </tr>
+                    <tr class="formInRowError">
+                        <td>
+                            {{ form_errors(formIngredientInsert) }}
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -89,6 +93,11 @@
                         {{ form_row(formCookingStepInsert.step) }}
                         {{ form_row(formCookingStepInsert.description) }}
                         {{ form_widget(formCookingStepInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
+                    </tr>
+                    <tr class="formInRowError">
+                        <td>
+                            {{ form_errors(formCookingStepInsert) }}
+                        </td>
                     </tr>
                 </tbody>
             </table>

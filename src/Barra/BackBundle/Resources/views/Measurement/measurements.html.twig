@@ -34,6 +34,11 @@
                         {{ form_row(formInsert.gr) }}
                         {{ form_widget(formInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
                     </tr>
+                    <tr class="formInRowError">
+                        <td>
+                            {{ form_errors(formInsert) }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         {{ form_end(formInsert) }}

@@ -23,13 +23,26 @@ $(window).load(function() {
 
 
 
-    var createInsertTooltips = function() {
+    var generateTooltips = function() {
         $('.formInRow').find('ul').each(function(){
             var list = $(this);
             var formWidget = list.next();
             list.remove();
             createTooltip(formWidget, "<ul>"+list.html()+"</ul>");
         });
+
+
+        var errorColumns = $('.formInRowError');
+
+        errorColumns.find('ul').each(function(){
+            var ul = $(this);
+            var tr = ul.closest('tr');
+            var formRow = tr.prev();
+            formRow.addClass('danger has-error');
+            createTooltip(formRow, "<ul>"+ul.html()+"</ul>");
+        });
+
+        errorColumns.remove();
     };
 
 
@@ -39,7 +52,9 @@ $(window).load(function() {
             if (entities[i]['action'] === action)
                 return i;
         }
+
         window.alert('something went wrong, please reload the site.');
+        return false;
     };
 
 
@@ -143,7 +158,7 @@ $(window).load(function() {
             var formWidget = entities[i]['uFormRow'].find("[name$='["+ fieldname +"]']");
             createTooltip(formWidget, output);
         });
-    }
+    };
 
 
 
@@ -185,7 +200,7 @@ $(window).load(function() {
         entities[i]['table'].append(entities[i]['iFormRow']);
 
         // optical feedback
-        entities[i]['activeTr'].addClass('success')
+        entities[i]['activeTr'].addClass('success');
         setTimeout(function() {
             entities[i]['activeTr'].removeClass('success');
             entities[i]['activeTr'] = null;
@@ -195,7 +210,7 @@ $(window).load(function() {
 
     var entities = [];
     collectEntities();
-    createInsertTooltips();
+    generateTooltips();
 });
 
 
