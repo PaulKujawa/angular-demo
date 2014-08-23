@@ -71,11 +71,16 @@ class MeasurementController extends Controller
         $formUpdate->handleRequest($request);
 
         if ($formUpdate->isValid()) {
-            $em->flush();
-            $ajaxResponse = array("code"=>200, "message"=>"ok");
+            try {
+                $em->flush();
+                $ajaxResponse = array("code"=>200, "message"=>"ok");
+            } catch (\Doctrine\DBAL\DBALException $e) {
+                $validationErrors = $this->get('translator')->trans("back.message.insertError");
+                $ajaxResponse = array("code"=>409, "dbError"=>$validationErrors);
+            }
         } else {
             $validationErrors = $this->get('barra_back.formValidation')->getErrorMessages($formUpdate);
-            $ajaxResponse = array("code"=>400, "message"=>$validationErrors);
+            $ajaxResponse = array("code"=>400, "fieldError"=>$validationErrors);
         }
 
         return new Response(json_encode($ajaxResponse), 200, array('Content-Type'=>'application/json'));

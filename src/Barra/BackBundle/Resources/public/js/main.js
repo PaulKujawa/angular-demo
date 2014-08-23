@@ -23,30 +23,6 @@ $(window).load(function() {
 
 
 
-    var generateTooltips = function() {
-        $('.formInRow').find('ul').each(function(){
-            var list = $(this);
-            var formWidget = list.next();
-            list.remove();
-            createTooltip(formWidget, "<ul>"+list.html()+"</ul>");
-        });
-
-
-        var errorColumns = $('.formInRowError');
-
-        errorColumns.find('ul').each(function(){
-            var ul = $(this);
-            var tr = ul.closest('tr');
-            var formRow = tr.prev();
-            formRow.addClass('danger has-error');
-            createTooltip(formRow, "<ul>"+ul.html()+"</ul>");
-        });
-
-        errorColumns.remove();
-    };
-
-
-
     var chooseEntity = function(action) {
         for (var i=0; i < entities.length; i++) {
             if (entities[i]['action'] === action)
@@ -112,7 +88,7 @@ $(window).load(function() {
     $('section').on('submit', "[name$='Update']", function(event) {
         var compareString = $(this).find('table').attr('data-type');
         var i = chooseEntity(compareString);
-        removeValidationMarkup(i);
+        uFormRemoveValidation(i);
         event.preventDefault();
         var uForm = $(this);
 
@@ -126,19 +102,19 @@ $(window).load(function() {
                 hideUForm(i);
 
             else if (response.code == 400)
-                createValidationMarkup(i, response.message);
+                uFormInsertFieldValidation(i, response.fieldError);
 
-            else if (response.code == 404)
-                window.alert('404 '+response.message);
+            else if (response.code == 409)
+                uFormInsertFormValidation(i, response.dbError);
 
-            else
-                window.alert("uuups fatal error");
+            else if (response.code == 500)
+                uFormInsertFormValidation(i, "A fatal 500 error occurred.");
         });
     });
 
 
 
-    var removeValidationMarkup = function(i) {
+    var uFormRemoveValidation = function(i) {
         var tds = entities[i]['uFormRow'].children('.danger');
         tds.removeClass('danger has-error');
         tds.find('.form-control').tooltip("destroy");
@@ -146,34 +122,68 @@ $(window).load(function() {
 
 
 
-    var createValidationMarkup = function(i, errors) {
+    var uFormInsertFieldValidation = function(i, errors) {
         $.each(errors, function(fieldname, number) {
             var output = "<ul>";
-
             $.each(number, function(index, error) {
                 output += '<li>'+ error +'</li>';
             });
+            output += "</ul>";
 
-            output += '</ul>';
             var formWidget = entities[i]['uFormRow'].find("[name$='["+ fieldname +"]']");
-            createTooltip(formWidget, output);
+            var td = formWidget.parent();
+            td.addClass('danger has-error');
+            createTooltip(formWidget, output, false);
+            formWidget.blur();
         });
     };
 
 
 
-    var createTooltip = function(formWidget, output) {
-        formWidget.tooltip({
-            items: formWidget,
+    var uFormInsertFormValidation = function(i, errors) {
+        var tr = entities[i]['uFormRow'];
+        tr.addClass('danger has-error');
+        createTooltip(tr, errors, true);
+    };
+
+
+
+    var iFormInsertValidation = function() {
+        // fields
+        $('.formInRow').find('ul').each(function(){
+            var list = $(this);
+            var formWidget = list.next();
+            var td = formWidget.parent();
+            td.addClass('danger has-error');
+            list.remove();
+            createTooltip(formWidget, "<ul>"+list.html()+"</ul>", false);
+        });
+
+        // form
+        var errorColumns = $('.formInRowError');
+        errorColumns.find('ul').each(function(){
+            var ul = $(this);
+            var tr = ul.closest('tr');
+            var tr = tr.prev();
+            tr.addClass('danger has-error');
+            createTooltip(tr, "<ul>"+ul.html()+"</ul>", true);
+        });
+        errorColumns.remove();
+    };
+
+
+
+    var createTooltip = function(target, output, isForm) {
+        target.tooltip({
+            items: target,
             content: output,
             position: {
                 my: 'center top', /* position of base element */
                 at: 'center-10 bottom+10' /* position of tooltip */
             }
         });
-
-        formWidget.parent().addClass('danger has-error');
-        formWidget.focus()
+        if (isForm)
+            target.tooltip("open");
     };
 
 
@@ -210,7 +220,7 @@ $(window).load(function() {
 
     var entities = [];
     collectEntities();
-    generateTooltips();
+    iFormInsertValidation();
 });
 
 
