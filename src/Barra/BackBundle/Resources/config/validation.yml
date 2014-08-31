@@ -50,6 +50,11 @@ Barra\FrontBundle\Entity\Recipe:
       - NotBlank:
       - Type: string
 
+Manager\ManagerBundle\Entity\RecipeFile:
+  properties:
+    file:
+      - File:
+          maxSize: 6000000
 
 Barra\FrontBundle\Entity\Measurement:
   properties:

@@ -13,15 +13,15 @@ use Doctrine\ORM\Mapping as ORM;
 class Reference
 {
     /**
-     * @ORM\Column(name="company", type="string", length=30, nullable=false)
-     */
-    private $company;
-
-    /**
      * @ORM\Id
      * @ORM\Column(name="website", type="string", length=30, nullable=false)
      */
     private $website;
+
+    /**
+     * @ORM\Column(name="company", type="string", length=30, nullable=false)
+     */
+    private $company;
 
     /**
      * @ORM\Column(name="description", type="string", length=30, nullable=false)

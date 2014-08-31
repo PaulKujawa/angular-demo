@@ -2,8 +2,10 @@
 
 namespace Barra\BackBundle\Controller;
 
+use Barra\FrontBundle\Entity\RecipeFile;
 use Barra\FrontBundle\Entity\CookingStep;
 use Barra\FrontBundle\Entity\RecipeIngredient;
+use Barra\BackBundle\Form\Type\RecipeFileType;
 use Barra\BackBundle\Form\Type\CookingStepType;
 use Barra\BackBundle\Form\Type\CookingStepUpdateType;
 use Barra\BackBundle\Form\Type\RecipeIngredientType;
@@ -25,17 +27,19 @@ class RecipeDetailController extends Controller
         $cookingSteps = $em->getRepository('BarraFrontBundle:CookingStep')->findBy(array('recipe'=>$recipe), array('step'=>'ASC'));
         $recipeIngredients = $em->getRepository('BarraFrontBundle:RecipeIngredient')->findByRecipe($recipe, array('position'=>'ASC'));
 
-        $cookingStep = new CookingStep();
-        $recipeIngredient = new RecipeIngredient();
-        $formCookingStepInsert = $this->createForm(new CookingStepType(), $cookingStep);
-        $formIngredientInsert = $this->createForm(new RecipeIngredientType(), $recipeIngredient);
+        $recipeFile             = new RecipeFile();
+        $cookingStep            = new CookingStep();
+        $recipeIngredient       = new RecipeIngredient();
 
-        // since mapped=false
-        $formCookingStepUpdate = $this->createForm(new CookingStepUpdateType(), $cookingStep);
-        $formIngredientUpdate = $this->createForm(new RecipeIngredientUpdateType(), $recipeIngredient);
+        $formRecipeFile         = $this->createForm(new RecipeFileType(), $recipeFile);
+        $formCookingStepInsert  = $this->createForm(new CookingStepType(), $cookingStep);
+        $formCookingStepUpdate  = $this->createForm(new CookingStepUpdateType(), $cookingStep);
+        $formIngredientInsert   = $this->createForm(new RecipeIngredientType(), $recipeIngredient);
+        $formIngredientUpdate   = $this->createForm(new RecipeIngredientUpdateType(), $recipeIngredient);
+
+        $formRecipeFile->get('recipe')->setData($recipe->getId());
         $formCookingStepUpdate->get('recipe')->setData($recipe->getId());
         $formIngredientUpdate->get('recipe')->setData($recipe->getId());
-
 
 
         if ($request->getMethod() === 'POST') {
@@ -58,11 +62,12 @@ class RecipeDetailController extends Controller
 
 
         return $this->render('BarraBackBundle:Recipe:recipeDetail.html.twig', array(
-            'recipe' => $recipe,
-            'cookingSteps'=> $cookingSteps,
-            'recipeIngredients'=>$recipeIngredients,
-            'formIngredientInsert' => $formIngredientInsert->createView(),
-            'formIngredientUpdate' => $formIngredientUpdate->createView(),
+            'recipe'                => $recipe,
+            'cookingSteps'          => $cookingSteps,
+            'recipeIngredients'     => $recipeIngredients,
+            'formRecipeFile'        => $formRecipeFile->createView(),
+            'formIngredientInsert'  => $formIngredientInsert->createView(),
+            'formIngredientUpdate'  => $formIngredientUpdate->createView(),
             'formCookingStepInsert' => $formCookingStepInsert->createView(),
             'formCookingStepUpdate' => $formCookingStepUpdate->createView()
         ));
@@ -82,6 +87,36 @@ class RecipeDetailController extends Controller
 
 
 
+
+
+
+    public function fileUploadAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $recipeId = $request->request->get('formRecipeFile')['recipe'];
+        $recipe = $em->getRepository('BarraFrontBundle:Recipe')->find($recipeId);
+
+        if (!$recipe)
+            throw $this->createNotFoundException('Recipe not found');
+
+        $recipeFile = new RecipeFile();
+        $form = $this->createForm(new RecipeFileType(), $recipeFile);
+        $form->handleRequest($request);
+        $recipeFile->setRecipe($recipe);
+
+        if ($form->isValid()) {
+            $em->persist($recipeFile);
+            $em->flush();
+            return new Response("geklappt");
+        } else {
+            $validationErrors = $this->get('barra_back.formValidation')->getErrorMessages($form);
+            return new Response("token: ".$token.var_dump($validationErrors));
+
+        }
+
+
+        //return $this->redirect($this->generateUrl('barra_back_recipeDetail', array('name'=>$recipe->getName())));
+    }
 
 
 

@@ -1,4 +1,9 @@
 $(window).load(function() {
+
+
+
+
+
     var collectEntities = function() {
         var tables = $('table:not(.jsStorage)');
 

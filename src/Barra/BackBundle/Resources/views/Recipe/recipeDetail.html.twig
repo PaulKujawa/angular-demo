@@ -9,6 +9,17 @@
 
 {% block section %}
     <section class="container mobileTables">
+
+
+
+        <form class="dropzone"   name="formRecipeFile"         id="dropzoneId"              action="{{ path('barra_back_recipeDetail_fileUpload') }}" method="post">
+            <input type="hidden" name="formRecipeFile[recipe]" id="formRecipeFile_recipe"   value="{{ recipe.id }}">
+            <input type="hidden" name="formRecipeFile[_token]" id="formRecipeFile__token"   value="{{ csrf_token('formRecipeFile') }}">
+        </form>
+
+
+
+
         {{ form_start(formIngredientInsert) }}
             <table class="table table-striped" data-type="ingredient">
                 <thead>

@@ -39,6 +39,11 @@ barra_back_recipe_delete:
 
 
 
+barra_back_recipeDetail_fileUpload:
+    path:     /recipe/fileUpload
+    defaults: { _controller: BarraBackBundle:RecipeDetail:fileUpload }
+    requirements:
+        _method: POST
 
 barra_back_recipeDetail:
     path:     /recipe/{name}

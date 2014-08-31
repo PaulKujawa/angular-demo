@@ -3,11 +3,14 @@
 {% block stylesheets %}
     {{ parent() }}
     <link href="{{ asset('bundles/barraback/css/main.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/barraback/css/dropzone_basic.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/barraback/css/dropzone_extended.css') }}" rel="stylesheet" />
 {% endblock %}
 
 {% block javaScript %}
     {{ parent() }}
     <script src="{{ asset('bundles/barraback/js/main.js') }}"></script>
+    <script src="{{ asset('bundles/barraback/js/dropzone.js') }}"></script>
 {% endblock %}
 
 {% block navController %}
