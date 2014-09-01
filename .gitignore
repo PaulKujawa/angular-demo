@@ -10,4 +10,5 @@
 /app/phpunit.xml
 /build/
 /vendor/
+/web/uploads/documents/
 /bin/
