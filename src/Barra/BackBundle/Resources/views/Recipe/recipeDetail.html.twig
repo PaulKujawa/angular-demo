@@ -24,7 +24,11 @@
             <tbody>
                 {% for file in files %}
                     <tr>
-                        <td data-mobile-title={{ 'back.recipeFile.title'|trans() }}>{{ file.title }}</td>
+                        <td data-mobile-title={{ 'back.recipeFile.title'|trans() }}>
+                            <a href="{{ asset('uploads/documents/'~file.filename) }}" target="_blank">
+                                {{ file.title }}
+                            </a>
+                        </td>
                         <td data-mobile-title={{ 'back.action.delete'|trans() }}>
                             <a href="{{ path('barra_back_recipeDetail_file_delete', {'recipeId': recipe.id, 'id': file.id}) }}">
                                 <span class="glyphicon glyphicon-minus"></span>

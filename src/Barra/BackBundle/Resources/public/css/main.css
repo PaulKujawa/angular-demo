@@ -7,16 +7,19 @@ span.glyphicon { margin-right: 9px; }
 
 /* BUTTONS
 ---------------------------------------------------------*/
-.btn { /* BT 1991 overriden by BT .bt-block */
-    border-radius: 0px;
-    text-transform: uppercase;
-}
-
-table .btn {
+table .btn { /* BT 1991 overriden by BT .bt-block */
     width: 100%;
     padding-left: 8px;
     text-align: left;
+    border-radius: 0px;
+    border-color: transparent;
+    text-transform: uppercase;
     background-color: inherit;
+}
+
+table .btn:hover, table .btn:focus, table .btn:active {
+    background-color: inherit;
+    border-color: transparent;
 }
 
 
