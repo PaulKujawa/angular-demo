@@ -39,11 +39,18 @@ barra_back_recipe_delete:
 
 
 
-barra_back_recipeDetail_fileUpload:
-    path:     /recipe/fileUpload
-    defaults: { _controller: BarraBackBundle:RecipeDetail:fileUpload }
+barra_back_recipeDetail_file_upload:
+    path:     /recipe/file/upload
+    defaults: { _controller: BarraBackBundle:RecipeDetail:uploadFile }
     requirements:
         _method: POST
+
+barra_back_recipeDetail_file_delete:
+    path:     /recipe/file/delete/{recipeId}/{id}
+    defaults: { _controller: BarraBackBundle:RecipeDetail:deleteFile }
+    requirements:
+        recipeId: \d+
+        id: \d+
 
 barra_back_recipeDetail:
     path:     /recipe/{name}

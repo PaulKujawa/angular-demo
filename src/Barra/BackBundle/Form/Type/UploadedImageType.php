@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class RecipeFileType extends AbstractType
+class UploadedImageType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -18,13 +18,13 @@ class RecipeFileType extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('data_class'=>'Barra\FrontBundle\Entity\RecipeFile',
+        $resolver->setDefaults(array('data_class'=>'Barra\FrontBundle\Entity\UploadedImage',
             'intention' =>'recipeFile'
         ));
     }
 
     public function getName()
     {
-        return 'formRecipeFile';
+        return 'formUploadedImage';
     }
 }

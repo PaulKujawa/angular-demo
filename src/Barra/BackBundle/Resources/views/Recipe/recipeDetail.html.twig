@@ -10,11 +10,36 @@
 {% block section %}
     <section class="container mobileTables">
 
-        <form name="formRecipeFile" id="dropzoneId" class="dropzone" action="{{ path('barra_back_recipeDetail_fileUpload') }}" enctype="multipart/form-data" method="post">
-            <!--<input type="file"   name="formRecipeFile[file]"   id="formRecipeFile_file"    class="form-control" required="required">-->
-            <input type="hidden" name="formRecipeFile[recipe]" id="formRecipeFile_recipe"  value="{{ recipe.id }}">
-            {{ form_widget(formRecipeFile._token) }}
+        <form name="formUploadedImage" id="dropzoneId" class="dropzone" action="{{ path('barra_back_recipeDetail_file_upload') }}" enctype="multipart/form-data" method="post">
+            <!--<input type="file"   name="formUploadedImage[file]"   id="formUploadedImage_file"    class="form-control" required="required">-->
+            <input type="hidden" name="formUploadedImage[recipe]" id="formUploadedImage_recipe"  value="{{ recipe.id }}">
+            {{ form_widget(formUploadedImage._token) }}
         </form>
+
+        <table class="table table-striped">
+            <thead>
+                <th>{{ 'back.recipeFile.title'|trans() }}</th>
+                <th>{{ 'back.action.delete'|trans() }}</th>
+            </thead>
+            <tbody>
+                {% for file in files %}
+                    <tr>
+                        <td data-mobile-title={{ 'back.recipeFile.title'|trans() }}>{{ file.title }}</td>
+                        <td data-mobile-title={{ 'back.action.delete'|trans() }}>
+                            <a href="{{ path('barra_back_recipeDetail_file_delete', {'recipeId': recipe.id, 'id': file.id}) }}">
+                                <span class="glyphicon glyphicon-minus"></span>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+
+        <div style="margin-bottom: 200px"></div>
+
+
 
         {{ form_start(formIngredientInsert) }}
             <table class="table table-striped" data-type="ingredient">

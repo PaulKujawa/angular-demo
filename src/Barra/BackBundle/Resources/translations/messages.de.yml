@@ -38,6 +38,9 @@ back:
   recipe: #object
     name: Name
 
+  recipeFile: #object
+    title: Titel
+
   reference: #object
     company: Firma
     description: Beschreibung

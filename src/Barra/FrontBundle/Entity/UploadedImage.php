@@ -7,13 +7,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * RecipeFile
+ * UploadedImage
  *
  * @ORM\Table()
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks
  */
-class RecipeFile
+class UploadedImage
 {
     /**
      * @ORM\Id
@@ -38,8 +38,8 @@ class RecipeFile
     private $file;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Recipe", inversedBy="RecipeFile")
-     * @ORM\JoinColumn(name="recipe_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\ManyToOne(targetEntity="Recipe", inversedBy="UploadedImage")
+     * @ORM\JoinColumn(name="recipe", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $recipe;
 
@@ -158,7 +158,7 @@ class RecipeFile
      * Set title
      *
      * @param string $title
-     * @return RecipeFile
+     * @return UploadedImage
      */
     public function setTitle($title)
     {
@@ -180,7 +180,7 @@ class RecipeFile
      * Set filename
      *
      * @param string $filename
-     * @return RecipeFile
+     * @return UploadedImage
      */
     public function setFilename($filename)
     {
@@ -199,7 +199,7 @@ class RecipeFile
     }
 
     /**
-     * @param UploadedFile $file
+     * @param UploadedImage $file
      */
     public function setFile(UploadedFile $file = null)
     {
@@ -223,7 +223,7 @@ class RecipeFile
      * Set recipe
      *
      * @param \Barra\FrontBundle\Entity\Recipe $recipe
-     * @return RecipeFile
+     * @return UploadedImage
      */
     public function setRecipe(\Barra\FrontBundle\Entity\Recipe $recipe = null)
     {

@@ -2,10 +2,10 @@
 
 namespace Barra\BackBundle\Controller;
 
-use Barra\FrontBundle\Entity\RecipeFile;
+use Barra\FrontBundle\Entity\UploadedImage;
 use Barra\FrontBundle\Entity\CookingStep;
 use Barra\FrontBundle\Entity\RecipeIngredient;
-use Barra\BackBundle\Form\Type\RecipeFileType;
+use Barra\BackBundle\Form\Type\UploadedImageType;
 use Barra\BackBundle\Form\Type\CookingStepType;
 use Barra\BackBundle\Form\Type\CookingStepUpdateType;
 use Barra\BackBundle\Form\Type\RecipeIngredientType;
@@ -24,25 +24,26 @@ class RecipeDetailController extends Controller
         if (!$recipe)
             throw $this->createNotFoundException('Recipe not found');
 
+        $files = $em->getRepository('BarraFrontBundle:UploadedImage')->findBy(array('recipe'=>$recipe));
         $cookingSteps = $em->getRepository('BarraFrontBundle:CookingStep')->findBy(array('recipe'=>$recipe), array('step'=>'ASC'));
         $recipeIngredients = $em->getRepository('BarraFrontBundle:RecipeIngredient')->findByRecipe($recipe, array('position'=>'ASC'));
 
-        $recipeFile             = new RecipeFile();
+        $recipeFile             = new UploadedImage();
         $cookingStep            = new CookingStep();
         $recipeIngredient       = new RecipeIngredient();
 
-        $formRecipeFile         = $this->createForm(new RecipeFileType(), $recipeFile);
+        $formUploadedImage      = $this->createForm(new UploadedImageType(), $recipeFile);
         $formCookingStepInsert  = $this->createForm(new CookingStepType(), $cookingStep);
         $formCookingStepUpdate  = $this->createForm(new CookingStepUpdateType(), $cookingStep);
         $formIngredientInsert   = $this->createForm(new RecipeIngredientType(), $recipeIngredient);
         $formIngredientUpdate   = $this->createForm(new RecipeIngredientUpdateType(), $recipeIngredient);
 
-        $formRecipeFile->get('recipe')->setData($recipe->getId());
+        $formUploadedImage->get('recipe')->setData($recipe->getId());
         $formCookingStepUpdate->get('recipe')->setData($recipe->getId());
         $formIngredientUpdate->get('recipe')->setData($recipe->getId());
 
-
         if ($request->getMethod() === 'POST') {
+            $sqlError = null;
             if ($request->request->has($formIngredientInsert->getName())) {
                 $formIngredientInsert->handleRequest($request);
                 if ($formIngredientInsert->isValid())
@@ -63,9 +64,10 @@ class RecipeDetailController extends Controller
 
         return $this->render('BarraBackBundle:Recipe:recipeDetail.html.twig', array(
             'recipe'                => $recipe,
+            'files'                 => $files,
             'cookingSteps'          => $cookingSteps,
             'recipeIngredients'     => $recipeIngredients,
-            'formRecipeFile'        => $formRecipeFile->createView(),
+            'formUploadedImage'     => $formUploadedImage->createView(),
             'formIngredientInsert'  => $formIngredientInsert->createView(),
             'formIngredientUpdate'  => $formIngredientUpdate->createView(),
             'formCookingStepInsert' => $formCookingStepInsert->createView(),
@@ -75,34 +77,19 @@ class RecipeDetailController extends Controller
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public function fileUploadAction(Request $request)
+    public function uploadFileAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $recipeId = $request->request->get('formRecipeFile')['recipe'];
+        $recipeId = $request->request->get('formUploadedImage')['recipe'];
         $recipe = $em->getRepository('BarraFrontBundle:Recipe')->find($recipeId);
 
         if (!$recipe)
             throw $this->createNotFoundException('Recipe not found');
 
         foreach($request->files as $file) {
-            $recipeFile = new RecipeFile();
+            $recipeFile = new UploadedImage();
 
-            $form = $this->createForm(new RecipeFileType(), $recipeFile);
+            $form = $this->createForm(new UploadedImageType(), $recipeFile);
             $form->handleRequest($request);
             $recipeFile->setRecipe($recipe);
             $recipeFile->setFile($file);
@@ -114,6 +101,23 @@ class RecipeDetailController extends Controller
                 return new Response( $this->get('barra_back.formValidation')->getErrorMessages($form) );
         }
         return new Response("200, ok");
+    }
+
+
+
+    public function deleteFileAction($recipeId, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $file = $em->getRepository('BarraFrontBundle:UploadedImage')->findOneBy(array('recipe'=>$recipeId, 'id'=>$id));
+
+        if (!$file)
+            throw $this->createNotFoundException('File not found');
+
+        $em->remove($file);
+        $em->flush();
+
+        $recipe = $em->getRepository('BarraFrontBundle:Recipe')->find($recipeId);
+        return $this->redirect($this->generateUrl('barra_back_recipeDetail', array('name'=>$recipe->getName())));
     }
 
 
@@ -166,10 +170,6 @@ class RecipeDetailController extends Controller
 
         return new Response(json_encode($ajaxResponse), 200, array('Content-Type'=>'application/json'));
     }
-
-
-
-
 
 
 
