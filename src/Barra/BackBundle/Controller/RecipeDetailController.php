@@ -99,23 +99,21 @@ class RecipeDetailController extends Controller
         if (!$recipe)
             throw $this->createNotFoundException('Recipe not found');
 
-        $recipeFile = new RecipeFile();
-        $form = $this->createForm(new RecipeFileType(), $recipeFile);
-        $form->handleRequest($request);
-        $recipeFile->setRecipe($recipe);
+        foreach($request->files as $file) {
+            $recipeFile = new RecipeFile();
 
-        if ($form->isValid()) {
-            $em->persist($recipeFile);
-            $em->flush();
-            return new Response("geklappt");
-        } else {
-            $validationErrors = $this->get('barra_back.formValidation')->getErrorMessages($form);
-            return new Response("token: ".$token.var_dump($validationErrors));
+            $form = $this->createForm(new RecipeFileType(), $recipeFile);
+            $form->handleRequest($request);
+            $recipeFile->setRecipe($recipe);
+            $recipeFile->setFile($file);
 
+            if ($form->isValid()) {
+                $em->persist($recipeFile);
+                $em->flush();
+            } else
+                return new Response( $this->get('barra_back.formValidation')->getErrorMessages($form) );
         }
-
-
-        //return $this->redirect($this->generateUrl('barra_back_recipeDetail', array('name'=>$recipe->getName())));
+        return new Response("200, ok");
     }
 
 
