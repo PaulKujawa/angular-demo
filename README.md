@@ -1,20 +1,7 @@
 Kujawa / vpit
 ==============
 
-1) Delete Demo Bundle
-----------------------
-  * delete the `src/Acme` directory;
-
-  * remove the routing entry referencing AcmeDemoBundle in `app/config/routing_dev.yml`;
-
-  * remove the AcmeDemoBundle from the registered bundles in `app/AppKernel.php`;
-
-  * remove the `web/bundles/acmedemo` directory;
-
-  * empty the `security.yml` file or tweak the security configuration to fit your needs.
-
-
-2) Commandline
+1) Commandline
 ---------------
   * create bundle `php app/console generate:bundle --namespace=Acme/HelloBundle --format=yml`
 
@@ -29,12 +16,12 @@ Kujawa / vpit
   * check twig syntax `hp app/console twig:lint path_of_bundle|folder|twig-file`
 
 
-3) Commandline Tests
+2) Commandline Tests
 --------------------
   * run phpunit tests `php phpunit -c app src/Barra/BackBundle`
 
 
-4) Commandline DB
+3) Commandline DB
 ------------------
   * create entity `php app/console doctrine:generate:entity --entity="BarraDefaultBundle:Product"`
 
@@ -47,14 +34,14 @@ Kujawa / vpit
   * delete DB `php app/console doctrine:database:drop --force`
 
 
-5) Redirects
+4) Redirects
 -------------
   * without URL change `return $this->forward('BarraDefaultBundle:Default:recipe', array('id' => 1));`
 
   * with URL change `return $this->redirect($this->generateUrl('barra_default_recipe', array('id' => 1)));`
 
 
-6) Check kind of request
+5) Check kind of request
 -------------------------
   * GET `$request->query->get('page');`
   * POST `$request->request->get('page');`
@@ -63,7 +50,7 @@ Kujawa / vpit
   * Requested format `$format = $this->getRequest()->getRequestFormat();`
 
 
-7) DB Default-Selects
+6) DB Default-Selects
 ----------------------
   * 1 via PK `find('foo')`
 
@@ -78,7 +65,7 @@ Kujawa / vpit
   * all `findAll()`
 
 
-8) DB Repository
+7) DB Repository
 -----------------
 
   * Max Id public function findMaxId()
@@ -96,7 +83,7 @@ Kujawa / vpit
     }
 
 
-9) Template
+8) Template
 ------------
   * Toggle Table `{% for i in 0..10 %}
     <div class="{{ cycle(['odd', 'even'], i) }}"></div>`
@@ -115,7 +102,7 @@ Kujawa / vpit
         -> ovveride this default via:
             {{ render_hinclude(controller('...'), { 'default': '.....twig'}) }}`
 
-10) Trans
+9) Trans
 ----------
   * tag: `{% trans from 'layout' %}reference{% endtrans %}`
 
@@ -125,7 +112,7 @@ Kujawa / vpit
   * variable key `{{ entry['label']|trans({}, 'layout') }}`
 
 
-11) Transchoice
+10) Transchoice
 ----------------
   * filter `{{ 'front.word.comment'|transchoice(count, {}, 'layout') }}
 
@@ -135,7 +122,7 @@ Kujawa / vpit
         comment: '{0} no comment|{1} one comment|]1,Inf] %count% comments'
 
 
-12) CACHE
+11) CACHE
 ----------
   * preparation
     use Symfony\Component\HttpFoundation\Response;
