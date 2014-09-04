@@ -1,10 +1,4 @@
 /* The MIT License */
-.dropzone,
-.dropzone *,
-.dropzone-previews,
-.dropzone-previews * {
-    box-sizing: border-box;
-}
 .dropzone {
     position: relative;
     border: 1px solid rgba(0,0,0,0.08);

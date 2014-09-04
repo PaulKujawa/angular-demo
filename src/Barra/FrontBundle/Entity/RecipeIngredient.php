@@ -21,7 +21,7 @@ class RecipeIngredient
 
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Ingredient", inversedBy="recipeIngredient")
+     * @ORM\ManyToOne(targetEntity="Ingredient", inversedBy="recipeIngredients")
      * @ORM\JoinColumn(name="ingredient", referencedColumnName="id", nullable=false)
      */
     private $ingredient;
@@ -37,7 +37,7 @@ class RecipeIngredient
     private $amount;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Measurement", inversedBy="recipeIngredient")
+     * @ORM\ManyToOne(targetEntity="Measurement", inversedBy="recipeIngredients")
      * @ORM\JoinColumn(name="measurement", referencedColumnName="id", nullable=false)
      */
     private $measurement;

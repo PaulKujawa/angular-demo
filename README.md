@@ -1,4 +1,4 @@
-Kujawa / vpit
+Vpit
 ==============
 
 1) Commandline
@@ -10,6 +10,8 @@ Kujawa / vpit
   * List Routes `./app/console router:debug`
 
   * Check Route `php app/console router:match /givenPage`
+
+  * compile less `php app/console assetic:dump`
 
   * include assets `php app/console assets:install web --symlink`
 
@@ -147,3 +149,8 @@ Kujawa / vpit
     'public'=>true,
     // 'private' => true
     ));
+
+
+12) Browser support
+--------------------
+   * IE10+

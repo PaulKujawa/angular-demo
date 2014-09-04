@@ -38,8 +38,8 @@ class UploadedImage
     private $file;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Recipe", inversedBy="UploadedImage")
-     * @ORM\JoinColumn(name="recipe", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\ManyToOne(targetEntity="Recipe")
+     * @ORM\JoinColumn(name="recipe", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     protected $recipe;
 
@@ -47,9 +47,6 @@ class UploadedImage
      * temp var for encoded filename
      */
     private $temp;
-
-
-
 
 
 
