@@ -95,8 +95,8 @@ class RecipeDetailController extends Controller
             $recipeFile->setFile($file);
 
             if ($form->isValid()) {
-                $em->persist($recipeFile);
-                $em->flush();
+                //$em->persist($recipeFile);
+               // $em->flush();
             } else
                 return new Response( $this->get('barra_back.formValidation')->getErrorMessages($form) );
         }
