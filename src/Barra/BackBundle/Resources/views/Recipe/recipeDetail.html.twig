@@ -12,7 +12,10 @@
         <form name="formUploadedImage" id="dropzoneId" class="dropzone" action="{{ path('barra_back_recipeDetail_file_upload') }}" enctype="multipart/form-data" method="post">
             <!--<input type="file"   name="formUploadedImage[file]"   id="formUploadedImage_file"    class="form-control" required="required">-->
             <input type="hidden" name="formUploadedImage[recipe]" id="formUploadedImage_recipe"  value="{{   recipe.id }}">
-             {{ form_widget(formUploadedImage._token) }}
+            {{ form_widget(formUploadedImage._token) }}
+            <div class="dz-default dz-message">
+                <span class="glyphicon glyphicon-upload"></span>
+            </div>
         </form>
 
 

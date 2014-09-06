@@ -15,11 +15,11 @@
 .dropzone.dz-clickable * {
     cursor: default;
 }
-.dropzone .dz-message {
+/*.dropzone .dz-message {
     opacity: 1;
     -ms-filter: none;
     filter: none;
-}
+}*/
 .dropzone.dz-drag-hover {
     border-color: rgba(0,0,0,0.15);
     background: rgba(0,0,0,0.04);
@@ -33,9 +33,10 @@
     position: relative;
     display: inline-block;
     margin: 15px; /*17px;*/
-    vertical-align: top;
-    border: 1px solid #acacac;
-    /*padding: 6px 6px 6px 6px;*/
+    border: 1px solid #ccc;/* #acacac */
+    /*
+    padding: 6px 6px 6px 6px;
+    vertical-align: top;*/
 }
 .dropzone .dz-preview.dz-file-preview [data-dz-thumbnail],
 .dropzone-previews .dz-preview.dz-file-preview [data-dz-thumbnail] {
@@ -164,18 +165,19 @@
     margin: 30px 0 60px;
 }
 .dropzone .dz-default.dz-message {
+    /*
+    background: url("../images/dropzone_spritemap.png") no-repeat;
     opacity: 1;
     -ms-filter: none;
     filter: none;
-    transition: opacity 0.3s ease-in-out;
-    background: url("../images/dropzone_spritemap.png") no-repeat;
-    position: absolute;
-    width: 428px;
     height: 123px;
-    margin-left: -214px;
-    margin-top: -61.5px;
-    top: 50%;
-    left: 50%;
+    transition: opacity 0.3s ease-in-out;*/
+    position: absolute;
+        top: 50%;
+        left: 50%;
+
+    width: 140px; /*428px;*/
+    margin: -70px 0 0 -70px; /*-61.5px 0 0 -214px;*/
 }
 @media all and (-webkit-min-device-pixel-ratio:1.5),(min--moz-device-pixel-ratio:1.5),(-o-min-device-pixel-ratio:1.5/1),(min-device-pixel-ratio:1.5),(min-resolution:138dpi),(min-resolution:1.5dppx) {
     .dropzone .dz-default.dz-message {
@@ -184,7 +186,10 @@
     }
 }
 .dropzone .dz-default.dz-message span {
-    display: none;
+    /*display: none;
+    custom: */
+    font-size: 10em;
+    color: #cccccc;
 }
 .dropzone.dz-square .dz-default.dz-message {
     background-position: 0 -123px;
@@ -204,11 +209,11 @@
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
     filter: alpha(opacity=0);
 }
-.dropzone .dz-preview,
+/*.dropzone .dz-preview,
 .dropzone-previews .dz-preview {
-    /*box-shadow: 1px 1px 4px rgba(0,0,0,0.16);*/
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.16);
     font-size: 14px;
-}
+}*/
 .dropzone .dz-preview.dz-image-preview:hover .dz-details img,
 .dropzone-previews .dz-preview.dz-image-preview:hover .dz-details img {
     display: block;

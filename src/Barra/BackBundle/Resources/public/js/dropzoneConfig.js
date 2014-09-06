@@ -45,6 +45,7 @@
         parallelUploads: 3,
         maxFilesize: 4, // in MB, according to server validation
         addRemoveLinks: true,
+        thumbnailWidth: null, // height:100%, width:auto (100)
         acceptedFiles: "image/*, application/pdf",
         previewTemplate: ta
      };
