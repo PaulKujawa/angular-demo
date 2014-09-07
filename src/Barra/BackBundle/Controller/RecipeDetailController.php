@@ -86,7 +86,7 @@ class RecipeDetailController extends Controller
         if (!$recipe)
             throw $this->createNotFoundException('Recipe not found');
 
-        foreach($request->files as $file) {
+        foreach($request->files as $file) { // not necessary, since dropzone sends for every file an own request which depends on current config
             $recipeFile = new UploadedImage();
 
             $form = $this->createForm(new UploadedImageType(), $recipeFile);
@@ -97,10 +97,13 @@ class RecipeDetailController extends Controller
             if ($form->isValid()) {
                 //$em->persist($recipeFile);
                // $em->flush();
-            } else
-                return new Response( $this->get('barra_back.formValidation')->getErrorMessages($form) );
+                $ajaxResponse = array("code"=>404, "message"=>"everything worked");
+            } else {
+                $validationError = $this->get('barra_back.formValidation')->getErrorMessages($form);
+                $ajaxResponse = array("code"=>400, "message"=>$validationError);
+            }
         }
-        return new Response("200, ok");
+        return new Response(json_encode($ajaxResponse), 200, array('Content-Type'=>'application/json'));
     }
 
 
