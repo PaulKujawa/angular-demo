@@ -24,8 +24,8 @@ class RecipeDetailController extends Controller
         if (!$recipe)
             throw $this->createNotFoundException('Recipe not found');
 
-        $files = $em->getRepository('BarraFrontBundle:UploadedImage')->findBy(array('recipe'=>$recipe));
-        $cookingSteps = $em->getRepository('BarraFrontBundle:CookingStep')->findBy(array('recipe'=>$recipe), array('step'=>'ASC'));
+        $files = $em->getRepository('BarraFrontBundle:UploadedImage')->findByRecipe($recipe);
+        $cookingSteps = $em->getRepository('BarraFrontBundle:CookingStep')->findByRecipe($recipe, array('step'=>'ASC'));
         $recipeIngredients = $em->getRepository('BarraFrontBundle:RecipeIngredient')->findByRecipe($recipe, array('position'=>'ASC'));
 
         $recipeFile             = new UploadedImage();
@@ -95,14 +95,31 @@ class RecipeDetailController extends Controller
             $recipeFile->setFile($file);
 
             if ($form->isValid()) {
-                //$em->persist($recipeFile);
-               // $em->flush();
-                $ajaxResponse = array("code"=>404, "message"=>"everything worked");
+                $em->persist($recipeFile);
+                $em->flush();
+                $id = $recipeFile->getId();
+                $ajaxResponse = array("code"=>404, "id"=>$id);
             } else {
                 $validationError = $this->get('barra_back.formValidation')->getErrorMessages($form);
                 $ajaxResponse = array("code"=>400, "message"=>$validationError);
             }
         }
+        return new Response(json_encode($ajaxResponse), 200, array('Content-Type'=>'application/json'));
+    }
+
+
+
+    public function getuploadedFilesAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $recipeId = $request->request->get("recipe");
+        $recipe = $em->getRepository('BarraFrontBundle:Recipe')->find($recipeId);
+
+        if (!$recipe)
+            throw $this->createNotFoundException('Recipe not found');
+
+        $files = $em->getRepository('BarraFrontBundle:UploadedImage')->findByRecipe($recipe);
+        $ajaxResponse = array("code"=>200, "files"=>$files);
         return new Response(json_encode($ajaxResponse), 200, array('Content-Type'=>'application/json'));
     }
 

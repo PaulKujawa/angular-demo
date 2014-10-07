@@ -219,9 +219,9 @@
 .dropzone .dz-preview.dz-image-preview:hover .dz-details img,
 .dropzone-previews .dz-preview.dz-image-preview:hover .dz-details img {
     display: block;
-    opacity: 0.1;
+    /*opacity: 0.1;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=10)";
-    filter: alpha(opacity=10);
+    filter: alpha(opacity=10);*/
 }
 .dropzone .dz-preview.dz-success .dz-success-mark,
 .dropzone-previews .dz-preview.dz-success .dz-success-mark {
@@ -362,4 +362,8 @@
     to {
         background-position: -7px -400px;
     }
+}
+
+.dz-remove span.glyphicon {
+    cursor: pointer;
 }
