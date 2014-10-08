@@ -23,17 +23,17 @@ class UploadedImage
     private $id;
 
     /**
-     * @ORM\Column(name="title", type="string", length=255, nullable=false, nullable=false)
+     * @ORM\Column(name="title", type="string", length=255, nullable=false)
      */
     private $title;
 
     /**
-     * @ORM\Column(name="filename", type="string", length=255, unique=true, nullable=false)
+     * @ORM\Column(name="filename", type="string", length=255, unique=true)
      */
     private $filename;
 
     /**
-     * @Assert\File(maxSize="6000000")
+     * @Assert\File(maxSize="4M", mimeTypes = {"image/*"})
      */
     private $file;
 
@@ -47,6 +47,11 @@ class UploadedImage
      * temp var for encoded filename
      */
     private $temp;
+
+    /**
+     * @ORM\Column(name="size", type="integer")
+     */
+    private $size;
 
 
 
@@ -116,7 +121,7 @@ class UploadedImage
 
         $this->getFile()->move($this->getUploadRootDir(), $this->filename);
 
-        if (isset($this->temp)) { // todo didn't understand this either
+        if (isset($this->temp)) {
             unlink($this->getUploadRootDir().'/'.$this->temp);
             $this->temp = null;
         }
@@ -201,7 +206,7 @@ class UploadedImage
     public function setFile(UploadedFile $file = null)
     {
         $this->file = $file;
-        if (isset($this->filename)) { // TODO don't know when this will happen
+        if (isset($this->filename)) {
             $this->temp = $this->filename;
             $this->filename = null;
         } else
@@ -225,7 +230,6 @@ class UploadedImage
     public function setRecipe(\Barra\FrontBundle\Entity\Recipe $recipe = null)
     {
         $this->recipe = $recipe;
-
         return $this;
     }
 
@@ -237,5 +241,28 @@ class UploadedImage
     public function getRecipe()
     {
         return $this->recipe;
+    }
+
+    /**
+     * Set size
+     *
+     * @param string $size
+     * @return UploadedDocument
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    /**
+     * Get size
+     *
+     * @return string
+     */
+    public function getSize()
+    {
+        return $this->size;
     }
 }

@@ -92,6 +92,7 @@ class RecipeDetailController extends Controller
             $form = $this->createForm(new UploadedImageType(), $recipeFile);
             $form->handleRequest($request);
             $recipeFile->setRecipe($recipe);
+            $recipeFile->setSize($file->getClientSize());
             $recipeFile->setFile($file);
 
             if ($form->isValid()) {
@@ -109,17 +110,20 @@ class RecipeDetailController extends Controller
 
 
 
-    public function getuploadedFilesAction(Request $request)
+    public function getFilesAction($recipeId)
     {
         $em = $this->getDoctrine()->getManager();
-        $recipeId = $request->request->get("recipe");
-        $recipe = $em->getRepository('BarraFrontBundle:Recipe')->find($recipeId);
+        $files = $em->getRepository('BarraFrontBundle:UploadedImage')->findByRecipe($recipeId);
 
-        if (!$recipe)
-            throw $this->createNotFoundException('Recipe not found');
+        $container = array();
+        for ($i=0; $i < count($files); $i++) {
+            $container[$i]['id']        = $files[$i]->getId();
+            $container[$i]['title']     = $files[$i]->getTitle();
+            $container[$i]['filename']  = $files[$i]->getFilename();
+            $container[$i]['size']      = $files[$i]->getSize();
+        }
 
-        $files = $em->getRepository('BarraFrontBundle:UploadedImage')->findByRecipe($recipe);
-        $ajaxResponse = array("code"=>200, "files"=>$files);
+        $ajaxResponse = array("code"=>200, "files"=>$container);
         return new Response(json_encode($ajaxResponse), 200, array('Content-Type'=>'application/json'));
     }
 

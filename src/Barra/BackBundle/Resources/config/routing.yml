@@ -45,6 +45,12 @@ barra_back_recipeDetail_file_upload:
     requirements:
         _method: POST
 
+barra_back_recipeDetail_file_get:
+    path:     /recipe/file/get/{recipeId}
+    defaults: { _controller: BarraBackBundle:RecipeDetail:getFiles }
+    requirements:
+        recipeId: \d+
+
 barra_back_recipeDetail_file_delete:
     path:     /recipe/file/delete/{recipeId}/{id}
     defaults: { _controller: BarraBackBundle:RecipeDetail:deleteFile }

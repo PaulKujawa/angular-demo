@@ -55,6 +55,7 @@ Manager\ManagerBundle\Entity\RecipeFile:
     file:
       - File:
           maxSize: 4M
+          mimeTypes: image/*
 
 Barra\FrontBundle\Entity\Measurement:
   properties:

@@ -20,17 +20,17 @@ class Recipe
     private $id;
 
     /**
-     * @ORM\Column(name="name", type="string", length=30, unique=true, nullable=false)
+     * @ORM\Column(name="name", type="string", length=30, unique=true)
      */
     private $name;
 
     /**
-     * @ORM\Column(name="rating", type="smallint", nullable=false)
+     * @ORM\Column(name="rating", type="smallint")
      */
     private $rating;
 
     /**
-     * @ORM\Column(name="votes", type="integer", nullable=false)
+     * @ORM\Column(name="votes", type="integer")
      */
     private $votes;
 

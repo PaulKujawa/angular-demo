@@ -27,12 +27,12 @@ class RecipeIngredient
     private $ingredient;
 
     /**
-     * @ORM\Column(name="position", type="smallint", nullable=false)
+     * @ORM\Column(name="position", type="smallint")
      */
     private $position;
 
     /**
-     * @ORM\Column(name="amount", type="smallint", nullable=false)
+     * @ORM\Column(name="amount", type="smallint")
      */
     private $amount;
 

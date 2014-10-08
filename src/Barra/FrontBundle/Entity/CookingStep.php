@@ -14,12 +14,12 @@ class CookingStep
 {
     /**
      * @ORM\Id
-     * @ORM\Column(name="step", type="smallint", nullable=false)
+     * @ORM\Column(name="step", type="smallint")
      */
     private $step;
 
     /**
-     * @ORM\Column(name="description", type="string", length=255, nullable=false)
+     * @ORM\Column(name="description", type="string", length=255)
      */
     private $description;
 

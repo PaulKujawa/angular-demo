@@ -30,30 +30,40 @@ var itemTemplate =
 
 Dropzone.options.dropzoneId = {
     parallelUploads: 3,
-    maxFilesize: 4, // in MB, according to server validation
+    maxFilesize: 4, // in MB, according to server & DB validation
     thumbnailWidth: null, // height:100%, width:auto (100)
-    acceptedFiles: "image/*, application/pdf",
+    acceptedFiles: "image/*",
     previewTemplate: itemTemplate,
 
     init: function() {
-        this.on("success", function(file, response) {
-            var url = $('#dropzoneId').attr('data-removeLink').slice(0, -1) + response.id;
-            var removeIcon = Dropzone.createElement(
-                "<a class='dz-remove' href="+url+" data-dz-remove><span class='glyphicon glyphicon-minus'></span></a>");
-            file.previewElement.appendChild(removeIcon);
+        var thisDropzone = this;
+
+        $.ajax({
+            url: $('#dropzoneId').attr('data-getAllLink'),
+            type: "POST"
+        }).done(function(response) {
+            $.each(response.files, function(index, file) {
+                var image = {name: file.title, size: file.size};
+                thisDropzone.options.addedfile.call(thisDropzone, image);
+                thisDropzone.options.thumbnail.call(thisDropzone, image, "/vpit/web/uploads/documents/" + file.filename);
+                addRemoveLink(file.id, image);
+            });
         });
 
-
-        var thisDropzone = this;
-        // each response file
-            var fooFile = {name: "dbName.png", size: 6797, id: 6, generatedName: "dcd4b208597fbb7e7c79d5208079059373526f32.png"};
-            thisDropzone.options.addedfile.call(thisDropzone, fooFile);
-            thisDropzone.options.thumbnail.call(thisDropzone, fooFile, "/vpit/web/uploads/documents/" + fooFile.generatedName);
-
-            var url = $('#dropzoneId').attr('data-removeLink').slice(0, -1) + fooFile.id;
-            var removeIcon = Dropzone.createElement(
-                "<a class='dz-remove' href="+url+" data-dz-remove><span class='glyphicon glyphicon-minus'></span></a>");
-            fooFile.previewElement.appendChild(removeIcon);
-        // end loop
+        this.on("success", function(file, response) {
+            addRemoveLink(response.id, file);
+        });
     }
  };
+
+
+
+var addRemoveLink = function(id, file) {
+    var url = $('#dropzoneId').attr('data-removeLink').slice(0, -1) + id;
+    var removeIcon = Dropzone.createElement(
+        "<a class='dz-remove' href="+url+" data-dz-remove>" +
+            "<span class='glyphicon glyphicon-minus'></span>" +
+        "</a>"
+    );
+    file.previewElement.appendChild(removeIcon);
+}

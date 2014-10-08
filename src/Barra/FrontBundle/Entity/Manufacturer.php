@@ -20,7 +20,7 @@ class Manufacturer
     private $id;
 
     /**
-     *@ORM\Column(name="name", type="string", length=30, unique=true, nullable=false)
+     *@ORM\Column(name="name", type="string", length=30, unique=true)
      */
     private $name;
 
