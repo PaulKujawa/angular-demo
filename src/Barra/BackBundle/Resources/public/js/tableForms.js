@@ -1,4 +1,39 @@
 $(window).load(function() {
+
+   /*
+    $(".draggable").sortable({
+        axis: "y",
+        cursor: "move",
+        revert: true,
+
+        start: function(event, ui) {
+            var posBefore = ui.item.index();
+            ui.item.data('posBefore', posBefore);
+        },
+
+        update: function(event, ui) {
+            var posBefore = ui.item.data('posBefore');
+            var posAfter = ui.item.index();
+            swapListEntries(posBefore, posAfter);
+        }
+    });
+
+
+    var swapListEntries = function(posBefore, posAfter) {
+        var url = $('#cookingStepTable').attr('data-swapLink').slice(0, -8)+posBefore+"/"+posAfter+"/ajax";
+
+        $.ajax({
+            url: url,
+            type: "POST"
+        }).done(function(response) {
+            if (response.code != 200)
+                alert("ging wohl schief");
+        });
+    }
+    */
+
+
+
     var collectEntities = function() {
         var tables = $('table:not(.jsStorage)');
 
@@ -90,7 +125,10 @@ $(window).load(function() {
         var i = chooseEntity(compareString);
         uFormRemoveValidation(i);
         event.preventDefault();
+
         var uForm = $(this);
+        var positionField = uForm.find("[name$='[position]']");
+        positionField.val(positionField.index()-1); /* db starts with 0, DOM with 1 */
 
         $.ajax({
             url: uForm.attr('action'),
@@ -132,6 +170,7 @@ $(window).load(function() {
 
             var formWidget = entities[i]['uFormRow'].find("[name$='["+ fieldname +"]']");
             var td = formWidget.parent();
+
             td.addClass('danger has-error');
             createTooltip(formWidget, output, false);
             formWidget.blur();
@@ -174,6 +213,7 @@ $(window).load(function() {
 
 
     var createTooltip = function(target, output, isForm) {
+        alert(output);
         target.tooltip({
             items: target,
             content: output,

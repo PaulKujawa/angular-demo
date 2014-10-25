@@ -11,7 +11,7 @@ Vpit
 
   * Check Route `php app/console router:match /givenPage`
 
-  * include assets `php app/console assets:install`
+  * include assets `php app/console assets:install web`
 
 
 2) Commandline Tests

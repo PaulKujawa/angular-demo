@@ -25,6 +25,6 @@ class ManufacturerType extends AbstractType
 
     public function getName()
     {
-        return 'name';
+        return 'formManufacturer';
     }
 }

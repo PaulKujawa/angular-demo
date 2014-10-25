@@ -24,9 +24,9 @@ class RecipeDetailController extends Controller
         if (!$recipe)
             throw $this->createNotFoundException('Recipe not found');
 
-        $files = $em->getRepository('BarraFrontBundle:UploadedImage')->findByRecipe($recipe);
-        $cookingSteps = $em->getRepository('BarraFrontBundle:CookingStep')->findByRecipe($recipe, array('step'=>'ASC'));
-        $recipeIngredients = $em->getRepository('BarraFrontBundle:RecipeIngredient')->findByRecipe($recipe, array('position'=>'ASC'));
+        $files                  = $em->getRepository('BarraFrontBundle:UploadedImage')->findByRecipe($recipe);
+        $cookingSteps           = $em->getRepository('BarraFrontBundle:CookingStep')->findByRecipe($recipe, array('position'=>'ASC'));
+        $recipeIngredients      = $em->getRepository('BarraFrontBundle:RecipeIngredient')->findByRecipe($recipe, array('position'=>'ASC'));
 
         $recipeFile             = new UploadedImage();
         $cookingStep            = new CookingStep();
@@ -47,12 +47,13 @@ class RecipeDetailController extends Controller
             if ($request->request->has($formIngredientInsert->getName())) {
                 $formIngredientInsert->handleRequest($request);
                 if ($formIngredientInsert->isValid())
-                   $sqlError = $this->newIngredient($recipe, $recipeIngredient);
+                    $sqlError = $this->newIngredient($recipe, $recipeIngredient);
 
             } elseif ($request->request->has($formCookingStepInsert->getName())) {
                 $formCookingStepInsert->handleRequest($request);
                 if ($formCookingStepInsert->isValid())
-                    $sqlError = $this->newCookingStepAction($recipe, $cookingStep);
+                    $sqlError = $this->newCookingStep($recipe, $cookingStep);
+
             }
 
             if ($sqlError)
@@ -214,8 +215,11 @@ class RecipeDetailController extends Controller
 
 
 
-    public function newCookingStepAction($recipe, $cookingStep)
+    public function newCookingStep($recipe, $cookingStep)
     {
+        $em = $this->getDoctrine()->getManager();
+        $nextPosition = $em->getRepository('BarraFrontBundle:CookingStep')->getNextPosition($recipe->getId());
+        $cookingStep->setPosition($nextPosition);
         $cookingStep->setRecipe($recipe);
         $em = $this->getDoctrine()->getManager();
         $em->persist($cookingStep);
@@ -234,14 +238,14 @@ class RecipeDetailController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $recipeId = $request->request->get('formCookingStepUpdate')['recipe'];
-        $step = $request->request->get('formCookingStepUpdate')['step'];
-        $cookingStep = $em->getRepository('BarraFrontBundle:CookingStep')->findOneBy(array('recipe'=>$recipeId, 'step'=>$step));
+        $position = $request->request->get('formCookingStepUpdate')['position'];
+
+        $cookingStep = $em->getRepository('BarraFrontBundle:CookingStep')->findOneBy(array('recipe'=>$recipeId, 'position'=>$position));
 
         if (!$cookingStep) {
             $ajaxResponse = array("code"=>404, "message"=>'Not found');
             return new Response(json_encode($ajaxResponse), 200, array('Content-Type'=>'application/json'));
         }
-
 
         $formUpdate = $this->createForm(new CookingStepUpdateType(), $cookingStep);
         $formUpdate->handleRequest($request);
@@ -264,10 +268,10 @@ class RecipeDetailController extends Controller
 
 
 
-    public function deleteCookingStepAction($recipeId, $step)
+    public function deleteCookingStepAction($recipeId, $position)
     {
         $em = $this->getDoctrine()->getManager();
-        $cooking = $em->getRepository('BarraFrontBundle:CookingStep')->findOneBy(array('recipe'=>$recipeId, 'step'=>$step));
+        $cooking = $em->getRepository('BarraFrontBundle:CookingStep')->findOneBy(array('recipe'=>$recipeId, 'position'=>$position));
 
         if (!$cooking)
             throw $this->createNotFoundException('Cooking step not found');
@@ -276,6 +280,28 @@ class RecipeDetailController extends Controller
         $em->flush();
 
         $recipe = $em->getRepository('BarraFrontBundle:Recipe')->find($recipeId);
-        return $this->redirect($this->generateUrl('barra_back_recipe', array('name'=>$recipe->getName())));
+        return $this->redirect($this->generateUrl('barra_back_recipeDetail', array('name'=>$recipe->getName())));
+    }
+
+
+
+    public function swapCookingStepAction($recipeId, $posBefore, $posAfter)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $swappedEntry = $em->getRepository('BarraFrontBundle:CookingStep')->findOneBy(array('recipe'=>$recipeId, 'position'=>$posBefore));
+        $swappedEntry->setPosition($posAfter);
+
+        if ($posBefore < $posAfter)
+            $steps = $em->getRepository('BarraFrontBundle:CookingStep')->changeBetweenPos($recipeId, $posBefore+1, $posAfter, -1);
+        else
+            $steps = $em->getRepository('BarraFrontBundle:CookingStep')->changeBetweenPos($recipeId, $posAfter, $posBefore-1, 1);
+
+        try {
+            $em->flush();
+            $ajaxResponse = array("code"=>200);
+        } catch (\Doctrine\DBAL\DBALException $e) {
+            $ajaxResponse = array("code"=>400);
+        }
+        return new Response(json_encode($ajaxResponse), 200, array('Content-Type'=>'application/json'));
     }
 }

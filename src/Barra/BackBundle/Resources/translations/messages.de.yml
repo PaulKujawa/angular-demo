@@ -49,7 +49,6 @@ back:
 
   cookingStep: #object
     description: Beschreibung
-    step: Schritt
 
   recipeIngredient: #object
     amount: Menge

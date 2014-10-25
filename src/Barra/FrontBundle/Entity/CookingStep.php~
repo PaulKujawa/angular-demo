@@ -8,18 +8,18 @@ use Doctrine\ORM\Mapping as ORM;
  * Cooking
  *
  * @ORM\Table()
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Barra\FrontBundle\Entity\CookingStepRepository")
  */
 class CookingStep
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(name="step", type="smallint", nullable=false)
+     * @ORM\Column(name="position", type="smallint")
      */
-    private $step;
+    private $position;
 
     /**
-     * @ORM\Column(name="description", type="string", length=255, nullable=false)
+     * @ORM\Id
+     * @ORM\Column(name="description", type="string", length=255)
      */
     private $description;
 
@@ -31,26 +31,26 @@ class CookingStep
     private $recipe;
 
     /**
-     * Set step
+     * Set position
      *
-     * @param integer $step
+     * @param integer $position
      * @return Cooking
      */
-    public function setStep($step)
+    public function setPosition($position)
     {
-        $this->step = $step;
+        $this->position = $position;
 
         return $this;
     }
 
     /**
-     * Get step
+     * Get position
      *
      * @return integer 
      */
-    public function getStep()
+    public function getPosition()
     {
-        return $this->step;
+        return $this->position;
     }
 
     /**

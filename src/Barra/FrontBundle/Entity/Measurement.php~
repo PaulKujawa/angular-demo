@@ -20,12 +20,12 @@ class Measurement
     private $id;
 
     /**
-     * @ORM\Column(name="type", type="string", length=10, unique=true, nullable=false)
+     * @ORM\Column(name="type", type="string", length=10, unique=true)
      */
     private $type;
 
     /**
-     * @ORM\Column(name="gr", type="smallint", nullable=false)
+     * @ORM\Column(name="gr", type="smallint")
      */
     private $gr;
 

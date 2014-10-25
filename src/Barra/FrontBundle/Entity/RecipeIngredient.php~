@@ -21,23 +21,23 @@ class RecipeIngredient
 
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Ingredient", inversedBy="recipeIngredient")
+     * @ORM\ManyToOne(targetEntity="Ingredient", inversedBy="recipeIngredients")
      * @ORM\JoinColumn(name="ingredient", referencedColumnName="id", nullable=false)
      */
     private $ingredient;
 
     /**
-     * @ORM\Column(name="position", type="smallint", nullable=false)
+     * @ORM\Column(name="position", type="smallint")
      */
     private $position;
 
     /**
-     * @ORM\Column(name="amount", type="smallint", nullable=false)
+     * @ORM\Column(name="amount", type="smallint")
      */
     private $amount;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Measurement", inversedBy="recipeIngredient")
+     * @ORM\ManyToOne(targetEntity="Measurement", inversedBy="recipeIngredients")
      * @ORM\JoinColumn(name="measurement", referencedColumnName="id", nullable=false)
      */
     private $measurement;

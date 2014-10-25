@@ -82,8 +82,3 @@ Barra\FrontBundle\Entity\CookingStep:
     description:
       - NotBlank: ~
       - Type: string
-    step:
-      - NotBlank: ~
-      - Type: integer
-      - GreaterThanOrEqual:
-          value: 0

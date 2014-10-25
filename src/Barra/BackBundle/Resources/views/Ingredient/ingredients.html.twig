@@ -45,19 +45,19 @@
                         </tr>
                     {% endfor %}
                     <tr class="formInRow">
-                            {{ form_row(formInsert.name) }}
-                            {{ form_row(formInsert.vegan) }}
-                            {{ form_row(formInsert.kcal) }}
-                            {{ form_row(formInsert.protein) }}
-                            {{ form_row(formInsert.carbs) }}
-                            {{ form_row(formInsert.sugar) }}
-                            {{ form_row(formInsert.fat) }}
-                            {{ form_row(formInsert.gfat) }}
-                            {{ form_row(formInsert.manufacturer) }}
-                            {{ form_widget(formInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn'} }) }}
+                        {{ form_row(formInsert.name) }}
+                        {{ form_row(formInsert.vegan) }}
+                        {{ form_row(formInsert.kcal) }}
+                        {{ form_row(formInsert.protein) }}
+                        {{ form_row(formInsert.carbs) }}
+                        {{ form_row(formInsert.sugar) }}
+                        {{ form_row(formInsert.fat) }}
+                        {{ form_row(formInsert.gfat) }}
+                        {{ form_row(formInsert.manufacturer) }}
+                        {{ form_widget(formInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn'} }) }}
                     </tr>
                     <tr class="formInRowError">
-                        <td>
+                        <td colspan="10">
                             {{ form_errors(formInsert) }}
                         </td>
                     </tr>

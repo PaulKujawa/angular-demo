@@ -2,7 +2,6 @@
 
 namespace Barra\BackBundle\Form\Type;
 
-use Barra\FrontBundle\Entity\RecipeIngredient;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -13,7 +12,7 @@ class CookingStepUpdateType extends AbstractType
     {
         $builder
             ->add('recipe', 'hidden', array('mapped' => false, 'label'=>false))
-            ->add('step', 'integer', array('attr'=>array('placeholder'=>'back.cookingStep.step')))
+            ->add('position', 'hidden')
             ->add('description', 'text', array('attr'=>array('placeholder'=>'back.cookingStep.description')))
             ->add('submit', 'submit')
             ->getForm();
@@ -23,7 +22,7 @@ class CookingStepUpdateType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class'=>'Barra\FrontBundle\Entity\CookingStep',
-            'intention' =>'cooking_step'
+            'intention' =>'cookingStep'
         ));
     }
 

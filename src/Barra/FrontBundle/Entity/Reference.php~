@@ -14,27 +14,27 @@ class Reference
 {
     /**
      * @ORM\Id
-     * @ORM\Column(name="website", type="string", length=30, nullable=false)
+     * @ORM\Column(name="website", type="string", length=30)
      */
     private $website;
 
     /**
-     * @ORM\Column(name="company", type="string", length=30, nullable=false)
+     * @ORM\Column(name="company", type="string", length=30)
      */
     private $company;
 
     /**
-     * @ORM\Column(name="description", type="string", length=30, nullable=false)
+     * @ORM\Column(name="description", type="string", length=30)
      */
     private $description;
 
     /**
-     * @ORM\Column(name="started", type="date", nullable=false)
+     * @ORM\Column(name="started", type="date")
      */
     private $started;
 
     /**
-     * @ORM\Column(name="finished", type="date", nullable=false)
+     * @ORM\Column(name="finished", type="date")
      */
     private $finished;
  

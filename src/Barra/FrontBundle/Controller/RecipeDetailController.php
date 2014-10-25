@@ -17,7 +17,7 @@ class RecipeDetailController extends Controller
             throw $this->createNotFoundException('Recipe not found');
 
         $cookingSteps = $em->getRepository('BarraFrontBundle:CookingStep')->findBy(
-            array('recipe'=>$recipe), array('step'=>'ASC'));
+            array('recipe'=>$recipe), array('position'=>'ASC'));
 
 
         return $this->render('BarraFrontBundle:Recipe:recipe.html.twig', array(

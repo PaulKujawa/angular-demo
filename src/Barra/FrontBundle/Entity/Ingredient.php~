@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Ingredient
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Barra\FrontBundle\Entity\IngredientRepository")
+ * @ORM\Entity()
  */
 class Ingredient
 {
@@ -20,42 +20,42 @@ class Ingredient
     private $id;
 
     /**
-     * @ORM\Column(name="name", type="string", length=30, unique=true, nullable=false)
+     * @ORM\Column(name="name", type="string", length=30, unique=true)
      */
     private $name;
 
     /**
-     * @ORM\Column(name="vegan", type="boolean", nullable=false)
+     * @ORM\Column(name="vegan", type="boolean")
      */
     private $vegan;
 
     /**
-     * @ORM\Column(name="kcal", type="decimal", scale=2, nullable=false)
+     * @ORM\Column(name="kcal", type="decimal", scale=2)
      */
     private $kcal;
 
     /**
-     * @ORM\Column(name="protein", type="decimal", scale=2, nullable=false)
+     * @ORM\Column(name="protein", type="decimal", scale=2)
      */
     private $protein;
 
     /**
-     * @ORM\Column(name="carbs", type="decimal", scale=2, nullable=false)
+     * @ORM\Column(name="carbs", type="decimal", scale=2)
      */
     private $carbs;
 
     /**
-     * @ORM\Column(name="sugar", type="decimal", scale=2, nullable=false)
+     * @ORM\Column(name="sugar", type="decimal", scale=2)
      */
     private $sugar;
 
     /**
-     * @ORM\Column(name="fat", type="decimal", scale=2, nullable=false)
+     * @ORM\Column(name="fat", type="decimal", scale=2)
      */
     private $fat;
 
     /**
-     * @ORM\Column(name="gfat", type="decimal", scale=2, nullable=false)
+     * @ORM\Column(name="gfat", type="decimal", scale=2)
      */
     private $gfat;
 
