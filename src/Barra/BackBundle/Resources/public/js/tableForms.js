@@ -1,6 +1,6 @@
 $(window).load(function() {
 
-   /*
+
     $(".draggable").sortable({
         axis: "y",
         cursor: "move",
@@ -30,7 +30,13 @@ $(window).load(function() {
                 alert("ging wohl schief");
         });
     }
-    */
+
+
+
+
+
+
+
 
 
 

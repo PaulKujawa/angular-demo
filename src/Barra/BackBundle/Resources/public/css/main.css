@@ -4,6 +4,7 @@ table span.glyphicon { margin-right: 9px; }
 .glyphicon-minus { color: #DF6C4F; }
 .glyphicon-plus { color: #3C948B; }
 .inactiveLink span.glyphicon-minus { color: #777777; }
+.glyphicon-resize-vertical { cursor: move; color: #777777; }
 
 /* BUTTONS
 ---------------------------------------------------------*/
