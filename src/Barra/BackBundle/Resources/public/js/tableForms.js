@@ -14,13 +14,14 @@ $(window).load(function() {
         update: function(event, ui) {
             var posBefore = ui.item.data('posBefore');
             var posAfter = ui.item.index();
-            swapListEntries(posBefore, posAfter);
+            var table = ui.item.closest('table');
+            swapListEntries(table, posBefore, posAfter);
         }
     });
 
 
-    var swapListEntries = function(posBefore, posAfter) {
-        var url = $('#cookingStepTable').attr('data-swapLink').slice(0, -8)+posBefore+"/"+posAfter+"/ajax";
+    var swapListEntries = function(table, posBefore, posAfter) {
+        var url = table.attr('data-swapLink').slice(0, -8)+posBefore+"/"+posAfter+"/ajax";
 
         $.ajax({
             url: url,

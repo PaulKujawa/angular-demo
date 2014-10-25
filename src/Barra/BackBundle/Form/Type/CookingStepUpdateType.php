@@ -12,7 +12,7 @@ class CookingStepUpdateType extends AbstractType
     {
         $builder
             ->add('recipe', 'hidden', array('mapped' => false, 'label'=>false))
-            ->add('position', 'hidden')
+            ->add('position', 'hidden', array('label'=>false))
             ->add('description', 'text', array('attr'=>array('placeholder'=>'back.cookingStep.description')))
             ->add('submit', 'submit')
             ->getForm();

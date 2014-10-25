@@ -52,6 +52,14 @@ barra_back_recipeDetail_ingredient_update:
     requirements:
         _method: POST
 
+barra_back_recipeDetail_ingredient_swap:
+    path:     /recipe/ingredient/swap/{recipeId}/{posBefore}/{posAfter}/ajax
+    defaults: { _controller: BarraBackBundle:RecipeDetail:swapRecipeIngredient }
+    requirements:
+        recipeId: \d+
+        posBefore: \d+
+        posAfter: \d+
+
 barra_back_recipeDetail_ingredient_delete:
     path:     /recipe/ingredient/delete/{recipeId}/{ingredientId}
     defaults: { _controller: BarraBackBundle:RecipeDetail:deleteIngredient }

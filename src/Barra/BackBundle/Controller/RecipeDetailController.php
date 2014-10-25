@@ -78,6 +78,29 @@ class RecipeDetailController extends Controller
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function uploadFileAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -147,9 +170,41 @@ class RecipeDetailController extends Controller
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function newIngredient($recipe, $recipeIngredient)
     {
-        $recipeIngredient->setRecipe($recipe)->setPosition(1);
+        $em = $this->getDoctrine()->getManager();
+        $nextPosition = $em->getRepository('BarraFrontBundle:RecipeIngredient')->getNextPosition($recipe->getId(), $recipeIngredient->getId());
+        $recipeIngredient->setRecipe($recipe);
+        $recipeIngredient->setPosition($nextPosition);
         $em = $this->getDoctrine()->getManager();
         $em->persist($recipeIngredient);
 
@@ -212,6 +267,60 @@ class RecipeDetailController extends Controller
         $recipe = $em->getRepository('BarraFrontBundle:Recipe')->find($recipeId);
         return $this->redirect($this->generateUrl('barra_back_recipeDetail', array('name'=>$recipe->getName())));
     }
+
+    public function swapRecipeIngredientAction($recipeId, $posBefore, $posAfter)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $swappedEntry = $em->getRepository('BarraFrontBundle:RecipeIngredient')->findOneBy(array('recipe'=>$recipeId, 'position'=>$posBefore));
+        $swappedEntry->setPosition($posAfter);
+
+        if ($posBefore < $posAfter)
+            $steps = $em->getRepository('BarraFrontBundle:RecipeIngredient')->changeBetweenPos($recipeId, $posBefore+1, $posAfter, -1);
+        else
+            $steps = $em->getRepository('BarraFrontBundle:RecipeIngredient')->changeBetweenPos($recipeId, $posAfter, $posBefore-1, 1);
+
+        try {
+            $em->flush();
+            $ajaxResponse = array("code"=>200);
+        } catch (\Doctrine\DBAL\DBALException $e) {
+            $ajaxResponse = array("code"=>400);
+        }
+        return new Response(json_encode($ajaxResponse), 200, array('Content-Type'=>'application/json'));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
