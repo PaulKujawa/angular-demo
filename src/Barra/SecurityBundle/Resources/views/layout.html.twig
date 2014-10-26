@@ -1,6 +1,23 @@
 {% extends '::base.html.twig' %}
 
 {% block stylesheets %}
-    {{ parent() }}
-    <link href="{{ asset('bundles/barrasecurity/css/main.css') }}" rel="stylesheet" />
+    {% stylesheets filter='cssrewrite'
+        '//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css'
+        'bundles/barrasecurity/css/thirdparty/*'
+        '../app/Resources/public/css/app.css'
+        'bundles/barrasecurity/css/*'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    {% javascripts
+        '//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'
+        '//code.jquery.com/ui/1.11.1/jquery-ui.js'
+        '@BarraSecurityBundle/Resources/public/js/thirdparty/*'
+        '@BarraSecurityBundle/Resources/public/js/*'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}

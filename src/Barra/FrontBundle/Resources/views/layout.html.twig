@@ -3,3 +3,25 @@
 {% block navController %}
     {{ render(controller('BarraFrontBundle:Layout:nav', {'request': app.request})) }}
 {% endblock %}
+
+{% block stylesheets %}
+    {% stylesheets filter='cssrewrite'
+        '//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css'
+        'bundles/barrafront/css/thirdparty/*'
+        '../app/Resources/public/css/app.css'
+        'bundles/barrafront/css/*'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    {% javascripts
+        '//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'
+        '//code.jquery.com/ui/1.11.1/jquery-ui.js'
+        '@BarraFrontBundle/Resources/public/js/thirdparty/*'
+        '@BarraFrontBundle/Resources/public/js/*'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

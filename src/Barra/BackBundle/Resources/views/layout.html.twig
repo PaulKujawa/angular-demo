@@ -1,18 +1,27 @@
 {% extends '::base.html.twig' %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <link href="{{ asset('bundles/barraback/css/main.css') }}" rel="stylesheet" />
-    <link href="{{ asset('bundles/barraback/css/dropzone_extended.css') }}" rel="stylesheet" />
-{% endblock %}
-
-{% block javaScript %}
-    {{ parent() }}
-    <script src="{{ asset('bundles/barraback/js/tableForms.js') }}"></script>
-    <script src="{{ asset('bundles/barraback/js/dropzone.js') }}"></script>
-    <script src="{{ asset('bundles/barraback/js/dropzoneConfig.js') }}"></script>
-{% endblock %}
-
 {% block navController %}
     {{ render(controller('BarraBackBundle:Layout:nav', {'request': app.request})) }}
+{% endblock %}
+
+{% block stylesheets %}
+    {% stylesheets filter='cssrewrite'
+        '//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css'
+        'bundles/barraback/css/thirdparty/*'
+        '../app/Resources/public/css/app.css'
+        'bundles/barraback/css/*'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    {% javascripts
+        '//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'
+        '//code.jquery.com/ui/1.11.1/jquery-ui.js'
+        '@BarraBackBundle/Resources/public/js/thirdparty/*'
+        '@BarraBackBundle/Resources/public/js/*'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}

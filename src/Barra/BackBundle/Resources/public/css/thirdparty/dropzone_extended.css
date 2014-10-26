@@ -183,7 +183,7 @@
 }
 @media all and (-webkit-min-device-pixel-ratio:1.5),(min--moz-device-pixel-ratio:1.5),(-o-min-device-pixel-ratio:1.5/1),(min-device-pixel-ratio:1.5),(min-resolution:138dpi),(min-resolution:1.5dppx) {
     .dropzone .dz-default.dz-message {
-        background-image: url("../images/dropzone_spritemap@2x.png");
+        background-image: url("../../images/dropzone_spritemap@2x.png");
         background-size: 428px 406px;
     }
 }
@@ -248,14 +248,14 @@
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
     filter: alpha(opacity=0);
     transition: opacity 0.4s ease-in-out;
-    background: url("../images/dropzone_spritemap.png") no-repeat;
+    background: url("../../images/dropzone_spritemap.png") no-repeat;
 }
 @media all and (-webkit-min-device-pixel-ratio:1.5),(min--moz-device-pixel-ratio:1.5),(-o-min-device-pixel-ratio:1.5/1),(min-device-pixel-ratio:1.5),(min-resolution:138dpi),(min-resolution:1.5dppx) {
     .dropzone .dz-preview .dz-error-mark,
     .dropzone-previews .dz-preview .dz-error-mark,
     .dropzone .dz-preview .dz-success-mark,
     .dropzone-previews .dz-preview .dz-success-mark {
-        background-image: url("../images/dropzone_spritemap@2x.png");
+        background-image: url("../../images/dropzone_spritemap@2x.png");
         background-size: 428px 406px;
     }
 }
@@ -283,12 +283,12 @@
     left: 0;
     width: 0%;
     height: 100%;
-    background: url("../images/dropzone_spritemap.png") 0 -400px repeat-x;
+    background: url("../../images/dropzone_spritemap.png") 0 -400px repeat-x;
 }
 @media all and (-webkit-min-device-pixel-ratio:1.5),(min--moz-device-pixel-ratio:1.5),(-o-min-device-pixel-ratio:1.5/1),(min-device-pixel-ratio:1.5),(min-resolution:138dpi),(min-resolution:1.5dppx) {
     .dropzone .dz-preview .dz-progress .dz-upload,
     .dropzone-previews .dz-preview .dz-progress .dz-upload {
-        background-image: url("../images/dropzone_spritemap@2x.png");
+        background-image: url("../../images/dropzone_spritemap@2x.png");
         background-size: 428px 406px;
     }
 }
