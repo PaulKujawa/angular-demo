@@ -95,14 +95,14 @@ $(window).load(function() {
         entities[i]['uFormRow'].find('.formPk').val(id);
 
         // fill uForm
-        fillUForm(i);
+        uForm_fill(i);
         var index = $(this).index();
         entities[i]['uFormRow'].find('.form-control').eq(index).focus();
     });
 
 
 
-    var fillUForm = function(i) {
+    var uForm_fill = function(i) {
         var values = [];
         entities[i]['activeTr'].children('.editableCell').each(function() {
             values.push( $(this).html() );
@@ -130,7 +130,7 @@ $(window).load(function() {
     $('section').on('submit', "[name$='Update']", function(event) {
         var compareString = $(this).find('table').attr('data-type');
         var i = chooseEntity(compareString);
-        uFormRemoveValidation(i);
+        uForm_RemoveValidation(i);
         event.preventDefault();
 
         var uForm = $(this);
@@ -144,22 +144,22 @@ $(window).load(function() {
 
         }).done(function(response) {
             if (response.code == 200)
-                hideUForm(i);
+                uForm_hide(i);
 
             else if (response.code == 400)
-                uFormInsertFieldValidation(i, response.fieldError);
+                uForm_AddFieldValidation(i, response.fieldError);
 
             else if (response.code == 409)
-                uFormInsertFormValidation(i, response.dbError);
+                uForm_AddFormValidation(i, response.dbError);
 
             else if (response.code == 500)
-                uFormInsertFormValidation(i, "A fatal 500 error occurred.");
+                uForm_AddFormValidation(i, "A fatal 500 error occurred.");
         });
     });
 
 
 
-    var uFormRemoveValidation = function(i) {
+    var uForm_RemoveValidation = function(i) {
         var tds = entities[i]['uFormRow'].children('.danger');
         tds.removeClass('danger has-error');
         tds.find('.form-control').tooltip("destroy");
@@ -167,7 +167,7 @@ $(window).load(function() {
 
 
 
-    var uFormInsertFieldValidation = function(i, errors) {
+    var uForm_AddFieldValidation = function(i, errors) {
         $.each(errors, function(fieldname, number) {
             var output = "<ul>";
             $.each(number, function(index, error) {
@@ -186,7 +186,7 @@ $(window).load(function() {
 
 
 
-    var uFormInsertFormValidation = function(i, errors) {
+    var uForm_AddFormValidation = function(i, errors) {
         var tr = entities[i]['uFormRow'];
         tr.addClass('danger has-error');
         createTooltip(tr, errors, true);
@@ -194,20 +194,19 @@ $(window).load(function() {
 
 
 
-    var iFormInsertValidation = function() {
-        // fields
-        $('.formInRow').find('ul').each(function(){
-            var list = $(this);
-            var formWidget = list.next();
-            var td = formWidget.parent();
+    var iForm_exchangeValidation = function() {
+        $('.formInRow').find('ul').each(function(){ /* uls = appear just for error lists */
+            var fieldErrorUL = $(this);
+            var widget = fieldErrorUL.next();
+            var td = widget.parent();
             td.addClass('danger has-error');
-            list.remove();
-            createTooltip(formWidget, "<ul>"+list.html()+"</ul>", false);
+            fieldErrorUL.remove();
+            createTooltip(widget, "<ul>"+fieldErrorUL.html()+"</ul>", false);
         });
 
         // form
         var errorColumns = $('.formInRowError');
-        errorColumns.find('ul').each(function(){
+        errorColumns.find('ul').each(function() {
             var ul = $(this);
             var tr = ul.closest('tr');
             var tr = tr.prev();
@@ -220,22 +219,23 @@ $(window).load(function() {
 
 
     var createTooltip = function(target, output, isForm) {
-        alert(output);
         target.tooltip({
             items: target,
             content: output,
             position: {
-                my: 'center top', /* position of base element */
-                at: 'center-10 bottom+10' /* position of tooltip */
+                my: 'center bottom',
+                at: 'center-10 bottom+10'
             }
         });
-        if (isForm)
-            target.tooltip("open");
+
+        //  if (isForm) {
+        // target.tooltip("open");
+        //}
     };
 
 
 
-    var hideUForm = function(i) {
+    var uForm_hide = function(i) {
         var values = [];
         entities[i]['uFormRow'].find('.form-control').each(function() {
             if ($(this).prop('type') == 'select-one') {
@@ -267,7 +267,7 @@ $(window).load(function() {
 
     var entities = [];
     collectEntities();
-    iFormInsertValidation();
+    iForm_exchangeValidation();
 });
 
 
