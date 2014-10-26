@@ -5,6 +5,9 @@ front:
     references: Referenzen
     recipes: Rezepte
     contact: Kontakt
+    myPerson: Wer bin ich
+    mySkills: Meine Fähigkeiten
+    myAccomplishments: Meine Erfolge
 
   word:
     comment: '{0} no comment|{1} one comment|]1,Inf] %count% comments'

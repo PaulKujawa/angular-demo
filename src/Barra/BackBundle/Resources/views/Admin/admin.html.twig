@@ -4,7 +4,16 @@
 
 {% block section %}
     <section class="container">
-        <a href="{{ path('barra_security_logout') }}">{{ 'back.action.logout'|trans }}</a>
+        <a href="{{ path('barra_front_me') }}">
+            <span class="glyphicon glyphicon-home"></span>
+            {{ 'back.action.frontend'|trans() }}
+        </a>
 
+        <br>
+
+        <a href="{{ path('barra_security_logout') }}">
+            <span class="glyphicon glyphicon-log-out"></span>
+            {{ 'back.action.logout'|trans }}
+        </a>
     </section>
 {% endblock %}

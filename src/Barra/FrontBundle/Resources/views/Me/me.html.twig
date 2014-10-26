@@ -4,35 +4,54 @@
 
 {% block section %}
     <section class="container">
+        <h1>{{ 'front.title.myPerson'|trans() }}</h1>
+            <p>
+                Ich trage den Name Paul Kujawa und bin '91 geborener Webentwickler.<br>
+                Noch studiere ich internationale Medieninformatik an der HTW Berlin.<br>
+                Darüber hinaus bin ich offen für weitere Aufträge und unter Kontakt <strong>erreichbar</strong>.<br>
+            </p>
+
+
+        <h1>{{ 'front.title.mySkills'|trans() }}</h1>
+        <ul>
+            <li>Backend
+                <ul>
+                    <li>PHP Frameworks Symfony & Doctrine</li>
+                    <li>DBMS MySQL, PostgreSQL & TransactSQL</li>
+                </ul>
+            </li>
+            <li>Frontend
+                <ul>
+                    <li>Frameworks Bootstrap & UIKit</li>
+                    <li>PHP Template engines Twig & Razor</li>
+                </ul>
+            </li>
+            <li>JavaScript
+                <ul>
+                    <li>JS Framework ember.js</li>
+                    <li>JS Bilbiothek jQuery & Dropzone</li>
+                </ul>
+            </li>
+            <li>CMS
+                <ul>
+                    <li>Joomla, Wordpress & Pagekit</li>
+                </ul>
+            </li>
+            <li>Ergänzend
+                <ul>
+                    <li>Guter Teamplayer</li>
+                    <li>Zuverlässig & Selbstständig</li>
+                    <li>Ehemaliger Java-Entwickler</li>
+                </ul>
+            </li>
+        </ul>
+
+
+
+        <h1>{{ 'front.title.myAccomplishments'|trans() }}</h1>
         <p>
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-            sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-            ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
-            magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-            sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut l
-            abore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-            no sea takimata sanctus est Lorem ipsum dolor sit amet.
-
-            Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero
-            eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum
-            dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
-
-            Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel
-            eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan
-            et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
-
-            Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit
-            amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim
-            veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-
-            Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis.
-
-            At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem
-            ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua
-            . At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, At accusam aliquyam diam diam dolore dolores duo eirmod eos erat, et nonumy sed tempor et
-            et invidunt justo labore Stet clita ea et gubergren, kasd magna no rebum. sanctus sea sed takimata ut vero voluptua. est Lorem ipsum dolor sit amet.
-            Lorem ipsum dolor sit amet, consetetur
+            Für meinen Werdegang genügt ein Blick auf meinen Lebenslauf<br>
+            und für meine Projekte auf <a href="{{ path('barra_front_references') }}">{{ 'front.title.references'|trans() }}</a>.
         </p>
     </section>
 {% endblock %}

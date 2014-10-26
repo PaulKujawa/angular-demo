@@ -5,6 +5,7 @@ back:
     manage: Manage
     new: New
     update: Update
+    frontend: frontend
 
   title:
     ingredients: Ingredients

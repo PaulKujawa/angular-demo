@@ -5,6 +5,7 @@ back:
     manage: Bearbeiten
     new: Neu
     update: Aktualisieren
+    frontend: Öffentlicher Bereich
 
   title:
     ingredients: Zutaten
