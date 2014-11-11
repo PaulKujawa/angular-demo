@@ -48,13 +48,13 @@ barra_back_recipeDetail:
 
 barra_back_recipeDetail_ingredient_update:
     path:     /recipe/ingredient/update/ajax
-    defaults: { _controller: BarraBackBundle:RecipeDetail:updateIngredient }
+    defaults: { _controller: BarraBackBundle:RecipeIngredient:update }
     requirements:
         _method: POST
 
 barra_back_recipeDetail_ingredient_swap:
     path:     /recipe/ingredient/swap/{recipeId}/{posBefore}/{posAfter}/ajax
-    defaults: { _controller: BarraBackBundle:RecipeDetail:swapRecipeIngredient }
+    defaults: { _controller: BarraBackBundle:RecipeIngredient:swap }
     requirements:
         recipeId: \d+
         posBefore: \d+
@@ -62,7 +62,7 @@ barra_back_recipeDetail_ingredient_swap:
 
 barra_back_recipeDetail_ingredient_delete:
     path:     /recipe/ingredient/delete/{recipeId}/{ingredientId}
-    defaults: { _controller: BarraBackBundle:RecipeDetail:deleteIngredient }
+    defaults: { _controller: BarraBackBundle:RecipeIngredient:delete }
     requirements:
         recipeId: \d+
         ingredientId: \d+
@@ -71,13 +71,13 @@ barra_back_recipeDetail_ingredient_delete:
 
 barra_back_recipeDetail_cookingStep_update:
     path:     /recipe/cookingstep/update/ajax
-    defaults: { _controller: BarraBackBundle:RecipeDetail:updateCookingStep }
+    defaults: { _controller: BarraBackBundle:CookingStep:update }
     requirements:
         _method: POST
 
 barra_back_recipeDetail_cookingStep_swap:
     path:     /recipe/cookingstep/swap/{recipeId}/{posBefore}/{posAfter}/ajax
-    defaults: { _controller: BarraBackBundle:RecipeDetail:swapCookingStep }
+    defaults: { _controller: BarraBackBundle:CookingStep:swap }
     requirements:
         recipeId: \d+
         posBefore: \d+
@@ -85,7 +85,7 @@ barra_back_recipeDetail_cookingStep_swap:
 
 barra_back_recipeDetail_cookingStep_delete:
     path:     /recipe/cookingstep/delete/{recipeId}/{position}
-    defaults: { _controller: BarraBackBundle:RecipeDetail:deleteCookingStep }
+    defaults: { _controller: BarraBackBundle:CookingStep:delete }
     requirements:
         recipeId: \d+
         position: \d+
