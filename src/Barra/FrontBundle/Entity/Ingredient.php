@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Ingredient
  *
  * @ORM\Table()
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Barra\FrontBundle\Entity\IngredientRepository")
  */
 class Ingredient
 {
@@ -30,32 +30,37 @@ class Ingredient
     private $vegan;
 
     /**
-     * @ORM\Column(name="kcal", type="decimal", scale=2)
+     * @ORM\Column(name="gr", type="smallint")
+     */
+    private $gr;
+
+    /**
+     * @ORM\Column(name="kcal", type="decimal", scale=1)
      */
     private $kcal;
 
     /**
-     * @ORM\Column(name="protein", type="decimal", scale=2)
+     * @ORM\Column(name="protein", type="decimal", scale=1)
      */
     private $protein;
 
     /**
-     * @ORM\Column(name="carbs", type="decimal", scale=2)
+     * @ORM\Column(name="carbs", type="decimal", scale=1)
      */
     private $carbs;
 
     /**
-     * @ORM\Column(name="sugar", type="decimal", scale=2)
+     * @ORM\Column(name="sugar", type="decimal", scale=1)
      */
     private $sugar;
 
     /**
-     * @ORM\Column(name="fat", type="decimal", scale=2)
+     * @ORM\Column(name="fat", type="decimal", scale=1)
      */
     private $fat;
 
     /**
-     * @ORM\Column(name="gfat", type="decimal", scale=2)
+     * @ORM\Column(name="gfat", type="decimal", scale=1)
      */
     private $gfat;
 
@@ -338,5 +343,28 @@ class Ingredient
     public function getRecipeIngredients()
     {
         return $this->recipeIngredients;
+    }
+
+    /**
+     * Set gr
+     *
+     * @param integer $gr
+     * @return Ingredient
+     */
+    public function setGr($gr)
+    {
+        $this->gr = $gr;
+
+        return $this;
+    }
+
+    /**
+     * Get gr
+     *
+     * @return integer 
+     */
+    public function getGr()
+    {
+        return $this->gr;
     }
 }

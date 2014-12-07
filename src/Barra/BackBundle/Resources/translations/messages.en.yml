@@ -19,15 +19,16 @@ back:
     insertError: Invalid entry
 
   ingredient: #object
-    carbs: Carbs
-    fat: Fat
-    kcal: Kcal
-    gfat: sat. fat
-    manufacturer: Manufacturer
     name: Name
-    protein: Protein
-    sugar: Sugar
+    manufacturer: Manufacturer
     vegan: Vegan
+    gr: Gr
+    kcal: Kcal
+    carbs: Carbs
+    sugar: Sugar
+    protein: Protein
+    fat: Fat
+    gfat: sat. fat
 
   measurement: #object
     gr: Gr

@@ -24,7 +24,7 @@ class RecipeController extends Controller
             if ($sqlError)
                 $formInsert->addError(new FormError($sqlError));
             else
-                return $this->redirect($this->generateUrl('barra_back_recipe', array('name' => $recipe->getName())));
+                return $this->redirect($this->generateUrl('barra_back_recipeDetail', array('name' => $recipe->getName())));
         }
 
 

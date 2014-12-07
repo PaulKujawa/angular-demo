@@ -19,15 +19,16 @@ back:
     insertError: Ungültiger Eintrag
 
   ingredient: #object
-    carbs: Kohlenhydrate
-    fat: Fett
-    kcal: Kcal
-    gfat: ges. Fett
-    manufacturer: Hersteller
     name: Name
-    protein: Eiweiß
-    sugar: Zucker
+    manufacturer: Hersteller
     vegan: Vegan
+    gr: Gr
+    kcal: Kcal
+    fat: Fett
+    carbs: Kohlenhydrate
+    sugar: Zucker
+    protein: Eiweiß
+    gfat: ges. Fett
 
   measurement: #object
     gr: Gr

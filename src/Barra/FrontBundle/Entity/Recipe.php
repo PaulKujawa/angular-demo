@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Recipe
  *
  * @ORM\Table()
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Barra\FrontBundle\Entity\RecipeRepository")
  */
 class Recipe
 {
@@ -20,7 +20,7 @@ class Recipe
     private $id;
 
     /**
-     * @ORM\Column(name="name", type="string", length=30, unique=true)
+     * @ORM\Column(name="name", type="string", length=40, unique=true)
      */
     private $name;
 

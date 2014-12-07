@@ -13,6 +13,7 @@ class IngredientType extends AbstractType
         $builder
             ->add('name', 'text', array('attr'=>array('placeholder'=>'back.ingredient.name')))
             ->add('vegan', 'checkbox', array('required'=>false))
+            ->add('gr', 'integer', array('attr'=>array('placeholder'=>'back.ingredient.gr')))
             ->add('kcal', 'number', array('precision'=>2, 'attr'=>array('placeholder'=>'back.ingredient.kcal')))
             ->add('protein', 'number', array('precision'=>2, 'attr'=>array('placeholder'=>'back.ingredient.protein')))
             ->add('carbs', 'number', array('precision'=>2, 'attr'=>array('placeholder'=>'back.ingredient.carbs')))

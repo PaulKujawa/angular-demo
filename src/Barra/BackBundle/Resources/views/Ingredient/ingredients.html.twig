@@ -13,6 +13,7 @@
                     <tr>
                         <th>{{ 'back.ingredient.name'|trans() }}</th>
                         <th>{{ 'back.ingredient.vegan'|trans() }}</th>
+                        <th>{{ 'back.ingredient.gr'|trans() }}</th>
                         <th>{{ 'back.ingredient.kcal'|trans() }}</th>
                         <th>{{ 'back.ingredient.protein'|trans() }}</th>
                         <th>{{ 'back.ingredient.carbs'|trans() }}</th>
@@ -28,6 +29,7 @@
                         <tr data-id={{ ingredient.id }}>
                             <td class="editableCell" data-mobile-title={{ 'back.ingredient.name'|trans() }}>{{ ingredient.name }}</td>
                             <td class="editableCell" data-mobile-title={{ 'back.ingredient.vegan'|trans() }}>{{ ingredient.vegan }}</td>
+                            <td class="editableCell" data-mobile-title={{ 'back.ingredient.gr'|trans() }}>{{ ingredient.gr }}</td>
                             <td class="editableCell" data-mobile-title={{ 'back.ingredient.kcal'|trans() }}>{{ ingredient.kcal }}</td>
                             <td class="editableCell" data-mobile-title={{ 'back.ingredient.protein'|trans() }}>{{ ingredient.protein }}</td>
                             <td class="editableCell" data-mobile-title={{ 'back.ingredient.carbs'|trans() }}>{{ ingredient.carbs }}</td>
@@ -38,7 +40,7 @@
 
                             <td data-mobile-title={{ 'back.action.delete'|trans() }}>
                                 <a {% if ingredient.getRecipeIngredients() is empty %} href="{{ path('barra_back_ingredient_delete', {'id': ingredient.id}) }}"
-                                   {% else %}                                          class="notDeletable" {% endif %} >
+                                   {% else %}                                          class="inactiveLink" {% endif %} >
                                     <span class="glyphicon glyphicon-minus"></span>
                                 </a>
                             </td>
@@ -47,6 +49,7 @@
                     <tr class="formInRow">
                         {{ form_row(formInsert.name) }}
                         {{ form_row(formInsert.vegan) }}
+                        {{ form_row(formInsert.gr) }}
                         {{ form_row(formInsert.kcal) }}
                         {{ form_row(formInsert.protein) }}
                         {{ form_row(formInsert.carbs) }}
@@ -71,6 +74,7 @@
                     <tr class="formInRow">
                         {{ form_row(formUpdate.name) }}
                         {{ form_row(formUpdate.vegan) }}
+                        {{ form_row(formUpdate.gr) }}
                         {{ form_row(formUpdate.kcal) }}
                         {{ form_row(formUpdate.protein) }}
                         {{ form_row(formUpdate.carbs) }}

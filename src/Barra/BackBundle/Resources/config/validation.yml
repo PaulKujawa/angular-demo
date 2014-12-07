@@ -12,6 +12,11 @@ Barra\FrontBundle\Entity\Ingredient:
       - Type: string
     vegan:
       - Type: bool
+    gr:
+      - NotBlank: ~
+      - Type: integer
+      - GreaterThanOrEqual:
+          value: 0
     kcal:
       - NotBlank: ~
       - Type: float
