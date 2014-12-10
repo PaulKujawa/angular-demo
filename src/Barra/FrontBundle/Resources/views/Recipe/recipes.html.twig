@@ -4,12 +4,19 @@
 
 {% block section %}
     <section class="container">
-        <ul>
-        {% for recipe in recipes %}
-            <li>
-                <a href="{{ path('barra_front_recipe', {'name': recipe.name|replace({' ': '_'})}) }}">{{ recipe.name }}</a>
-            </li>
+        {% for row in recipes|batch(4) %}
+            <div class="row">
+                {% for recipe in row %}
+                    <div class="col-xs-6 col-sm-4 col-md-3">
+                        <div class="thumbnail">
+                            <a href="{{ path('barra_front_recipe', {'name': recipe.name|replace({' ': '_'})}) }}">
+                                <img src="/vpit/web/uploads/documents/587da76eb51cbabba17b6279945828d2b3ca39f2.jpeg" alt="{{ recipe.name }}">
+                                <div class="caption"><h3>{{ recipe.name }}</h3></div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         {% endfor %}
-        </ul>
     </section>
 {% endblock %}
