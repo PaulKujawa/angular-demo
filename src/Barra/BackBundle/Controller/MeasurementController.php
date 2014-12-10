@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class MeasurementController extends Controller
 {
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, $paginationActive)
     {
         $measurement = new Measurement();
         $formInsert = $this->createForm(new MeasurementType(), $measurement);
@@ -27,12 +27,17 @@ class MeasurementController extends Controller
                 return $this->redirect($this->generateUrl('barra_back_recipes'));
         }
 
+        $paginationRange = 10;
+        $startPos = ($paginationActive-1)*$paginationRange;
         $em = $this->getDoctrine()->getManager();
-        $measurements = $em->getRepository('BarraFrontBundle:Measurement')->findAll();
+        $measurements = $em->getRepository('BarraFrontBundle:Measurement')->getSome($startPos, $paginationRange);
+        $paginationCnt = $em->getRepository('BarraFrontBundle:Measurement')->count();
+        $paginationCnt = ceil($paginationCnt/$paginationRange);
         $formUpdate = $this->createForm(new MeasurementUpdateType(), $measurement);
 
-
         return $this->render('BarraBackBundle:Measurement:measurements.html.twig', array(
+            'paginationActive' => $paginationActive,
+            'paginationCnt' => $paginationCnt,
             'measurements' => $measurements,
             'formInsert' => $formInsert->createView(),
             'formUpdate' => $formUpdate->createView()

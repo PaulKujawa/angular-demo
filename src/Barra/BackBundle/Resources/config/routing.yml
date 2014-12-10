@@ -21,8 +21,10 @@ barra_back_reference_delete:
 
 
 barra_back_recipes:
-    path:     /recipes
-    defaults: { _controller: BarraBackBundle:Recipe:index }
+    path:     /recipes/{paginationActive}
+    defaults: { _controller: BarraBackBundle:Recipe:index, paginationActive: 1 }
+    requirements:
+        paginationActive: \d+
 
 barra_back_recipe_update:
     path:     /recipes/update/ajax
@@ -116,8 +118,10 @@ barra_back_recipeDetail_file_delete:
 
 
 barra_back_ingredients:
-    path:     /ingredients
-    defaults: { _controller: BarraBackBundle:Ingredient:index }
+    path:     /ingredients/{paginationActive}
+    defaults: { _controller: BarraBackBundle:Ingredient:index, paginationActive: 1 }
+    requirements:
+          paginationActive: \d+
 
 barra_back_ingredient_update:
     path:     /ingredients/update/ajax
@@ -136,8 +140,10 @@ barra_back_ingredient_delete:
 
 
 barra_back_manufacturers:
-    path:     /manufacturers
-    defaults: { _controller: BarraBackBundle:Manufacturer:index }
+    path:     /manufacturers/{paginationActive}
+    defaults: { _controller: BarraBackBundle:Manufacturer:index, paginationActive: 1 }
+    requirements:
+        paginationActive: \d+
 
 barra_back_manufacturer_update:
     path:     /manufacturers/update/ajax
@@ -156,8 +162,10 @@ barra_back_manufacturer_delete:
 
 
 barra_back_measurements:
-    path:     /measurements
-    defaults: { _controller: BarraBackBundle:Measurement:index }
+    path:     /measurements/{paginationActive}
+    defaults: { _controller: BarraBackBundle:Measurement:index, paginationActive: 1 }
+    requirements:
+        paginationActive: \d+
 
 barra_back_measurement_update:
     path:     /measurements/update/ajax

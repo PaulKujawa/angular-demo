@@ -2,9 +2,9 @@
 
 BLACK           141414 ( 20,  20,  20)
 
-GREY DARKER     555555 ( 85,  85,  85) BT
-GREY DARK       777777 (119, 119, 119) BT
-GREY BORDER     dddddd (221, 221, 221) BT
+GREY DARKER     555555 ( 85,  85,  85) BT   for font
+GREY DARK       777777 (119, 119, 119) BT   for font
+GREY BORDER     dddddd (221, 221, 221) BT   for border
 GREY BRIGHT     f9f9f9 (249, 249, 249) BT
 
 RED             DF6C4F (223, 108,  79)
@@ -33,7 +33,7 @@ body {
     right: 60px;
 }
 
-nav { /* TODO navi entry measurement collides with lang btn */
+.navbar { /* TODO navi entry measurement collides with lang btn */
     position: fixed !important; /* BT _relative */
     z-index: 9999;
     width: 100%;
@@ -42,12 +42,12 @@ nav { /* TODO navi entry measurement collides with lang btn */
     background-color: #141414 !important; /* BT 3036 _.navbar-default */
 }
 
-nav li.active > a { /* BT 3959 */
+.navbar li.active > a { /* BT 3959 */
     background-color: transparent !important;
     color: #ffffff !important;
 }
 
-nav ul.navbar-nav {
+.navbar ul.navbar-nav {
     margin: 0 -15px; /* BT _7.5 */
 }
 
@@ -61,13 +61,13 @@ nav.navbar-default .navbar-nav > li > a:focus, #translationAnchor:focus {
 }
 
 @media (min-width: 768px) {
-    nav a {
+    .navbar a {
         padding: 30px 15px !important;
     }
     .navbar-collapse.collapse {
         text-align: center;
     }
-    nav ul.navbar-nav {
+    .navbar ul.navbar-nav {
         display: inline-block;
         float: none; /* BT 3812 */
     }

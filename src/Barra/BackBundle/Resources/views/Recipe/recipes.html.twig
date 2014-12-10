@@ -20,7 +20,7 @@
                     {% for recipe in recipes %}
                         <tr data-id={{ recipe.id }}>
                             <td class="editableCell" data-mobile-title={{ 'back.recipe.name'|trans() }}>{{ recipe.name }}</td>
-                            <td class="editableCell" data-mobile-title={{ 'back.action.delete'|trans() }}>
+                            <td class="editableCell" data-mobile-title={{ 'back.action.manage'|trans() }}>
                                 <a href="{{ path('barra_back_recipe_delete', {'id': recipe.id}) }}">
                                     <span class="glyphicon glyphicon-minus"></span>
                                 </a>
@@ -55,5 +55,7 @@
                 {{ form_end(formUpdate) }}
             </tbody>
         </table>
+
+        {{ include('BarraBackBundle::pagination.html.twig', { 'route': 'barra_back_recipes'})}}
     </section>
 {% endblock %}

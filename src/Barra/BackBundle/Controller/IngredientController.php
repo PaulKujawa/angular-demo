@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class IngredientController extends Controller
 {
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, $paginationActive)
     {
         $ingredient = new Ingredient();
         $formInsert = $this->createForm(new IngredientType(), $ingredient);
@@ -27,11 +27,17 @@ class IngredientController extends Controller
                 return $this->redirect($this->generateUrl('barra_back_recipes'));
         }
 
+        $paginationRange = 10;
+        $startPos = ($paginationActive-1)*$paginationRange;
         $em = $this->getDoctrine()->getManager();
-        $ingredients = $em->getRepository('BarraFrontBundle:Ingredient')->findAll();
+        $ingredients = $em->getRepository('BarraFrontBundle:Ingredient')->getSome($startPos, $paginationRange);
+        $paginationCnt = $em->getRepository('BarraFrontBundle:Ingredient')->count();
+        $paginationCnt = ceil($paginationCnt/$paginationRange);
         $formUpdate = $this->createForm(new IngredientUpdateType(), $ingredient);
 
         return $this->render('BarraBackBundle:Ingredient:ingredients.html.twig', array(
+            'paginationActive' => $paginationActive,
+            'paginationCnt' => $paginationCnt,
             'ingredients' => $ingredients,
             'formInsert' => $formInsert->createView(),
             'formUpdate' => $formUpdate->createView()

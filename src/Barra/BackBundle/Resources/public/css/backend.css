@@ -1,3 +1,12 @@
+/* PAGINATION */
+.paginationNav { text-align: center; }
+.paginationNav li > a, .paginationNav li > a:hover { color: #777777; }
+.paginationNav li.active > a, .paginationNav li.active > a:hover {
+    background-color: #141414;
+    border-color: #141414;
+}
+
+
 /* ICONS
 ---------------------------------------------------------*/
 table span.glyphicon { margin-right: 9px; }
@@ -29,6 +38,10 @@ table .btn:hover, table .btn:focus, table .btn:active {
 
 /* FORM FIELDS IN TABLES
 ---------------------------------------------------------*/
+form { margin-bottom: 20px; }
+
+.table { margin-bottom: 0; }
+
 table .btn-default { min-width: 100%; } /* instead of width by bt-block, since conflicts with td-with & padding */
 
 table input[type="radio"], input[type="checkbox"]  {

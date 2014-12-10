@@ -5,21 +5,18 @@ Vpit
 ---------------
   * create bundle `php app/console generate:bundle --namespace=Acme/HelloBundle --format=yml`
 
-  * Cache clear `./app/console —-env=prod cache:clear`
-
-  * List Routes `./app/console router:debug`
+  * Cache clear prod `./app/console --env=prod cache:clear`
 
   * Check Route `php app/console router:match /givenPage`
 
-  * include assets `php app/console assets:install`
+  * include assets dev `php app/console assets:install --symlink`
 
+  * include assets prod `php app/console assetic:dump --env=prod --no-debug`
 
-2) Commandline Tests
---------------------
   * run phpunit tests `php phpunit -c app src/Barra/BackBundle`
 
 
-3) Commandline DB
+2) Commandline DB
 ------------------
   * create entity `php app/console doctrine:generate:entity --entity="BarraDefaultBundle:Product"`
 
@@ -32,14 +29,14 @@ Vpit
   * delete DB `php app/console doctrine:database:drop --force`
 
 
-4) Redirects
+3) Redirects
 -------------
   * without URL change `return $this->forward('BarraDefaultBundle:Default:recipe', array('id' => 1));`
 
   * with URL change `return $this->redirect($this->generateUrl('barra_default_recipe', array('id' => 1)));`
 
 
-5) Check kind of request
+4) Check kind of request
 -------------------------
   * GET `$request->query->get('page');`
   * POST `$request->request->get('page');`
@@ -48,7 +45,7 @@ Vpit
   * Requested format `$format = $this->getRequest()->getRequestFormat();`
 
 
-6) DB Default-Selects
+5) DB Default-Selects
 ----------------------
   * 1 via PK `find('foo')`
 
@@ -63,26 +60,7 @@ Vpit
   * all `findAll()`
 
 
-7) Template
-------------
-  * Toggle Table `{% for i in 0..10 %}
-    <div class="{{ cycle(['odd', 'even'], i) }}"></div>`
-
-  * Direct template include `{{ include('BarraDefaultBundle:References:article.html.twig', {'id': 3}) }}`
-
-
-  * Asynchronus include via hinclude.js
-    `{{ render_include(url(...)) }}
-    {{ render_include(controller(...)) }}
-        -> for controller add "fragments: { path: /_fragment } to framework: at app/config/config.yml
-        -> default content when js is deactive also there
-            framework:
-                templating:
-                    hinclude_default_template: BarraDefaultBundle::hinclude.html.twig
-        -> ovveride this default via:
-            {{ render_hinclude(controller('...'), { 'default': '.....twig'}) }}`
-
-8) Trans
+6) Trans
 ----------
   * tag: `{% trans from 'layout' %}reference{% endtrans %}`
 
@@ -92,7 +70,7 @@ Vpit
   * variable key `{{ entry['label']|trans({}, 'layout') }}`
 
 
-9) Transchoice
+7) Transchoice
 ----------------
   * filter `{{ 'front.word.comment'|transchoice(count, {}, 'layout') }}
 
@@ -102,7 +80,7 @@ Vpit
         comment: '{0} no comment|{1} one comment|]1,Inf] %count% comments'
 
 
-10) CACHE
+8) CACHE
 ----------
   * preparation
     use Symfony\Component\HttpFoundation\Response;
@@ -128,7 +106,12 @@ Vpit
     // 'private' => true
     ));
 
+9) doctrine
+--------------------
+    * order relation `public function findAll() {return $this->findBy(array(), array('type'=>'ASC'));}`
 
-11) Browser support
+10) Browser support
 --------------------
    * IE10+
+
+

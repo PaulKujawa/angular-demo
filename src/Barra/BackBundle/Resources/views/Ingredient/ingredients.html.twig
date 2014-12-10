@@ -89,5 +89,7 @@
                 {{ form_end(formUpdate) }}
             </tbody>
         </table>
+
+        {{ include('BarraBackBundle::pagination.html.twig', { 'route': 'barra_back_ingredients'})}}
     </section>
 {% endblock %}

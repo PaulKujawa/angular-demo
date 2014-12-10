@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class ManufacturerController extends Controller
 {
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, $paginationActive)
     {
         $manufacturer = new Manufacturer();
         $formInsert = $this->createForm(new ManufacturerType(), $manufacturer);
@@ -27,12 +27,17 @@ class ManufacturerController extends Controller
                 return $this->redirect($this->generateUrl('barra_back_ingredients'));
         }
 
+        $paginationRange = 10;
+        $startPos = ($paginationActive-1)*$paginationRange;
         $em = $this->getDoctrine()->getManager();
-        $manufacturers = $em->getRepository('BarraFrontBundle:Manufacturer')->findAll();
+        $manufacturers = $em->getRepository('BarraFrontBundle:Manufacturer')->getSome($startPos, $paginationRange);
+        $paginationCnt = $em->getRepository('BarraFrontBundle:Manufacturer')->count();
+        $paginationCnt = ceil($paginationCnt/$paginationRange);
         $formUpdate = $this->createForm(new ManufacturerUpdateType(), $manufacturer);
 
-
         return $this->render('BarraBackBundle:Manufacturer:manufacturers.html.twig', array(
+            'paginationActive' => $paginationActive,
+            'paginationCnt' => $paginationCnt,
             'manufacturers' => $manufacturers,
             'formInsert' => $formInsert->createView(),
             'formUpdate' => $formUpdate->createView()
