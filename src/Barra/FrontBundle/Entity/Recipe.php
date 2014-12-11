@@ -35,6 +35,12 @@ class Recipe
     private $votes;
 
     /**
+     * @ORM\OneToMany(targetEntity="UploadedImage", mappedBy="recipe")
+     */
+    private $uploadedImages;
+
+
+    /**
      * @return integer
      */
     public function getId()
@@ -97,5 +103,45 @@ class Recipe
     public function getVotes()
     {
         return $this->votes;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->uploadedImages = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add uploadedImages
+     *
+     * @param \Barra\FrontBundle\Entity\UploadedImage $uploadedImages
+     * @return Recipe
+     */
+    public function addUploadedImage(\Barra\FrontBundle\Entity\UploadedImage $uploadedImages)
+    {
+        $this->uploadedImages[] = $uploadedImages;
+
+        return $this;
+    }
+
+    /**
+     * Remove uploadedImages
+     *
+     * @param \Barra\FrontBundle\Entity\UploadedImage $uploadedImages
+     */
+    public function removeUploadedImage(\Barra\FrontBundle\Entity\UploadedImage $uploadedImages)
+    {
+        $this->uploadedImages->removeElement($uploadedImages);
+    }
+
+    /**
+     * Get uploadedImages
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUploadedImages()
+    {
+        return $this->uploadedImages;
     }
 }

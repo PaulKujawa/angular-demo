@@ -38,7 +38,7 @@ class UploadedImage
     private $file;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Recipe")
+     * @ORM\ManyToOne(targetEntity="Recipe", inversedBy="uploadedImages")
      * @ORM\JoinColumn(name="recipe", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     protected $recipe;

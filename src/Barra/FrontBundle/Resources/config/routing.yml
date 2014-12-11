@@ -19,12 +19,15 @@ barra_front_reference:
 
 
 barra_front_recipes:
-    path:     /recipes
-    defaults: { _controller: BarraFrontBundle:Recipe:index }
+    path:     /recipes/{paginationActive}
+    defaults: { _controller: BarraFrontBundle:Recipe:index, paginationActive: 1 }
+    requirements:
+        paginationActive: \d+
 
 barra_front_recipe:
     path:     /recipe/{name}
     defaults: { _controller: BarraFrontBundle:RecipeDetail:index }
+
 
 
 

@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class CookingStep
 {
-    /**
+    /** no primary, because I could not update queries w/o transactions, which I'm not able to do with doctrine yet
      * @ORM\Column(name="position", type="smallint")
      */
     private $position;

@@ -1,0 +1,17 @@
+/* PAGINATION */
+.paginationNav { text-align: center; }
+.paginationNav li > a, .paginationNav li > a:hover { color: #777777; }
+.paginationNav li.active > a, .paginationNav li.active > a:hover {
+    background-color: #141414;
+    border-color: #141414;
+}
+
+
+
+.thumbnail { padding: 0; }
+.thumbnail .caption { font-size: 1.3em; }
+.thumbnail .imageAlternative {
+    max-width: 100%;
+    background-color: red;
+}
+

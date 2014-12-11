@@ -10,13 +10,17 @@
                     <div class="col-xs-6 col-sm-4 col-md-3">
                         <div class="thumbnail">
                             <a href="{{ path('barra_front_recipe', {'name': recipe.name|replace({' ': '_'})}) }}">
-                                <img src="/vpit/web/uploads/documents/587da76eb51cbabba17b6279945828d2b3ca39f2.jpeg" alt="{{ recipe.name }}">
-                                <div class="caption"><h3>{{ recipe.name }}</h3></div>
+                                {% if recipe.UploadedImages is not empty %}
+                                    <img src="/vpit/web/uploads/documents/{{ (recipe.UploadedImages|first).filename }}" alt="{{ recipe.name }}">
+                                {% endif %}
+                                <div class="caption">{{ recipe.name }}</div>
                             </a>
                         </div>
                     </div>
                 {% endfor %}
             </div>
         {% endfor %}
+
+        {{ include('BarraFrontBundle::pagination.html.twig', { 'route': 'barra_front_recipes'})}}
     </section>
 {% endblock %}
