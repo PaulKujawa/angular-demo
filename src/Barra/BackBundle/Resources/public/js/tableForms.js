@@ -1,36 +1,43 @@
-$(window).load(function() {
-
-
+$(function() {
     $(".draggable").sortable({
         axis: "y",
         cursor: "move",
         revert: true,
 
         start: function(event, ui) {
-            var posBefore = ui.item.index();
+            var posBefore = ui.item.index()+1; // db id starts with 1
             ui.item.data('posBefore', posBefore);
         },
 
         update: function(event, ui) {
             var posBefore = ui.item.data('posBefore');
-            var posAfter = ui.item.index();
+            var posAfter = ui.item.index()+1; // db id starts with 1
             var table = ui.item.closest('table');
-            swapListEntries(table, posBefore, posAfter);
+
+            swapListEntries(table, ui.item, posBefore, posAfter);
         }
     });
 
 
-    var swapListEntries = function(table, posBefore, posAfter) {
+    var swapListEntries = function(table, row, posBefore, posAfter) {
         var url = table.attr('data-swapLink').slice(0, -8)+posBefore+"/"+posAfter+"/ajax";
 
         $.ajax({
             url: url,
             type: "POST"
         }).done(function(response) {
-            if (response.code != 200)
-                alert("ging wohl schief");
+            var aClass;
+            if (response.code == 200)
+                aClass = 'success';
+            else
+                aClass = 'danger';
+
+            row.addClass(aClass);
+            setTimeout(function() {
+                row.removeClass(aClass);
+            }, 1500)
         });
-    }
+    };
 
 
 
@@ -238,10 +245,9 @@ $(window).load(function() {
     var uForm_hide = function(i) {
         var values = [];
         entities[i]['uFormRow'].find('.form-control').each(function() {
-            if ($(this).prop('type') == 'select-one') {
+            if ($(this).prop('type') == 'select-one')
                 values.push( $(this).find("option:selected").text() );
-
-            } else
+            else
                 values.push( $(this).val() );
         });
 
