@@ -24,7 +24,6 @@ class RecipeDetailController extends Controller
         if (!$recipe)
             throw $this->createNotFoundException('Recipe not found');
 
-        $files                  = $em->getRepository('BarraFrontBundle:UploadedImage')->findByRecipe($recipe);
         $cookingSteps           = $em->getRepository('BarraFrontBundle:CookingStep')->findByRecipe($recipe, array('position'=>'ASC'));
         $recipeIngredients      = $em->getRepository('BarraFrontBundle:RecipeIngredient')->findByRecipe($recipe, array('position'=>'ASC'));
 
@@ -62,7 +61,6 @@ class RecipeDetailController extends Controller
 
         return $this->render('BarraBackBundle:Recipe:recipeDetail.html.twig', array(
                 'recipe'                => $recipe,
-                'files'                 => $files,
                 'cookingSteps'          => $cookingSteps,
                 'recipeIngredients'     => $recipeIngredients,
                 'formUploadedImage'     => $formUploadedImage->createView(),

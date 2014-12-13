@@ -32,13 +32,13 @@ class RecipeIngredient
     private $position;
 
     /**
-     * @ORM\Column(name="amount", type="smallint")
+     * @ORM\Column(name="amount", type="smallint", nullable=true)
      */
     private $amount;
 
     /**
      * @ORM\ManyToOne(targetEntity="Measurement", inversedBy="recipeIngredients")
-     * @ORM\JoinColumn(name="measurement", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="measurement", referencedColumnName="id")
      */
     private $measurement;
 

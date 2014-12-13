@@ -10,7 +10,7 @@
 /* ICONS
 ---------------------------------------------------------*/
 table span.glyphicon { margin-right: 9px; }
-.glyphicon-minus { color: #DF6C4F; }
+.glyphicon-minus { color: #F7464A; }
 .glyphicon-plus { color: #3C948B; }
 .glyphicon-eye-open { color: #777777; }
 .inactiveLink span.glyphicon-minus { color: #777777; }
@@ -67,7 +67,7 @@ table tr:last-child td {
 
 /* TABLE MOBILE
 ---------------------------------------------------------*/
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
     .mobileTables table,
     .mobileTables thead,
     .mobileTables tbody,
