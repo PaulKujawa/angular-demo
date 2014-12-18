@@ -33,6 +33,7 @@ $(function() { /* http://www.chartjs.org/docs/#doughnut-pie-chart */
     });
 
     kcalSpan
+        .css('margin-left', -kcalSpan.outerWidth()/2 +'px')
         .fadeIn(4000)
         .tooltip();
 });

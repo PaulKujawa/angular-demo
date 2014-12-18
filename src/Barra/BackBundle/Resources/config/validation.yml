@@ -55,7 +55,7 @@ Barra\FrontBundle\Entity\Recipe:
       - NotBlank:
       - Type: string
 
-Manager\ManagerBundle\Entity\RecipeFile:
+Manager\ManagerBundle\Entity\UploadedImage:
   properties:
     file:
       - File:
@@ -77,7 +77,6 @@ Barra\FrontBundle\Entity\Measurement:
 Barra\FrontBundle\Entity\RecipeIngredient:
   properties:
     amount:
-      - NotBlank: { groups: [recipeIngredient] }
       - Type: { type: integer , groups: [recipeIngredient] }
       - GreaterThanOrEqual: { value: 0, groups: [recipeIngredient] }
 

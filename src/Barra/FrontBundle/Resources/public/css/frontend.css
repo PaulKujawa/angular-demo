@@ -8,18 +8,16 @@
 
 
 
-.thumbnail { padding: 0; }
-.thumbnail .caption { font-size: 1.3em; }
-.thumbnail .imageAlternative {
-    max-width: 100%;
-    background-color: red;
-}
+#recipesGrid { margin: 20px 0; }
+#recipesGrid .thumbnail { padding: 0; }
+#recipesGrid .thumbnail .caption { font-size: 1.3em; }
+
 
 
 
 #imageChartWrapper {
     width: 100%;
-    padding: 20px 0;
+    margin: 40px 0;
 }
 
 #imageChartWrapper > div {
@@ -33,15 +31,13 @@
     height: 300px; /* same as image, since it's absolute positioned */
 }
 
-#imageChartWrapper .roundImage {
+#imageChartWrapper img {
     position: absolute;
         top: 50%;
         left: 50%;
     width: 300px;
     height: 300px;
     margin: -150px 0 0 -150px;
-    border-radius: 150px;
-    background: url("/vpit/web/uploads/documents/51d58bce01b573d91742df8876d8d3958397e3f1.jpeg") no-repeat center;
 }
 
 #imageChartWrapper .chartWrapper {
@@ -61,7 +57,7 @@
     position: absolute;
         top: 50%;
         left: 50%;
-    margin: -17px 0 0 -39px; /* line height 34px & width 78px */
+    margin: -15px 0 0 -43px; /* line height 38px & width will be set via JS */
     font-size: 2em;
     display: none;
 }
@@ -75,3 +71,13 @@
 
     #imageChartWrapper .roundImageWrapper { margin-bottom: 20px; }
 }
+
+#ingredientList, #cookingStepList {
+    margin: 40px 0;
+    text-align: center;
+    line-height: 1.5em;
+}
+
+#ingredientList { font-size: 1.3em; }
+#cookingStepList { font-size: 1.1em; }
+.centeredTitle { text-align: center; }

@@ -22,7 +22,7 @@ class RecipeIngredient
     /**
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Ingredient", inversedBy="recipeIngredients")
-     * @ORM\JoinColumn(name="ingredient", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="ingredient", referencedColumnName="id")
      */
     private $ingredient;
 
@@ -38,11 +38,13 @@ class RecipeIngredient
 
     /**
      * @ORM\ManyToOne(targetEntity="Measurement", inversedBy="recipeIngredients")
-     * @ORM\JoinColumn(name="measurement", referencedColumnName="id")
+     * @ORM\JoinColumn(name="measurement", referencedColumnName="id", nullable=true)
      */
     private $measurement;
 
     /**
+     * Set position
+     *
      * @param integer $position
      * @return RecipeIngredient
      */
@@ -54,7 +56,9 @@ class RecipeIngredient
     }
 
     /**
-     * @return integer
+     * Get position
+     *
+     * @return integer 
      */
     public function getPosition()
     {
@@ -62,17 +66,22 @@ class RecipeIngredient
     }
 
     /**
+     * Set amount
+     *
      * @param integer $amount
      * @return RecipeIngredient
      */
     public function setAmount($amount)
     {
         $this->amount = $amount;
+
         return $this;
     }
 
     /**
-     * @return integer
+     * Get amount
+     *
+     * @return integer 
      */
     public function getAmount()
     {
@@ -131,7 +140,7 @@ class RecipeIngredient
      * @param \Barra\FrontBundle\Entity\Measurement $measurement
      * @return RecipeIngredient
      */
-    public function setMeasurement(\Barra\FrontBundle\Entity\Measurement $measurement)
+    public function setMeasurement(\Barra\FrontBundle\Entity\Measurement $measurement = null)
     {
         $this->measurement = $measurement;
 

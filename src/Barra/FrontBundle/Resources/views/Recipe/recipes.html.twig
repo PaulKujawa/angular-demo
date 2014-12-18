@@ -4,23 +4,24 @@
 
 {% block section %}
     <section class="container">
-        {% for row in recipes|batch(4) %}
-            <div class="row">
-                {% for recipe in row %}
-                    <div class="col-xs-6 col-sm-4 col-md-3">
-                        <div class="thumbnail">
-                            <a href="{{ path('barra_front_recipe', {'name': recipe.name|replace({' ': '_'})}) }}">
-                                {% if recipe.UploadedImages is not empty %}
-                                    <img src="/vpit/web/uploads/documents/{{ (recipe.UploadedImages|first).filename }}" alt="{{ recipe.name }}">
-                                {% endif %}
-                                <div class="caption">{{ recipe.name }}</div>
-                            </a>
+        <div id="recipesGrid">
+            {% for row in recipes|batch(4) %}
+                <div class="row">
+                    {% for recipe in row %}
+                        <div class="col-xs-6 col-sm-4 col-md-3">
+                            <div class="thumbnail">
+                                <a href="{{ path('barra_front_recipe', {'name': recipe.name|replace({' ': '_'})}) }}">
+                                    {% if recipe.UploadedImages is not empty %}
+                                        <img src="/vpit/web/uploads/documents/{{ (recipe.UploadedImages|first).filename }}" alt="{{ recipe.name }}">
+                                    {% endif %}
+                                    <div class="caption">{{ recipe.name }}</div>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                {% endfor %}
-            </div>
-        {% endfor %}
-
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
         {{ include('BarraFrontBundle::pagination.html.twig', { 'route': 'barra_front_recipes'})}}
     </section>
 {% endblock %}

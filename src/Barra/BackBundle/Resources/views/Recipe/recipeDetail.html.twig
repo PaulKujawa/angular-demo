@@ -37,8 +37,13 @@
                 <tbody class="draggable">
                     {% for recipeIngredient in recipeIngredients %}
                         <tr data-id={{ recipeIngredient.ingredient.id }}>
-                            <td class="editableCell" data-mobile-title={{ 'back.recipeIngredient.amount'|trans() }}>{{ recipeIngredient.amount }}</td>
-                            <td class="editableCell" data-mobile-title={{ 'back.measurement.type'|trans() }}>{{ recipeIngredient.measurement.type }}</td>
+                            {% if recipeIngredient.amount != null %}
+                                <td class="editableCell" data-mobile-title={{ 'back.recipeIngredient.amount'|trans() }}>{{ recipeIngredient.amount }}</td>
+                                <td class="editableCell" data-mobile-title={{ 'back.measurement.type'|trans() }}>{{ recipeIngredient.measurement.type }}</td>
+                            {% else %}
+                                <td class="editableCell" data-mobile-title={{ 'back.recipeIngredient.amount'|trans() }}></td>
+                                <td class="editableCell" data-mobile-title={{ 'back.measurement.type'|trans() }}></td>
+                            {% endif %}
                             <td class="editableCell" data-mobile-title={{ 'back.ingredient.name'|trans() }}>{{ recipeIngredient.ingredient.name }}</td>
                             <td data-mobile-title={{ 'back.action.delete'|trans() }}>
                                 <a href="{{ path('barra_back_recipeDetail_ingredient_delete', {'recipeId': recipe.id, 'ingredientId': recipeIngredient.ingredient.id}) }}">
@@ -71,7 +76,6 @@
                         {{ form_row(formIngredientUpdate.measurement) }}
                         {{ form_row(formIngredientUpdate.ingredient) }}
                         {{ form_widget(formIngredientUpdate.submit, {'label': 'back.action.update', 'attr': {'class': 'btn btn-default'} }) }}
-                        {{ form_row(formIngredientUpdate.ingredientId, {'attr': {'class': 'formPk'} }) }}
                         {{ form_rest(formIngredientUpdate) }}
                     </tr>
                 {{ form_end(formIngredientUpdate) }}

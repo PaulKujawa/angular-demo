@@ -140,9 +140,11 @@ $(function() {
         uForm_RemoveValidation(i);
         event.preventDefault();
 
-        var uForm = $(this);
-        var positionField = uForm.find("[name$='[position]']");
-        positionField.val(positionField.index()-1); /* db starts with 0, DOM with 1 */
+        var uForm = $(this),
+            positionField = uForm.find("[name$='[position]']"),
+            pos = positionField.parent().index()+1; // db starts with 1
+
+        positionField.val(pos); /* db starts with 0, DOM with 1 */
 
         $.ajax({
             url: uForm.attr('action'),

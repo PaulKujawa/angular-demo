@@ -11,9 +11,21 @@ class RecipeIngredientType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('amount', 'integer', array('attr'=>array('placeholder'=>'back.recipeIngredient.amount')))
-            ->add('measurement', 'entity', array('class' => 'BarraFrontBundle:Measurement', 'property' => 'type', 'attr'=>array('placeholder'=>'back.measurement.type')))
-            ->add('ingredient', 'entity', array('class' => 'BarraFrontBundle:Ingredient', 'property' => 'name', 'attr'=>array('placeholder'=>'back.ingredient.name')))
+            ->add('amount', 'integer', array(
+                    'required' => false,
+                    'attr'=>array('placeholder'=>'back.recipeIngredient.amount')
+            ))
+            ->add('measurement', 'entity', array(
+                    'class' => 'BarraFrontBundle:Measurement',
+                    'property' => 'type',
+                    'required' => false,
+                    'attr'=>array('placeholder'=>'back.measurement.type')
+            ))
+            ->add('ingredient', 'entity', array(
+                    'class' => 'BarraFrontBundle:Ingredient',
+                    'property' => 'name',
+                    'attr'=>array('placeholder'=>'back.ingredient.name')
+            ))
             ->add('submit', 'submit')
             ->getForm();
     }

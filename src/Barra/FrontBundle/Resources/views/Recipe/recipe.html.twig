@@ -2,20 +2,29 @@
 {% trans_default_domain "messages" %}
 {% block title %}{{ recipe.name }}{% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@BarraFrontBundle/Resources/public/js/*' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+
 {% block section %}
     <section class="container">
         <div id="imageChartWrapper">
             <div class="roundImageWrapper">
-                <div class="roundImage"></div>
+                <img class="img-circle" src="/vpit/web/uploads/documents/{{ (recipe.UploadedImages|first).filename }}" alt="{{ recipe.name }}">
             </div>
 
             <div class="chartWrapper">
                 <canvas id="macroChart" width="301px" height="301px"></canvas>
-                <span id="kcalSpan" class="badge" title="kcal">{{ macros.kcal }}</span>
+                <span id="kcalSpan" class="badge" title="Kcal">{{ macros.kcal }}</span>
             </div>
         </div>
 
-        <ul id="ingredientList" data-carbs={{ macros.carbs }} data-protein={{ macros.protein }} data-fat={{ macros.fat }}>
+        <h1 class="centeredTitle">{{ recipe.name }}</h1>
+        <ul id="ingredientList" class="list-unstyled" data-carbs={{ macros.carbs }} data-protein={{ macros.protein }} data-fat={{ macros.fat }}>
             {% for recipeIngredient in recipeIngredients %}
                 {% if recipeIngredient.amount is null %}
                     <li>{{ recipeIngredient.ingredient.name }}</li>
@@ -25,7 +34,7 @@
             {% endfor %}
         </ul>
 
-        <ol>
+        <ol id="cookingStepList">
             {% for cookingStep in cookingSteps %}
                 <li>{{ cookingStep.description }}</li>
             {% endfor %}

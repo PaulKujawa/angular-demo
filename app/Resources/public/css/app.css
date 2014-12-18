@@ -19,12 +19,16 @@ html {
     height: 100%;
 }
 body {
-    color: #141414 !important;
-    min-height: 100%;
     position: relative;
+    min-height: 100%;
+    color: #141414 !important;
+    font-size: 16px;
+    line-height: 1.25; /*20px*/
 }
 
-
+body, caption, th, td, input, textarea, select, option, legend, fieldset, h1, h2, h3, h4, h5, h6 {
+    font-size-adjust: 0.5;
+}
 
 
 
@@ -83,13 +87,13 @@ nav.navbar-default .navbar-nav > li > a:focus, #translationAnchor:focus {
 
 /* SECTION */
 section {
-    padding: 70px 0 70px;
+    padding: 50px 0 50px;
 }
 
 @media (min-width: 768px) {
     section {
         margin: 0 auto;
-        padding-top: 100px; /* t80 center b50 */
+        padding-top: 80px;
     }
 }
 

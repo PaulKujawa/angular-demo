@@ -3,7 +3,6 @@
 namespace Barra\BackBundle\Controller;
 
 use Barra\FrontBundle\Entity\RecipeIngredient;
-use Barra\BackBundle\Form\Type\RecipeIngredientType;
 use Barra\BackBundle\Form\Type\RecipeIngredientUpdateType;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,9 +14,10 @@ class RecipeIngredientController extends Controller
     public function updateAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $ingredientId = $request->request->get('formRecipeIngredientUpdate')['ingredientId'];
+        $ingredientId = $request->request->get('formRecipeIngredientUpdate')['ingredient'];
         $recipeId = $request->request->get('formRecipeIngredientUpdate')['recipe'];
         $recipeIngredient = $em->getRepository('BarraFrontBundle:RecipeIngredient')->findOneBy(array('recipe'=>$recipeId, 'ingredient'=>$ingredientId));
+
 
         if (!$recipeIngredient) {
             $ajaxResponse = array("code"=>404, "message"=>'Not found');
