@@ -22,9 +22,9 @@ class RecipeIngredientRepository extends EntityRepository
         return $query->getResult();
     }
 
-    public function getNextPosition($recipeId) {
+    public function getHighestPosition($recipeId) {
         $query = $this->createQueryBuilder('ri')
-            ->select('MAX(ri.position)+1')
+            ->select('MAX(ri.position)')
             ->where('ri.recipe = :recipeId')
             ->setParameter('recipeId', $recipeId)
             ->getQuery();

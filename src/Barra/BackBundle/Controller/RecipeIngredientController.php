@@ -14,10 +14,9 @@ class RecipeIngredientController extends Controller
     public function updateAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $ingredientId = $request->request->get('formRecipeIngredientUpdate')['ingredient'];
         $recipeId = $request->request->get('formRecipeIngredientUpdate')['recipe'];
-        $recipeIngredient = $em->getRepository('BarraFrontBundle:RecipeIngredient')->findOneBy(array('recipe'=>$recipeId, 'ingredient'=>$ingredientId));
-
+        $position = $request->request->get('formRecipeIngredientUpdate')['position'];
+        $recipeIngredient = $em->getRepository('BarraFrontBundle:RecipeIngredient')->findOneBy(array('recipe'=>$recipeId, 'position'=>$position));
 
         if (!$recipeIngredient) {
             $ajaxResponse = array("code"=>404, "message"=>'Not found');
@@ -53,8 +52,12 @@ class RecipeIngredientController extends Controller
         if (!$recipeIngredient)
             throw $this->createNotFoundException('Relation not found');
 
+        $position = $recipeIngredient->getPosition();
         $em->remove($recipeIngredient);
         $em->flush();
+
+        $endPos = $em->getRepository('BarraFrontBundle:RecipeIngredient')->getHighestPosition($recipeId);
+        $steps = $em->getRepository('BarraFrontBundle:RecipeIngredient')->changeBetweenPos($recipeId, $position+1, $endPos, -1);
 
         $recipe = $em->getRepository('BarraFrontBundle:Recipe')->find($recipeId);
         return $this->redirect($this->generateUrl('barra_back_recipeDetail', array('name'=>$recipe->getName())));

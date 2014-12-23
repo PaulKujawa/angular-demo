@@ -76,7 +76,7 @@ class RecipeDetailController extends Controller
     public function newIngredient($recipe, $recipeIngredient)
     {
         $em = $this->getDoctrine()->getManager();
-        $nextPosition = $em->getRepository('BarraFrontBundle:RecipeIngredient')->getNextPosition($recipe->getId());
+        $nextPosition = $em->getRepository('BarraFrontBundle:RecipeIngredient')->getHighestPosition($recipe->getId()) +1;
         $recipeIngredient->setRecipe($recipe);
         $recipeIngredient->setPosition($nextPosition);
         $em = $this->getDoctrine()->getManager();
@@ -94,7 +94,7 @@ class RecipeDetailController extends Controller
     public function newCookingStep($recipe, $cookingStep)
     {
         $em = $this->getDoctrine()->getManager();
-        $nextPosition = $em->getRepository('BarraFrontBundle:CookingStep')->getNextPosition($recipe->getId());
+        $nextPosition = $em->getRepository('BarraFrontBundle:CookingStep')->getHighestPosition($recipe->getId()) +1;
         $cookingStep->setPosition($nextPosition);
         $cookingStep->setRecipe($recipe);
         $em = $this->getDoctrine()->getManager();

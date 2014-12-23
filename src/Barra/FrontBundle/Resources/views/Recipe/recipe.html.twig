@@ -14,7 +14,9 @@
     <section class="container">
         <div id="imageChartWrapper">
             <div class="roundImageWrapper">
-                <img class="img-circle" src="/vpit/web/uploads/documents/{{ (recipe.UploadedImages|first).filename }}" alt="{{ recipe.name }}">
+                {% if recipe.UploadedImages is not empty %}
+                    <img class="img-circle" src="/vpit/web/uploads/documents/{{ (recipe.UploadedImages|first).filename }}" alt="{{ recipe.name }}">
+                {% endif %}
             </div>
 
             <div class="chartWrapper">

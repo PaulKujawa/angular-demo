@@ -23,6 +23,7 @@ class RecipeIngredient
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Ingredient", inversedBy="recipeIngredients")
      * @ORM\JoinColumn(name="ingredient", referencedColumnName="id")
+     * @ORM\OrderBy({"name"="ASC"})
      */
     private $ingredient;
 

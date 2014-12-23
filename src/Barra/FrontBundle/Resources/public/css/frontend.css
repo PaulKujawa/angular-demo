@@ -1,20 +1,62 @@
 /* PAGINATION */
-.paginationNav { text-align: center; }
-.paginationNav li > a, .paginationNav li > a:hover { color: #777777; }
+.paginationNav {text-align: center}
+.paginationNav li > a, .paginationNav li > a:hover {color: #777777}
 .paginationNav li.active > a, .paginationNav li.active > a:hover {
     background-color: #141414;
     border-color: #141414;
 }
 
-
-
-#recipesGrid { margin: 20px 0; }
-#recipesGrid .thumbnail { padding: 0; }
-#recipesGrid .thumbnail .caption { font-size: 1.3em; }
+.centeredTitle {text-align: center}
 
 
 
 
+
+/* ######################################## RECIPES ######################################## */
+#recipesGrid .col-xs-12,
+#recipesGrid .col-sm-4 {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/*#recipesGrid > div.row:not(:last-child) > div > div.thumbnail { border-bottom: 0}*/
+
+
+#recipesGrid {margin: 20px 0;}
+
+#recipesGrid .thumbnail {
+    position: relative;
+    margin-bottom: 0;
+    padding: 0;
+    border-radius: 0;
+}
+
+#recipesGrid .thumbnail .caption {
+    position: absolute;
+        left: 20px;
+        bottom: 0;
+
+    color: #fff;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 500px) { /* smartphones */
+    #recipesGrid .thumbnail img {width: 100%}
+}
+
+@media only screen and (min-width: 501px) and (max-width: 767px) { /* ugly width until tables */
+    #recipesGrid .thumbnail {border: 0}
+    #recipesGrid .thumbnail .caption {left: 20%}
+    #recipesGrid .thumbnail img {width: 70%}
+}
+
+
+
+
+
+
+/* ######################################## RECIPE ######################################## */
 #imageChartWrapper {
     width: 100%;
     margin: 40px 0;
@@ -69,15 +111,15 @@
         margin-right: 0;
     }
 
-    #imageChartWrapper .roundImageWrapper { margin-bottom: 20px; }
+    #imageChartWrapper .roundImageWrapper {margin-bottom: 20px}
 }
 
-#ingredientList, #cookingStepList {
+#ingredientList,
+#cookingStepList {
     margin: 40px 0;
     text-align: center;
     line-height: 1.5em;
 }
 
-#ingredientList { font-size: 1.3em; }
-#cookingStepList { font-size: 1.1em; }
-.centeredTitle { text-align: center; }
+#ingredientList {font-size: 1.3em}
+#cookingStepList {font-size: 1.1em}

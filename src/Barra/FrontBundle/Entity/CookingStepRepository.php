@@ -22,9 +22,9 @@ class CookingStepRepository extends EntityRepository
         return $query->getResult();
     }
 
-    public function getNextPosition($recipeId) {
+    public function getHighestPosition($recipeId) {
         $query = $this->createQueryBuilder('c')
-            ->select('MAX(c.position)+1')
+            ->select('MAX(c.position)')
             ->where('c.recipe = :recipeId')
             ->setParameter('recipeId', $recipeId)
             ->getQuery();

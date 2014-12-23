@@ -2,6 +2,7 @@
 
 namespace Barra\BackBundle\Form\Type;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -11,8 +12,13 @@ class RecipeIngredientUpdateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('recipe', 'hidden', array('mapped' => false, 'label'=>false))
-            ->add('position', 'hidden', array('label'=>false))
+            ->add('recipe', 'hidden', array(
+                    'mapped' => false,
+                    'label'=>false
+                ))
+            ->add('position', 'hidden', array(
+                    'label'=>false
+                ))
             ->add('amount', 'integer', array(
                     'required' => false,
                     'attr'=>array('placeholder'=>'back.recipeIngredient.amount')
@@ -20,13 +26,14 @@ class RecipeIngredientUpdateType extends AbstractType
             ->add('measurement', 'entity', array(
                     'class' => 'BarraFrontBundle:Measurement',
                     'property' => 'type',
-                    'required' => false,
-                    'attr'=>array('placeholder'=>'back.measurement.type')
+                    'required' => false
                 ))
             ->add('ingredient', 'entity', array(
                     'class' => 'BarraFrontBundle:Ingredient',
-                    'property' => 'name',
-                    'attr'=>array('placeholder'=>'back.ingredient.name')
+                    'query_builder' => function(EntityRepository $er) {
+                            return $er->createQueryBuilder('i')->orderBy('i.name', 'ASC');
+                        },
+                    'property' => 'name'
                 ))
             ->add('submit', 'submit')
             ->getForm();

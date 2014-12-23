@@ -57,6 +57,9 @@ class CookingStepController extends Controller
         $em->remove($cooking);
         $em->flush();
 
+        $endPos = $em->getRepository('BarraFrontBundle:CookingStep')->getHighestPosition($recipeId);
+        $steps = $em->getRepository('BarraFrontBundle:CookingStep')->changeBetweenPos($recipeId, $position+1, $endPos, -1);
+
         $recipe = $em->getRepository('BarraFrontBundle:Recipe')->find($recipeId);
         return $this->redirect($this->generateUrl('barra_back_recipeDetail', array('name'=>$recipe->getName())));
     }

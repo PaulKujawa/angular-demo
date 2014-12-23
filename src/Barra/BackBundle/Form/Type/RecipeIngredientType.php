@@ -2,6 +2,7 @@
 
 namespace Barra\BackBundle\Form\Type;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -23,6 +24,9 @@ class RecipeIngredientType extends AbstractType
             ))
             ->add('ingredient', 'entity', array(
                     'class' => 'BarraFrontBundle:Ingredient',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->createQueryBuilder('i')->orderBy('i.name', 'ASC');
+                        },
                     'property' => 'name',
                     'attr'=>array('placeholder'=>'back.ingredient.name')
             ))
