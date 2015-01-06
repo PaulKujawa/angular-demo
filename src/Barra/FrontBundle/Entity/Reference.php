@@ -25,17 +25,6 @@ class Reference
     private $url;
 
     /**
-     * @ORM\Column(name="agency", type="string", length=30)
-     */
-    private $agency;
-
-    /**
-     * @ORM\Column(name="agencyUrl", type="string", length=30)
-     */
-    private $agencyUrl;
-
-
-    /**
      * @ORM\Column(name="description", type="string", length=30)
      */
     private $description;
@@ -49,6 +38,18 @@ class Reference
      * @ORM\Column(name="finished", type="date")
      */
     private $finished;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Agency")
+     * @ORM\JoinColumn(name="agency", referencedColumnName="id", nullable=false)
+     */
+    private $agency;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ReferenceTechnique", mappedBy="reference")
+     */
+    private $referenceTechniques;
+
 
     /**
      * Get id
@@ -81,52 +82,6 @@ class Reference
     public function getUrl()
     {
         return $this->url;
-    }
-
-    /**
-     * Set agency
-     *
-     * @param string $agency
-     * @return Reference
-     */
-    public function setAgency($agency)
-    {
-        $this->agency = $agency;
-
-        return $this;
-    }
-
-    /**
-     * Get agency
-     *
-     * @return string 
-     */
-    public function getAgency()
-    {
-        return $this->agency;
-    }
-
-    /**
-     * Set agencyUrl
-     *
-     * @param string $agencyUrl
-     * @return Reference
-     */
-    public function setAgencyUrl($agencyUrl)
-    {
-        $this->agencyUrl = $agencyUrl;
-
-        return $this;
-    }
-
-    /**
-     * Get agencyUrl
-     *
-     * @return string 
-     */
-    public function getAgencyUrl()
-    {
-        return $this->agencyUrl;
     }
 
     /**
@@ -196,5 +151,68 @@ class Reference
     public function getFinished()
     {
         return $this->finished;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->referenceTechniques = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add referenceTechniques
+     *
+     * @param \Barra\FrontBundle\Entity\ReferenceTechnique $referenceTechniques
+     * @return Reference
+     */
+    public function addReferenceTechnique(\Barra\FrontBundle\Entity\ReferenceTechnique $referenceTechniques)
+    {
+        $this->referenceTechniques[] = $referenceTechniques;
+
+        return $this;
+    }
+
+    /**
+     * Remove referenceTechniques
+     *
+     * @param \Barra\FrontBundle\Entity\ReferenceTechnique $referenceTechniques
+     */
+    public function removeReferenceTechnique(\Barra\FrontBundle\Entity\ReferenceTechnique $referenceTechniques)
+    {
+        $this->referenceTechniques->removeElement($referenceTechniques);
+    }
+
+    /**
+     * Get referenceTechniques
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getReferenceTechniques()
+    {
+        return $this->referenceTechniques;
+    }
+
+    /**
+     * Set agency
+     *
+     * @param \Barra\FrontBundle\Entity\Agency $agency
+     * @return Reference
+     */
+    public function setAgency(\Barra\FrontBundle\Entity\Agency $agency)
+    {
+        $this->agency = $agency;
+
+        return $this;
+    }
+
+    /**
+     * Get agency
+     *
+     * @return \Barra\FrontBundle\Entity\Agency 
+     */
+    public function getAgency()
+    {
+        return $this->agency;
     }
 }

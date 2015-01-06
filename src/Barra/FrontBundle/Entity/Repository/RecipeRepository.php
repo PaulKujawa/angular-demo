@@ -1,15 +1,15 @@
 <?php
 
-namespace Barra\FrontBundle\Entity;
+namespace Barra\FrontBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
-class IngredientRepository extends EntityRepository
+class RecipeRepository extends EntityRepository
 {
     public function getSome($first, $amount)
     {
-        $query = $this->createQueryBuilder('i')
-            ->orderBy('i.name', 'ASC')
+        $query = $this->createQueryBuilder('r')
+            ->orderBy('r.name', 'ASC')
             ->setFirstResult($first)
             ->setMaxResults($amount)
             ->getQuery();
@@ -19,8 +19,8 @@ class IngredientRepository extends EntityRepository
 
     public function count()
     {
-        $query = $this->createQueryBuilder('i')
-            ->select('COUNT(i)')
+        $query = $this->createQueryBuilder('r')
+            ->select('COUNT(r)')
             ->getQuery();
         return $query->getSingleResult()[1];
     }

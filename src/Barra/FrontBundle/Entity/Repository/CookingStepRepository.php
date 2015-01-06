@@ -1,18 +1,18 @@
 <?php
 
-namespace Barra\FrontBundle\Entity;
+namespace Barra\FrontBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
-class RecipeIngredientRepository extends EntityRepository
+class CookingStepRepository extends EntityRepository
 {
     public function changeBetweenPos($recipeId, $posBefore, $posAfter, $difference)
     {
-        $query = $this->createQueryBuilder('ri')
+        $query = $this->createQueryBuilder('c')
             ->update()
-            ->set('ri.position', 'ri.position + :difference')
-            ->where('ri.recipe = :recipeId')
-            ->andWhere('ri.position BETWEEN :posBefore AND :posAfter')
+            ->set('c.position', 'c.position + :difference')
+            ->where('c.recipe = :recipeId')
+            ->andWhere('c.position BETWEEN :posBefore AND :posAfter')
             ->setParameter('posBefore', $posBefore)
             ->setParameter('posAfter', $posAfter)
             ->setParameter('recipeId', $recipeId)
@@ -23,9 +23,9 @@ class RecipeIngredientRepository extends EntityRepository
     }
 
     public function getHighestPosition($recipeId) {
-        $query = $this->createQueryBuilder('ri')
-            ->select('MAX(ri.position)')
-            ->where('ri.recipe = :recipeId')
+        $query = $this->createQueryBuilder('c')
+            ->select('MAX(c.position)')
+            ->where('c.recipe = :recipeId')
             ->setParameter('recipeId', $recipeId)
             ->getQuery();
 

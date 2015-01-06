@@ -5,48 +5,37 @@ namespace Barra\FrontBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Reference
+ * Technique
  *
  * @ORM\Table()
- * @ORM\Entity()
+ * @ORM\Entity
  */
-class Reference
+class Technique
 {
     /**
-     * @ORM\Id
      * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
-     * @ORM\Column(name="url", type="string", length=30, unique=true)
+     * @ORM\Column(name="name", type="string", length=30)
      */
-    private $url;
+    private $name;
 
     /**
-     * @ORM\Column(name="description", type="string", length=30)
+     * @ORM\Column(name="description", type="string", length=255)
      */
     private $description;
 
     /**
-     * @ORM\Column(name="started", type="date")
+     * @ORM\Column(name="url", type="string", length=30)
      */
-    private $started;
+    private $url;
 
     /**
-     * @ORM\Column(name="finished", type="date")
-     */
-    private $finished;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Agency")
-     * @ORM\JoinColumn(name="agency", referencedColumnName="id", nullable=false)
-     */
-    private $agency;
-
-    /**
-     * @ORM\OneToMany(targetEntity="ReferenceTechnique", mappedBy="reference")
+     * @ORM\OneToMany(targetEntity="ReferenceTechnique", mappedBy="technique")
      */
     private $referenceTechniques;
 
@@ -62,33 +51,33 @@ class Reference
     }
 
     /**
-     * Set url
+     * Set name
      *
-     * @param string $url
-     * @return Reference
+     * @param string $name
+     * @return Technique
      */
-    public function setUrl($url)
+    public function setName($name)
     {
-        $this->url = $url;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get url
+     * Get name
      *
      * @return string 
      */
-    public function getUrl()
+    public function getName()
     {
-        return $this->url;
+        return $this->name;
     }
 
     /**
      * Set description
      *
      * @param string $description
-     * @return Reference
+     * @return Technique
      */
     public function setDescription($description)
     {
@@ -108,49 +97,26 @@ class Reference
     }
 
     /**
-     * Set started
+     * Set url
      *
-     * @param \DateTime $started
-     * @return Reference
+     * @param string $url
+     * @return Technique
      */
-    public function setStarted($started)
+    public function setUrl($url)
     {
-        $this->started = $started;
+        $this->url = $url;
 
         return $this;
     }
 
     /**
-     * Get started
+     * Get url
      *
-     * @return \DateTime 
+     * @return string 
      */
-    public function getStarted()
+    public function getUrl()
     {
-        return $this->started;
-    }
-
-    /**
-     * Set finished
-     *
-     * @param \DateTime $finished
-     * @return Reference
-     */
-    public function setFinished($finished)
-    {
-        $this->finished = $finished;
-
-        return $this;
-    }
-
-    /**
-     * Get finished
-     *
-     * @return \DateTime 
-     */
-    public function getFinished()
-    {
-        return $this->finished;
+        return $this->url;
     }
     /**
      * Constructor
@@ -164,7 +130,7 @@ class Reference
      * Add referenceTechniques
      *
      * @param \Barra\FrontBundle\Entity\ReferenceTechnique $referenceTechniques
-     * @return Reference
+     * @return Technique
      */
     public function addReferenceTechnique(\Barra\FrontBundle\Entity\ReferenceTechnique $referenceTechniques)
     {
