@@ -11,7 +11,9 @@ class CookingStepType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('description', 'text', array('attr'=>array('placeholder'=>'back.cookingStep.description')))
+            ->add('description', 'text', array(
+                    'attr'=>array('placeholder'=>'back.cookingStep.description')
+                ))
             ->add('submit', 'submit')
             ->getForm();
     }

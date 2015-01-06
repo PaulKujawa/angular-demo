@@ -4,6 +4,7 @@ namespace Barra\BackBundle\Controller;
 
 use Barra\FrontBundle\Entity\Reference;
 use Barra\BackBundle\Form\Type\ReferenceType;
+
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,13 +32,13 @@ class ReferenceController extends Controller
 
         return $this->render('BarraBackBundle:Reference:references.html.twig', array(
                 'references' => $references,
-                'form' => $formInsert->createView()
+                'formInsert' => $formInsert->createView()
             ));
     }
 
     public function newReference($reference)
     {
-        $em = $this->getDoctrine()->getManager();
+        /*$em = $this->getDoctrine()->getManager();
         $em->persist($reference);
 
         try {
@@ -45,12 +46,12 @@ class ReferenceController extends Controller
         } catch (\Doctrine\DBAL\DBALException $e) {
             return $this->get('translator')->trans("back.message.insertError");
         }
-        return null;
+        return null;*/
     }
 
     public function deleteReferenceAction($website)
     {
-        $em = $this->getDoctrine()->getManager();
+       /* $em = $this->getDoctrine()->getManager();
         $reference = $em->getRepository('BarraFrontBundle:Reference')->findOneByWebsite($website);
 
         if (!$reference)
@@ -63,6 +64,6 @@ class ReferenceController extends Controller
             return new Response('Reference could not be deleted');
         }
 
-        return $this->redirect($this->generateUrl('barra_back_references'));
+        return $this->redirect($this->generateUrl('barra_back_references'));*/
     }
 }

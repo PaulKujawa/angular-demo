@@ -1,17 +1,21 @@
 <?php
 
-namespace Barra\BackBundle\Form\Type;
+namespace Barra\BackBundle\Form\Type\Update;
 
 use Barra\FrontBundle\Entity\RecipeIngredient;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class RecipeType extends AbstractType
+class RecipeUpdateType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('id', 'hidden', array(
+                    'mapped' => false,
+                    'label'=>false
+                ))
             ->add('name', 'text', array(
                     'attr'=>array('placeholder'=>'back.recipe.name')
                 ))
@@ -28,6 +32,6 @@ class RecipeType extends AbstractType
 
     public function getName()
     {
-        return 'formRecipe';
+        return 'formRecipeUpdate';
     }
 }

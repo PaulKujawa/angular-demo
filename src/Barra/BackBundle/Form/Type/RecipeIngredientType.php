@@ -26,7 +26,7 @@ class RecipeIngredientType extends AbstractType
                     'class' => 'BarraFrontBundle:Ingredient',
                     'query_builder' => function(EntityRepository $er) {
                         return $er->createQueryBuilder('i')->orderBy('i.name', 'ASC');
-                        },
+                    },
                     'property' => 'name',
                     'attr'=>array('placeholder'=>'back.ingredient.name')
             ))

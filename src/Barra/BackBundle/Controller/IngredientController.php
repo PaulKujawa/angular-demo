@@ -4,7 +4,8 @@ namespace Barra\BackBundle\Controller;
 
 use Barra\FrontBundle\Entity\Ingredient;
 use Barra\BackBundle\Form\Type\IngredientType;
-use Barra\BackBundle\Form\Type\IngredientUpdateType;
+use Barra\BackBundle\Form\Type\Update\IngredientUpdateType;
+
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;

@@ -11,7 +11,9 @@ class ManufacturerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', array('attr'=>array('placeholder'=>'back.manufacturer.name')))
+            ->add('name', 'text', array(
+                    'attr'=>array('placeholder'=>'back.manufacturer.name')
+                ))
             ->add('submit', 'submit')
             ->getForm();
     }

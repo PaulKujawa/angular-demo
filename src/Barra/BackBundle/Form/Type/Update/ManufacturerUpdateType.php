@@ -1,6 +1,6 @@
 <?php
 
-namespace Barra\BackBundle\Form\Type;
+namespace Barra\BackBundle\Form\Type\Update;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

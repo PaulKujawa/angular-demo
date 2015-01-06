@@ -7,9 +7,10 @@ use Barra\FrontBundle\Entity\CookingStep;
 use Barra\FrontBundle\Entity\RecipeIngredient;
 use Barra\BackBundle\Form\Type\UploadedImageType;
 use Barra\BackBundle\Form\Type\CookingStepType;
-use Barra\BackBundle\Form\Type\CookingStepUpdateType;
 use Barra\BackBundle\Form\Type\RecipeIngredientType;
-use Barra\BackBundle\Form\Type\RecipeIngredientUpdateType;
+use Barra\BackBundle\Form\Type\Update\CookingStepUpdateType;
+use Barra\BackBundle\Form\Type\Update\RecipeIngredientUpdateType;
+
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;

@@ -11,7 +11,10 @@ class UploadedImageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('recipe', 'hidden', array('mapped' => false, 'label'=>false))
+            ->add('recipe', 'hidden', array(
+                    'mapped' => false,
+                    'label'=>false
+                ))
             ->add('file', 'file')
             ->getForm();
     }

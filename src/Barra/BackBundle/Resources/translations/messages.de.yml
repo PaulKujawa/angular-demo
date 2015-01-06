@@ -40,20 +40,30 @@ back:
   recipe: #object
     name: Name
 
-  reference: #object
-    company: Firma
-    description: Beschreibung
-    finished: Abgeschlossen
-    finishedPlaceholder: bis tt.mm.jjjj
-    started: Begonnen
-    startedPlaceholder: von tt.mm.jjjj
-    website: Webseite
-
   cookingStep: #object
     description: Beschreibung
 
   recipeIngredient: #object
     amount: Menge
+
+  reference: #object
+    url: Url
+    description: Beschreibung
+    started: Begonnen
+    finished: Abgeschlossen
+    startedPlaceholder: von tt.mm.jjjj
+    finishedPlaceholder: bis tt.mm.jjjj
+    agency: Agentur
+    techniques: Techniken
+
+  agency: #object
+    name: Name
+    url: Url
+
+  technique: #object
+    name: Name
+    description: Beschreibung
+    url: Url
 
   word:
     ingredient: Zutat

@@ -4,7 +4,8 @@ namespace Barra\BackBundle\Controller;
 
 use Barra\FrontBundle\Entity\Recipe;
 use Barra\BackBundle\Form\Type\RecipeType;
-use Barra\BackBundle\Form\Type\RecipeUpdateType;
+use Barra\BackBundle\Form\Type\Update\RecipeUpdateType;
+
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;

@@ -4,7 +4,8 @@ namespace Barra\BackBundle\Controller;
 
 use Barra\FrontBundle\Entity\Measurement;
 use Barra\BackBundle\Form\Type\MeasurementType;
-use Barra\BackBundle\Form\Type\MeasurementUpdateType;
+use Barra\BackBundle\Form\Type\Update\MeasurementUpdateType;
+
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;

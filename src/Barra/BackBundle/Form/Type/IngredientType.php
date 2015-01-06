@@ -13,7 +13,8 @@ class IngredientType extends AbstractType
     {
         $builder
             ->add('name', 'text', array(
-                    'attr'=>array('placeholder'=>'back.ingredient.name')))
+                    'attr'=>array('placeholder'=>'back.ingredient.name')
+                ))
             ->add('vegan', 'checkbox', array(
                     'required'=>false
                 ))
@@ -47,8 +48,8 @@ class IngredientType extends AbstractType
             ->add('manufacturer', 'entity', array(
                     'class' => 'BarraFrontBundle:Manufacturer',
                     'query_builder' => function(EntityRepository $er) {
-                            return $er->createQueryBuilder('m')->orderBy('m.name', 'ASC');
-                        },
+                        return $er->createQueryBuilder('m')->orderBy('m.name', 'ASC');
+                    },
                     'property' => 'name'
                 ))
             ->add('submit', 'submit')

@@ -1,6 +1,6 @@
 <?php
 
-namespace Barra\BackBundle\Form\Type;
+namespace Barra\BackBundle\Form\Type\Update;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -11,9 +11,16 @@ class CookingStepUpdateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('recipe', 'hidden', array('mapped' => false, 'label'=>false))
-            ->add('position', 'hidden', array('label'=>false))
-            ->add('description', 'text', array('attr'=>array('placeholder'=>'back.cookingStep.description')))
+            ->add('recipe', 'hidden', array(
+                    'mapped' => false,
+                    'label'=>false
+                ))
+            ->add('position', 'hidden', array(
+                    'label'=>false
+                ))
+            ->add('description', 'text', array(
+                    'attr'=>array('placeholder'=>'back.cookingStep.description')
+                ))
             ->add('submit', 'submit')
             ->getForm();
     }

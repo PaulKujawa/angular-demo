@@ -35,10 +35,18 @@ class Technique
     private $url;
 
     /**
-     * @ORM\OneToMany(targetEntity="ReferenceTechnique", mappedBy="technique")
+     * @ORM\ManyToMany(targetEntity="Reference", inversedBy="techniques")
+     * @ORM\JoinTable(name="ReferenceTechnique")
      */
-    private $referenceTechniques;
+    private $references;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->references = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -118,44 +126,37 @@ class Technique
     {
         return $this->url;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->referenceTechniques = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
-     * Add referenceTechniques
+     * Add references
      *
-     * @param \Barra\FrontBundle\Entity\ReferenceTechnique $referenceTechniques
+     * @param \Barra\FrontBundle\Entity\Reference $references
      * @return Technique
      */
-    public function addReferenceTechnique(\Barra\FrontBundle\Entity\ReferenceTechnique $referenceTechniques)
+    public function addReference(\Barra\FrontBundle\Entity\Reference $references)
     {
-        $this->referenceTechniques[] = $referenceTechniques;
+        $this->references[] = $references;
 
         return $this;
     }
 
     /**
-     * Remove referenceTechniques
+     * Remove references
      *
-     * @param \Barra\FrontBundle\Entity\ReferenceTechnique $referenceTechniques
+     * @param \Barra\FrontBundle\Entity\Reference $references
      */
-    public function removeReferenceTechnique(\Barra\FrontBundle\Entity\ReferenceTechnique $referenceTechniques)
+    public function removeReference(\Barra\FrontBundle\Entity\Reference $references)
     {
-        $this->referenceTechniques->removeElement($referenceTechniques);
+        $this->references->removeElement($references);
     }
 
     /**
-     * Get referenceTechniques
+     * Get references
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getReferenceTechniques()
+    public function getReferences()
     {
-        return $this->referenceTechniques;
+        return $this->references;
     }
 }

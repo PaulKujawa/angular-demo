@@ -40,20 +40,30 @@ back:
   recipe: #object
     name: Name
 
-  reference: #object
-    company: Company
-    description: Description
-    finished: Finished
-    finishedPlaceholder: until dd.mm.yyyy
-    started: Started
-    startedPlaceholder: from dd.mm.yyyy
-    website: Website
-
   cookingStep: #object
     description: Description
 
   recipeIngredient: #object
     amount: Amount
+
+  reference: #object
+    url: Url
+    description: Description
+    started: Started
+    finished: Finished
+    startedPlaceholder: from dd.mm.yyyy
+    finishedPlaceholder: until dd.mm.yyyy
+    agency: Agency
+    techniques: Techniques
+
+  agency: #object
+    name: Name
+    url: Url
+
+  technique: #object
+    name: Name
+    description: Description
+    url: Url
 
   word:
     ingredient: Ingredient

@@ -1,6 +1,6 @@
 <?php
 
-namespace Barra\BackBundle\Form\Type;
+namespace Barra\BackBundle\Form\Type\Update;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
@@ -12,9 +12,13 @@ class IngredientUpdateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('id', 'hidden', array('mapped' => false, 'label'=>false))
+            ->add('id', 'hidden', array(
+                    'mapped' => false,
+                    'label'=>false
+                ))
             ->add('name', 'text', array(
-                    'attr'=>array('placeholder'=>'back.ingredient.name')))
+                    'attr'=>array('placeholder'=>'back.ingredient.name')
+                ))
             ->add('vegan', 'checkbox', array(
                     'required'=>false
                 ))
@@ -48,8 +52,8 @@ class IngredientUpdateType extends AbstractType
             ->add('manufacturer', 'entity', array(
                     'class' => 'BarraFrontBundle:Manufacturer',
                     'query_builder' => function(EntityRepository $er) {
-                            return $er->createQueryBuilder('m')->orderBy('m.name', 'ASC');
-                        },
+                        return $er->createQueryBuilder('m')->orderBy('m.name', 'ASC');
+                    },
                     'property' => 'name'
                 ))
             ->add('submit', 'submit')

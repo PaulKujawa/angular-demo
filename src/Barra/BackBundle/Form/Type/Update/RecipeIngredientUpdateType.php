@@ -1,6 +1,6 @@
 <?php
 
-namespace Barra\BackBundle\Form\Type;
+namespace Barra\BackBundle\Form\Type\Update;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
@@ -31,8 +31,8 @@ class RecipeIngredientUpdateType extends AbstractType
             ->add('ingredient', 'entity', array(
                     'class' => 'BarraFrontBundle:Ingredient',
                     'query_builder' => function(EntityRepository $er) {
-                            return $er->createQueryBuilder('i')->orderBy('i.name', 'ASC');
-                        },
+                        return $er->createQueryBuilder('i')->orderBy('i.name', 'ASC');
+                    },
                     'property' => 'name'
                 ))
             ->add('submit', 'submit')

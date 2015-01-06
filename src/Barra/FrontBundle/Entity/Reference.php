@@ -46,10 +46,16 @@ class Reference
     private $agency;
 
     /**
-     * @ORM\OneToMany(targetEntity="ReferenceTechnique", mappedBy="reference")
+     * @ORM\ManyToMany(targetEntity="Technique", mappedBy="references")
      */
-    private $referenceTechniques;
-
+    private $techniques;
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->techniques = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -152,46 +158,6 @@ class Reference
     {
         return $this->finished;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->referenceTechniques = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add referenceTechniques
-     *
-     * @param \Barra\FrontBundle\Entity\ReferenceTechnique $referenceTechniques
-     * @return Reference
-     */
-    public function addReferenceTechnique(\Barra\FrontBundle\Entity\ReferenceTechnique $referenceTechniques)
-    {
-        $this->referenceTechniques[] = $referenceTechniques;
-
-        return $this;
-    }
-
-    /**
-     * Remove referenceTechniques
-     *
-     * @param \Barra\FrontBundle\Entity\ReferenceTechnique $referenceTechniques
-     */
-    public function removeReferenceTechnique(\Barra\FrontBundle\Entity\ReferenceTechnique $referenceTechniques)
-    {
-        $this->referenceTechniques->removeElement($referenceTechniques);
-    }
-
-    /**
-     * Get referenceTechniques
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getReferenceTechniques()
-    {
-        return $this->referenceTechniques;
-    }
 
     /**
      * Set agency
@@ -214,5 +180,38 @@ class Reference
     public function getAgency()
     {
         return $this->agency;
+    }
+
+    /**
+     * Add techniques
+     *
+     * @param \Barra\FrontBundle\Entity\Technique $techniques
+     * @return Reference
+     */
+    public function addTechnique(\Barra\FrontBundle\Entity\Technique $techniques)
+    {
+        $this->techniques[] = $techniques;
+
+        return $this;
+    }
+
+    /**
+     * Remove techniques
+     *
+     * @param \Barra\FrontBundle\Entity\Technique $techniques
+     */
+    public function removeTechnique(\Barra\FrontBundle\Entity\Technique $techniques)
+    {
+        $this->techniques->removeElement($techniques);
+    }
+
+    /**
+     * Get techniques
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTechniques()
+    {
+        return $this->techniques;
     }
 }

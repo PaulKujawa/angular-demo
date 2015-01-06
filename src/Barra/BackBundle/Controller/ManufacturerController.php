@@ -4,7 +4,8 @@ namespace Barra\BackBundle\Controller;
 
 use Barra\FrontBundle\Entity\Manufacturer;
 use Barra\BackBundle\Form\Type\ManufacturerType;
-use Barra\BackBundle\Form\Type\ManufacturerUpdateType;
+use Barra\BackBundle\Form\Type\Update\ManufacturerUpdateType;
+
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;

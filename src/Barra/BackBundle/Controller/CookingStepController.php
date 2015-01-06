@@ -4,7 +4,8 @@ namespace Barra\BackBundle\Controller;
 
 use Barra\FrontBundle\Entity\CookingStep;
 use Barra\BackBundle\Form\Type\CookingStepType;
-use Barra\BackBundle\Form\Type\CookingStepUpdateType;
+use Barra\BackBundle\Form\Type\Update\CookingStepUpdateType;
+
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;

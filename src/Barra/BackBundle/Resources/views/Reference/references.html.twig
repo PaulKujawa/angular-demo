@@ -1,48 +1,74 @@
 {% extends 'BarraBackBundle::layout.html.twig' %}
-{% form_theme form 'BarraBackBundle:Form:tableRow.html.twig' %}
+{% form_theme formInsert 'BarraBackBundle:Form:tableRow.html.twig' %}
+
 {% trans_default_domain "messages" %}
 
 {% block title %}{{ 'back.title.references'|trans() }}{% endblock %}
 
 {% block section %}
     <section class="container mobileTables">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>{{ 'back.reference.website'|trans() }}</th>
-                <th>{{ 'back.reference.company'|trans() }}</th>
-                <th>{{ 'back.reference.description'|trans() }}</th>
-                <th>{{ 'back.reference.started'|trans() }}</th>
-                <th>{{ 'back.reference.finished'|trans() }}</th>
-                <th>{{ 'back.action.delete'|trans() }}</th>
-            </tr>
-            </thead>
-            <tbody>
-                {% for reference in references %}
+        {{ form_start(formInsert) }}
+            <table class="table table-striped" data-type="reference">
+                <thead>
                     <tr>
-                        <td data-title={{ 'back.reference.website'|trans() }}>{{ reference.website }}</td>
-                        <td data-title={{ 'back.reference.company'|trans() }}>{{ reference.company }}</td>
-                        <td data-title={{ 'back.reference.description'|trans() }}>{{ reference.description }}</td>
-                        <td data-title={{ 'back.reference.started'|trans() }}> {{ reference.started|date('d.m.Y') }}
-                        <td data-title={{ 'back.reference.finished'|trans() }}> {{ reference.finished|date('d.m.Y') }}</td>
-                        <td data-title={{ 'back.action.delete'|trans() }}>
-                            <a href="{{ path('barra_back_reference_delete', {'website': reference.website}) }}">
-                                <span class="glyphicon glyphicon-minus"></span>
-                            </a>
+                        <th>{{ 'back.reference.url'|trans() }}</th>
+                        <th>{{ 'back.reference.description'|trans() }}</th>
+                        <th>{{ 'back.reference.started'|trans() }}</th>
+                        <th>{{ 'back.reference.finished'|trans() }}</th>
+                        <th>{{ 'back.reference.agency'|trans() }}</th>
+                        <th>{{ 'back.reference.techniques'|trans() }}</th>
+                        <th>{{ 'back.action.delete'|trans() }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reference in references %}
+                        <tr data-id={{ reference.id }}>
+                            <td class="editableCell" data-mobile-title={{ 'back.reference.url'|trans() }}>{{ reference.url }}</td>
+                            <td class="editableCell" data-mobile-title={{ 'back.reference.description'|trans() }}>{{ reference.description }}</td>
+                            <td class="editableCell" data-mobile-title={{ 'back.reference.started'|trans() }}> {{ reference.started|date('d.m.Y') }}
+                            <td class="editableCell" data-mobile-title={{ 'back.reference.finished'|trans() }}> {{ reference.finished|date('d.m.Y') }}</td>
+                            <td class="editableCell" data-mobile-title={{ 'back.reference.agency'|trans() }}>{{ reference.agency }}</td>
+                            <td class="editableCell" data-mobile-title={{ 'back.reference.techniques'|trans() }}>{{ reference.techniques }}</td>
+                            <td class="editableCell" data-mobile-title={{ 'back.action.delete'|trans() }}>
+                                <a href="{{ path('barra_back_reference_delete', {'id': reference.id}) }}">
+                                    <span class="glyphicon glyphicon-minus"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr class="formInRow">
+                        {{ form_row(formInsert.url) }}
+                        {{ form_row(formInsert.description) }}
+                        {{ form_row(formInsert.started) }}
+                        {{ form_row(formInsert.finished) }}
+                        {{ form_row(formInsert.agency) }}
+                        {{ form_row(formInsert.techniques) }}
+                        {{ form_widget(formInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn'} }) }}
+                    </tr>
+                    <tr class="formInRowError">
+                        <td>
+                            {{ form_errors(formInsert) }}
                         </td>
                     </tr>
-                {% endfor %}
-            <tr>
-                {{ form_start(form) }}
-                    {{ form_row(form.website) }}
-                    {{ form_row(form.company) }}
-                    {{ form_row(form.description) }}
-                    {{ form_row(form.started) }}
-                    {{ form_row(form.finished) }}
-                    {{ form_widget(form.submit, {'label': 'back.action.new', 'attr': {'class': 'btn'} }) }}
-                {{ form_end(form) }}
+                </tbody>
+            </table>
+        {{ form_end(formInsert) }}
+
+        <!--
+        <table class="jsStorage" data-type="recipe" style="visibility: hidden">
+            <tbody>
+            { form_start(formUpdate, {'action': path('barra_back_recipe_update')}) }}
+            <tr class="formInRow">
+                { form_row(formUpdate.name) }}
+                { form_widget(formUpdate.submit, {'label': 'back.action.update', 'attr': {'class': 'btn'} }) }}
+                { form_row(formUpdate.id, {'attr': {'class': 'formPk'} }) }}
+                { form_rest(formUpdate) }}
             </tr>
+            { form_end(formUpdate) }}
             </tbody>
         </table>
+        -->
+
+        <!--{ include('BarraBackBundle::pagination.html.twig', { 'route': 'barra_back_recipes'})}}-->
     </section>
 {% endblock %}
