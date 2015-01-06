@@ -14,14 +14,26 @@ class Reference
 {
     /**
      * @ORM\Id
-     * @ORM\Column(name="website", type="string", length=30)
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $website;
+    private $id;
 
     /**
-     * @ORM\Column(name="company", type="string", length=30)
+     * @ORM\Column(name="url", type="string", length=30, unique=true)
      */
-    private $company;
+    private $url;
+
+    /**
+     * @ORM\Column(name="agency", type="string", length=30)
+     */
+    private $agency;
+
+    /**
+     * @ORM\Column(name="agencyUrl", type="string", length=30)
+     */
+    private $agencyUrl;
+
 
     /**
      * @ORM\Column(name="description", type="string", length=30)
@@ -37,51 +49,84 @@ class Reference
      * @ORM\Column(name="finished", type="date")
      */
     private $finished;
- 
+
     /**
-     * Set company
+     * Get id
      *
-     * @param string $company
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set url
+     *
+     * @param string $url
      * @return Reference
      */
-    public function setCompany($company)
+    public function setUrl($url)
     {
-        $this->company = $company;
+        $this->url = $url;
 
         return $this;
     }
 
     /**
-     * Get company
+     * Get url
      *
      * @return string 
      */
-    public function getCompany()
+    public function getUrl()
     {
-        return $this->company;
+        return $this->url;
     }
 
     /**
-     * Set website
+     * Set agency
      *
-     * @param string $website
+     * @param string $agency
      * @return Reference
      */
-    public function setWebsite($website)
+    public function setAgency($agency)
     {
-        $this->website = $website;
+        $this->agency = $agency;
 
         return $this;
     }
 
     /**
-     * Get website
+     * Get agency
      *
      * @return string 
      */
-    public function getWebsite()
+    public function getAgency()
     {
-        return $this->website;
+        return $this->agency;
+    }
+
+    /**
+     * Set agencyUrl
+     *
+     * @param string $agencyUrl
+     * @return Reference
+     */
+    public function setAgencyUrl($agencyUrl)
+    {
+        $this->agencyUrl = $agencyUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get agencyUrl
+     *
+     * @return string 
+     */
+    public function getAgencyUrl()
+    {
+        return $this->agencyUrl;
     }
 
     /**

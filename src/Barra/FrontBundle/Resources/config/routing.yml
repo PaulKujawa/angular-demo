@@ -11,10 +11,6 @@ barra_front_references:
     path:     /references
     defaults: { _controller: BarraFrontBundle:Reference:index }
 
-barra_front_reference:
-    path:     /reference/{website}
-    defaults: { _controller: BarraFrontBundle:ReferenceDetail:index }
-
 
 
 

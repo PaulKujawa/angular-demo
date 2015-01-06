@@ -14,14 +14,26 @@ class Reference
 {
     /**
      * @ORM\Id
-     * @ORM\Column(name="website", type="string", length=30)
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $website;
+    private $id;
 
     /**
-     * @ORM\Column(name="company", type="string", length=30)
+     * @ORM\Column(name="url", type="string", length=30, unique=true)
      */
-    private $company;
+    private $url;
+
+    /**
+     * @ORM\Column(name="agency", type="string", length=30)
+     */
+    private $agency;
+
+    /**
+     * @ORM\Column(name="agencyUrl", type="string", length=30)
+     */
+    private $agencyUrl;
+
 
     /**
      * @ORM\Column(name="description", type="string", length=30)
@@ -37,119 +49,4 @@ class Reference
      * @ORM\Column(name="finished", type="date")
      */
     private $finished;
- 
-    /**
-     * Set company
-     *
-     * @param string $company
-     * @return Reference
-     */
-    public function setCompany($company)
-    {
-        $this->company = $company;
-
-        return $this;
-    }
-
-    /**
-     * Get company
-     *
-     * @return string 
-     */
-    public function getCompany()
-    {
-        return $this->company;
-    }
-
-    /**
-     * Set website
-     *
-     * @param string $website
-     * @return Reference
-     */
-    public function setWebsite($website)
-    {
-        $this->website = $website;
-
-        return $this;
-    }
-
-    /**
-     * Get website
-     *
-     * @return string 
-     */
-    public function getWebsite()
-    {
-        return $this->website;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return Reference
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string 
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Set started
-     *
-     * @param \DateTime $started
-     * @return Reference
-     */
-    public function setStarted($started)
-    {
-        $this->started = $started;
-
-        return $this;
-    }
-
-    /**
-     * Get started
-     *
-     * @return \DateTime 
-     */
-    public function getStarted()
-    {
-        return $this->started;
-    }
-
-    /**
-     * Set finished
-     *
-     * @param \DateTime $finished
-     * @return Reference
-     */
-    public function setFinished($finished)
-    {
-        $this->finished = $finished;
-
-        return $this;
-    }
-
-    /**
-     * Get finished
-     *
-     * @return \DateTime 
-     */
-    public function getFinished()
-    {
-        return $this->finished;
-    }
 }

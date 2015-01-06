@@ -8,6 +8,36 @@
 
 .centeredTitle {text-align: center}
 
+/* ######################################## REFERENCES ######################################## */
+.referenceWrapper {
+    background-color: rgba(20, 20, 20, 0.2);
+    position: relative;
+    height: 280px;
+    margin: 20px;
+}
+
+.referenceWrapper .agency,
+.referenceWrapper .techniques,
+.referenceWrapper .description {
+    position: absolute;
+    padding: 20px;
+}
+
+.referenceWrapper .agency {
+    background-color: rgba(20, 20, 20, 0.5);
+}
+
+.referenceWrapper .techniques {
+    right: 0;
+    height: 100%;
+    background-color: rgba(20, 20, 20, 0.5);
+}
+
+.referenceWrapper .description {
+    bottom: 0;
+    width: 60%;
+    background-color: rgba(20, 20, 20, 0.5);
+}
 
 
 
@@ -18,9 +48,6 @@
     padding-left: 0;
     padding-right: 0;
 }
-
-/*#recipesGrid > div.row:not(:last-child) > div > div.thumbnail { border-bottom: 0}*/
-
 
 #recipesGrid {margin: 20px 0;}
 

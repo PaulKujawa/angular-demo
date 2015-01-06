@@ -5,13 +5,22 @@
 
 {% block section %}
     <section class="container">
-        <ul>
-            {% for reference in references %}
-                <li>
-                    {{ 'front.reference.company'|trans() }}: {{ reference.company }}
-                    <a href="{{ path('barra_front_reference', {'website': reference.website}) }}">{{ reference.website }}</a>
-                </li>
-            {% endfor %}
-        </ul>
+        {% for reference in references %}
+            <div class="referenceWrapper">
+                <span class="agency">
+                    {{ reference.finished|date('Y') }} / <a href="http://{{ reference.website }}">{{ reference.company }}</a>
+                    {# todo website != website of company && company == agency! #}
+                </span>
+
+                <div class="techniques">
+                    here are my used techniques
+                </div>
+
+                <span class="description">
+                    {{ reference.description }}
+                </span>
+
+            </div>
+        {% endfor %}
     </section>
 {% endblock %}
