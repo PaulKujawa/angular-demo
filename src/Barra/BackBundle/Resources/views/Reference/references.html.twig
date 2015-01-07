@@ -15,8 +15,8 @@
                         <th>{{ 'back.reference.description'|trans() }}</th>
                         <th>{{ 'back.reference.started'|trans() }}</th>
                         <th>{{ 'back.reference.finished'|trans() }}</th>
-                        <th>{{ 'back.reference.agency'|trans() }}</th>
                         <th>{{ 'back.reference.techniques'|trans() }}</th>
+                        <th>{{ 'back.reference.agency'|trans() }}</th>
                         <th>{{ 'back.action.delete'|trans() }}</th>
                     </tr>
                 </thead>
@@ -27,8 +27,12 @@
                             <td class="editableCell" data-mobile-title={{ 'back.reference.description'|trans() }}>{{ reference.description }}</td>
                             <td class="editableCell" data-mobile-title={{ 'back.reference.started'|trans() }}> {{ reference.started|date('d.m.Y') }}
                             <td class="editableCell" data-mobile-title={{ 'back.reference.finished'|trans() }}> {{ reference.finished|date('d.m.Y') }}</td>
-                            <td class="editableCell" data-mobile-title={{ 'back.reference.techniques'|trans() }}>{{ reference.techniques }}</td>
-                            <td class="editableCell" data-mobile-title={{ 'back.reference.agency'|trans() }}>{{ reference.agency }}</td>
+                            <td class="editableCell" data-mobile-title={{ 'back.reference.techniques'|trans() }}>
+                                {% for technique in reference.techniques %}
+                                    {{ technique.name }}{% if not loop.last %},{% endif %}
+                                {% endfor %}
+                            </td>
+                            <td class="editableCell" data-mobile-title={{ 'back.reference.agency'|trans() }}>{{ reference.agency.name }}</td>
                             <td class="editableCell" data-mobile-title={{ 'back.action.delete'|trans() }}>
                                 <a href="{{ path('barra_back_reference_delete', {'id': reference.id}) }}">
                                     <span class="glyphicon glyphicon-minus"></span>

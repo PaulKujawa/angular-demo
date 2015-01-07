@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Technique
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Barra\FrontBundle\Entity\Repository\TechniqueRepository")
  */
 class Technique
 {
@@ -35,9 +35,9 @@ class Technique
     private $url;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Reference", inversedBy="techniques")
-     * @ORM\JoinTable(name="ReferenceTechnique")
+     * @ORM\ManyToMany(targetEntity="Reference", mappedBy="techniques")
      */
     private $references;
+
 
 }

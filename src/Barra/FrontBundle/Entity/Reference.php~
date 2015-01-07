@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Reference
  *
  * @ORM\Table()
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Barra\FrontBundle\Entity\Repository\ReferenceRepository")
  */
 class Reference
 {
@@ -46,172 +46,10 @@ class Reference
     private $agency;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Technique", mappedBy="references")
+     * @ORM\ManyToMany(targetEntity="Technique", inversedBy="references")
+     * @ORM\JoinTable(name="ReferenceTechnique")
      */
     private $techniques;
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->techniques = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
-    /**
-     * Set url
-     *
-     * @param string $url
-     * @return Reference
-     */
-    public function setUrl($url)
-    {
-        $this->url = $url;
-
-        return $this;
-    }
-
-    /**
-     * Get url
-     *
-     * @return string 
-     */
-    public function getUrl()
-    {
-        return $this->url;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return Reference
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string 
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Set started
-     *
-     * @param \DateTime $started
-     * @return Reference
-     */
-    public function setStarted($started)
-    {
-        $this->started = $started;
-
-        return $this;
-    }
-
-    /**
-     * Get started
-     *
-     * @return \DateTime 
-     */
-    public function getStarted()
-    {
-        return $this->started;
-    }
-
-    /**
-     * Set finished
-     *
-     * @param \DateTime $finished
-     * @return Reference
-     */
-    public function setFinished($finished)
-    {
-        $this->finished = $finished;
-
-        return $this;
-    }
-
-    /**
-     * Get finished
-     *
-     * @return \DateTime 
-     */
-    public function getFinished()
-    {
-        return $this->finished;
-    }
-
-    /**
-     * Set agency
-     *
-     * @param \Barra\FrontBundle\Entity\Agency $agency
-     * @return Reference
-     */
-    public function setAgency(\Barra\FrontBundle\Entity\Agency $agency)
-    {
-        $this->agency = $agency;
-
-        return $this;
-    }
-
-    /**
-     * Get agency
-     *
-     * @return \Barra\FrontBundle\Entity\Agency 
-     */
-    public function getAgency()
-    {
-        return $this->agency;
-    }
-
-    /**
-     * Add techniques
-     *
-     * @param \Barra\FrontBundle\Entity\Technique $techniques
-     * @return Reference
-     */
-    public function addTechnique(\Barra\FrontBundle\Entity\Technique $techniques)
-    {
-        $this->techniques[] = $techniques;
-
-        return $this;
-    }
-
-    /**
-     * Remove techniques
-     *
-     * @param \Barra\FrontBundle\Entity\Technique $techniques
-     */
-    public function removeTechnique(\Barra\FrontBundle\Entity\Technique $techniques)
-    {
-        $this->techniques->removeElement($techniques);
-    }
-
-    /**
-     * Get techniques
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getTechniques()
-    {
-        return $this->techniques;
-    }
 }

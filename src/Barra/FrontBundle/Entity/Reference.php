@@ -46,9 +46,12 @@ class Reference
     private $agency;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Technique", mappedBy="references")
+     * @ORM\ManyToMany(targetEntity="Technique", inversedBy="references")
+     * @ORM\JoinTable(name="ReferenceTechnique")
      */
     private $techniques;
+
+
     /**
      * Constructor
      */

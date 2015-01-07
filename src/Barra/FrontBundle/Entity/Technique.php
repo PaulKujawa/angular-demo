@@ -35,10 +35,10 @@ class Technique
     private $url;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Reference", inversedBy="techniques")
-     * @ORM\JoinTable(name="ReferenceTechnique")
+     * @ORM\ManyToMany(targetEntity="Reference", mappedBy="techniques")
      */
     private $references;
+
 
     /**
      * Constructor
