@@ -14,6 +14,8 @@ back:
     recipes: Recipes
     references: References
     overview: Overview
+    techniques: Techniques
+    agencies: Agencies
 
   message:
     insertError: Invalid entry

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Technique
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Barra\FrontBundle\Entity\Repository\TechniqueRepository")
  */
 class Technique
 {

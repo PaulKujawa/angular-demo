@@ -3,46 +3,34 @@
 
 {% trans_default_domain "messages" %}
 
-{% block title %}{{ 'back.title.references'|trans() }}{% endblock %}
+{% block title %}{{ 'back.title.agencys'|trans() }}{% endblock %}
 
 {% block section %}
     <section class="container mobileTables">
         {{ form_start(formInsert) }}
-            <table class="table table-striped" data-type="reference">
+            <table class="table table-striped" data-type="agency">
                 <thead>
                     <tr>
-                        <th>{{ 'back.reference.url'|trans() }}</th>
-                        <th>{{ 'back.reference.description'|trans() }}</th>
-                        <th>{{ 'back.reference.started'|trans() }}</th>
-                        <th>{{ 'back.reference.finished'|trans() }}</th>
-                        <th>{{ 'back.reference.agency'|trans() }}</th>
-                        <th>{{ 'back.reference.techniques'|trans() }}</th>
+                        <th>{{ 'back.agency.name'|trans() }}</th>
+                        <th>{{ 'back.agency.url'|trans() }}</th>
                         <th>{{ 'back.action.delete'|trans() }}</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for reference in references %}
-                        <tr data-id={{ reference.id }}>
-                            <td class="editableCell" data-mobile-title={{ 'back.reference.url'|trans() }}>{{ reference.url }}</td>
-                            <td class="editableCell" data-mobile-title={{ 'back.reference.description'|trans() }}>{{ reference.description }}</td>
-                            <td class="editableCell" data-mobile-title={{ 'back.reference.started'|trans() }}> {{ reference.started|date('d.m.Y') }}
-                            <td class="editableCell" data-mobile-title={{ 'back.reference.finished'|trans() }}> {{ reference.finished|date('d.m.Y') }}</td>
-                            <td class="editableCell" data-mobile-title={{ 'back.reference.techniques'|trans() }}>{{ reference.techniques }}</td>
-                            <td class="editableCell" data-mobile-title={{ 'back.reference.agency'|trans() }}>{{ reference.agency }}</td>
+                    {% for agency in agencys %}
+                        <tr data-id={{ agency.id }}>
+                            <td class="editableCell" data-mobile-title={{ 'back.agency.name'|trans() }}>{{ agency.name }}</td>
+                            <td class="editableCell" data-mobile-title={{ 'back.agency.url'|trans() }}>{{ agency.url }}</td>
                             <td class="editableCell" data-mobile-title={{ 'back.action.delete'|trans() }}>
-                                <a href="{{ path('barra_back_reference_delete', {'id': reference.id}) }}">
+                                <a href="{{ path('barra_back_agency_delete', {'id': agency.id}) }}">
                                     <span class="glyphicon glyphicon-minus"></span>
                                 </a>
                             </td>
                         </tr>
                     {% endfor %}
                     <tr class="formInRow">
+                        {{ form_row(formInsert.name) }}
                         {{ form_row(formInsert.url) }}
-                        {{ form_row(formInsert.description) }}
-                        {{ form_row(formInsert.started) }}
-                        {{ form_row(formInsert.finished) }}
-                        {{ form_row(formInsert.techniques) }}
-                        {{ form_row(formInsert.agency) }}
                         {{ form_widget(formInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn'} }) }}
                     </tr>
                     <tr class="formInRowError">

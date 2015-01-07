@@ -1,0 +1,17 @@
+barra_back_manufacturers:
+    path:     /manufacturers/{paginationActive}
+    defaults: { _controller: BarraBackBundle:Manufacturer:index, paginationActive: 1 }
+    requirements:
+        paginationActive: \d+
+
+barra_back_manufacturer_update:
+    path:     /manufacturers/update/ajax
+    defaults: { _controller: BarraBackBundle:Manufacturer:update }
+    requirements:
+        _method: POST
+
+barra_back_manufacturer_delete:
+    path:     /manufacturers/delete/{id}
+    defaults: { _controller: BarraBackBundle:Manufacturer:delete }
+    requirements:
+        id: \d+

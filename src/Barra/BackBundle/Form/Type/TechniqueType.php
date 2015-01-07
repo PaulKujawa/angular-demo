@@ -2,7 +2,6 @@
 
 namespace Barra\BackBundle\Form\Type;
 
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -20,13 +19,6 @@ class TechniqueType extends AbstractType
                 ))
             ->add('url', 'text', array(
                     'attr'=>array('placeholder'=>'back.technique.name')
-                ))
-            ->add('references', 'entity', array(
-                    'class' => 'BarraFrontBundle:Reference',
-                    'query_builder' => function(EntityRepository $er) {
-                        return $er->createQueryBuilder('r')->orderBy('r.url', 'ASC');
-                    },
-                    'property' => 'name'
                 ))
             ->add('submit', 'submit')
             ->getForm();

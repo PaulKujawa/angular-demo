@@ -1,0 +1,17 @@
+barra_back_agencys:
+    path:     /agencies/{paginationActive}
+    defaults: { _controller: BarraBackBundle:Agency:index, paginationActive: 1 }
+    requirements:
+        paginationActive: \d+
+
+barra_back_agency_update:
+    path:     /agency/update/ajax
+    defaults: { _controller: BarraBackBundle:Agency:update }
+    requirements:
+        _method: POST
+
+barra_back_agency_delete:
+    path:     /agency/delete/{id}
+    defaults: { _controller: BarraBackBundle:Agency:deleteAgency }
+    requirements:
+        id: \d+

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Agency
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Barra\FrontBundle\Entity\Repository\AgencyRepository")
  */
 class Agency
 {

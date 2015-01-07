@@ -1,0 +1,92 @@
+barra_back_recipes:
+    path:     /recipes/{paginationActive}
+    defaults: { _controller: BarraBackBundle:Recipe:index, paginationActive: 1 }
+    requirements:
+        paginationActive: \d+
+
+barra_back_recipe_update:
+    path:     /recipes/update/ajax
+    defaults: { _controller: BarraBackBundle:Recipe:update }
+    requirements:
+        _method: POST
+
+barra_back_recipe_delete:
+    path:     /recipe/delete/{id}
+    defaults: { _controller: BarraBackBundle:Recipe:delete }
+    requirements:
+        id: \d+
+
+
+
+
+
+barra_back_recipeDetail:
+    path:     /recipe/{name}
+    defaults: { _controller: BarraBackBundle:RecipeDetail:index }
+
+
+
+barra_back_recipeDetail_ingredient_update:
+    path:     /recipe/ingredient/update/ajax
+    defaults: { _controller: BarraBackBundle:RecipeIngredient:update }
+    requirements:
+        _method: POST
+
+barra_back_recipeDetail_ingredient_swap:
+    path:     /recipe/ingredient/swap/{recipeId}/{posBefore}/{posAfter}/ajax
+    defaults: { _controller: BarraBackBundle:RecipeIngredient:swap }
+    requirements:
+        recipeId: \d+
+        posBefore: \d+
+        posAfter: \d+
+
+barra_back_recipeDetail_ingredient_delete:
+    path:     /recipe/ingredient/delete/{recipeId}/{ingredientId}
+    defaults: { _controller: BarraBackBundle:RecipeIngredient:delete }
+    requirements:
+        recipeId: \d+
+        ingredientId: \d+
+
+
+
+barra_back_recipeDetail_cookingStep_update:
+    path:     /recipe/cookingstep/update/ajax
+    defaults: { _controller: BarraBackBundle:CookingStep:update }
+    requirements:
+        _method: POST
+
+barra_back_recipeDetail_cookingStep_swap:
+    path:     /recipe/cookingstep/swap/{recipeId}/{posBefore}/{posAfter}/ajax
+    defaults: { _controller: BarraBackBundle:CookingStep:swap }
+    requirements:
+        recipeId: \d+
+        posBefore: \d+
+        posAfter: \d+
+
+barra_back_recipeDetail_cookingStep_delete:
+    path:     /recipe/cookingstep/delete/{recipeId}/{position}
+    defaults: { _controller: BarraBackBundle:CookingStep:delete }
+    requirements:
+        recipeId: \d+
+        position: \d+
+
+
+
+barra_back_recipeDetail_file_upload:
+    path:     /recipe/file/upload/ajax
+    defaults: { _controller: BarraBackBundle:RecipeDetail:uploadFile }
+    requirements:
+        _method: POST
+
+barra_back_recipeDetail_file_get:
+    path:     /recipe/file/get/{recipeId}/ajax
+    defaults: { _controller: BarraBackBundle:RecipeDetail:getFiles }
+    requirements:
+        recipeId: \d+
+
+barra_back_recipeDetail_file_delete:
+    path:     /recipe/file/delete/{recipeId}/{id}
+    defaults: { _controller: BarraBackBundle:RecipeDetail:deleteFile }
+    requirements:
+        recipeId: \d+
+        id: \d+

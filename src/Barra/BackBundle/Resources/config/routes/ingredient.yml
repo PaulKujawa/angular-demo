@@ -1,0 +1,17 @@
+barra_back_ingredients:
+    path:     /ingredients/{paginationActive}
+    defaults: { _controller: BarraBackBundle:Ingredient:index, paginationActive: 1 }
+    requirements:
+          paginationActive: \d+
+
+barra_back_ingredient_update:
+    path:     /ingredients/update/ajax
+    defaults: { _controller: BarraBackBundle:Ingredient:update }
+    requirements:
+        _method: POST
+
+barra_back_ingredient_delete:
+    path:     /ingredients/delete/{id}
+    defaults: { _controller: BarraBackBundle:Ingredient:delete }
+    requirements:
+        id: \d+

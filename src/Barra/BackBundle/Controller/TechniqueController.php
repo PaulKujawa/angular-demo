@@ -2,52 +2,52 @@
 
 namespace Barra\BackBundle\Controller;
 
-use Barra\FrontBundle\Entity\Reference;
-use Barra\BackBundle\Form\Type\ReferenceType;
+use Barra\FrontBundle\Entity\Technique;
+use Barra\BackBundle\Form\Type\TechniqueType;
 
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class ReferenceController extends Controller
+class TechniqueController extends Controller
 {
     public function indexAction(Request $request, $paginationActive)
     {
-        $reference = new Reference();
-        $formInsert = $this->createForm(new ReferenceType(), $reference);
+        $technique = new Technique();
+        $formInsert = $this->createForm(new TechniqueType(), $technique);
         $formInsert->handleRequest($request);
 
         if ($formInsert->isValid()) {
-            $sqlError = $this->newReference($reference);
+            $sqlError = $this->newTechnique($technique);
 
             if ($sqlError)
                 $formInsert->addError(new FormError($sqlError));
             else
-                return $this->redirect($this->generateUrl('barra_back_references'));
+                return $this->redirect($this->generateUrl('barra_back_techniques'));
         }
 
         $paginationRange = 10;
         $startPos = ($paginationActive-1)*$paginationRange;
         $em = $this->getDoctrine()->getManager();
-        $references = $em->getRepository('BarraFrontBundle:Reference')->getSome($startPos, $paginationRange);
+        $techniques = $em->getRepository('BarraFrontBundle:Technique')->getSome($startPos, $paginationRange);
         $paginationCnt = $em->getRepository('BarraFrontBundle:Ingredient')->count();
         $paginationCnt = ceil($paginationCnt/$paginationRange);
 
-        return $this->render('BarraBackBundle:Reference:references.html.twig', array(
+        return $this->render('BarraBackBundle:Technique:techniques.html.twig', array(
                 'paginationActive' => $paginationActive,
                 'paginationCnt' => $paginationCnt,
-                'references' => $references,
+                'techniques' => $techniques,
                 'formInsert' => $formInsert->createView()
             ));
     }
 
 
 
-    public function newReference($reference)
+    public function newTechnique($technique)
     {
         $em = $this->getDoctrine()->getManager();
-        $em->persist($reference);
+        $em->persist($technique);
 
         try {
             $em->flush();
@@ -62,15 +62,15 @@ class ReferenceController extends Controller
     public function updateAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $id = $request->request->get('formReferenceUpdate')['id'];
-        $reference = $em->getRepository('BarraFrontBundle:Reference')->find($id);
+        $id = $request->request->get('formTechniqueUpdate')['id'];
+        $technique = $em->getRepository('BarraFrontBundle:Technique')->find($id);
 
-        if (!$reference) {
+        if (!$technique) {
             $ajaxResponse = array("code"=>404, "message"=>'Not found');
             return new Response(json_encode($ajaxResponse), 200, array('Content-Type'=>'application/json'));
         }
 
-        $formUpdate = $this->createForm(new ReferenceUpdateType(), $reference);
+        $formUpdate = $this->createForm(new TechniqueUpdateType(), $technique);
         $formUpdate->handleRequest($request);
 
         if ($formUpdate->isValid()) {
@@ -91,17 +91,17 @@ class ReferenceController extends Controller
 
 
 
-    public function deleteReferenceAction($id)
+    public function deleteTechniqueAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $reference = $em->getRepository('BarraFrontBundle:Reference')->find($id);
+        $technique = $em->getRepository('BarraFrontBundle:Technique')->find($id);
 
-        if (!$reference)
-            throw $this->createNotFoundException('Reference not found');
+        if (!$technique)
+            throw $this->createNotFoundException('Technique not found');
 
-        $em->remove($reference);
+        $em->remove($technique);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('barra_back_references'));
+        return $this->redirect($this->generateUrl('barra_back_techniques'));
     }
 }
