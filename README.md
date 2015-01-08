@@ -45,22 +45,7 @@ Vpit
   * Requested format `$format = $this->getRequest()->getRequestFormat();`
 
 
-5) DB Default-Selects
-----------------------
-  * 1 via PK `find('foo')`
-
-  * 1 with c1 `findOneByColumnName('c1')`
-
-  * 1 with c1&c2 `findOneBy(array('c1'=>'foo', 'c2'=>'bar'))`
-
-  * more with c1 `findByPrice(12.32)`
-
-  * more ordered by c2 `findBy(array('c1'=>'foo'), array('c2'=>'ASC'))`
-
-  * all `findAll()`
-
-
-6) Trans
+5) Trans
 ----------
   * tag: `{% trans from 'layout' %}reference{% endtrans %}`
 
@@ -70,7 +55,7 @@ Vpit
   * variable key `{{ entry['label']|trans({}, 'layout') }}`
 
 
-7) Transchoice
+6) Transchoice
 ----------------
   * filter `{{ 'front.word.comment'|transchoice(count, {}, 'layout') }}
 
@@ -80,35 +65,11 @@ Vpit
         comment: '{0} no comment|{1} one comment|]1,Inf] %count% comments'
 
 
-8) CACHE
-----------
-  * preparation
-    use Symfony\Component\HttpFoundation\Response;
-    $response = newResponse();
-    // mark the response as either public or private
-    $response->setPublic();
-    $response->setPrivate();
-
-    // set the private or shared max age$response->
-    setMaxAge(600);
-    $response->setSharedMaxAge(600);
-
-    // set a custom Cache-Control directive
-    $response->headers->addCacheControlDirective('must-revalidate', true);
-
-  * example 2
-    $response->setCache(array(
-    'etag'=>$etag,
-    'last_modified'=>$date,
-    'max_age'=>10,
-    's_maxage'=>10,
-    'public'=>true,
-    // 'private' => true
-    ));
-
-9) doctrine
+7) mix
 --------------------
-    * order relation `public function findAll() {return $this->findBy(array(), array('type'=>'ASC'));}`
+    * ordered doctrine findAll()  `public function findAll() {return $this->findBy(array(), array('type'=>'ASC'));}`
+    * pass request to controller `{{ render(controller('...', {'request': app.request})) }}`
+
 
 10) Browser support
 --------------------

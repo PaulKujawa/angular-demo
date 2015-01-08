@@ -1,9 +1,21 @@
 {% trans_default_domain "messages" %}
 
-{% block navLis %}
-    {% for entry in entries %}
-        <li {% if request.get('_route') == entry['path'] %}class="active"{% endif %}>
-            <a href="{{ path(entry.path) }}">{{ ('front.title.'~entry['label'])|trans }}</a>
-        </li>
-    {% endfor %}
+{% block navList %}
+    <li {% if app.request.attributes.get('_route') == 'barra_front_me' %}class="active"{% endif %}>
+        <a href="{{ path('barra_front_me') }}">{{ ('front.title.aboutMe')|trans }}</a>
+    </li>
+    <li {% if app.request.attributes.get('_route') == 'barra_front_references' %}class="active"{% endif %}>
+        <a href="{{ path('barra_front_references') }}">{{ ('front.title.references')|trans }}</a>
+    </li>
+    <li {% if app.request.attributes.get('_route') == 'barra_front_recipes' %}class="active"{% endif %}>
+        <a href="{{ path('barra_front_recipes') }}">{{ ('front.title.recipes')|trans }}</a>
+    </li>
+    <li {% if app.request.attributes.get('_route') == 'barra_front_contact' %}class="active"{% endif %}>
+        <a href="{{ path('barra_front_contact') }}">{{ ('front.title.contact')|trans }}</a>
+    </li>
 {% endblock %}
+
+
+
+
+

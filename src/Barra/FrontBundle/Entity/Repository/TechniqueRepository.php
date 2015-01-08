@@ -16,4 +16,12 @@ class TechniqueRepository extends EntityRepository
 
         return $query->getResult();
     }
+
+    public function count()
+    {
+        $query = $this->createQueryBuilder('t')
+            ->select('COUNT(t)')
+            ->getQuery();
+        return $query->getSingleResult()[1];
+    }
 }

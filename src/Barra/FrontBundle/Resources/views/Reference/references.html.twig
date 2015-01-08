@@ -8,19 +8,24 @@
         {% for reference in references %}
             <div class="referenceWrapper">
                 <span class="agency">
-                    {{ reference.finished|date('Y') }} / <a href="http://{{ reference.website }}">{{ reference.company }}</a>
-                    {# todo website != website of company && company == agency! #}
+                    {{ reference.finished|date('Y') }} / {{ reference.url }}
                 </span>
 
                 <div class="techniques">
-                    here are my used techniques
+                    <ul style="list-style: none">
+                        {% for technique in reference.techniques %}
+                            <li>{{ technique.name }}</li>
+                        {% endfor %}
+                    </ul>
                 </div>
 
                 <span class="description">
-                    {{ reference.description }}
+                    <p>{{ reference.description }}</p>
+                    On behalf of <a href="http://{{ reference.agency.url }}">{{ reference.agency.name }}</a>
                 </span>
 
             </div>
         {% endfor %}
+        {{ include('BarraFrontBundle::pagination.html.twig', { 'route': 'barra_front_references'})}}
     </section>
 {% endblock %}

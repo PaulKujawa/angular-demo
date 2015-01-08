@@ -9,8 +9,9 @@ barra_front_me:
 
 barra_front_references:
     path:     /references
-    defaults: { _controller: BarraFrontBundle:Reference:index }
-
+    defaults: { _controller: BarraFrontBundle:Reference:index, paginationActive: 1 }
+    requirements:
+        paginationActive: \d+
 
 
 

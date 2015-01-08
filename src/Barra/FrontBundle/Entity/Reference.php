@@ -40,7 +40,7 @@ class Reference
     private $finished;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Agency")
+     * @ORM\ManyToOne(targetEntity="Agency", inversedBy="references")
      * @ORM\JoinColumn(name="agency", referencedColumnName="id", nullable=false)
      */
     private $agency;

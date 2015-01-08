@@ -16,4 +16,12 @@ class AgencyRepository extends EntityRepository
 
         return $query->getResult();
     }
+
+    public function count()
+    {
+        $query = $this->createQueryBuilder('a')
+            ->select('COUNT(a)')
+            ->getQuery();
+        return $query->getSingleResult()[1];
+    }
 }

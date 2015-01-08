@@ -16,4 +16,12 @@ class ReferenceRepository extends EntityRepository
 
         return $query->getResult();
     }
+
+    public function count()
+    {
+        $query = $this->createQueryBuilder('r')
+            ->select('COUNT(r)')
+            ->getQuery();
+        return $query->getSingleResult()[1];
+    }
 }

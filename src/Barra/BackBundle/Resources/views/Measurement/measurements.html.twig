@@ -22,8 +22,8 @@
                             <td class="editableCell" data-mobile-title={{ 'back.measurement.type'|trans() }}>{{ measurement.type }}</td>
                             <td class="editableCell" data-mobile-title={{ 'back.measurement.gr'|trans() }}>{{ measurement.gr }}</td>
                             <td data-mobile-title={{ 'back.action.delete'|trans() }}>
-                                <a {% if measurement.getRecipeIngredients() is empty %} href="{{ path('barra_back_measurement_delete', {'id': measurement.id}) }}"
-                                   {% else %}                                           class="inactiveLink" {% endif %} >
+                                <a {% if measurement.recipeIngredients is empty %} href="{{ path('barra_back_measurement_delete', {'id': measurement.id}) }}"
+                                   {% else %}                                      class="inactiveLink" {% endif %} >
                                     <span class="glyphicon glyphicon-minus"></span>
                                 </a>
                             </td>

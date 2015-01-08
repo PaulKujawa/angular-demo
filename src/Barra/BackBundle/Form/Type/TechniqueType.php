@@ -18,7 +18,7 @@ class TechniqueType extends AbstractType
                     'attr'=>array('placeholder'=>'back.technique.description')
                 ))
             ->add('url', 'text', array(
-                    'attr'=>array('placeholder'=>'back.technique.name')
+                    'attr'=>array('placeholder'=>'back.technique.url')
                 ))
             ->add('submit', 'submit')
             ->getForm();

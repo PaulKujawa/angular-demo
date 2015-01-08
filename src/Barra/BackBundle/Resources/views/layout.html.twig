@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
-{% block navController %}
-    {{ render(controller('BarraBackBundle:Layout:nav', {'request': app.request})) }}
+{% block navList %}
+    {{ include('BarraBackBundle::nav.html.twig') }}
 {% endblock %}
 
 {% block stylesheets %}

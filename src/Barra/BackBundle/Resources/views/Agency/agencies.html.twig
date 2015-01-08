@@ -3,7 +3,7 @@
 
 {% trans_default_domain "messages" %}
 
-{% block title %}{{ 'back.title.agencys'|trans() }}{% endblock %}
+{% block title %}{{ 'back.title.agencies'|trans() }}{% endblock %}
 
 {% block section %}
     <section class="container mobileTables">
@@ -22,7 +22,8 @@
                             <td class="editableCell" data-mobile-title={{ 'back.agency.name'|trans() }}>{{ agency.name }}</td>
                             <td class="editableCell" data-mobile-title={{ 'back.agency.url'|trans() }}>{{ agency.url }}</td>
                             <td class="editableCell" data-mobile-title={{ 'back.action.delete'|trans() }}>
-                                <a href="{{ path('barra_back_agency_delete', {'id': agency.id}) }}">
+                                <a {% if agency.references is empty %} href="{{ path('barra_back_agency_delete', {'id': agency.id}) }}"
+                                   {% else %}                          class="inactiveLink" {% endif %} >
                                     <span class="glyphicon glyphicon-minus"></span>
                                 </a>
                             </td>

@@ -29,6 +29,11 @@ class Agency
      */
     private $url;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Reference", mappedBy="agency")
+     */
+    private $references;
+
 
     /**
      * Get id
@@ -84,5 +89,45 @@ class Agency
     public function getUrl()
     {
         return $this->url;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->references = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add references
+     *
+     * @param \Barra\FrontBundle\Entity\Reference $references
+     * @return Agency
+     */
+    public function addReference(\Barra\FrontBundle\Entity\Reference $references)
+    {
+        $this->references[] = $references;
+
+        return $this;
+    }
+
+    /**
+     * Remove references
+     *
+     * @param \Barra\FrontBundle\Entity\Reference $references
+     */
+    public function removeReference(\Barra\FrontBundle\Entity\Reference $references)
+    {
+        $this->references->removeElement($references);
+    }
+
+    /**
+     * Get references
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getReferences()
+    {
+        return $this->references;
     }
 }

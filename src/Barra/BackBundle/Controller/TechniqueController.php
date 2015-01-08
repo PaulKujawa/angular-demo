@@ -31,7 +31,7 @@ class TechniqueController extends Controller
         $startPos = ($paginationActive-1)*$paginationRange;
         $em = $this->getDoctrine()->getManager();
         $techniques = $em->getRepository('BarraFrontBundle:Technique')->getSome($startPos, $paginationRange);
-        $paginationCnt = $em->getRepository('BarraFrontBundle:Ingredient')->count();
+        $paginationCnt = $em->getRepository('BarraFrontBundle:Technique')->count();
         $paginationCnt = ceil($paginationCnt/$paginationRange);
 
         return $this->render('BarraBackBundle:Technique:techniques.html.twig', array(

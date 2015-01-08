@@ -31,7 +31,7 @@ class AgencyController extends Controller
         $startPos = ($paginationActive-1)*$paginationRange;
         $em = $this->getDoctrine()->getManager();
         $agencys = $em->getRepository('BarraFrontBundle:Agency')->getSome($startPos, $paginationRange);
-        $paginationCnt = $em->getRepository('BarraFrontBundle:Ingredient')->count();
+        $paginationCnt = $em->getRepository('BarraFrontBundle:Agency')->count();
         $paginationCnt = ceil($paginationCnt/$paginationRange);
 
         return $this->render('BarraBackBundle:Agency:agencies.html.twig', array(

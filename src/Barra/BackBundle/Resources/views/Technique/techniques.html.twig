@@ -23,7 +23,8 @@
                             <td class="editableCell" data-mobile-title={{ 'back.technique.description'|trans() }}>{{ technique.description }}</td>
                             <td class="editableCell" data-mobile-title={{ 'back.technique.url'|trans() }}> {{ technique.url }}
                             <td class="editableCell" data-mobile-title={{ 'back.action.delete'|trans() }}>
-                                <a href="{{ path('barra_back_technique_delete', {'id': technique.id}) }}">
+                                <a {% if technique.references is empty %} href="{{ path('barra_back_technique_delete', {'id': technique.id}) }}"
+                                {% else %}                                class="inactiveLink" {% endif %} >
                                     <span class="glyphicon glyphicon-minus"></span>
                                 </a>
                             </td>

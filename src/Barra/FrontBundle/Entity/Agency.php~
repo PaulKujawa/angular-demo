@@ -29,6 +29,11 @@ class Agency
      */
     private $url;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Reference", mappedBy="agency")
+     */
+    private $references;
+
 
     /**
      * Get id

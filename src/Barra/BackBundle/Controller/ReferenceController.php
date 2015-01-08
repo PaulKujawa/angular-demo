@@ -31,7 +31,7 @@ class ReferenceController extends Controller
         $startPos = ($paginationActive-1)*$paginationRange;
         $em = $this->getDoctrine()->getManager();
         $references = $em->getRepository('BarraFrontBundle:Reference')->getSome($startPos, $paginationRange);
-        $paginationCnt = $em->getRepository('BarraFrontBundle:Ingredient')->count();
+        $paginationCnt = $em->getRepository('BarraFrontBundle:Reference')->count();
         $paginationCnt = ceil($paginationCnt/$paginationRange);
 
         return $this->render('BarraBackBundle:Reference:references.html.twig', array(

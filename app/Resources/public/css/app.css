@@ -47,31 +47,32 @@ body, caption, th, td, input, textarea, select, option, legend, fieldset, h1, h2
     background-color: #141414 !important; /* BT 3036 _.navbar-default */
 }
 
-.navbar li.active > a { /* BT 3959 */
-    background-color: transparent !important;
-    color: #ffffff !important;
-}
+.navbar { border-radius: 0 !important }
+.navbar ul.navbar-nav { margin: 0 -15px }
+.navbar ul.dropdown-menu { background-color: #141414 !important }
 
-.navbar ul.navbar-nav {
-    margin: 0 -15px; /* BT _7.5 */
-}
 
-.navbar {
-    border-radius: 0 !important;
-}
+.navbar li.active > a,
+.navbar-default .navbar-nav > li.open > a,
+.navbar-default .navbar-nav .dropdown-menu a:hover { background-color: inherit !important }
 
-nav.navbar-default .navbar-nav > li > a:hover, #translationAnchor:hover,
-nav.navbar-default .navbar-nav > li > a:focus, #translationAnchor:focus {
-    color: #fff; /* BT _#333 */
-}
+
+.navbar li.active > a,
+.navbar .dropdown-menu > li.active > a,
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav .dropdown-menu > li > a:hover,
+#translationAnchor:hover { color: #fff !important; }
+
+
+.navbar-default .navbar-nav > li.open > a,
+.navbar-default .navbar-nav .dropdown-menu a { color: #777 !important }
+
+
 
 @media (min-width: 768px) {
-    .navbar a {
-        padding: 30px 15px !important;
-    }
-    .navbar-collapse.collapse {
-        text-align: center;
-    }
+    .navbar a { padding: 30px 15px !important }
+    .navbar-collapse.collapse { text-align: center }
     .navbar ul.navbar-nav {
         display: inline-block;
         float: none; /* BT 3812 */
