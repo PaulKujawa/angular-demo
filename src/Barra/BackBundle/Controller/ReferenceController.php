@@ -4,6 +4,7 @@ namespace Barra\BackBundle\Controller;
 
 use Barra\FrontBundle\Entity\Reference;
 use Barra\BackBundle\Form\Type\ReferenceType;
+use Barra\BackBundle\Form\Type\Update\ReferenceUpdateType;
 
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,12 +34,14 @@ class ReferenceController extends Controller
         $references = $em->getRepository('BarraFrontBundle:Reference')->getSome($startPos, $paginationRange);
         $paginationCnt = $em->getRepository('BarraFrontBundle:Reference')->count();
         $paginationCnt = ceil($paginationCnt/$paginationRange);
+        $formUpdate = $this->createForm(new ReferenceUpdateType(), $reference);
 
         return $this->render('BarraBackBundle:Reference:references.html.twig', array(
                 'paginationActive' => $paginationActive,
                 'paginationCnt' => $paginationCnt,
                 'references' => $references,
-                'formInsert' => $formInsert->createView()
+                'formInsert' => $formInsert->createView(),
+                'formUpdate' => $formUpdate->createView()
             ));
     }
 

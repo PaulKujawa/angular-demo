@@ -4,6 +4,7 @@ namespace Barra\BackBundle\Controller;
 
 use Barra\FrontBundle\Entity\Technique;
 use Barra\BackBundle\Form\Type\TechniqueType;
+use Barra\BackBundle\Form\Type\Update\TechniqueUpdateType;
 
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,12 +34,14 @@ class TechniqueController extends Controller
         $techniques = $em->getRepository('BarraFrontBundle:Technique')->getSome($startPos, $paginationRange);
         $paginationCnt = $em->getRepository('BarraFrontBundle:Technique')->count();
         $paginationCnt = ceil($paginationCnt/$paginationRange);
+        $formUpdate = $this->createForm(new TechniqueUpdateType(), $technique);
 
         return $this->render('BarraBackBundle:Technique:techniques.html.twig', array(
                 'paginationActive' => $paginationActive,
                 'paginationCnt' => $paginationCnt,
                 'techniques' => $techniques,
-                'formInsert' => $formInsert->createView()
+                'formInsert' => $formInsert->createView(),
+                'formUpdate' => $formUpdate->createView()
             ));
     }
 

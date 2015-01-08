@@ -117,14 +117,25 @@ $(function() {
         values.reverse();
 
         entities[i]['uFormRow'].find('.form-control').each(function() {
-            var val = values.pop();
+            var val     = values.pop(),
+                widget  = $(this).prop('type');
 
-            if ($(this).prop('type') == 'select-one') {
+            if (widget == 'select-one') {
                 $(this).find("option").filter(function() {
                     return $(this).text() == val
                 }).prop('selected', true);
 
-            } else if ($(this).prop('type') == 'checkbox') {
+            } else if (widget == 'select-multiple') {
+                var multipleSelect  = $(this),
+                    vals            = val.split(', ');
+
+                $.each(vals, function(i, v) {
+                    multipleSelect.find("option").filter(function() {
+                        return $(this).text() == v
+                    }).prop('selected', true);
+                });
+
+            } else if (widget == 'checkbox') {
                 $(this).prop('checked', val);
 
             } else

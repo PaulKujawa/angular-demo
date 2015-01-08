@@ -4,6 +4,8 @@ namespace Barra\BackBundle\Controller;
 
 use Barra\FrontBundle\Entity\Agency;
 use Barra\BackBundle\Form\Type\AgencyType;
+use Barra\BackBundle\Form\Type\Update\AgencyUpdateType;
+
 
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,15 +32,17 @@ class AgencyController extends Controller
         $paginationRange = 10;
         $startPos = ($paginationActive-1)*$paginationRange;
         $em = $this->getDoctrine()->getManager();
-        $agencys = $em->getRepository('BarraFrontBundle:Agency')->getSome($startPos, $paginationRange);
+        $agencies = $em->getRepository('BarraFrontBundle:Agency')->getSome($startPos, $paginationRange);
         $paginationCnt = $em->getRepository('BarraFrontBundle:Agency')->count();
         $paginationCnt = ceil($paginationCnt/$paginationRange);
+        $formUpdate = $this->createForm(new AgencyUpdateType(), $agency);
 
         return $this->render('BarraBackBundle:Agency:agencies.html.twig', array(
                 'paginationActive' => $paginationActive,
                 'paginationCnt' => $paginationCnt,
-                'agencys' => $agencys,
-                'formInsert' => $formInsert->createView()
+                'agencies' => $agencies,
+                'formInsert' => $formInsert->createView(),
+                'formUpdate' => $formUpdate->createView()
             ));
     }
 
