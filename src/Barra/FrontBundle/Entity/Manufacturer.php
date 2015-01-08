@@ -26,6 +26,7 @@ class Manufacturer
 
     /**
      * @ORM\OneToMany(targetEntity="Ingredient", mappedBy="manufacturer")
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     private $ingredients;
 

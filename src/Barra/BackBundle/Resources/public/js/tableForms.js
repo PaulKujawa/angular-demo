@@ -136,7 +136,10 @@ $(function() {
                 });
 
             } else if (widget == 'checkbox') {
-                $(this).prop('checked', val);
+                if (val == '✖')
+                    $(this).prop('checked', true);
+                else
+                    $(this).prop('checked', false);
 
             } else
                 $(this).val( val );
@@ -228,9 +231,8 @@ $(function() {
         // form
         var errorColumns = $('.formInRowError');
         errorColumns.find('ul').each(function() {
-            var ul = $(this);
-            var tr = ul.closest('tr');
-            var tr = tr.prev();
+            var ul = $(this),
+                tr = ul.closest('tr').prev();
             tr.addClass('danger has-error');
             createTooltip(tr, "<ul>"+ul.html()+"</ul>", true);
         });
@@ -257,17 +259,36 @@ $(function() {
 
 
     var uForm_hide = function(i) {
-        var values = [];
+        var newValues = [];
         entities[i]['uFormRow'].find('.form-control').each(function() {
-            if ($(this).prop('type') == 'select-one')
-                values.push( $(this).find("option:selected").text() );
-            else
-                values.push( $(this).val() );
+            var widget = $(this),
+                widgetType = widget.prop('type');
+
+            if (widgetType == 'select-one') {
+                newValues.push( widget.find("option:selected").text() );
+
+            } else if (widgetType == 'select-multiple') {
+                var list = "";
+                widget.find("option:selected").each(function(i, v) {
+                  list += $(v).text() + ", ";
+                });
+                list = list.slice(0, -2); // remove ", "
+                newValues.push(list);
+
+            } else if (widgetType == 'checkbox') {
+                if (widget.prop('checked'))
+                    newValues.push('✖');
+                else
+                    newValues.push('');
+
+            } else
+                newValues.push( widget.val() );
         });
 
-        values.reverse();
+
+        newValues.reverse();
         entities[i]['activeTr'].children('.editableCell').each(function() {
-            $(this).text(values.pop());
+            $(this).text(newValues.pop());
         });
 
         // toggle Forms

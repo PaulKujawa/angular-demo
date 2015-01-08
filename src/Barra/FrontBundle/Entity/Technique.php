@@ -36,6 +36,7 @@ class Technique
 
     /**
      * @ORM\ManyToMany(targetEntity="Reference", mappedBy="techniques")
+     * @ORM\OrderBy({"url" = "ASC"})
      */
     private $references;
 

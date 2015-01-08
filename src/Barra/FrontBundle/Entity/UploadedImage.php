@@ -40,6 +40,7 @@ class UploadedImage
     /**
      * @ORM\ManyToOne(targetEntity="Recipe", inversedBy="uploadedImages")
      * @ORM\JoinColumn(name="recipe", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     protected $recipe;
 

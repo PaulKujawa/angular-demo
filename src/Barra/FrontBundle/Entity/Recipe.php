@@ -36,6 +36,7 @@ class Recipe
 
     /**
      * @ORM\OneToMany(targetEntity="UploadedImage", mappedBy="recipe")
+     * @ORM\OrderBy({"title" = "ASC"})
      */
     private $uploadedImages;
 

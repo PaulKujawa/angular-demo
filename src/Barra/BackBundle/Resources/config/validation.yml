@@ -86,3 +86,40 @@ Barra\FrontBundle\Entity\CookingStep:
     description:
       - NotBlank: ~
       - Type: string
+
+
+Barra\FrontBundle\Entity\Reference:
+  properties:
+    url:
+      - NotBlank:
+      - Type: string
+    description:
+      - NotBlank:
+      - Type: string
+    started:
+      - Date: ~
+    finished:
+      - Date: ~
+
+
+Barra\FrontBundle\Entity\Agency:
+  properties:
+    name:
+      - NotBlank:
+      - Type: string
+    url:
+      - NotBlank:
+      - Type: string
+
+
+Barra\FrontBundle\Entity\Technique:
+  properties:
+    name:
+      - NotBlank:
+      - Type: string
+    description:
+      - NotBlank:
+      - Type: string
+    url:
+      - NotBlank:
+      - Type: string

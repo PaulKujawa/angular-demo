@@ -28,7 +28,8 @@
                     {% for ingredient in ingredients %}
                         <tr data-id={{ ingredient.id }}>
                             <td class="editableCell" data-mobile-title={{ 'back.ingredient.name'|trans() }}>{{ ingredient.name }}</td>
-                            <td class="editableCell" data-mobile-title={{ 'back.ingredient.vegan'|trans() }}>{{ ingredient.vegan }}</td>
+                            <td class="editableCell" data-mobile-title={{ 'back.ingredient.vegan'|trans() }}>{% if ingredient.vegan %}✖{% endif %}</td>
+
                             <td class="editableCell" data-mobile-title={{ 'back.ingredient.gr'|trans() }}>{{ ingredient.gr }}</td>
                             <td class="editableCell" data-mobile-title={{ 'back.ingredient.kcal'|trans() }}>{{ ingredient.kcal }}</td>
                             <td class="editableCell" data-mobile-title={{ 'back.ingredient.protein'|trans() }}>{{ ingredient.protein }}</td>

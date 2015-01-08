@@ -48,6 +48,7 @@ class Reference
     /**
      * @ORM\ManyToMany(targetEntity="Technique", inversedBy="references")
      * @ORM\JoinTable(name="ReferenceTechnique")
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     private $techniques;
 

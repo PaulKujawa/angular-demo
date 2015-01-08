@@ -16,6 +16,7 @@ class RecipeIngredient
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Recipe")
      * @ORM\JoinColumn(name="recipe", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     private $recipe;
 
@@ -23,6 +24,7 @@ class RecipeIngredient
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Ingredient", inversedBy="recipeIngredients")
      * @ORM\JoinColumn(name="ingredient", referencedColumnName="id")
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     private $ingredient;
 
@@ -39,6 +41,7 @@ class RecipeIngredient
     /**
      * @ORM\ManyToOne(targetEntity="Measurement", inversedBy="recipeIngredients")
      * @ORM\JoinColumn(name="measurement", referencedColumnName="id", nullable=true)
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     private $measurement;
 

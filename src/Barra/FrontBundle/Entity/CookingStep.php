@@ -27,6 +27,7 @@ class CookingStep
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Recipe")
      * @ORM\JoinColumn(name="recipe", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     private $recipe;
 
