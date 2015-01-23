@@ -36,31 +36,66 @@
     line-height: 1.5em;
 }
 
+
+
+
+
+
+
 #contactForm {
     position: relative;
     padding-top: 60px;
     border-top: 1px solid #ccc;
 }
 
-#contactForm #form_name,
-#contactForm #form_email { width: 35% }
+#contactFormLeft {
+    float: left;
+    width: 35%;
+}
+
 
 #contactForm #form_message {
-    position: absolute;
-        right: 0;
-        top: 60px; /* padding */
+    float: right;
     width: 55%;
-    height: 88px; /* form_name + form_email */
+    min-height: 88px; /* form_name + form_email */
 }
 
 #contactForm #form_submit {
-    position: absolute;
-        right: 0;
+    float: right;
     width: 150px;
     color: #fff;
     border-radius: 0;
     text-transform: uppercase;
     background-color: #777;
+}
+
+#contactForm #form_submit:hover {
+    background-color: #141414;
+}
+
+
+@media only screen and (max-width: 500px) { /* smart phones */
+    #aboutMeWrapper { height: auto }
+    #aboutMeWrapper #picOfMeWrapper {
+        position: static;
+        width: 100%;
+    }
+    #aboutMeWrapper #textOfMeWrapper {
+        position: static;
+        width: 100%;
+        margin: 20px 0;
+    }
+    #aboutMeWrapper #textOfMeWrapper > p { transform: none }
+
+    #contactForm #contactFormLeft {
+        float: none;
+        width: 100%;
+    }
+
+    #contactForm #form_message {
+        float: none;
+        width: 100%;
+    }
 }
 
 /* REFERENCES

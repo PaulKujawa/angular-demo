@@ -21,10 +21,14 @@
         </div>
 
         {{ form_start(form, {'attr': {'id': "contactForm"}} ) }}
-            {{ form_errors(form) }}
-            {{ form_row(form.name) }}
-            {{ form_row(form.email) }}
-            {{ form_row(form.message) }}
+            <div class="clearfix">
+                <div id="contactFormLeft">
+                    {{ form_errors(form) }}
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.email) }}
+                </div>
+                {{ form_row(form.message) }}
+            </div>
             {{ form_widget(form.submit, {'label': 'back.front.new', 'attr': {'class': 'btn'} }) }}
         {{ form_end(form) }}
     </section>
