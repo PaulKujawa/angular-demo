@@ -26,7 +26,7 @@ class AgencyController extends Controller
             if ($sqlError)
                 $formInsert->addError(new FormError($sqlError));
             else
-                return $this->redirect($this->generateUrl('barra_back_agencys'));
+                return $this->redirect($this->generateUrl('barra_back_agencies'));
         }
 
         $paginationRange = 10;

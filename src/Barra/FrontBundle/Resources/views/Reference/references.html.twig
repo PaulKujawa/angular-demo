@@ -2,30 +2,43 @@
 {% trans_default_domain "messages" %}
 {% block title %}{{ 'front.title.references'|trans() }}{% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@BarraFrontBundle/Resources/public/js/references.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
 
 {% block section %}
     <section class="container">
-        {% for reference in references %}
-            <div class="referenceWrapper">
-                <span class="agency">
-                    {{ reference.finished|date('Y') }} / {{ reference.url }}
-                </span>
 
-                <div class="techniques">
-                    <ul style="list-style: none">
-                        {% for technique in reference.techniques %}
-                            <li>{{ technique.name }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
+        {% for row in references|batch(2) %}
+            <div class="row">
+                {% for reference in row %}
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="referenceWrapper">
+                            <div class="referenceHeader">
+                                <div class="referenceTitle">
+                                    {{ reference.url|split('.')[0] }}
+                                </div>
+                                <div class="referenceStamp">
+                                    <a href="http://{{ reference.agency.url }}">{{ reference.agency.name }}</a> | {{ reference.finished|date('Y') }}
+                                </div>
+                            </div>
 
-                <span class="description">
-                    <p>{{ reference.description }}</p>
-                    On behalf of <a href="http://{{ reference.agency.url }}">{{ reference.agency.name }}</a>
-                </span>
+                            <div class="referenceFooter">
+                                {% for technique in reference.techniques %}
+                                    <span title="{{ technique.description }}">{{ technique.name }}{% if not loop.last %}, {% endif %}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
 
+                    </div>
+                {% endfor %}
             </div>
         {% endfor %}
+
+
         {{ include('BarraFrontBundle::pagination.html.twig', { 'route': 'barra_front_references'})}}
     </section>
 {% endblock %}

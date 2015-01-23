@@ -1,8 +1,8 @@
-barra_front_me_redirect:
+barra_front_redirect:
     path: /
     defaults:
       _controller: FrameworkBundle:Redirect:redirect
-      route: barra_front_me
+      route: barra_front_root
       permanent: true
 
 

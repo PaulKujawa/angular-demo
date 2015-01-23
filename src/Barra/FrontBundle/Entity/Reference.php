@@ -20,12 +20,12 @@ class Reference
     private $id;
 
     /**
-     * @ORM\Column(name="url", type="string", length=30, unique=true)
+     * @ORM\Column(name="url", type="string", length=50, unique=true)
      */
     private $url;
 
     /**
-     * @ORM\Column(name="description", type="string", length=30)
+     * @ORM\Column(name="description", type="string", length=50)
      */
     private $description;
 

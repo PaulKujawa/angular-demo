@@ -9,7 +9,7 @@ class ReferenceRepository extends EntityRepository
     public function getSome($first, $amount)
     {
         $query = $this->createQueryBuilder('r')
-            ->orderBy('r.url', 'ASC')
+            ->orderBy('r.finished', 'DESC')
             ->setFirstResult($first)
             ->setMaxResults($amount)
             ->getQuery();

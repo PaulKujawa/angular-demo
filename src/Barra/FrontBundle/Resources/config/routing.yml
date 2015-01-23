@@ -1,17 +1,22 @@
-barra_front_me:
+barra_front_root:
     path:     /
-    defaults: { _controller: BarraFrontBundle:Me:index }
+    defaults: { _controller: BarraFrontBundle:Contact:index }
     requirements:
       _locale: en|de
 
 
 
+barra_front_contact:
+    path:     /contact
+    defaults: { _controller: BarraFrontBundle:Contact:index }
+
+
 
 barra_front_references:
-    path:     /references
+    path:     /references/{paginationActive}
     defaults: { _controller: BarraFrontBundle:Reference:index, paginationActive: 1 }
     requirements:
-        paginationActive: \d+
+      paginationActive: \d+
 
 
 
@@ -19,16 +24,9 @@ barra_front_recipes:
     path:     /recipes/{paginationActive}
     defaults: { _controller: BarraFrontBundle:Recipe:index, paginationActive: 1 }
     requirements:
-        paginationActive: \d+
+      paginationActive: \d+
 
 barra_front_recipe:
     path:     /recipe/{name}
     defaults: { _controller: BarraFrontBundle:RecipeDetail:index }
-
-
-
-
-barra_front_contact:
-    path:     /contact
-    defaults: { _controller: BarraFrontBundle:Contact:index }
 

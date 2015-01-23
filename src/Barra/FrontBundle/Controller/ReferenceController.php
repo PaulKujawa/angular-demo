@@ -9,7 +9,7 @@ class ReferenceController extends Controller
 {
     public function indexAction($paginationActive)
     {
-        $paginationRange = 2;
+        $paginationRange = 4;
         $startPos = ($paginationActive-1)*$paginationRange;
         $em = $this->getDoctrine()->getManager();
         $references = $em->getRepository('BarraFrontBundle:Reference')->getSome($startPos, $paginationRange);
