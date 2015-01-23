@@ -1,39 +1,70 @@
-/* PAGINATION */
-.paginationNav {text-align: center}
-.paginationNav li > a, .paginationNav li > a:hover {color: #777777}
-.paginationNav li.active > a, .paginationNav li.active > a:hover {
-    background-color: #141414;
-    border-color: #141414;
+/* CONTACT
+------------------------------------------------------------------------------*/
+.form-control {
+    border-radius: 0;
+    margin-bottom: 20px;
 }
 
-.centeredTitle {text-align: center}
-
-
-
-
-/* ######################################## Contact ######################################## */
-#aboutMeWrapper { margin: 20px 0 }
-
-#aboutMeWrapper img {
-    float: left;
-    margin-right: 40px;
-}
-
-#aboutMeWrapper > div {
-    float: left;
+#aboutMeWrapper {
+    position: relative;
     height: 200px;
+    margin: 20px 0 60px;
 }
 
-#aboutMeWrapper > div > p {
+#aboutMeWrapper #picOfMeWrapper {
+    position: absolute;
+    width: 40%;
+}
+
+#aboutMeWrapper #textOfMeWrapper {
+    position: absolute;
+        right: 0;
+    width: 60%;
+    height: 100%;
+}
+
+#aboutMeWrapper #picOfMeWrapper img {
+    position: relative;
+        left: 50%;
+    margin-left: -100px;
+}
+
+#aboutMeWrapper #textOfMeWrapper > p {
     position: relative;
         top: 50%;
     transform: translateY(-50%);
     line-height: 1.5em;
-    font-size: 1.2em;
 }
 
+#contactForm {
+    position: relative;
+    padding-top: 60px;
+    border-top: 1px solid #ccc;
+}
 
-/* ######################################## REFERENCES ######################################## */
+#contactForm #form_name,
+#contactForm #form_email { width: 35% }
+
+#contactForm #form_message {
+    position: absolute;
+        right: 0;
+        top: 60px; /* padding */
+    width: 55%;
+    height: 88px; /* form_name + form_email */
+}
+
+#contactForm #form_submit {
+    position: absolute;
+        right: 0;
+    width: 150px;
+    color: #fff;
+    border-radius: 0;
+    text-transform: uppercase;
+    background-color: #777;
+}
+
+/* REFERENCES
+------------------------------------------------------------------------------*/
 .referenceWrapper {
     background-color: rgba(20, 20, 20, 0.2);
     position: relative;
@@ -67,14 +98,15 @@
 
 
 
-/* ######################################## RECIPES ######################################## */
+/* RECIPES
+------------------------------------------------------------------------------*/
 #recipesGrid .col-xs-12,
 #recipesGrid .col-sm-4 {
     padding-left: 0;
     padding-right: 0;
 }
 
-#recipesGrid {margin: 20px 0;}
+#recipesGrid { margin: 20px 0 }
 
 #recipesGrid .thumbnail {
     position: relative;
@@ -89,12 +121,11 @@
         bottom: 0;
 
     color: #fff;
-    font-size: 1.5em;
     font-weight: bold;
 }
 
-@media only screen and (max-width: 500px) { /* smartphones */
-    #recipesGrid .thumbnail img {width: 100%}
+@media only screen and (max-width: 500px) { /* smart phones */
+    #recipesGrid .thumbnail img { width: 100% }
 }
 
 @media only screen and (min-width: 501px) and (max-width: 767px) { /* ugly width until tables */
@@ -106,7 +137,8 @@
 
 
 
-/* ######################################## RECIPE ######################################## */
+/* RECIPE
+------------------------------------------------------------------------------*/
 #imageChartWrapper {
     width: 100%;
     margin: 40px 0;
@@ -170,6 +202,3 @@
     text-align: center;
     line-height: 1.5em;
 }
-
-#ingredientList {font-size: 1.3em}
-#cookingStepList {font-size: 1.1em}

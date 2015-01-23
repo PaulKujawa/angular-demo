@@ -1,4 +1,6 @@
 {% extends 'BarraFrontBundle::layout.html.twig' %}
+{% form_theme form 'BarraFrontBundle:Form:contactRow.html.twig' %}
+
 {% trans_default_domain "messages" %}
 {% block title %}{{ 'front.title.contact'|trans() }}{% endblock %}
 
@@ -6,17 +8,24 @@
     <section class="container">
 
         <div id="aboutMeWrapper" class="clearfix">
-            <img class="img-circle" src="https://gravatar.com/avatar/42c2523e6d59d1762165d181d1f4c886?size=200" alt="Paul Kujawa">
+            <div id="picOfMeWrapper">
+                <img class="img-circle" src="/vpit/web/uploads/documents/i.jpg" alt="Paul Kujawa">
+            </div>
 
-            <div>
-                <p>
-                    Ich trage den Name Paul Kujawa und bin '91 geborener Webentwickler.<br>
-                    Noch studiere ich internationale Medieninformatik an der HTW Berlin.<br>
-                    Darüber hinaus bin ich offen für weitere Aufträge und unter Kontakt <strong>erreichbar</strong>.<br>
+            <div id="textOfMeWrapper">
+                <p class="fontL">
+                    Ich trage den Namen Paul Kujawa, studiere internationale Medieninformatik
+                    und bin gelernter Informatikkaufmann. Meine Freizeit fokussiert Fitness.
                 </p>
             </div>
         </div>
 
-        {{ form(form) }}
+        {{ form_start(form, {'attr': {'id': "contactForm"}} ) }}
+            {{ form_errors(form) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.message) }}
+            {{ form_widget(form.submit, {'label': 'back.front.new', 'attr': {'class': 'btn'} }) }}
+        {{ form_end(form) }}
     </section>
 {% endblock %}

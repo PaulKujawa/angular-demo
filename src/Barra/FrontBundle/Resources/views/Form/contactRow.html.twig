@@ -1,0 +1,20 @@
+{# fieldType_part #}
+
+{% block form_row %}
+    {% spaceless %}
+        {{ form_label(form, null, {'label_attr': {'class': 'sr-only'}}) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form, {'attr': {'class': 'form-control'}}) }}
+    {% endspaceless %}
+{% endblock %}
+
+
+{% block button_widget %}
+    {% spaceless %}
+        {% if label is empty %}
+            {% set label = name|humanize %}
+        {% endif %}
+        <button type="{{ type|default('button') }}" {{ block('button_attributes') }}> {{ 'front.action.send'|trans() }} </button>
+    {% endspaceless %}
+{% endblock %}
+

@@ -9,11 +9,19 @@ front:
     mySkills: Meine Fähigkeiten
     myAccomplishments: Meine Erfolge
 
+  action:
+    send: Send
+
   reference: #object
     website: Webseite
     company: Firma
     description: Beschreibung
     started: Begonnen
     finished: Abgeschlossen
+
+  contact: #object
+    name: Ihr Name
+    email: Ihre E-Mail
+    message: Ihre Nachricht an mich
 
   word:

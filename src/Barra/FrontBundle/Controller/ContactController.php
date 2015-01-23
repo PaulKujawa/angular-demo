@@ -10,12 +10,17 @@ class ContactController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $defaultData = array('message' => 'Type your message here');
-        $form = $this->createFormBuilder($defaultData)
-            ->add('name', 'text')
-            ->add('email', 'email')
-            ->add('message', 'textarea')
-            ->add('send', 'submit')
+        $form = $this->createFormBuilder()
+            ->add('name', 'text', array(
+                'attr'=>array('placeholder'=>'front.contact.name')
+                ))
+            ->add('email', 'email', array(
+                    'attr'=>array('placeholder'=>'front.contact.email')
+                ))
+            ->add('message', 'textarea', array(
+                    'attr'=>array('placeholder'=>'front.contact.message')
+                ))
+            ->add('submit', 'submit')
             ->getForm();
 
         $form->handleRequest($request);
