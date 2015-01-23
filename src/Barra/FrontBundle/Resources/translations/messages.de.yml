@@ -9,12 +9,11 @@ front:
     mySkills: Meine Fähigkeiten
     myAccomplishments: Meine Erfolge
 
-  word:
-    comment: '{0} no comment|{1} one comment|]1,Inf] %count% comments'
-
   reference: #object
     website: Webseite
     company: Firma
     description: Beschreibung
     started: Begonnen
     finished: Abgeschlossen
+
+  word:

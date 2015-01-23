@@ -4,11 +4,19 @@
 
 {% block section %}
     <section class="container">
-        {{ 'front.word.comment'|transchoice(count) }}
-        <p>
-            Ich trage den Name Paul Kujawa und bin '91 geborener Webentwickler.<br>
-            Noch studiere ich internationale Medieninformatik an der HTW Berlin.<br>
-            Darüber hinaus bin ich offen für weitere Aufträge und unter Kontakt <strong>erreichbar</strong>.<br>
-        </p>
+
+        <div id="aboutMeWrapper" class="clearfix">
+            <img class="img-circle" src="https://gravatar.com/avatar/42c2523e6d59d1762165d181d1f4c886?size=200" alt="Paul Kujawa">
+
+            <div>
+                <p>
+                    Ich trage den Name Paul Kujawa und bin '91 geborener Webentwickler.<br>
+                    Noch studiere ich internationale Medieninformatik an der HTW Berlin.<br>
+                    Darüber hinaus bin ich offen für weitere Aufträge und unter Kontakt <strong>erreichbar</strong>.<br>
+                </p>
+            </div>
+        </div>
+
+        {{ form(form) }}
     </section>
 {% endblock %}

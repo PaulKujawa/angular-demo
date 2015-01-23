@@ -8,6 +8,31 @@
 
 .centeredTitle {text-align: center}
 
+
+
+
+/* ######################################## Contact ######################################## */
+#aboutMeWrapper { margin: 20px 0 }
+
+#aboutMeWrapper img {
+    float: left;
+    margin-right: 40px;
+}
+
+#aboutMeWrapper > div {
+    float: left;
+    height: 200px;
+}
+
+#aboutMeWrapper > div > p {
+    position: relative;
+        top: 50%;
+    transform: translateY(-50%);
+    line-height: 1.5em;
+    font-size: 1.2em;
+}
+
+
 /* ######################################## REFERENCES ######################################## */
 .referenceWrapper {
     background-color: rgba(20, 20, 20, 0.2);
@@ -38,6 +63,8 @@
     color: #fff;
     font-weight: bold;
 }
+
+
 
 
 /* ######################################## RECIPES ######################################## */

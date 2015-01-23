@@ -57,12 +57,8 @@ Vpit
 
 6) Transchoice
 ----------------
-  * filter `{{ 'front.word.comment'|transchoice(count, {}, 'layout') }}
-
-  * tag `{% transchoice count with {'%count%': count} from "layout" %}
-  ** front.word.comment
-     `{% endtranschoice %}
-        comment: '{0} no comment|{1} one comment|]1,Inf] %count% comments'
+  * template `{{ 'front.word.comment'|transchoice(count) }}`
+  * yml `comment: '{0} no comment|{1} one comment|]1,Inf] %count% comments'`
 
 
 7) mix

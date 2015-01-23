@@ -9,11 +9,10 @@ front:
     mySkills: My skills
     myAccomplishments: My accomplishments
 
-  word:
-    comment: '{0} no comment|{1} one comment|]1,Inf] %count% comments'
-
   reference: #object
     company: Company
     description: Description
     started: Started
     finished: Finished
+
+  word:
