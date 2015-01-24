@@ -3,25 +3,24 @@
 {% block title %}{{ 'front.title.recipes'|trans() }}{% endblock %}
 
 {% block section %}
-    <section class="container">
-        <div id="recipesGrid">
-            {% for row in recipes|batch(3) %}
-                <div class="row">
-                    {% for recipe in row %}
-                        <div class="col-xs-12 col-sm-4">
-                            <div class="thumbnail">
-                                <a href="{{ path('barra_front_recipe', {'name': recipe.name|replace({' ': '_'})}) }}">
-                                    {% if recipe.UploadedImages is not empty %}
-                                        <img src="/vpit/web/uploads/documents/{{ (recipe.UploadedImages|first).filename }}" alt="{{ recipe.name }}">
-                                    {% endif %}
-                                    <div class="caption fontXL">{{ recipe.name }}</div>
-                                </a>
-                            </div>
+    <section class="container" id="recipesPage">
+        {% for row in recipes|batch(3) %}
+            <div class="row">
+                {% for recipe in row %}
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="thumbnail">
+                            <a href="{{ path('barra_front_recipe', {'name': recipe.name|replace({' ': '_'})}) }}">
+                                {% if recipe.UploadedImages is not empty %}
+                                    <img src="/vpit/web/uploads/documents/{{ (recipe.UploadedImages|first).filename }}" alt="{{ recipe.name }}">
+                                {% endif %}
+                                <div class="caption fontXL">{{ recipe.name }}</div>
+                            </a>
                         </div>
-                    {% endfor %}
-                </div>
-            {% endfor %}
-        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
         {{ include('BarraFrontBundle::pagination.html.twig', { 'route': 'barra_front_recipes'})}}
     </section>
 {% endblock %}

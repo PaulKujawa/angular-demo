@@ -89,12 +89,12 @@ body, caption, th, td, input, textarea, select, option, legend, fieldset, h1, h2
 
 /* SECTION
 ------------------------------------------------------------------------------*/
-section { padding: 50px 0 50px }
+section { padding: 70px 0 50px } /* top: 50+20 */
 
 @media (min-width: 768px) {
     section {
         margin: 0 auto;
-        padding-top: 80px;
+        padding-top: 100px; /* 80+20 */
     }
 }
 

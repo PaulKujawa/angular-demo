@@ -1,66 +1,59 @@
 /* CONTACT
 ------------------------------------------------------------------------------*/
-.form-control {
+#contactPage .form-control {
     border-radius: 0;
     margin-bottom: 20px;
 }
 
-#aboutMeWrapper {
+#contactPage #aboutMe {
     position: relative;
     height: 200px;
-    margin: 20px 0 60px;
+    margin-bottom: 60px;
 }
 
-#aboutMeWrapper #picOfMeWrapper {
+#contactPage #contactPic {
     position: absolute;
     width: 40%;
 }
 
-#aboutMeWrapper #textOfMeWrapper {
+#contactPage #contactDescription {
     position: absolute;
         right: 0;
     width: 60%;
     height: 100%;
 }
 
-#aboutMeWrapper #picOfMeWrapper img {
+#contactPage #contactPic img {
     position: relative;
         left: 50%;
     margin-left: -100px;
 }
 
-#aboutMeWrapper #textOfMeWrapper > p {
+#contactPage #contactDescription > p {
     position: relative;
         top: 50%;
     transform: translateY(-50%);
     line-height: 1.5em;
 }
 
-
-
-
-
-
-
-#contactForm {
+#contactPage #contactForm {
     position: relative;
     padding-top: 60px;
     border-top: 1px solid #ccc;
 }
 
-#contactFormLeft {
+#contactPage #contactFormLeft {
     float: left;
     width: 35%;
 }
 
-
-#contactForm #form_message {
+#contactPage #form_message {
     float: right;
     width: 55%;
     min-height: 88px; /* form_name + form_email */
 }
 
-#contactForm #form_submit {
+#contactPage #form_submit {
     float: right;
     width: 150px;
     color: #fff;
@@ -69,65 +62,85 @@
     background-color: #777;
 }
 
-#contactForm #form_submit:hover {
+#contactPage #form_submit:hover {
     background-color: #141414;
 }
 
 
 @media only screen and (max-width: 500px) { /* smart phones */
-    #aboutMeWrapper { height: auto }
-    #aboutMeWrapper #picOfMeWrapper {
+    #contactPage #aboutMe { height: auto }
+    #contactPage #contactPic {
         position: static;
         width: 100%;
     }
-    #aboutMeWrapper #textOfMeWrapper {
+    #contactPage #contactDescription {
         position: static;
         width: 100%;
         margin: 20px 0;
     }
-    #aboutMeWrapper #textOfMeWrapper > p { transform: none }
+    #contactPage #contactDescription > p { transform: none }
 
-    #contactForm #contactFormLeft {
+    #contactPage #contactFormLeft {
         float: none;
         width: 100%;
     }
 
-    #contactForm #form_message {
+    #contactPage #form_message {
         float: none;
         width: 100%;
     }
 }
 
+
+
 /* REFERENCES
 ------------------------------------------------------------------------------*/
-.referenceWrapper {
-    background-color: rgba(20, 20, 20, 0.2);
+#referencePage .reference {
+    background-image: url('http://t3n.de/news/wp-content/uploads/2013/09/UIKit-Framework-595x178.jpg');
+    background-size: 100% 100%;
     position: relative;
     display: inline-block;
     width: 100%;
     height: 280px;
-    margin: 20px -4px 20px 0;/*since inline-block */
+
+    cursor: pointer;
     color: #fff;
     font-weight: bold;
 }
 
-.referenceWrapper .referenceHeader,
-.referenceWrapper .referenceFooter {
+#referencePage .referenceHeader,
+#referencePage .referenceFooter {
     position: absolute;
     width: 100%;
     padding: 10px;
     background-color: rgba(20, 20, 20, 0.5);
 }
 
-.referenceWrapper .referenceHeader { top: 0 }
-.referenceWrapper .referenceFooter { bottom: 0 }
+#referencePage .referenceHeader { top: 0 }
+#referencePage .referenceFooter { bottom: 0 }
 
-.referenceWrapper .referenceHeader .referenceTitle { float: left }
-.referenceWrapper .referenceHeader .referenceStamp { float: right }
+#referencePage .referenceTitle { float: left }
+#referencePage .referenceStamp { float: right }
 
-.referenceWrapper .referenceStamp a {
+#referencePage .referenceStamp a {
     color: #fff;
     font-weight: bold;
+}
+
+#referencePage .row:not(:last-child) > div { padding: 10px; height: 300px } /* 280 + 2*10 pad */
+
+@media only screen and (min-width: 992px) { /* desktop */
+    #referencePage .row:first-child > div {
+        padding-top: 0;
+        height: 290px; /* 280 + 1*10 pad */
+    }
+
+    #referencePage .row > div:first-child { padding-left: 0 }
+    #referencePage .row > div:last-child { padding-right: 0 }
+}
+
+@media only screen and (max-width: 991px) { /* smart phones & tablets */
+    #referencePage .row:first-child > div:first-child { padding-top: 0; height: 290px } /* 280 + 1*10 pad */
 }
 
 
@@ -135,22 +148,17 @@
 
 /* RECIPES
 ------------------------------------------------------------------------------*/
-#recipesGrid .col-xs-12,
-#recipesGrid .col-sm-4 {
-    padding-left: 0;
-    padding-right: 0;
-}
+#recipesPage .col-xs-12,
+#recipesPage .col-sm-4 { padding: 0 }
 
-#recipesGrid { margin: 20px 0 }
-
-#recipesGrid .thumbnail {
+#recipesPage .thumbnail {
     position: relative;
     margin-bottom: 0;
     padding: 0;
     border-radius: 0;
 }
 
-#recipesGrid .thumbnail .caption {
+#recipesPage .thumbnail .caption {
     position: absolute;
         left: 20px;
         bottom: 0;
@@ -160,13 +168,13 @@
 }
 
 @media only screen and (max-width: 500px) { /* smart phones */
-    #recipesGrid .thumbnail img { width: 100% }
+    #recipesPage .thumbnail img { width: 100% }
 }
 
 @media only screen and (min-width: 501px) and (max-width: 767px) { /* ugly width until tables */
-    #recipesGrid .thumbnail {border: 0}
-    #recipesGrid .thumbnail .caption {left: 20%}
-    #recipesGrid .thumbnail img {width: 70%}
+    #recipesPage .thumbnail {border: 0}
+    #recipesPage .thumbnail .caption {left: 20%}
+    #recipesPage .thumbnail img {width: 70%}
 }
 
 
@@ -174,23 +182,18 @@
 
 /* RECIPE
 ------------------------------------------------------------------------------*/
-#imageChartWrapper {
-    width: 100%;
-    margin: 40px 0;
-}
-
-#imageChartWrapper > div {
+#recipeCircles > div {
     display: inline-block;
     width: 50%;
     margin-right: -4px; /*since inline-block */
 }
 
-#imageChartWrapper .roundImageWrapper {
+#recipeCircles #recipePic {
     position: relative;
     height: 300px; /* same as image, since it's absolute positioned */
 }
 
-#imageChartWrapper img {
+#recipePic img {
     position: absolute;
         top: 50%;
         left: 50%;
@@ -199,12 +202,12 @@
     margin: -150px 0 0 -150px;
 }
 
-#imageChartWrapper .chartWrapper {
+#recipeChartWrapper {
     position: relative;
     height: 300px; /* same as canvas, since it's absolute positioned */
 }
 
-#imageChartWrapper .chartWrapper canvas {
+#macroChart {
     position: absolute;
         top: 50%;
         left: 50%;
@@ -212,7 +215,7 @@
     margin: -150px 0 0 -150px;
 }
 
-#imageChartWrapper .chartWrapper #kcalSpan {
+#kcalSpan {
     position: absolute;
         top: 50%;
         left: 50%;
@@ -222,13 +225,13 @@
 }
 
 @media only screen and (max-width: 767px) {
-    #imageChartWrapper > div {
+    #recipeCircles > div {
         display: block;
         width: 100%;
         margin-right: 0;
     }
 
-    #imageChartWrapper .roundImageWrapper {margin-bottom: 20px}
+    #recipePic {margin-bottom: 20px}
 }
 
 #ingredientList,

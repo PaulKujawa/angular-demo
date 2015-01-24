@@ -12,14 +12,14 @@
 
 {% block section %}
     <section class="container">
-        <div id="imageChartWrapper">
-            <div class="roundImageWrapper">
+        <div id="recipeCircles">
+            <div id="recipePic">
                 {% if recipe.UploadedImages is not empty %}
                     <img class="img-circle" src="/vpit/web/uploads/documents/{{ (recipe.UploadedImages|first).filename }}" alt="{{ recipe.name }}">
                 {% endif %}
             </div>
 
-            <div class="chartWrapper">
+            <div id="recipeChartWrapper">
                 <canvas id="macroChart" width="301px" height="301px"></canvas>
                 <span id="kcalSpan" class="badge" title="Kcal">{{ macros.kcal }}</span>
             </div>

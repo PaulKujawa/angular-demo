@@ -10,19 +10,20 @@
 {% endblock %}
 
 {% block section %}
-    <section class="container">
+    <section class="container" id="referencePage">
 
         {% for row in references|batch(2) %}
             <div class="row">
                 {% for reference in row %}
-                    <div class="col-xs-12 col-sm-6">
-                        <div class="referenceWrapper">
+                    <div class="col-xs-12 col-md-6">
+
+                        <div class="reference">
                             <div class="referenceHeader">
                                 <div class="referenceTitle">
                                     {{ reference.url|split('.')[0] }}
                                 </div>
                                 <div class="referenceStamp">
-                                    <a href="http://{{ reference.agency.url }}">{{ reference.agency.name }}</a> | {{ reference.finished|date('Y') }}
+                                    <a href="http://{{ reference.agency.url }}" target="_blank">{{ reference.agency.name }}</a> | {{ reference.finished|date('Y') }}
                                 </div>
                             </div>
 
