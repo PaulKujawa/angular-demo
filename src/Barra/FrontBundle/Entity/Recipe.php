@@ -35,7 +35,7 @@ class Recipe
     private $votes;
 
     /**
-     * @ORM\OneToMany(targetEntity="UploadedImage", mappedBy="recipe")
+     * @ORM\OneToMany(targetEntity="RecipePicture", mappedBy="recipe")
      * @ORM\OrderBy({"title" = "ASC"})
      */
     private $uploadedImages;
@@ -116,10 +116,10 @@ class Recipe
     /**
      * Add uploadedImages
      *
-     * @param \Barra\FrontBundle\Entity\UploadedImage $uploadedImages
+     * @param \Barra\FrontBundle\Entity\RecipePicture $uploadedImages
      * @return Recipe
      */
-    public function addUploadedImage(\Barra\FrontBundle\Entity\UploadedImage $uploadedImages)
+    public function addRecipePicture(\Barra\FrontBundle\Entity\RecipePicture $uploadedImages)
     {
         $this->uploadedImages[] = $uploadedImages;
 
@@ -129,9 +129,9 @@ class Recipe
     /**
      * Remove uploadedImages
      *
-     * @param \Barra\FrontBundle\Entity\UploadedImage $uploadedImages
+     * @param \Barra\FrontBundle\Entity\RecipePicture $uploadedImages
      */
-    public function removeUploadedImage(\Barra\FrontBundle\Entity\UploadedImage $uploadedImages)
+    public function removeRecipePicture(\Barra\FrontBundle\Entity\RecipePicture $uploadedImages)
     {
         $this->uploadedImages->removeElement($uploadedImages);
     }
@@ -141,7 +141,7 @@ class Recipe
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getUploadedImages()
+    public function getRecipePictures()
     {
         return $this->uploadedImages;
     }

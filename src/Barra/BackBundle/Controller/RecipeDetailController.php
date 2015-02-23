@@ -2,10 +2,10 @@
 
 namespace Barra\BackBundle\Controller;
 
-use Barra\FrontBundle\Entity\UploadedImage;
+use Barra\FrontBundle\Entity\RecipePicture;
 use Barra\FrontBundle\Entity\CookingStep;
 use Barra\FrontBundle\Entity\RecipeIngredient;
-use Barra\BackBundle\Form\Type\UploadedImageType;
+use Barra\BackBundle\Form\Type\RecipePictureType;
 use Barra\BackBundle\Form\Type\CookingStepType;
 use Barra\BackBundle\Form\Type\RecipeIngredientType;
 use Barra\BackBundle\Form\Type\Update\CookingStepUpdateType;
@@ -28,17 +28,17 @@ class RecipeDetailController extends Controller
         $cookingSteps           = $em->getRepository('BarraFrontBundle:CookingStep')->findByRecipe($recipe, array('position'=>'ASC'));
         $recipeIngredients      = $em->getRepository('BarraFrontBundle:RecipeIngredient')->findByRecipe($recipe, array('position'=>'ASC'));
 
-        $recipeFile             = new UploadedImage();
+        $recipeFile             = new RecipePicture();
         $cookingStep            = new CookingStep();
         $recipeIngredient       = new RecipeIngredient();
 
-        $formUploadedImage      = $this->createForm(new UploadedImageType(), $recipeFile);
+        $formRecipePicture      = $this->createForm(new RecipePictureType(), $recipeFile);
         $formCookingStepInsert  = $this->createForm(new CookingStepType(), $cookingStep);
         $formCookingStepUpdate  = $this->createForm(new CookingStepUpdateType(), $cookingStep);
         $formIngredientInsert   = $this->createForm(new RecipeIngredientType(), $recipeIngredient);
         $formIngredientUpdate   = $this->createForm(new RecipeIngredientUpdateType(), $recipeIngredient);
 
-        $formUploadedImage->get('recipe')->setData($recipe->getId());
+        $formRecipePicture->get('recipe')->setData($recipe->getId());
         $formCookingStepUpdate->get('recipe')->setData($recipe->getId());
         $formIngredientUpdate->get('recipe')->setData($recipe->getId());
 
@@ -64,7 +64,7 @@ class RecipeDetailController extends Controller
                 'recipe'                => $recipe,
                 'cookingSteps'          => $cookingSteps,
                 'recipeIngredients'     => $recipeIngredients,
-                'formUploadedImage'     => $formUploadedImage->createView(),
+                'formRecipePicture'     => $formRecipePicture->createView(),
                 'formIngredientInsert'  => $formIngredientInsert->createView(),
                 'formIngredientUpdate'  => $formIngredientUpdate->createView(),
                 'formCookingStepInsert' => $formCookingStepInsert->createView(),
@@ -113,16 +113,16 @@ class RecipeDetailController extends Controller
     public function uploadFileAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $recipeId = $request->request->get('formUploadedImage')['recipe'];
+        $recipeId = $request->request->get('formRecipePicture')['recipe'];
         $recipe = $em->getRepository('BarraFrontBundle:Recipe')->find($recipeId);
 
         if (!$recipe)
             throw $this->createNotFoundException('Recipe not found');
 
         foreach($request->files as $file) { // not necessary, since dropzone sends for every file an own request which depends on current config
-            $recipeFile = new UploadedImage();
+            $recipeFile = new RecipePicture();
 
-            $form = $this->createForm(new UploadedImageType(), $recipeFile);
+            $form = $this->createForm(new RecipePictureType(), $recipeFile);
             $form->handleRequest($request);
             $recipeFile->setRecipe($recipe);
             $recipeFile->setSize($file->getClientSize());
@@ -146,7 +146,7 @@ class RecipeDetailController extends Controller
     public function getFilesAction($recipeId)
     {
         $em = $this->getDoctrine()->getManager();
-        $files = $em->getRepository('BarraFrontBundle:UploadedImage')->findByRecipe($recipeId);
+        $files = $em->getRepository('BarraFrontBundle:RecipePicture')->findByRecipe($recipeId);
 
         $container = array();
         for ($i=0; $i < count($files); $i++) {
@@ -165,7 +165,7 @@ class RecipeDetailController extends Controller
     public function deleteFileAction($recipeId, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $file = $em->getRepository('BarraFrontBundle:UploadedImage')->findOneBy(array('recipe'=>$recipeId, 'id'=>$id));
+        $file = $em->getRepository('BarraFrontBundle:RecipePicture')->findOneBy(array('recipe'=>$recipeId, 'id'=>$id));
 
         if (!$file)
             throw $this->createNotFoundException('File not found');

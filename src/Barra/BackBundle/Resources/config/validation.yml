@@ -55,7 +55,7 @@ Barra\FrontBundle\Entity\Recipe:
       - NotBlank:
       - Type: string
 
-Manager\ManagerBundle\Entity\UploadedImage:
+Manager\ManagerBundle\Entity\RecipePicture:
   properties:
     file:
       - File:

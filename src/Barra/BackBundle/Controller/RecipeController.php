@@ -102,6 +102,10 @@ class RecipeController extends Controller
 
         if (!$recipe)
             throw $this->createNotFoundException('Recipe not found');
+
+        // TODO go through onDelete=Cascade (which is implemented but chatched through these calls
+        foreach($recipe->getRecipePictures() as $image)
+            $em->remove($image); // manually called deletions to trigger the removeUpload() as well
         $em->remove($recipe);
 
         try {

@@ -10,10 +10,10 @@
                     <div class="col-xs-12 col-sm-4">
                         <div class="thumbnail">
                             <a href="{{ path('barra_front_recipe', {'name': recipe.name|replace({' ': '_'})}) }}">
-                                {% if recipe.UploadedImages is not empty %}
-                                    <img src="/vpit/web/uploads/documents/{{ (recipe.UploadedImages|first).filename }}" alt="{{ recipe.name }}">
+                                {% if recipe.RecipePictures is not empty %}
+                                    <img src="/vpit/web/uploads/documents/{{ (recipe.RecipePictures|first).filename }}" alt="{{ recipe.name }}">
                                 {% endif %}
-                                <div class="caption fontXL">{{ recipe.name }}</div>
+                                <div class="caption">{{ recipe.name }}</div>
                             </a>
                         </div>
                     </div>

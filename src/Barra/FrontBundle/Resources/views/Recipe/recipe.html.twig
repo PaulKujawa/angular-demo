@@ -14,8 +14,8 @@
     <section class="container">
         <div id="recipeCircles">
             <div id="recipePic">
-                {% if recipe.UploadedImages is not empty %}
-                    <img class="img-circle" src="/vpit/web/uploads/documents/{{ (recipe.UploadedImages|first).filename }}" alt="{{ recipe.name }}">
+                {% if recipe.RecipePictures is not empty %}
+                    <img class="img-circle" src="/vpit/web/uploads/documents/{{ (recipe.RecipePictures|first).filename }}" alt="{{ recipe.name }}">
                 {% endif %}
             </div>
 

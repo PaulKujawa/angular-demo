@@ -7,13 +7,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * UploadedImage
+ * RecipePicture
  *
  * @ORM\Table()
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks
  */
-class UploadedImage
+class RecipePicture
 {
     /**
      * @ORM\Id
@@ -161,7 +161,7 @@ class UploadedImage
      * Set title
      *
      * @param string $title
-     * @return UploadedImage
+     * @return RecipePicture
      */
     public function setTitle($title)
     {
@@ -183,7 +183,7 @@ class UploadedImage
      * Set filename
      *
      * @param string $filename
-     * @return UploadedImage
+     * @return RecipePicture
      */
     public function setFilename($filename)
     {
@@ -202,7 +202,7 @@ class UploadedImage
     }
 
     /**
-     * @param UploadedImage $file
+     * @param RecipePicture $file
      */
     public function setFile(UploadedFile $file = null)
     {
@@ -226,7 +226,7 @@ class UploadedImage
      * Set recipe
      *
      * @param \Barra\FrontBundle\Entity\Recipe $recipe
-     * @return UploadedImage
+     * @return RecipePicture
      */
     public function setRecipe(\Barra\FrontBundle\Entity\Recipe $recipe = null)
     {
@@ -248,7 +248,7 @@ class UploadedImage
      * Set size
      *
      * @param string $size
-     * @return UploadedDocument
+     * @return RecipePicture
      */
     public function setSize($size)
     {
