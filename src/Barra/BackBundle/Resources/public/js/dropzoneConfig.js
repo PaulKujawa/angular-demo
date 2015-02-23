@@ -30,7 +30,7 @@ var itemTemplate =
 
 Dropzone.options.dropzoneId = {
     parallelUploads: 3,
-    maxFilesize: 4, // in MB, according to server & DB validation
+    maxFilesize: 2, // MB, according to server & DB validation (& php.ini setting)
     thumbnailWidth: null, // height:100%, width:auto (100)
     acceptedFiles: "image/*",
     previewTemplate: itemTemplate,
@@ -66,4 +66,4 @@ var addRemoveLink = function(id, file) {
         "</a>"
     );
     file.previewElement.appendChild(removeIcon);
-}
+};

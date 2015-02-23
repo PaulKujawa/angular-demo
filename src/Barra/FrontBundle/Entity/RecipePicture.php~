@@ -33,7 +33,7 @@ class RecipePicture
     private $filename;
 
     /**
-     * @Assert\File(maxSize="2M", mimeTypes = {"image/*"})
+     * @Assert\File(maxSize="4M", mimeTypes = {"image/*"})
      */
     private $file;
 

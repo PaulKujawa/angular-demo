@@ -21,11 +21,11 @@
                         <tr data-id={{ recipe.id }}>
                             <td class="editableCell" data-mobile-title={{ 'back.recipe.name'|trans() }}>{{ recipe.name }}</td>
                             <td class="editableCell" data-mobile-title={{ 'back.action.manage'|trans() }}>
-                                <a href="{{ path('barra_back_recipe_delete', {'id': recipe.id}) }}">
-                                    <span class="glyphicon glyphicon-minus"></span>
-                                </a>
                                 <a href="{{ path('barra_back_recipeDetail', {'name': recipe.name|replace({' ': '_'})}) }}">
                                     <span class="glyphicon glyphicon-eye-open"></span>
+                                </a>
+                                <a href="{{ path('barra_back_recipe_delete', {'id': recipe.id}) }}">
+                                    <span class="glyphicon glyphicon-minus"></span>
                                 </a>
                             </td>
                         </tr>

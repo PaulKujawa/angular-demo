@@ -7,13 +7,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * RecipePicture
+ * ReferencePicture
  *
  * @ORM\Table()
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks
  */
-class RecipePicture
+class ReferencePicture
 {
     /**
      * @ORM\Id
@@ -23,26 +23,21 @@ class RecipePicture
     private $id;
 
     /**
-     * @ORM\Column(name="title", type="string", length=255, nullable=false)
-     */
-    private $title;
-
-    /**
      * @ORM\Column(name="filename", type="string", length=255, unique=true)
      */
     private $filename;
 
     /**
-     * @Assert\File(maxSize="2M", mimeTypes = {"image/*"})
+     * @Assert\File(maxSize="4M", mimeTypes = {"image/*"})
      */
     private $file;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Recipe", inversedBy="recipePictures")
-     * @ORM\JoinColumn(name="recipe", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @ORM\ManyToOne(targetEntity="Reference", inversedBy="referencePictures")
+     * @ORM\JoinColumn(name="reference", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * @ORM\OrderBy({"name" = "ASC"})
      */
-    protected $recipe;
+    protected $reference;
 
     /**
      * temp var for encoded filename
@@ -158,32 +153,10 @@ class RecipePicture
     }
 
     /**
-     * Set title
-     *
-     * @param string $title
-     * @return RecipePicture
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-        return $this;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
      * Set filename
      *
      * @param string $filename
-     * @return RecipePicture
+     * @return ReferencePicture
      */
     public function setFilename($filename)
     {
@@ -202,7 +175,7 @@ class RecipePicture
     }
 
     /**
-     * @param RecipePicture $file
+     * @param ReferencePicture $file
      */
     public function setFile(UploadedFile $file = null)
     {
@@ -223,32 +196,32 @@ class RecipePicture
     }
 
     /**
-     * Set recipe
+     * Set reference
      *
-     * @param \Barra\FrontBundle\Entity\Recipe $recipe
-     * @return RecipePicture
+     * @param \Barra\FrontBundle\Entity\Reference $reference
+     * @return ReferencePicture
      */
-    public function setRecipe(\Barra\FrontBundle\Entity\Recipe $recipe = null)
+    public function setReference(\Barra\FrontBundle\Entity\Reference $reference = null)
     {
-        $this->recipe = $recipe;
+        $this->reference = $reference;
         return $this;
     }
 
     /**
-     * Get recipe
+     * Get reference
      *
-     * @return \Barra\FrontBundle\Entity\Recipe 
+     * @return \Barra\FrontBundle\Entity\Reference
      */
-    public function getRecipe()
+    public function getReference()
     {
-        return $this->recipe;
+        return $this->reference;
     }
 
     /**
      * Set size
      *
      * @param string $size
-     * @return RecipePicture
+     * @return ReferencePicture
      */
     public function setSize($size)
     {

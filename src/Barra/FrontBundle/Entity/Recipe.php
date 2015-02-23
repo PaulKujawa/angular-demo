@@ -38,7 +38,7 @@ class Recipe
      * @ORM\OneToMany(targetEntity="RecipePicture", mappedBy="recipe")
      * @ORM\OrderBy({"title" = "ASC"})
      */
-    private $uploadedImages;
+    private $recipePictures;
 
 
     /**
@@ -110,39 +110,39 @@ class Recipe
      */
     public function __construct()
     {
-        $this->uploadedImages = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->recipePictures = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Add uploadedImages
+     * Add recipePictures
      *
-     * @param \Barra\FrontBundle\Entity\RecipePicture $uploadedImages
+     * @param \Barra\FrontBundle\Entity\RecipePicture $recipePictures
      * @return Recipe
      */
-    public function addRecipePicture(\Barra\FrontBundle\Entity\RecipePicture $uploadedImages)
+    public function addRecipePicture(\Barra\FrontBundle\Entity\RecipePicture $recipePictures)
     {
-        $this->uploadedImages[] = $uploadedImages;
+        $this->recipePictures[] = $recipePictures;
 
         return $this;
     }
 
     /**
-     * Remove uploadedImages
+     * Remove recipePictures
      *
-     * @param \Barra\FrontBundle\Entity\RecipePicture $uploadedImages
+     * @param \Barra\FrontBundle\Entity\RecipePicture $recipePictures
      */
-    public function removeRecipePicture(\Barra\FrontBundle\Entity\RecipePicture $uploadedImages)
+    public function removeRecipePicture(\Barra\FrontBundle\Entity\RecipePicture $recipePictures)
     {
-        $this->uploadedImages->removeElement($uploadedImages);
+        $this->recipePictures->removeElement($recipePictures);
     }
 
     /**
-     * Get uploadedImages
+     * Get recipePictures
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
     public function getRecipePictures()
     {
-        return $this->uploadedImages;
+        return $this->recipePictures;
     }
 }

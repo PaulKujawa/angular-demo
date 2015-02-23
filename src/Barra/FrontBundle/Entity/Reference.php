@@ -52,6 +52,12 @@ class Reference
      */
     private $techniques;
 
+    /**
+     * @ORM\OneToMany(targetEntity="ReferencePicture", mappedBy="recipe")
+     * @ORM\OrderBy({"id" = "ASC"})
+     */
+    private $referencePictures;
+
 
     /**
      * Constructor
@@ -217,5 +223,38 @@ class Reference
     public function getTechniques()
     {
         return $this->techniques;
+    }
+
+    /**
+     * Add referencePictures
+     *
+     * @param \Barra\FrontBundle\Entity\ReferencePicture $referencePictures
+     * @return Reference
+     */
+    public function addReferencePicture(\Barra\FrontBundle\Entity\ReferencePicture $referencePictures)
+    {
+        $this->referencePictures[] = $referencePictures;
+
+        return $this;
+    }
+
+    /**
+     * Remove referencePictures
+     *
+     * @param \Barra\FrontBundle\Entity\ReferencePicture $referencePictures
+     */
+    public function removeReferencePicture(\Barra\FrontBundle\Entity\ReferencePicture $referencePictures)
+    {
+        $this->referencePictures->removeElement($referencePictures);
+    }
+
+    /**
+     * Get referencePictures
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getReferencePictures()
+    {
+        return $this->referencePictures;
     }
 }

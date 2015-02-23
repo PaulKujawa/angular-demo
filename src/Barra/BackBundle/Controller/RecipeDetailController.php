@@ -28,11 +28,11 @@ class RecipeDetailController extends Controller
         $cookingSteps           = $em->getRepository('BarraFrontBundle:CookingStep')->findByRecipe($recipe, array('position'=>'ASC'));
         $recipeIngredients      = $em->getRepository('BarraFrontBundle:RecipeIngredient')->findByRecipe($recipe, array('position'=>'ASC'));
 
-        $recipeFile             = new RecipePicture();
+        $recipePicture             = new RecipePicture();
         $cookingStep            = new CookingStep();
         $recipeIngredient       = new RecipeIngredient();
 
-        $formRecipePicture      = $this->createForm(new RecipePictureType(), $recipeFile);
+        $formRecipePicture      = $this->createForm(new RecipePictureType(), $recipePicture);
         $formCookingStepInsert  = $this->createForm(new CookingStepType(), $cookingStep);
         $formCookingStepUpdate  = $this->createForm(new CookingStepUpdateType(), $cookingStep);
         $formIngredientInsert   = $this->createForm(new RecipeIngredientType(), $recipeIngredient);
@@ -110,7 +110,7 @@ class RecipeDetailController extends Controller
 
 
 
-    public function uploadFileAction(Request $request)
+    public function uploadPictureAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $recipeId = $request->request->get('formRecipePicture')['recipe'];
@@ -143,7 +143,7 @@ class RecipeDetailController extends Controller
 
 
 
-    public function getFilesAction($recipeId)
+    public function getPicturesAction($recipeId)
     {
         $em = $this->getDoctrine()->getManager();
         $files = $em->getRepository('BarraFrontBundle:RecipePicture')->findByRecipe($recipeId);
@@ -162,10 +162,10 @@ class RecipeDetailController extends Controller
 
 
 
-    public function deleteFileAction($recipeId, $id)
+    public function deletePictureAction($recipeId, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $file = $em->getRepository('BarraFrontBundle:RecipePicture')->findOneBy(array('recipe'=>$recipeId, 'id'=>$id));
+        $file = $em->getRepository('BarraFrontBundle:RecipePicture')->find($id);
 
         if (!$file)
             throw $this->createNotFoundException('File not found');

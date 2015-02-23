@@ -67,6 +67,7 @@ class Ingredient
     /**
      * @ORM\ManyToOne(targetEntity="Manufacturer", inversedBy="ingredients")
      * @ORM\JoinColumn(name="manufacturer", referencedColumnName="id", nullable=false)
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     private $manufacturer;
 

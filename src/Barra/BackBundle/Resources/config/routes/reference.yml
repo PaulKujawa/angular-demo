@@ -15,3 +15,30 @@ barra_back_reference_delete:
     defaults: { _controller: BarraBackBundle:Reference:deleteReference }
     requirements:
         id: \d+
+
+
+
+barra_back_reference_pictures:
+    path:     /referencePictures/{id}
+    defaults: { _controller: BarraBackBundle:ReferencePicture:index }
+    requirements:
+        id: \d+
+
+barra_back_reference_picture_upload:
+    path:     /reference/picture/upload/ajax
+    defaults: { _controller: BarraBackBundle:ReferencePicture:uploadPicture }
+    requirements:
+        _method: POST
+
+barra_back_reference_pictures_get:
+    path:     /reference/picture/get/{referenceId}/ajax
+    defaults: { _controller: BarraBackBundle:ReferencePicture:getPictures }
+    requirements:
+        referenceId: \d+
+
+barra_back_reference_picture_delete:
+    path:     /reference/picture/delete/{referenceId}/{id}
+    defaults: { _controller: BarraBackBundle:ReferencePicture:deletePicture }
+    requirements:
+        referenceId: \d+
+        id: \d+

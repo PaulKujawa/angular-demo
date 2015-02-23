@@ -59,7 +59,7 @@ Manager\ManagerBundle\Entity\RecipePicture:
   properties:
     file:
       - File:
-          maxSize: 4M
+          maxSize: 2M
           mimeTypes: image/*
 
 Barra\FrontBundle\Entity\Measurement:
@@ -101,6 +101,12 @@ Barra\FrontBundle\Entity\Reference:
     finished:
       - Date: ~
 
+Manager\ManagerBundle\Entity\ReferencePicture:
+  properties:
+    file:
+      - File:
+          maxSize: 2M
+          mimeTypes: image/*
 
 Barra\FrontBundle\Entity\Agency:
   properties:

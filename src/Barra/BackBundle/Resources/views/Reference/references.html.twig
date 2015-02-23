@@ -32,6 +32,9 @@
                                 >{% for technique in reference.techniques %}{{ technique.name }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
                             <td class="editableCell" data-mobile-title={{ 'back.reference.agency'|trans() }}>{{ reference.agency.name }}</td>
                             <td class="editableCell" data-mobile-title={{ 'back.action.delete'|trans() }}>
+                                <a href="{{ path('barra_back_reference_pictures', {'id': reference.id}) }}">
+                                    <span class="glyphicon glyphicon-eye-open"></span>
+                                </a>
                                 <a href="{{ path('barra_back_reference_delete', {'id': reference.id}) }}">
                                     <span class="glyphicon glyphicon-minus"></span>
                                 </a>

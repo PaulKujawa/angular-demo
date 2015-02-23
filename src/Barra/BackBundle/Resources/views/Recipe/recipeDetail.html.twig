@@ -10,9 +10,9 @@
 {% block section %}
     <section class="container mobileTables">
         <form name="formRecipePicture" id="dropzoneId" class="dropzone"
-              action="{{ path('barra_back_recipeDetail_file_upload') }}" enctype="multipart/form-data" method="post"
-                data-removeLink="{{ path('barra_back_recipeDetail_file_delete', {'recipeId': recipe.id, 'id': 0}) }}"
-                data-getAllLink="{{ path('barra_back_recipeDetail_file_get', {'recipeId': recipe.id}) }}">
+              action="{{ path('barra_back_recipeDetail_picture_upload') }}" enctype="multipart/form-data" method="post"
+                data-removeLink="{{ path('barra_back_recipeDetail_picture_delete', {'recipeId': recipe.id, 'id': 0}) }}"
+                data-getAllLink="{{ path('barra_back_recipeDetail_pictures_get', {'recipeId': recipe.id}) }}">
             <!--<input type="file"   name="formRecipePicture[file]" id="formRecipePicture_file" class="form-control" required="required">-->
             <input type="hidden" name="formRecipePicture[recipe]" id="formRecipePicture_recipe" value="{{ recipe.id }}">
             {{ form_widget(formRecipePicture._token) }}

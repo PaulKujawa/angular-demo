@@ -72,21 +72,21 @@ barra_back_recipeDetail_cookingStep_delete:
 
 
 
-barra_back_recipeDetail_file_upload:
-    path:     /recipe/file/upload/ajax
-    defaults: { _controller: BarraBackBundle:RecipeDetail:uploadFile }
+barra_back_recipeDetail_picture_upload:
+    path:     /recipe/picture/upload/ajax
+    defaults: { _controller: BarraBackBundle:RecipeDetail:uploadPicture }
     requirements:
         _method: POST
 
-barra_back_recipeDetail_file_get:
-    path:     /recipe/file/get/{recipeId}/ajax
-    defaults: { _controller: BarraBackBundle:RecipeDetail:getFiles }
+barra_back_recipeDetail_pictures_get:
+    path:     /recipe/picture/get/{recipeId}/ajax
+    defaults: { _controller: BarraBackBundle:RecipeDetail:getPictures }
     requirements:
         recipeId: \d+
 
-barra_back_recipeDetail_file_delete:
-    path:     /recipe/file/delete/{recipeId}/{id}
-    defaults: { _controller: BarraBackBundle:RecipeDetail:deleteFile }
+barra_back_recipeDetail_picture_delete:
+    path:     /recipe/picture/delete/{recipeId}/{id}
+    defaults: { _controller: BarraBackBundle:RecipeDetail:deletePicture }
     requirements:
         recipeId: \d+
         id: \d+
