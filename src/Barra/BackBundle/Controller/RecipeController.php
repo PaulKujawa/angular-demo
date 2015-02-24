@@ -38,11 +38,11 @@ class RecipeController extends Controller
         $formUpdate = $this->createForm(new RecipeUpdateType(), $recipe);
 
         return $this->render('BarraBackBundle:Recipe:recipes.html.twig', array(
-            'paginationActive' => $paginationActive,
-            'paginationCnt' => $paginationCnt,
-            'recipes' => $recipes,
-            'formInsert' => $formInsert->createView(),
-            'formUpdate' => $formUpdate->createView()
+            'paginationActive'  => $paginationActive,
+            'paginationCnt'     => $paginationCnt,
+            'recipes'           => $recipes,
+            'formInsert'        => $formInsert->createView(),
+            'formUpdate'        => $formUpdate->createView()
         ));
     }
 

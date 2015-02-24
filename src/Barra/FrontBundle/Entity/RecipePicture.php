@@ -33,11 +33,6 @@ class RecipePicture
     private $filename;
 
     /**
-     * @Assert\File(maxSize="2M", mimeTypes = {"image/*"})
-     */
-    private $file;
-
-    /**
      * @ORM\ManyToOne(targetEntity="Recipe", inversedBy="recipePictures")
      * @ORM\JoinColumn(name="recipe", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * @ORM\OrderBy({"name" = "ASC"})
@@ -45,14 +40,20 @@ class RecipePicture
     protected $recipe;
 
     /**
+     * @ORM\Column(name="size", type="integer")
+     */
+    private $size;
+
+    /**
+     * @Assert\File(maxSize="2M", mimeTypes = {"image/*"})
+     */
+    private $file;
+
+    /**
      * temp var for encoded filename
      */
     private $temp;
 
-    /**
-     * @ORM\Column(name="size", type="integer")
-     */
-    private $size;
 
 
 
@@ -126,7 +127,6 @@ class RecipePicture
             unlink($this->getUploadRootDir().'/'.$this->temp);
             $this->temp = null;
         }
-
         $this->file = null;
     }
 

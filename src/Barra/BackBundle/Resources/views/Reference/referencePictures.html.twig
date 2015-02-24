@@ -5,10 +5,22 @@
 
 {% block section %}
     <section class="container">
+        <form name="formReferenceLogo" id="dropzoneLogo" class="dropzone"
+              action="{{ path('barra_back_reference_logo_update') }}" enctype="multipart/form-data" method="post"
+                data-removeLink="{{ path('barra_back_reference_picture_delete', {'referenceId': reference.id, 'id': 0}) }}"
+                data-getAllLink="{{ path('barra_back_reference_logo_get', {'referenceId': reference.id}) }}">
+            <!--<input type="file"   name="formReferenceLogo[file]" id="formReferenceLogo_file" class="form-control" required="required">-->
+            <input type="hidden" name="formReferenceLogo[reference]" id="formReferenceLogo_reference" value="{{ reference.id }}">
+            {{ form_widget(formReferenceLogo._token) }}
+            <div class="dz-default dz-message">
+                <span class="glyphicon glyphicon-upload"></span>
+            </div>
+        </form>
+
         <form name="formReferencePicture" id="dropzoneId" class="dropzone"
               action="{{ path('barra_back_reference_picture_upload') }}" enctype="multipart/form-data" method="post"
-                data-removeLink="{{ path('barra_back_reference_picture_delete', {'referenceId': reference.id, 'id': 0}) }}"
-                data-getAllLink="{{ path('barra_back_reference_pictures_get', {'referenceId': reference.id}) }}">
+              data-removeLink="{{ path('barra_back_reference_picture_delete', {'referenceId': reference.id, 'id': 0}) }}"
+              data-getAllLink="{{ path('barra_back_reference_pictures_get', {'referenceId': reference.id}) }}">
             <!--<input type="file"   name="formReferencePicture[file]" id="formReferencePicture_file" class="form-control" required="required">-->
             <input type="hidden" name="formReferencePicture[reference]" id="formReferencePicture_reference" value="{{ reference.id }}">
             {{ form_widget(formReferencePicture._token) }}

@@ -24,21 +24,33 @@ barra_back_reference_pictures:
     requirements:
         id: \d+
 
+barra_back_reference_logo_update:
+    path:     /reference/logo/upload/ajax
+    defaults: { _controller: BarraBackBundle:ReferencePicture:updateLogo }
+    requirements:
+        _method: POST
+
+barra_back_reference_logo_get:
+    path:     /reference/logo/get/{referenceId}/ajax
+    defaults: { _controller: BarraBackBundle:ReferencePicture:getLogo }
+    requirements:
+        referenceId: \d+
+
 barra_back_reference_picture_upload:
     path:     /reference/picture/upload/ajax
-    defaults: { _controller: BarraBackBundle:ReferencePicture:uploadPicture }
+    defaults: { _controller: BarraBackBundle:ReferencePicture:upload }
     requirements:
         _method: POST
 
 barra_back_reference_pictures_get:
     path:     /reference/picture/get/{referenceId}/ajax
-    defaults: { _controller: BarraBackBundle:ReferencePicture:getPictures }
+    defaults: { _controller: BarraBackBundle:ReferencePicture:get }
     requirements:
         referenceId: \d+
 
 barra_back_reference_picture_delete:
     path:     /reference/picture/delete/{referenceId}/{id}
-    defaults: { _controller: BarraBackBundle:ReferencePicture:deletePicture }
+    defaults: { _controller: BarraBackBundle:ReferencePicture:delete }
     requirements:
         referenceId: \d+
         id: \d+

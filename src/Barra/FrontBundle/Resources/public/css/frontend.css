@@ -96,8 +96,6 @@
 /* REFERENCES
 ------------------------------------------------------------------------------*/
 #referencePage .reference {
-    background-image: url('http://t3n.de/news/wp-content/uploads/2013/09/UIKit-Framework-595x178.jpg');
-    background-size: 100% 100%;
     position: relative;
     display: inline-block;
     width: 100%;
@@ -106,6 +104,9 @@
     cursor: pointer;
     color: #fff;
     font-weight: bold;
+    background-size: 60% auto;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 #referencePage .referenceHeader,

@@ -23,14 +23,19 @@ class ReferencePicture
     private $id;
 
     /**
+     * @ORM\Column(name="title", type="string", length=255, nullable=false)
+     */
+    private $title;
+
+    /**
      * @ORM\Column(name="filename", type="string", length=255, unique=true)
      */
     private $filename;
 
     /**
-     * @Assert\File(maxSize="4M", mimeTypes = {"image/*"})
+     * @ORM\Column(name="size", type="integer")
      */
-    private $file;
+    private $size;
 
     /**
      * @ORM\ManyToOne(targetEntity="Reference", inversedBy="referencePictures")
@@ -40,14 +45,14 @@ class ReferencePicture
     protected $reference;
 
     /**
+     * @Assert\File(maxSize="2M", mimeTypes = {"image/*"})
+     */
+    private $file;
+
+    /**
      * temp var for encoded filename
      */
     private $temp;
-
-    /**
-     * @ORM\Column(name="size", type="integer")
-     */
-    private $size;
 
 
 
@@ -238,5 +243,28 @@ class ReferencePicture
     public function getSize()
     {
         return $this->size;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return ReferencePicture
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 }

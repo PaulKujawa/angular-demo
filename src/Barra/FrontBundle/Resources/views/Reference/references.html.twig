@@ -16,8 +16,7 @@
             <div class="row">
                 {% for reference in row %}
                     <div class="col-xs-12 col-md-6">
-
-                        <div class="reference">
+                        <div class="reference" style="background-image: url('/vpit/web/uploads/documents/{{ reference.filename }}')">
                             <div class="referenceHeader">
                                 <div class="referenceTitle">
                                     {{ reference.url|split('.')[0] }}
