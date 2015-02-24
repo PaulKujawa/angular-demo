@@ -21,7 +21,7 @@ class RecipeController extends Controller
         $formInsert->handleRequest($request);
 
         if ($formInsert->isValid()) {
-            $sqlError = $this->newRecipeAction($recipe);
+            $sqlError = $this->newRecipe($recipe);
 
             if ($sqlError)
                 $formInsert->addError(new FormError($sqlError));
@@ -35,7 +35,7 @@ class RecipeController extends Controller
         $recipes = $em->getRepository('BarraFrontBundle:Recipe')->getSome($startPos, $paginationRange);
         $paginationCnt = $em->getRepository('BarraFrontBundle:Recipe')->count();
         $paginationCnt = ceil($paginationCnt/$paginationRange);
-        $formUpdate = $this->createForm(new RecipeUpdateType(), $recipe);
+        $formUpdate = $this->createForm(new RecipeUpdateType(), new Recipe());
 
         return $this->render('BarraBackBundle:Recipe:recipes.html.twig', array(
             'paginationActive'  => $paginationActive,
@@ -47,7 +47,7 @@ class RecipeController extends Controller
     }
 
 
-    public function newRecipeAction($recipe)
+    public function newRecipe($recipe)
     {
         $em = $this->getDoctrine()->getManager();
         $recipe->setRating(50)->setVotes(2);

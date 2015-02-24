@@ -34,7 +34,7 @@ class ManufacturerController extends Controller
         $manufacturers = $em->getRepository('BarraFrontBundle:Manufacturer')->getSome($startPos, $paginationRange);
         $paginationCnt = $em->getRepository('BarraFrontBundle:Manufacturer')->count();
         $paginationCnt = ceil($paginationCnt/$paginationRange);
-        $formUpdate = $this->createForm(new ManufacturerUpdateType(), $manufacturer);
+        $formUpdate = $this->createForm(new ManufacturerUpdateType(), new Manufacturer());
 
         return $this->render('BarraBackBundle:Manufacturer:manufacturers.html.twig', array(
             'paginationActive' => $paginationActive,

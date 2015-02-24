@@ -22,7 +22,7 @@ class ReferencePictureController extends Controller
             throw $this->createNotFoundException('Reference not found');
 
 
-        $referencePicture  = new ReferencePicture();
+        $referencePicture     = new ReferencePicture();
         $formReferenceLogo    = $this->createForm(new ReferencePictureType(), $referencePicture);
         $formReferencePicture = $this->createForm(new ReferencePictureType(), $referencePicture);
 
@@ -118,7 +118,7 @@ class ReferencePictureController extends Controller
         $logo = $em->getRepository('BarraFrontBundle:Reference')->find($referenceId);
 
         $container = array();
-        if (sizeof($logo) == 2) { // 1 == empty
+        if ( !is_null($logo->getFilename()) ) { // image already added?
             $container[0]['id']        = $logo->getId();
             $container[0]['title']     = $logo->getTitle();
             $container[0]['filename']  = $logo->getFilename();

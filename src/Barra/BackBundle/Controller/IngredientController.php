@@ -34,7 +34,7 @@ class IngredientController extends Controller
         $ingredients = $em->getRepository('BarraFrontBundle:Ingredient')->getSome($startPos, $paginationRange);
         $paginationCnt = $em->getRepository('BarraFrontBundle:Ingredient')->count();
         $paginationCnt = ceil($paginationCnt/$paginationRange);
-        $formUpdate = $this->createForm(new IngredientUpdateType(), $ingredient);
+        $formUpdate = $this->createForm(new IngredientUpdateType(), new Ingredient());
 
         return $this->render('BarraBackBundle:Ingredient:ingredients.html.twig', array(
             'paginationActive' => $paginationActive,

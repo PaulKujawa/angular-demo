@@ -56,13 +56,7 @@ class Reference
     private $techniques;
 
     /**
-     * @ORM\OneToMany(targetEntity="ReferencePicture", mappedBy="recipe")
-     * @ORM\OrderBy({"id" = "ASC"})
-     */
-    private $referencePictures;
-
-    /**
-     * @ORM\Column(name="title", type="string", length=255, nullable=false)
+     * @ORM\Column(name="title", type="string", length=255, nullable=true)
      */
     private $title;
 
@@ -75,6 +69,12 @@ class Reference
      * @ORM\Column(name="size", type="integer", nullable=true)
      */
     private $size;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ReferencePicture", mappedBy="recipe")
+     * @ORM\OrderBy({"id" = "ASC"})
+     */
+    private $referencePictures;
 
     /**
      * @Assert\File(maxSize="2M", mimeTypes = {"image/*"})

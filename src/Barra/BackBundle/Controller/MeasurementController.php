@@ -20,7 +20,7 @@ class MeasurementController extends Controller
         $formInsert->handleRequest($request);
 
         if ($formInsert->isValid()) {
-            $sqlError = $this->newMeasurementAction($measurement);
+            $sqlError = $this->newMeasurement($measurement);
 
             if ($sqlError)
                 $formInsert->addError(new FormError($sqlError));
@@ -34,7 +34,7 @@ class MeasurementController extends Controller
         $measurements = $em->getRepository('BarraFrontBundle:Measurement')->getSome($startPos, $paginationRange);
         $paginationCnt = $em->getRepository('BarraFrontBundle:Measurement')->count();
         $paginationCnt = ceil($paginationCnt/$paginationRange);
-        $formUpdate = $this->createForm(new MeasurementUpdateType(), $measurement);
+        $formUpdate = $this->createForm(new MeasurementUpdateType(), new Measurement());
 
         return $this->render('BarraBackBundle:Measurement:measurements.html.twig', array(
             'paginationActive' => $paginationActive,
@@ -47,7 +47,7 @@ class MeasurementController extends Controller
 
 
 
-    public function newMeasurementAction($measurement)
+    public function newMeasurement($measurement)
     {
         $em = $this->getDoctrine()->getManager();
         $em->persist($measurement);

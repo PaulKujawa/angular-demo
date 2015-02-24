@@ -35,7 +35,7 @@ class AgencyController extends Controller
         $agencies = $em->getRepository('BarraFrontBundle:Agency')->getSome($startPos, $paginationRange);
         $paginationCnt = $em->getRepository('BarraFrontBundle:Agency')->count();
         $paginationCnt = ceil($paginationCnt/$paginationRange);
-        $formUpdate = $this->createForm(new AgencyUpdateType(), $agency);
+        $formUpdate = $this->createForm(new AgencyUpdateType(), new Agency());
 
         return $this->render('BarraBackBundle:Agency:agencies.html.twig', array(
                 'paginationActive' => $paginationActive,

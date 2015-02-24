@@ -15,7 +15,7 @@ class TechniqueController extends Controller
 {
     public function indexAction(Request $request, $paginationActive)
     {
-        $technique = new Technique();
+        $technique  = new Technique();
         $formInsert = $this->createForm(new TechniqueType(), $technique);
         $formInsert->handleRequest($request);
 
@@ -34,7 +34,7 @@ class TechniqueController extends Controller
         $techniques = $em->getRepository('BarraFrontBundle:Technique')->getSome($startPos, $paginationRange);
         $paginationCnt = $em->getRepository('BarraFrontBundle:Technique')->count();
         $paginationCnt = ceil($paginationCnt/$paginationRange);
-        $formUpdate = $this->createForm(new TechniqueUpdateType(), $technique);
+        $formUpdate = $this->createForm(new TechniqueUpdateType(), new Technique());
 
         return $this->render('BarraBackBundle:Technique:techniques.html.twig', array(
                 'paginationActive' => $paginationActive,

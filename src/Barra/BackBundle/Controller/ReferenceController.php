@@ -34,7 +34,7 @@ class ReferenceController extends Controller
         $references = $em->getRepository('BarraFrontBundle:Reference')->getSome($startPos, $paginationRange);
         $paginationCnt = $em->getRepository('BarraFrontBundle:Reference')->count();
         $paginationCnt = ceil($paginationCnt/$paginationRange);
-        $formUpdate = $this->createForm(new ReferenceUpdateType(), $reference);
+        $formUpdate = $this->createForm(new ReferenceUpdateType(), new Reference());
 
         return $this->render('BarraBackBundle:Reference:references.html.twig', array(
                 'paginationActive' => $paginationActive,

@@ -28,15 +28,15 @@ class RecipeDetailController extends Controller
         $cookingSteps           = $em->getRepository('BarraFrontBundle:CookingStep')->findByRecipe($recipe, array('position'=>'ASC'));
         $recipeIngredients      = $em->getRepository('BarraFrontBundle:RecipeIngredient')->findByRecipe($recipe, array('position'=>'ASC'));
 
-        $recipePicture             = new RecipePicture();
+        $recipePicture          = new RecipePicture();
         $cookingStep            = new CookingStep();
         $recipeIngredient       = new RecipeIngredient();
 
         $formRecipePicture      = $this->createForm(new RecipePictureType(), $recipePicture);
         $formCookingStepInsert  = $this->createForm(new CookingStepType(), $cookingStep);
-        $formCookingStepUpdate  = $this->createForm(new CookingStepUpdateType(), $cookingStep);
         $formIngredientInsert   = $this->createForm(new RecipeIngredientType(), $recipeIngredient);
-        $formIngredientUpdate   = $this->createForm(new RecipeIngredientUpdateType(), $recipeIngredient);
+        $formCookingStepUpdate  = $this->createForm(new CookingStepUpdateType(), new CookingStep());
+        $formIngredientUpdate   = $this->createForm(new RecipeIngredientUpdateType(), new RecipeIngredient());
 
         $formRecipePicture->get('recipe')->setData($recipe->getId());
         $formCookingStepUpdate->get('recipe')->setData($recipe->getId());
