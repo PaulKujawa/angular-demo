@@ -29,23 +29,7 @@ Vpit
   * delete DB `php app/console doctrine:database:drop --force`
 
 
-3) Redirects
--------------
-  * without URL change `return $this->forward('BarraDefaultBundle:Default:recipe', array('id' => 1));`
-
-  * with URL change `return $this->redirect($this->generateUrl('barra_default_recipe', array('id' => 1)));`
-
-
-4) Check kind of request
--------------------------
-  * GET `$request->query->get('page');`
-  * POST `$request->request->get('page');`
-  * AJAX `$request->isXmlHttpRequest();`
-  * Lang `$request->getPreferredLanguage(array('de', 'en'));`
-  * Requested format `$format = $this->getRequest()->getRequestFormat();`
-
-
-5) Trans
+3) Trans
 ----------
   * tag: `{% trans from 'layout' %}reference{% endtrans %}`
 
@@ -54,21 +38,19 @@ Vpit
 
   * variable key `{{ entry['label']|trans({}, 'layout') }}`
 
-
-6) Transchoice
-----------------
-  * template `{{ 'front.word.comment'|transchoice(count) }}`
-  * yml `comment: '{0} no comment|{1} one comment|]1,Inf] %count% comments'`
+  *Transchoice
+  ** template `{{ 'front.word.comment'|transchoice(count) }}` yml `comment: '{0} no comment|{1} one comment|]1,Inf] %count% comments'`
 
 
-7) mix
---------------------
+4) mix
+-------
     * ordered doctrine findAll()  `public function findAll() {return $this->findBy(array(), array('type'=>'ASC'));}`
     * pass request to controller `{{ render(controller('...', {'request': app.request})) }}`
 
 
-10) Browser support
+5) Browser support
 --------------------
+   * firefox v35 tested
    * IE10+
 
 

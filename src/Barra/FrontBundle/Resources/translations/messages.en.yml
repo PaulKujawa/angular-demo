@@ -1,4 +1,7 @@
 front:
+  action:
+    send: Send
+
   title:
     pageAboutMe: Kujawa
     aboutMe: About Me
@@ -9,18 +12,10 @@ front:
     mySkills: My skills
     myAccomplishments: My accomplishments
 
-  action:
-    send: Send
-
-  reference: #object
-    company: Company
-    description: Description
-    started: Started
-    finished: Finished
-
   contact: #object
     name: Your name
     email: Your e-mail
     message: Your message to me
+    description: I am Paul Kujawa, studying international media and computing and my freetime focuses fitness. Get in contact with me.
 
   word:

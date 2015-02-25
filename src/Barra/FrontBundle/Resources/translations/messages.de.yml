@@ -1,4 +1,7 @@
 front:
+  action:
+    send: Senden
+
   title:
     pageAboutMe: Kujawa
     aboutMe: Über mich
@@ -9,19 +12,10 @@ front:
     mySkills: Meine Fähigkeiten
     myAccomplishments: Meine Erfolge
 
-  action:
-    send: Send
-
-  reference: #object
-    website: Webseite
-    company: Firma
-    description: Beschreibung
-    started: Begonnen
-    finished: Abgeschlossen
-
   contact: #object
     name: Ihr Name
     email: Ihre E-Mail
     message: Ihre Nachricht an mich
+    description: Ich trage den Namen Paul Kujawa, studiere internationale Medieninformatik und meine Freizeit fokussiert Fitness. Treten Sie mit mir in Kontakt.
 
   word:

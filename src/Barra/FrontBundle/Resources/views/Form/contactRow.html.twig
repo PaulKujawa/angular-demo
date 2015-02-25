@@ -9,12 +9,13 @@
 {% endblock %}
 
 
+{# default template - necessary to override backend version of button_widget #}
 {% block button_widget %}
     {% spaceless %}
         {% if label is empty %}
             {% set label = name|humanize %}
         {% endif %}
-        <button type="{{ type|default('button') }}" {{ block('button_attributes') }}> {{ 'front.action.send'|trans() }} </button>
+        <button type="{{ type|default('button') }}" {{ block('button_attributes') }}>{{ label|trans() }}</button>
     {% endspaceless %}
 {% endblock %}
 

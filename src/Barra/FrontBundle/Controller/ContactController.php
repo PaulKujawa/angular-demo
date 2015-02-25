@@ -35,7 +35,10 @@ class ContactController extends Controller
     }
 
 
-
+    /**
+     * Sends the contact mail to p.kujawa@gmx.net
+     * @param $enquiry
+     */
     private function sendMail($enquiry)
     {
         $mailer = $this->get("mailer");

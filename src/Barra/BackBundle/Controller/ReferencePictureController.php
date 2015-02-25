@@ -76,7 +76,8 @@ class ReferencePictureController extends Controller
 
 
 
-    /** Updates logo, doesn't check if valid form though
+    /**
+     * Updates logo, doesn't check if valid form though
      * @param Request $request
      * @return Response
      */
@@ -108,7 +109,8 @@ class ReferencePictureController extends Controller
     }
 
 
-    /** Returns logo image
+    /**
+     * Returns logo image
      * @param $referenceId
      * @return Response
      */

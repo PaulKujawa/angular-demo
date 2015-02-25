@@ -13,10 +13,7 @@
             </div>
 
             <div id="contactDescription">
-                <p class="fontL">
-                    Ich trage den Namen Paul Kujawa, studiere internationale Medieninformatik
-                    und bin gelernter Informatikkaufmann. Meine Freizeit fokussiert Fitness.
-                </p>
+                <p class="fontL">{{ 'front.contact.description'|trans() }}</p>
             </div>
         </div>
 
@@ -29,7 +26,7 @@
                 </div>
                 {{ form_row(form.message) }}
             </div>
-            {{ form_widget(form.submit, {'label': 'back.front.new', 'attr': {'class': 'btn'} }) }}
+            {{ form_widget(form.submit, {'label': 'front.action.send', 'attr': {'class': 'btn'} }) }}
         {{ form_end(form) }}
     </section>
 {% endblock %}
