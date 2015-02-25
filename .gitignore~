@@ -1,14 +1,16 @@
 .idea/
 .DS_Store
 
+/app/config/parameters.yml
+/app/config/parameters.yml.dist
 /web/bundles/
 /app/bootstrap.php.cache
 /app/cache/*
-/app/config/parameters.yml
 /app/logs/*
 !app/cache/.gitkeep
 !app/logs/.gitkeep
 /app/phpunit.xml
 /build/
 /vendor/
+/web/uploads/documents/
 /bin/

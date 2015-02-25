@@ -2,7 +2,6 @@
 .DS_Store
 
 /app/config/parameters.yml
-/app/config/parameters.yml.dist
 /web/bundles/
 /app/bootstrap.php.cache
 /app/cache/*
