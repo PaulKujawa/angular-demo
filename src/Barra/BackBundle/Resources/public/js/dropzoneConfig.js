@@ -45,7 +45,7 @@ Dropzone.options.dropzoneId = {
             $.each(response.files, function(index, file) {
                 var image = {name: file.title, size: file.size};
                 thisDropzone.options.addedfile.call(thisDropzone, image);
-                thisDropzone.options.thumbnail.call(thisDropzone, image, "/vpit/web/uploads/documents/" + file.filename);
+                thisDropzone.options.thumbnail.call(thisDropzone, image, $('#dropzoneId').attr('data-picturesFolder') + file.filename);
                 addRemoveLink(file.id, image);
             });
         });
@@ -91,10 +91,10 @@ Dropzone.options.dropzoneLogo = {
             url: $('#dropzoneLogo').attr('data-getAllLink'),
             type: "POST"
         }).done(function(response) {
-            $.each(response.files, function(index, file) {
+             $.each(response.files, function(index, file) {
                 var image = {name: file.title, size: file.size};
                 thisDropzone.options.addedfile.call(thisDropzone, image);
-                thisDropzone.options.thumbnail.call(thisDropzone, image, "/vpit/web/uploads/documents/" + file.filename);
+                thisDropzone.options.thumbnail.call(thisDropzone, image, $('#dropzoneId').attr('data-picturesFolder') + file.filename);
                 addInactiveRemoveLink(file.id, image);
                 previousLogo = image;
             });

@@ -11,7 +11,7 @@
                         <div class="thumbnail">
                             <a href="{{ path('barra_front_recipe', {'name': recipe.name|replace({' ': '_'})}) }}">
                                 {% if recipe.RecipePictures is not empty %}
-                                    <img src="/vpit/web/uploads/documents/{{ (recipe.RecipePictures|first).filename }}" alt="{{ recipe.name }}">
+                                    <img src="{{ asset('uploads/documents/'~(recipe.RecipePictures|first).filename) }}" alt="{{ recipe.name }}">
                                 {% endif %}
                                 <div class="caption">{{ recipe.name }}</div>
                             </a>

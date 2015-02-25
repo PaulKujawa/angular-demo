@@ -15,7 +15,7 @@
         <div id="recipeCircles">
             <div id="recipePic">
                 {% if recipe.RecipePictures is not empty %}
-                    <img class="img-circle" src="/vpit/web/uploads/documents/{{ (recipe.RecipePictures|first).filename }}" alt="{{ recipe.name }}">
+                    <img class="img-circle" src="{{ asset('uploads/documents/'~(recipe.RecipePictures|first).filename) }}" alt="{{ recipe.name }}">
                 {% endif %}
             </div>
 
