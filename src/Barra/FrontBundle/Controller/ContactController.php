@@ -26,6 +26,7 @@ class ContactController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             $this->sendMail($form->getData());
+            $request->getSession()->getFlashBag()->add('emailSent', $this->get('translator')->trans("front.message.emailSent"));
             return $this->redirect($this->generateUrl('barra_front_contact'));
         }
 

@@ -12,6 +12,9 @@ front:
     mySkills: My skills
     myAccomplishments: My accomplishments
 
+  message:
+    emailSent: Thank you for your inquiry. I will be in touch with you.
+
   contact: #object
     name: Your name
     email: Your e-mail

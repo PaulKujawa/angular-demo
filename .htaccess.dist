@@ -1,0 +1,5 @@
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^yourDomain.tld$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^yourDomain.tld$
+RewriteCond %{REQUEST_URI} !newDRfolder/
+RewriteRule (.*) /newDRfolder/$1 [L]

@@ -6,7 +6,6 @@
 
 {% block section %}
     <section class="container" id="contactPage">
-
         <div id="aboutMe" class="clearfix">
             <div id="contactPic">
                 <img class="img-circle" src="{{ asset('bundles/barrafront/images/kujawa.jpg') }}" alt="Paul Kujawa">
@@ -17,7 +16,14 @@
             </div>
         </div>
 
+
         {{ form_start(form, {'attr': {'id': "contactForm"}} ) }}
+            {% for flashMessage in app.session.flashbag.get('emailSent') %}
+                <div class="alert alert-success" role="alert">
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+
             <div class="clearfix">
                 <div id="contactFormLeft">
                     {{ form_errors(form) }}

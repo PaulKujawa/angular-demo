@@ -12,6 +12,9 @@ front:
     mySkills: Meine Fähigkeiten
     myAccomplishments: Meine Erfolge
 
+  message:
+    emailSent: Danke für Ihre Anfrage. Ich werde mich bei Ihnen melden.
+
   contact: #object
     name: Ihr Name
     email: Ihre E-Mail
