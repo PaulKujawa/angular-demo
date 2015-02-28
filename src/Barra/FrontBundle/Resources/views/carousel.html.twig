@@ -1,0 +1,23 @@
+{% trans_default_domain "messages" %}
+
+{% block carousel %}
+    <div id="carousel-reference" class="carousel slide hidden" data-ride="carousel"
+         data-url="{{ path('barra_front_reference_getPictures', {'referenceId': 0}) }}"
+    >
+        <!-- Indicators -->
+        <ol class="carousel-indicators"><!--JS--></ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox"><!--JS--></div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-reference" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#carousel-reference" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+{% endblock %}

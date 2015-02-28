@@ -137,3 +137,17 @@ textarea { resize: vertical}
 .centeredTitle {text-align: center}
 .alert { border: 0; border-radius: 0 }
 .alert-success { background-color: #3C948B; color: #fff }
+
+.overlay {
+    position: fixed;
+        top: 80px;
+        left: 0;
+        right: 0;
+        bottom: 50px;
+    z-index: 1040;
+    background-color: rgba(30, 30, 30, 0.75)
+}
+
+@media only screen and (max-width: 991px) { /* smart phones & tablets */
+    .overlay { top: 50px }
+}

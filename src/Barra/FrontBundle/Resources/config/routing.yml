@@ -18,6 +18,12 @@ barra_front_references:
     requirements:
       paginationActive: \d+
 
+barra_front_reference_getPictures:
+    path:     /reference/pictures/{referenceId}
+    defaults: { _controller: BarraFrontBundle:Reference:get }
+    requirements:
+      referenceId: \d+
+
 
 
 barra_front_recipes:

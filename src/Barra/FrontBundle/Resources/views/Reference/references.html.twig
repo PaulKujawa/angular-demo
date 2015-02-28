@@ -5,18 +5,17 @@
 {% block javascripts %}
     {{ parent() }}
     {% javascripts '@BarraFrontBundle/Resources/public/js/references.js' %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
+        <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}
 
 {% block section %}
     <section class="container" id="referencePage">
-
         {% for row in references|batch(2) %}
             <div class="row">
                 {% for reference in row %}
                     <div class="col-xs-12 col-md-6">
-                        <div class="reference" style="background-image: url('{{ asset('uploads/documents/'~reference.filename) }}')">
+                        <div class="reference" data-referenceid="{{ reference.id }}" style="background-image: url('{{ asset('uploads/documents/'~reference.filename) }}')">
                             <div class="referenceHeader">
                                 <div class="referenceTitle">
                                     {{ reference.url|split('.')[0] }}
@@ -38,6 +37,9 @@
             </div>
         {% endfor %}
 
+        <div class="overlay hidden">
+            {{ include('BarraFrontBundle::carousel.html.twig') }}
+        </div>
 
         {{ include('BarraFrontBundle::pagination.html.twig', { 'route': 'barra_front_references'})}}
     </section>
