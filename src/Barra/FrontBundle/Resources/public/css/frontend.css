@@ -132,11 +132,11 @@
 #referencePage .row:not(:last-child) > div { padding: 10px; height: 300px } /* 280 + 2*10 pad */
 
 
-.carousel { height: 100% }
-.carousel-indicators { bottom: 10px } /* between caption and footer */
-.carousel-inner { height: 100% }
-.carousel-inner > .item { height: 100% }
-.carousel-inner > .item > img {
+#referencePage .carousel { height: 100% }
+#referencePage .carousel-indicators { bottom: 10px } /* between caption and footer */
+#referencePage .carousel-inner { height: 100% }
+#referencePage .carousel-inner > .item { height: 100% }
+#referencePage .carousel-inner > .item > img {
     position: relative;
         top: 50%;
     transform: translateY(-50%);

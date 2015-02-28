@@ -148,6 +148,20 @@ textarea { resize: vertical}
     background-color: rgba(30, 30, 30, 0.75)
 }
 
-@media only screen and (max-width: 991px) { /* smart phones & tablets */
-    .overlay { top: 50px }
+.overlay .close {
+    float: none;
+    position: absolute;
+        top: 20px;
+        right: 40px;
+    z-index: 1;
+
+    opacity: 1;
+    color: #fff;
+    font-size: 60px;
+    font-weight: normal;
+}
+
+@media only screen and (max-width: 767px) { /* ugly width until tables */
+    .overlay { top: 50px; bottom: 0 }
+    .overlay .close { top: 0; right: 20px }
 }

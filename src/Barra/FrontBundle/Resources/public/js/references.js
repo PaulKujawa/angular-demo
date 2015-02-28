@@ -35,10 +35,6 @@ $(function() {
         overlay         = $('.overlay'),
         section         = $('section');
 
-    carousel.carousel({
-       interval: false
-    });
-
 
     references.click(function() {
         var url = carousel.data('url').slice(0, -1) + $(this).data("referenceid");
@@ -60,7 +56,11 @@ $(function() {
                 slidesWrapper.children(":first").addClass('active');
                 carousel.removeClass('hidden');
                 overlay.removeClass('hidden');
-                // todo prevent scrolling window while overlay is displayed
+
+                overlay.find('.close').click(function() {
+                    carousel.addClass('hidden');
+                    overlay.addClass(('hidden'));
+                })
             }
         });
     });
