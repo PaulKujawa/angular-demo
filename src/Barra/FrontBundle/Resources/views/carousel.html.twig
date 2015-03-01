@@ -1,14 +1,21 @@
 {% trans_default_domain "messages" %}
 
 {% block carousel %}
-    <div id="carousel-reference" class="carousel slide hidden" data-ride="carousel"
+    <div id="carousel-reference" class="carousel slide" data-ride="carousel"
          data-url="{{ path('barra_front_reference_getPictures', {'referenceId': 0}) }}"
     >
         <!-- Indicators -->
-        <ol class="carousel-indicators"><!--JS--></ol>
+        <ol class="carousel-indicators">
+            <li class="active" data-target="#carousel-reference" data-slide-to="0"></li>
+        </ol>
 
         <!-- Wrapper for slides -->
-        <div class="carousel-inner" role="listbox"><!--JS--></div>
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <img src="//0" alt="">
+                <div class="carousel-caption"></div>
+            </div>
+        </div>
 
         <!-- Controls -->
         <a class="left carousel-control" href="#carousel-reference" role="button" data-slide="prev">

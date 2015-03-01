@@ -1,7 +1,10 @@
+/**
+ * details on hover just for large displays (2x2 grid)
+ */
 $(function() {
     var wrapper     = $(".reference");
 
-    if ( $(window).width() >= 992 ) { // hover just for 2x2 grid
+    if ( $(window).width() >= 992 ) {
         wrapper.children().addClass("hide");
         wrapper.mouseenter(function() {
             $(this).children().removeClass("hide");
@@ -24,16 +27,19 @@ $(function() {
         slidesWrapper.append(
             '<div class="item">' +
                 '<img src="../../'+url+'" alt="'+caption+'">' +
-                '<div class="carousel-caption">'+caption+'</div>' +
+                '<div class="carousel-caption fontXL">'+caption+'</div>' +
             '</div>');
     };
 
-    var carousel        = $("#carousel-reference"),
-        indexWrapper    = carousel.find(".carousel-indicators"),
-        slidesWrapper   = carousel.find(".carousel-inner"),
-        references      = $('.reference'),
-        overlay         = $('.overlay'),
-        section         = $('section');
+    var carousel                = $("#carousel-reference"),
+        carouselIndexWrapper    = carousel.find(".carousel-indicators"),
+        carouselSlidesWrapper   = carousel.find(".carousel-inner"),
+        references              = $('.reference'),
+        overlay                 = $('.overlay'),
+        section                 = $('section');
+
+
+    carousel.carousel({interval: 2500});
 
 
     references.click(function() {
@@ -44,27 +50,31 @@ $(function() {
             type: "POST"
         }).done(function(response) {
             if (response.files.length > 0) {
-                indexWrapper.empty(); slidesWrapper.empty();
+                carouselIndexWrapper.empty(); carouselSlidesWrapper.empty();
 
                 $.each(response.files, function(i, file) {
-                    addIndexEntry(indexWrapper, i);
+                    addIndexEntry(carouselIndexWrapper, i);
                     var caption = file.caption.substr(0, file.caption.indexOf("."));
-                    addSlide(slidesWrapper, file.url, caption);
+                    addSlide(carouselSlidesWrapper, file.url, caption);
                 });
 
-                indexWrapper.children(":first").addClass('active');
-                slidesWrapper.children(":first").addClass('active');
-                carousel.removeClass('hidden');
+                carouselIndexWrapper.children(":first").addClass('active');
+                carouselSlidesWrapper.children(":first").addClass('active');
                 overlay.removeClass('hidden');
 
-                overlay.find('.close').click(function() {
-                    carousel.addClass('hidden');
-                    overlay.addClass(('hidden'));
-                })
+                $(document).one('keyup.escape', function(e) {
+                    if (e.keyCode == 27) // ESC
+                        overlay.addClass('hidden');
+                });
             }
         });
     });
 
+
+    overlay.find('.close').click(function() {
+        overlay.addClass('hidden');
+        $(document).off('keyup.escape');
+    });
 
 
     /**
