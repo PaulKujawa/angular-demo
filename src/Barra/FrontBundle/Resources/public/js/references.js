@@ -62,9 +62,11 @@ $(function() {
                 carouselSlidesWrapper.children(":first").addClass('active');
                 overlay.removeClass('hidden');
 
-                $(document).one('keyup.escape', function(e) {
-                    if (e.keyCode == 27) // ESC
+                $(document).on('keyup.escape', function(e) {
+                    if (e.keyCode == 27) { // ESC
                         overlay.addClass('hidden');
+                        $(document).off('keyup.escape');
+                    }
                 });
             }
         });
