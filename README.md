@@ -13,7 +13,7 @@ Vpit
 
   * include assets prod `php app/console assetic:dump --env=prod --no-debug`
 
-  * run phpunit tests `php phpunit -c app src/Barra/BackBundle`
+  * run phpunit tests `php bin/phpunit -c app/ [src/Barra/FrontBundle]`
 
 
 2) Commandline DB
