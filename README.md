@@ -1,13 +1,11 @@
-Vpit
-==============
+Kujawa's portfolio
+===================
 
 1) Commandline
 ---------------
   * create bundle `php app/console generate:bundle --namespace=Acme/HelloBundle --format=yml`
 
   * Cache clear prod `./app/console --env=prod cache:clear`
-
-  * Check Route `php app/console router:match /givenPage`
 
   * include assets dev `php app/console assets:install --symlink`
 
@@ -29,28 +27,21 @@ Vpit
   * delete DB `php app/console doctrine:database:drop --force`
 
 
-3) Trans
-----------
-  * tag: `{% trans from 'layout' %}reference{% endtrans %}`
-
+3) Mix
+-------
   * filter: `{{ 'reference'|trans({'%name%':'Max'}, 'layout') }}`
   ** reference: `Referenz %name%
 
-  * variable key `{{ entry['label']|trans({}, 'layout') }}`
-
-  *Transchoice
+  * Transchoice
   ** template `{{ 'front.word.comment'|transchoice(count) }}` yml `comment: '{0} no comment|{1} one comment|]1,Inf] %count% comments'`
 
+  * ordered doctrine findAll()  `public function findAll() {return $this->findBy(array(), array('type'=>'ASC'));}`
+  ** pass request to controller `{{ render(controller('...', {'request': app.request})) }}`
 
-4) mix
+
+4) foo
 -------
-    * ordered doctrine findAll()  `public function findAll() {return $this->findBy(array(), array('type'=>'ASC'));}`
-    * pass request to controller `{{ render(controller('...', {'request': app.request})) }}`
-
-
-5) Browser support
---------------------
-   * firefox v35 tested
-   * IE10+
+   * Tested firefox v35, Chrome, IE10+
+   * Symfony 2.6
 
 
