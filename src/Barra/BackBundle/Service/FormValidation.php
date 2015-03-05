@@ -15,17 +15,21 @@ class FormValidation
      * @param Form $form
      * @return array[fieldName][number] e.g. array['name'][0]
      */
-    public function getErrorMessages(Form $form) {
+    public function getErrorMessages(Form $form)
+    {
         $errors = array();
-        $formErrors = $form->getErrors();
+        foreach($form as $fieldName => $formField) {
 
-        foreach ($formErrors as $key => $error) {
-            $errors[] = $error->getMessage();
-        }
+            if (!$formField->isValid()) {
+                $formErrorIterator = $formField->getErrors(); // formField = form itself (not recursive)
 
-        foreach ($form->all() as $child) {
-            if (!$child->isValid())
-                $errors[$child->getName()] = $this->getErrorMessages($child);
+                // saves object keys as array entries and exchanges these entries with their result of getMessage()
+                $fieldErrors = array_map(
+                    function ($field) {return $field->getMessage();},
+                    iterator_to_array($formErrorIterator)
+                );
+                $errors[$fieldName] = $fieldErrors;
+            }
         }
         return $errors;
     }
