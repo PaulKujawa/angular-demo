@@ -1,0 +1,4 @@
+services:
+#    barra_rest.example:
+#        class: Barra\RestBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -3,7 +3,9 @@ Kujawa's portfolio
 
 1) Commandline
 ---------------
-  * create bundle `php app/console generate:bundle --namespace=Acme/HelloBundle --format=yml`
+  * create bundle `php app/console generate:bundle --namespace=Acme/DemoBundle --format=yml`
+
+  * create form `php app/console doctrine:generate:form AcmeDemoBundle:Page --no-interaction`
 
   * Cache clear prod `./app/console --env=prod cache:clear`
 

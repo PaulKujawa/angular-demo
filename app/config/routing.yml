@@ -7,17 +7,20 @@ barra_front_redirect:
 
 
 
+
+barra_rest:
+    type:     rest
+    resource: "@BarraRestBundle/Resources/config/routing.yml"
+    prefix:   /api/
+
 barra_front:
     resource: "@BarraFrontBundle/Resources/config/routing.yml"
     prefix:   /{_locale}
-
-barra_security:
-    resource: "@BarraSecurityBundle/Resources/config/routing.yml"
-    prefix:   /{_locale}/admino
 
 barra_back:
     resource: "@BarraBackBundle/Resources/config/routing.yml"
     prefix:   /{_locale}/admino
 
-
-
+barra_security:
+    resource: "@BarraSecurityBundle/Resources/config/routing.yml"
+    prefix:   /{_locale}/admino

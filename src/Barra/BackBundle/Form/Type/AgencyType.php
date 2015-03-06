@@ -23,7 +23,8 @@ class AgencyType extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('data_class'=>'Barra\FrontBundle\Entity\Agency',
+        $resolver->setDefaults(array(
+            'data_class'=>'Barra\FrontBundle\Entity\Agency',
             'intention' =>'agency'
         ));
     }

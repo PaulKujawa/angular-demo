@@ -2,7 +2,6 @@
 
 namespace Barra\BackBundle\Form\Type;
 
-use Barra\FrontBundle\Entity\RecipeIngredient;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -21,7 +20,8 @@ class RecipeType extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('data_class'=>'Barra\FrontBundle\Entity\Recipe',
+        $resolver->setDefaults(array(
+            'data_class'=>'Barra\FrontBundle\Entity\Recipe',
             'intention' =>'recipe'
         ));
     }

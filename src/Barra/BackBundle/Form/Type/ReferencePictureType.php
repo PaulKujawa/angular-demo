@@ -21,7 +21,8 @@ class ReferencePictureType extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('data_class'=>'Barra\FrontBundle\Entity\ReferencePicture',
+        $resolver->setDefaults(array(
+            'data_class'=>'Barra\FrontBundle\Entity\ReferencePicture',
             'intention' =>'recipeFile'
         ));
     }

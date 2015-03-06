@@ -77,3 +77,30 @@ swiftmailer:
     host:       "%mailer_host%"
     username:   "%mailer_user%"
     password:   "%mailer_password%"
+
+
+fos_rest:
+    disable_csrf_role: ROLE_REST                            # role defined in security.yml yet
+    param_fetcher_listener: true                            # reading parameters from the request
+    format_listener: true                                   # determining the correct response format
+    body_listener: #true                                    # decoding the request content
+        decoders:
+          json: fos_rest.decoder.jsontoform                 # for checkboxes with boolean values
+          xml: fos_rest.decoder.xml
+          #array_normalizer: fos_rest.normalizer.camel_keys # transform underscored array keys to camel cased ones [be aware of form_name]
+    view:
+        view_response_listener: 'force'                     # formatting the response (with twig or serializer [xml/json])
+        formats:                                            # serializer for rendering
+            xml: true
+            json : true
+        templating_formats:                                 # template for rendering via templating service
+            html: false                                     # false to don't have to support separate twig templates
+        force_redirects:
+            html: true                                      # default
+        failed_validation: HTTP_BAD_REQUEST
+        default_engine: twig
+    routing_loader:
+        default_format: json                                # if none is set via URL
+
+sensio_framework_extra:
+    view: { annotations: false }                            # FOSRestBundle takes over the controller annotations handling for views

@@ -11,21 +11,15 @@ security:
                 intention:            loginToken
             logout:
                 path:                 barra_security_logout
-                target:               barra_front_me
+                target:               barra_front_contact
             http_basic:
-                realm: "Secured Demo Area"
+                realm: "Secured Admino"
 
-#        dev:
-#            pattern:  ^/(_(profiler|wdt)|css|images|js)/
-#            security: false
-
-
-
-#    role_hierarchy:
-#        ROLE_ADMIN:       ROLE_USER
-#        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+    #role_hierarchy:
+        #ROLE_ADMIN: ROLE_REST # ROLE_ADMIN >= ROLE_REST http://localhost/barra/vpit/web/app_dev.php/api/recipes/18
 
     access_control:
+        - { path: ^/api/, roles: ROLE_REST }
         - { path: ^/[a-z][a-z]/admino/login, roles: IS_AUTHENTICATED_ANONYMOUSLY } #requires_channel: https }
         - { path: ^/[a-z][a-z]/admino/, roles: ROLE_ADMIN }
 
@@ -33,9 +27,9 @@ security:
         in_memory:
             memory:
                 users:
-                    artd:
-                        password: $2a$12$MVwSTFYn6K/wiXs2AYx/UesK4PVHNww2iYLpvL65sTXMtt8LnjNVG
-                        roles: 'ROLE_USER'
+                    rest:
+                        password: $2a$10$NMWOFecCv5NmLvM9hBT53.CEXsto.mJ/FFrzMOkTaGxClmBUqxowG
+                        roles: 'ROLE_REST' # used for disable_csrf_role in config.yml
                     barra:
                         password: $2a$12$c2wRxCd4fCzLt3gWhnKuh.BLFYl/sgqjpHrxRB32.gVXtdDnr7GVi
                         roles: 'ROLE_ADMIN'

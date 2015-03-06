@@ -1,0 +1,4 @@
+barra_rest_recipes:
+    type: rest
+    resource: "BarraRestBundle:Recipe"
+    name_prefix: barra_api_

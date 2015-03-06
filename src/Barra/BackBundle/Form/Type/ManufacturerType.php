@@ -20,7 +20,8 @@ class ManufacturerType extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('data_class'=>'Barra\FrontBundle\Entity\Manufacturer',
+        $resolver->setDefaults(array(
+            'data_class'=>'Barra\FrontBundle\Entity\Manufacturer',
             'intention' =>'manufacturer'
         ));
     }

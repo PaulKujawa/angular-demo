@@ -3,10 +3,13 @@
 namespace Barra\FrontBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
 /**
  * Recipe
- *
+ * @ExclusionPolicy("all")
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Barra\FrontBundle\Entity\Repository\RecipeRepository")
  */
@@ -16,11 +19,13 @@ class Recipe
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Expose
      */
     private $id;
 
     /**
      * @ORM\Column(name="name", type="string", length=40, unique=true)
+     * @Expose
      */
     private $name;
 
@@ -37,6 +42,7 @@ class Recipe
     /**
      * @ORM\OneToMany(targetEntity="RecipePicture", mappedBy="recipe")
      * @ORM\OrderBy({"title" = "ASC"})
+     * @Expose
      */
     private $recipePictures;
 

@@ -50,7 +50,8 @@ class ReferenceType extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('data_class'=>'Barra\FrontBundle\Entity\Reference',
+        $resolver->setDefaults(array(
+            'data_class'=>'Barra\FrontBundle\Entity\Reference',
             'intention' =>'reference'
         ));
     }
