@@ -47,3 +47,5 @@ Kujawa's portfolio
    * Symfony 2.6
 
 
+POST Recipe
+curl -v -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"formRecipe":{"name":"fooRecipe"}}' localhost/barra/vpit/web/app_dev.php/api/recipes
