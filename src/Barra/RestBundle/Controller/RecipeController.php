@@ -2,18 +2,18 @@
 
 namespace Barra\RestBundle\Controller;
 
-use Barra\FrontBundle\Entity\Recipe;
-use Barra\BackBundle\Form\Type\RecipeType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Annotations;
 use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Util\Codes;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Barra\BackBundle\Form\Type\RecipeType;
+use Barra\FrontBundle\Entity\Recipe;
 
 
 /**

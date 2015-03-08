@@ -9,6 +9,7 @@
     "require": {
         "doctrine/orm": "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle": "~1.2",
+        "doctrine/doctrine-fixtures-bundle": "2.2.*",
         "incenteev/composer-parameter-handler": "~2.0",
         "ircmaxell/password-compat": "~1.0.3",
         "php": ">=5.3.3",

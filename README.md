@@ -3,33 +3,26 @@ Kujawa's portfolio
 
 1) Commandline
 ---------------
-  * create bundle `php app/console generate:bundle --namespace=Acme/DemoBundle --format=yml`
+  * create bundle       `php app/console generate:bundle --namespace=Acme/DemoBundle --format=yml`
+  * create form         `php app/console doctrine:generate:form AcmeDemoBundle:Page --no-interaction`
+  * run phpunit tests   `php bin/phpunit -c app/ [src/Barra/FrontBundle]`
 
-  * create form `php app/console doctrine:generate:form AcmeDemoBundle:Page --no-interaction`
-
-  * Cache clear prod `./app/console --env=prod cache:clear`
-
-  * include assets dev `php app/console assets:install --symlink`
-
+2.) Commandline Assets
+-----------------------
+  * Cache clear prod    `php app/console --env=prod cache:clear`
+  * include assets dev  `php app/console assets:install --symlink`
   * include assets prod `php app/console assetic:dump --env=prod --no-debug`
 
-  * run phpunit tests `php bin/phpunit -c app/ [src/Barra/FrontBundle]`
-
-
-2) Commandline DB
+3) Commandline DB
 ------------------
-  * create entity `php app/console doctrine:generate:entity --entity="BarraDefaultBundle:Product"`
+  * create entity       `php app/console doctrine:generate:entity --entity="BarraDefaultBundle:Product"`
+  * create get/set      `php app/console doctrine:generate:entities Barra`
+  * load fixtures       `php app/console doctrine:fixtures:load`
+  * create DB           `php app/console doctrine:database:create`
+  * update DB           `php app/console doctrine:schema:update --force`
+  * delete DB           `php app/console doctrine:database:drop --force`
 
-  * updates get/set/repo `php app/console doctrine:generate:entities Barra`
-
-  * create DB `php app/console doctrine:database:create`
-
-  * update DB `php app/console doctrine:schema:update --force`
-
-  * delete DB `php app/console doctrine:database:drop --force`
-
-
-3) Mix
+4) Mix
 -------
   * filter: `{{ 'reference'|trans({'%name%':'Max'}, 'layout') }}`
   ** reference: `Referenz %name%
@@ -41,11 +34,13 @@ Kujawa's portfolio
   ** pass request to controller `{{ render(controller('...', {'request': app.request})) }}`
 
 
-4) foo
--------
-   * Tested firefox v35, Chrome, IE10+
-   * Symfony 2.6
-
+5) Bundles
+-----------
+  * `"symfony/symfony": "2.6"`
+  * `"doctrine/doctrine-fixtures-bundle": "2.2.*"`
+  * `"phpunit/phpunit": "4.5.*"`
+  * `"friendsofsymfony/rest-bundle": "~1.5"`
+  * `"jms/serializer-bundle": "0.13.*"`
 
 POST Recipe
 curl -v -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"formRecipe":{"name":"fooRecipe"}}' localhost/barra/vpit/web/app_dev.php/api/recipes
