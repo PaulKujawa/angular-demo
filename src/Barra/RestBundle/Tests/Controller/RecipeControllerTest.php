@@ -10,7 +10,12 @@ class RecipeControllerTest extends WebTestCase
 {
     public function setUp()
     {
-        $this->client = static::createClient();
+        $this->auth = array(
+            'PHP_AUTH_USER' => 'user',
+            'PHP_AUTH_PW' => 'userpass',
+        );
+
+        $this->client = static::createClient(array() /*, $this->auth*/);
     }
 
 
