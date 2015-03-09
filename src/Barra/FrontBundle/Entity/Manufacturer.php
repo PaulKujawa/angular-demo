@@ -3,10 +3,14 @@
 namespace Barra\FrontBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * Manufacturer
- *
+ * @ExclusionPolicy("none")
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Barra\FrontBundle\Entity\Repository\ManufacturerRepository")
  */

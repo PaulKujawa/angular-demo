@@ -2,13 +2,17 @@
 
 namespace Barra\FrontBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Exclude;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * Reference
- *
+ * @ExclusionPolicy("none")
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Barra\FrontBundle\Entity\Repository\ReferenceRepository")
  * @ORM\HasLifecycleCallbacks
@@ -33,11 +37,13 @@ class Reference
     private $description;
 
     /**
+     * @Exclude
      * @ORM\Column(name="started", type="date")
      */
     private $started;
 
     /**
+     * @Exclude
      * @ORM\Column(name="finished", type="date")
      */
     private $finished;

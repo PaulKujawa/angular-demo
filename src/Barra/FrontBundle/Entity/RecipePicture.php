@@ -2,13 +2,16 @@
 
 namespace Barra\FrontBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-
+use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
 /**
  * RecipePicture
- *
+ * @ExclusionPolicy("none")
  * @ORM\Table()
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks
@@ -83,14 +86,6 @@ class RecipePicture
             ? null
             : $this->getUploadDir().'/'.$this->filename;
     }
-
-
-
-
-
-
-
-
 
 
 
