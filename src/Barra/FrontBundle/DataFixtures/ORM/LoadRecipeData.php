@@ -17,7 +17,7 @@ class LoadRecipeData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function load(ObjectManager $em)
     {
-        /*$recipe1 = new Recipe();
+        $recipe1 = new Recipe();
         $recipe1->setName("fixtureRecipe1")->setRating(50)->setVotes(2);
         $em->persist($recipe1);
         $this->addReference('recipe1', $recipe1);
@@ -27,8 +27,13 @@ class LoadRecipeData extends AbstractFixture implements OrderedFixtureInterface
         $em->persist($recipe2);
         $this->addReference('recipe2', $recipe2);
 
+        $recipe3 = new Recipe();
+        $recipe3->setName("fixtureRecipe3")->setRating(50)->setVotes(2);
+        $em->persist($recipe3);
+        $this->addReference('recipe3', $recipe3);
+
         $em->flush();
-        self::$members = array($recipe);*/
+        self::$members = array($recipe1, $recipe2, $recipe3);
     }
 
     /**

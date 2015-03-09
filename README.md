@@ -5,7 +5,7 @@ Kujawa's portfolio
 ---------------
   * create bundle       `php app/console generate:bundle --namespace=Acme/DemoBundle --format=yml`
   * create form         `php app/console doctrine:generate:form AcmeDemoBundle:Page --no-interaction`
-  * run phpunit tests   `php bin/phpunit -c app/ [src/Barra/FrontBundle]`
+  * run phpunit tests   `php bin/phpunit -c app/ src/Barra/RestBundle`
 
 2.) Commandline Assets
 -----------------------
@@ -37,10 +37,14 @@ Kujawa's portfolio
 5) Bundles
 -----------
   * `"symfony/symfony": "2.6"`
+
   * `"doctrine/doctrine-fixtures-bundle": "2.2.*"`
+  * `"liip/functional-test-bundle": "~1.0"`
   * `"phpunit/phpunit": "4.5.*"`
+
   * `"friendsofsymfony/rest-bundle": "~1.5"`
   * `"jms/serializer-bundle": "0.13.*"`
+
 
 POST Recipe
 curl -v -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"formRecipe":{"name":"fooRecipe"}}' localhost/barra/vpit/web/app_dev.php/api/recipes

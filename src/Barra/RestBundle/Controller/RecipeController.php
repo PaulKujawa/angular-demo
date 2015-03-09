@@ -23,24 +23,8 @@ use Barra\FrontBundle\Entity\Recipe;
 class RecipeController extends FOSRestController
 {
     /**
-     * @param $id
-     * @return object
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     */
-    protected function getEntity($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository("BarraFrontBundle:Recipe")->find($id);
-        if (!$entity instanceof Recipe)
-            throw $this->createNotFoundException();
-        return $entity;
-    }
-
-
-
-    /**
      * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing recipes.")
-     * @Annotations\QueryParam(name="limit", requirements="\d+", default="4", description="How many recipes to return.")
+     * @Annotations\QueryParam(name="limit", requirements="\d+", default="2", description="How many recipes to return.")
      * @Annotations\View()
      * @param ParamFetcher $paramFetcher
      * @return mixed
@@ -101,7 +85,7 @@ class RecipeController extends FOSRestController
             } catch (\Doctrine\DBAL\DBALException $e) {
                 return $this->view($form, Codes::HTTP_UNPROCESSABLE_ENTITY);
             }
-            return $this->routeRedirectView('barra_api_get_recipe', array('id' => $recipe->getId()), Codes::HTTP_CREATED);
+            return $this->redirectView($this->generateUrl('barra_api_get_recipe', array('id' => $recipe->getId())), Codes::HTTP_CREATED);
         }
         return $this->view($form, Codes::HTTP_BAD_REQUEST);
     }
@@ -144,5 +128,20 @@ class RecipeController extends FOSRestController
 
         $em->remove($entity);
         $em->flush();
+    }
+
+
+    /**
+     * @param $id
+     * @return object
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    protected function getEntity($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository("BarraFrontBundle:Recipe")->find($id);
+        if (!$entity instanceof Recipe)
+            throw $this->createNotFoundException();
+        return $entity;
     }
 }

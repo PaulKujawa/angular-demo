@@ -25,7 +25,8 @@
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
-        "phpunit/phpunit": "4.5.*"
+        "phpunit/phpunit": "4.5.*",
+        "liip/functional-test-bundle": "~1.0"
     },
     "scripts": {
         "post-install-cmd": [
