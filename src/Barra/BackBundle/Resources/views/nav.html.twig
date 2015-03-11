@@ -1,8 +1,8 @@
 {% trans_default_domain "messages" %}
 
 {% block navList %}
-    <li {% if app.request.attributes.get('_route') == 'barra_back_admin' %}class="active"{% endif %}>
-        <a href="{{ path('barra_back_admin') }}">{{ ('back.title.overview')|trans }}</a>
+    <li {% if app.request.attributes.get('_route') == 'barra_back_user' %}class="active"{% endif %}>
+        <a href="{{ path('barra_back_user') }}">{{ ('back.title.user')|trans }}</a>
     </li>
     <li class="dropdown {% if app.request.attributes.get('_route') == 'barra_back_references' or
     app.request.attributes.get('_route') == 'barra_back_techniques' or

@@ -2,13 +2,17 @@
 
 namespace Barra\FrontBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Exclude;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * Reference
- *
+ * @ExclusionPolicy("none")
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Barra\FrontBundle\Entity\Repository\ReferenceRepository")
  * @ORM\HasLifecycleCallbacks
@@ -33,11 +37,13 @@ class Reference
     private $description;
 
     /**
+     * @Exclude
      * @ORM\Column(name="started", type="date")
      */
     private $started;
 
     /**
+     * @Exclude
      * @ORM\Column(name="finished", type="date")
      */
     private $finished;
@@ -56,13 +62,7 @@ class Reference
     private $techniques;
 
     /**
-     * @ORM\OneToMany(targetEntity="ReferencePicture", mappedBy="recipe")
-     * @ORM\OrderBy({"id" = "ASC"})
-     */
-    private $referencePictures;
-
-    /**
-     * @ORM\Column(name="title", type="string", length=255, nullable=false)
+     * @ORM\Column(name="title", type="string", length=255, nullable=true)
      */
     private $title;
 
@@ -75,6 +75,12 @@ class Reference
      * @ORM\Column(name="size", type="integer", nullable=true)
      */
     private $size;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ReferencePicture", mappedBy="recipe")
+     * @ORM\OrderBy({"id" = "ASC"})
+     */
+    private $referencePictures;
 
     /**
      * @Assert\File(maxSize="2M", mimeTypes = {"image/*"})
@@ -431,5 +437,28 @@ class Reference
     {
         if ($file = $this->getAbsolutePath())
             unlink($file);
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Reference
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 }

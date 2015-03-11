@@ -1,7 +1,6 @@
 back:
   action:
     delete: Löschen
-    logout: Abmelden
     manage: Bearbeiten
     new: Neu
     update: Aktualisieren
@@ -13,7 +12,7 @@ back:
     measurements: Messeinheiten
     recipes: Rezepte
     references: Referenzen
-    overview: Übersicht
+    user: Benutzer
     techniques: Techniken
     agencies: Agenturen
 

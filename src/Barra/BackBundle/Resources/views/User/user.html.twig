@@ -1,6 +1,6 @@
 {% extends 'BarraBackBundle::layout.html.twig' %}
 
-{% block title %} vPit Admin {% endblock %}
+{% block title %}{{ 'back.title.user'|trans() }}{% endblock %}
 
 {% block section %}
     <section class="container">
@@ -11,9 +11,10 @@
 
         <br>
 
-        <a href="{{ path('barra_security_logout') }}">
+        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+        <a href="{{ path('fos_user_security_logout') }}">
             <span class="glyphicon glyphicon-log-out"></span>
-            {{ 'back.action.logout'|trans }}
+            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
         </a>
     </section>
 {% endblock %}

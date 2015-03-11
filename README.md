@@ -38,12 +38,17 @@ Kujawa's portfolio
 -----------
   * `"symfony/symfony": "2.6"`
 
-  * `"doctrine/doctrine-fixtures-bundle": "2.2.*"`
-  * `"liip/functional-test-bundle": "~1.0"`
-  * `"phpunit/phpunit": "4.5.*"`
+  * Tests
+  ** `"phpunit/phpunit": "4.5.*"`
+  ** `"doctrine/doctrine-fixtures-bundle": "2.2.*"`
+  ** `"liip/functional-test-bundle": "~1.0"`
 
-  * `"friendsofsymfony/rest-bundle": "~1.5"`
-  * `"jms/serializer-bundle": "0.13.*"`
+  * Security
+  ** `"friendsofsymfony/user-bundle": "~2.0@dev"`
+
+  * RESTful API
+  ** `"friendsofsymfony/rest-bundle": "~1.5"`
+  ** `"jms/serializer-bundle": "0.13.*"`
 
 
 POST Recipe

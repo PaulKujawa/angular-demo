@@ -1,9 +1,6 @@
-barra_back_admin:
+barra_back_user:
     path:     /
-    defaults: { _controller: BarraBackBundle:Admin:index }
-    requirements:
-      _locale: en|de
-
+    defaults: { _controller: BarraBackBundle:User:index }
 
 barra_back_link_references:
     resource: "@BarraBackBundle/Resources/config/routes/reference.yml"

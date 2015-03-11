@@ -1,7 +1,6 @@
 back:
   action:
     delete: Delete
-    logout: Logout
     manage: Manage
     new: New
     update: Update
@@ -13,7 +12,7 @@ back:
     measurements: Measurements
     recipes: Recipes
     references: References
-    overview: Overview
+    user: User
     techniques: Techniques
     agencies: Agencies
 

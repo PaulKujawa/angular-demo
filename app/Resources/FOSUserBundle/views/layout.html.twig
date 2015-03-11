@@ -1,0 +1,41 @@
+{% extends '::base.html.twig' %}
+{% trans_default_domain "messages" %}
+{% block title %}Admino Login{% endblock %}
+
+
+{% block stylesheets %}
+    {% stylesheets filter='cssrewrite'
+        '//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css'
+        'bundles/barraback/css/thirdparty/*'
+        '../app/Resources/public/css/app.css'
+        'bundles/barraback/css/login.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    {% javascripts
+        '//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'
+        '//code.jquery.com/ui/1.11.1/jquery-ui.js'
+        '@BarraBackBundle/Resources/public/js/thirdparty/*'
+        '@BarraBackBundle/Resources/public/js/*'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+
+{% block section %}
+    <section class="container">
+        {% for type, messages in app.session.flashbag.all() %}
+            {% for message in messages %}
+                <div class="flash-{{ type }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <div>{% block fos_user_content %}{% endblock fos_user_content %}</div>
+    </section>
+{% endblock %}

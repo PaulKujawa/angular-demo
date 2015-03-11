@@ -6,12 +6,10 @@ barra_front_redirect:
       permanent: true
 
 
-
-
 barra_rest:
     type:     rest
     resource: "@BarraRestBundle/Resources/config/routing.yml"
-    prefix:   /api/
+    prefix:   /api
 
 barra_front:
     resource: "@BarraFrontBundle/Resources/config/routing.yml"
@@ -21,6 +19,7 @@ barra_back:
     resource: "@BarraBackBundle/Resources/config/routing.yml"
     prefix:   /{_locale}/admino
 
-barra_security:
-    resource: "@BarraSecurityBundle/Resources/config/routing.yml"
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
     prefix:   /{_locale}/admino
+

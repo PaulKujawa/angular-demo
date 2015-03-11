@@ -2,9 +2,7 @@ barra_front_root:
     path:     /
     defaults: { _controller: BarraFrontBundle:Contact:index }
     requirements:
-      _locale: en|de
-
-
+      _locale: de|en
 
 barra_front_contact:
     path:     /contact
