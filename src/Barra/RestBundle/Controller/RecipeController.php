@@ -23,6 +23,7 @@ use Barra\FrontBundle\Entity\Recipe;
 class RecipeController extends FOSRestController
 {
     /**
+     * Get recipes with optional offset and limited entries (default=2)
      * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing recipes.")
      * @Annotations\QueryParam(name="limit", requirements="\d+", default="2", description="How many recipes to return.")
      * @Annotations\View()
@@ -42,6 +43,7 @@ class RecipeController extends FOSRestController
 
 
     /**
+     * Get one recipe
      * @Annotations\View()
      * @param $id
      * @return array
@@ -54,6 +56,7 @@ class RecipeController extends FOSRestController
 
 
     /**
+     * Get all recipes
      * @Annotations\View()
      * @return array
      */
@@ -66,6 +69,7 @@ class RecipeController extends FOSRestController
 
 
     /**
+     * Post one new recipe through the form
      * @param Request $request
      * @return \FOS\RestBundle\View\View|Response
      */
@@ -92,6 +96,7 @@ class RecipeController extends FOSRestController
 
 
     /**
+     * Update one recipe
      * @param Request $request
      * @param $id
      * @return array|\FOS\RestBundle\View\View
@@ -113,6 +118,7 @@ class RecipeController extends FOSRestController
 
 
     /**
+     * Delete one recipe
      * @Annotations\View(statusCode=204)
      * @param $id
      * @return \FOS\RestBundle\View\View
@@ -132,6 +138,7 @@ class RecipeController extends FOSRestController
 
 
     /**
+     * Get a recipe from the repository
      * @param $id
      * @return object
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException

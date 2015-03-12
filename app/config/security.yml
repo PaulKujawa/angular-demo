@@ -8,14 +8,12 @@ security:
 
     firewalls:
         admino:
-            pattern:   ^/[a-z][a-z]/admino                         # REST (/api) will be secured via WSSE authentication
+            pattern:   ^/[a-z][a-z]/admino
             anonymous: ~
-            #http_basic: ~
 
             form_login:                                             # redirect user requests for authentication (for FW admino) to this form
                 provider:             fos_userbundle                # declared at the top
                 csrf_provider:        form.csrf_provider
-
                 login_path:           fos_user_security_login       # controller which handles login form's data
                 check_path:           fos_user_security_check       # Login Form target after authentication for authorization
                 default_target_path:  barra_back_user               # if /login was user's target so no aim is known
@@ -23,6 +21,19 @@ security:
             logout:
                 path:                 fos_user_security_logout      # initialize logout process
                 target:               barra_front_root              # redirect target after logged out
+
+
+        wsse_secured:
+            pattern:    ^/api/.*
+            anonymous:  true
+            stateless:  true
+            wsse:       true
+
+
+
+
+
+
 
     role_hierarchy: #Admin >= User
         ROLE_ADMIN:                   [ROLE_REST, ROLE_USER]        # REST != USER, 'cause CSRF isn't activated for REST users

@@ -1,13 +1,6 @@
 imports:
     - { resource: config_dev.yml }
 
-framework:
-    test: ~
-    session:
-        storage_id: session.storage.filesystem #mock_file
-    profiler:
-        collect: false
-
 web_profiler:
     toolbar: false
     intercept_redirects: false
@@ -15,4 +8,17 @@ web_profiler:
 swiftmailer:
     disable_delivery: true
 
-liip_functional_test: ~
+
+
+framework:
+    test: ~
+    session:
+        storage_id: session.storage.filesystem  # instead of mock_file
+        name: WSSE                              # both for liipBundle
+    profiler:
+        collect: false
+
+liip_functional_test:
+    authentication: # same for user fixture
+        username: rest
+        password: xVimiBXn6KFmqv1nFHiwGUY0lfGjvcg29KtzT1u8qmnWErSDyuANGSNEU7RIAMYucDfBAJSld4UaoZ3IPLsYIw==

@@ -2,20 +2,23 @@
 
 namespace Barra\RestBundle\Tests\Controller;
 
-use Liip\FunctionalTestBundle\Test\WebTestCase as WebTestCase;
 use FOS\RestBundle\Util\Codes;
+use Liip\FunctionalTestBundle\Test\WebTestCase as WebTestCase;
 use Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData;
+use Barra\FrontBundle\DataFixtures\ORM\LoadUserData;
+
 
 class RecipeControllerTest extends WebTestCase
 {
     public function setUp()
     {
-        $this->auth = array(
-            'PHP_AUTH_USER' => 'user',
-            'PHP_AUTH_PW' => 'userpass',
-        );
+        $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadUserData'));
+        $users = LoadUserData::$members;
+        array_pop($users);
+        $restUser = array_pop($users);
 
-        $this->client = static::createClient(array() /*, $this->auth*/);
+        $this->loginAs($restUser, "wsse_secured");
+        $this->client = static::makeClient(true);
     }
 
 
@@ -110,26 +113,33 @@ class RecipeControllerTest extends WebTestCase
 
 
     /**
-     * get some with invalid offset & limit | limit > number of entities
+     * get some with invalid offset & limit
      */
-    public function testGetRecipesLimitedInvalid()
+    public function testGetRecipesLimitedNegativeParams()
     {
         $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
         $recipes = LoadRecipeData::$members; // 3 entities
 
-        // invalid will be ignored
+        // negative numbers will be ignored
         $this->client->request('GET', '/api/recipes/limited?offset=-1&limit=-1', array('ACCEPT' => 'application/json'));
         $response = $this->client->getResponse();
         $this->assertJsonResponse($response);
 
+        // based on default values: offset=0 & limit=2
         array_pop($recipes);
         $content = json_decode($response->getContent(), true);
         $this->assertEquals(2, count($content['recipes']));
         $this->assertEquals($content['recipes'][1]['id'], array_pop($recipes)->getId());
         $this->assertEquals($content['recipes'][0]['id'], array_pop($recipes)->getId());
+    }
 
 
-        // limit > number of entities
+    /**
+     * limit > number of entities
+     */
+    public function testGetRecipesLimitedLimitTooHigh()
+    {
+        $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
         $this->client->request('GET', '/api/recipes/limited?limit=8', array('ACCEPT' => 'application/json'));
         $response = $this->client->getResponse();
         $this->assertJsonResponse($response);
@@ -144,9 +154,10 @@ class RecipeControllerTest extends WebTestCase
      */
     public function testPostRecipe()
     {
+        $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
         $this->client->request('POST', '/api/recipes', array(), array(),
             array('CONTENT_TYPE' => 'application/json', 'Accept' => 'application/json'),
-            '{"formRecipe":{"name":"testRecipe2"}}'
+            '{"formRecipe":{"name":"testRecipe"}}'
         );
         $this->assertJsonResponse($this->client->getResponse(), Codes::HTTP_CREATED, false);
     }
@@ -157,9 +168,10 @@ class RecipeControllerTest extends WebTestCase
      */
     public function testPostRecipeUnprocessable()
     {
+        $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
         $this->client->request('POST', '/api/recipes', array(), array(),
             array('CONTENT_TYPE' => 'application/json', 'Accept' => 'application/json'),
-            '{"formRecipe":{"name":"testRecipe2"}}'
+            '{"formRecipe":{"name":"fixRecipe2"}}'
         );
         $this->assertJsonResponse($this->client->getResponse(), Codes::HTTP_UNPROCESSABLE_ENTITY);
     }
@@ -170,12 +182,14 @@ class RecipeControllerTest extends WebTestCase
      */
     public function testPostRecipeInvalidForm()
     {
+        $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
         $this->client->request('POST', '/api/recipes', array(), array(),
             array('CONTENT_TYPE' => 'application/json', 'Accept' => 'application/json'),
             '{"name":"testRecipe"}'
         );
         $this->assertJsonResponse($this->client->getResponse(), Codes::HTTP_BAD_REQUEST, false);
     }
+
 
     /**
      * put & $response->headers->get('location') for url
