@@ -23,7 +23,18 @@ class RecipeControllerTest extends WebTestCase
 
 
     /**
-     * get one + ID check
+     * get the form to use for submits
+     */
+    public function testNewRecipeAction()
+    {
+        $this->client->request('GET', '/api/recipes/new', array('ACCEPT' => 'application/json'));
+        $response = $this->client->getResponse();
+        $this->assertJsonResponse($response);
+    }
+
+
+    /**
+     * get one
      */
     public function testGetRecipe()
     {
@@ -41,7 +52,7 @@ class RecipeControllerTest extends WebTestCase
 
 
     /**
-     * request one with invalid/unused ID
+     * request one with invalid ID
      */
     public function testGetRecipe404()
     {
@@ -72,7 +83,7 @@ class RecipeControllerTest extends WebTestCase
 
 
     /**
-     * get some with default values + ID checks
+     * get some with via default offset & limit
      */
     public function testGetRecipesLimitedDefault()
     {
@@ -93,7 +104,7 @@ class RecipeControllerTest extends WebTestCase
 
 
     /**
-     * get some with custom offset & limit + ID check
+     * get some with custom offset & limit
      */
     public function testGetRecipesLimitedOffset()
     {
@@ -135,7 +146,7 @@ class RecipeControllerTest extends WebTestCase
 
 
     /**
-     * limit > number of entities
+     * get some with limit > number of entities
      */
     public function testGetRecipesLimitedLimitTooHigh()
     {
@@ -150,7 +161,7 @@ class RecipeControllerTest extends WebTestCase
 
 
     /**
-     * post one
+     * create one via post
      */
     public function testPostRecipe()
     {
@@ -164,7 +175,7 @@ class RecipeControllerTest extends WebTestCase
 
 
     /**
-     * post duplicate one for doctrine exception
+     * invalid creation via duplicate post
      */
     public function testPostRecipeUnprocessable()
     {
@@ -178,7 +189,7 @@ class RecipeControllerTest extends WebTestCase
 
 
     /**
-     * post invalid
+     * invalid post owing to invalid form
      */
     public function testPostRecipeInvalidForm()
     {
@@ -192,9 +203,10 @@ class RecipeControllerTest extends WebTestCase
 
 
     /**
-     * put & $response->headers->get('location') for url
+     * PUT for updating an existing one
+     * for url look at $response->headers->get('location')
      */
-    public function testPutRecipe()
+    public function testPutRecipeForUpdate()
     {
         $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
         $recipes = LoadRecipeData::$members;
@@ -208,9 +220,22 @@ class RecipeControllerTest extends WebTestCase
         $this->assertJsonResponse($this->client->getResponse(), Codes::HTTP_NO_CONTENT, false);
     }
 
+    /**
+     * put for creating a new one (redirect to POST)
+     */
+    public function testPutRecipeForCreate()
+    {
+        $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
+        $this->client->request('PUT', '/api/recipes/0', array(), array(),
+            array('CONTENT_TYPE' => 'application/json', 'Accept' => 'application/json'),
+            '{"formRecipe":{"name":"changedName"}}'
+        );
+        $this->assertJsonResponse($this->client->getResponse(), Codes::HTTP_CREATED, false);
+    }
+
 
     /**
-     * put invalid form
+     * put a invalid form
      */
     public function testPutRecipeInvalidForm()
     {
@@ -220,9 +245,25 @@ class RecipeControllerTest extends WebTestCase
 
         $this->client->request('PUT', '/api/recipes/'.$recipe->getId(), array(), array(),
             array('CONTENT_TYPE' => 'application/json', 'Accept' => 'application/json'),
-            '{"name":"fixtureRecipe1"}'
+            '{"name":"fixRecipe1"}'
         );
         $this->assertJsonResponse($this->client->getResponse(), Codes::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * update too a duplicate one via put
+     */
+    public function testPutRecipeInvalidDuplicate()
+    {
+        $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
+        $recipes = LoadRecipeData::$members;
+        $recipe = array_pop($recipes);
+
+        $this->client->request('PUT', '/api/recipes/'.$recipe->getId(), array(), array(),
+            array('CONTENT_TYPE' => 'application/json', 'Accept' => 'application/json'),
+            '{"formRecipe":{"name":"fixRecipe1"}}'
+        );
+        $this->assertJsonResponse($this->client->getResponse(), Codes::HTTP_UNPROCESSABLE_ENTITY);
     }
 
 
@@ -241,7 +282,7 @@ class RecipeControllerTest extends WebTestCase
 
 
     /**
-     * delete an not existing one
+     * delete a not existing one
      */
     public function testDeleteRecipe404()
     {

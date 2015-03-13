@@ -6,8 +6,16 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+/**
+ * Class AgencyType
+ * @package Barra\BackBundle\Form\Type
+ */
 class AgencyType extends AbstractType
 {
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -21,6 +29,10 @@ class AgencyType extends AbstractType
             ->getForm();
     }
 
+
+    /**
+     * @param OptionsResolverInterface $resolver
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
@@ -29,6 +41,10 @@ class AgencyType extends AbstractType
         ));
     }
 
+
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'formAgency';
