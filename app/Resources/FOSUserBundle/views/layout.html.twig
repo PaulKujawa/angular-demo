@@ -5,8 +5,8 @@
 
 {% block stylesheets %}
     {% stylesheets filter='cssrewrite'
-        '//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css'
-        'bundles/barraback/css/thirdparty/*'
+        'vendor/jquery-ui/themes/smoothness/jquery-ui.min.css'
+        'vendor/bootstrap/dist/css/bootstrap.min.css'
         '../app/Resources/public/css/app.css'
         'bundles/barraback/css/login.css'
     %}
@@ -16,10 +16,8 @@
 
 {% block javascripts %}
     {% javascripts
-        '//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'
-        '//code.jquery.com/ui/1.11.1/jquery-ui.js'
-        '@BarraBackBundle/Resources/public/js/thirdparty/*'
-        '@BarraBackBundle/Resources/public/js/*'
+        'vendor/jquery/dist/jquery.min.js'
+        'vendor/jquery-ui/jquery-ui.min.js'
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}

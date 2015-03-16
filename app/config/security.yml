@@ -36,7 +36,7 @@ security:
 
 
     role_hierarchy: #Admin >= User
-        ROLE_ADMIN:                   [ROLE_REST, ROLE_USER]        # REST != USER, 'cause CSRF isn't activated for REST users
+        ROLE_ADMIN:                   ROLE_USER        # REST != USER, 'cause CSRF isn't activated for REST users
         ROLE_SUPER_ADMIN:             ROLE_ADMIN
 
     access_control:

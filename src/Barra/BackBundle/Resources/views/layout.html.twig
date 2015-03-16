@@ -6,8 +6,9 @@
 
 {% block stylesheets %}
     {% stylesheets filter='cssrewrite'
-        '//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css'
-        'bundles/barraback/css/thirdparty/*'
+        'vendor/jquery-ui/themes/smoothness/jquery-ui.min.css'
+        'vendor/bootstrap/dist/css/bootstrap.min.css'
+        'vendor/dropzone/dist/min/dropzone.min.css'
         '../app/Resources/public/css/app.css'
         'bundles/barraback/css/backend.css'
     %}
@@ -17,9 +18,10 @@
 
 {% block javascripts %}
     {% javascripts
-        '//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'
-        '//code.jquery.com/ui/1.11.1/jquery-ui.js'
-        '@BarraBackBundle/Resources/public/js/thirdparty/*'
+        'vendor/jquery/dist/jquery.min.js'
+        'vendor/jquery-ui/jquery-ui.min.js'
+        'vendor/bootstrap/dist/js/bootstrap.min.js'
+        'vendor/dropzone/dist/min/dropzone.min.js'
         '@BarraBackBundle/Resources/public/js/*'
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>

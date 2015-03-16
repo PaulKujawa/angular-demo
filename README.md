@@ -3,8 +3,8 @@ Kujawa's portfolio
 
 1) Commandline
 ---------------
-  * create bundle       `php app/console generate:bundle --namespace=Acme/DemoBundle --format=yml`
-  * create form         `php app/console doctrine:generate:form AcmeDemoBundle:Page --no-interaction`
+  * create bundle       `php app/console generate:bundle --namespace=Barra/DemoBundle --format=yml`
+  * create form         `php app/console doctrine:generate:form BarraDemoBundle:Entity --no-interaction`
   * run phpunit tests   `php bin/phpunit -c app/ src/Barra/RestBundle`
 
 2.) Commandline Assets
@@ -22,19 +22,7 @@ Kujawa's portfolio
   * update DB           `php app/console doctrine:schema:update --force`
   * delete DB           `php app/console doctrine:database:drop --force`
 
-4) Mix
--------
-  * filter: `{{ 'reference'|trans({'%name%':'Max'}, 'layout') }}`
-  ** reference: `Referenz %name%
-
-  * Transchoice
-  ** template `{{ 'front.word.comment'|transchoice(count) }}` yml `comment: '{0} no comment|{1} one comment|]1,Inf] %count% comments'`
-
-  * ordered doctrine findAll()  `public function findAll() {return $this->findBy(array(), array('type'=>'ASC'));}`
-  ** pass request to controller `{{ render(controller('...', {'request': app.request})) }}`
-
-
-5) Bundles
+4) Bundles
 -----------
   * `"symfony/symfony": "2.6"`
 
@@ -50,6 +38,19 @@ Kujawa's portfolio
   ** `"friendsofsymfony/rest-bundle": "~1.5"`
   ** `"jms/serializer-bundle": "0.13.*"`
 
+5.) Tools
+----------
+  * Bower
 
-POST Recipe
-curl -v -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"formRecipe":{"name":"fooRecipe"}}' localhost/barra/vpit/web/app_dev.php/api/recipes
+
+
+6) Mix
+-------
+  * filter: `{{ 'reference'|trans({'%name%':'Max'}, 'layout') }}`
+  ** reference: `Referenz %name%
+
+  * Transchoice
+  ** template `{{ 'front.word.comment'|transchoice(count) }}` yml `comment: '{0} no comment|{1} one comment|]1,Inf] %count% comments'`
+
+  * ordered doctrine findAll()  `public function findAll() {return $this->findBy(array(), array('type'=>'ASC'));}`
+  ** pass request to controller `{{ render(controller('...', {'request': app.request})) }}`
