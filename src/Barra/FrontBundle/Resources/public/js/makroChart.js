@@ -23,7 +23,7 @@ $(function() { /* http://www.chartjs.org/docs/#doughnut-pie-chart */
             label: "Fat (gr)"
         }
     ];
-    //
+
 
 
     var macroChart = new Chart(ctx).Doughnut(data, {

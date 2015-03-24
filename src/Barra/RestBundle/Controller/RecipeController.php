@@ -40,7 +40,7 @@ class RecipeController extends FOSRestController
     {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository("BarraFrontBundle:Recipe")->findAll();
-        return array("recipes" => $entities);
+        return array('data' => $entities);
     }
 
 
@@ -60,7 +60,7 @@ class RecipeController extends FOSRestController
 
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('BarraFrontBundle:Recipe')->getSome($offset, $limit);
-        return array("recipes" => $entities);
+        return array("data" => $entities);
     }
 
 
@@ -73,7 +73,7 @@ class RecipeController extends FOSRestController
     public function getRecipeAction($id)
     {
         $entity = $this->getEntity($id);
-        return array("recipe" => $entity);
+        return array('data' => $entity);
     }
 
 
@@ -100,7 +100,7 @@ class RecipeController extends FOSRestController
     {
         try {
             $entity = $this->getEntity($id);
-            return $this->processForm($request, $entity, "PUT", Codes::HTTP_NO_CONTENT);
+            return $this->processForm($requesthttp://imgur.com/gallery/NTEvz, $entity, "PUT", Codes::HTTP_NO_CONTENT);
         } catch (\Symfony\Component\HttpKernel\Exception\NotFoundHttpException $e) {
             return $this->routeRedirectView('barra_api_post_recipe', array("request"=>$request));
         }

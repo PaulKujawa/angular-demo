@@ -33,4 +33,3 @@ barra_front_recipes:
 barra_front_recipe:
     path:     /recipe/{name}
     defaults: { _controller: BarraFrontBundle:RecipeDetail:index }
-

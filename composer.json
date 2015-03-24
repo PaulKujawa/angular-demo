@@ -20,9 +20,10 @@
         "symfony/swiftmailer-bundle": "~2.3",
         "symfony/assetic-bundle": "~2.3",
         "twig/extensions": "~1.0",
-        "friendsofsymfony/rest-bundle": "~1.5",
         "jms/serializer-bundle": "0.13.*",
-        "friendsofsymfony/user-bundle": "~2.0@dev"
+        "friendsofsymfony/rest-bundle": "~1.5",
+        "friendsofsymfony/user-bundle": "~2.0@dev",
+        "friendsofsymfony/jsrouting-bundle": "~1.5"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",

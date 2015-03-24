@@ -5,7 +5,8 @@ Kujawa's portfolio
 ---------------
   * create bundle       `php app/console generate:bundle --namespace=Barra/DemoBundle --format=yml`
   * create form         `php app/console doctrine:generate:form BarraDemoBundle:Entity --no-interaction`
-  * run phpunit tests   `php bin/phpunit -c app/ src/Barra/RestBundle`
+  * run phpunit tests   `php bin/phpunit -c app/ [src/Barra/DemoBundle]`
+  * list exposed routes `php app/console fos:js-routing:debug [routeName]`
 
 2.) Commandline Assets
 -----------------------
@@ -24,19 +25,23 @@ Kujawa's portfolio
 
 4) Bundles
 -----------
-  * `"symfony/symfony": "2.6"`
+  * Mix
+  ** `"symfony/symfony": "2.6"`
+  ** `"friendsofsymfony/user-bundle": "~2.0@dev"`
 
   * Tests
   ** `"phpunit/phpunit": "4.5.*"`
   ** `"doctrine/doctrine-fixtures-bundle": "2.2.*"`
   ** `"liip/functional-test-bundle": "~1.0"`
 
-  * Security
-  ** `"friendsofsymfony/user-bundle": "~2.0@dev"`
-
   * RESTful API
   ** `"friendsofsymfony/rest-bundle": "~1.5"`
   ** `"jms/serializer-bundle": "0.13.*"`
+
+  * JS
+  ** Angular & RestAngular
+  ** Lodash
+  ** Symfony Routes `"friendsofsymfony/jsrouting-bundle": "~1.5"`
 
 5.) Tools
 ----------

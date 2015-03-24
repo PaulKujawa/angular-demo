@@ -4,7 +4,8 @@ barra_front_redirect:
       _controller: FrameworkBundle:Redirect:redirect
       route: barra_front_root
       permanent: true
-
+    options:
+        expose: true
 
 barra_rest:
     type:     rest
@@ -14,12 +15,20 @@ barra_rest:
 barra_front:
     resource: "@BarraFrontBundle/Resources/config/routing.yml"
     prefix:   /{_locale}
+    options:
+        expose: true
 
 barra_back:
     resource: "@BarraBackBundle/Resources/config/routing.yml"
     prefix:   /{_locale}/admino
+    options:
+        expose: true
+
+
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
     prefix:   /{_locale}/admino
 
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

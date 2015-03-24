@@ -23,11 +23,11 @@ security:
                 target:               barra_front_root              # redirect target after logged out
 
 
-        wsse_secured:
-            pattern:    ^/api/.*
-            anonymous:  true
-            stateless:  true
-            wsse:       true
+#        wsse_secured:
+ #           pattern:    ^/api/.*
+  #          anonymous:  true
+   #         stateless:  true
+    #        wsse:       true
 
 
 
