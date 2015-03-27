@@ -4,7 +4,7 @@ security:
             id: fos_user.user_provider.username
 
     encoders:
-        FOS\UserBundle\Model\UserInterface: sha512
+        FOS\UserBundle\Model\UserInterface: sha512                  # digest= 5000 rounds of SHA-512 hash algorithm + salted password
 
     firewalls:
         admino:
@@ -23,11 +23,11 @@ security:
                 target:               barra_front_root              # redirect target after logged out
 
 
-#        wsse_secured:
- #           pattern:    ^/api/.*
-  #          anonymous:  true
-   #         stateless:  true
-    #        wsse:       true
+        wsse_secured:
+            pattern:    ^/api/.*
+            methods:    [POST, PUT, DELETE, PATCH, LINK, UNLINK]    # without GET (public area doesn't require any login but shows content anyway)
+            stateless:  true
+            wsse:       true
 
 
 

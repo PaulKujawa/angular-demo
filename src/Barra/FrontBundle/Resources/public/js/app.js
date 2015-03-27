@@ -2,6 +2,16 @@
 angular.module('angularApp', ['restangular'])
     .config(function(RestangularProvider) {
         RestangularProvider.setBaseUrl('/barra/vpit/web/app_dev.php/api');
+
+        /*  local server runs at GMT yet (-1 hour)
+            digest= 5000 rounds of SHA-512 hash algorithm + salted password
+            xVimiBXn6KFmqv1nFHiwGUY0lfGjvcg29KtzT1u8qmnWErSDyuANGSNEU7RIAMYucDfBAJSld4UaoZ3IPLsYIw==
+         */
+        RestangularProvider.setDefaultHeaders({
+            'X-WSSE':        'UsernameToken Username="rest", PasswordDigest="6x9Hg4lFT+fiMhbKIyClI2dXPow=", ' +
+                             'Nonce="NTBmZmQ1NWUyYjU5NTkyMQ==", Created="2015-03-26T09:38:08Z"',
+            'Authorization': 'WSSE profile="UsernameToken"'
+        });
         RestangularProvider.setResponseExtractor(function(response, operation) {
             return response.data;
         });
@@ -25,7 +35,6 @@ angular.module('angularApp', ['restangular'])
         };
     })
 
-
     .controller('RecipesCtrl', function($scope, $http, Restangular, MyService) {
         var baseRecipes     = Restangular.all('recipes');
         $scope.recipes      = baseRecipes.getList().$object;                    // GET list
@@ -33,7 +42,7 @@ angular.module('angularApp', ['restangular'])
         $scope.myService    = MyService;
 
         var newRecipe = {'formRecipe': {name: "angular's POST"}};               // POST one
-        //baseRecipes.post(newRecipe);                                          not auth. yet -> CSRF token still required
+        baseRecipes.post(newRecipe);
     })
 
 
@@ -44,12 +53,7 @@ angular.module('angularApp', ['restangular'])
 
     .directive('price', function(){
         return {
-            /* type of new, own directive
-                E: <price              value="foo" />
-                A: <span price         value="foo">
-                C: <span class="price" value="foo">
-             */
-            restrict: 'E',
+            restrict: 'E', // E: <price value="foo" />   A: <span price value="foo">      C: <span class="price" value="foo">
             scope: {value: '='},
             template: '<span ng-show="value == 0">kostenlos</span><span ng-show="value > 0">{{value | currency}}</span>'
         }

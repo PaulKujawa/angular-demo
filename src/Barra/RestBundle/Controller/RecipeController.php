@@ -100,7 +100,7 @@ class RecipeController extends FOSRestController
     {
         try {
             $entity = $this->getEntity($id);
-            return $this->processForm($requesthttp://imgur.com/gallery/NTEvz, $entity, "PUT", Codes::HTTP_NO_CONTENT);
+            return $this->processForm($request, $entity, "PUT", Codes::HTTP_NO_CONTENT);
         } catch (\Symfony\Component\HttpKernel\Exception\NotFoundHttpException $e) {
             return $this->routeRedirectView('barra_api_post_recipe', array("request"=>$request));
         }

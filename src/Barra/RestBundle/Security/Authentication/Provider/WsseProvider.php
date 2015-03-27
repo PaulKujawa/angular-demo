@@ -46,36 +46,46 @@ class WsseProvider implements AuthenticationProviderInterface
         if ($user && $this->validateDigest($token->digest, $token->nonce, $token->created, $user->getPassword())) {
             $authenticatedToken = new WsseUserToken($user->getRoles());
             $authenticatedToken->setUser($user);
-
             return $authenticatedToken;
         }
-
         throw new AuthenticationException('The WSSE authentication failed.');
     }
 
 
-
     /**
      * Validates digest
+     * @param $digest
+     * @param $nonce
+     * @param $created
+     * @param $secret
+     * @return bool
+     * @throws \Symfony\Component\Security\Core\Exception\NonceExpiredException
+     * @throws \Symfony\Component\Security\Core\Exception\AuthenticationException
      * @link https://github.com/symfony/symfony-docs/pull/3134#issuecomment-27699129
      */
     protected function validateDigest($digest, $nonce, $created, $secret)
     {
+        $nonceFile = $this->cacheDir.'/'.$nonce;
+
         if (strtotime($created) > time()) // Check created time is not in the future
-            return new AuthenticationException("created time is in the future");
+            throw new AuthenticationException("Invalid timestamp");
 
         if (time() - strtotime($created) > 300) // Expire timestamp after 5 minutes
-            return new AuthenticationException("Timestamp is too old");
+            throw new AuthenticationException("Deprecated timestamp");
 
         // Validate that the nonce is *not* used in the last 5 minutes. if it has, this could be a replay attack
-        if (file_exists($this->cacheDir.'/'.$nonce) && file_get_contents($this->cacheDir.'/'.$nonce) + 300 > time())
-            throw new NonceExpiredException('Previously used nonce detected');
+        if (file_exists($nonceFile) && file_get_contents($nonceFile) + 300 > time())
+            throw new NonceExpiredException('Invalid nonce');
 
-        if (!is_dir($this->cacheDir)) // If cache directory does not exist we create it
-            mkdir($this->cacheDir, 0777, true);
+        // Cache file for the duplicate check above
+        if (!is_dir($this->cacheDir)) mkdir($this->cacheDir, 0777, true);
+        file_put_contents($nonceFile, time());
 
-        file_put_contents($this->cacheDir.'/'.$nonce, time());
 
+        /*
+         * base64_decode for 8bit coded data
+         * a sha1 checksum, returned as dual value
+         */
         $expected = base64_encode(sha1(base64_decode($nonce).$created.$secret, true));
         if ($digest !== $expected) // Validate Secret
             throw new AuthenticationException("Bad credentials. Digest is not the one expected.");
