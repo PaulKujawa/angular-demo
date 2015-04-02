@@ -27,7 +27,7 @@ class RecipeController extends FOSRestController
      * @return \Symfony\Component\Form\Form
      */
     public function newRecipeAction() {
-        return $this->createForm(new RecipeType());
+        return $this->createForm(new RecipeType(), new Recipe(), array('csrf_protection'=>false));
     }
 
 
@@ -79,6 +79,7 @@ class RecipeController extends FOSRestController
 
     /**
      * Create a recipe from the submitted data
+     * see location HTTP header for GET url
      * @param Request $request
      * @return \FOS\RestBundle\View\View
      */
@@ -129,6 +130,7 @@ class RecipeController extends FOSRestController
 
 
     /**
+     * Creates, validates and submits form
      * @param Request $request
      * @param Recipe $entity
      * @param $method
@@ -137,7 +139,7 @@ class RecipeController extends FOSRestController
      */
     protected function processForm(Request $request, Recipe $entity, $method, $successCode)
     {
-        $form = $this->createForm(new RecipeType(), $entity, array('method'=>$method));
+        $form = $this->createForm(new RecipeType(), $entity, array('method'=>$method, 'csrf_protection'=>false));
         $form->handleRequest($request);
 
         if ($form->isValid()) {

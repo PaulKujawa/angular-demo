@@ -11,50 +11,7 @@
 
 
 {% block section %}
-
-
-
-
     <section class="container">
-        {% verbatim %}
-            <input type="text" ng-model="search">
-            <p ng-show="search">results for: {{ search }}</p>
-
-            <table ng-controller="RecipesCtrl" class="table">
-                <tr ng-repeat="entry in recipes|filter:search">
-                    <td><a href class="btn btn-default btn-sm" ng-click="myService.addArticle(entry);">Hinzufügen</a></td>
-                    <td>{{ entry.id }}</td>
-                    <td>{{ entry.name }}</td>
-                </tr>
-
-                <tr>
-                    <td>single GET</td>
-                    <td>{{ recipe.id }}</td>
-                    <td>{{ recipe.name }}</td>
-                </tr>
-            </table>
-
-            <div ng-controller="CartCtrl">
-                <div ng-hide="myService.getItems().length" class="alert alert-warning">Ihr Warenkorb ist noch leer.</div>
-                <table ng-show="myService.getItems().length" class="table">
-                    <tr ng-repeat="item in myService.getItems() track by $index"> <!-- index as unique column to enable duplicates -->
-                        <td>{{item.id}}</td>
-                        <td>{{item.name }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{myService.getItems().length}} Artikel</td>
-                        <td>{{myService.sum()|currency}}</td>
-                        <td></td>
-                    </tr>
-                </table>
-            </div>
-        {% endverbatim %}
-
-
-
-
-
-
         <div id="recipeCircles">
             <div id="recipePic">
                 {% if recipe.RecipePictures is not empty %}

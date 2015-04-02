@@ -2,16 +2,6 @@
 angular.module('angularApp', ['restangular'])
     .config(function(RestangularProvider) {
         RestangularProvider.setBaseUrl('/barra/vpit/web/app_dev.php/api');
-
-        /*  local server runs at GMT yet (-1 hour)
-            digest= 5000 rounds of SHA-512 hash algorithm + salted password
-            xVimiBXn6KFmqv1nFHiwGUY0lfGjvcg29KtzT1u8qmnWErSDyuANGSNEU7RIAMYucDfBAJSld4UaoZ3IPLsYIw==
-         */
-        RestangularProvider.setDefaultHeaders({
-            'X-WSSE':        'UsernameToken Username="rest", PasswordDigest="6x9Hg4lFT+fiMhbKIyClI2dXPow=", ' +
-                             'Nonce="NTBmZmQ1NWUyYjU5NTkyMQ==", Created="2015-03-26T09:38:08Z"',
-            'Authorization': 'WSSE profile="UsernameToken"'
-        });
         RestangularProvider.setResponseExtractor(function(response, operation) {
             return response.data;
         });

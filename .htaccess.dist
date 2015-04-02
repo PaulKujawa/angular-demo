@@ -3,3 +3,9 @@ RewriteCond %{HTTP_HOST} ^yourDomain.tld$ [NC,OR]
 RewriteCond %{HTTP_HOST} ^yourDomain.tld$
 RewriteCond %{REQUEST_URI} !newDRfolder/
 RewriteRule (.*) /newDRfolder/$1 [L]
+
+# Apache server will strip any Authorization header not in a valid HTTP BASIC AUTH format.
+# to allow authorization header mode of LexikJWTAuthenticationBundle
+RewriteCond %{HTTP:Authorization} ^(.*)
+RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+

@@ -16,5 +16,24 @@
             <span class="glyphicon glyphicon-log-out"></span>
             {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
         </a>
+
+
+
+        {% verbatim %}
+            <input type="text" ng-model="search">
+            <p ng-show="search">results for: {{ search }}</p>
+
+            <table ng-controller="RecipesCtrl" class="table">
+                <tr ng-repeat="entry in recipes|filter:search">
+                    <td>{{ entry.id }}</td>
+                    <td>{{ entry.name }}</td>
+                </tr>
+
+                <tr>
+                    <td>{{ recipe.id }}</td>
+                    <td>{{ recipe.name }}</td>
+                </tr>
+            </table>
+        {% endverbatim %}
     </section>
 {% endblock %}

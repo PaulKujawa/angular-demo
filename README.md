@@ -23,34 +23,36 @@ Kujawa's portfolio
   * update DB           `php app/console doctrine:schema:update --force`
   * delete DB           `php app/console doctrine:database:drop --force`
 
-4) Bundles
------------
-  * Mix
-  ** `"symfony/symfony": "2.6"`
-  ** `"friendsofsymfony/user-bundle": "~2.0@dev"`
+4) Backend Bundles
+-------------------
+  * Authentication & Authorization
+  ** FOS       user
+  ** lexik     jwt-authentication
 
   * Tests
-  ** `"phpunit/phpunit": "4.5.*"`
-  ** `"doctrine/doctrine-fixtures-bundle": "2.2.*"`
-  ** `"liip/functional-test-bundle": "~1.0"`
+  ** phpunit   phpunit
+  ** doctrine  doctrine-fixtures
 
   * RESTful API
-  ** `"friendsofsymfony/rest-bundle": "~1.5"`
-  ** `"jms/serializer-bundle": "0.13.*"`
+  ** FOS       rest
+  ** jms       serializer
+  ** liip      functional-test
 
-  * JS
-  ** Angular & RestAngular
+  * Mix
+  ** FOS        jsrouting
+
+5.) Frontend Libraries
+-----------------------
+  ** RestAngular
   ** Lodash
-  ** Symfony Routes `"friendsofsymfony/jsrouting-bundle": "~1.5"`
-
-5.) Tools
-----------
-  * Bower
-
+  ** jquery
+  ** bootstrap
+  ** chartjs
+  ** dropzone
 
 
-6) Mix
--------
+6) Notices for myself
+----------------------
   * filter: `{{ 'reference'|trans({'%name%':'Max'}, 'layout') }}`
   ** reference: `Referenz %name%
 

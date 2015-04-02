@@ -76,7 +76,6 @@ swiftmailer:
 
 
 fos_rest:
-    disable_csrf_role: ROLE_REST                            # no CSRF for RESTful / WSSE
     param_fetcher_listener: true                            # reading parameters from the request
     format_listener: true                                   # determining the correct response format
     body_listener:                                          # decoding the request content
@@ -103,3 +102,19 @@ fos_user:
     db_driver:      orm
     firewall_name:  admino
     user_class:     Barra\FrontBundle\Entity\User
+
+
+
+lexik_jwt_authentication:
+    # APACHE webserver needs this to add in /etc/apache2/apache2.conf (or included extra file in sub folder sites-available)
+    # <VirtualHost *:80>
+    #	RewriteEngine on
+    #	DocumentRoot /var/www/html
+    #	RewriteCond %{HTTP:Authorization} ^(.*)
+    #   RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+    # </VirtualHost>
+
+    private_key_path: %kernel.root_dir%/var/jwt/private.pem   # ssh private key path
+    public_key_path:  %kernel.root_dir%/var/jwt/public.pem    # ssh public key path
+    pass_phrase:      'Jemoram145lol!'                        # ssh key pass phrase
+    token_ttl:        86400                                   # token ttl - defaults to 86400
