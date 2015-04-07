@@ -1,25 +1,46 @@
 {# fieldType_part #}
+{% extends "form_div_layout.html.twig" %} {# required for parent() #}
 
-{% block form_row %}
-    {% spaceless %}
-        <td>
-            {{ form_label(form, null, {'label_attr': {'class': 'sr-only'}}) }}
-            {{ form_errors(form) }}
-            {{ form_widget(form, {'attr': {'class': 'form-control'}}) }}
-        </td>
-    {% endspaceless %}
-{% endblock %}
+{% block form_row %}{% spaceless %}
+    <td ng-class="{'danger has-error': formFieldErrors && highlightInvalidFormFields('{{name}}')}">
+        {{ form_label(form, null, {'label_attr': {'class': 'sr-only'}}) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form, {'attr': {'class': 'form-control'}}) }}
+    </td>
+{% endspaceless %}{% endblock %}
 
 
 {# button labels will NOT be displayed! just this bootstrap plus icon instead. labels are set though #}
-{% block button_widget %}
-    {% spaceless %}
-        <td>
-            {% if label is empty %}
-                {% set label = name|humanize %}
-            {% endif %}
-            <button type="{{ type|default('button') }}" {{ block('button_attributes') }}><i class="glyphicon glyphicon-plus"></i></button>
-        </td>
-    {% endspaceless %}
-{% endblock %}
+{% block button_widget %}{% spaceless %}
+    <td>
+        {% if label is empty %}
+            {% set label = name|humanize %}
+        {% endif %}
+        <button type="{{ type|default('button') }}" {{ block('button_attributes') }}><i class="glyphicon glyphicon-plus"></i></button>
+    </td>
+{% endspaceless %}{% endblock %}
 
+
+{# add angular's ng-submit && removed action="{{ action }}" #}
+{%- block form_start -%}
+    {% set method = method|upper %}
+    {%- if method in ["GET", "POST"] -%}
+        {% set form_method = method %}
+    {%- else -%}
+        {% set form_method = "POST" %}
+    {%- endif -%}
+    <form ng-submit="submit()" name="{{ name }}" method="{{ form_method|lower }}" {% for attrname, attrvalue in attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}{% if multipart %} enctype="multipart/form-data"{% endif %}>
+    {%- if form_method != method -%}
+        <input type="hidden" name="_method" value="{{ method }}" />
+    {%- endif -%}
+{%- endblock form_start -%}
+
+{# add angulars ng-model or ng-init && name instead of full_name for NGs to directly get the field names #}
+{% block widget_attributes %}{% spaceless %}
+    {{ parent() }}
+    {% if type == 'hidden' %}
+        ng-init="formData['{{ name }}'] = '{{value}}'"
+    {% else %}
+        ng-model="formData['{{ name }}']"
+    {% endif %}
+{% endspaceless %}{% endblock widget_attributes %}

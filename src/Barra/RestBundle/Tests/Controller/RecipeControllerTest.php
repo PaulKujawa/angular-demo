@@ -15,9 +15,9 @@ class RecipeControllerTest extends WebTestCase
         $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadUserData'));
         $users = LoadUserData::$members;
         array_pop($users);
-        $restUser = array_pop($users);
+        $demoAdmin = array_pop($users);
 
-        $this->loginAs($restUser, "wsse_secured");
+        $this->loginAs($demoAdmin, "api"); // configured in config_test.yml
         $this->client = static::makeClient(true);
     }
 
@@ -47,7 +47,7 @@ class RecipeControllerTest extends WebTestCase
         $this->assertJsonResponse($response);
 
         $content = json_decode($response->getContent(), true);
-        $this->assertEquals($content['recipe']['id'], $recipe->getId());
+        $this->assertEquals($content['data']['id'], $recipe->getId());
     }
 
 
@@ -78,7 +78,7 @@ class RecipeControllerTest extends WebTestCase
         $this->assertJsonResponse($response);
 
         $content = json_decode($response->getContent(), true);
-        $this->assertEquals(3, count($content['recipes']));
+        $this->assertEquals(3, count($content['data']));
     }
 
 
@@ -90,16 +90,16 @@ class RecipeControllerTest extends WebTestCase
         $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
         $recipes = LoadRecipeData::$members; // 3 entities
 
-        // based on default values: offset=0 & limit=2
+        // based on default values: offset=0, limit=2, order_by="id", order="ASC"
         $this->client->request('GET', '/api/recipes/limited', array('ACCEPT' => 'application/json'));
         $response = $this->client->getResponse();
         $this->assertJsonResponse($response);
 
         array_pop($recipes);
         $content = json_decode($response->getContent(), true);
-        $this->assertEquals(2, count($content['recipes']));
-        $this->assertEquals($content['recipes'][1]['id'], array_pop($recipes)->getId());
-        $this->assertEquals($content['recipes'][0]['id'], array_pop($recipes)->getId());
+        $this->assertEquals(2, count($content['data']));
+        $this->assertEquals($content['data'][1]['id'], array_pop($recipes)->getId());
+        $this->assertEquals($content['data'][0]['id'], array_pop($recipes)->getId());
     }
 
 
@@ -112,14 +112,14 @@ class RecipeControllerTest extends WebTestCase
         $recipes = LoadRecipeData::$members; // 3 entities
 
         // one entity in the middle
-        $this->client->request('GET', '/api/recipes/limited?offset=1&limit=1', array('ACCEPT' => 'application/json'));
+        $this->client->request('GET', '/api/recipes/limited?offset=1&limit=1&order_by=id&order=DESC', array('ACCEPT' => 'application/json'));
         $response = $this->client->getResponse();
         $this->assertJsonResponse($response);
 
         array_pop($recipes);
         $content = json_decode($response->getContent(), true);
-        $this->assertEquals(1, count($content['recipes']));
-        $this->assertEquals($content['recipes'][0]['id'], array_pop($recipes)->getId());
+        $this->assertEquals(1, count($content['data']));
+        $this->assertEquals($content['data'][0]['id'], array_pop($recipes)->getId());
     }
 
 
@@ -139,9 +139,9 @@ class RecipeControllerTest extends WebTestCase
         // based on default values: offset=0 & limit=2
         array_pop($recipes);
         $content = json_decode($response->getContent(), true);
-        $this->assertEquals(2, count($content['recipes']));
-        $this->assertEquals($content['recipes'][1]['id'], array_pop($recipes)->getId());
-        $this->assertEquals($content['recipes'][0]['id'], array_pop($recipes)->getId());
+        $this->assertEquals(2, count($content['data']));
+        $this->assertEquals($content['data'][1]['id'], array_pop($recipes)->getId());
+        $this->assertEquals($content['data'][0]['id'], array_pop($recipes)->getId());
     }
 
 
@@ -156,7 +156,7 @@ class RecipeControllerTest extends WebTestCase
         $this->assertJsonResponse($response);
 
         $content = json_decode($response->getContent(), true);
-        $this->assertEquals(3, count($content['recipes']));
+        $this->assertEquals(3, count($content['data']));
     }
 
 

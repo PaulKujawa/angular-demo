@@ -6,12 +6,12 @@ use Doctrine\ORM\EntityRepository;
 
 class RecipeRepository extends EntityRepository
 {
-    public function getSome($first, $amount)
+    public function getSome($offset, $limit, $orderBy, $order)
     {
         $query = $this->createQueryBuilder('r')
-            ->orderBy('r.name', 'ASC')
-            ->setFirstResult($first)
-            ->setMaxResults($amount)
+            ->orderBy('r.'.$orderBy, $order)
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
             ->getQuery();
 
         return $query->getResult();

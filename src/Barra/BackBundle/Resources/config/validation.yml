@@ -52,7 +52,7 @@ Barra\FrontBundle\Entity\Ingredient:
 Barra\FrontBundle\Entity\Recipe:
   properties:
     name:
-      - NotBlank:
+      - NotBlank: ~
       - Type: string
 
 Manager\ManagerBundle\Entity\RecipePicture:

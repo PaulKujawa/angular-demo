@@ -29,12 +29,12 @@ class RecipeController extends Controller
                 return $this->redirect($this->generateUrl('barra_back_recipeDetail', array('name' => $recipe->getName())));
         }
 
-        $paginationRange = 10;
-        $startPos = ($paginationActive-1)*$paginationRange;
+        $limit = 10;
+        $offset = ($paginationActive-1)*$limit;
         $em = $this->getDoctrine()->getManager();
-        $recipes = $em->getRepository('BarraFrontBundle:Recipe')->getSome($startPos, $paginationRange);
+        $recipes = $em->getRepository('BarraFrontBundle:Recipe')->getSome($offset, $limit, 'id', 'ASC');
         $paginationCnt = $em->getRepository('BarraFrontBundle:Recipe')->count();
-        $paginationCnt = ceil($paginationCnt/$paginationRange);
+        $paginationCnt = ceil($paginationCnt/$limit);
         $formUpdate = $this->createForm(new RecipeUpdateType(), new Recipe());
 
         return $this->render('BarraBackBundle:Recipe:recipes.html.twig', array(

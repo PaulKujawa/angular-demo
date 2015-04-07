@@ -27,7 +27,8 @@ class RecipeController extends FOSRestController
      * @return \Symfony\Component\Form\Form
      */
     public function newRecipeAction() {
-        return $this->createForm(new RecipeType(), new Recipe(), array('csrf_protection'=>false));
+        $form = $this->createForm(new RecipeType(), new Recipe());
+        return array('data' => $form);
     }
 
 
@@ -48,6 +49,8 @@ class RecipeController extends FOSRestController
      * List some recipes
      * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing recipes.")
      * @Annotations\QueryParam(name="limit", requirements="\d+", default="2", description="How many recipes to return.")
+     * @Annotations\QueryParam(name="order_by", requirements="\w+", default="id", description="Column to order by.")
+     * @Annotations\QueryParam(name="order", requirements="\w+", default="ASC", description="Order, either ASC or DESC.")
      * @Annotations\View()
      * @param ParamFetcher $paramFetcher
      * @return mixed
@@ -56,10 +59,12 @@ class RecipeController extends FOSRestController
     {
         $offset = $paramFetcher->get('offset');
         $limit = $paramFetcher->get('limit');
+        $orderBy = $paramFetcher->get('order_by');
+        $order = $paramFetcher->get('order');
         if (is_null($offset)) $offset = 0;
 
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('BarraFrontBundle:Recipe')->getSome($offset, $limit);
+        $entities = $em->getRepository('BarraFrontBundle:Recipe')->getSome($offset, $limit, $orderBy, $order);
         return array("data" => $entities);
     }
 
@@ -139,7 +144,7 @@ class RecipeController extends FOSRestController
      */
     protected function processForm(Request $request, Recipe $entity, $method, $successCode)
     {
-        $form = $this->createForm(new RecipeType(), $entity, array('method'=>$method, 'csrf_protection'=>false));
+        $form = $this->createForm(new RecipeType(), $entity, array('method'=>$method /*, 'csrf_protection'=>false*/));
         $form->handleRequest($request);
 
         if ($form->isValid()) {

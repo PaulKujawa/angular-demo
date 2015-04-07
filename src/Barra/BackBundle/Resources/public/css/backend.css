@@ -126,9 +126,8 @@ table .form-control { /* BT 1689 */
 
 form .table { margin-bottom: 0 }
 td .btn-default { min-width: 100% }
-tr.formInRow td { padding: 0 !important }
 tr:last-child td { border-bottom: 1px solid #dddddd }
-
+tr.formInRow td { padding: 0 !important;}
 
 
 /* TABLE MOBILE
