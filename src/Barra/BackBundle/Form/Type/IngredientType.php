@@ -66,6 +66,6 @@ class IngredientType extends AbstractType
 
     public function getName()
     {
-        return 'name';
+        return 'formIngredient';
     }
 }

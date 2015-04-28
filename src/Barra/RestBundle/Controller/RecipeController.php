@@ -34,28 +34,15 @@ class RecipeController extends FOSRestController
 
     /**
      * List all recipes
-     * @Annotations\View()
-     * @return array
-     */
-    public function getRecipesAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository("BarraFrontBundle:Recipe")->findAll();
-        return array('data' => $entities);
-    }
-
-
-    /**
-     * List some recipes
      * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing recipes.")
      * @Annotations\QueryParam(name="limit", requirements="\d+", default="2", description="How many recipes to return.")
      * @Annotations\QueryParam(name="order_by", requirements="\w+", default="id", description="Column to order by.")
      * @Annotations\QueryParam(name="order", requirements="\w+", default="ASC", description="Order, either ASC or DESC.")
      * @Annotations\View()
      * @param ParamFetcher $paramFetcher
-     * @return mixed
+     * @return array
      */
-    public function getRecipesLimitedAction(ParamFetcher $paramFetcher)
+    public function getRecipesAction(ParamFetcher $paramFetcher)
     {
         $offset = $paramFetcher->get('offset');
         $limit = $paramFetcher->get('limit');
@@ -144,7 +131,7 @@ class RecipeController extends FOSRestController
      */
     protected function processForm(Request $request, Recipe $entity, $method, $successCode)
     {
-        $form = $this->createForm(new RecipeType(), $entity, array('method'=>$method /*, 'csrf_protection'=>false*/));
+        $form = $this->createForm(new RecipeType(), $entity, array('method'=>$method));
         $form->handleRequest($request);
 
         if ($form->isValid()) {

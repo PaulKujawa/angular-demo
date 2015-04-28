@@ -14,8 +14,8 @@ Kujawa's portfolio
   * include assets dev  `php app/console assets:install --symlink`
   * include assets prod `php app/console assetic:dump --env=prod --no-debug`
 
-3) Commandline DB
-------------------
+3) Commandline Database
+------------------------
   * create entity       `php app/console doctrine:generate:entity --entity="BarraDefaultBundle:Product"`
   * create get/set      `php app/console doctrine:generate:entities Barra`
   * load fixtures       `php app/console doctrine:fixtures:load`
@@ -27,7 +27,7 @@ Kujawa's portfolio
 -------------------
   * Authentication & Authorization
   ** FOS       user
-  ** lexik     jwt-authentication
+  ** lexik     LexikJWTAuthentication
 
   * Tests
   ** phpunit   phpunit

@@ -1,4 +1,4 @@
-$(function() {
+/*$(function() {
     $(".draggable").sortable({
         axis: "y",
         cursor: "move",
@@ -159,7 +159,7 @@ $(function() {
             pos = positionField.parent().index()+1; // db starts with 1
 
         positionField.val(pos); /* db starts with 0, DOM with 1 */
-
+/*
         $.ajax({
             url: uForm.attr('action'),
             type: "POST",
@@ -219,7 +219,7 @@ $(function() {
 
     var iForm_exchangeValidation = function() {
         $('.formInRow').find('ul').each(function(){ /* uls = appear just for error lists */
-            var fieldErrorUL = $(this);
+ /*           var fieldErrorUL = $(this);
             var widget = fieldErrorUL.next();
             var td = widget.parent();
             td.addClass('danger has-error');
@@ -314,3 +314,4 @@ $(function() {
 
 
 
+*/

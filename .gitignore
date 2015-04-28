@@ -36,7 +36,4 @@
 # Intelliij IDE
 .idea/
 
-# Composer PHAR
-# /composer.phar
-
 .htaccess

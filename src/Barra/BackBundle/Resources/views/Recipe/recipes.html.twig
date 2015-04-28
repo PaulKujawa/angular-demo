@@ -8,12 +8,15 @@
 
 {% block section %}
     <section class="container mobileTables" ng-controller="RecipesCtrl">
-        <div class="alert alert-danger" role="alert" ng-show="formErrors.length">
-            <ul><li ng-repeat="errorMsg in formErrors">[[errorMsg]]</li></ul>
-        </div>
         <div class="alert alert-danger" role="alert" ng-repeat="fieldError in formFieldErrors">
             <strong>[[fieldError.fieldName]]</strong>
             <ul><li ng-repeat="errorMsg in fieldError.errors">[[errorMsg]]</li></ul>
+        </div>
+        <div class="alert alert-danger" role="alert" ng-show="formErrors.length">
+            <ul><li ng-repeat="errorMsg in formErrors">[[errorMsg]]</li></ul>
+        </div>
+        <div class="alert alert-warning" role="alert" ng-repeat="deleteError in deleteErrors">
+            <ul><li ng-repeat="errorMsg in deleteError">[[errorMsg]]</li></ul>
         </div>
 
         {{ form_start(formInsert) }}
@@ -25,11 +28,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="recipe in recipes">
+                    <tr ng-repeat="recipe in recipes | orderBy:'name'">
                         <td class="editableCell" data-mobile-title="{{'back.recipe.name'|trans()}}">[[recipe.name]]</td>
                         <td class="editableCell" data-mobile-title="{{'back.action.manage'|trans()}}">
                             <a href="[[urlRecipeDetail]]/[[recipe.name.replace(' ', '_')]]"><span class="glyphicon glyphicon-eye-open"></span></a>
-                            <a href="[[urlRecipeDelete]]/[[recipe.id]]"><span class="glyphicon glyphicon-minus"></span></a>
+                            <span class="glyphicon glyphicon-minus" ng-click="deleteEntry(recipe)"></span>
                         </td>
                     </tr>
                     <tr class="formInRow"  ng-class="{'danger has-error': formErrors}">

@@ -11,10 +11,7 @@ framework:
         strict_requirements: ~
     form:            ~
     csrf_protection: ~
-    validation:
-        enable_annotations: true
-        enabled: true
-        api: 2.5
+    validation:      { enable_annotations: true }
     templating:
         engines: ['twig']
         #assets_version: SomeVersionScheme
@@ -25,7 +22,7 @@ framework:
     fragments:       ~
     http_method_override: true
     translator: { fallback: en }                            # language(-file) if requested translation file is not found
-    default_locale:  de                                     # for links, when no favorite given
+    default_locale:  de                                     # for links, when no favorite given default %locale%
 
 
 sensio_framework_extra:
@@ -37,7 +34,7 @@ twig:
     strict_variables: "%kernel.debug%"
     form:
         resources:
-            - 'BarraBackBundle:Form:tableRow.html.twig' # for autoinclude
+            - 'BarraBackBundle:Form:tableRow.html.twig'     # for autoinclude
 
 
 doctrine:
@@ -49,10 +46,6 @@ doctrine:
         user:     "%database_user%"
         password: "%database_password%"
         charset:  UTF8
-        # if using pdo_sqlite as your database driver, add the path in parameters.yml
-        # e.g. database_path: "%kernel.root_dir%/data/data.db3"
-        # path:     "%database_path%"
-
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
@@ -73,6 +66,7 @@ swiftmailer:
     host:       "%mailer_host%"
     username:   "%mailer_user%"
     password:   "%mailer_password%"
+    spool:     { type: memory }                             # sends after request is completely processed (w/o exception or error)
 
 
 fos_rest:
@@ -104,6 +98,14 @@ fos_user:
     user_class:     Barra\FrontBundle\Entity\User
 
 
+jms_serializer:                                             # JMS exlusion for 3th party entites needs to be done via config file
+    metadata:
+        directories:
+            FOSUserBundle:
+                namespace_prefix: FOS\UserBundle
+                path: "%kernel.root_dir%/serializer/FOSUserBundle"
+
+
 
 lexik_jwt_authentication:
     # APACHE webserver needs this to add in /etc/apache2/apache2.conf (or included extra file in sub folder sites-available)
@@ -118,3 +120,7 @@ lexik_jwt_authentication:
     public_key_path:  %kernel.root_dir%/var/jwt/public.pem    # ssh public key path
     pass_phrase:      'Jemoram145lol!'                        # ssh key pass phrase
     token_ttl:        86400                                   # token ttl - defaults to 86400
+
+
+
+# liip_functional_test added in config_test.yml
