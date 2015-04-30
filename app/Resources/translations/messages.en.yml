@@ -1,9 +1,6 @@
 app:
   message:
-    errorCode: Sorry I have a %code% for you.
-    e404: That stands for '%text%' und encounters by invalid pages.
-    e500: That stands for '%text%' and often encounters by problems with the database.
-
+    errorCode: Sadly, the server return a %code%.
 
   word:
     startpage: Startpage

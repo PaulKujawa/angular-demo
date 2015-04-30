@@ -12,14 +12,4 @@ use Barra\RestBundle\DependencyInjection\Security\Factory\WsseFactory;
  */
 class BarraRestBundle extends Bundle
 {
-    /**
-     * @param ContainerBuilder $container
-     */
-    public function build(ContainerBuilder $container)
-    {
-        parent::build($container);
-
-        $extension = $container->getExtension('security');
-        $extension->addSecurityListenerFactory(new WsseFactory());
-    }
 }

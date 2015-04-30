@@ -1,11 +1,41 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>{{ status_text }}</title>
-</head>
-<body>
-<h1>DAMN! An Error Occurred</h1>
-<h2>The server returned a "{{ status_code }} {{ status_text }}".</h2>
-</body>
-</html>
+{% extends '::base.html.twig' %}
+{% trans_default_domain "messages" %}
+{% block title %}{{ status_code }}{% endblock %}
+
+
+{% block stylesheets %}
+    {% stylesheets filter='cssrewrite'
+    'vendor/jquery-ui/themes/smoothness/jquery-ui.min.css'
+    'vendor/bootstrap/dist/css/bootstrap.min.css'
+    '../app/Resources/public/css/app.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    {% javascripts
+    'vendor/jquery/dist/jquery.min.js'
+    'vendor/jquery-ui/jquery-ui.min.js'
+    'vendor/lodash/dist/lodash.min.js'
+    'vendor/angular/angular.min.js'
+    'vendor/restangular/dist/restangular.min.js'
+    'bundles/fosjsrouting/js/router.js'
+    'bundles/barraback/js/app.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    {# controller generated JS file. include in assetic would require a manual dump every time a route changes #}
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+{% endblock %}
+
+
+
+{% block languageBtn %}{% endblock %}
+
+{% block section %}
+    <section class="container errorPage">
+        <h1>{{ 'app.message.errorCode'|trans({'%code%':status_code}) }}</h1>
+        <a href="{{ path('barra_front_root') }}">{{ 'app.word.startpage'|trans() }}</a>
+    </section>
+{% endblock %}

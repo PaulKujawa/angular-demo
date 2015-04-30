@@ -1,6 +1,7 @@
 # Cache and logs (Symfony2)
 /app/cache/*
 /app/logs/*
+/app/var/jwt/*
 !app/cache/.gitkeep
 !app/logs/.gitkeep
 
@@ -35,8 +36,5 @@
 
 # Intelliij IDE
 .idea/
-
-# Composer PHAR
-# /composer.phar
 
 .htaccess

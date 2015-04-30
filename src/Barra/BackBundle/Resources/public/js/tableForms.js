@@ -1,4 +1,4 @@
-/*$(function() {
+$(function() {
     $(".draggable").sortable({
         axis: "y",
         cursor: "move",
@@ -38,6 +38,7 @@
             }, 1500)
         });
     };
+});
 
 
 
@@ -46,8 +47,7 @@
 
 
 
-
-
+/*
     var collectEntities = function() {
         var tables = $('table:not(.jsStorage)');
 

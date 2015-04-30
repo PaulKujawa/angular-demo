@@ -25,7 +25,7 @@ class RecipeControllerTest extends WebTestCase
     /**
      * get the form to use for submits
      */
-    public function testNewRecipeAction()
+    public function testNew()
     {
         $this->client->request('GET', '/api/recipes/new', array('ACCEPT' => 'application/json'));
         $response = $this->client->getResponse();
@@ -54,7 +54,7 @@ class RecipeControllerTest extends WebTestCase
     /**
      * request one with invalid ID
      */
-    public function testGetRecipe404()
+    public function testGet404()
     {
         $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
         $recipes = LoadRecipeData::$members;
@@ -66,7 +66,7 @@ class RecipeControllerTest extends WebTestCase
 
 
     /**
-     * get all
+     * get some with via default offset & limit
      */
     public function testGetRecipes()
     {
@@ -74,24 +74,6 @@ class RecipeControllerTest extends WebTestCase
         $recipes = LoadRecipeData::$members; // 3 entities
 
         $this->client->request('GET', '/api/recipes', array('ACCEPT' => 'application/json'));
-        $response = $this->client->getResponse();
-        $this->assertJsonResponse($response);
-
-        $content = json_decode($response->getContent(), true);
-        $this->assertEquals(3, count($content['data']));
-    }
-
-
-    /**
-     * get some with via default offset & limit
-     */
-    public function testGetRecipesLimitedDefault()
-    {
-        $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
-        $recipes = LoadRecipeData::$members; // 3 entities
-
-        // based on default values: offset=0, limit=2, order_by="id", order="ASC"
-        $this->client->request('GET', '/api/recipes/limited', array('ACCEPT' => 'application/json'));
         $response = $this->client->getResponse();
         $this->assertJsonResponse($response);
 
@@ -106,13 +88,13 @@ class RecipeControllerTest extends WebTestCase
     /**
      * get some with custom offset & limit
      */
-    public function testGetRecipesLimitedOffset()
+    public function testGetOffset()
     {
         $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
         $recipes = LoadRecipeData::$members; // 3 entities
 
         // one entity in the middle
-        $this->client->request('GET', '/api/recipes/limited?offset=1&limit=1&order_by=id&order=DESC', array('ACCEPT' => 'application/json'));
+        $this->client->request('GET', '/api/recipes?offset=1&limit=1&order_by=id&order=DESC', array('ACCEPT' => 'application/json'));
         $response = $this->client->getResponse();
         $this->assertJsonResponse($response);
 
@@ -126,13 +108,13 @@ class RecipeControllerTest extends WebTestCase
     /**
      * get some with invalid offset & limit
      */
-    public function testGetRecipesLimitedNegativeParams()
+    public function testGetNegativeParams()
     {
         $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
         $recipes = LoadRecipeData::$members; // 3 entities
 
         // negative numbers will be ignored
-        $this->client->request('GET', '/api/recipes/limited?offset=-1&limit=-1', array('ACCEPT' => 'application/json'));
+        $this->client->request('GET', '/api/recipes?offset=-1&limit=-1', array('ACCEPT' => 'application/json'));
         $response = $this->client->getResponse();
         $this->assertJsonResponse($response);
 
@@ -148,10 +130,10 @@ class RecipeControllerTest extends WebTestCase
     /**
      * get some with limit > number of entities
      */
-    public function testGetRecipesLimitedLimitTooHigh()
+    public function testGetLimitTooHigh()
     {
         $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
-        $this->client->request('GET', '/api/recipes/limited?limit=8', array('ACCEPT' => 'application/json'));
+        $this->client->request('GET', '/api/recipes?limit=8', array('ACCEPT' => 'application/json'));
         $response = $this->client->getResponse();
         $this->assertJsonResponse($response);
 
@@ -163,7 +145,7 @@ class RecipeControllerTest extends WebTestCase
     /**
      * create one via post
      */
-    public function testPostRecipe()
+    public function testPost()
     {
         $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
         $this->client->request('POST', '/api/recipes', array(), array(),
@@ -177,7 +159,7 @@ class RecipeControllerTest extends WebTestCase
     /**
      * invalid creation via duplicate post
      */
-    public function testPostRecipeUnprocessable()
+    public function testPostDuplicate()
     {
         $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
         $this->client->request('POST', '/api/recipes', array(), array(),
@@ -191,7 +173,7 @@ class RecipeControllerTest extends WebTestCase
     /**
      * invalid post owing to invalid form
      */
-    public function testPostRecipeInvalidForm()
+    public function testPostInvalid()
     {
         $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
         $this->client->request('POST', '/api/recipes', array(), array(),
@@ -206,7 +188,7 @@ class RecipeControllerTest extends WebTestCase
      * PUT for updating an existing one
      * for url look at $response->headers->get('location')
      */
-    public function testPutRecipeForUpdate()
+    public function testPutUpdate()
     {
         $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
         $recipes = LoadRecipeData::$members;
@@ -223,7 +205,7 @@ class RecipeControllerTest extends WebTestCase
     /**
      * put for creating a new one (redirect to POST)
      */
-    public function testPutRecipeForCreate()
+    public function testPutCreate()
     {
         $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
         $this->client->request('PUT', '/api/recipes/0', array(), array(),
@@ -237,7 +219,7 @@ class RecipeControllerTest extends WebTestCase
     /**
      * put a invalid form
      */
-    public function testPutRecipeInvalidForm()
+    public function testPutInvalid()
     {
         $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
         $recipes = LoadRecipeData::$members;
@@ -253,7 +235,7 @@ class RecipeControllerTest extends WebTestCase
     /**
      * update too a duplicate one via put
      */
-    public function testPutRecipeInvalidDuplicate()
+    public function testPutDuplicate()
     {
         $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
         $recipes = LoadRecipeData::$members;
@@ -270,7 +252,7 @@ class RecipeControllerTest extends WebTestCase
     /**
      * delete one
      */
-    public function testDeleteRecipe()
+    public function testDelete()
     {
         $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
         $recipes = LoadRecipeData::$members;

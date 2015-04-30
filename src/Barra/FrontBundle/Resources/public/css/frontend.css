@@ -78,7 +78,7 @@
         width: 100%;
         margin: 20px 0;
     }
-    #contactPage #contactDescription > p { transform: none }
+    #contactPage #contactDescription > p { transform: none; top: 0 }
 
     #contactPage #contactFormLeft {
         float: none;
@@ -259,6 +259,7 @@
 #ingredientList,
 #cookingStepList {
     margin: 40px 0;
+    padding: 0;
     text-align: center;
     line-height: 1.5em;
     list-style-position: inside;

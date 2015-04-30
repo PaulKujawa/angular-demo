@@ -10,9 +10,9 @@ class RecipeController extends Controller
     public function indexAction($paginationActive)
     {
         $paginationRange = 6;
-        $startPos = ($paginationActive-1)*$paginationRange;
+        $offset = ($paginationActive-1)*$paginationRange +1;
         $em = $this->getDoctrine()->getManager();
-        $recipes = $em->getRepository('BarraFrontBundle:Recipe')->getSome($startPos, $paginationRange);
+        $recipes = $em->getRepository('BarraFrontBundle:Recipe')->getSome($offset, $paginationRange, "name", "ASC");
         $paginationCnt = $em->getRepository('BarraFrontBundle:Recipe')->count();
         $paginationCnt = ceil($paginationCnt/$paginationRange);
 
