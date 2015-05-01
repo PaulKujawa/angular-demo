@@ -15,6 +15,13 @@ front:
   message:
     emailSent: Danke für Ihre Anfrage. Ich werde mich bei Ihnen melden.
 
+  meta:
+    contactDescription: PHP Symfony Entwickler aus Berlin - Paul Kujawa
+    referenceDescription: PHP Symfony Entwickler aus Berlin - Referenzen - Paul Kujawa
+    contactKeywords: Paul Kujawa, Symfony, PHP, Berlin, Kontakt
+    recipeKeywords: %recipe%, vegan, vegetarisch, kaloreichreich, kaloreinhaltig, viel kalorien
+    referenceKeywords: Paul Kujawa, Symfony, PHP, Berlin, Referenzen
+
   contact: #object
     name: Ihr Name
     email: Ihre E-Mail

@@ -1,6 +1,10 @@
 {% extends 'BarraFrontBundle::layout.html.twig' %}
 {% trans_default_domain "messages" %}
-{% block title %}{{ recipe.name }}{% endblock %}
+{% block title %}{{ recipe.name }} | Kujawa{% endblock %}
+{% block metaData %}
+    <meta name="description" content="Vegan {{ recipe.name }}"/>
+    <meta name="keywords" content="{{ 'front.meta.recipeKeywords'|trans({'%recipe%':recipe.name}) }}" />
+{% endblock %}
 
 {% block javascripts %}
     {{ parent() }}

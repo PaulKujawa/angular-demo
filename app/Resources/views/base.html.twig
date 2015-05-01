@@ -2,13 +2,17 @@
 <html ng-app="angularApp">
     <head>
         {% block head %}
-            <title>{% block title %}Paul Kujawa{% endblock %}</title>
+            <title>{% block title %}Kujawa{% endblock %}</title>
             <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta http-equiv="content-type" content="text/html; charset=utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <meta http-equiv="X-UA-Compatible"  content="IE=edge">
+            <meta http-equiv="content-type"     content="text/html; charset=utf-8">
+            <meta name="viewport"               content="width=device-width, initial-scale=1">
+            <meta name="language"               content="{{ app.request.locale }}">
+            <META name="author"                 content="Paul Kujawa">
+            <META name="copyright"              content="Paul Kujawa">
+            <META name="publisher"              content="Paul Kujawa">
             {# <base href="{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}"> todo pk conflict with 404 page #}
-
+            {% block metaData %}{% endblock %}
             {% block stylesheets %}{% endblock %}
             {% block javascripts %}{% endblock %}
         {% endblock %}

@@ -15,6 +15,13 @@ front:
   message:
     emailSent: Thank you for your inquiry. I will be in touch with you.
 
+  meta:
+    contactDescription: PHP Symfony Developer from Berlin - Paul Kujawa
+    referenceDescription: PHP Symfony Developer from Berlin - References - Paul Kujawa
+    contactKeywords: Paul Kujawa, Symfony, PHP, Berlin, Contact
+    recipeKeywords: %recipe%, vegan, vegetarian, caloric, high in caloric
+    referenceKeywords: Paul Kujawa, Symfony, PHP, Berlin, References
+
   contact: #object
     name: Your name
     email: Your e-mail

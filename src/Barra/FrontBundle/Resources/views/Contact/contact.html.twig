@@ -2,7 +2,13 @@
 {% form_theme form 'BarraFrontBundle:Form:contactRow.html.twig' %}
 
 {% trans_default_domain "messages" %}
-{% block title %}{{ 'front.title.contact'|trans() }}{% endblock %}
+{% block title %}{{ 'front.title.contact'|trans() }} | Kujawa{% endblock %}
+{% block metaData %}
+    <meta name="description" content="{{ 'front.meta.contactDescription'|trans() }}" />
+    <meta name="keywords" content="{{ 'front.meta.contactKeywords'|trans() }}" />
+{% endblock %}
+
+
 
 {% block section %}
     <section class="container" id="contactPage">
