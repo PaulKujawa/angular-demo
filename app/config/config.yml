@@ -21,7 +21,7 @@ framework:
         handler_id:  ~                                      # handler_id set to null will use default session handler from php.ini
     fragments:       ~
     http_method_override: true
-    translator: { fallback: en }                            # language(-file) if requested translation file is not found
+    translator: { fallbacks: en }                           # language(-file) if requested translation file is not found
     default_locale:  de                                     # for links, when no favorite given default %locale%
 
 

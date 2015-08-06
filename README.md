@@ -20,7 +20,7 @@ Kujawa's portfolio
   * create get/set      `php app/console doctrine:generate:entities Barra`
   * load fixtures       `php app/console doctrine:fixtures:load`
   * create DB           `php app/console doctrine:database:create`
-  * update DB           `php app/console doctrine:schema:update --force`
+  * CR/U Tables         `php app/console doctrine:schema:update --force`
   * delete DB           `php app/console doctrine:database:drop --force`
 
 4) Backend Bundles
@@ -56,8 +56,14 @@ Kujawa's portfolio
   * filter: `{{ 'reference'|trans({'%name%':'Max'}, 'layout') }}`
   ** reference: `Referenz %name%
 
+  * Form Theming
+  ** check widget e.g. `{% if form.vars.block_prefixes.1 == "checkbox" %}`
+
   * Transchoice
   ** template `{{ 'front.word.comment'|transchoice(count) }}` yml `comment: '{0} no comment|{1} one comment|]1,Inf] %count% comments'`
 
   * ordered doctrine findAll()  `public function findAll() {return $this->findBy(array(), array('type'=>'ASC'));}`
   ** pass request to controller `{{ render(controller('...', {'request': app.request})) }}`
+
+  * handle forms manually
+  ** `...handleRequest($request)` && `$id = $form->all()->getId()`

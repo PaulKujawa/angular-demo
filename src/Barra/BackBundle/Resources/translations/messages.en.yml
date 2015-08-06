@@ -41,7 +41,7 @@ back:
   recipe: #object
     name: Name
 
-  cookingStep: #object
+  cooking: #object
     description: Description
 
   recipeIngredient: #object

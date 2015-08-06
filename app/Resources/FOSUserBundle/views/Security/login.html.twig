@@ -4,6 +4,10 @@
 
 {% block fos_user_content %}
     <div ng-controller="LoginCtrl">
+        <div class="alert alert-danger" role="alert" ng-show="formErrors.length">
+            <ul><li ng-repeat="errorMsg in formErrors">[[errorMsg]]</li></ul>
+        </div>
+
         <form ng-submit="submit()" method="post">
             {% if error %}<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>{% endif %}
 

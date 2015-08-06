@@ -35,10 +35,11 @@
     {%- endif -%}
 {%- endblock form_start -%}
 
-{# add angulars ng-model or ng-init && name instead of full_name for NGs to directly get the field names #}
+{# add angulars ng-model or ng-init && name instead of full_name for NGs to directly get the field names
+    type is not always set e.g. textarea #}
 {% block widget_attributes %}{% spaceless %}
     {{ parent() }}
-    {% if type == 'hidden' %}
+    {% if type is defined and type == 'hidden' %}
         ng-init="formData['{{ name }}'] = '{{value}}'"
     {% else %}
         ng-model="formData['{{ name }}']"

@@ -1,10 +1,10 @@
 {% extends 'BarraBackBundle::layout.html.twig' %}
+{% trans_default_domain "messages" %}
+{% block title %}{{ 'back.title.recipes'|trans() }}{% endblock %}
 {% form_theme formInsert 'BarraBackBundle:Form:tableRow.html.twig' %}
 {% form_theme formUpdate 'BarraBackBundle:Form:tableRow.html.twig' %}
 
-{% trans_default_domain "messages" %}
 
-{% block title %}{{ 'back.title.recipes'|trans() }}{% endblock %}
 
 {% block section %}
     <section class="container mobileTables" ng-controller="RecipesCtrl">

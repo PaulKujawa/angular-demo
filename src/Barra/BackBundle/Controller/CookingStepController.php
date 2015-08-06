@@ -2,31 +2,31 @@
 
 namespace Barra\BackBundle\Controller;
 
-use Barra\FrontBundle\Entity\CookingStep;
-use Barra\BackBundle\Form\Type\CookingStepType;
-use Barra\BackBundle\Form\Type\Update\CookingStepUpdateType;
+use Barra\FrontBundle\Entity\Cooking;
+use Barra\BackBundle\Form\Type\CookingType;
+use Barra\BackBundle\Form\Type\Update\CookingUpdateType;
 
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class CookingStepController extends Controller
+class CookingController extends Controller
 {
     public function updateAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $recipeId = $request->request->get('formCookingStepUpdate')['recipe'];
-        $position = $request->request->get('formCookingStepUpdate')['position'];
+        $recipeId = $request->request->get('formCookingUpdate')['recipe'];
+        $position = $request->request->get('formCookingUpdate')['position'];
 
-        $cookingStep = $em->getRepository('BarraFrontBundle:CookingStep')->findOneBy(array('recipe'=>$recipeId, 'position'=>$position));
+        $cooking = $em->getRepository('BarraFrontBundle:Cooking')->findOneBy(array('recipe'=>$recipeId, 'position'=>$position));
 
-        if (!$cookingStep) {
+        if (!$cooking) {
             $ajaxResponse = array("code"=>404, "message"=>'Not found');
             return new Response(json_encode($ajaxResponse), 200, array('Content-Type'=>'application/json'));
         }
 
-        $formUpdate = $this->createForm(new CookingStepUpdateType(), $cookingStep);
+        $formUpdate = $this->createForm(new CookingUpdateType(), $cooking);
         $formUpdate->handleRequest($request);
 
         if ($formUpdate->isValid()) {
@@ -50,7 +50,7 @@ class CookingStepController extends Controller
     public function deleteAction($recipeId, $position)
     {
         $em = $this->getDoctrine()->getManager();
-        $cooking = $em->getRepository('BarraFrontBundle:CookingStep')->findOneBy(array('recipe'=>$recipeId, 'position'=>$position));
+        $cooking = $em->getRepository('BarraFrontBundle:Cooking')->findOneBy(array('recipe'=>$recipeId, 'position'=>$position));
 
         if (!$cooking)
             throw $this->createNotFoundException('Cooking step not found');
@@ -58,8 +58,8 @@ class CookingStepController extends Controller
         $em->remove($cooking);
         $em->flush();
 
-        $endPos = $em->getRepository('BarraFrontBundle:CookingStep')->getHighestPosition($recipeId);
-        $steps = $em->getRepository('BarraFrontBundle:CookingStep')->changeBetweenPos($recipeId, $position+1, $endPos, -1);
+        $endPos = $em->getRepository('BarraFrontBundle:Cooking')->getHighestPosition($recipeId);
+        $steps = $em->getRepository('BarraFrontBundle:Cooking')->changeBetweenPos($recipeId, $position+1, $endPos, -1);
 
         $recipe = $em->getRepository('BarraFrontBundle:Recipe')->find($recipeId);
         return $this->redirect($this->generateUrl('barra_back_recipeDetail', array('name'=>$recipe->getName())));
@@ -70,13 +70,13 @@ class CookingStepController extends Controller
     public function swapAction($recipeId, $posBefore, $posAfter)
     {
         $em = $this->getDoctrine()->getManager();
-        $swappedEntry = $em->getRepository('BarraFrontBundle:CookingStep')->findOneBy(array('recipe'=>$recipeId, 'position'=>$posBefore));
+        $swappedEntry = $em->getRepository('BarraFrontBundle:Cooking')->findOneBy(array('recipe'=>$recipeId, 'position'=>$posBefore));
         $swappedEntry->setPosition($posAfter);
 
         if ($posBefore < $posAfter)
-            $steps = $em->getRepository('BarraFrontBundle:CookingStep')->changeBetweenPos($recipeId, $posBefore+1, $posAfter, -1);
+            $steps = $em->getRepository('BarraFrontBundle:Cooking')->changeBetweenPos($recipeId, $posBefore+1, $posAfter, -1);
         else
-            $steps = $em->getRepository('BarraFrontBundle:CookingStep')->changeBetweenPos($recipeId, $posAfter, $posBefore-1, 1);
+            $steps = $em->getRepository('BarraFrontBundle:Cooking')->changeBetweenPos($recipeId, $posAfter, $posBefore-1, 1);
 
         try {
             $em->flush();

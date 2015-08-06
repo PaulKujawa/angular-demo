@@ -12,9 +12,9 @@ use JMS\Serializer\Annotation\VirtualProperty;
  * Cooking
  * @ExclusionPolicy("none")
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Barra\FrontBundle\Entity\Repository\CookingStepRepository")
+ * @ORM\Entity(repositoryClass="Barra\FrontBundle\Entity\Repository\CookingRepository")
  */
-class CookingStep
+class Cooking
 {
     /** no primary, because I could not update queries w/o transactions, which I'm not able to do with doctrine yet
      * @ORM\Column(name="position", type="smallint")

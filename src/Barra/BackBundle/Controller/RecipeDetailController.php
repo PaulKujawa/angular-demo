@@ -3,12 +3,12 @@
 namespace Barra\BackBundle\Controller;
 
 use Barra\FrontBundle\Entity\RecipePicture;
-use Barra\FrontBundle\Entity\CookingStep;
+use Barra\FrontBundle\Entity\Cooking;
 use Barra\FrontBundle\Entity\RecipeIngredient;
 use Barra\BackBundle\Form\Type\RecipePictureType;
-use Barra\BackBundle\Form\Type\CookingStepType;
+use Barra\BackBundle\Form\Type\CookingType;
 use Barra\BackBundle\Form\Type\RecipeIngredientType;
-use Barra\BackBundle\Form\Type\Update\CookingStepUpdateType;
+use Barra\BackBundle\Form\Type\Update\CookingUpdateType;
 use Barra\BackBundle\Form\Type\Update\RecipeIngredientUpdateType;
 
 use Symfony\Component\Form\FormError;
@@ -25,21 +25,21 @@ class RecipeDetailController extends Controller
         if (!$recipe)
             throw $this->createNotFoundException('Recipe not found');
 
-        $cookingSteps           = $em->getRepository('BarraFrontBundle:CookingStep')->findByRecipe($recipe, array('position'=>'ASC'));
-        $recipeIngredients      = $em->getRepository('BarraFrontBundle:RecipeIngredient')->findByRecipe($recipe, array('position'=>'ASC'));
+        $cookings           = $em->getRepository('BarraFrontBundle:Cooking')->findByRecipe($recipe, array('position'=>'ASC'));
+        $recipeIngredients  = $em->getRepository('BarraFrontBundle:RecipeIngredient')->findByRecipe($recipe, array('position'=>'ASC'));
 
-        $recipePicture          = new RecipePicture();
-        $cookingStep            = new CookingStep();
-        $recipeIngredient       = new RecipeIngredient();
+        $recipePicture      = new RecipePicture();
+        $cooking            = new Cooking();
+        $recipeIngredient   = new RecipeIngredient();
 
         $formRecipePicture      = $this->createForm(new RecipePictureType(), $recipePicture);
-        $formCookingStepInsert  = $this->createForm(new CookingStepType(), $cookingStep);
+        $formCookingInsert      = $this->createForm(new CookingType(), $cooking);
         $formIngredientInsert   = $this->createForm(new RecipeIngredientType(), $recipeIngredient);
-        $formCookingStepUpdate  = $this->createForm(new CookingStepUpdateType(), new CookingStep());
+        $formCookingUpdate      = $this->createForm(new CookingUpdateType(), new Cooking());
         $formIngredientUpdate   = $this->createForm(new RecipeIngredientUpdateType(), new RecipeIngredient());
 
         $formRecipePicture->get('recipe')->setData($recipe->getId());
-        $formCookingStepUpdate->get('recipe')->setData($recipe->getId());
+        $formCookingUpdate->get('recipe')->setData($recipe->getId());
         $formIngredientUpdate->get('recipe')->setData($recipe->getId());
 
         if ($request->getMethod() === 'POST') {
@@ -48,10 +48,10 @@ class RecipeDetailController extends Controller
                 $formIngredientInsert->handleRequest($request);
                 if ($formIngredientInsert->isValid())
                     $sqlError = $this->newIngredient($recipe, $recipeIngredient);
-            } elseif ($request->request->has($formCookingStepInsert->getName())) {
-                $formCookingStepInsert->handleRequest($request);
-                if ($formCookingStepInsert->isValid())
-                    $sqlError = $this->newCookingStep($recipe, $cookingStep);
+            } elseif ($request->request->has($formCookingInsert->getName())) {
+                $formCookingInsert->handleRequest($request);
+                if ($formCookingInsert->isValid())
+                    $sqlError = $this->newCooking($recipe, $cooking);
             }
             if ($sqlError)
                 $formIngredientInsert->addError(new FormError($sqlError));
@@ -62,13 +62,13 @@ class RecipeDetailController extends Controller
 
         return $this->render('BarraBackBundle:Recipe:recipeDetail.html.twig', array(
                 'recipe'                => $recipe,
-                'cookingSteps'          => $cookingSteps,
+                'cookings'              => $cookings,
                 'recipeIngredients'     => $recipeIngredients,
                 'formRecipePicture'     => $formRecipePicture->createView(),
                 'formIngredientInsert'  => $formIngredientInsert->createView(),
                 'formIngredientUpdate'  => $formIngredientUpdate->createView(),
-                'formCookingStepInsert' => $formCookingStepInsert->createView(),
-                'formCookingStepUpdate' => $formCookingStepUpdate->createView()
+                'formCookingInsert'     => $formCookingInsert->createView(),
+                'formCookingUpdate'     => $formCookingUpdate->createView()
             ));
     }
 
@@ -92,14 +92,14 @@ class RecipeDetailController extends Controller
 
 
 
-    public function newCookingStep($recipe, $cookingStep)
+    public function newCooking($recipe, $cooking)
     {
         $em = $this->getDoctrine()->getManager();
-        $nextPosition = $em->getRepository('BarraFrontBundle:CookingStep')->getHighestPosition($recipe->getId()) +1;
-        $cookingStep->setPosition($nextPosition);
-        $cookingStep->setRecipe($recipe);
+        $nextPosition = $em->getRepository('BarraFrontBundle:Cooking')->getHighestPosition($recipe->getId()) +1;
+        $cooking->setPosition($nextPosition);
+        $cooking->setRecipe($recipe);
         $em = $this->getDoctrine()->getManager();
-        $em->persist($cookingStep);
+        $em->persist($cooking);
         try {
             $em->flush();
         } catch (\Doctrine\DBAL\DBALException $e) {

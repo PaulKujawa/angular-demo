@@ -81,7 +81,7 @@ Barra\FrontBundle\Entity\RecipeIngredient:
       - GreaterThanOrEqual: { value: 0, groups: [recipeIngredient] }
 
 
-Barra\FrontBundle\Entity\CookingStep:
+Barra\FrontBundle\Entity\Cooking:
   properties:
     description:
       - NotBlank: ~

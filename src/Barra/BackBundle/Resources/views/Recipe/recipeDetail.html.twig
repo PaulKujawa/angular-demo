@@ -1,8 +1,8 @@
 {% extends 'BarraBackBundle::layout.html.twig' %}
 {% form_theme formIngredientInsert 'BarraBackBundle:Form:tableRow.html.twig' %}
 {% form_theme formIngredientUpdate 'BarraBackBundle:Form:tableRow.html.twig' %}
-{% form_theme formCookingStepInsert 'BarraBackBundle:Form:tableRow.html.twig' %}
-{% form_theme formCookingStepUpdate 'BarraBackBundle:Form:tableRow.html.twig' %}
+{% form_theme formCookingInsert 'BarraBackBundle:Form:tableRow.html.twig' %}
+{% form_theme formCookingUpdate 'BarraBackBundle:Form:tableRow.html.twig' %}
 {% trans_default_domain "messages" %}
 
 {% block title %}{{ recipe.name }}{% endblock %}
@@ -90,23 +90,23 @@
 
 
 
-        {{ form_start(formCookingStepInsert) }}
+        {{ form_start(formCookingInsert) }}
             <table class="table table-striped"
-                   data-type="cookingStep"
+                   data-type="cooking"
                    data-id="{{ recipe.id }}"
-                   data-swapLink="{{ path('barra_back_recipeDetail_cookingStep_swap', {'recipeId': recipe.id, 'posBefore': 0, 'posAfter': 0}) }}">
+                   data-swapLink="{{ path('barra_back_recipeDetail_cooking_swap', {'recipeId': recipe.id, 'posBefore': 0, 'posAfter': 0}) }}">
                 <thead>
                     <tr>
-                        <th>{{ 'back.cookingStep.description'|trans() }}</th>
+                        <th>{{ 'back.cooking.description'|trans() }}</th>
                         <th>{{ 'back.action.delete'|trans() }}</th>
                     </tr>
                 </thead>
                 <tbody class="draggable">
-                    {% for cookingStep in cookingSteps %}
-                        <tr data-id={{ cookingStep.position }}>
-                            <td class="editableCell" data-mobile-title={{ 'back.cookingStep.description'|trans() }}>{{ cookingStep.description }}</td>
+                    {% for cooking in cookings %}
+                        <tr data-id={{ cooking.position }}>
+                            <td class="editableCell" data-mobile-title={{ 'back.cooking.description'|trans() }}>{{ cooking.description }}</td>
                             <td class="editableCell" data-mobile-title={{ 'back.action.delete'|trans() }}>
-                                <a href="{{ path('barra_back_recipeDetail_cookingStep_delete', {'recipeId': recipe.id, 'position': cookingStep.position}) }}">
+                                <a href="{{ path('barra_back_recipeDetail_cooking_delete', {'recipeId': recipe.id, 'position': cooking.position}) }}">
                                     <span class="glyphicon glyphicon-minus"></span>
                                 </a>
                                 <span class="glyphicon glyphicon-resize-vertical"></span>
@@ -114,27 +114,27 @@
                         </tr>
                     {% endfor %}
                     <tr class="formInRow">
-                        {{ form_row(formCookingStepInsert.description) }}
-                        {{ form_widget(formCookingStepInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn'} }) }}
+                        {{ form_row(formCookingInsert.description) }}
+                        {{ form_widget(formCookingInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn'} }) }}
                     </tr>
                     <tr class="formInRowError">
                         <td>
-                            {{ form_errors(formCookingStepInsert) }}
+                            {{ form_errors(formCookingInsert) }}
                         </td>
                     </tr>
                 </tbody>
             </table>
-        {{ form_end(formCookingStepInsert) }}
+        {{ form_end(formCookingInsert) }}
 
-        <table class="jsStorage" data-type="cookingStep" style="visibility: hidden">
+        <table class="jsStorage" data-type="cooking" style="visibility: hidden">
             <tbody>
-            {{ form_start(formCookingStepUpdate, {'action': path('barra_back_recipeDetail_cookingStep_update')}) }}
+            {{ form_start(formCookingUpdate, {'action': path('barra_back_recipeDetail_cooking_update')}) }}
             <tr class="formInRow">
-                {{ form_row(formCookingStepUpdate.description) }}
-                {{ form_widget(formCookingStepUpdate.submit, {'label': 'back.action.update', 'attr': {'class': 'btn'} }) }}
-                {{ form_rest(formCookingStepUpdate) }}
+                {{ form_row(formCookingUpdate.description) }}
+                {{ form_widget(formCookingUpdate.submit, {'label': 'back.action.update', 'attr': {'class': 'btn'} }) }}
+                {{ form_rest(formCookingUpdate) }}
             </tr>
-            {{ form_end(formCookingStepUpdate) }}
+            {{ form_end(formCookingUpdate) }}
             </tbody>
         </table>
     </section>

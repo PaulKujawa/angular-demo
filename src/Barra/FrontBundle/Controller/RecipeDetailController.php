@@ -16,14 +16,14 @@ class RecipeDetailController extends Controller
         if (!$recipe)
             throw $this->createNotFoundException('Recipe not found');
 
-        $cookingSteps       = $em->getRepository('BarraFrontBundle:CookingStep')->findByRecipe($recipe, array('position'=>'ASC'));
+        $cookings           = $em->getRepository('BarraFrontBundle:Cooking')->findByRecipe($recipe, array('position'=>'ASC'));
         $recipeIngredients  = $em->getRepository('BarraFrontBundle:RecipeIngredient')->findByRecipe($recipe, array('position'=>'ASC'));
         $macros = $this->calculateMakros($recipeIngredients);
 
         return $this->render('BarraFrontBundle:Recipe:recipe.html.twig', array(
             'recipe'            => $recipe,
             'macros'            => $macros,
-            'cookingSteps'      => $cookingSteps,
+            'cookings'          => $cookings,
             'recipeIngredients' => $recipeIngredients,
         ));
     }

@@ -4,7 +4,7 @@ namespace Barra\FrontBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
-class CookingStepRepository extends EntityRepository
+class CookingRepository extends EntityRepository
 {
     public function changeBetweenPos($recipeId, $posBefore, $posAfter, $difference)
     {
