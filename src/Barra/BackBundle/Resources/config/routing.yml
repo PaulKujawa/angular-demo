@@ -17,8 +17,8 @@ barra_back_link_measurement:
 barra_back_link_manufacturer:
     resource: "@BarraBackBundle/Resources/config/routes/manufacturer.yml"
 
-barra_back_link_ingredients:
-    resource: "@BarraBackBundle/Resources/config/routes/ingredient.yml"
+barra_back_link_products:
+    resource: "@BarraBackBundle/Resources/config/routes/product.yml"
 
 barra_back_link_recipe:
     resource: "@BarraBackBundle/Resources/config/routes/recipe.yml"

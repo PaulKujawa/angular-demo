@@ -2,7 +2,8 @@
 
 namespace Barra\RestBundle\Controller;
 
-use Barra\BackBundle\Form\Type\RecipeType;
+use Barra\BackBundle\Form\Type\IngredientType;
+use Barra\FrontBundle\Entity\Ingredient;
 use Barra\FrontBundle\Entity\Recipe;
 use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\FOSRestController;
@@ -12,11 +13,11 @@ use FOS\RestBundle\Util\Codes;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class RecipeController
+ * Class IngredientController
  * @author Paul Kujawa <p.kujawa@gmx.net>
  * @package Barra\RestBundle\Controller
  */
-class RecipeController extends FOSRestController
+class IngredientController extends FOSRestController
 {
     /** @var EntityManager  */
     protected $em;
@@ -26,8 +27,8 @@ class RecipeController extends FOSRestController
      * Returns form
      * @return \Symfony\Component\Form\Form
      */
-    public function newRecipeAction() {
-        $form = $this->createForm(new RecipeType(), new Recipe());
+    public function newIngredientAction() {
+        $form = $this->createForm(new IngredientType(), new Ingredient());
 
         return array('data' => $form);
     }
@@ -36,6 +37,7 @@ class RecipeController extends FOSRestController
     /**
      * List all entries
      * @Annotations\View()
+     * @Annotations\QueryParam(name="recipe",   requirements="\d+",                description="Recipe to get entries from.")
      * @Annotations\QueryParam(name="offset",   requirements="\d+", default="0",   description="Offset to start from.")
      * @Annotations\QueryParam(name="limit",    requirements="\d+", default="2",   description="How many entries to return.")
      * @Annotations\QueryParam(name="order_by", requirements="\w+", default="id",  description="Column to order by.")
@@ -43,13 +45,14 @@ class RecipeController extends FOSRestController
      * @param ParamFetcher $paramFetcher
      * @return array
      */
-    public function getRecipesAction(ParamFetcher $paramFetcher)
+    public function getIngredientsAction(ParamFetcher $paramFetcher)
     {
+        $recipe     = (int) $paramFetcher->get('recipe');
         $offset     = (int) $paramFetcher->get('offset');
         $limit      = (int) $paramFetcher->get('limit');
         $orderBy    = $paramFetcher->get('order_by');
         $order      = $paramFetcher->get('order');
-        $entities   = $this->getRepo()->getSome($offset, $limit, $orderBy, $order);
+        $entities   = $this->getRepo()->getSome($recipe, $offset, $limit, $orderBy, $order);
 
         return array('data' => $entities);
     }
@@ -61,10 +64,10 @@ class RecipeController extends FOSRestController
      * @param int $id
      * @return array
      */
-    public function getRecipeAction($id)
+    public function getIngredientAction($id)
     {
         $entity = $this->getRepo()->find($id);
-        if (!$entity instanceof Recipe) {
+        if (!$entity instanceof Ingredient) {
             return $this->view(null, Codes::HTTP_NOT_FOUND);
         }
 
@@ -77,11 +80,11 @@ class RecipeController extends FOSRestController
      * @param Request $request
      * @return \FOS\RestBundle\View\View
      */
-    public function postRecipeAction(Request $request)
+    public function postIngredientAction(Request $request)
     {
-        $recipe = new Recipe();
+        $ingredient = new Ingredient();
 
-        return $this->processForm($request, $recipe, 'POST', Codes::HTTP_CREATED);
+        return $this->processForm($request, $ingredient, 'POST', Codes::HTTP_CREATED);
     }
 
 
@@ -91,11 +94,11 @@ class RecipeController extends FOSRestController
      * @param int       $id
      * @return array|\FOS\RestBundle\View\View
      */
-    public function putRecipeAction(Request $request, $id)
+    public function putIngredientAction(Request $request, $id)
     {
         $entity = $this->getRepo()->find($id);
-        if (!$entity instanceof Recipe) {
-            return $this->routeRedirectView('barra_api_post_recipe', array('request' => $request));
+        if (!$entity instanceof Ingredient) {
+            return $this->routeRedirectView('barra_api_post_ingredient', array('request' => $request));
         }
 
         return $this->processForm($request, $entity, 'PUT', Codes::HTTP_NO_CONTENT);
@@ -103,21 +106,17 @@ class RecipeController extends FOSRestController
 
 
     /**
-     * Delete one recipe
+     * Delete one ingredient
      * @Annotations\View()
      * @param int   $id
      * @return \FOS\RestBundle\View\View
      */
-    public function deleteRecipeAction($id)
+    public function deleteIngredientAction($id)
     {
         $entity = $this->getRepo()->find($id);
-        if (!$entity instanceof Recipe) {
-            return $this->view(null, Codes::HTTP_NOT_FOUND);
-        }
 
-        // TODO onDelete=Cascade instead of manually calling RecipePicture.removeUpload()
-        foreach ($entity->getRecipePictures() as $image) {
-            $this->getEM()->remove($image);
+        if (!$entity instanceof Ingredient) {
+            return $this->view(null, Codes::HTTP_NOT_FOUND);
         }
 
         $this->getEM()->remove($entity);
@@ -129,23 +128,34 @@ class RecipeController extends FOSRestController
 
     /**
      * Actual form handling
-     * @param Request $request
-     * @param Recipe    $entity
-     * @param string    $method
-     * @param int       $successCode
+     * @param Request       $request
+     * @param Ingredient    $entity
+     * @param string        $method
+     * @param int           $successCode
      * @return \FOS\RestBundle\View\View
      */
-    protected function processForm(Request $request, Recipe $entity, $method, $successCode)
+    protected function processForm(Request $request, Ingredient $entity, $method, $successCode)
     {
-        $form = $this->createForm(new RecipeType(), $entity, array('method' => $method));
+        $requestBody = array_values($request->request->all())[0];
+        $recipe      = $this->getRepo('Recipe')->find($requestBody['recipe']);
+        $form        = $this->createForm(new IngredientType(), $entity, array('method' => $method));
         $form->handleRequest($request);
 
-        if (!$form->isValid()) {
+        if (!$form->isValid() || !$entity instanceof Ingredient || !$recipe instanceof Recipe) {
             return $this->view($form, Codes::HTTP_BAD_REQUEST);
         }
 
-        $duplicate = $this->getRepo()->findOneByName($entity->getName());
-        if ($duplicate instanceof Recipe) {
+        if ($request->isMethod('POST')) {
+            $position = $this->getRepo()->getNextPosition($recipe->getId());
+            $entity
+                ->setPosition($position)
+                ->setRecipe($recipe)
+            ;
+        }
+        $entity->createId();
+
+        $duplicate = $this->getRepo()->find($entity->getId());
+        if ($duplicate instanceof Ingredient) {
             return $this->view($form, Codes::HTTP_UNPROCESSABLE_ENTITY);
         }
 
@@ -157,7 +167,7 @@ class RecipeController extends FOSRestController
             '_format'   => $request->get('_format'),
         );
 
-        return $this->routeRedirectView('barra_api_get_recipe', $params, $successCode);
+        return $this->routeRedirectView('barra_api_get_ingredient', $params, $successCode);
     }
 
 
@@ -178,7 +188,7 @@ class RecipeController extends FOSRestController
      * @param string $className
      * @return \Doctrine\Common\Persistence\ObjectRepository|\Doctrine\ORM\EntityRepository
      */
-    protected function getRepo($className = 'Recipe') {
+    protected function getRepo($className = 'Ingredient') {
         return $this->getEM()->getRepository('BarraFrontBundle:'.$className);
     }
 }

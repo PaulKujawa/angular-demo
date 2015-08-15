@@ -7,63 +7,73 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+/**
+ * Class IngredientType
+ * @author Paul Kujawa <p.kujawa@gmx.net>
+ * @package Barra\BackBundle\Form\Type
+ */
 class IngredientType extends AbstractType
 {
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', array(
-                    'attr'=>array('placeholder'=>'back.ingredient.name')
-                ))
-            ->add('vegan', 'checkbox', array(
-                    'required'=>false
-                ))
-            ->add('gr', 'integer', array(
-                    'attr'=>array('placeholder'=>'back.ingredient.gr')
-                ))
-            ->add('kcal', 'number', array(
-                    'precision'=>2,
-                    'attr'=>array('placeholder'=>'back.ingredient.kcal')
-                ))
-            ->add('protein', 'number', array(
-                    'precision'=>2,
-                    'attr'=>array('placeholder'=>'back.ingredient.protein')
-                ))
-            ->add('carbs', 'number', array(
-                    'precision'=>2,
-                    'attr'=>array('placeholder'=>'back.ingredient.carbs')
-                ))
-            ->add('sugar', 'number', array(
-                    'precision'=>2,
-                    'attr'=>array('placeholder'=>'back.ingredient.sugar')
-                ))
-            ->add('fat', 'number', array(
-                    'precision'=>2,
-                    'attr'=>array('placeholder'=>'back.ingredient.fat')
-                ))
-            ->add('gfat', 'number', array(
-                    'precision'=>2,
-                    'attr'=>array('placeholder'=>'back.ingredient.gfat')
-                ))
-            ->add('manufacturer', 'entity', array(
-                    'class' => 'BarraFrontBundle:Manufacturer',
-                    'query_builder' => function(EntityRepository $er) {
-                        return $er->createQueryBuilder('m')->orderBy('m.name', 'ASC');
-                    },
-                    'property' => 'name'
-                ))
+            ->add('amount', 'integer', array(
+                'required'  => false,
+                'attr'      => array(
+                    'placeholder' => 'back.ingredient.amount',
+                ),
+            ))
+            ->add('measurement', 'entity', array(
+                'class'     => 'BarraFrontBundle:Measurement',
+                'property'  => 'type',
+                'required'  => false,
+                'attr'      => array(
+                    'placeholder' => 'back.measurement.type',
+                ),
+            ))
+            ->add('product', 'entity', array(
+                'class'     => 'BarraFrontBundle:Product',
+                'property'  => 'name',
+                'attr'      => array(
+                    'placeholder' => 'back.product.name',
+                ),
+                'query_builder' => function(EntityRepository $er) {
+                    return $er
+                        ->createQueryBuilder('i')
+                        ->orderBy('i.name', 'ASC')
+                    ;
+                },
+            ))
+            ->add('recipe', 'hidden', array(
+                'mapped'    => false,
+                'label'     => false,
+            ))
             ->add('submit', 'submit')
             ->getForm();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class'=>'Barra\FrontBundle\Entity\Ingredient',
-            'intention' =>'ingredient'
+            'data_class'            => 'Barra\FrontBundle\Entity\Ingredient',
+            'intention'             => 'ingredient',
+            'csrf_protection'       => false,
+            'cascade_validation'    => true,
+            'validation_groups'     => array(
+                'ingredient',
+            ),
         ));
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'formIngredient';

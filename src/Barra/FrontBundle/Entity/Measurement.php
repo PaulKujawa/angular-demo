@@ -34,9 +34,9 @@ class Measurement
     private $gr;
 
     /**
-     * @ORM\OneToMany(targetEntity="RecipeIngredient", mappedBy="measurement")
+     * @ORM\OneToMany(targetEntity="Ingredient", mappedBy="measurement")
      */
-    private $recipeIngredients;
+    private $ingredients;
 
     /**
      * Get id
@@ -98,39 +98,39 @@ class Measurement
      */
     public function __construct()
     {
-        $this->recipeIngredients = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->ingredients = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Add recipeIngredients
+     * Add ingredients
      *
-     * @param \Barra\FrontBundle\Entity\RecipeIngredient $recipeIngredients
+     * @param \Barra\FrontBundle\Entity\Ingredient $ingredients
      * @return Measurement
      */
-    public function addRecipeIngredient(\Barra\FrontBundle\Entity\RecipeIngredient $recipeIngredients)
+    public function addIngredient(\Barra\FrontBundle\Entity\Ingredient $ingredients)
     {
-        $this->recipeIngredients[] = $recipeIngredients;
+        $this->ingredients[] = $ingredients;
 
         return $this;
     }
 
     /**
-     * Remove recipeIngredients
+     * Remove ingredients
      *
-     * @param \Barra\FrontBundle\Entity\RecipeIngredient $recipeIngredients
+     * @param \Barra\FrontBundle\Entity\Ingredient $ingredients
      */
-    public function removeRecipeIngredient(\Barra\FrontBundle\Entity\RecipeIngredient $recipeIngredients)
+    public function removeIngredient(\Barra\FrontBundle\Entity\Ingredient $ingredients)
     {
-        $this->recipeIngredients->removeElement($recipeIngredients);
+        $this->ingredients->removeElement($ingredients);
     }
 
     /**
-     * Get recipeIngredients
+     * Get ingredients
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getRecipeIngredients()
+    public function getIngredients()
     {
-        return $this->recipeIngredients;
+        return $this->ingredients;
     }
 }

@@ -29,10 +29,10 @@ class Manufacturer
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Ingredient", mappedBy="manufacturer")
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="manufacturer")
      * @ORM\OrderBy({"name" = "ASC"})
      */
-    private $ingredients;
+    private $products;
 
     /**
      * @return integer
@@ -65,39 +65,39 @@ class Manufacturer
      */
     public function __construct()
     {
-        $this->ingredients = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Add ingredients
+     * Add products
      *
-     * @param \Barra\FrontBundle\Entity\Ingredient $ingredients
+     * @param \Barra\FrontBundle\Entity\Product $products
      * @return Manufacturer
      */
-    public function addIngredient(\Barra\FrontBundle\Entity\Ingredient $ingredients)
+    public function addProduct(\Barra\FrontBundle\Entity\Product $products)
     {
-        $this->ingredients[] = $ingredients;
+        $this->products[] = $products;
 
         return $this;
     }
 
     /**
-     * Remove ingredients
+     * Remove products
      *
-     * @param \Barra\FrontBundle\Entity\Ingredient $ingredients
+     * @param \Barra\FrontBundle\Entity\Product $products
      */
-    public function removeIngredient(\Barra\FrontBundle\Entity\Ingredient $ingredients)
+    public function removeProduct(\Barra\FrontBundle\Entity\Product $products)
     {
-        $this->ingredients->removeElement($ingredients);
+        $this->products->removeElement($products);
     }
 
     /**
-     * Get ingredients
+     * Get products
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getIngredients()
+    public function getProducts()
     {
-        return $this->ingredients;
+        return $this->products;
     }
 }

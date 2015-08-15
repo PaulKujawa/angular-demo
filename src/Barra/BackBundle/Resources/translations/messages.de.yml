@@ -7,7 +7,7 @@ back:
     frontend: Öffentlicher Bereich
 
   title:
-    ingredients: Zutaten
+    products: Zutaten
     manufacturers: Hersteller
     measurements: Messeinheiten
     recipes: Rezepte
@@ -19,7 +19,7 @@ back:
   message:
     insertError: Ungültiger Eintrag
 
-  ingredient: #object
+  product: #object
     name: Name
     manufacturer: Hersteller
     vegan: Vegan
@@ -44,7 +44,7 @@ back:
   cooking: #object
     description: Beschreibung
 
-  recipeIngredient: #object
+  ingredient: #object
     amount: Menge
 
   reference: #object
@@ -67,4 +67,4 @@ back:
     url: Url
 
   word:
-    ingredient: Zutat
+    product: Zutat

@@ -5,11 +5,11 @@ namespace Barra\FrontBundle\Entity\Repository;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * Class RecipeRepository
+ * Class ProductRepository
  * @author Paul Kujawa <p.kujawa@gmx.net>
  * @package Barra\FrontBundle\Entity\Repository
  */
-class RecipeRepository extends EntityRepository
+class ProductRepository extends EntityRepository
 {
     /**
      * @param int       $offset
@@ -21,15 +21,14 @@ class RecipeRepository extends EntityRepository
     public function getSome($offset, $limit, $orderBy, $order)
     {
         $query = $this
-            ->createQueryBuilder('r')
-            ->orderBy('r.'.$orderBy, $order)
+            ->createQueryBuilder('p')
+            ->orderBy('p.'.$orderBy, $order)
             ->setFirstResult($offset)
             ->setMaxResults($limit)
             ->getQuery();
 
         return $query->getResult();
     }
-
 
     /**
      * @return int

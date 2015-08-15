@@ -40,14 +40,14 @@
         </ul>
     </li>
 
-    <li class="dropdown {% if app.request.attributes.get('_route') == 'barra_back_ingredients' or
+    <li class="dropdown {% if app.request.attributes.get('_route') == 'barra_back_products' or
     app.request.attributes.get('_route') == 'barra_back_manufacturers' %}active{% endif %}">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-            {{ ('back.title.ingredients')|trans }} <span class="caret"></span>
+            {{ ('back.title.products')|trans }} <span class="caret"></span>
         </a>
         <ul class="dropdown-menu" role="menu">
-            <li {% if app.request.attributes.get('_route') == 'barra_back_ingredients' %}class="active"{% endif %}>
-                <a href="{{ path('barra_back_ingredients') }}">{{ ('back.title.ingredients')|trans }}</a>
+            <li {% if app.request.attributes.get('_route') == 'barra_back_products' %}class="active"{% endif %}>
+                <a href="{{ path('barra_back_products') }}">{{ ('back.title.products')|trans }}</a>
             </li>
             <li {% if app.request.attributes.get('_route') == 'barra_back_manufacturers' %}class="active"{% endif %}>
                 <a href="{{ path('barra_back_manufacturers') }}">{{ ('back.title.manufacturers')|trans }}</a>

@@ -1,25 +1,4 @@
-{# fieldType_part #}
-{% extends "form_div_layout.html.twig" %} {# required for parent() #}
-
-{% block form_row %}{% spaceless %}
-    <td ng-class="{'danger has-error': formFieldErrors && highlightInvalidFormFields('{{name}}')}">
-        {{ form_label(form, null, {'label_attr': {'class': 'sr-only'}}) }}
-        {{ form_errors(form) }}
-        {{ form_widget(form, {'attr': {'class': 'form-control'}}) }}
-    </td>
-{% endspaceless %}{% endblock %}
-
-
-{# button labels will NOT be displayed! just this bootstrap plus icon instead. labels are set though #}
-{% block button_widget %}{% spaceless %}
-    <td>
-        {% if label is empty %}
-            {% set label = name|humanize %}
-        {% endif %}
-        <button type="{{ type|default('button') }}" {{ block('button_attributes') }}><i class="glyphicon glyphicon-plus"></i></button>
-    </td>
-{% endspaceless %}{% endblock %}
-
+{% extends "form_div_layout.html.twig" %}
 
 {# add angular's ng-submit && removed action="{{ action }}" #}
 {%- block form_start -%}
@@ -35,13 +14,50 @@
     {%- endif -%}
 {%- endblock form_start -%}
 
-{# add angulars ng-model or ng-init && name instead of full_name for NGs to directly get the field names
-    type is not always set e.g. textarea #}
+
+{% block form_row %}{% spaceless %}
+    {# angular class and methods for form validation messages #}
+    <td ng-class="{'danger has-error': formFieldErrors && highlightInvalidFormFields('{{name}}')}">
+        {{ form_label(form, null, {'label_attr': {'class': 'sr-only'}}) }}
+        {{ form_errors(form) }}
+
+        {# enable different formnames for angular's ng-model and ng-init #}
+        {% if angularFormName is not defined %}
+            {% set angularFormName = "formData" %}
+        {% endif %}
+
+        {# class 'hidden' for checkboxes #}
+        {% if form.vars.block_prefixes.1 == "checkbox" %}
+            {{ form_widget(form, {'attr': {'class': 'hidden'}, 'angularFormName': angularFormName}) }}
+        {% else %}
+            {{ form_widget(form, {'attr': {'class': 'form-control'}, 'angularFormName': angularFormName}) }}
+        {% endif %}
+    </td>
+{% endspaceless %}{% endblock %}
+
+
+{# add angulars ng-model or ng-init && name instead of full_name for NGs to directly get the field names #}
 {% block widget_attributes %}{% spaceless %}
+    {% if angularFormName is not defined %}
+        {% set angularFormName = 'formData' %} {# TODO must not happen, should always be passed from form_row #}
+    {% endif %}
+
     {{ parent() }}
+
+    {# eg ng-model="formData['id']" #}
     {% if type is defined and type == 'hidden' %}
-        ng-init="formData['{{ name }}'] = '{{value}}'"
+        ng-init="{{ angularFormName }}['{{ name }}'] = '{{value}}'"
     {% else %}
-        ng-model="formData['{{ name }}']"
+        ng-model="{{ angularFormName }}['{{ name }}']"
     {% endif %}
 {% endspaceless %}{% endblock widget_attributes %}
+
+{# button labels will NOT be displayed! just this bootstrap plus icon instead. labels are set though #}
+{% block button_widget %}{% spaceless %}
+    <td>
+        {% if label is empty %}
+            {% set label = name|humanize %}
+        {% endif %}
+        <button type="{{ type|default('button') }}" {{ block('button_attributes') }}><i class="glyphicon glyphicon-plus"></i></button>
+    </td>
+{% endspaceless %}{% endblock %}

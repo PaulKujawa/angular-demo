@@ -26,26 +26,26 @@ barra_back_recipeDetail:
 
 
 
-barra_back_recipeDetail_ingredient_update:
-    path:     /recipe/ingredient/update/ajax
-    defaults: { _controller: BarraBackBundle:RecipeIngredient:update }
+barra_back_recipeDetail_product_update:
+    path:     /recipe/product/update/ajax
+    defaults: { _controller: BarraBackBundle:Ingredient:update }
     requirements:
         _method: POST
 
-barra_back_recipeDetail_ingredient_swap:
-    path:     /recipe/ingredient/swap/{recipeId}/{posBefore}/{posAfter}/ajax
-    defaults: { _controller: BarraBackBundle:RecipeIngredient:swap }
+barra_back_recipeDetail_product_swap:
+    path:     /recipe/product/swap/{recipeId}/{posBefore}/{posAfter}/ajax
+    defaults: { _controller: BarraBackBundle:Ingredient:swap }
     requirements:
         recipeId: \d+
         posBefore: \d+
         posAfter: \d+
 
-barra_back_recipeDetail_ingredient_delete:
-    path:     /recipe/ingredient/delete/{recipeId}/{ingredientId}
-    defaults: { _controller: BarraBackBundle:RecipeIngredient:delete }
+barra_back_recipeDetail_product_delete:
+    path:     /recipe/product/delete/{recipeId}/{productId}
+    defaults: { _controller: BarraBackBundle:Ingredient:delete }
     requirements:
         recipeId: \d+
-        ingredientId: \d+
+        productId: \d+
 
 
 

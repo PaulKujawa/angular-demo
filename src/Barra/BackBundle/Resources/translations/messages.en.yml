@@ -7,7 +7,7 @@ back:
     frontend: frontend
 
   title:
-    ingredients: Ingredients
+    products: Products
     manufacturers: Manufacturer
     measurements: Measurements
     recipes: Recipes
@@ -19,7 +19,7 @@ back:
   message:
     insertError: Invalid entry
 
-  ingredient: #object
+  product: #object
     name: Name
     manufacturer: Manufacturer
     vegan: Vegan
@@ -44,7 +44,7 @@ back:
   cooking: #object
     description: Description
 
-  recipeIngredient: #object
+  ingredient: #object
     amount: Amount
 
   reference: #object
@@ -67,4 +67,4 @@ back:
     url: Url
 
   word:
-    ingredient: Ingredient
+    product: Product

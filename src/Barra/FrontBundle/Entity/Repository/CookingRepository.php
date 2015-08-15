@@ -4,27 +4,45 @@ namespace Barra\FrontBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
+/**
+ * Class CookingRepository
+ * @author Paul Kujawa <p.kujawa@gmx.net>
+ * @package Barra\FrontBundle\Entity\Repository
+ */
 class CookingRepository extends EntityRepository
 {
-    public function changeBetweenPos($recipeId, $posBefore, $posAfter, $difference)
+    /**
+     * @param int       $recipeId
+     * @param int       $offset
+     * @param int       $limit
+     * @param string    $orderBy
+     * @param string    $order
+     * @return array
+     */
+    public function getSome($recipeId, $offset, $limit, $orderBy, $order)
     {
-        $query = $this->createQueryBuilder('c')
-            ->update()
-            ->set('c.position', 'c.position + :difference')
+        $query = $this
+            ->createQueryBuilder('c')
             ->where('c.recipe = :recipeId')
-            ->andWhere('c.position BETWEEN :posBefore AND :posAfter')
-            ->setParameter('posBefore', $posBefore)
-            ->setParameter('posAfter', $posAfter)
+            ->orderBy('c.'.$orderBy, $order)
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
             ->setParameter('recipeId', $recipeId)
-            ->setParameter('difference', $difference)
             ->getQuery();
 
         return $query->getResult();
     }
 
-    public function getHighestPosition($recipeId) {
-        $query = $this->createQueryBuilder('c')
-            ->select('MAX(c.position)')
+    /**
+     * @param int $recipeId
+     * @return int
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getNextPosition($recipeId) {
+        $query = $this
+            ->createQueryBuilder('c')
+            ->select('MAX(c.position)+1')
             ->where('c.recipe = :recipeId')
             ->setParameter('recipeId', $recipeId)
             ->getQuery();

@@ -1,7 +1,7 @@
 $(function() { /* http://www.chartjs.org/docs/#doughnut-pie-chart */
     var ctx         = $("#macroChart").get(0).getContext("2d"),
         kcalSpan    = $('#kcalSpan'),
-        macros      = $('#ingredientList');
+        macros      = $('#productList');
 
     var data = [ /* highlight = rgb +20 */
         {

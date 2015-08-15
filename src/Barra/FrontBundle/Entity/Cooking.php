@@ -2,61 +2,42 @@
 
 namespace Barra\FrontBundle\Entity;
 
+use Barra\FrontBundle\Entity\Traits\PositionTrait;
+use Barra\FrontBundle\Entity\Traits\RecipeTrait;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\Groups;
-use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
- * Cooking
+ * Class Cooking
+ * @author Paul Kujawa <p.kujawa@gmx.net>
+ * @package Barra\FrontBundle\Entity
  * @ExclusionPolicy("none")
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Barra\FrontBundle\Entity\Repository\CookingRepository")
+ * @ORM\Entity(repositoryClass = "Barra\FrontBundle\Entity\Repository\CookingRepository")
  */
 class Cooking
 {
-    /** no primary, because I could not update queries w/o transactions, which I'm not able to do with doctrine yet
-     * @ORM\Column(name="position", type="smallint")
-     */
-    private $position;
+    use PositionTrait;
+    use RecipeTrait;
 
     /**
+     * @var int
      * @ORM\Id
-     * @ORM\Column(name="description", type="string", length=255)
+     * @ORM\Column(
+     *      name = "id",
+     *      type = "integer"
+     * )
+     */
+    protected $id;
+
+    /**
+     * @ORM\Column(
+     *      name="description",
+     *      type="string",
+     *      length=255
+     * )
      */
     private $description;
-
-    /**
-     * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Recipe")
-     * @ORM\JoinColumn(name="recipe", referencedColumnName="id", nullable=false, onDelete="CASCADE")
-     * @ORM\OrderBy({"name" = "ASC"})
-     */
-    private $recipe;
-
-    /**
-     * Set position
-     *
-     * @param integer $position
-     * @return Cooking
-     */
-    public function setPosition($position)
-    {
-        $this->position = $position;
-
-        return $this;
-    }
-
-    /**
-     * Get position
-     *
-     * @return integer 
-     */
-    public function getPosition()
-    {
-        return $this->position;
-    }
 
     /**
      * Set description
@@ -82,25 +63,22 @@ class Cooking
     }
 
     /**
-     * Set recipe
-     *
-     * @param \Barra\FrontBundle\Entity\Recipe $recipe
-     * @return Cooking
+     * @return $this
      */
-    public function setRecipe(\Barra\FrontBundle\Entity\Recipe $recipe)
+    public function createId()
     {
-        $this->recipe = $recipe;
+        $this->id = $this->getRecipe()->getId() . $this->getPosition();
 
         return $this;
     }
 
     /**
-     * Get recipe
+     * Get id
      *
-     * @return \Barra\FrontBundle\Entity\Recipe
+     * @return string
      */
-    public function getRecipe()
+    public function getId()
     {
-        return $this->recipe;
+        return $this->id;
     }
 }

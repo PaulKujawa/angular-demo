@@ -5,7 +5,7 @@ Barra\FrontBundle\Entity\Manufacturer:
       - Type: string
 
 
-Barra\FrontBundle\Entity\Ingredient:
+Barra\FrontBundle\Entity\Product:
   properties:
     name:
       - NotBlank: ~
@@ -74,11 +74,11 @@ Barra\FrontBundle\Entity\Measurement:
           value: 0
 
 
-Barra\FrontBundle\Entity\RecipeIngredient:
+Barra\FrontBundle\Entity\Ingredient:
   properties:
     amount:
-      - Type: { type: integer , groups: [recipeIngredient] }
-      - GreaterThanOrEqual: { value: 0, groups: [recipeIngredient] }
+      - Type: { type: integer , groups: [ingredient] }
+      - GreaterThanOrEqual: { value: 0, groups: [ingredient] }
 
 
 Barra\FrontBundle\Entity\Cooking:

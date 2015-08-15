@@ -1,0 +1,11 @@
+{% trans_default_domain "messages" %}
+
+{% block formValidation %}
+    <div class="alert alert-danger" role="alert" ng-show="formErrors.length">
+        <ul><li ng-repeat="errorMsg in formErrors">[[errorMsg]]</li></ul>
+    </div>
+    <div class="alert alert-danger" role="alert" ng-repeat="fieldError in formFieldErrors">
+        <strong>[[fieldError.fieldName]]</strong>
+        <ul><li ng-repeat="errorMsg in fieldError.errors">[[errorMsg]]</li></ul>
+    </div>
+{% endblock %}

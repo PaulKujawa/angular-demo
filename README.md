@@ -67,3 +67,38 @@ Kujawa's portfolio
 
   * handle forms manually
   ** `...handleRequest($request)` && `$id = $form->all()->getId()`
+
+
+
+
+    /**
+     * @param int   $recipeId
+     * @param int   $posBefore
+     * @param int   $posAfter
+     * @param int   $difference
+     * @return array
+     */
+    public function changeBetweenPos($recipeId, $posBefore, $posAfter, $difference)
+    {
+        $query = $this->createQueryBuilder('i')
+            ->update()
+            ->set('i.position', 'i.position + :difference')
+            ->where('i.recipe = :recipeId')
+            ->andWhere('i.position BETWEEN :posBefore AND :posAfter')
+            ->setParameter('posBefore', $posBefore)
+            ->setParameter('posAfter', $posAfter)
+            ->setParameter('recipeId', $recipeId)
+            ->setParameter('difference', $difference)
+            ->getQuery();
+
+
+        return $query->getResult();
+    }
+    
+    
+    
+            if ($posBefore < $posAfter) {
+                $repo->changeBetweenPos($recipeId, $posBefore+1, $posAfter, -1);
+            } else {
+                $repo->changeBetweenPos($recipeId, $posAfter, $posBefore-1, 1);
+            }

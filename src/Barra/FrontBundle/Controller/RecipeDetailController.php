@@ -17,20 +17,20 @@ class RecipeDetailController extends Controller
             throw $this->createNotFoundException('Recipe not found');
 
         $cookings           = $em->getRepository('BarraFrontBundle:Cooking')->findByRecipe($recipe, array('position'=>'ASC'));
-        $recipeIngredients  = $em->getRepository('BarraFrontBundle:RecipeIngredient')->findByRecipe($recipe, array('position'=>'ASC'));
-        $macros = $this->calculateMakros($recipeIngredients);
+        $ingredients  = $em->getRepository('BarraFrontBundle:Ingredient')->findByRecipe($recipe, array('position'=>'ASC'));
+        $macros = $this->calculateMakros($ingredients);
 
         return $this->render('BarraFrontBundle:Recipe:recipe.html.twig', array(
             'recipe'            => $recipe,
             'macros'            => $macros,
             'cookings'          => $cookings,
-            'recipeIngredients' => $recipeIngredients,
+            'ingredients' => $ingredients,
         ));
     }
 
 
 
-    private function calculateMakros($recipeIngredients) {
+    private function calculateMakros($ingredients) {
         $macros = [
             'kcal' => 0,
             'carbs' => 0,
@@ -38,18 +38,18 @@ class RecipeDetailController extends Controller
             'fat' => 0
         ];
 
-        foreach($recipeIngredients as $recipeIngredient) {
-            if (! is_null($recipeIngredient->getAmount())) {
-                if ($recipeIngredient->getMeasurement()->getGr() != 0) /* eg pieces or bags */
-                    $gr = $recipeIngredient->getAmount();
+        foreach($ingredients as $ingredient) {
+            if (! is_null($ingredient->getAmount())) {
+                if ($ingredient->getMeasurement()->getGr() != 0) /* eg pieces or bags */
+                    $gr = $ingredient->getAmount();
                 else
-                    $gr = $recipeIngredient->getIngredient()->getGr();
+                    $gr = $ingredient->getProduct()->getGr();
 
-                $ingredient          = $recipeIngredient->getIngredient();
-                $macros['kcal']     += $gr*$ingredient->getKcal()/100;
-                $macros['carbs']    += $gr*$ingredient->getCarbs()/100;
-                $macros['protein']  += $gr*$ingredient->getProtein()/100;
-                $macros['fat']      += $gr*$ingredient->getFat()/100;
+                $product          = $ingredient->getProduct();
+                $macros['kcal']     += $gr*$product->getKcal()/100;
+                $macros['carbs']    += $gr*$product->getCarbs()/100;
+                $macros['protein']  += $gr*$product->getProtein()/100;
+                $macros['fat']      += $gr*$product->getFat()/100;
             }
         }
         return $macros;

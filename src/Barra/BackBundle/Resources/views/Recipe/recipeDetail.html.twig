@@ -1,8 +1,6 @@
 {% extends 'BarraBackBundle::layout.html.twig' %}
-{% form_theme formIngredientInsert 'BarraBackBundle:Form:tableRow.html.twig' %}
-{% form_theme formIngredientUpdate 'BarraBackBundle:Form:tableRow.html.twig' %}
-{% form_theme formCookingInsert 'BarraBackBundle:Form:tableRow.html.twig' %}
-{% form_theme formCookingUpdate 'BarraBackBundle:Form:tableRow.html.twig' %}
+{% form_theme formProduct 'BarraBackBundle:Form:tableRow.html.twig' %}
+{% form_theme formCooking 'BarraBackBundle:Form:tableRow.html.twig' %}
 {% trans_default_domain "messages" %}
 
 {% block title %}{{ recipe.name }}{% endblock %}
@@ -10,132 +8,82 @@
 {% block section %}
     <section class="container mobileTables">
         <form
-            name="formRecipePicture" id="dropzoneId" class="dropzone"
+            name="formPicture" id="dropzoneId" class="dropzone"
             action="{{ path('barra_back_recipeDetail_picture_upload') }}" enctype="multipart/form-data" method="post"
             data-removeLink="{{ path('barra_back_recipeDetail_picture_delete', {'recipeId': recipe.id, 'id': 0}) }}"
             data-getAllLink="{{ path('barra_back_recipeDetail_pictures_get', {'recipeId': recipe.id}) }}"
             data-picturesFolder="{{ asset('uploads/documents/') }}"
         >
-            <!--<input type="file"   name="formRecipePicture[file]" id="formRecipePicture_file" class="form-control" required="required">-->
-            <input type="hidden" name="formRecipePicture[recipe]" id="formRecipePicture_recipe" value="{{ recipe.id }}">
-            {{ form_widget(formRecipePicture._token) }}
+            <input type="hidden" name="formPicture[recipe]" id="formPicture_recipe" value="{{ recipe.id }}">
+            {{ form_widget(formPicture._token) }}
             <div class="dz-default dz-message">
                 <span class="glyphicon glyphicon-upload"></span>
             </div>
         </form>
 
-        {{ form_start(formIngredientInsert) }}
-            <table class="table table-striped"
-               data-type="ingredient"
-               data-id="{{ recipe.id }}"
-               data-swapLink="{{ path('barra_back_recipeDetail_ingredient_swap', {'recipeId': recipe.id, 'posBefore': 0, 'posAfter': 0}) }}">
-                <thead>
-                    <tr>
-                        <th>{{ 'back.recipeIngredient.amount'|trans() }}</th>
-                        <th>{{ 'back.measurement.type'|trans() }}</th>
-                        <th>{{ 'back.word.ingredient'|trans() }}</th>
-                        <th>{{ 'back.action.delete'|trans() }}</th>
-                    </tr>
-                </thead>
-                <tbody class="draggable">
-                    {% for recipeIngredient in recipeIngredients %}
-                        <tr data-id={{ recipeIngredient.ingredient.id }}>
-                            {% if recipeIngredient.amount != null %}
-                                <td class="editableCell" data-mobile-title={{ 'back.recipeIngredient.amount'|trans() }}>{{ recipeIngredient.amount }}</td>
-                                <td class="editableCell" data-mobile-title={{ 'back.measurement.type'|trans() }}>{{ recipeIngredient.measurement.type }}</td>
-                            {% else %}
-                                <td class="editableCell" data-mobile-title={{ 'back.recipeIngredient.amount'|trans() }}></td>
-                                <td class="editableCell" data-mobile-title={{ 'back.measurement.type'|trans() }}></td>
-                            {% endif %}
-                            <td class="editableCell" data-mobile-title={{ 'back.ingredient.name'|trans() }}>{{ recipeIngredient.ingredient.name }}</td>
+
+
+        <div ng-controller="IngredientCtrl" ng-init="recipeId={{recipe.id}}">
+            {{ include('BarraBackBundle::formValidation.html.twig') }}
+            {{ form_start(formProduct) }}
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>{{ 'back.ingredient.amount'|trans() }}</th>
+                            <th>{{ 'back.measurement.type'|trans() }}</th>
+                            <th>{{ 'back.word.product'|trans() }}</th>
+                            <th>{{ 'back.action.delete'|trans() }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="ingredient in ingredients | orderBy:'position'">
+                            <td data-mobile-title={{ 'back.ingredient.amount'|trans() }}>[[ingredient.amount]]</td>
+                            <td data-mobile-title={{ 'back.measurement.type'|trans() }}>[[ingredient.measurement.type]]</td>
+                            <td data-mobile-title={{ 'back.product.name'|trans() }}>[[ingredient.product.name]]</td>
                             <td data-mobile-title={{ 'back.action.delete'|trans() }}>
-                                <a href="{{ path('barra_back_recipeDetail_ingredient_delete', {'recipeId': recipe.id, 'ingredientId': recipeIngredient.ingredient.id}) }}">
-                                    <span class="glyphicon glyphicon-minus"></span>
-                                </a>
+                                <span class="glyphicon glyphicon-minus" ng-click="deleteEntry(ingredient)"></span>
                                 <span class="glyphicon glyphicon-resize-vertical"></span>
                             </td>
                         </tr>
-                    {% endfor %}
-                    <tr class="formInRow">
-                        {{ form_row(formIngredientInsert.amount) }}
-                        {{ form_row(formIngredientInsert.measurement) }}
-                        {{ form_row(formIngredientInsert.ingredient) }}
-                        {{ form_widget(formIngredientInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
-                    </tr>
-                    <tr class="formInRowError">
-                        <td>
-                            {{ form_errors(formIngredientInsert) }}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        {{ form_end(formIngredientInsert) }}
-
-        <table class="jsStorage" data-type="ingredient" style="visibility: hidden">
-            <tbody>
-                {{ form_start(formIngredientUpdate, {'action': path('barra_back_recipeDetail_ingredient_update')}) }}
-                    <tr class="formInRow">
-                        {{ form_row(formIngredientUpdate.amount) }}
-                        {{ form_row(formIngredientUpdate.measurement) }}
-                        {{ form_row(formIngredientUpdate.ingredient) }}
-                        {{ form_widget(formIngredientUpdate.submit, {'label': 'back.action.update', 'attr': {'class': 'btn btn-default'} }) }}
-                        {{ form_rest(formIngredientUpdate) }}
-                    </tr>
-                {{ form_end(formIngredientUpdate) }}
-            </tbody>
-        </table>
+                        <tr class="formInRow">
+                            {{ form_row(formProduct.amount) }}
+                            {{ form_row(formProduct.measurement) }}
+                            {{ form_row(formProduct.product) }}
+                            {{ form_widget(formProduct.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
+                        </tr>
+                    </tbody>
+                </table>
+            {{ form_end(formProduct) }}
+        </div>
 
 
 
 
-
-
-        {{ form_start(formCookingInsert) }}
-            <table class="table table-striped"
-                   data-type="cooking"
-                   data-id="{{ recipe.id }}"
-                   data-swapLink="{{ path('barra_back_recipeDetail_cooking_swap', {'recipeId': recipe.id, 'posBefore': 0, 'posAfter': 0}) }}">
-                <thead>
-                    <tr>
-                        <th>{{ 'back.cooking.description'|trans() }}</th>
-                        <th>{{ 'back.action.delete'|trans() }}</th>
-                    </tr>
-                </thead>
-                <tbody class="draggable">
-                    {% for cooking in cookings %}
-                        <tr data-id={{ cooking.position }}>
-                            <td class="editableCell" data-mobile-title={{ 'back.cooking.description'|trans() }}>{{ cooking.description }}</td>
-                            <td class="editableCell" data-mobile-title={{ 'back.action.delete'|trans() }}>
-                                <a href="{{ path('barra_back_recipeDetail_cooking_delete', {'recipeId': recipe.id, 'position': cooking.position}) }}">
-                                    <span class="glyphicon glyphicon-minus"></span>
-                                </a>
+        <div ng-controller="CookingCtrl" ng-init="recipeId={{recipe.id}}">
+            {{ include('BarraBackBundle::formValidation.html.twig') }}
+            {{ form_start(formCooking) }}
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>{{ 'back.cooking.description'|trans() }}</th>
+                            <th>{{ 'back.action.delete'|trans() }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="cooking in cookings | orderBy:'position'">
+                            <td data-mobile-title={{ 'back.cooking.description'|trans() }}>[[cooking.description]]</td>
+                            <td data-mobile-title={{ 'back.action.delete'|trans() }}>
+                                <span class="glyphicon glyphicon-minus" ng-click="deleteEntry(cooking)"></span>
                                 <span class="glyphicon glyphicon-resize-vertical"></span>
                             </td>
                         </tr>
-                    {% endfor %}
-                    <tr class="formInRow">
-                        {{ form_row(formCookingInsert.description) }}
-                        {{ form_widget(formCookingInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn'} }) }}
-                    </tr>
-                    <tr class="formInRowError">
-                        <td>
-                            {{ form_errors(formCookingInsert) }}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        {{ form_end(formCookingInsert) }}
-
-        <table class="jsStorage" data-type="cooking" style="visibility: hidden">
-            <tbody>
-            {{ form_start(formCookingUpdate, {'action': path('barra_back_recipeDetail_cooking_update')}) }}
-            <tr class="formInRow">
-                {{ form_row(formCookingUpdate.description) }}
-                {{ form_widget(formCookingUpdate.submit, {'label': 'back.action.update', 'attr': {'class': 'btn'} }) }}
-                {{ form_rest(formCookingUpdate) }}
-            </tr>
-            {{ form_end(formCookingUpdate) }}
-            </tbody>
-        </table>
+                        <tr class="formInRow">
+                            {{ form_row(formCooking.description) }}
+                            {{ form_widget(formCooking.submit, {'label': 'back.action.new', 'attr': {'class': 'btn'} }) }}
+                        </tr>
+                    </tbody>
+                </table>
+            {{ form_end(formCooking) }}
+        </div>
     </section>
 {% endblock %}

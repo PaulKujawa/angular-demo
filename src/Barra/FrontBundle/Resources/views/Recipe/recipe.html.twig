@@ -30,12 +30,12 @@
         </div>
 
         <h1 class="centeredTitle">{{ recipe.name }}</h1>
-        <ul id="ingredientList" class="list-unstyled fontL" data-carbs={{ macros.carbs }} data-protein={{ macros.protein }} data-fat={{ macros.fat }}>
-            {% for recipeIngredient in recipeIngredients %}
-                {% if recipeIngredient.amount is null %}
-                    <li>{{ recipeIngredient.ingredient.name }}</li>
+        <ul id="productList" class="list-unstyled fontL" data-carbs={{ macros.carbs }} data-protein={{ macros.protein }} data-fat={{ macros.fat }}>
+            {% for ingredient in ingredients %}
+                {% if ingredient.amount is null %}
+                    <li>{{ ingredient.product.name }}</li>
                 {% else %}
-                    <li>{{ recipeIngredient.amount }}{{ recipeIngredient.measurement.type }} {{ recipeIngredient.ingredient.name }}</li>
+                    <li>{{ ingredient.amount }}{{ ingredient.measurement.type }} {{ ingredient.product.name }}</li>
                 {% endif %}
             {% endfor %}
         </ul>

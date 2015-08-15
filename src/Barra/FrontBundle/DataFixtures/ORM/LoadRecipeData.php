@@ -17,17 +17,17 @@ class LoadRecipeData extends AbstractFixture implements OrderedFixtureInterface
     public function load(ObjectManager $em)
     {
         $entity1 = new Recipe();
-        $entity1->setName("fixRecipe1")->setRating(50)->setVotes(2);
+        $entity1->setName("fixRecipe1");
         $em->persist($entity1);
         $this->addReference('fixRecipe1', $entity1);
 
         $entity2 = new Recipe();
-        $entity2->setName("fixRecipe2")->setRating(50)->setVotes(2);
+        $entity2->setName("fixRecipe2");
         $em->persist($entity2);
         $this->addReference('fixRecipe2', $entity2);
 
         $entity3 = new Recipe();
-        $entity3->setName("fixRecipe3")->setRating(50)->setVotes(2);
+        $entity3->setName("fixRecipe3");
         $em->persist($entity3);
         $this->addReference('fixRecipe3', $entity3);
 

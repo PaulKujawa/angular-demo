@@ -2,128 +2,49 @@
 
 namespace Barra\FrontBundle\Entity;
 
+use Barra\FrontBundle\Entity\Traits\IdAutoTrait;
+use Barra\FrontBundle\Entity\Traits\NameTrait;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\Groups;
-use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
- * Recipe
+ * Class Recipe
+ * @author Paul Kujawa <p.kujawa@gmx.net>
+ * @package Barra\FrontBundle\Entity
  * @ExclusionPolicy("none")
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Barra\FrontBundle\Entity\Repository\RecipeRepository")
+ * @ORM\Entity(repositoryClass = "Barra\FrontBundle\Entity\Repository\RecipeRepository")
  */
 class Recipe
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
+    use NameTrait;
+    use IdAutoTrait;
 
     /**
-     * @ORM\Column(name="name", type="string", length=40, unique=true)
-     */
-    private $name;
-
-    /**
-     * @ORM\Column(name="rating", type="smallint")
-     */
-    private $rating;
-
-    /**
-     * @ORM\Column(name="votes", type="integer")
-     */
-    private $votes;
-
-    /**
-     * @ORM\OneToMany(targetEntity="RecipePicture", mappedBy="recipe")
+     * @ORM\OneToMany(
+     *      targetEntity = "RecipePicture",
+     *      mappedBy     = "recipe"
+     * )
      * @ORM\OrderBy({"title" = "ASC"})
      */
     private $recipePictures;
 
-
-    /**
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param string $name
-     * @return Recipe
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param integer $rating
-     * @return Recipe
-     */
-    public function setRating($rating)
-    {
-        $this->rating = $rating;
-
-        return $this;
-    }
-
-    /**
-     * @return integer
-     */
-    public function getRating()
-    {
-        return $this->rating;
-    }
-
-    /**
-     * @param integer $votes
-     * @return Recipe
-     */
-    public function setVotes($votes)
-    {
-        $this->votes = $votes;
-
-        return $this;
-    }
-
-    /**
-     * @return integer
-     */
-    public function getVotes()
-    {
-        return $this->votes;
-    }
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->recipePictures = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->recipePictures = new ArrayCollection();
     }
 
     /**
      * Add recipePictures
      *
-     * @param \Barra\FrontBundle\Entity\RecipePicture $recipePictures
+     * @param RecipePicture $recipePictures
      * @return Recipe
      */
-    public function addRecipePicture(\Barra\FrontBundle\Entity\RecipePicture $recipePictures)
+    public function addRecipePicture(RecipePicture $recipePictures)
     {
         $this->recipePictures[] = $recipePictures;
 
@@ -133,9 +54,9 @@ class Recipe
     /**
      * Remove recipePictures
      *
-     * @param \Barra\FrontBundle\Entity\RecipePicture $recipePictures
+     * @param RecipePicture $recipePictures
      */
-    public function removeRecipePicture(\Barra\FrontBundle\Entity\RecipePicture $recipePictures)
+    public function removeRecipePicture(RecipePicture $recipePictures)
     {
         $this->recipePictures->removeElement($recipePictures);
     }
@@ -143,7 +64,7 @@ class Recipe
     /**
      * Get recipePictures
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return ArrayCollection
      */
     public function getRecipePictures()
     {

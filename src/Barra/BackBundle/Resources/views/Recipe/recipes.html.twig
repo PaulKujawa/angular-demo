@@ -1,26 +1,13 @@
 {% extends 'BarraBackBundle::layout.html.twig' %}
 {% trans_default_domain "messages" %}
 {% block title %}{{ 'back.title.recipes'|trans() }}{% endblock %}
-{% form_theme formInsert 'BarraBackBundle:Form:tableRow.html.twig' %}
-{% form_theme formUpdate 'BarraBackBundle:Form:tableRow.html.twig' %}
-
-
+{% form_theme form 'BarraBackBundle:Form:tableRow.html.twig' %}
 
 {% block section %}
-    <section class="container mobileTables" ng-controller="RecipesCtrl">
-        <div class="alert alert-danger" role="alert" ng-repeat="fieldError in formFieldErrors">
-            <strong>[[fieldError.fieldName]]</strong>
-            <ul><li ng-repeat="errorMsg in fieldError.errors">[[errorMsg]]</li></ul>
-        </div>
-        <div class="alert alert-danger" role="alert" ng-show="formErrors.length">
-            <ul><li ng-repeat="errorMsg in formErrors">[[errorMsg]]</li></ul>
-        </div>
-        <div class="alert alert-warning" role="alert" ng-repeat="deleteError in deleteErrors">
-            <ul><li ng-repeat="errorMsg in deleteError">[[errorMsg]]</li></ul>
-        </div>
-
-        {{ form_start(formInsert) }}
-            <table class="table table-striped" data-type="recipe">
+    <section class="container mobileTables" ng-controller="RecipeCtrl">
+        {{ include('BarraBackBundle::formValidation.html.twig') }}
+        {{ form_start(form) }}
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>{{ 'back.recipe.name'|trans() }}</th>
@@ -29,33 +16,22 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="recipe in recipes | orderBy:'name'">
-                        <td class="editableCell" data-mobile-title="{{'back.recipe.name'|trans()}}">[[recipe.name]]</td>
-                        <td class="editableCell" data-mobile-title="{{'back.action.manage'|trans()}}">
-                            <a href="[[urlRecipeDetail]]/[[recipe.name.replace(' ', '_')]]"><span class="glyphicon glyphicon-eye-open"></span></a>
+                        <td data-mobile-title="{{'back.recipe.name'|trans()}}">[[recipe.name]]</td>
+                        <td data-mobile-title="{{'back.action.manage'|trans()}}">
+                            <a href="[[urlRecipeDetail]]/[[recipe.name.replace(' ', '_')]]">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                            </a>
                             <span class="glyphicon glyphicon-minus" ng-click="deleteEntry(recipe)"></span>
                         </td>
                     </tr>
-                    <tr class="formInRow"  ng-class="{'danger has-error': formErrors}">
-                        {{ form_row(formInsert.name) }}
-                        {{ form_widget(formInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn'} }) }}
+                    <tr class="formInRow" ng-class="{'danger has-error': formErrors}">
+                        {{ form_row(form.name) }}
+                        {{ form_widget(form.submit, {'label': 'back.action.new', 'attr': {'class': 'btn'} }) }}
                     </tr>
                 </tbody>
             </table>
-        {{ form_end(formInsert) }}
+        {{ form_end(form) }}
 
-      <!--  <table class="jsStorage" data-type="recipe" style="visibility: hidden">
-            <tbody>
-                { form_start(formUpdate, {'action': path('barra_back_recipe_update')}) }}
-                    <tr class="formInRow">
-                        { form_row(formUpdate.name) }}
-                        { form_widget(formUpdate.submit, {'label': 'back.action.update', 'attr': {'class': 'btn'} }) }}
-                        { form_row(formUpdate.id, {'attr': {'class': 'formPk'} }) }}
-                        { form_rest(formUpdate) }}
-                    </tr>
-                { form_end(formUpdate) }}
-            </tbody>
-        </table>
--->
-        {{ include('BarraBackBundle::pagination.html.twig', { 'route': 'barra_back_recipes'})}}
+        {{ include('BarraBackBundle::pagination.html.twig', { 'route': 'barra_back_recipes'}) }}
     </section>
 {% endblock %}

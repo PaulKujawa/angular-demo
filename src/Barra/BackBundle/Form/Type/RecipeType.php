@@ -12,8 +12,10 @@ class RecipeType extends AbstractType
     {
         $builder
             ->add('name', 'text', array(
-                    'attr'=>array('placeholder'=>'back.recipe.name')
-                ))
+                'attr' => array(
+                    'placeholder' => 'back.recipe.name',
+                )
+            ))
             ->add('submit', 'submit')
             ->getForm();
     }
@@ -21,9 +23,9 @@ class RecipeType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class'=>'Barra\FrontBundle\Entity\Recipe',
-            'intention' =>'recipe',
-            'csrf_protection' => false
+            'data_class'        => 'Barra\FrontBundle\Entity\Recipe',
+            'intention'         => 'recipe',
+            'csrf_protection'   => false,
         ));
     }
 

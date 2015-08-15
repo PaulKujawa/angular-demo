@@ -2,110 +2,46 @@
 
 namespace Barra\BackBundle\Controller;
 
-use Barra\FrontBundle\Entity\RecipePicture;
-use Barra\FrontBundle\Entity\Cooking;
-use Barra\FrontBundle\Entity\RecipeIngredient;
-use Barra\BackBundle\Form\Type\RecipePictureType;
 use Barra\BackBundle\Form\Type\CookingType;
-use Barra\BackBundle\Form\Type\RecipeIngredientType;
-use Barra\BackBundle\Form\Type\Update\CookingUpdateType;
-use Barra\BackBundle\Form\Type\Update\RecipeIngredientUpdateType;
-
-use Symfony\Component\Form\FormError;
+use Barra\BackBundle\Form\Type\IngredientType;
+use Barra\BackBundle\Form\Type\RecipePictureType;
+use Barra\FrontBundle\Entity\Cooking;
+use Barra\FrontBundle\Entity\Ingredient;
+use Barra\FrontBundle\Entity\RecipePicture;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class RecipeDetailController extends Controller
 {
-    public function indexAction($name, Request $request)
+    /**
+     * @param $name
+     * @return Response
+     */
+    public function indexAction($name)
     {
         $em = $this->getDoctrine()->getManager();
         $recipe = $em->getRepository('BarraFrontBundle:Recipe')->findOneByName(str_replace('_', ' ', $name));
-        if (!$recipe)
-            throw $this->createNotFoundException('Recipe not found');
-
-        $cookings           = $em->getRepository('BarraFrontBundle:Cooking')->findByRecipe($recipe, array('position'=>'ASC'));
-        $recipeIngredients  = $em->getRepository('BarraFrontBundle:RecipeIngredient')->findByRecipe($recipe, array('position'=>'ASC'));
-
-        $recipePicture      = new RecipePicture();
-        $cooking            = new Cooking();
-        $recipeIngredient   = new RecipeIngredient();
-
-        $formRecipePicture      = $this->createForm(new RecipePictureType(), $recipePicture);
-        $formCookingInsert      = $this->createForm(new CookingType(), $cooking);
-        $formIngredientInsert   = $this->createForm(new RecipeIngredientType(), $recipeIngredient);
-        $formCookingUpdate      = $this->createForm(new CookingUpdateType(), new Cooking());
-        $formIngredientUpdate   = $this->createForm(new RecipeIngredientUpdateType(), new RecipeIngredient());
-
-        $formRecipePicture->get('recipe')->setData($recipe->getId());
-        $formCookingUpdate->get('recipe')->setData($recipe->getId());
-        $formIngredientUpdate->get('recipe')->setData($recipe->getId());
-
-        if ($request->getMethod() === 'POST') {
-            $sqlError = null;
-            if ($request->request->has($formIngredientInsert->getName())) {
-                $formIngredientInsert->handleRequest($request);
-                if ($formIngredientInsert->isValid())
-                    $sqlError = $this->newIngredient($recipe, $recipeIngredient);
-            } elseif ($request->request->has($formCookingInsert->getName())) {
-                $formCookingInsert->handleRequest($request);
-                if ($formCookingInsert->isValid())
-                    $sqlError = $this->newCooking($recipe, $cooking);
-            }
-            if ($sqlError)
-                $formIngredientInsert->addError(new FormError($sqlError));
-            else
-                return $this->redirect($this->generateUrl('barra_back_recipeDetail', array('name' => $name)));
+        if (!$recipe) {
+             throw new NotFoundHttpException();
         }
 
+        $cookings = $em->getRepository('BarraFrontBundle:Cooking')->findByRecipe($recipe, array('position'=>'ASC'));
+
+        $formPicture = $this->createForm(new RecipePictureType(),   new RecipePicture());
+        $formCooking = $this->createForm(new CookingType(),         new Cooking());
+        $formProduct = $this->createForm(new IngredientType(),      new Ingredient());
+
+        $formPicture->get('recipe')->setData($recipe->getId());
 
         return $this->render('BarraBackBundle:Recipe:recipeDetail.html.twig', array(
-                'recipe'                => $recipe,
-                'cookings'              => $cookings,
-                'recipeIngredients'     => $recipeIngredients,
-                'formRecipePicture'     => $formRecipePicture->createView(),
-                'formIngredientInsert'  => $formIngredientInsert->createView(),
-                'formIngredientUpdate'  => $formIngredientUpdate->createView(),
-                'formCookingInsert'     => $formCookingInsert->createView(),
-                'formCookingUpdate'     => $formCookingUpdate->createView()
+                'recipe'        => $recipe,
+                'cookings'      => $cookings,
+                'formPicture'   => $formPicture->createView(),
+                'formProduct'   => $formProduct->createView(),
+                'formCooking'   => $formCooking->createView(),
             ));
-    }
-
-
-
-    public function newIngredient($recipe, $recipeIngredient)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $nextPosition = $em->getRepository('BarraFrontBundle:RecipeIngredient')->getHighestPosition($recipe->getId()) +1;
-        $recipeIngredient->setRecipe($recipe);
-        $recipeIngredient->setPosition($nextPosition);
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($recipeIngredient);
-        try {
-            $em->flush();
-        } catch (\Doctrine\DBAL\DBALException $e) {
-            return $this->get('translator')->trans("back.message.insertError");
-        }
-        return null;
-    }
-
-
-
-    public function newCooking($recipe, $cooking)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $nextPosition = $em->getRepository('BarraFrontBundle:Cooking')->getHighestPosition($recipe->getId()) +1;
-        $cooking->setPosition($nextPosition);
-        $cooking->setRecipe($recipe);
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($cooking);
-        try {
-            $em->flush();
-        } catch (\Doctrine\DBAL\DBALException $e) {
-            return new Response('Cooking step could not be inserted');
-        }
-        return null;
     }
 
 
@@ -117,7 +53,7 @@ class RecipeDetailController extends Controller
         $recipe = $em->getRepository('BarraFrontBundle:Recipe')->find($recipeId);
 
         if (!$recipe)
-            throw $this->createNotFoundException('Recipe not found');
+            $this->createNotFoundException('Recipe not found');
 
         foreach($request->files as $file) { // not necessary, since dropzone sends for every file an own request which depends on current config
             $recipeFile = new RecipePicture();

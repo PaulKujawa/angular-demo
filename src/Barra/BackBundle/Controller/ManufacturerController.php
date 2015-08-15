@@ -25,7 +25,7 @@ class ManufacturerController extends Controller
             if ($sqlError)
                 $formInsert->addError(new FormError($sqlError));
             else
-                return $this->redirect($this->generateUrl('barra_back_ingredients'));
+                return $this->redirect($this->generateUrl('barra_back_products'));
         }
 
         $paginationRange = 10;
