@@ -4,6 +4,7 @@ namespace Barra\RestBundle\Controller;
 
 use Barra\BackBundle\Form\Type\ProductType;
 use Barra\FrontBundle\Entity\Product;
+use Barra\FrontBundle\Entity\Repository\ProductRepository;
 use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Annotations;
@@ -29,7 +30,7 @@ class ProductController extends FOSRestController
     public function newProductAction() {
         $form = $this->createForm(new ProductType(), new Product());
 
-        return array('data' => $form);
+        return ['data' => $form];
     }
 
 
@@ -49,9 +50,12 @@ class ProductController extends FOSRestController
         $limit      = (int) $paramFetcher->get('limit');
         $orderBy    = $paramFetcher->get('order_by');
         $order      = $paramFetcher->get('order');
-        $entities   = $this->getRepo()->getSome($offset, $limit, $orderBy, $order);
 
-        return array('data' => $entities);
+        /** @var ProductRepository $repo */
+        $repo       = $this->getRepo();
+        $entities   = $repo->getSome($offset, $limit, $orderBy, $order);
+
+        return ['data' => $entities];
     }
 
 
@@ -68,7 +72,7 @@ class ProductController extends FOSRestController
             return $this->view(null, Codes::HTTP_NOT_FOUND);
         }
 
-        return array('data' => $entity);
+        return ['data' => $entity];
     }
 
 
@@ -79,9 +83,7 @@ class ProductController extends FOSRestController
      */
     public function postProductAction(Request $request)
     {
-        $product = new Product();
-
-        return $this->processForm($request, $product, 'POST', Codes::HTTP_CREATED);
+        return $this->processForm($request, new Product(), Codes::HTTP_CREATED);
     }
 
 
@@ -95,10 +97,43 @@ class ProductController extends FOSRestController
     {
         $entity = $this->getRepo()->find($id);
         if (!$entity instanceof Product) {
-            return $this->routeRedirectView('barra_api_post_product', array('request' => $request));
+            return $this->routeRedirectView('barra_api_post_product', ['request' => $request]);
         }
 
-        return $this->processForm($request, $entity, 'PUT', Codes::HTTP_NO_CONTENT);
+        return $this->processForm($request, $entity, Codes::HTTP_NO_CONTENT);
+    }
+
+
+    /**
+     * Actual form handling
+     * @param Request   $request
+     * @param Product   $entity
+     * @param int       $successCode
+     * @return \FOS\RestBundle\View\View
+     */
+    protected function processForm(Request $request, Product $entity, $successCode)
+    {
+        $form = $this->createForm(new ProductType(), $entity, ['method' => $request->getMethod()]);
+        $form->handleRequest($request);
+
+        if (!$form->isValid()) {
+            return $this->view($form, Codes::HTTP_BAD_REQUEST);
+        }
+
+        $duplicate = $this->getRepo()->findOneByName($entity->getName());
+        if ($duplicate instanceof Product) {
+            return $this->view($form, Codes::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $this->getEM()->persist($entity);
+        $this->getEM()->flush();
+
+        $params = [
+            'id'        => $entity->getId(),
+            '_format'   => $request->get('_format'),
+        ];
+
+        return $this->routeRedirectView('barra_api_get_product', $params, $successCode);
     }
 
 
@@ -115,49 +150,14 @@ class ProductController extends FOSRestController
             return $this->view(null, Codes::HTTP_NOT_FOUND);
         }
 
-        $dependencies = $this->getRepo('Ingredient')->findByProduct($entity);
-        if (!empty($dependencies)) {
-            return $this->view(null, Codes::HTTP_UNPROCESSABLE_ENTITY);
+        if (!$entity->getIngredients()->isEmpty()) {
+            return $this->view(null, Codes::HTTP_CONFLICT);
         }
 
         $this->getEM()->remove($entity);
         $this->getEM()->flush();
 
         return $this->view(null, Codes::HTTP_NO_CONTENT);
-    }
-
-
-    /**
-     * Actual form handling
-     * @param Request   $request
-     * @param Product   $entity
-     * @param string    $method
-     * @param int       $successCode
-     * @return \FOS\RestBundle\View\View
-     */
-    protected function processForm(Request $request, Product $entity, $method, $successCode)
-    {
-        $form = $this->createForm(new ProductType(), $entity, array('method' => $method));
-        $form->handleRequest($request);
-
-        if (!$form->isValid()) {
-            return $this->view($form, Codes::HTTP_BAD_REQUEST);
-        }
-
-        $duplicate = $this->getRepo()->findOneByName($entity->getName());
-        if ($duplicate instanceof Product) {
-            return $this->view($form, Codes::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
-        $this->getEM()->persist($entity);
-        $this->getEM()->flush();
-
-        $params = array(
-            'id'        => $entity->getId(),
-            '_format'   => $request->get('_format'),
-        );
-
-        return $this->routeRedirectView('barra_api_get_product', $params, $successCode);
     }
 
 

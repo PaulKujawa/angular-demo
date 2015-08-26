@@ -2,42 +2,49 @@
 
 namespace Barra\FrontBundle\DataFixtures\ORM;
 
+use Barra\FrontBundle\Entity\Recipe;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Barra\FrontBundle\Entity\Recipe;
 
+/**
+ * Class LoadRecipeData
+ * @author Paul Kujawa <p.kujawa@gmx.net>
+ * @package Barra\FrontBundle\DataFixtures\ORM
+ */
 class LoadRecipeData extends AbstractFixture implements OrderedFixtureInterface
 {
-    static public $members = array();
+    static public $members = [];
 
-    /**
-     * {@inheritDoc}
-     */
     public function load(ObjectManager $em)
     {
-        $entity1 = new Recipe();
-        $entity1->setName("fixRecipe1");
-        $em->persist($entity1);
-        $this->addReference('fixRecipe1', $entity1);
+        self::$members[] = $this->instantiate('Recipe1');
+        self::$members[] = $this->instantiate('Recipe2');
+        self::$members[] = $this->instantiate('Recipe3');
 
-        $entity2 = new Recipe();
-        $entity2->setName("fixRecipe2");
-        $em->persist($entity2);
-        $this->addReference('fixRecipe2', $entity2);
-
-        $entity3 = new Recipe();
-        $entity3->setName("fixRecipe3");
-        $em->persist($entity3);
-        $this->addReference('fixRecipe3', $entity3);
-
+        foreach(self::$members as $i => $e) {
+            $this->addReference('refRecipe'.($i+1), $e);
+            $em->persist($e);
+        }
         $em->flush();
-        self::$members = array($entity1, $entity2, $entity3);
     }
 
     /**
-     * {@inheritDoc}
+     * @param string $name
+     * @return Recipe
      */
+    protected function instantiate($name)
+    {
+        if (!is_string($name)) {
+            throw new \InvalidArgumentException();
+        }
+
+        $entity = new Recipe;
+        $entity->setName($name);
+
+        return $entity;
+    }
+
     public function getOrder()
     {
         return 4;

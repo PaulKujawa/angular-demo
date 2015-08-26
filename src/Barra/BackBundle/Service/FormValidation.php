@@ -17,7 +17,7 @@ class FormValidation
      */
     public function getErrorMessages(Form $form)
     {
-        $errors = array();
+        $errors = [];
         foreach($form as $fieldName => $formField) {
 
             if (!$formField->isValid()) {

@@ -6,30 +6,42 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+/**
+ * Class MeasurementType
+ * @author Paul Kujawa <p.kujawa@gmx.net>
+ * @package Barra\BackBundle\Form\Type
+ */
 class MeasurementType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('type', 'text', array(
-                    'attr'=>array('placeholder'=>'back.measurement.type')
-                ))
-            ->add('gr', 'integer', array(
-                    'attr'=>array('placeholder'=>'back.measurement.gr')
-                ))
+            ->add('name', 'text', [
+                'attr' => [
+                    'placeholder' => 'back.measurement.name',
+                ],
+            ])
+            ->add('gr', 'integer', [
+                'attr' => [
+                    'placeholder' => 'back.measurement.gr',
+                ],
+            ])
             ->add('submit', 'submit')
-            ->getForm();
+            ->getForm()
+        ;
     }
-
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('data_class'=>'Barra\FrontBundle\Entity\Measurement',
-            'intention' =>'measurement'));
+        $resolver->setDefaults([
+            'data_class'        => 'Barra\FrontBundle\Entity\Measurement',
+            'intention'         => 'measurement',
+            'csrf_protection'   => false,
+        ]);
     }
 
     public function getName()
     {
-        return 'type';
+        return 'formMeasurement';
     }
 }

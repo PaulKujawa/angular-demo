@@ -14,66 +14,58 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class IngredientType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('amount', 'integer', array(
+            ->add('amount', 'integer', [
                 'required'  => false,
-                'attr'      => array(
+                'attr'      => [
                     'placeholder' => 'back.ingredient.amount',
-                ),
-            ))
-            ->add('measurement', 'entity', array(
+                ],
+            ])
+            ->add('measurement', 'entity', [
                 'class'     => 'BarraFrontBundle:Measurement',
-                'property'  => 'type',
+                'property'  => 'name',
                 'required'  => false,
-                'attr'      => array(
-                    'placeholder' => 'back.measurement.type',
-                ),
-            ))
-            ->add('product', 'entity', array(
+                'attr'      => [
+                    'placeholder' => 'back.measurement.name',
+                ],
+            ])
+            ->add('product', 'entity', [
                 'class'     => 'BarraFrontBundle:Product',
                 'property'  => 'name',
-                'attr'      => array(
+                'attr'      => [
                     'placeholder' => 'back.product.name',
-                ),
+                ],
                 'query_builder' => function(EntityRepository $er) {
                     return $er
                         ->createQueryBuilder('i')
                         ->orderBy('i.name', 'ASC')
                     ;
                 },
-            ))
-            ->add('recipe', 'hidden', array(
+            ])
+            ->add('recipe', 'hidden', [
                 'mapped'    => false,
                 'label'     => false,
-            ))
+            ])
             ->add('submit', 'submit')
-            ->getForm();
+            ->getForm()
+        ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class'            => 'Barra\FrontBundle\Entity\Ingredient',
             'intention'             => 'ingredient',
             'csrf_protection'       => false,
             'cascade_validation'    => true,
-            'validation_groups'     => array(
+            'validation_groups'     => [
                 'ingredient',
-            ),
-        ));
+            ],
+        ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName()
     {
         return 'formIngredient';

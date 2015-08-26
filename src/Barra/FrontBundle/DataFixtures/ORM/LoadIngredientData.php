@@ -2,87 +2,82 @@
 
 namespace Barra\FrontBundle\DataFixtures\ORM;
 
+use Barra\FrontBundle\Entity\Ingredient;
+use Barra\FrontBundle\Entity\Measurement;
+use Barra\FrontBundle\Entity\Product;
+use Barra\FrontBundle\Entity\Recipe;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Barra\FrontBundle\Entity\Ingredient;
+use InvalidArgumentException;
 
+/**
+ * Class LoadIngredientData
+ * @author Paul Kujawa <p.kujawa@gmx.net>
+ * @package Barra\FrontBundle\DataFixtures\ORM
+ */
 class LoadIngredientData extends AbstractFixture implements OrderedFixtureInterface
 {
-    static public $members = array();
+    static public $members = [];
 
-    /**
-     * {@inheritDoc}
-     */
     public function load(ObjectManager $em)
     {
-        $entity1 = new Ingredient();
-        $entity1->setRecipe($this->getReference('fixRecipe1'))->setProduct($this->getReference('fixProduct1'))
-            ->setMeasurement($this->getReference('fixMeasurement1'))->setAmount(1)->setPosition(1)->createId();
-        $em->persist($entity1);
-        $this->addReference('fixIngredient1', $entity1);
+        self::$members[] = $this->instantiate(1, 1, 'refMeasurement1', 'refRecipe1', 'refProduct1');
+        self::$members[] = $this->instantiate(2, 2, 'refMeasurement2', 'refRecipe1', 'refProduct2');
+        self::$members[] = $this->instantiate(3, 3, 'refMeasurement3', 'refRecipe1', 'refProduct3');
 
-        $entity2 = new Ingredient();
-        $entity2->setRecipe($this->getReference('fixRecipe1'))->setProduct($this->getReference('fixProduct2'))
-            ->setMeasurement($this->getReference('fixMeasurement2'))->setAmount(1)->setPosition(2)->createId();
-        $em->persist($entity2);
-        $this->addReference('fixIngredient2', $entity2);
+        self::$members[] = $this->instantiate(1, 4, 'refMeasurement1', 'refRecipe2', 'refProduct1');
+        self::$members[] = $this->instantiate(2, 5, 'refMeasurement2', 'refRecipe2', 'refProduct2');
+        self::$members[] = $this->instantiate(3, 6, 'refMeasurement3', 'refRecipe2', 'refProduct3');
 
-        $entity3 = new Ingredient();
-        $entity3->setRecipe($this->getReference('fixRecipe1'))->setProduct($this->getReference('fixProduct3'))
-            ->setMeasurement($this->getReference('fixMeasurement3'))->setAmount(1)->setPosition(3)->createId();
-        $em->persist($entity3);
-        $this->addReference('fixIngredient3', $entity3);
+        self::$members[] = $this->instantiate(1, 7, 'refMeasurement1', 'refRecipe3', 'refProduct1');
+        self::$members[] = $this->instantiate(2, 8, 'refMeasurement2', 'refRecipe3', 'refProduct2');
+        self::$members[] = $this->instantiate(3, 9, 'refMeasurement3', 'refRecipe3', 'refProduct3');
 
-
-
-
-        $entity4 = new Ingredient();
-        $entity4->setRecipe($this->getReference('fixRecipe2'))->setProduct($this->getReference('fixProduct1'))
-            ->setMeasurement($this->getReference('fixMeasurement1'))->setAmount(1)->setPosition(1)->createId();
-        $em->persist($entity4);
-        $this->addReference('fixIngredient4', $entity4);
-
-        $entity5 = new Ingredient();
-        $entity5->setRecipe($this->getReference('fixRecipe2'))->setProduct($this->getReference('fixProduct2'))
-            ->setMeasurement($this->getReference('fixMeasurement2'))->setAmount(1)->setPosition(2)->createId();
-        $em->persist($entity5);
-        $this->addReference('fixIngredient5', $entity5);
-
-        $entity6 = new Ingredient();
-        $entity6->setRecipe($this->getReference('fixRecipe2'))->setProduct($this->getReference('fixProduct3'))
-            ->setMeasurement($this->getReference('fixMeasurement3'))->setAmount(1)->setPosition(3)->createId();
-        $em->persist($entity6);
-        $this->addReference('fixIngredient6', $entity6);
-
-
-
-
-        $entity7 = new Ingredient();
-        $entity7->setRecipe($this->getReference('fixRecipe3'))->setProduct($this->getReference('fixProduct1'))
-            ->setMeasurement($this->getReference('fixMeasurement1'))->setAmount(1)->setPosition(1)->createId();
-        $em->persist($entity7);
-        $this->addReference('fixIngredient7', $entity7);
-
-        $entity8 = new Ingredient();
-        $entity8->setRecipe($this->getReference('fixRecipe3'))->setProduct($this->getReference('fixProduct2'))
-            ->setMeasurement($this->getReference('fixMeasurement2'))->setAmount(1)->setPosition(2)->createId();
-        $em->persist($entity8);
-        $this->addReference('fixIngredient8', $entity8);
-
-        $entity9 = new Ingredient();
-        $entity9->setRecipe($this->getReference('fixRecipe3'))->setProduct($this->getReference('fixProduct3'))
-            ->setMeasurement($this->getReference('fixMeasurement3'))->setAmount(1)->setPosition(3)->createId();
-        $em->persist($entity9);
-        $this->addReference('fixIngredient9', $entity9);
-
+        foreach(self::$members as $i => $e) {
+            $this->addReference('refIngredient'.($i+1), $e);
+            $em->persist($e);
+        }
         $em->flush();
-        self::$members = array($entity1, $entity2, $entity3, $entity4, $entity5, $entity6, $entity7, $entity8, $entity9);
     }
 
+
     /**
-     * {@inheritDoc}
+     * @param int       $position
+     * @param int       $amount
+     * @param string    $refMeasurement
+     * @param string    $refRecipe
+     * @param string    $refProduct
+     * @return Ingredient
      */
+    protected function instantiate($position, $amount, $refMeasurement, $refRecipe, $refProduct)
+    {
+        $measurement = $this->getReference($refMeasurement);
+        $recipe      = $this->getReference($refRecipe);
+        $product     = $this->getReference($refProduct);
+
+        if (!$measurement instanceof Measurement ||
+            !$recipe instanceof Recipe ||
+            !$product instanceof Product ||
+            !is_int($position) ||
+            !is_int($amount)
+        ) {
+            throw new InvalidArgumentException();
+        }
+
+        $entity = new Ingredient();
+        $entity
+            ->setPosition($position)
+            ->setAmount($amount)
+            ->setMeasurement($measurement)
+            ->setRecipe($recipe)
+            ->setProduct($product)
+            ->createId()
+        ;
+
+        return $entity;
+    }
+
     public function getOrder()
     {
         return 5;

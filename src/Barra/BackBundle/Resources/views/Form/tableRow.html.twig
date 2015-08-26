@@ -16,7 +16,7 @@
 
 
 {% block form_row %}{% spaceless %}
-    {# angular class and methods for form validation messages #}
+    {# formFieldErrors highlight relative form rows, regular formErrors not #}
     <td ng-class="{'danger has-error': formFieldErrors && highlightInvalidFormFields('{{name}}')}">
         {{ form_label(form, null, {'label_attr': {'class': 'sr-only'}}) }}
         {{ form_errors(form) }}

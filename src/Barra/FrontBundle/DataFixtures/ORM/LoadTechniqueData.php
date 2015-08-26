@@ -2,42 +2,59 @@
 
 namespace Barra\FrontBundle\DataFixtures\ORM;
 
+use Barra\FrontBundle\Entity\Technique;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Barra\FrontBundle\Entity\Technique;
+use InvalidArgumentException;
 
+/**
+ * Class LoadTechniqueData
+ * @author Paul Kujawa <p.kujawa@gmx.net>
+ * @package Barra\FrontBundle\DataFixtures\ORM
+ */
 class LoadTechniqueData extends AbstractFixture implements OrderedFixtureInterface
 {
-    static public $members = array();
+    static public $members = [];
 
-    /**
-     * {@inheritDoc}
-     */
     public function load(ObjectManager $em)
     {
-        $entity1 = new Technique();
-        $entity1->setName("fixTechnique1")->setDescription("a")->setUrl("a.url");
-        $em->persist($entity1);
-        $this->addReference('fixTechnique1', $entity1);
+        self::$members[] = $this->instantiate('Technique1', 'a', 'a.com');
+        self::$members[] = $this->instantiate('Technique2', 'b', 'b.net');
+        self::$members[] = $this->instantiate('Technique3', 'c', 'c.org');
 
-        $entity2 = new Technique();
-        $entity2->setName("fixTechnique2")->setDescription("b")->setUrl("b.url");
-        $em->persist($entity2);
-        $this->addReference('fixTechnique2', $entity2);
-
-        $entity3 = new Technique();
-        $entity3->setName("fixTechnique3")->setDescription("c")->setUrl("c.url");
-        $em->persist($entity3);
-        $this->addReference('fixTechnique3', $entity3);
-
+        foreach(self::$members as $i => $e) {
+            $this->addReference('refTechnique'.($i+1), $e);
+            $em->persist($e);
+        }
         $em->flush();
-        self::$members = array($entity1, $entity2, $entity3);
     }
 
     /**
-     * {@inheritDoc}
+     * @param string    $name
+     * @param string    $description
+     * @param string    $url
+     * @return Technique
      */
+    protected function instantiate($name, $description, $url)
+    {
+        if (!is_string($name) ||
+            !is_string($description) ||
+            !is_string($url)
+        ) {
+            throw new InvalidArgumentException();
+        }
+
+        $entity = new Technique();
+        $entity
+            ->setName($name)
+            ->setDescription($description)
+            ->setUrl($url)
+        ;
+
+        return $entity;
+    }
+
     public function getOrder()
     {
         return 9;

@@ -8,6 +8,6 @@ class UserController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('BarraBackBundle:User:user.html.twig', array());
+        return $this->render('BarraBackBundle:User:user.html.twig', []);
     }
 }

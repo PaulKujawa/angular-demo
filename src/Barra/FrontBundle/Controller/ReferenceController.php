@@ -22,11 +22,11 @@ class ReferenceController extends Controller
         if (!$references)
             throw $this->createNotFoundException('References not found');
 
-        return $this->render('BarraFrontBundle:Reference:references.html.twig', array(
-                'paginationActive' => $paginationActive,
-                'paginationCnt' => $paginationCnt,
-                'references' => $references,
-            ));
+        return $this->render('BarraFrontBundle:Reference:references.html.twig', [
+            'paginationActive' => $paginationActive,
+            'paginationCnt' => $paginationCnt,
+            'references' => $references,
+        ]);
     }
 
 
@@ -40,13 +40,13 @@ class ReferenceController extends Controller
         $em = $this->getDoctrine()->getManager();
         $files = $em->getRepository('BarraFrontBundle:ReferencePicture')->findByReference($referenceId);
 
-        $container = array();
+        $container = [];
         for ($i=0; $i < count($files); $i++) {
             $container[$i]['caption']     = $files[$i]->getTitle();
             $container[$i]['url']       = $files[$i]->getWebPath();
         }
 
-        $ajaxResponse = array("code"=>200, "files"=>$container);
-        return new Response(json_encode($ajaxResponse), 200, array('Content-Type'=>'application/json'));
+        $ajaxResponse = ["code"=>200, "files"=>$container];
+        return new Response(json_encode($ajaxResponse), 200, ['Content-Type'=>'application/json']);
     }
 }

@@ -1,15 +1,13 @@
 {% extends 'BarraBackBundle::layout.html.twig' %}
-{% form_theme formInsert 'BarraBackBundle:Form:tableRow.html.twig' %}
-{% form_theme formUpdate 'BarraBackBundle:Form:tableRow.html.twig' %}
-
-{% trans_default_domain "messages" %}
-
+{% form_theme form 'BarraBackBundle:Form:tableRow.html.twig' %}
 {% block title %}{{ 'back.title.agencies'|trans() }}{% endblock %}
 
 {% block section %}
-    <section class="container mobileTables">
-        {{ form_start(formInsert) }}
-            <table class="table table-striped" data-type="agency">
+    <section class="container mobileTables" ng-controller="AgencyCtrl">
+        {{ include('BarraBackBundle::formValidation.html.twig') }}
+
+        {{ form_start(form) }}
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>{{ 'back.agency.name'|trans() }}</th>
@@ -18,45 +16,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for agency in agencies %}
-                        <tr data-id={{ agency.id }}>
-                            <td class="editableCell" data-mobile-title={{ 'back.agency.name'|trans() }}>{{ agency.name }}</td>
-                            <td class="editableCell" data-mobile-title={{ 'back.agency.url'|trans() }}>{{ agency.url }}</td>
-                            <td class="editableCell" data-mobile-title={{ 'back.action.delete'|trans() }}>
-                                <a {% if agency.references is empty %} href="{{ path('barra_back_agency_delete', {'id': agency.id}) }}"
-                                   {% else %}                          class="inactiveLink" {% endif %} >
-                                    <span class="glyphicon glyphicon-minus"></span>
-                                </a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    <tr class="formInRow">
-                        {{ form_row(formInsert.name) }}
-                        {{ form_row(formInsert.url) }}
-                        {{ form_widget(formInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn'} }) }}
-                    </tr>
-                    <tr class="formInRowError">
-                        <td>
-                            {{ form_errors(formInsert) }}
+                    <tr ng-repeat="agency in agencies | orderBy:'name'">
+                        <td data-mobile-title={{ 'back.agency.name'|trans() }}>[[agency.name]]</td>
+                        <td data-mobile-title={{ 'back.agency.url'|trans() }}>[[agency.url]]</td>
+                        <td data-mobile-title={{ 'back.action.delete'|trans() }}>
+                            <span class="glyphicon glyphicon-minus" ng-click="deleteEntry(agency)"></span>
                         </td>
+                    </tr>
+                    <tr class="formInRow">
+                        {{ form_row(form.name) }}
+                        {{ form_row(form.url) }}
+                        {{ form_widget(form.submit, {'label': 'back.action.new', 'attr': {'class': 'btn'} }) }}
                     </tr>
                 </tbody>
             </table>
-        {{ form_end(formInsert) }}
-
-        <table class="jsStorage" data-type="agency" style="visibility: hidden">
-            <tbody>
-                {{ form_start(formUpdate, {'action': path('barra_back_agency_update')}) }}
-                    <tr class="formInRow">
-                        {{ form_row(formUpdate.name) }}
-                        {{ form_row(formUpdate.url) }}
-                        {{ form_widget(formUpdate.submit, {'label': 'back.action.update', 'attr': {'class': 'btn'} }) }}
-                        {{ form_row(formUpdate.id, {'attr': {'class': 'formPk'} }) }}
-                        {{ form_rest(formUpdate) }}
-                    </tr>
-                {{ form_end(formUpdate) }}
-            </tbody>
-        </table>
+        {{ form_end(form) }}
 
         {{ include('BarraBackBundle::pagination.html.twig', { 'route': 'barra_back_recipes'}) }}
     </section>

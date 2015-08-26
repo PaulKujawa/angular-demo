@@ -2,80 +2,50 @@
 
 namespace Barra\FrontBundle\Entity;
 
+use Barra\FrontBundle\Entity\Traits\IdAutoTrait;
+use Barra\FrontBundle\Entity\Traits\NameTrait;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\Groups;
-use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
- * Measurement
+ * Class Measurement
+ * @author Paul Kujawa <p.kujawa@gmx.net>
+ * @package Barra\FrontBundle\Entity
+
  * @ExclusionPolicy("none")
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Barra\FrontBundle\Entity\Repository\MeasurementRepository")
+ * @ORM\Entity(repositoryClass = "Barra\FrontBundle\Entity\Repository\MeasurementRepository")
  */
 class Measurement
 {
-    /**
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
+    use IdAutoTrait,
+        NameTrait
+    ;
 
     /**
-     * @ORM\Column(name="type", type="string", length=10, unique=true)
-     */
-    private $type;
-
-    /**
-     * @ORM\Column(name="gr", type="smallint")
+     * @var int
+     * @ORM\Column(
+     *      name = "gr",
+     *      type = "smallint"
+     * )
      */
     private $gr;
 
     /**
-     * @ORM\OneToMany(targetEntity="Ingredient", mappedBy="measurement")
+     * @var ArrayCollection
+     * @ORM\OneToMany(
+     *      targetEntity = "Ingredient",
+     *      mappedBy     = "measurement"
+     * )
      */
     private $ingredients;
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set typ
-     *
-     * @param string $typ
-     * @return Measurement
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Get typ
-     *
-     * @return string 
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
 
     /**
      * Set gr
      *
      * @param integer $gr
-     * @return Measurement
+     * @return $this
      */
     public function setGr($gr)
     {
@@ -98,16 +68,16 @@ class Measurement
      */
     public function __construct()
     {
-        $this->ingredients = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->ingredients = new ArrayCollection();
     }
 
     /**
      * Add ingredients
      *
-     * @param \Barra\FrontBundle\Entity\Ingredient $ingredients
-     * @return Measurement
+     * @param Ingredient $ingredients
+     * @return $this
      */
-    public function addIngredient(\Barra\FrontBundle\Entity\Ingredient $ingredients)
+    public function addIngredient(Ingredient $ingredients)
     {
         $this->ingredients[] = $ingredients;
 
@@ -117,9 +87,9 @@ class Measurement
     /**
      * Remove ingredients
      *
-     * @param \Barra\FrontBundle\Entity\Ingredient $ingredients
+     * @param Ingredient $ingredients
      */
-    public function removeIngredient(\Barra\FrontBundle\Entity\Ingredient $ingredients)
+    public function removeIngredient(Ingredient $ingredients)
     {
         $this->ingredients->removeElement($ingredients);
     }
@@ -127,7 +97,7 @@ class Measurement
     /**
      * Get ingredients
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return ArrayCollection
      */
     public function getIngredients()
     {

@@ -1,36 +1,35 @@
 {% extends 'BarraBackBundle::layout.html.twig' %}
-{% form_theme formProduct 'BarraBackBundle:Form:tableRow.html.twig' %}
+{% form_theme formIngredient 'BarraBackBundle:Form:tableRow.html.twig' %}
 {% form_theme formCooking 'BarraBackBundle:Form:tableRow.html.twig' %}
-{% trans_default_domain "messages" %}
-
 {% block title %}{{ recipe.name }}{% endblock %}
 
 {% block section %}
     <section class="container mobileTables">
-        <form
-            name="formPicture" id="dropzoneId" class="dropzone"
-            action="{{ path('barra_back_recipeDetail_picture_upload') }}" enctype="multipart/form-data" method="post"
-            data-removeLink="{{ path('barra_back_recipeDetail_picture_delete', {'recipeId': recipe.id, 'id': 0}) }}"
-            data-getAllLink="{{ path('barra_back_recipeDetail_pictures_get', {'recipeId': recipe.id}) }}"
-            data-picturesFolder="{{ asset('uploads/documents/') }}"
-        >
-            <input type="hidden" name="formPicture[recipe]" id="formPicture_recipe" value="{{ recipe.id }}">
-            {{ form_widget(formPicture._token) }}
-            <div class="dz-default dz-message">
-                <span class="glyphicon glyphicon-upload"></span>
-            </div>
-        </form>
+        {#<form#}
+            {#name="formPicture" id="dropzoneId" class="dropzone"#}
+            {#action="{{ path('barra_back_recipeDetail_picture_upload') }}" enctype="multipart/form-data" method="post"#}
+            {#data-removeLink="{{ path('barra_back_recipeDetail_picture_delete', {'recipeId': recipe.id, 'id': 0}) }}"#}
+            {#data-getAllLink="{{ path('barra_back_recipeDetail_pictures_get', {'recipeId': recipe.id}) }}"#}
+            {#data-picturesFolder="{{ asset('uploads/documents/') }}"#}
+        {#>#}
+            {#<input type="hidden" name="formPicture[recipe]" id="formPicture_recipe" value="{{ recipe.id }}">#}
+            {#{{ form_widget(formPicture._token) }}#}
+            {#<div class="dz-default dz-message">#}
+                {#<span class="glyphicon glyphicon-upload"></span>#}
+            {#</div>#}
+        {#</form>#}
 
 
 
         <div ng-controller="IngredientCtrl" ng-init="recipeId={{recipe.id}}">
             {{ include('BarraBackBundle::formValidation.html.twig') }}
-            {{ form_start(formProduct) }}
+
+            {{ form_start(formIngredient) }}
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>{{ 'back.ingredient.amount'|trans() }}</th>
-                            <th>{{ 'back.measurement.type'|trans() }}</th>
+                            <th>{{ 'back.measurement.name'|trans() }}</th>
                             <th>{{ 'back.word.product'|trans() }}</th>
                             <th>{{ 'back.action.delete'|trans() }}</th>
                         </tr>
@@ -46,18 +45,15 @@
                             </td>
                         </tr>
                         <tr class="formInRow">
-                            {{ form_row(formProduct.amount) }}
-                            {{ form_row(formProduct.measurement) }}
-                            {{ form_row(formProduct.product) }}
-                            {{ form_widget(formProduct.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
+                            {{ form_row(formIngredient.amount) }}
+                            {{ form_row(formIngredient.measurement) }}
+                            {{ form_row(formIngredient.product) }}
+                            {{ form_widget(formIngredient.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
                         </tr>
                     </tbody>
                 </table>
-            {{ form_end(formProduct) }}
+            {{ form_end(formIngredient) }}
         </div>
-
-
-
 
         <div ng-controller="CookingCtrl" ng-init="recipeId={{recipe.id}}">
             {{ include('BarraBackBundle::formValidation.html.twig') }}
@@ -85,5 +81,6 @@
                 </table>
             {{ form_end(formCooking) }}
         </div>
+
     </section>
 {% endblock %}

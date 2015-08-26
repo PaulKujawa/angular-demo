@@ -16,10 +16,10 @@ class RecipeController extends Controller
         $paginationCnt = $em->getRepository('BarraFrontBundle:Recipe')->count();
         $paginationCnt = ceil($paginationCnt/$paginationRange);
 
-        return $this->render('BarraFrontBundle:Recipe:recipes.html.twig', array(
-                'paginationActive' => $paginationActive,
-                'paginationCnt' => $paginationCnt,
-                'recipes' => $recipes,
-            ));
+        return $this->render('BarraFrontBundle:Recipe:recipes.html.twig', [
+            'paginationActive'  => $paginationActive,
+            'paginationCnt'     => $paginationCnt,
+            'recipes'           => $recipes,
+        ]);
     }
 }

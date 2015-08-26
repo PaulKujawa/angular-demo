@@ -4,6 +4,7 @@ namespace Barra\RestBundle\Controller;
 
 use Barra\BackBundle\Form\Type\RecipeType;
 use Barra\FrontBundle\Entity\Recipe;
+use Barra\FrontBundle\Entity\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Annotations;
@@ -29,7 +30,7 @@ class RecipeController extends FOSRestController
     public function newRecipeAction() {
         $form = $this->createForm(new RecipeType(), new Recipe());
 
-        return array('data' => $form);
+        return ['data' => $form];
     }
 
 
@@ -49,9 +50,12 @@ class RecipeController extends FOSRestController
         $limit      = (int) $paramFetcher->get('limit');
         $orderBy    = $paramFetcher->get('order_by');
         $order      = $paramFetcher->get('order');
-        $entities   = $this->getRepo()->getSome($offset, $limit, $orderBy, $order);
 
-        return array('data' => $entities);
+        /** @var RecipeRepository $repo */
+        $repo       = $this->getRepo();
+        $entities   = $repo->getSome($offset, $limit, $orderBy, $order);
+
+        return ['data' => $entities];
     }
 
 
@@ -68,7 +72,7 @@ class RecipeController extends FOSRestController
             return $this->view(null, Codes::HTTP_NOT_FOUND);
         }
 
-        return array('data' => $entity);
+        return ['data' => $entity];
     }
 
 
@@ -79,9 +83,7 @@ class RecipeController extends FOSRestController
      */
     public function postRecipeAction(Request $request)
     {
-        $recipe = new Recipe();
-
-        return $this->processForm($request, $recipe, 'POST', Codes::HTTP_CREATED);
+        return $this->processForm($request, new Recipe(), Codes::HTTP_CREATED);
     }
 
 
@@ -95,10 +97,43 @@ class RecipeController extends FOSRestController
     {
         $entity = $this->getRepo()->find($id);
         if (!$entity instanceof Recipe) {
-            return $this->routeRedirectView('barra_api_post_recipe', array('request' => $request));
+            return $this->routeRedirectView('barra_api_post_recipe', ['request' => $request]);
         }
 
-        return $this->processForm($request, $entity, 'PUT', Codes::HTTP_NO_CONTENT);
+        return $this->processForm($request, $entity, Codes::HTTP_NO_CONTENT);
+    }
+
+
+    /**
+     * Actual form handling
+     * @param Request   $request
+     * @param Recipe    $entity
+     * @param int       $successCode
+     * @return \FOS\RestBundle\View\View
+     */
+    protected function processForm(Request $request, Recipe $entity, $successCode)
+    {
+        $form = $this->createForm(new RecipeType(), $entity, ['method' => $request->getMethod()]);
+        $form->handleRequest($request);
+
+        if (!$form->isValid()) {
+            return $this->view($form, Codes::HTTP_BAD_REQUEST);
+        }
+
+        $duplicate = $this->getRepo()->findOneByName($entity->getName());
+        if ($duplicate instanceof Recipe) {
+            return $this->view($form, Codes::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $this->getEM()->persist($entity);
+        $this->getEM()->flush();
+
+        $params = [
+            'id'        => $entity->getId(),
+            '_format'   => $request->get('_format'),
+        ];
+
+        return $this->routeRedirectView('barra_api_get_recipe', $params, $successCode);
     }
 
 
@@ -116,7 +151,7 @@ class RecipeController extends FOSRestController
         }
 
         // TODO onDelete=Cascade instead of manually calling RecipePicture.removeUpload()
-        foreach ($entity->getRecipePictures() as $image) {
+        foreach ($entity->getPhotos() as $image) {
             $this->getEM()->remove($image);
         }
 
@@ -124,40 +159,6 @@ class RecipeController extends FOSRestController
         $this->getEM()->flush();
 
         return $this->view(null, Codes::HTTP_NO_CONTENT);
-    }
-
-
-    /**
-     * Actual form handling
-     * @param Request $request
-     * @param Recipe    $entity
-     * @param string    $method
-     * @param int       $successCode
-     * @return \FOS\RestBundle\View\View
-     */
-    protected function processForm(Request $request, Recipe $entity, $method, $successCode)
-    {
-        $form = $this->createForm(new RecipeType(), $entity, array('method' => $method));
-        $form->handleRequest($request);
-
-        if (!$form->isValid()) {
-            return $this->view($form, Codes::HTTP_BAD_REQUEST);
-        }
-
-        $duplicate = $this->getRepo()->findOneByName($entity->getName());
-        if ($duplicate instanceof Recipe) {
-            return $this->view($form, Codes::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
-        $this->getEM()->persist($entity);
-        $this->getEM()->flush();
-
-        $params = array(
-            'id'        => $entity->getId(),
-            '_format'   => $request->get('_format'),
-        );
-
-        return $this->routeRedirectView('barra_api_get_recipe', $params, $successCode);
     }
 
 

@@ -13,40 +13,32 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class CookingType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('description', 'text', array(
-                'attr' => array(
+            ->add('description', 'text', [
+                'attr' => [
                     'placeholder' => 'back.cooking.description',
-                ),
-            ))
-            ->add('recipe', 'hidden', array(
+                ],
+            ])
+            ->add('recipe', 'hidden', [
                 'mapped' => false,
                 'label'  => false,
-            ))
+            ])
             ->add('submit', 'submit')
-            ->getForm();
+            ->getForm()
+        ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class'        => 'Barra\FrontBundle\Entity\Cooking',
             'intention'         => 'cooking',
             'csrf_protection'   => false,
-        ));
+        ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName()
     {
         return 'formCooking';

@@ -1,15 +1,13 @@
 {% extends 'BarraBackBundle::layout.html.twig' %}
-{% form_theme formInsert 'BarraBackBundle:Form:tableRow.html.twig' %}
-{% form_theme formUpdate 'BarraBackBundle:Form:tableRow.html.twig' %}
-
-{% trans_default_domain "messages" %}
-
+{% form_theme form 'BarraBackBundle:Form:tableRow.html.twig' %}
 {% block title %}{{ 'back.title.references'|trans() }}{% endblock %}
 
 {% block section %}
-    <section class="container mobileTables">
-        {{ form_start(formInsert) }}
-            <table class="table table-striped" data-type="reference">
+    <section class="container mobileTables" ng-controller="ReferenceCtrl">
+        {{ include('BarraBackBundle::formValidation.html.twig') }}
+
+        {{ form_start(form) }}
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>{{ 'back.reference.url'|trans() }}</th>
@@ -22,61 +20,34 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for reference in references %}
-                        <tr data-id={{ reference.id }}>
-                            <td class="editableCell" data-mobile-title={{ 'back.reference.url'|trans() }}>{{ reference.url }}</td>
-                            <td class="editableCell" data-mobile-title={{ 'back.reference.description'|trans() }}>{{ reference.description }}</td>
-                            <td class="editableCell" data-mobile-title={{ 'back.reference.started'|trans() }}>{{ reference.started|date('d.m.Y') }}</td>
-                            <td class="editableCell" data-mobile-title={{ 'back.reference.finished'|trans() }}>{{ reference.finished|date('d.m.Y') }}</td>
-                            <td class="editableCell" data-mobile-title={{ 'back.reference.techniques'|trans()}}
-                                >{% for technique in reference.techniques %}{{ technique.name }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
-                            <td class="editableCell" data-mobile-title={{ 'back.reference.agency'|trans() }}>{{ reference.agency.name }}</td>
-                            <td class="editableCell" data-mobile-title={{ 'back.action.delete'|trans() }}>
-                                <a href="{{ path('barra_back_reference_pictures', {'id': reference.id}) }}">
-                                    <span class="glyphicon glyphicon-eye-open"></span>
-                                </a>
-                                <a href="{{ path('barra_back_reference_delete', {'id': reference.id}) }}">
-                                    <span class="glyphicon glyphicon-minus"></span>
-                                </a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    <tr class="formInRow">
-                        {{ form_row(formInsert.url) }}
-                        {{ form_row(formInsert.description) }}
-                        {{ form_row(formInsert.started) }}
-                        {{ form_row(formInsert.finished) }}
-                        {{ form_row(formInsert.techniques) }}
-                        {{ form_row(formInsert.agency) }}
-                        {{ form_widget(formInsert.submit, {'label': 'back.action.new', 'attr': {'class': 'btn'} }) }}
-                    </tr>
-                    <tr class="formInRowError">
-                        <td>
-                            {{ form_errors(formInsert) }}
+                    <tr ng-repeat="reference in references | orderBy:'url'">
+                        <td data-mobile-title={{ 'back.reference.url'|trans() }}>[[reference.url]]</td>
+                        <td data-mobile-title={{ 'back.reference.description'|trans() }}>[[reference.description]]</td>
+                        <td data-mobile-title={{ 'back.reference.started'|trans() }}>[[reference.started|date:'dd.MM.yyyy']]</td>
+                        <td data-mobile-title={{ 'back.reference.finished'|trans() }}>[[reference.finished|date:'dd.MM.yyyy']]</td>
+                        <td data-mobile-title={{ 'back.reference.techniques'|trans()}}>
+                            <span ng-repeat="technique in reference.techniques | orderBy:'name'">[[technique.name]], </span>
                         </td>
+                        <td data-mobile-title={{ 'back.reference.agency'|trans() }}>[[reference.agency.name]]</td>
+                        <td data-mobile-title={{ 'back.action.manage'|trans() }}>
+                            <a href="[[urlPictures]]/[[reference.id]]">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                            </a>
+                            <span class="glyphicon glyphicon-minus" ng-click="deleteEntry(reference)"></span>
+                        </td>
+                    </tr>
+                    <tr class="formInRow">
+                        {{ form_row(form.url) }}
+                        {{ form_row(form.description) }}
+                        {{ form_row(form.started) }}
+                        {{ form_row(form.finished) }}
+                        {{ form_row(form.techniques) }}
+                        {{ form_row(form.agency) }}
+                        {{ form_widget(form.submit, {'label': 'back.action.new', 'attr': {'class': 'btn'} }) }}
                     </tr>
                 </tbody>
             </table>
-        {{ form_end(formInsert) }}
-
-        <table class="jsStorage" data-type="reference" style="visibility: hidden">
-            <tbody>
-                {{ form_start(formUpdate, {'action': path('barra_back_reference_update')}) }}
-                    <tr class="formInRow">
-                        {{ form_row(formUpdate.url) }}
-                        {{ form_row(formUpdate.description) }}
-                        {{ form_row(formUpdate.started) }}
-                        {{ form_row(formUpdate.finished) }}
-                        {{ form_row(formUpdate.techniques) }}
-                        {{ form_row(formUpdate.agency) }}
-                        {{ form_widget(formUpdate.submit, {'label': 'back.action.update', 'attr': {'class': 'btn'} }) }}
-                        {{ form_row(formUpdate.id, {'attr': {'class': 'formPk'} }) }}
-                        {{ form_rest(formUpdate) }}
-                    </tr>
-                {{ form_end(formUpdate) }}
-            </tbody>
-        </table>
-
+        {{ form_end(form) }}
 
         {{ include('BarraBackBundle::pagination.html.twig', { 'route': 'barra_back_recipes'}) }}
     </section>

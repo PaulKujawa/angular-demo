@@ -2,6 +2,7 @@
 
 namespace Barra\FrontBundle\Entity;
 
+use Barra\FrontBundle\Entity\Traits\DescriptionTrait;
 use Barra\FrontBundle\Entity\Traits\PositionTrait;
 use Barra\FrontBundle\Entity\Traits\RecipeTrait;
 use Doctrine\ORM\Mapping as ORM;
@@ -11,14 +12,17 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
  * Class Cooking
  * @author Paul Kujawa <p.kujawa@gmx.net>
  * @package Barra\FrontBundle\Entity
+ *
  * @ExclusionPolicy("none")
  * @ORM\Table()
  * @ORM\Entity(repositoryClass = "Barra\FrontBundle\Entity\Repository\CookingRepository")
  */
 class Cooking
 {
-    use PositionTrait;
-    use RecipeTrait;
+    use PositionTrait,
+        RecipeTrait,
+        DescriptionTrait
+    ;
 
     /**
      * @var int
@@ -29,38 +33,6 @@ class Cooking
      * )
      */
     protected $id;
-
-    /**
-     * @ORM\Column(
-     *      name="description",
-     *      type="string",
-     *      length=255
-     * )
-     */
-    private $description;
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return Cooking
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string 
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
 
     /**
      * @return $this

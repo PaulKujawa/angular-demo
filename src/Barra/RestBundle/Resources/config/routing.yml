@@ -3,6 +3,11 @@ barra_rest_recipes:
   resource: "BarraRestBundle:Recipe"
   name_prefix: barra_api_
 
+barra_rest_photos:
+  type: rest
+  resource: "BarraRestBundle:Photo"
+  name_prefix: barra_api_
+
 barra_rest_ingredients:
   type: rest
   resource: "BarraRestBundle:Ingredient"
@@ -11,4 +16,34 @@ barra_rest_ingredients:
 barra_rest_cookings:
   type: rest
   resource: "BarraRestBundle:Cooking"
+  name_prefix: barra_api_
+
+barra_rest_products:
+  type: rest
+  resource: "BarraRestBundle:Product"
+  name_prefix: barra_api_
+
+barra_rest_measurements:
+  type: rest
+  resource: "BarraRestBundle:Measurement"
+  name_prefix: barra_api_
+
+barra_rest_manufacturers:
+  type: rest
+  resource: "BarraRestBundle:Manufacturer"
+  name_prefix: barra_api_
+
+barra_rest_references:
+  type: rest
+  resource: "BarraRestBundle:Reference"
+  name_prefix: barra_api_
+
+barra_rest_agencies:
+  type: rest
+  resource: "BarraRestBundle:Agency"
+  name_prefix: barra_api_
+
+barra_rest_techniques:
+  type: rest
+  resource: "BarraRestBundle:Technique"
   name_prefix: barra_api_

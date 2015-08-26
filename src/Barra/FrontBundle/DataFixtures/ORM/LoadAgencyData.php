@@ -2,42 +2,57 @@
 
 namespace Barra\FrontBundle\DataFixtures\ORM;
 
+use Barra\FrontBundle\Entity\Agency;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Barra\FrontBundle\Entity\Agency;
+use InvalidArgumentException;
 
+/**
+ * Class LoadAgencyData
+ * @author Paul Kujawa <p.kujawa@gmx.net>
+ * @package Barra\FrontBundle\DataFixtures\ORM
+ */
 class LoadAgencyData extends AbstractFixture implements OrderedFixtureInterface
 {
-    static public $members = array();
+    static public $members = [];
 
-    /**
-     * {@inheritDoc}
-     */
     public function load(ObjectManager $em)
     {
-        $entity1 = new Agency();
-        $entity1->setName("fixAgency1")->setUrl("a.com");
-        $em->persist($entity1);
-        $this->addReference('fixAgency1', $entity1);
+        self::$members[] = $this->instantiate('Agency1', 'a.com');
+        self::$members[] = $this->instantiate('Agency2', 'b.com');
+        self::$members[] = $this->instantiate('Agency3', 'c.com');
 
-        $entity2 = new Agency();
-        $entity2->setName("fixAgency2")->setUrl("b.com");
-        $em->persist($entity2);
-        $this->addReference('fixAgency2', $entity2);
-
-        $entity3 = new Agency();
-        $entity3->setName("fixAgency3")->setUrl("c.com");
-        $em->persist($entity3);
-        $this->addReference('fixAgency3', $entity3);
-
+        foreach(self::$members as $i => $e) {
+            $this->addReference('refAgency'.($i+1), $e);
+            $em->persist($e);
+        }
         $em->flush();
-        self::$members = array($entity1, $entity2, $entity3);
     }
 
     /**
-     * {@inheritDoc}
+     * @param string    $name
+     * @param string    $url
+     * @return Agency
+     * @throws InvalidArgumentException
      */
+    protected function instantiate($name, $url)
+    {
+        if (!is_string($name) ||
+            !is_string($url)
+        ) {
+            throw new InvalidArgumentException();
+        }
+
+        $entity = new Agency();
+        $entity
+            ->setName($name)
+            ->setUrl($url)
+        ;
+
+        return $entity;
+    }
+
     public function getOrder()
     {
         return 8;

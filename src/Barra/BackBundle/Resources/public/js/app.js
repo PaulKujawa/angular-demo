@@ -33,18 +33,18 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
     })
     .factory('FormError', function() {
         return {
-            selectMsg: function(validationError) {
-                switch (validationError.status) {
+            selectMsg: function(response) {
+                switch (response.status) {
                     case 400:
-                        return validationError.data.errors.errors;
+                        return response.data.errors.errors;
                     case 401:
                         return ['(400) Bad credentials.'];
                     case 403:
                         return ['(403) You are not authorized to access this project.'];
                     case 409:
-                        return ['(409) This entry could not be deleted. Please check for semantic dependencies.'];
+                        return ['(409) This entry could not be deleted. Please check for dependencies.'];
                     case 422:
-                        return ['(422) Your new entry has a conflict with existing ones. Please check for duplicates and semantic dependencies.'];
+                        return ['(422) Your new entry has a conflict. Please check for duplicates.'];
                     default :
                         return ['(500) A server error occurred. Please contact the administrator for support.'];
                 }
@@ -63,31 +63,15 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
         }
     })
 
-    .controller('LoginCtrl', function ($scope, $http, $window, FormError) {
-        $scope.submit = function () {
-            $http.post( Routing.generate('fos_user_security_check', {_locale: 'de'}) , $scope.userdata)
-                .success(function (data, status, headers, config) {
-                    $window.sessionStorage.token = data.token;
-                    // Symfony's redirect is broken due to JWT-response
-                    $window.location.href = Routing.generate('barra_back_user', {_locale:'de'});
-                })
-                .error(function (data, status, headers, config) {
-                    $scope.formErrors = FormError.selectMsg({status: status});
-                    delete $window.sessionStorage.token;
-                });
-        };
-    })
-    .controller('RecipeCtrl', function($scope, $http, Restangular, FormError, FormFieldError, Api) {
-        $scope.urlRecipeDetail = Routing.generate('barra_back_recipeDetail', {_locale:'de'});
-
+    .controller('AgencyCtrl', function($scope, $http, Restangular, FormError, FormFieldError, Api) {
         //$scope.$watch('projectId', function () {
-        var route = Routing.generate('barra_api_get_recipes', {offset:0, limit:10, order_by:'name'});
-        Restangular.allUrl('recipes', route).getList().then(
+        var route = Routing.generate('barra_api_get_agencies', {offset:0, limit:10, order_by:'name'});
+        Restangular.allUrl('agencies', route).getList().then(
             function(response) {
-                $scope.recipes = response.data;
+                $scope.agencies = response.data;
             },
-            function(validationError) {
-                $scope.formErrors = FormError.selectMsg(validationError);
+            function(response) {
+                $scope.formErrors = FormError.selectMsg(response);
             }
         );
         //});
@@ -96,21 +80,23 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
          * post entry and add it to scope
          */
         $scope.submit = function() {
-            Api.post($scope.recipes, $scope.formData, 'formRecipe').then(
+            Api.post($scope.agencies, $scope.formData, 'formAgency').then(
                 function(response) {
                     var url = response.headers('location');
-                    Api.get('recipes', url.substring(url.lastIndexOf('/')+1)).then(
+                    Api.get('agencies', url.substring(url.lastIndexOf('/')+1)).then(
                         function(response) {
                             $scope.formData     = null;
                             $scope.formErrors   = null;
-                            $scope.recipes.push(response.data);
-                            $scope.formRecipe.$setPristine(true);
-                        }, function(errorMsg) {$scope.formErrors = errorMsg;}
+                            $scope.agencies.push(response.data);
+                            $scope.formAgency.$setPristine(true);
+                        }, function(errorMsg) {
+                            $scope.formErrors = errorMsg;
+                        }
                     );
-                }, function(validationError) {
-                    $scope.formErrors = FormError.selectMsg(validationError);
-                    if (validationError.status == 400) {
-                        $scope.formFieldErrors = FormFieldError.selectMsg(validationError.data.errors.children);
+                }, function(response) {
+                    $scope.formErrors = FormError.selectMsg(response);
+                    if (response.status == 400) {
+                        $scope.formFieldErrors = FormFieldError.selectMsg(response.data.errors.children);
                     }
                 }
             );
@@ -123,79 +109,10 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
         $scope.deleteEntry = function(element) {
             element.remove().then(
                 function() {
-                    $scope.recipes.splice($scope.recipes.indexOf(element), 1);
+                    $scope.agencies.splice($scope.agencies.indexOf(element), 1);
                 },
-                function(validationError) {
-                    $scope.formErrors = FormError.selectMsg(validationError);
-                }
-            );
-        };
-
-
-        /**
-         * Triggered when new formFieldErrors were added to
-         * check which form field needs to be matchy highlighted
-         * @param fieldName
-         * @returns {boolean}
-         */
-        $scope.highlightInvalidFormFields = function(fieldName) {
-            return $scope.formFieldErrors.some(function(formField) {
-                return formField.fieldName == fieldName;
-            });
-        };
-    })
-    .controller('IngredientCtrl', function($scope, $http, Restangular, FormError, FormFieldError, Api) {
-        $scope.$watch('recipeId', function () {
-            var route = Routing.generate('barra_api_get_ingredients', {
-                recipe: $scope.recipeId, offset:0, limit:10, order_by:'position'
-            });
-            Restangular.allUrl('ingredients', route).getList().then(
                 function(response) {
-                    $scope.ingredients = response.data;
-                },
-                function(validationError) {
-                    $scope.formErrors = FormError.selectMsg(validationError);
-                }
-            );
-        });
-
-        /**
-         * post entry and add it to scope
-         */
-        $scope.submit = function() {
-            $scope.formData['recipe'] = $scope.recipeId;
-
-            Api.post($scope.ingredients, $scope.formData, 'formIngredient').then(
-                function(response) {
-                    var url = response.headers('location');
-                    Api.get('ingredients', url.substring(url.lastIndexOf('/')+1)).then(
-                        function(response) {
-                            $scope.formData     = null;
-                            $scope.formErrors   = null;
-                            $scope.ingredients.push(response.data);
-                            $scope.formIngredient.$setPristine(true);
-                        }, function(errorMsg) {$scope.formErrors = errorMsg;}
-                    );
-                }, function(validationError) {
-                    $scope.formErrors = FormError.selectMsg(validationError);
-                    if (validationError.status == 400) {
-                        $scope.formFieldErrors = FormFieldError.selectMsg(validationError.data.errors.children);
-                    }
-                }
-            );
-        };
-
-        /**
-         * Delete entry server-sided and from scope
-         * @param element
-         */
-        $scope.deleteEntry = function(element) {
-            element.remove().then(
-                function() {
-                    $scope.ingredients.splice($scope.ingredients.indexOf(element), 1);
-                },
-                function(validationError) {
-                    $scope.formErrors = FormError.selectMsg(validationError);
+                    $scope.formErrors = FormError.selectMsg(response);
                 }
             );
         };
@@ -222,8 +139,8 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
                 function(response) {
                     $scope.cookings = response.data;
                 },
-                function(validationError) {
-                    $scope.formErrors = FormError.selectMsg(validationError);
+                function(response) {
+                    $scope.formErrors = FormError.selectMsg(response);
                 }
             );
         });
@@ -232,8 +149,6 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
          * post entry and add it to scope
          */
         $scope.submit = function() {
-            $scope.formData['recipe'] = $scope.recipeId;
-
             Api.post($scope.cookings, $scope.formData, 'formCooking').then(
                 function(response) {
                     var url = response.headers('location');
@@ -243,12 +158,14 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
                             $scope.formErrors   = null;
                             $scope.cookings.push(response.data);
                             $scope.formCooking.$setPristine(true);
-                        }, function(errorMsg) {$scope.formErrors = errorMsg;}
+                        }, function(errorMsg) {
+                            $scope.formErrors = errorMsg;
+                        }
                     );
-                }, function(validationError) {
-                    $scope.formErrors = FormError.selectMsg(validationError);
-                    if (validationError.status == 400) {
-                        $scope.formFieldErrors = FormFieldError.selectMsg(validationError.data.errors.children);
+                }, function(response) {
+                    $scope.formErrors = FormError.selectMsg(response);
+                    if (response.status == 400) {
+                        $scope.formFieldErrors = FormFieldError.selectMsg(response.data.errors.children);
                     }
                 }
             );
@@ -263,8 +180,227 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
                 function() {
                     $scope.cookings.splice($scope.cookings.indexOf(element), 1);
                 },
-                function(validationError) {
-                    $scope.formErrors = FormError.selectMsg(validationError);
+                function(response) {
+                    $scope.formErrors = FormError.selectMsg(response);
+                }
+            );
+        };
+
+
+        /**
+         * Triggered when new formFieldErrors were added to
+         * check which form field needs to be matchy highlighted
+         * @param fieldName
+         * @returns {boolean}
+         */
+        $scope.highlightInvalidFormFields = function(fieldName) {
+            return $scope.formFieldErrors.some(function(formField) {
+                return formField.fieldName == fieldName;
+            });
+        };
+    })
+    .controller('IngredientCtrl', function($scope, $http, Restangular, FormError, FormFieldError, Api) {
+        $scope.$watch('recipeId', function () {
+            var route = Routing.generate('barra_api_get_ingredients', {
+                recipe: $scope.recipeId, offset:0, limit:10, order_by:'position'
+            });
+            Restangular.allUrl('ingredients', route).getList().then(
+                function(response) {
+                    $scope.ingredients = response.data;
+                },
+                function(response) {
+                    $scope.formErrors = FormError.selectMsg(response);
+                }
+            );
+        });
+
+        /**
+         * post entry and add it to scope
+         */
+        $scope.submit = function() {
+            $scope.formData['recipe'] = $scope.recipeId;
+
+            Api.post($scope.ingredients, $scope.formData, 'formIngredient').then(
+                function(response) {
+                    var url = response.headers('location');
+                    Api.get('ingredients', url.substring(url.lastIndexOf('/')+1)).then(
+                        function(response) {
+                            $scope.formData     = null;
+                            $scope.formErrors   = null;
+                            $scope.ingredients.push(response.data);
+                            $scope.formIngredient.$setPristine(true);
+                        }, function(errorMsg) {
+                            $scope.formErrors = errorMsg;
+                        }
+                    );
+                }, function(response) {
+                    $scope.formErrors = FormError.selectMsg(response);
+                    if (response.status == 400) {
+                        $scope.formFieldErrors = FormFieldError.selectMsg(response.data.errors.children);
+                    }
+                }
+            );
+        };
+
+        /**
+         * Delete entry server-sided and from scope
+         * @param element
+         */
+        $scope.deleteEntry = function(element) {
+            element.remove().then(
+                function() {
+                    $scope.ingredients.splice($scope.ingredients.indexOf(element), 1);
+                },
+                function(response) {
+                    $scope.formErrors = FormError.selectMsg(response);
+                }
+            );
+        };
+
+
+        /**
+         * Triggered when new formFieldErrors were added to
+         * check which form field needs to be matchy highlighted
+         * @param fieldName
+         * @returns {boolean}
+         */
+        $scope.highlightInvalidFormFields = function(fieldName) {
+            return $scope.formFieldErrors.some(function(formField) {
+                return formField.fieldName == fieldName;
+            });
+        };
+    })
+    .controller('LoginCtrl', function ($scope, $http, $window, FormError) {
+        $scope.submit = function () {
+            $http.post( Routing.generate('fos_user_security_check', {_locale: 'de'}) , $scope.userdata)
+                .success(function (data, status, headers, config) {
+                    $window.sessionStorage.token = data.token;
+                    // Symfony's redirect is broken due to JWT-response
+                    $window.location.href = Routing.generate('barra_back_user', {_locale:'de'});
+                })
+                .error(function (data, status, headers, config) {
+                    $scope.formErrors = FormError.selectMsg({status: status});
+                    delete $window.sessionStorage.token;
+                });
+        };
+    })
+    .controller('ManufacturerCtrl', function($scope, $http, Restangular, FormError, FormFieldError, Api) {
+        //$scope.$watch('projectId', function () {
+        var route = Routing.generate('barra_api_get_manufacturers', {offset:0, limit:10, order_by:'name'});
+        Restangular.allUrl('manufacturers', route).getList().then(
+            function(response) {
+                $scope.manufacturers = response.data;
+            },
+            function(response) {
+                $scope.formErrors = FormError.selectMsg(response);
+            }
+        );
+        //});
+
+        /**
+         * post entry and add it to scope
+         */
+        $scope.submit = function() {
+            Api.post($scope.manufacturers, $scope.formData, 'formManufacturer').then(
+                function(response) {
+                    var url = response.headers('location');
+                    Api.get('manufacturers', url.substring(url.lastIndexOf('/')+1)).then(
+                        function(response) {
+                            $scope.formData     = null;
+                            $scope.formErrors   = null;
+                            $scope.manufacturers.push(response.data);
+                            $scope.formManufacturer.$setPristine(true);
+                        }, function(errorMsg) {
+                            $scope.formErrors = errorMsg;
+                        }
+                    );
+                }, function(response) {
+                    $scope.formErrors = FormError.selectMsg(response);
+                    if (response.status == 400) {
+                        $scope.formFieldErrors = FormFieldError.selectMsg(response.data.errors.children);
+                    }
+                }
+            );
+        };
+
+        /**
+         * Delete entry server-sided and from scope
+         * @param element
+         */
+        $scope.deleteEntry = function(element) {
+            element.remove().then(
+                function() {
+                    $scope.manufacturers.splice($scope.manufacturers.indexOf(element), 1);
+                },
+                function(response) {
+                    $scope.formErrors = FormError.selectMsg(response);
+                }
+            );
+        };
+
+
+        /**
+         * Triggered when new formFieldErrors were added to
+         * check which form field needs to be matchy highlighted
+         * @param fieldName
+         * @returns {boolean}
+         */
+        $scope.highlightInvalidFormFields = function(fieldName) {
+            return $scope.formFieldErrors.some(function(formField) {
+                return formField.fieldName == fieldName;
+            });
+        };
+    })
+    .controller('MeasurementCtrl', function($scope, $http, Restangular, FormError, FormFieldError, Api) {
+        //$scope.$watch('projectId', function () {
+        var route = Routing.generate('barra_api_get_measurements', {offset:0, limit:10, order_by:'name'});
+        Restangular.allUrl('measurements', route).getList().then(
+            function(response) {
+                $scope.measurements = response.data;
+            },
+            function(response) {
+                $scope.formErrors = FormError.selectMsg(response);
+            }
+        );
+        //});
+
+        /**
+         * post entry and add it to scope
+         */
+        $scope.submit = function() {
+            Api.post($scope.measurements, $scope.formData, 'formMeasurement').then(
+                function(response) {
+                    var url = response.headers('location');
+                    Api.get('measurements', url.substring(url.lastIndexOf('/')+1)).then(
+                        function(response) {
+                            $scope.formData     = null;
+                            $scope.formErrors   = null;
+                            $scope.measurements.push(response.data);
+                            $scope.formMeasurement.$setPristine(true);
+                        }, function(errorMsg) {
+                            $scope.formErrors = errorMsg;
+                        }
+                    );
+                }, function(response) {
+                    $scope.formErrors = FormError.selectMsg(response);
+                    if (response.status == 400) {
+                        $scope.formFieldErrors = FormFieldError.selectMsg(response.data.errors.children);
+                    }
+                }
+            );
+        };
+
+        /**
+         * Delete entry server-sided and from scope
+         * @param element
+         */
+        $scope.deleteEntry = function(element) {
+            element.remove().then(
+                function() {
+                    $scope.measurements.splice($scope.measurements.indexOf(element), 1);
+                },
+                function(response) {
+                    $scope.formErrors = FormError.selectMsg(response);
                 }
             );
         };
@@ -289,8 +425,8 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
             function(response) {
                 $scope.products = response.data;
             },
-            function(validationError) {
-                $scope.formErrors = FormError.selectMsg(validationError);
+            function(response) {
+                $scope.formErrors = FormError.selectMsg(response);
             }
         );
         //});
@@ -308,12 +444,14 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
                             $scope.formErrors   = null;
                             $scope.products.push(response.data);
                             $scope.formProduct.$setPristine(true);
-                        }, function(errorMsg) {$scope.formErrors = errorMsg;}
+                        }, function(errorMsg) {
+                            $scope.formErrors = errorMsg;
+                        }
                     );
-                }, function(validationError) {
-                    $scope.formErrors = FormError.selectMsg(validationError);
-                    if (validationError.status == 400) {
-                        $scope.formFieldErrors = FormFieldError.selectMsg(validationError.data.errors.children);
+                }, function(response) {
+                    $scope.formErrors = FormError.selectMsg(response);
+                    if (response.status == 400) {
+                        $scope.formFieldErrors = FormFieldError.selectMsg(response.data.errors.children);
                     }
                 }
             );
@@ -328,8 +466,8 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
                 function() {
                     $scope.products.splice($scope.products.indexOf(element), 1);
                 },
-                function(validationError) {
-                    $scope.formErrors = FormError.selectMsg(validationError);
+                function(response) {
+                    $scope.formErrors = FormError.selectMsg(response);
                 }
             );
         };
@@ -347,5 +485,209 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
             });
         };
     })
+    .controller('RecipeCtrl', function($scope, $http, Restangular, FormError, FormFieldError, Api) {
+        $scope.urlRecipeDetail = Routing.generate('barra_back_recipeDetail', {_locale:'de'});
 
+        //$scope.$watch('projectId', function () {
+        var route = Routing.generate('barra_api_get_recipes', {offset:0, limit:10, order_by:'name'});
+        Restangular.allUrl('recipes', route).getList().then(
+            function(response) {
+                $scope.recipes = response.data;
+            },
+            function(response) {
+                $scope.formErrors = FormError.selectMsg(response);
+            }
+        );
+        //}
+
+        /**
+         * post entry and add it to scope
+         */
+        $scope.submit = function() {
+            Api.post($scope.recipes, $scope.formData, 'formRecipe').then(
+                function(response) {
+                    var url = response.headers('location');
+                    Api.get('recipes', url.substring(url.lastIndexOf('/')+1)).then(
+                        function(response) {
+                            $scope.formData     = null;
+                            $scope.formErrors   = null;
+                            $scope.recipes.push(response.data);
+                            $scope.formRecipe.$setPristine(true);
+                        }, function(errorMsg) {
+                            $scope.formErrors = errorMsg;
+                        }
+                    );
+                }, function(response) {
+                    $scope.formErrors = FormError.selectMsg(response);
+                    if (response.status == 400) {
+                        $scope.formFieldErrors = FormFieldError.selectMsg(response.data.errors.children);
+                    }
+                }
+            );
+        };
+
+        /**
+         * Delete entry server-sided and from scope
+         * @param element
+         */
+        $scope.deleteEntry = function(element) {
+            element.remove().then(
+                function() {
+                    $scope.recipes.splice($scope.recipes.indexOf(element), 1);
+                },
+                function(response) {
+                    $scope.formErrors = FormError.selectMsg(response);
+                }
+            );
+        };
+
+
+        /**
+         * Triggered when new formFieldErrors were added to
+         * check which form field needs to be matchy highlighted
+         * @param fieldName
+         * @returns {boolean}
+         */
+        $scope.highlightInvalidFormFields = function(fieldName) {
+            return $scope.formFieldErrors.some(function(formField) {
+                return formField.fieldName == fieldName;
+            });
+        };
+    })
+    .controller('ReferenceCtrl', function($scope, $http, Restangular, FormError, FormFieldError, Api) {
+        //$scope.$watch('projectId', function () {
+        //$scope.urlPictures = Routing.generate('barra_back_photo', {_locale:'de'});
+
+        var route = Routing.generate('barra_api_get_references', {offset:0, limit:10, order_by:'url'});
+        Restangular.allUrl('references', route).getList().then(
+            function(response) {
+                $scope.references = response.data;
+            },
+            function(response) {
+                $scope.formErrors = FormError.selectMsg(response);
+            }
+        );
+        //});
+
+        /**
+         * post entry and add it to scope
+         */
+        $scope.submit = function() {
+            Api.post($scope.references, $scope.formData, 'formReference').then(
+                function(response) {
+                    var url = response.headers('location');
+                    Api.get('references', url.substring(url.lastIndexOf('/')+1)).then(
+                        function(response) {
+                            $scope.formData     = null;
+                            $scope.formErrors   = null;
+                            $scope.references.push(response.data);
+                            $scope.formReference.$setPristine(true);
+                        }, function(errorMsg) {
+                            $scope.formErrors = errorMsg;
+                        }
+                    );
+                }, function(response) {
+                    $scope.formErrors = FormError.selectMsg(response);
+                    if (response.status == 400) {
+                        $scope.formFieldErrors = FormFieldError.selectMsg(response.data.errors.children);
+                    }
+                }
+            );
+        };
+
+        /**
+         * Delete entry server-sided and from scope
+         * @param element
+         */
+        $scope.deleteEntry = function(element) {
+            element.remove().then(
+                function() {
+                    $scope.references.splice($scope.references.indexOf(element), 1);
+                },
+                function(response) {
+                    $scope.formErrors = FormError.selectMsg(response);
+                }
+            );
+        };
+
+
+        /**
+         * Triggered when new formFieldErrors were added to
+         * check which form field needs to be matchy highlighted
+         * @param fieldName
+         * @returns {boolean}
+         */
+        $scope.highlightInvalidFormFields = function(fieldName) {
+            return $scope.formFieldErrors.some(function(formField) {
+                return formField.fieldName == fieldName;
+            });
+        };
+    })
+    .controller('TechniqueCtrl', function($scope, $http, Restangular, FormError, FormFieldError, Api) {
+        //$scope.$watch('projectId', function () {
+        var route = Routing.generate('barra_api_get_techniques', {offset:0, limit:10, order_by:'name'});
+        Restangular.allUrl('techniques', route).getList().then(
+            function(response) {
+                $scope.techniques = response.data;
+            },
+            function(response) {
+                $scope.formErrors = FormError.selectMsg(response);
+            }
+        );
+        //});
+
+        /**
+         * post entry and add it to scope
+         */
+        $scope.submit = function() {
+            Api.post($scope.techniques, $scope.formData, 'formTechnique').then(
+                function(response) {
+                    var url = response.headers('location');
+                    Api.get('techniques', url.substring(url.lastIndexOf('/')+1)).then(
+                        function(response) {
+                            $scope.formData     = null;
+                            $scope.formErrors   = null;
+                            $scope.techniques.push(response.data);
+                            $scope.formTechnique.$setPristine(true);
+                        }, function(errorMsg) {
+                            $scope.formErrors = errorMsg;
+                        }
+                    );
+                }, function(response) {
+                    $scope.formErrors = FormError.selectMsg(response);
+                    if (response.status == 400) {
+                        $scope.formFieldErrors = FormFieldError.selectMsg(response.data.errors.children);
+                    }
+                }
+            );
+        };
+
+        /**
+         * Delete entry server-sided and from scope
+         * @param element
+         */
+        $scope.deleteEntry = function(element) {
+            element.remove().then(
+                function() {
+                    $scope.techniques.splice($scope.techniques.indexOf(element), 1);
+                },
+                function(response) {
+                    $scope.formErrors = FormError.selectMsg(response);
+                }
+            );
+        };
+
+
+        /**
+         * Triggered when new formFieldErrors were added to
+         * check which form field needs to be matchy highlighted
+         * @param fieldName
+         * @returns {boolean}
+         */
+        $scope.highlightInvalidFormFields = function(fieldName) {
+            return $scope.formFieldErrors.some(function(formField) {
+                return formField.fieldName == fieldName;
+            });
+        };
+    })
 ;

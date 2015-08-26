@@ -2,42 +2,56 @@
 
 namespace Barra\FrontBundle\DataFixtures\ORM;
 
+use Barra\FrontBundle\Entity\Measurement;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Barra\FrontBundle\Entity\Measurement;
+use InvalidArgumentException;
 
+/**
+ * Class LoadMeasurementData
+ * @author Paul Kujawa <p.kujawa@gmx.net>
+ * @package Barra\FrontBundle\DataFixtures\ORM
+ */
 class LoadMeasurementData extends AbstractFixture implements OrderedFixtureInterface
 {
-    static public $members = array();
+    static public $members = [];
 
-    /**
-     * {@inheritDoc}
-     */
     public function load(ObjectManager $em)
     {
-        $entity1 = new Measurement();
-        $entity1->setGr(1)->setType("gr");
-        $em->persist($entity1);
-        $this->addReference('fixMeasurement1', $entity1);
+        self::$members[] = $this->instantiate('gr', 1);
+        self::$members[] = $this->instantiate('el', 15);
+        self::$members[] = $this->instantiate('ml', 1);
 
-        $entity2 = new Measurement();
-        $entity2->setGr(15)->setType("el");
-        $em->persist($entity2);
-        $this->addReference('fixMeasurement2', $entity2);
-
-        $entity3 = new Measurement();
-        $entity3->setGr(1)->setType("ml");
-        $em->persist($entity3);
-        $this->addReference('fixMeasurement3', $entity3);
-
+        foreach(self::$members as $i => $e) {
+            $this->addReference('refMeasurement'.($i+1), $e);
+            $em->persist($e);
+        }
         $em->flush();
-        self::$members = array($entity1, $entity2, $entity3);
     }
 
     /**
-     * {@inheritDoc}
+     * @param string    $name
+     * @param int       $gr
+     * @return Measurement
      */
+    protected function instantiate($name, $gr)
+    {
+        if (!is_string($name) ||
+            !is_int($gr)
+        ) {
+            throw new InvalidArgumentException();
+        }
+
+        $entity = new Measurement();
+        $entity
+            ->setName($name)
+            ->setGr($gr)
+        ;
+
+        return $entity;
+    }
+
     public function getOrder()
     {
         return 3;

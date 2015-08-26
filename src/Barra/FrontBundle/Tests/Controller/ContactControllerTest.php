@@ -17,22 +17,22 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/de/contact');
 
         // submit valid contact form
-        $form = $crawler->selectButton('form[submit]')->form(array(
+        $form = $crawler->selectButton('form[submit]')->form([
             'form[name]'    => 'Lucas',
             'form[email]'   => 'test@googlemail.com',
             'form[message]' => 'Hey there!',
-        ));
+        ]);
         $crawler = $client->submit($form);
         $this->assertCount(1, $crawler->filter('.alert-success'));
 
 
 
         // submit invalid contact form
-        $form = $crawler->selectButton('form[submit]')->form(array(
-                'form[name]'    => 'Lucas',
-                'form[email]'   => 'invalidEmailAdress',
-                'form[message]' => 'Hey there!',
-            ));
+        $form = $crawler->selectButton('form[submit]')->form([
+            'form[name]'    => 'Lucas',
+            'form[email]'   => 'invalidEmailAdress',
+            'form[message]' => 'Hey there!',
+        ]);
         $crawler = $client->submit($form);
         $this->assertCount(0, $crawler->filter('.alert-success'));
 

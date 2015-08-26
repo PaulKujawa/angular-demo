@@ -55,7 +55,7 @@ Barra\FrontBundle\Entity\Recipe:
       - NotBlank: ~
       - Type: string
 
-Manager\ManagerBundle\Entity\RecipePicture:
+Manager\ManagerBundle\Entity\Photo:
   properties:
     file:
       - File:
@@ -64,7 +64,7 @@ Manager\ManagerBundle\Entity\RecipePicture:
 
 Barra\FrontBundle\Entity\Measurement:
   properties:
-    type:
+    name:
       - NotBlank:
       - Type: string
     gr:

@@ -2,62 +2,95 @@
 
 namespace Barra\FrontBundle\DataFixtures\ORM;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Barra\FrontBundle\Entity\Reference;
+use Barra\FrontBundle\Entity\ReferencePicture;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Barra\FrontBundle\Entity\ReferencePicture;
+use InvalidArgumentException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+/**
+ * Class LoadReferencePictureData
+ * @author Paul Kujawa <p.kujawa@gmx.net>
+ * @package Barra\FrontBundle\DataFixtures\ORM
+ */
 class LoadReferencePictureData extends AbstractFixture implements OrderedFixtureInterface
 {
-    static public $members = array();
+    static public $members = [];
+    const REL_UPLOAD_PATH  = '/../../../../../web/uploads/documents/';
 
-    /**
-     * {@inheritDoc}
-     */
     public function load(ObjectManager $em)
     {
-        $entity1 = new ReferencePicture();
-        $file = $this->manageFile(1);
-        $entity1->setTitle("fixReferencePicture1")->setReference( $this->getReference('fixReference1') )->setSize(filesize($file))->setFile($file);
-        $em->persist($entity1);
-        $this->addReference('fixReferencePicture1', $entity1);
+        self::$members[] = $this->instantiate('ReferencePicture1', 'refReference1', 1);
+        self::$members[] = $this->instantiate('ReferencePicture2', 'refReference2', 2);
+        self::$members[] = $this->instantiate('ReferencePicture3', 'refReference3', 3);
 
-        $entity2 = new ReferencePicture();
-        $file = $this->manageFile(2);
-        $entity2->setTitle("fixReferencePicture2")->setReference( $this->getReference('fixReference2') )->setSize(filesize($file))->setFile($file);
-        $em->persist($entity2);
-        $this->addReference('fixReferencePicture2', $entity2);
-
-        $entity3 = new ReferencePicture();
-        $file = $this->manageFile(3);
-        $entity3->setTitle("fixReferencePicture3")->setReference( $this->getReference('fixReference3') )->setSize(filesize($file))->setFile($file);
-        $em->persist($entity3);
-        $this->addReference('fixReferencePicture3', $entity3);
-
+        foreach(self::$members as $i => $e) {
+            $this->addReference('refReferencePicture'.($i+1), $e);
+            $em->persist($e);
+        }
         $em->flush();
-        self::$members = array($entity1, $entity2, $entity3);
     }
 
 
     /**
-     * @param $i
+     * @param string        $name
+     * @param string        $refReference
+     * @param string        $index
+     * @return ReferencePicture
+     */
+    protected function instantiate($name, $refReference, $index)
+    {
+        $reference = $this->getReference($refReference);
+
+        if (!$reference instanceof Reference ||
+            !is_string($name) ||
+            !is_int($index)
+        ) {
+            throw new InvalidArgumentException();
+        }
+
+        $entity = new ReferencePicture();
+        $file = $this->simulateUpload($entity, $index);
+
+        $entity
+            ->setName($name)
+            ->setReference($reference)
+            ->setFile($file)
+            ->setSize($file->getClientSize())
+        ;
+
+        return $entity;
+    }
+
+    /**
+     * @param ReferencePicture  $entity
+     * @param string            $index
      * @return UploadedFile
      */
-    protected function manageFile($i)
+    protected function simulateUpload(ReferencePicture $entity, $index)
     {
-        $path =  __DIR__.'/../../../../../web/uploads/documents/';
-        $origFile = $path. 'fixture.jpg';
-        $copyFile = $path. 'fixtureCopy' .$i. '.jpg';
+        // set up demo picture to simulate an upload
+        $demoFileName   = 'refFixture'.$index.'jpg';
+        $demoFile       = $entity->getPath().'/'.$demoFileName;
 
-        copy($origFile, $copyFile);
-        return new UploadedFile($copyFile, "fixtuePicture".$i, null, filesize($copyFile), null, true);
+        copy(
+            $entity->getPath().'/fixture.jpg',
+            $demoFile
+        );
+
+        // 'receive' uploaded file and instantiate an representing object
+        return new UploadedFile(
+            $demoFile,
+            $demoFileName,
+            null,
+            filesize($demoFile),
+            null,
+            true
+        );
     }
 
-
-    /**
-     * {@inheritDoc}
-     */
     public function getOrder()
     {
         return 11;

@@ -2,68 +2,102 @@
 
 namespace Barra\FrontBundle\DataFixtures\ORM;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Barra\FrontBundle\Entity\Agency;
+use Barra\FrontBundle\Entity\Reference;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Barra\FrontBundle\Entity\Reference;
+use InvalidArgumentException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+/**
+ * Class LoadReferenceData
+ * @author Paul Kujawa <p.kujawa@gmx.net>
+ * @package Barra\FrontBundle\DataFixtures\ORM
+ */
 class LoadReferenceData extends AbstractFixture implements OrderedFixtureInterface
 {
-    static public $members = array();
+    static public $members = [];
+    const REL_UPLOAD_PATH  = '/../../../../../web/uploads/documents/';
 
-    /**
-     * {@inheritDoc}
-     */
     public function load(ObjectManager $em)
     {
-        $entity1 = new Reference();
-        $file = $this->manageFile(1);
-        $entity1->setUrl("a.com")->setDescription("a")->setStarted(new \DateTime('NOW'))
-            ->setFinished(new \DateTime('NOW'))->setAgency($this->getReference('fixAgency1'))
-            ->addTechnique($this->getReference('fixTechnique1'))->setSize(filesize($file))->setFile($file);
-        $em->persist($entity1);
-        $this->addReference('fixReference1', $entity1);
+        self::$members[] = $this->instantiate(
+            'a.de', 'description1', new \DateTime(), new \DateTime(), 'refAgency1', 1, [
+                'refTechnique1',
+            ]
+        );
+        self::$members[] = $this->instantiate(
+            'b.de', 'description2', new \DateTime(), new \DateTime(), 'refAgency2', 2, [
+                'refTechnique1',
+                'refTechnique2',
+                'refTechnique3',
+            ]
+        );
+        self::$members[] = $this->instantiate(
+            'c.de', 'description3', new \DateTime(), new \DateTime(), 'refAgency3', 3, [
+                'refTechnique1',
+                'refTechnique2',
+            ]
+        );
 
-        $entity2 = new Reference();
-        $file = $this->manageFile(2);
-        $entity2->setUrl("b.com")->setDescription("b")->setStarted(new \DateTime('NOW'))
-            ->setFinished(new \DateTime('NOW'))->setAgency($this->getReference('fixAgency2'))
-            ->addTechnique($this->getReference('fixTechnique3'))->setSize(filesize($file))->setFile($file);
-        $em->persist($entity2);
-        $this->addReference('fixReference2', $entity2);
-
-        $entity3 = new Reference();
-        $file = $this->manageFile(3);
-        $entity3->setUrl("c.com")->setDescription("c")->setStarted(new \DateTime('NOW'))
-            ->setFinished(new \DateTime('NOW'))->setAgency($this->getReference('fixAgency3'))
-            ->addTechnique($this->getReference('fixTechnique2'))->setSize(filesize($file))->setFile($file);
-        $em->persist($entity3);
-        $this->addReference('fixReference3', $entity3);
-
+        foreach(self::$members as $i => $e) {
+            $this->addReference('refReference'.($i+1), $e);
+            $em->persist($e);
+        }
         $em->flush();
-        self::$members = array($entity1, $entity2, $entity3);
     }
 
-
     /**
-     * @param $i
-     * @return UploadedFile
+     * @param string    $url
+     * @param string    $description
+     * @param \DateTime $started
+     * @param \DateTime $finished
+     * @param string    $refAgency
+     * @param int       $index
+     * @param array     $refTechniques
+     * @return Reference
      */
-    protected function manageFile($i)
+    protected function instantiate($url, $description, $started, $finished, $refAgency, $index, array $refTechniques)
     {
-        $path =  __DIR__.'/../../../../../web/uploads/documents/';
-        $origFile = $path. 'fixture.jpg';
-        $copyFile = $path. 'fixtureCopy' .$i. '.jpg';
+        $agency = $this->getReference($refAgency);
 
-        copy($origFile, $copyFile);
-        return new UploadedFile($copyFile, "fixtuePicture".$i, null, filesize($copyFile), null, true);
+        if (!is_string($url) ||
+            !is_string($description) ||
+            !$started instanceof \DateTime ||
+            !$finished instanceof \DateTime ||
+            !$agency instanceof Agency ||
+            !is_int($index)
+        ) {
+            throw new InvalidArgumentException();
+        }
+
+        $copyName = 'fixtureCopy'.$index;
+        $origPath = __DIR__.self::REL_UPLOAD_PATH.'fixture.jpg';
+        $copyPath = __DIR__.self::REL_UPLOAD_PATH.$copyName.'.jpg';
+        $size     = filesize($origPath);
+
+        copy($origPath, $copyPath);
+        $file   = new UploadedFile($copyPath, $copyName, null, $size, null, true);
+        $entity = new Reference();
+        $entity
+            ->setUrl($url)
+            ->setDescription($description)
+            ->setAgency($agency)
+            ->setStarted($started)
+            ->setFinished($finished)
+            ->setFile($file)
+            ->setSize($size)
+        ;
+
+        foreach ($refTechniques as $refTechnique) {
+            $technique = $this->getReference($refTechnique);
+            $entity->addTechnique($technique);
+        }
+
+        return $entity;
     }
 
-
-    /**
-     * {@inheritDoc}
-     */
     public function getOrder()
     {
         return 10;

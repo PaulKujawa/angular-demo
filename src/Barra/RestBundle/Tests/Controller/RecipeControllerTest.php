@@ -12,7 +12,7 @@ class RecipeControllerTest extends WebTestCase
 {
     public function setUp()
     {
-        $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadUserData'));
+        $this->loadFixtures(['Barra\FrontBundle\DataFixtures\ORM\LoadUserData']);
         $users = LoadUserData::$members;
         array_pop($users);
         $demoAdmin = array_pop($users);
@@ -27,7 +27,7 @@ class RecipeControllerTest extends WebTestCase
      */
     public function testNew()
     {
-        $this->client->request('GET', '/api/recipes/new', array('ACCEPT' => 'application/json'));
+        $this->client->request('GET', '/api/recipes/new', ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
         $this->assertJsonResponse($response);
     }
@@ -38,11 +38,11 @@ class RecipeControllerTest extends WebTestCase
      */
     public function testGetRecipe()
     {
-        $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
+        $this->loadFixtures(['Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData']);
         $recipes = LoadRecipeData::$members;
         $recipe = array_pop($recipes);
 
-        $this->client->request('GET', '/api/recipes/'.$recipe->getId(), array('ACCEPT' => 'application/json'));
+        $this->client->request('GET', '/api/recipes/'.$recipe->getId(), ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
         $this->assertJsonResponse($response);
 
@@ -56,10 +56,10 @@ class RecipeControllerTest extends WebTestCase
      */
     public function testGet404()
     {
-        $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
+        $this->loadFixtures(['Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData']);
         $recipes = LoadRecipeData::$members;
 
-        $this->client->request('GET', '/api/recipes/-1', array('ACCEPT' => 'application/json'));
+        $this->client->request('GET', '/api/recipes/-1', ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
         $this->assertJsonResponse($response, Codes::HTTP_NOT_FOUND, false);
     }
@@ -70,10 +70,10 @@ class RecipeControllerTest extends WebTestCase
      */
     public function testGetRecipes()
     {
-        $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
+        $this->loadFixtures(['Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData']);
         $recipes = LoadRecipeData::$members; // 3 entities
 
-        $this->client->request('GET', '/api/recipes', array('ACCEPT' => 'application/json'));
+        $this->client->request('GET', '/api/recipes', ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
         $this->assertJsonResponse($response);
 
@@ -90,11 +90,11 @@ class RecipeControllerTest extends WebTestCase
      */
     public function testGetOffset()
     {
-        $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
+        $this->loadFixtures(['Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData']);
         $recipes = LoadRecipeData::$members; // 3 entities
 
         // one entity in the middle
-        $this->client->request('GET', '/api/recipes?offset=1&limit=1&order_by=id&order=DESC', array('ACCEPT' => 'application/json'));
+        $this->client->request('GET', '/api/recipes?offset=1&limit=1&order_by=id&order=DESC', ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
         $this->assertJsonResponse($response);
 
@@ -110,11 +110,11 @@ class RecipeControllerTest extends WebTestCase
      */
     public function testGetNegativeParams()
     {
-        $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
+        $this->loadFixtures(['Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData']);
         $recipes = LoadRecipeData::$members; // 3 entities
 
         // negative numbers will be ignored
-        $this->client->request('GET', '/api/recipes?offset=-1&limit=-1', array('ACCEPT' => 'application/json'));
+        $this->client->request('GET', '/api/recipes?offset=-1&limit=-1', ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
         $this->assertJsonResponse($response);
 
@@ -132,8 +132,8 @@ class RecipeControllerTest extends WebTestCase
      */
     public function testGetLimitTooHigh()
     {
-        $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
-        $this->client->request('GET', '/api/recipes?limit=8', array('ACCEPT' => 'application/json'));
+        $this->loadFixtures(['Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData']);
+        $this->client->request('GET', '/api/recipes?limit=8', ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
         $this->assertJsonResponse($response);
 
@@ -147,9 +147,11 @@ class RecipeControllerTest extends WebTestCase
      */
     public function testPost()
     {
-        $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
-        $this->client->request('POST', '/api/recipes', array(), array(),
-            array('CONTENT_TYPE' => 'application/json', 'Accept' => 'application/json'),
+        $this->loadFixtures(['Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData']);
+        $this->client->request('POST', '/api/recipes', [], [], [
+                'CONTENT_TYPE' => 'application/json',
+                'Accept' => 'application/json',
+            ],
             '{"formRecipe":{"name":"testRecipe"}}'
         );
         $this->assertJsonResponse($this->client->getResponse(), Codes::HTTP_CREATED, false);
@@ -161,9 +163,11 @@ class RecipeControllerTest extends WebTestCase
      */
     public function testPostDuplicate()
     {
-        $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
-        $this->client->request('POST', '/api/recipes', array(), array(),
-            array('CONTENT_TYPE' => 'application/json', 'Accept' => 'application/json'),
+        $this->loadFixtures(['Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData']);
+        $this->client->request('POST', '/api/recipes', [], [], [
+                'CONTENT_TYPE' => 'application/json',
+                'Accept' => 'application/json',
+            ],
             '{"formRecipe":{"name":"fixRecipe2"}}'
         );
         $this->assertJsonResponse($this->client->getResponse(), Codes::HTTP_UNPROCESSABLE_ENTITY);
@@ -175,9 +179,11 @@ class RecipeControllerTest extends WebTestCase
      */
     public function testPostInvalid()
     {
-        $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
-        $this->client->request('POST', '/api/recipes', array(), array(),
-            array('CONTENT_TYPE' => 'application/json', 'Accept' => 'application/json'),
+        $this->loadFixtures(['Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData']);
+        $this->client->request('POST', '/api/recipes', [], [], [
+                'CONTENT_TYPE' => 'application/json',
+                'Accept' => 'application/json',
+            ],
             '{"name":"testRecipe"}'
         );
         $this->assertJsonResponse($this->client->getResponse(), Codes::HTTP_BAD_REQUEST, false);
@@ -190,13 +196,15 @@ class RecipeControllerTest extends WebTestCase
      */
     public function testPutUpdate()
     {
-        $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
+        $this->loadFixtures(['Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData']);
         $recipes = LoadRecipeData::$members;
         $recipe = array_pop($recipes);
 
 
-        $this->client->request('PUT', '/api/recipes/'.$recipe->getId(), array(), array(),
-            array('CONTENT_TYPE' => 'application/json', 'Accept' => 'application/json'),
+        $this->client->request('PUT', '/api/recipes/'.$recipe->getId(), [], [], [
+                'CONTENT_TYPE' => 'application/json',
+                'Accept' => 'application/json',
+            ],
             '{"formRecipe":{"name":"changedName"}}'
         );
         $this->assertJsonResponse($this->client->getResponse(), Codes::HTTP_NO_CONTENT, false);
@@ -207,9 +215,11 @@ class RecipeControllerTest extends WebTestCase
      */
     public function testPutCreate()
     {
-        $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
-        $this->client->request('PUT', '/api/recipes/0', array(), array(),
-            array('CONTENT_TYPE' => 'application/json', 'Accept' => 'application/json'),
+        $this->loadFixtures(['Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData']);
+        $this->client->request('PUT', '/api/recipes/0', [], [], [
+                'CONTENT_TYPE' => 'application/json',
+                'Accept' => 'application/json',
+            ],
             '{"formRecipe":{"name":"changedName"}}'
         );
         $this->assertJsonResponse($this->client->getResponse(), Codes::HTTP_CREATED, false);
@@ -221,12 +231,14 @@ class RecipeControllerTest extends WebTestCase
      */
     public function testPutInvalid()
     {
-        $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
+        $this->loadFixtures(['Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData']);
         $recipes = LoadRecipeData::$members;
         $recipe = array_pop($recipes);
 
-        $this->client->request('PUT', '/api/recipes/'.$recipe->getId(), array(), array(),
-            array('CONTENT_TYPE' => 'application/json', 'Accept' => 'application/json'),
+        $this->client->request('PUT', '/api/recipes/'.$recipe->getId(), [], [], [
+                'CONTENT_TYPE' => 'application/json',
+                'Accept' => 'application/json',
+            ],
             '{"name":"fixRecipe1"}'
         );
         $this->assertJsonResponse($this->client->getResponse(), Codes::HTTP_BAD_REQUEST);
@@ -237,12 +249,14 @@ class RecipeControllerTest extends WebTestCase
      */
     public function testPutDuplicate()
     {
-        $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
+        $this->loadFixtures(['Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData']);
         $recipes = LoadRecipeData::$members;
         $recipe = array_pop($recipes);
 
-        $this->client->request('PUT', '/api/recipes/'.$recipe->getId(), array(), array(),
-            array('CONTENT_TYPE' => 'application/json', 'Accept' => 'application/json'),
+        $this->client->request('PUT', '/api/recipes/'.$recipe->getId(), [], [], [
+                'CONTENT_TYPE' => 'application/json',
+                'Accept' => 'application/json',
+            ],
             '{"formRecipe":{"name":"fixRecipe1"}}'
         );
         $this->assertJsonResponse($this->client->getResponse(), Codes::HTTP_UNPROCESSABLE_ENTITY);
@@ -254,7 +268,7 @@ class RecipeControllerTest extends WebTestCase
      */
     public function testDelete()
     {
-        $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
+        $this->loadFixtures(['Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData']);
         $recipes = LoadRecipeData::$members;
         $recipe = array_pop($recipes);
 
@@ -268,7 +282,7 @@ class RecipeControllerTest extends WebTestCase
      */
     public function testDeleteRecipe404()
     {
-        $this->loadFixtures(array('Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData'));
+        $this->loadFixtures(['Barra\FrontBundle\DataFixtures\ORM\LoadRecipeData']);
         $recipes = LoadRecipeData::$members;
         $recipe = array_pop($recipes);
 

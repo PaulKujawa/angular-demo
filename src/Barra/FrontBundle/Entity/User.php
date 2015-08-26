@@ -5,13 +5,13 @@ namespace Barra\FrontBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\Groups;
-use JMS\Serializer\Annotation\VirtualProperty;
 
 
 /**
- * User
+ * Class User
+ * @author Paul Kujawa <p.kujawa@gmx.net>
+ * @package Barra\FrontBundle\Entity
+ *
  * @ExclusionPolicy("all")
  * @ORM\Table(name="AppUser")
  * @ORM\Entity
@@ -25,11 +25,10 @@ class User extends BaseUser
      */
     protected $id;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {

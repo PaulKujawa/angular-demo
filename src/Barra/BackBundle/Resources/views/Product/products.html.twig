@@ -1,0 +1,63 @@
+{% extends 'BarraBackBundle::layout.html.twig' %}
+{% form_theme form 'BarraBackBundle:Form:tableRow.html.twig' %}
+{% block title %}{{ 'back.title.products'|trans() }}{% endblock %}
+
+{% block section %}
+    <section class="container mobileTables" ng-controller="ProductCtrl">
+        {{ include('BarraBackBundle::formValidation.html.twig') }}
+
+        {{ form_start(form) }}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>{{ 'back.product.name'|trans() }}</th>
+                        <th>{{ 'back.product.vegan'|trans() }}</th>
+                        <th>{{ 'back.product.gr'|trans() }}</th>
+                        <th>{{ 'back.product.kcal'|trans() }}</th>
+                        <th>{{ 'back.product.protein'|trans() }}</th>
+                        <th>{{ 'back.product.carbs'|trans() }}</th>
+                        <th>{{ 'back.product.sugar'|trans() }}</th>
+                        <th>{{ 'back.product.fat'|trans() }}</th>
+                        <th>{{ 'back.product.gfat'|trans() }}</th>
+                        <th>{{ 'back.product.manufacturer'|trans() }}</th>
+                        <th>{{ 'back.action.delete'|trans() }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="product in products | orderBy:'name'">
+                        <td data-mobile-title={{ 'back.product.name'|trans() }}>[[product.name]]</td>
+                        <td data-mobile-title={{ 'back.product.vegan'|trans() }}>
+                            <span ng-if="product.vegan">✖</span>
+                        </td>
+                        <td data-mobile-title={{ 'back.product.gr'|trans() }}>[[product.gr]]</td>
+                        <td data-mobile-title={{ 'back.product.kcal'|trans() }}>[[product.kcal]]</td>
+                        <td data-mobile-title={{ 'back.product.protein'|trans() }}>[[product.protein]]</td>
+                        <td data-mobile-title={{ 'back.product.carbs'|trans() }}>[[product.carbs]]</td>
+                        <td data-mobile-title={{ 'back.product.sugar'|trans() }}>[[product.sugar]]</td>
+                        <td data-mobile-title={{ 'back.product.fat'|trans() }}>[[product.fat]]</td>
+                        <td data-mobile-title={{ 'back.product.gfat'|trans() }}>[[product.gfat]]</td>
+                        <td data-mobile-title={{ 'back.product.manufacturer'|trans() }}>[[product.manufacturer.name]]</td>
+                        <td data-mobile-title={{ 'back.action.delete'|trans() }}>
+                            <span class="glyphicon glyphicon-minus" ng-click="deleteEntry(product)"></span>
+                        </td>
+                    </tr>
+                    <tr class="formInRow">
+                        {{ form_row(form.name) }}
+                        {{ form_row(form.vegan) }}
+                        {{ form_row(form.gr) }}
+                        {{ form_row(form.kcal) }}
+                        {{ form_row(form.protein) }}
+                        {{ form_row(form.carbs) }}
+                        {{ form_row(form.sugar) }}
+                        {{ form_row(form.fat) }}
+                        {{ form_row(form.gfat) }}
+                        {{ form_row(form.manufacturer) }}
+                        {{ form_widget(form.submit, {'label': 'back.action.new', 'attr': {'class': 'btn'} }) }}
+                    </tr>
+                </tbody>
+            </table>
+        {{ form_end(form) }}
+
+        {{ include('BarraBackBundle::pagination.html.twig', { 'route': 'barra_back_products'})}}
+    </section>
+{% endblock %}

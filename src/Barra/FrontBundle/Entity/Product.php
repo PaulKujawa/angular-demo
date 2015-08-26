@@ -9,15 +9,19 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 
 /**
- * Product
+ * Class Product
+ * @author Paul Kujawa <p.kujawa@gmx.net>
+ * @package Barra\FrontBundle\Entity
+
  * @ExclusionPolicy("none")
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Barra\FrontBundle\Entity\Repository\ProductRepository")
+ * @ORM\Entity(repositoryClass = "Barra\FrontBundle\Entity\Repository\ProductRepository")
  */
 class Product
 {
-    use NameTrait;
-    use IdAutoTrait;
+    use NameTrait,
+        IdAutoTrait
+    ;
 
     /**
      * @var bool
@@ -98,6 +102,7 @@ class Product
     private $gfat;
 
     /**
+     * @var Manufacturer
      * @ORM\ManyToOne(
      *      targetEntity = "Manufacturer",
      *      inversedBy   = "products"
@@ -112,6 +117,7 @@ class Product
     private $manufacturer;
 
     /**
+     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="Ingredient", mappedBy="product")
      */
     private $ingredients;
@@ -129,7 +135,7 @@ class Product
      */
     public function getRecipes()
     {
-        $recipes = array();
+        $recipes = [];
         foreach ($this->getIngredients() as $relation) {
             $recipes[] = $relation->getRecipe();
         }
@@ -140,7 +146,7 @@ class Product
      * Set vegan
      *
      * @param boolean $vegan
-     * @return Product
+     * @return $this
      */
     public function setVegan($vegan)
     {
@@ -163,7 +169,7 @@ class Product
      * Set kcal
      *
      * @param string $kcal
-     * @return Product
+     * @return $this
      */
     public function setKcal($kcal)
     {
@@ -186,7 +192,7 @@ class Product
      * Set gr
      *
      * @param integer $gr
-     * @return Product
+     * @return $this
      */
     public function setGr($gr)
     {
@@ -209,7 +215,7 @@ class Product
      * Set protein
      *
      * @param string $protein
-     * @return Product
+     * @return $this
      */
     public function setProtein($protein)
     {
@@ -232,7 +238,7 @@ class Product
      * Set carbs
      *
      * @param string $carbs
-     * @return Product
+     * @return $this
      */
     public function setCarbs($carbs)
     {
@@ -255,7 +261,7 @@ class Product
      * Set sugar
      *
      * @param string $sugar
-     * @return Product
+     * @return $this
      */
     public function setSugar($sugar)
     {
@@ -278,7 +284,7 @@ class Product
      * Set fat
      *
      * @param string $fat
-     * @return Product
+     * @return $this
      */
     public function setFat($fat)
     {
@@ -301,7 +307,7 @@ class Product
      * Set gfat
      *
      * @param string $gfat
-     * @return Product
+     * @return $this
      */
     public function setGfat($gfat)
     {
@@ -324,7 +330,7 @@ class Product
      * Set manufacturer
      *
      * @param Manufacturer $manufacturer
-     * @return Product
+     * @return $this
      */
     public function setManufacturer(Manufacturer $manufacturer)
     {
@@ -347,7 +353,7 @@ class Product
      * Add ingredient
      *
      * @param Ingredient $ingredient
-     * @return Product
+     * @return $this
      */
     public function addIngredient(Ingredient $ingredient)
     {

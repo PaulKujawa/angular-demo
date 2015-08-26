@@ -2,8 +2,6 @@
 
 namespace Barra\FrontBundle\Entity\Traits;
 
-use Barra\FrontBundle\Entity\Recipe;
-
 /**
  * Class NameTrait
  * @author Paul Kujawa <p.kujawa@gmx.net>
@@ -23,7 +21,7 @@ trait NameTrait
 
     /**
      * @param string $name
-     * @return Recipe
+     * @return $this
      */
     public function setName($name)
     {

@@ -1,6 +1,4 @@
 {% extends 'BarraBackBundle::layout.html.twig' %}
-{% trans_default_domain "messages" %}
-
 {% block title %}{{ reference.url }}{% endblock %}
 
 {% block section %}
@@ -12,7 +10,6 @@
             data-getAllLink="{{ path('barra_back_reference_logo_get', {'referenceId': reference.id}) }}"
             data-picturesFolder="{{ asset('uploads/documents/') }}"
         >
-            <!--<input type="file"   name="formReferenceLogo[file]" id="formReferenceLogo_file" class="form-control" required="required">-->
             <input type="hidden" name="formReferenceLogo[reference]" id="formReferenceLogo_reference" value="{{ reference.id }}">
             {{ form_widget(formReferenceLogo._token) }}
             <div class="dz-default dz-message">
@@ -26,7 +23,6 @@
                 data-getAllLink="{{ path('barra_back_reference_pictures_get', {'referenceId': reference.id}) }}"
                 data-picturesFolder="{{ asset('uploads/documents/') }}"
               >
-            <!--<input type="file"   name="formReferencePicture[file]" id="formReferencePicture_file" class="form-control" required="required">-->
             <input type="hidden" name="formReferencePicture[reference]" id="formReferencePicture_reference" value="{{ reference.id }}">
             {{ form_widget(formReferencePicture._token) }}
             <div class="dz-default dz-message">

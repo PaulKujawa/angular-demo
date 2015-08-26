@@ -11,14 +11,16 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
  * Class Ingredient
  * @author Paul Kujawa <p.kujawa@gmx.net>
  * @package Barra\FrontBundle\Entity
+ *
  * @ExclusionPolicy("none")
  * @ORM\Table()
  * @ORM\Entity(repositoryClass = "Barra\FrontBundle\Entity\Repository\IngredientRepository")
  */
 class Ingredient
 {
-    use PositionTrait;
-    use RecipeTrait;
+    use PositionTrait,
+        RecipeTrait
+    ;
 
     /**
      * @var int
@@ -58,7 +60,7 @@ class Ingredient
      * @var Measurement
      * @ORM\ManyToOne(
      *      targetEntity = "Measurement",
-     *      inversedBy   = "recipeProducts"
+     *      inversedBy   = "ingredients"
      * )
      * @ORM\JoinColumn(
      *      name                 = "measurement",
@@ -121,7 +123,7 @@ class Ingredient
      * @param Measurement $measurement
      * @return $this
      */
-    public function setMeasurement(Measurement $measurement = null)
+    public function setMeasurement(Measurement $measurement)
     {
         $this->measurement = $measurement;
 

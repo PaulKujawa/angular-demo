@@ -12,62 +12,65 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
  * Class Recipe
  * @author Paul Kujawa <p.kujawa@gmx.net>
  * @package Barra\FrontBundle\Entity
+ *
  * @ExclusionPolicy("none")
  * @ORM\Table()
  * @ORM\Entity(repositoryClass = "Barra\FrontBundle\Entity\Repository\RecipeRepository")
  */
 class Recipe
 {
-    use NameTrait;
-    use IdAutoTrait;
+    use IdAutoTrait,
+        NameTrait
+    ;
 
     /**
+     * @var ArrayCollection
      * @ORM\OneToMany(
-     *      targetEntity = "RecipePicture",
+     *      targetEntity = "Photo",
      *      mappedBy     = "recipe"
      * )
-     * @ORM\OrderBy({"title" = "ASC"})
+     * @ORM\OrderBy({"name" = "ASC"})
      */
-    private $recipePictures;
+    private $photos;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->recipePictures = new ArrayCollection();
+        $this->photos = new ArrayCollection();
     }
 
     /**
-     * Add recipePictures
+     * Add photos
      *
-     * @param RecipePicture $recipePictures
-     * @return Recipe
+     * @param Photo $photos
+     * @return $this
      */
-    public function addRecipePicture(RecipePicture $recipePictures)
+    public function addPhoto(Photo $photos)
     {
-        $this->recipePictures[] = $recipePictures;
+        $this->photos[] = $photos;
 
         return $this;
     }
 
     /**
-     * Remove recipePictures
+     * Remove photos
      *
-     * @param RecipePicture $recipePictures
+     * @param Photo $photos
      */
-    public function removeRecipePicture(RecipePicture $recipePictures)
+    public function removePhoto(Photo $photos)
     {
-        $this->recipePictures->removeElement($recipePictures);
+        $this->photos->removeElement($photos);
     }
 
     /**
-     * Get recipePictures
+     * Get photos
      *
      * @return ArrayCollection
      */
-    public function getRecipePictures()
+    public function getPhotos()
     {
-        return $this->recipePictures;
+        return $this->photos;
     }
 }

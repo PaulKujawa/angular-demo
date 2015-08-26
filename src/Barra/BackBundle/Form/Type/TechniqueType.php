@@ -6,30 +6,43 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+/**
+ * Class TechniqueType
+ * @author Paul Kujawa <p.kujawa@gmx.net>
+ * @package Barra\BackBundle\Form\Type
+ */
 class TechniqueType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', array(
-                    'attr'=>array('placeholder'=>'back.technique.name')
-                ))
-            ->add('description', 'textarea', array(
-                    'attr'=>array('placeholder'=>'back.technique.description')
-                ))
-            ->add('url', 'text', array(
-                    'attr'=>array('placeholder'=>'back.technique.url')
-                ))
+            ->add('name', 'text', [
+                'attr' => [
+                    'placeholder' => 'back.technique.name',
+                ],
+            ])
+            ->add('description', 'textarea', [
+                'attr' => [
+                    'placeholder' => 'back.technique.description',
+                ],
+            ])
+            ->add('url', 'text', [
+                'attr' => [
+                    'placeholder' => 'back.technique.url',
+                ],
+            ])
             ->add('submit', 'submit')
-            ->getForm();
+            ->getForm()
+        ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class'=>'Barra\FrontBundle\Entity\Technique',
-            'intention' =>'technique'
-        ));
+        $resolver->setDefaults([
+            'data_class'        =>'Barra\FrontBundle\Entity\Technique',
+            'intention'         =>'technique',
+            'csrf_protection'   => false,
+        ]);
     }
 
     public function getName()

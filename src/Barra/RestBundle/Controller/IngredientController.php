@@ -5,6 +5,7 @@ namespace Barra\RestBundle\Controller;
 use Barra\BackBundle\Form\Type\IngredientType;
 use Barra\FrontBundle\Entity\Ingredient;
 use Barra\FrontBundle\Entity\Recipe;
+use Barra\FrontBundle\Entity\Repository\IngredientRepository;
 use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Annotations;
@@ -30,7 +31,7 @@ class IngredientController extends FOSRestController
     public function newIngredientAction() {
         $form = $this->createForm(new IngredientType(), new Ingredient());
 
-        return array('data' => $form);
+        return ['data' => $form];
     }
 
 
@@ -52,9 +53,12 @@ class IngredientController extends FOSRestController
         $limit      = (int) $paramFetcher->get('limit');
         $orderBy    = $paramFetcher->get('order_by');
         $order      = $paramFetcher->get('order');
-        $entities   = $this->getRepo()->getSome($recipe, $offset, $limit, $orderBy, $order);
 
-        return array('data' => $entities);
+        /** @var IngredientRepository $repo */
+        $repo       = $this->getRepo();
+        $entities   = $repo->getSome($recipe, $offset, $limit, $orderBy, $order);
+
+        return ['data' => $entities];
     }
 
 
@@ -71,7 +75,7 @@ class IngredientController extends FOSRestController
             return $this->view(null, Codes::HTTP_NOT_FOUND);
         }
 
-        return array('data' => $entity);
+        return ['data' => $entity];
     }
 
 
@@ -82,9 +86,7 @@ class IngredientController extends FOSRestController
      */
     public function postIngredientAction(Request $request)
     {
-        $ingredient = new Ingredient();
-
-        return $this->processForm($request, $ingredient, 'POST', Codes::HTTP_CREATED);
+        return $this->processForm($request, new Ingredient(), Codes::HTTP_CREATED);
     }
 
 
@@ -98,10 +100,56 @@ class IngredientController extends FOSRestController
     {
         $entity = $this->getRepo()->find($id);
         if (!$entity instanceof Ingredient) {
-            return $this->routeRedirectView('barra_api_post_ingredient', array('request' => $request));
+            return $this->routeRedirectView('barra_api_post_ingredient', ['request' => $request]);
         }
 
-        return $this->processForm($request, $entity, 'PUT', Codes::HTTP_NO_CONTENT);
+        return $this->processForm($request, $entity, Codes::HTTP_NO_CONTENT);
+    }
+
+
+    /**
+     * Actual form handling
+     * @param Request       $request
+     * @param Ingredient    $entity
+     * @param int           $successCode
+     * @return \FOS\RestBundle\View\View
+     */
+    protected function processForm(Request $request, Ingredient $entity, $successCode)
+    {
+        $requestBody = array_values($request->request->all())[0];
+        $recipe      = $this->getRepo('Recipe')->find($requestBody['recipe']);
+        $form        = $this->createForm(new IngredientType(), $entity, ['method' => $request->getMethod()]);
+        $form->handleRequest($request);
+
+        if (!$form->isValid() ||
+            !$recipe instanceof Recipe
+        ) {
+            return $this->view($form, Codes::HTTP_BAD_REQUEST);
+        }
+
+        if ($request->isMethod('POST')) {
+            $position = $this->getRepo()->getNextPosition($recipe->getId());
+            $entity
+                ->setPosition($position)
+                ->setRecipe($recipe)
+            ;
+        }
+        $entity->createId();
+
+        $duplicate = $this->getRepo()->find($entity->getId());
+        if ($duplicate instanceof Ingredient) {
+            return $this->view($form, Codes::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $this->getEM()->persist($entity);
+        $this->getEM()->flush();
+
+        $params = [
+            'id'        => $entity->getId(),
+            '_format'   => $request->get('_format'),
+        ];
+
+        return $this->routeRedirectView('barra_api_get_ingredient', $params, $successCode);
     }
 
 
@@ -123,51 +171,6 @@ class IngredientController extends FOSRestController
         $this->getEM()->flush();
 
         return $this->view(null, Codes::HTTP_NO_CONTENT);
-    }
-
-
-    /**
-     * Actual form handling
-     * @param Request       $request
-     * @param Ingredient    $entity
-     * @param string        $method
-     * @param int           $successCode
-     * @return \FOS\RestBundle\View\View
-     */
-    protected function processForm(Request $request, Ingredient $entity, $method, $successCode)
-    {
-        $requestBody = array_values($request->request->all())[0];
-        $recipe      = $this->getRepo('Recipe')->find($requestBody['recipe']);
-        $form        = $this->createForm(new IngredientType(), $entity, array('method' => $method));
-        $form->handleRequest($request);
-
-        if (!$form->isValid() || !$entity instanceof Ingredient || !$recipe instanceof Recipe) {
-            return $this->view($form, Codes::HTTP_BAD_REQUEST);
-        }
-
-        if ($request->isMethod('POST')) {
-            $position = $this->getRepo()->getNextPosition($recipe->getId());
-            $entity
-                ->setPosition($position)
-                ->setRecipe($recipe)
-            ;
-        }
-        $entity->createId();
-
-        $duplicate = $this->getRepo()->find($entity->getId());
-        if ($duplicate instanceof Ingredient) {
-            return $this->view($form, Codes::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
-        $this->getEM()->persist($entity);
-        $this->getEM()->flush();
-
-        $params = array(
-            'id'        => $entity->getId(),
-            '_format'   => $request->get('_format'),
-        );
-
-        return $this->routeRedirectView('barra_api_get_ingredient', $params, $successCode);
     }
 
 

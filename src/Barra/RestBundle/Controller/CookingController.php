@@ -5,11 +5,13 @@ namespace Barra\RestBundle\Controller;
 use Barra\BackBundle\Form\Type\CookingType;
 use Barra\FrontBundle\Entity\Cooking;
 use Barra\FrontBundle\Entity\Recipe;
+use Barra\FrontBundle\Entity\Repository\CookingRepository;
 use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Annotations;
 use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Util\Codes;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -30,7 +32,7 @@ class CookingController extends FOSRestController
     public function newCookingAction() {
         $form = $this->createForm(new CookingType(), new Cooking());
 
-        return array('data' => $form);
+        return ['data' => $form];
     }
 
 
@@ -52,9 +54,12 @@ class CookingController extends FOSRestController
         $limit      = (int) $paramFetcher->get('limit');
         $orderBy    = $paramFetcher->get('order_by');
         $order      = $paramFetcher->get('order');
-        $entities   = $this->getRepo()->getSome($recipe, $offset, $limit, $orderBy, $order);
 
-        return array('data' => $entities);
+        /** @var CookingRepository $repo */
+        $repo       = $this->getRepo();
+        $entities   = $repo->getSome($recipe, $offset, $limit, $orderBy, $order);
+
+        return ['data' => $entities];
     }
 
 
@@ -67,24 +72,23 @@ class CookingController extends FOSRestController
     public function getCookingAction($id)
     {
         $entity = $this->getRepo()->find($id);
+
         if (!$entity instanceof Cooking) {
             return $this->view(null, Codes::HTTP_NOT_FOUND);
         }
 
-        return array('data' => $entity);
+        return ['data' => $entity];
     }
 
 
     /**
      * Create new entry
-     * @param Request $request
+     * @param Request   $request
      * @return \FOS\RestBundle\View\View
      */
     public function postCookingAction(Request $request)
     {
-        $cooking = new Cooking();
-
-        return $this->processForm($request, $cooking, 'POST', Codes::HTTP_CREATED);
+        return $this->processForm($request, new Cooking(), Codes::HTTP_CREATED);
     }
 
 
@@ -92,16 +96,63 @@ class CookingController extends FOSRestController
      * Replace or create entry
      * @param Request   $request
      * @param int       $id
-     * @return array|\FOS\RestBundle\View\View
+     * @return \FOS\RestBundle\View\View
      */
     public function putCookingAction(Request $request, $id)
     {
         $entity = $this->getRepo()->find($id);
         if (!$entity instanceof Cooking) {
-            return $this->routeRedirectView('barra_api_post_cooking', array('request' => $request));
+            return $this->routeRedirectView('barra_api_post_cooking', ['request' => $request]);
         }
 
-        return $this->processForm($request, $entity, 'PUT', Codes::HTTP_NO_CONTENT);
+        return $this->processForm($request, $entity, Codes::HTTP_NO_CONTENT);
+    }
+
+
+    /**
+     * Actual form handling
+     * @param Request   $request
+     * @param Cooking   $entity
+     * @param int       $successCode
+     * @return \FOS\RestBundle\View\View
+     */
+    protected function processForm(Request $request, Cooking $entity, $successCode)
+    {
+        $requestBody = array_values($request->request->all())[0];
+        $recipe      = $this->getRepo('Recipe')->find($requestBody['recipe']);
+        $form        = $this->createForm(new CookingType(), $entity, ['method' => $request->getMethod()]);
+        $form->handleRequest($request);
+
+        if (!$form->isValid() ||
+            !$recipe instanceof Recipe
+        ) {
+            return $this->view($form, Codes::HTTP_BAD_REQUEST);
+        }
+
+        if ($request->isMethod('POST')) {
+            $position = $this->getRepo()->getNextPosition($recipe->getId());
+            $entity
+                ->setPosition($position)
+                ->setRecipe($recipe)
+            ;
+        }
+
+        $entity->createId();
+
+        $duplicate = $this->getRepo()->find($entity->getId());
+        if ($duplicate instanceof Cooking) {
+            return $this->view($form, Codes::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $this->getEM()->persist($entity);
+        $this->getEM()->flush();
+
+        $params = [
+            'id'        => $entity->getId(),
+            '_format'   => $request->get('_format'),
+        ];
+
+        return $this->routeRedirectView('barra_api_get_cooking', $params, $successCode);
     }
 
 
@@ -123,51 +174,6 @@ class CookingController extends FOSRestController
         $this->getEM()->flush();
 
         return $this->view(null, Codes::HTTP_NO_CONTENT);
-    }
-
-
-    /**
-     * Actual form handling
-     * @param Request   $request
-     * @param Cooking   $entity
-     * @param string    $method
-     * @param int       $successCode
-     * @return \FOS\RestBundle\View\View
-     */
-    protected function processForm(Request $request, Cooking $entity, $method, $successCode)
-    {
-        $requestBody = array_values($request->request->all())[0];
-        $recipe      = $this->getRepo('Recipe')->find($requestBody['recipe']);
-        $form        = $this->createForm(new CookingType(), $entity, array('method' => $method));
-        $form->handleRequest($request);
-
-        if (!$form->isValid() || !$entity instanceof Cooking || !$recipe instanceof Recipe) {
-            return $this->view($form, Codes::HTTP_BAD_REQUEST);
-        }
-
-        if ($request->isMethod('POST')) {
-            $position = $this->getRepo()->getNextPosition($recipe->getId());
-            $entity
-                ->setPosition($position)
-                ->setRecipe($recipe)
-            ;
-        }
-        $entity->createId();
-
-        $duplicate = $this->getRepo()->find($entity->getId());
-        if ($duplicate instanceof Cooking) {
-            return $this->view($form, Codes::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
-        $this->getEM()->persist($entity);
-        $this->getEM()->flush();
-
-        $params = array(
-            'id'        => $entity->getId(),
-            '_format'   => $request->get('_format'),
-        );
-
-        return $this->routeRedirectView('barra_api_get_cooking', $params, $successCode);
     }
 
 

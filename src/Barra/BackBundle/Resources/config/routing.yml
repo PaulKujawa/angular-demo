@@ -1,24 +1,56 @@
 barra_back_user:
-    path:     /
-    defaults: { _controller: BarraBackBundle:User:index }
+  path:     /
+  defaults: { _controller: BarraBackBundle:User:index }
 
-barra_back_link_references:
-    resource: "@BarraBackBundle/Resources/config/routes/reference.yml"
+barra_back_agencies:
+  path:     /agencies/{paginationActive}
+  defaults: { _controller: BarraBackBundle:Agency:index, paginationActive: 1 }
+  requirements:
+    paginationActive: \d+
 
-barra_back_link_techniques:
-    resource: "@BarraBackBundle/Resources/config/routes/technique.yml"
+barra_back_manufacturers:
+  path:     /manufacturers/{paginationActive}
+  defaults: { _controller: BarraBackBundle:Manufacturer:index, paginationActive: 1 }
+  requirements:
+    paginationActive: \d+
 
-barra_back_link_agencies:
-    resource: "@BarraBackBundle/Resources/config/routes/agency.yml"
+barra_back_measurements:
+  path:     /measurements/{paginationActive}
+  defaults: { _controller: BarraBackBundle:Measurement:index, paginationActive: 1 }
+  requirements:
+    paginationActive: \d+
 
-barra_back_link_measurement:
-    resource: "@BarraBackBundle/Resources/config/routes/measurement.yml"
+barra_back_products:
+  path:     /products/{paginationActive}
+  defaults: { _controller: BarraBackBundle:Product:index, paginationActive: 1 }
+  requirements:
+    paginationActive: \d+
 
-barra_back_link_manufacturer:
-    resource: "@BarraBackBundle/Resources/config/routes/manufacturer.yml"
+barra_back_recipes:
+  path:     /recipes/{paginationActive}
+  defaults: { _controller: BarraBackBundle:Recipe:index, paginationActive: 1 }
+  requirements:
+    paginationActive: \d+
 
-barra_back_link_products:
-    resource: "@BarraBackBundle/Resources/config/routes/product.yml"
+barra_back_recipeDetail:
+  path:     /recipe/{name}
+  defaults: { _controller: BarraBackBundle:RecipeDetail:index }
 
-barra_back_link_recipe:
-    resource: "@BarraBackBundle/Resources/config/routes/recipe.yml"
+barra_back_references:
+    path:     /references/{paginationActive}
+    defaults: { _controller: BarraBackBundle:Reference:index, paginationActive: 1 }
+    requirements:
+        paginationActive: \d+
+
+barra_back_reference_pictures:
+    path:     /referencePictures/{id}
+    defaults: { _controller: BarraBackBundle:ReferencePicture:index }
+    requirements:
+        id: \d+
+
+barra_back_techniques:
+  path:     /techniques/{paginationActive}
+  defaults: { _controller: BarraBackBundle:Technique:index, paginationActive: 1 }
+  requirements:
+    paginationActive: \d+
+

@@ -2,87 +2,91 @@
 
 namespace Barra\FrontBundle\DataFixtures\ORM;
 
+use Barra\FrontBundle\Entity\Manufacturer;
+use Barra\FrontBundle\Entity\Product;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Barra\FrontBundle\Entity\Product;
+use InvalidArgumentException;
 
+/**
+ * Class LoadProductData
+ * @author Paul Kujawa <p.kujawa@gmx.net>
+ * @package Barra\FrontBundle\DataFixtures\ORM
+ */
 class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
 {
-    static public $members = array();
+    static public $members = [];
 
-    /**
-     * {@inheritDoc}
-     */
     public function load(ObjectManager $em)
     {
-        $entity1 = new Product();
-        $entity1->setName("fixProduct1")->setVegan(true)->setGr(1)->setKcal(1)->setCarbs(1)->setSugar(1)
-            ->setProtein(1)->setFat(1)->setGfat(1)->setManufacturer( $this->getReference('fixManufacturer1') );
-        $em->persist($entity1);
-        $this->addReference('fixProduct1', $entity1);
+        self::$members[] = $this->instantiate('Product1', false, 1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 'refManufacturer1');
+        self::$members[] = $this->instantiate('Product2', true,  1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 'refManufacturer1');
+        self::$members[] = $this->instantiate('Product3', true,  1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 'refManufacturer1');
 
-        $entity2 = new Product();
-        $entity2->setName("fixProduct2")->setVegan(true)->setGr(1)->setKcal(1)->setCarbs(1)->setSugar(1)
-            ->setProtein(1)->setFat(1)->setGfat(1)->setManufacturer( $this->getReference('fixManufacturer1') );
-        $em->persist($entity2);
-        $this->addReference('fixProduct2', $entity2);
+        self::$members[] = $this->instantiate('Product4', true,  1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 'refManufacturer2');
+        self::$members[] = $this->instantiate('Product5', false, 1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 'refManufacturer2');
+        self::$members[] = $this->instantiate('Product6', true,  1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 'refManufacturer2');
 
-        $entity3 = new Product();
-        $entity3->setName("fixProduct3")->setVegan(true)->setGr(1)->setKcal(1)->setCarbs(1)->setSugar(1)
-            ->setProtein(1)->setFat(1)->setGfat(1)->setManufacturer( $this->getReference('fixManufacturer1') );
-        $em->persist($entity3);
-        $this->addReference('fixProduct3', $entity3);
+        self::$members[] = $this->instantiate('Product7', false, 1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 'refManufacturer3');
+        self::$members[] = $this->instantiate('Product8', true,  1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 'refManufacturer3');
+        self::$members[] = $this->instantiate('Product9', true,  1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 'refManufacturer3');
 
-
-
-
-        $entity4 = new Product();
-        $entity4->setName("fixProduct4")->setVegan(false)->setGr(1)->setKcal(1)->setCarbs(1)->setSugar(1)
-            ->setProtein(1)->setFat(1)->setGfat(1)->setManufacturer( $this->getReference('fixManufacturer2') );
-        $em->persist($entity4);
-        $this->addReference('fixProduct4', $entity4);
-
-        $entity5 = new Product();
-        $entity5->setName("fixProduct5")->setVegan(true)->setGr(1)->setKcal(1)->setCarbs(1)->setSugar(1)
-            ->setProtein(1)->setFat(1)->setGfat(1)->setManufacturer( $this->getReference('fixManufacturer2') );
-        $em->persist($entity5);
-        $this->addReference('fixProduct5', $entity5);
-
-        $entity6 = new Product();
-        $entity6->setName("fixProduct6")->setVegan(false)->setGr(1)->setKcal(1)->setCarbs(1)->setSugar(1)
-            ->setProtein(1)->setFat(1)->setGfat(1)->setManufacturer( $this->getReference('fixManufacturer2') );
-        $em->persist($entity6);
-        $this->addReference('fixProduct6', $entity6);
-
-
-
-
-        $entity7 = new Product();
-        $entity7->setName("fixProduct7")->setVegan(false)->setGr(1)->setKcal(1)->setCarbs(1)->setSugar(1)
-            ->setProtein(1)->setFat(1)->setGfat(1)->setManufacturer( $this->getReference('fixManufacturer3') );
-        $em->persist($entity7);
-        $this->addReference('fixProduct7', $entity7);
-
-        $entity8 = new Product();
-        $entity8->setName("fixProduct8")->setVegan(true)->setGr(1)->setKcal(1)->setCarbs(1)->setSugar(1)
-            ->setProtein(1)->setFat(1)->setGfat(1)->setManufacturer( $this->getReference('fixManufacturer3') );
-        $em->persist($entity8);
-        $this->addReference('fixProduct8', $entity8);
-
-        $entity9 = new Product();
-        $entity9->setName("fixProduct9")->setVegan(true)->setGr(1)->setKcal(1)->setCarbs(1)->setSugar(1)
-            ->setProtein(1)->setFat(1)->setGfat(1)->setManufacturer( $this->getReference('fixManufacturer3') );
-        $em->persist($entity9);
-        $this->addReference('fixProduct9', $entity9);
-
+        foreach(self::$members as $i => $e) {
+            $this->addReference('refProduct'.($i+1), $e);
+            $em->persist($e);
+        }
         $em->flush();
-        self::$members = array($entity1, $entity2, $entity3, $entity4, $entity5, $entity6, $entity7, $entity8, $entity9);
     }
 
     /**
-     * {@inheritDoc}
+     * @param string    $name
+     * @param bool      $isVegan
+     * @param int       $gr
+     * @param int       $kcal
+     * @param double    $carbs
+     * @param double    $sugar
+     * @param double    $protein
+     * @param double    $fat
+     * @param double    $gfat
+     * @param string    $refManufacturer
+     * @return Product
      */
+    protected function instantiate($name, $isVegan, $gr, $kcal, $carbs, $sugar, $protein, $fat, $gfat, $refManufacturer)
+    {
+        $manufacturer = $this->getReference($refManufacturer);
+
+        if (!$manufacturer instanceof Manufacturer ||
+            !is_string($name) ||
+            !is_bool($isVegan) ||
+            !is_int($gr) ||
+            !is_int($kcal) ||
+            !is_double($carbs) ||
+            !is_double($sugar) ||
+            !is_double($protein) ||
+            !is_double($fat) ||
+            !is_double($gfat)
+        ) {
+            throw new InvalidArgumentException();
+        }
+
+        $entity = new Product();
+        $entity
+            ->setName($name)
+            ->setVegan($isVegan)
+            ->setGr($gr)
+            ->setKcal($kcal)
+            ->setCarbs($carbs)
+            ->setSugar($sugar)
+            ->setProtein($protein)
+            ->setFat($fat)
+            ->setGfat($gfat)
+            ->setManufacturer($manufacturer)
+        ;
+
+        return $entity;
+    }
+
     public function getOrder()
     {
         return 2;

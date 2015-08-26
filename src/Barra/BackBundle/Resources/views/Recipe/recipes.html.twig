@@ -1,11 +1,11 @@
 {% extends 'BarraBackBundle::layout.html.twig' %}
-{% trans_default_domain "messages" %}
-{% block title %}{{ 'back.title.recipes'|trans() }}{% endblock %}
 {% form_theme form 'BarraBackBundle:Form:tableRow.html.twig' %}
+{% block title %}{{ 'back.title.recipes'|trans() }}{% endblock %}
 
 {% block section %}
     <section class="container mobileTables" ng-controller="RecipeCtrl">
         {{ include('BarraBackBundle::formValidation.html.twig') }}
+
         {{ form_start(form) }}
             <table class="table table-striped">
                 <thead>
@@ -24,7 +24,7 @@
                             <span class="glyphicon glyphicon-minus" ng-click="deleteEntry(recipe)"></span>
                         </td>
                     </tr>
-                    <tr class="formInRow" ng-class="{'danger has-error': formErrors}">
+                    <tr class="formInRow">
                         {{ form_row(form.name) }}
                         {{ form_widget(form.submit, {'label': 'back.action.new', 'attr': {'class': 'btn'} }) }}
                     </tr>

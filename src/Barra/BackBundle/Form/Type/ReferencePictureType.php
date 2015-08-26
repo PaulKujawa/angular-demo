@@ -6,25 +6,32 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+/**
+ * Class ReferencePictureType
+ * @author Paul Kujawa <p.kujawa@gmx.net>
+ * @package Barra\BackBundle\Form\Type
+ */
 class ReferencePictureType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('reference', 'hidden', array(
-                    'mapped' => false,
-                    'label'=>false
-                ))
+            ->add('reference', 'hidden', [
+                'mapped' => false,
+                'label'  => false,
+            ])
             ->add('file', 'file')
-            ->getForm();
+            ->getForm()
+        ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class'=>'Barra\FrontBundle\Entity\ReferencePicture',
-            'intention' =>'recipeFile'
-        ));
+        $resolver->setDefaults([
+            'data_class'        => 'Barra\FrontBundle\Entity\ReferencePicture',
+            'intention'         => 'recipeFile',
+            'csrf_protection'   => false,
+        ]);
     }
 
     public function getName()

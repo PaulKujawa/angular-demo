@@ -18,8 +18,8 @@
     <section class="container">
         <div id="recipeCircles">
             <div id="recipePic">
-                {% if recipe.RecipePictures is not empty %}
-                    <img class="img-circle" src="{{ asset('uploads/documents/'~(recipe.RecipePictures|first).filename) }}" alt="{{ recipe.name }}">
+                {% if recipe.Photos is not empty %}
+                    <img class="img-circle" src="{{ asset('uploads/documents/'~(recipe.photos|first).filename) }}" alt="{{ recipe.name }}">
                 {% endif %}
             </div>
 

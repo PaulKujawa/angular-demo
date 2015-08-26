@@ -2,79 +2,52 @@
 
 namespace Barra\FrontBundle\Entity;
 
+use Barra\FrontBundle\Entity\Traits\IdAutoTrait;
+use Barra\FrontBundle\Entity\Traits\NameTrait;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\Groups;
-use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
- * Manufacturer
+ * Class Manufacturer
+ * @author Paul Kujawa <p.kujawa@gmx.net>
+ * @package Barra\FrontBundle\Entity
+
  * @ExclusionPolicy("none")
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Barra\FrontBundle\Entity\Repository\ManufacturerRepository")
+ * @ORM\Entity(repositoryClass = "Barra\FrontBundle\Entity\Repository\ManufacturerRepository")
  */
 class Manufacturer
 {
-    /**
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
+    use IdAutoTrait,
+        NameTrait
+    ;
 
     /**
-     *@ORM\Column(name="name", type="string", length=30, unique=true)
-     */
-    private $name;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Product", mappedBy="manufacturer")
+     * @var ArrayCollection
+     * @ORM\OneToMany(
+     *      targetEntity = "Product",
+     *      mappedBy     = "manufacturer"
+     * )
      * @ORM\OrderBy({"name" = "ASC"})
      */
     private $products;
 
     /**
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param string $name
-     * @return Manufacturer
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-    /**
      * Constructor
      */
     public function __construct()
     {
-        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->products = new ArrayCollection();
     }
 
     /**
      * Add products
      *
-     * @param \Barra\FrontBundle\Entity\Product $products
-     * @return Manufacturer
+     * @param Product $products
+     * @return $this
      */
-    public function addProduct(\Barra\FrontBundle\Entity\Product $products)
+    public function addProduct(Product $products)
     {
         $this->products[] = $products;
 
@@ -84,9 +57,9 @@ class Manufacturer
     /**
      * Remove products
      *
-     * @param \Barra\FrontBundle\Entity\Product $products
+     * @param Product $products
      */
-    public function removeProduct(\Barra\FrontBundle\Entity\Product $products)
+    public function removeProduct(Product $products)
     {
         $this->products->removeElement($products);
     }
@@ -94,7 +67,7 @@ class Manufacturer
     /**
      * Get products
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return ArrayCollection
      */
     public function getProducts()
     {

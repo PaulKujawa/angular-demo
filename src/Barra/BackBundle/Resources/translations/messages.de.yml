@@ -33,7 +33,7 @@ back:
 
   measurement: #object
     gr: Gr
-    type: Typ
+    name: Typ
 
   manufacturer: #object
     name: Name

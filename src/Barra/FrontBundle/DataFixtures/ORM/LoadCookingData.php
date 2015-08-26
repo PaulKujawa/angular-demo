@@ -2,78 +2,73 @@
 
 namespace Barra\FrontBundle\DataFixtures\ORM;
 
+use Barra\FrontBundle\Entity\Cooking;
+use Barra\FrontBundle\Entity\Recipe;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Barra\FrontBundle\Entity\Cooking;
+use InvalidArgumentException;
 
+/**
+ * Class LoadCookingData
+ * @author Paul Kujawa <p.kujawa@gmx.net>
+ * @package Barra\FrontBundle\DataFixtures\ORM
+ */
 class LoadCookingData extends AbstractFixture implements OrderedFixtureInterface
 {
-    static public $members = array();
+    static public $members = [];
 
-    /**
-     * {@inheritDoc}
-     */
     public function load(ObjectManager $em)
     {
-        $entity1 = new Cooking();
-        $entity1->setPosition(1)->setDescription("1st step")->setRecipe( $this->getReference('fixRecipe1') )->createId();
-        $em->persist($entity1);
-        $this->addReference('fixCooking1', $entity1);
+        self::$members[] = $this->instantiate(1, '1th step', 'refRecipe1');
+        self::$members[] = $this->instantiate(2, '2th step', 'refRecipe1');
+        self::$members[] = $this->instantiate(3, '3th step', 'refRecipe1');
 
-        $entity2 = new Cooking();
-        $entity2->setPosition(2)->setDescription("2nd step")->setRecipe( $this->getReference('fixRecipe1') )->createId();
-        $em->persist($entity2);
-        $this->addReference('fixCooking2', $entity2);
+        self::$members[] = $this->instantiate(4, '1th step', 'refRecipe2');
+        self::$members[] = $this->instantiate(5, '2th step', 'refRecipe2');
+        self::$members[] = $this->instantiate(6, '3th step', 'refRecipe2');
 
-        $entity3 = new Cooking();
-        $entity3->setPosition(3)->setDescription("3th step")->setRecipe( $this->getReference('fixRecipe1') )->createId();
-        $em->persist($entity3);
-        $this->addReference('fixCooking3', $entity3);
+        self::$members[] = $this->instantiate(7, '1th step', 'refRecipe3');
+        self::$members[] = $this->instantiate(8, '2th step', 'refRecipe3');
+        self::$members[] = $this->instantiate(9, '3th step', 'refRecipe3');
 
-
-
-
-        $entity4 = new Cooking();
-        $entity4->setPosition(1)->setDescription("1st step")->setRecipe( $this->getReference('fixRecipe2') )->createId();
-        $em->persist($entity4);
-        $this->addReference('fixCooking4', $entity4);
-
-        $entity5 = new Cooking();
-        $entity5->setPosition(2)->setDescription("2nd step")->setRecipe( $this->getReference('fixRecipe2') )->createId();
-        $em->persist($entity5);
-        $this->addReference('fixCooking5', $entity5);
-
-        $entity6 = new Cooking();
-        $entity6->setPosition(3)->setDescription("3th step")->setRecipe( $this->getReference('fixRecipe2') )->createId();
-        $em->persist($entity6);
-        $this->addReference('fixCooking6', $entity6);
-
-
-
-
-        $entity7 = new Cooking();
-        $entity7->setPosition(1)->setDescription("1st step")->setRecipe( $this->getReference('fixRecipe3') )->createId();
-        $em->persist($entity7);
-        $this->addReference('fixCooking7', $entity7);
-
-        $entity8 = new Cooking();
-        $entity8->setPosition(2)->setDescription("2nd step")->setRecipe( $this->getReference('fixRecipe3') )->createId();
-        $em->persist($entity8);
-        $this->addReference('fixCooking8', $entity8);
-
-        $entity9 = new Cooking();
-        $entity9->setPosition(3)->setDescription("3th step")->setRecipe( $this->getReference('fixRecipe3') )->createId();
-        $em->persist($entity9);
-        $this->addReference('fixCooking9', $entity9);
-
+        foreach(self::$members as $i => $e) {
+            $this->addReference('refCooking'.($i+1), $e);
+            $em->persist($e);
+        }
         $em->flush();
-        self::$members = array($entity1, $entity2, $entity3, $entity4, $entity5, $entity6, $entity7, $entity8, $entity9);
     }
 
+
     /**
-     * {@inheritDoc}
+     * @param int       $position
+     * @param string    $description
+     * @param string    $refRecipe
+     * @return Cooking
+     * @throws InvalidArgumentException
      */
+    protected function instantiate($position, $description, $refRecipe)
+    {
+        $recipe = $this->getReference($refRecipe);
+
+        if (!$recipe instanceof Recipe ||
+            !is_int($position) ||
+            !is_string($description)
+        ) {
+            throw new InvalidArgumentException();
+        }
+
+        $entity = new Cooking();
+        $entity
+            ->setPosition($position)
+            ->setDescription($description)
+            ->setRecipe($recipe)
+            ->createId()
+        ;
+
+        return $entity;
+    }
+
     public function getOrder()
     {
         return 6;
