@@ -22,9 +22,9 @@ class LoadReferencePictureData extends AbstractFixture implements OrderedFixture
 
     public function load(ObjectManager $em)
     {
-        self::$members[] = $this->instantiate('ReferencePicture1', 'refReference1', 1);
-        self::$members[] = $this->instantiate('ReferencePicture2', 'refReference2', 2);
-        self::$members[] = $this->instantiate('ReferencePicture3', 'refReference3', 3);
+        self::$members[] = $this->instantiate('ReferencePicture1', 'refReference1', '1');
+        self::$members[] = $this->instantiate('ReferencePicture2', 'refReference2', '2');
+        self::$members[] = $this->instantiate('ReferencePicture3', 'refReference3', '3');
 
         foreach(self::$members as $i => $e) {
             $this->addReference('refReferencePicture'.($i+1), $e);
@@ -46,7 +46,7 @@ class LoadReferencePictureData extends AbstractFixture implements OrderedFixture
 
         if (!$reference instanceof Reference ||
             !is_string($name) ||
-            !is_int($index)
+            !is_string($index)
         ) {
             throw new InvalidArgumentException();
         }

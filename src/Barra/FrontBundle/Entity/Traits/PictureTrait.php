@@ -147,9 +147,17 @@ trait PictureTrait
      *
      * @param string $filename
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function setFilename($filename)
     {
+        if (!is_string($filename)) {
+            throw new \InvalidArgumentException(sprintf(
+                '"%s" needs to be of type "%s',
+                'filename',
+                'string'
+            ));
+        }
         $this->filename = $filename;
         return $this;
     }
@@ -167,11 +175,19 @@ trait PictureTrait
     /**
      * Set size
      *
-     * @param string $size
+     * @param int $size
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function setSize($size)
     {
+        if (!is_int($size)) {
+            throw new \InvalidArgumentException(sprintf(
+                '"%s" needs to be of type "%s',
+                'size',
+                'int'
+            ));
+        }
         $this->size = $size;
 
         return $this;

@@ -21,13 +21,19 @@ trait DescriptionTrait
     private $description;
 
     /**
-     * Set description
-     *
      * @param string $description
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function setDescription($description)
     {
+        if (!is_string($description)) {
+            throw new \InvalidArgumentException(sprintf(
+                '"%s" needs to be of type "%s',
+                'description',
+                'string'
+            ));
+        }
         $this->description = $description;
 
         return $this;

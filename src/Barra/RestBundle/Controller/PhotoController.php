@@ -76,6 +76,7 @@ class PhotoController extends FOSRestController
             return $this->view(null, Codes::HTTP_NOT_FOUND);
         }
 
+
         return ['data' => $entity];
     }
 

@@ -36,9 +36,20 @@ class Cooking
 
     /**
      * @return $this
+     * @throws \RuntimeException
      */
     public function createId()
     {
+        if (is_null($this->getRecipe()) ||
+            is_null($this->getRecipe()->getId()) ||
+            is_null($this->getPosition())
+        ) {
+            throw new \RuntimeException(sprintf(
+                '"%s" and "%s" must have been set',
+                'recipe',
+                'position'
+            ));
+        }
         $this->id = $this->getRecipe()->getId() . $this->getPosition();
 
         return $this;
@@ -47,7 +58,7 @@ class Cooking
     /**
      * Get id
      *
-     * @return string
+     * @return int
      */
     public function getId()
     {

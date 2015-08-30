@@ -21,9 +21,9 @@ class LoadPhotoData extends AbstractFixture implements OrderedFixtureInterface
 
     public function load(ObjectManager $em)
     {
-        self::$members[] = $this->instantiate('Photo1', 'refRecipe1', 1);
-        self::$members[] = $this->instantiate('Photo2', 'refRecipe2', 2);
-        self::$members[] = $this->instantiate('Photo3', 'refRecipe3', 3);
+        self::$members[] = $this->instantiate('Photo1', 'refRecipe1');
+        self::$members[] = $this->instantiate('Photo2', 'refRecipe2');
+        self::$members[] = $this->instantiate('Photo3', 'refRecipe3');
 
         foreach(self::$members as $i => $e) {
             $this->addReference('refPhoto'.($i+1), $e);

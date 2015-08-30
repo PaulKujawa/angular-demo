@@ -28,8 +28,8 @@ class Agency
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(
-     *      targetEntity="Reference",
-     *      mappedBy="agency"
+     *      targetEntity = "Reference",
+     *      mappedBy     = "agency"
      * )
      */
     private $references;

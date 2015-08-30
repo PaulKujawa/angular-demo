@@ -74,11 +74,19 @@ class Ingredient
     /**
      * Set amount
      *
-     * @param integer $amount
+     * @param int $amount
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function setAmount($amount)
     {
+        if (!is_int($amount)) {
+            throw new \InvalidArgumentException(sprintf(
+                '"%s" needs to be of type "%s',
+                'amount',
+                'int'
+            ));
+        }
         $this->amount = $amount;
 
         return $this;
@@ -87,7 +95,7 @@ class Ingredient
     /**
      * Get amount
      *
-     * @return integer 
+     * @return int
      */
     public function getAmount()
     {
@@ -143,9 +151,21 @@ class Ingredient
 
     /**
      * @return $this
+     * @throws \RuntimeException
      */
     public function createId()
     {
+        if (is_null($this->getRecipe()) ||
+            is_null($this->getRecipe()->getId()) ||
+            is_null($this->getProduct()) ||
+            is_null($this->getProduct()->getId())
+        ) {
+            throw new \RuntimeException(sprintf(
+                '"%s" and "%s" must have been set',
+                'recipe',
+                'product'
+            ));
+        }
         $this->id = $this->getRecipe()->getId() . $this->getProduct()->getId();
 
         return $this;
@@ -155,7 +175,7 @@ class Ingredient
     /**
      * Get id
      *
-     * @return string
+     * @return int
      */
     public function getId()
     {

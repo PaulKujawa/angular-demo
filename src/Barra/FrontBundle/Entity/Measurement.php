@@ -44,11 +44,19 @@ class Measurement
     /**
      * Set gr
      *
-     * @param integer $gr
+     * @param int $gr
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function setGr($gr)
     {
+        if (!is_int($gr)) {
+            throw new \InvalidArgumentException(sprintf(
+                '"%s" needs to be of type "%s',
+                'gr',
+                'int'
+            ));
+        }
         $this->gr = $gr;
 
         return $this;
@@ -57,7 +65,7 @@ class Measurement
     /**
      * Get gr
      *
-     * @return integer 
+     * @return int
      */
     public function getGr()
     {

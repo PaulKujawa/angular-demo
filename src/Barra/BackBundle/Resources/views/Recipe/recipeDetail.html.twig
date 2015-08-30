@@ -5,21 +5,15 @@
 
 {% block section %}
     <section class="container mobileTables">
-        {#<form#}
-            {#name="formPicture" id="dropzoneId" class="dropzone"#}
-            {#action="{{ path('barra_back_recipeDetail_picture_upload') }}" enctype="multipart/form-data" method="post"#}
-            {#data-removeLink="{{ path('barra_back_recipeDetail_picture_delete', {'recipeId': recipe.id, 'id': 0}) }}"#}
-            {#data-getAllLink="{{ path('barra_back_recipeDetail_pictures_get', {'recipeId': recipe.id}) }}"#}
-            {#data-picturesFolder="{{ asset('uploads/documents/') }}"#}
-        {#>#}
-            {#<input type="hidden" name="formPicture[recipe]" id="formPicture_recipe" value="{{ recipe.id }}">#}
-            {#{{ form_widget(formPicture._token) }}#}
-            {#<div class="dz-default dz-message">#}
-                {#<span class="glyphicon glyphicon-upload"></span>#}
-            {#</div>#}
-        {#</form>#}
-
-
+        <form ng-controller="PhotoCtrl"  ng-init="recipeId={{recipe.id}}"
+              name="formPicture" id="dropzoneId" class="dropzone" method="post"
+              enctype="multipart/form-data" action="{{ path('barra_api_post_photo') }}"
+        >
+            <input type="hidden" name="formPhoto[recipe]" id="formPicture_recipe" value="{{ recipe.id }}">
+            <div class="dz-default dz-message">
+                <span class="glyphicon glyphicon-upload"></span>
+            </div>
+        </form>
 
         <div ng-controller="IngredientCtrl" ng-init="recipeId={{recipe.id}}">
             {{ include('BarraBackBundle::formValidation.html.twig') }}
@@ -48,7 +42,9 @@
                             {{ form_row(formIngredient.amount) }}
                             {{ form_row(formIngredient.measurement) }}
                             {{ form_row(formIngredient.product) }}
-                            {{ form_widget(formIngredient.submit, {'label': 'back.action.new', 'attr': {'class': 'btn btn-default'} }) }}
+                            {{ form_widget(formIngredient.submit, {'label': 'back.action.new', 'attr': {
+                                'class': 'btn btn-default'} })
+                            }}
                         </tr>
                     </tbody>
                 </table>

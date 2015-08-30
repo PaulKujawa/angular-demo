@@ -26,9 +26,17 @@ trait UrlTrait
      *
      * @param string $url
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function setUrl($url)
     {
+        if (!is_string($url)) {
+            throw new \InvalidArgumentException(sprintf(
+                '"%s" needs to be of type "%s',
+                'url',
+                'string'
+            ));
+        }
         $this->url = $url;
 
         return $this;

@@ -42,17 +42,16 @@ class Product
     private $gr;
 
     /**
-     * @var float
+     * @var int
      * @ORM\Column(
      *      name  = "kcal",
-     *      type  = "decimal",
-     *      scale = 1
+     *      type  = "integer"
      * )
      */
     private $kcal;
 
     /**
-     * @var float
+     * @var double
      * @ORM\Column(
      *      name  = "protein",
      *      type  = "decimal",
@@ -62,7 +61,7 @@ class Product
     private $protein;
 
     /**
-     * @var float
+     * @var double
      * @ORM\Column(
      *      name  = "carbs",
      *      type  = "decimal",
@@ -72,7 +71,7 @@ class Product
     private $carbs;
 
     /**
-     * @var float
+     * @var double
      * @ORM\Column(
      *      name  = "sugar",
      *      type  = "decimal",
@@ -82,7 +81,7 @@ class Product
     private $sugar;
 
     /**
-     * @var float
+     * @var double
      * @ORM\Column(
      *      name  = "fat",
      *      type  = "decimal",
@@ -92,7 +91,7 @@ class Product
     private $fat;
 
     /**
-     * @var float
+     * @var double
      * @ORM\Column(
      *      name  = "gfat",
      *      type  = "decimal",
@@ -147,9 +146,17 @@ class Product
      *
      * @param boolean $vegan
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function setVegan($vegan)
     {
+        if (!is_bool($vegan)) {
+            throw new \InvalidArgumentException(sprintf(
+                '"%s" needs to be of type "%s',
+                'vegan',
+                'bool'
+            ));
+        }
         $this->vegan = $vegan;
 
         return $this;
@@ -168,11 +175,19 @@ class Product
     /**
      * Set kcal
      *
-     * @param string $kcal
+     * @param int $kcal
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function setKcal($kcal)
     {
+        if (!is_int($kcal)) {
+            throw new \InvalidArgumentException(sprintf(
+                '"%s" needs to be of type "%s',
+                'kcal',
+                'int'
+            ));
+        }
         $this->kcal = $kcal;
 
         return $this;
@@ -191,11 +206,19 @@ class Product
     /**
      * Set gr
      *
-     * @param integer $gr
+     * @param int $gr
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function setGr($gr)
     {
+        if (!is_int($gr)) {
+            throw new \InvalidArgumentException(sprintf(
+                '"%s" needs to be of type "%s',
+                'gr',
+                'int'
+            ));
+        }
         $this->gr = $gr;
 
         return $this;
@@ -204,7 +227,7 @@ class Product
     /**
      * Get gr
      *
-     * @return integer
+     * @return int
      */
     public function getGr()
     {
@@ -214,11 +237,19 @@ class Product
     /**
      * Set protein
      *
-     * @param string $protein
+     * @param double $protein
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function setProtein($protein)
     {
+        if (!is_double($protein)) {
+            throw new \InvalidArgumentException(sprintf(
+                '"%s" needs to be of type "%s',
+                'protein',
+                'double'
+            ));
+        }
         $this->protein = $protein;
 
         return $this;
@@ -227,7 +258,7 @@ class Product
     /**
      * Get protein
      *
-     * @return string 
+     * @return double
      */
     public function getProtein()
     {
@@ -237,11 +268,19 @@ class Product
     /**
      * Set carbs
      *
-     * @param string $carbs
+     * @param double $carbs
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function setCarbs($carbs)
     {
+        if (!is_double($carbs)) {
+            throw new \InvalidArgumentException(sprintf(
+                '"%s" needs to be of type "%s',
+                'carbs',
+                'double'
+            ));
+        }
         $this->carbs = $carbs;
 
         return $this;
@@ -250,7 +289,7 @@ class Product
     /**
      * Get carbs
      *
-     * @return string 
+     * @return double
      */
     public function getCarbs()
     {
@@ -260,11 +299,19 @@ class Product
     /**
      * Set sugar
      *
-     * @param string $sugar
+     * @param double $sugar
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function setSugar($sugar)
     {
+        if (!is_double($sugar)) {
+            throw new \InvalidArgumentException(sprintf(
+                '"%s" needs to be of type "%s',
+                'sugar',
+                'double'
+            ));
+        }
         $this->sugar = $sugar;
 
         return $this;
@@ -273,7 +320,7 @@ class Product
     /**
      * Get sugar
      *
-     * @return string 
+     * @return string
      */
     public function getSugar()
     {
@@ -283,11 +330,19 @@ class Product
     /**
      * Set fat
      *
-     * @param string $fat
+     * @param double $fat
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function setFat($fat)
     {
+        if (!is_double($fat)) {
+            throw new \InvalidArgumentException(sprintf(
+                '"%s" needs to be of type "%s',
+                'fat',
+                'double'
+            ));
+        }
         $this->fat = $fat;
 
         return $this;
@@ -296,7 +351,7 @@ class Product
     /**
      * Get fat
      *
-     * @return string 
+     * @return double
      */
     public function getFat()
     {
@@ -306,11 +361,19 @@ class Product
     /**
      * Set gfat
      *
-     * @param string $gfat
+     * @param double $gfat
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function setGfat($gfat)
     {
+        if (!is_double($gfat)) {
+            throw new \InvalidArgumentException(sprintf(
+                '"%s" needs to be of type "%s',
+                'gfat',
+                'double'
+            ));
+        }
         $this->gfat = $gfat;
 
         return $this;
@@ -319,7 +382,7 @@ class Product
     /**
      * Get gfat
      *
-     * @return string 
+     * @return double
      */
     public function getGfat()
     {

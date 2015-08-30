@@ -690,4 +690,96 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
             });
         };
     })
+    .controller('PhotoCtrl', function($scope, $http, Restangular, FormError, FormFieldError, Api) {
+        $scope.$watch('recipeId', function () {
+            var templatePanel =
+                '<div class="dz-preview dz-file-preview">'              +
+                '<div class="dz-details">'                              +
+                '<img data-dz-thumbnail />'                             +
+                '<div class="dz-filename">'                             +
+                '<span data-dz-name></span>'                            +
+                '</div>'                                                +
+                '</div>'                                                +
+                '<div class="dz-progress">'                             +
+                '<span class="dz-upload" data-dz-uploadprogress></span>'+
+                '</div>'                                                +
+                '<div class="dz-size" data-dz-size></div>'              +
+                    /*'<a class="dz-remove" href="#" data-dz-remove>'   +
+                     '<span class="glyphicon glyphicon-minus"></span>'  +
+                     '</a>'                                             +*/
+                '<div class="dz-success-mark">'                         +
+                '<span>✔</span>'                                        +
+                '</div>'                                                +
+                '<div class="dz-error-mark">'                           +
+                '<span>✘</span>'                                        +
+                '</div>'                                                +
+                '<div class="dz-error-message">'                        +
+                '<span data-dz-errormessage></span>'                    +
+                '</div>'                                                +
+                '</div>',
+
+                templateButton =
+                '<a class="dz-remove inactiveLink" href="#" data-dz-remove>'    +
+                    '<span class="glyphicon glyphicon-minus"></span>'           +
+                '</a>'
+            ;
+
+
+            Dropzone.options.dropzoneId = {
+                parallelUploads:    3,
+                maxFilesize:        2,          // MB, according to server & DB validation (& php.ini setting)
+                thumbnailWidth:     null,       // height:100%, width:auto (100)
+                acceptedFiles:      "image/*",
+                previewTemplate:    templatePanel,
+
+                init: function() {
+                    var dropZone = this,
+                        route = Routing.generate('barra_api_get_photos', {
+                            recipe: $scope.recipeId, offset:0, limit:10, order_by:'name'
+                        })
+                    ;
+                    Restangular.allUrl('photos', route).getList().then(
+                        function(response) {
+                            $scope.photos = response.data;
+
+                            $.each($scope.photos, function(index, photo) {
+                                dropZone.options.addedfile.call(dropZone, photo);
+                                dropZone.options.thumbnail.call(
+                                    dropZone,
+                                    photo,
+                                    '/barra/vpit/web/uploads/documents/' + photo.filename
+                                );
+                                var icon = Dropzone.createElement(templateButton);
+                                photo.previewElement.appendChild(icon);
+                            });
+                        },
+                        function(response) {
+                            $scope.formErrors = FormError.selectMsg(response);
+                        }
+                    );
+
+                    // called on every successful file upload
+                    this.on("success", function(file, response) {
+                        addRemoveLink(response.id, file);
+                    });
+                }
+            };
+        });
+
+
+        /**
+         * Delete entry server-sided and from scope
+         * @param element
+         */
+        $scope.deleteEntry = function(element) {
+            element.remove().then(
+                function() {
+                    $scope.photos.splice($scope.photos.indexOf(element), 1);
+                },
+                function(response) {
+                    $scope.formErrors = FormError.selectMsg(response);
+                }
+            );
+        };
+    })
 ;

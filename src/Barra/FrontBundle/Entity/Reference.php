@@ -108,7 +108,7 @@ class Reference
      * @param \DateTime $started
      * @return Reference
      */
-    public function setStarted($started)
+    public function setStarted(\DateTime $started)
     {
         $this->started = $started;
 
@@ -131,7 +131,7 @@ class Reference
      * @param \DateTime $finished
      * @return Reference
      */
-    public function setFinished($finished)
+    public function setFinished(\DateTime $finished)
     {
         $this->finished = $finished;
 
