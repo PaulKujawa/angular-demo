@@ -59,10 +59,13 @@ class Agency
      * Remove references
      *
      * @param Reference $references
+     * @return $this
      */
     public function removeReference(Reference $references)
     {
         $this->references->removeElement($references);
+
+        return $this;
     }
 
     /**
