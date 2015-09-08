@@ -58,7 +58,7 @@ class AgencyTest extends \PHPUnit_Framework_TestCase
      * @test
      * @return Agency
      */
-    public function setName()
+    public function setNameTest()
     {
         $resource = $this->model->setName(self::TITLE);
         $this->assertInstanceOf(
@@ -69,24 +69,24 @@ class AgencyTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
-//    /**
-//     * @test
-//     * @depends setName
-//     * @param Agency $self
-//     */
-//    public function getName(Agency $self)
-//    {
-//        $got = $self->getName();
-//        $this->assertInternalType(
-//            'string',
-//            $got
-//        );
-//
-//        $this->assertEquals(
-//            self::TITLE,
-//            $got
-//        );
-//    }
+    /**
+     * @test
+     * @depends setNameTest
+     * @param Agency $self
+     */
+    public function getNameTest(Agency $self)
+    {
+        $got = $self->getName();
+        $this->assertInternalType(
+            'string',
+            $got
+        );
+
+        $this->assertEquals(
+            self::TITLE,
+            $got
+        );
+    }
 
     /**
      * @test
