@@ -5,11 +5,15 @@
     </target>
 
 
+
+
+
     <!--
 
         SSH KEYS + COMPOSER
 
     -->
+    <!-- password needs to be identical to app/config/parameters.yml -->
     <target hidden="true" name="ssh-keys">
         <echo message="SSH keys generating" />
         <echo message="-------------------" />
@@ -43,6 +47,9 @@
         <echo message="--------------------------------" />
         <exec logoutput="true" checkreturn="true" command="composer install -n" />
     </target>
+
+
+
 
 
     <!--
@@ -112,10 +119,6 @@
 
     <!-- see phpunit.xml.dist for Junit, clover, HTML-CC -->
     <target name="PHPUnit" depends="prepare">
-        <autoloader autoloaderpath="/var/lib/jenkins/.composer/vendor/autoload.php"/>
-
-        <phpunit configuration="./app/phpunit.xml.dist" printsummary="true">
-            <formatter todir="build/logs" type="xml"/>
-        </phpunit>
+        <exec logoutput="true" checkreturn="true" command="~/.composer/vendor/bin/phpunit -c app/phpunit.xml.dist" />
     </target>
 </project>
