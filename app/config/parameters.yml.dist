@@ -14,8 +14,8 @@ parameters:
     mailer_user: ~
     mailer_password: ~
     locale: en
-    secret: ~
-    jwt_passphrase: publicDemoPP
+    secret: unsecureCSRFToken
+    jwt_passphrase: ~
 
     debug_toolbar: true
     debug_redirects: false

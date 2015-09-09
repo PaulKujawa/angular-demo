@@ -24,8 +24,8 @@
                 <echo message="SSH keys has already been generated. Skipping." />
             </then>
             <else>
-                <exec logoutput="true" checkreturn="true" command="openssl genrsa -passout pass:publicDemoPP -out app/var/jwt/private.pem -aes256 4096" />
-                <exec logoutput="true" checkreturn="true" command="openssl rsa -passin pass:publicDemoPP -pubout -in app/var/jwt/private.pem -out app/var/jwt/public.pem" />
+                <exec logoutput="true" checkreturn="true" command="openssl genrsa -passout pass:unsecureCSRFToken -out app/var/jwt/private.pem -aes256 4096" />
+                <exec logoutput="true" checkreturn="true" command="openssl rsa -passin pass:unsecureCSRFToken -pubout -in app/var/jwt/private.pem -out app/var/jwt/public.pem" />
             </else>
         </if>
     </target>
