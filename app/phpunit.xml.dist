@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--https://phpunit.de/manual/current/en/appendixes.configuration.html-->
 <phpunit
+    bootstrap                   = "bootstrap.php.cache"
     backupGlobals               = "false"
     backupStaticAttributes      = "false"
     colors                      = "true"
@@ -11,35 +13,32 @@
     stopOnFailure               = "false"
     stopOnError                 = "false"
     syntaxCheck                 = "true"
-    bootstrap                   = "bootstrap.php.cache"
     verbose                     = "true"
 >
-    <!-- unit & functional tests -->
+    <!-- tests -->
     <testsuites>
-        <testsuite name="Barra's Test Suite">
-            <directory>../src/*/*Bundle/Tests</directory>
-            <directory>../src/*/Bundle/*Bundle/Tests</directory>
+        <testsuite name="Model Test Suite">
+            <directory>../src/Barra/FrontBundle/Tests</directory>
         </testsuite>
     </testsuites>
 
 
     <!-- code coverage -->
     <filter>
-        <blacklist>
-            <directory>/home/paulkujawa/webroot/vagrant/carzapp-portal/vpit/vendor</directory>
-        </blacklist>
-
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory>/home/paulkujawa/webroot/vagrant/carzapp-portal/vpit/src</directory>
-
+            <directory>../src/**</directory>
             <exclude>
-                <directory>/home/paulkujawa/webroot/vagrant/carzapp-portal/vpit/src/*/*Bundle/Resources</directory>
-                <directory>/home/paulkujawa/webroot/vagrant/carzapp-portal/vpit/src/*/*Bundle/Tests</directory>
-                <directory>/home/paulkujawa/webroot/vagrant/carzapp-portal/vpit/vendor</directory>
+                <directory>../src/*/*Bundle/Resources</directory>
+                <directory>../src/*/*Bundle/Tests</directory>
             </exclude>
         </whitelist>
     </filter>
+
+
+    <!--logging of tests and code coverage-->
     <logging>
-        <log type="coverage-html" target="../build/logs" />
+        <log type="junit"           target="../build/logs/junit.xml" logIncompleteSkipped="false"/>
+        <log type="coverage-clover" target="../build/logs/clover.xml"/>
+        <log type="coverage-html"   target="../build/ccHTML"/>
     </logging>
 </phpunit>

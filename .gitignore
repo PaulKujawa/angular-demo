@@ -36,6 +36,7 @@
 # Build data
 /build/logs/*
 /build/pdepend/*
+/build/ccHTML/*
 .htaccess
 
 # Intelliij IDE
