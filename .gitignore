@@ -34,14 +34,14 @@
 /app/phpunit.xml
 
 # Build data
+/build/ccHTML/*
 /build/logs/*
 /build/pdepend/*
-/build/ccHTML/*
+!build/ccHTML/.gitkeep
 !build/logs/.gitkeep
 !build/pdepend/.gitkeep
-!build/ccHTML/.gitkeep
-.htaccess
 
-# Intelliij IDE
+
+# Mix
 .idea/
-
+.htaccess
