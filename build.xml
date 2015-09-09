@@ -33,7 +33,7 @@
     <target hidden="true" name="composer-self-update">
         <echo message="Composer self-updating" />
         <echo message="----------------------" />
-        <exec logoutput="true" checkreturn="true" command="sudo composer self-update" />
+        <exec logoutput="true" checkreturn="true" command="composer self-update" />
     </target>
 
     <target hidden="true" name="composer-lock-file">
