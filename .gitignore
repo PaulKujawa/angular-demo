@@ -37,9 +37,9 @@
 /build/logs/*
 /build/pdepend/*
 /build/ccHTML/*
-!/build/logs/.gitkeep
-!/build/pdepend/.gitkeep
-!/build/ccHTML/.gitkeep
+!build/logs/.gitkeep
+!build/pdepend/.gitkeep
+!build/ccHTML/.gitkeep
 .htaccess
 
 # Intelliij IDE
