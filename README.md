@@ -59,18 +59,16 @@ Kujawa's portfolio
   * Form Theming
   ** check widget e.g. `{% if form.vars.block_prefixes.1 == "checkbox" %}`
 
-  * Transchoice
-  ** template `{{ 'front.word.comment'|transchoice(count) }}` yml `comment: '{0} no comment|{1} one comment|]1,Inf] %count% comments'`
-
-  * ordered doctrine findAll()  `public function findAll() {return $this->findBy(array(), array('type'=>'ASC'));}`
-  ** pass request to controller `{{ render(controller('...', {'request': app.request})) }}`
-
   * handle forms manually
   ** `...handleRequest($request)` && `$id = $form->all()->getId()`
 
 
-
-
+```php
+    if ($posBefore < $posAfter) {
+        $repo->changeBetweenPos($recipeId, $posBefore+1, $posAfter, -1);
+    } else {
+        $repo->changeBetweenPos($recipeId, $posAfter, $posBefore-1, 1);
+    }
     /**
      * @param int   $recipeId
      * @param int   $posBefore
@@ -89,16 +87,8 @@ Kujawa's portfolio
             ->setParameter('posAfter', $posAfter)
             ->setParameter('recipeId', $recipeId)
             ->setParameter('difference', $difference)
-            ->getQuery();
-
-
+            ->getQuery()
+        ;
         return $query->getResult();
     }
-    
-    
-    
-            if ($posBefore < $posAfter) {
-                $repo->changeBetweenPos($recipeId, $posBefore+1, $posAfter, -1);
-            } else {
-                $repo->changeBetweenPos($recipeId, $posAfter, $posBefore-1, 1);
-            }
+```
