@@ -15,7 +15,7 @@ parameters:
     mailer_password: ~
     locale: en
     secret: unsecureCSRFToken
-    jwt_passphrase: ~
+    jwt_ssh_key_passphrase: unsecureJWTPP
 
     debug_toolbar: true
     debug_redirects: false
