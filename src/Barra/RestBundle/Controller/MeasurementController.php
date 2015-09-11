@@ -27,7 +27,8 @@ class MeasurementController extends FOSRestController
      * Returns form
      * @return \Symfony\Component\Form\Form
      */
-    public function newMeasurementAction() {
+    public function newMeasurementAction()
+    {
         $form = $this->createForm(new MeasurementType(), new Measurement());
 
         return ['data' => $form];
@@ -178,7 +179,8 @@ class MeasurementController extends FOSRestController
      * @param string $className
      * @return \Doctrine\Common\Persistence\ObjectRepository|\Doctrine\ORM\EntityRepository
      */
-    protected function getRepo($className = 'Measurement') {
+    protected function getRepo($className = 'Measurement')
+    {
         return $this->getEM()->getRepository('BarraFrontBundle:'.$className);
     }
 }

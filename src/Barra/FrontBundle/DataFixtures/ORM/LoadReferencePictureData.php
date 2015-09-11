@@ -26,7 +26,7 @@ class LoadReferencePictureData extends AbstractFixture implements OrderedFixture
         self::$members[] = $this->instantiate('ReferencePicture2', 'refReference2', '2');
         self::$members[] = $this->instantiate('ReferencePicture3', 'refReference3', '3');
 
-        foreach(self::$members as $i => $e) {
+        foreach (self::$members as $i => $e) {
             $this->addReference('refReferencePicture'.($i+1), $e);
             $em->persist($e);
         }

@@ -18,8 +18,7 @@ class FormValidation
     public function getErrorMessages(Form $form)
     {
         $errors = [];
-        foreach($form as $fieldName => $formField) {
-
+        foreach ($form as $fieldName => $formField) {
             if (!$formField->isValid()) {
                 $formErrorIterator = $formField->getErrors(); // formField = form itself (not recursive)
 
@@ -31,6 +30,7 @@ class FormValidation
                 $errors[$fieldName] = $fieldErrors;
             }
         }
+
         return $errors;
     }
 }

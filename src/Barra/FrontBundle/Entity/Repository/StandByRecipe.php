@@ -17,7 +17,8 @@ class StandByRecipe extends EntityRepository
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function getNextPosition($recipeId) {
+    public function getNextPosition($recipeId)
+    {
         $query = $this
             ->createQueryBuilder('c')
             ->select('MAX(c.position)+1')
@@ -28,6 +29,7 @@ class StandByRecipe extends EntityRepository
 
         return $query->getSingleScalarResult();
     }
+
 
     /**
      * @param int       $recipeId

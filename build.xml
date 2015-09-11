@@ -45,7 +45,7 @@
     <target hidden="true" name="composer-install" depends="ssh-keys">
         <echo message="Composer dependencies installing" />
         <echo message="--------------------------------" />
-        <exec logoutput="true" checkreturn="true" command="composer install -n" />
+        <exec logoutput="true" checkreturn="true" command="composer update -n" />
     </target>
 
 

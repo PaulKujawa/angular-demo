@@ -29,7 +29,8 @@ class CookingController extends FOSRestController
      * Returns form
      * @return \Symfony\Component\Form\Form
      */
-    public function newCookingAction() {
+    public function newCookingAction()
+    {
         $form = $this->createForm(new CookingType(), new Cooking());
 
         return ['data' => $form];
@@ -194,7 +195,8 @@ class CookingController extends FOSRestController
      * @param string $className
      * @return \Doctrine\Common\Persistence\ObjectRepository|\Doctrine\ORM\EntityRepository
      */
-    protected function getRepo($className = 'Cooking') {
+    protected function getRepo($className = 'Cooking')
+    {
         return $this->getEM()->getRepository('BarraFrontBundle:'.$className);
     }
 }

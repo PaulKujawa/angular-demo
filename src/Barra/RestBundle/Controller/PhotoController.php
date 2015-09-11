@@ -29,7 +29,8 @@ class PhotoController extends FOSRestController
      * Returns form
      * @return \Symfony\Component\Form\Form
      */
-    public function newPhotoAction() {
+    public function newPhotoAction()
+    {
         $form = $this->createForm(new PhotoType(), new Photo());
 
         return ['data' => $form];
@@ -195,7 +196,8 @@ class PhotoController extends FOSRestController
      * @param string $className
      * @return \Doctrine\Common\Persistence\ObjectRepository|\Doctrine\ORM\EntityRepository
      */
-    protected function getRepo($className = 'Photo') {
+    protected function getRepo($className = 'Photo')
+    {
         return $this->getEM()->getRepository('BarraFrontBundle:'.$className);
     }
 }

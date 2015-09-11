@@ -27,7 +27,8 @@ class ProductController extends FOSRestController
      * Returns form
      * @return \Symfony\Component\Form\Form
      */
-    public function newProductAction() {
+    public function newProductAction()
+    {
         $form = $this->createForm(new ProductType(), new Product());
 
         return ['data' => $form];
@@ -178,7 +179,8 @@ class ProductController extends FOSRestController
      * @param string $className
      * @return \Doctrine\Common\Persistence\ObjectRepository|\Doctrine\ORM\EntityRepository
      */
-    protected function getRepo($className = 'Product') {
+    protected function getRepo($className = 'Product')
+    {
         return $this->getEM()->getRepository('BarraFrontBundle:'.$className);
     }
 }

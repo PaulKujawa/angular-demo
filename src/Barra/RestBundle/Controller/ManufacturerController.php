@@ -28,7 +28,8 @@ class ManufacturerController extends FOSRestController
      * Returns form
      * @return \Symfony\Component\Form\Form
      */
-    public function newManufacturerAction() {
+    public function newManufacturerAction()
+    {
         $form = $this->createForm(new ManufacturerType(), new Manufacturer());
 
         return ['data' => $form];
@@ -180,7 +181,8 @@ class ManufacturerController extends FOSRestController
      * @param string $className
      * @return \Doctrine\Common\Persistence\ObjectRepository|\Doctrine\ORM\EntityRepository
      */
-    protected function getRepo($className = 'Manufacturer') {
+    protected function getRepo($className = 'Manufacturer')
+    {
         return $this->getEM()->getRepository('BarraFrontBundle:'.$className);
     }
 }

@@ -27,7 +27,8 @@ class TechniqueController extends FOSRestController
      * Returns form
      * @return \Symfony\Component\Form\Form
      */
-    public function newTechniqueAction() {
+    public function newTechniqueAction()
+    {
         $form = $this->createForm(new TechniqueType(), new Technique());
 
         return ['data' => $form];
@@ -178,7 +179,8 @@ class TechniqueController extends FOSRestController
      * @param string $className
      * @return \Doctrine\Common\Persistence\ObjectRepository|\Doctrine\ORM\EntityRepository
      */
-    protected function getRepo($className = 'Technique') {
+    protected function getRepo($className = 'Technique')
+    {
         return $this->getEM()->getRepository('BarraFrontBundle:'.$className);
     }
 }

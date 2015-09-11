@@ -28,7 +28,8 @@ class IngredientController extends FOSRestController
      * Returns form
      * @return \Symfony\Component\Form\Form
      */
-    public function newIngredientAction() {
+    public function newIngredientAction()
+    {
         $form = $this->createForm(new IngredientType(), new Ingredient());
 
         return ['data' => $form];
@@ -191,7 +192,8 @@ class IngredientController extends FOSRestController
      * @param string $className
      * @return \Doctrine\Common\Persistence\ObjectRepository|\Doctrine\ORM\EntityRepository
      */
-    protected function getRepo($className = 'Ingredient') {
+    protected function getRepo($className = 'Ingredient')
+    {
         return $this->getEM()->getRepository('BarraFrontBundle:'.$className);
     }
 }

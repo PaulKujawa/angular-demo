@@ -27,7 +27,8 @@ class AgencyController extends FOSRestController
      * Returns form
      * @return \Symfony\Component\Form\Form
      */
-    public function newAgencyAction() {
+    public function newAgencyAction()
+    {
         $form = $this->createForm(new AgencyType(), new Agency());
 
         return ['data' => $form];
@@ -103,6 +104,7 @@ class AgencyController extends FOSRestController
         return $this->processForm($request, $entity, Codes::HTTP_NO_CONTENT);
     }
 
+
     /**
      * Actual form handling
      * @param Request   $request
@@ -177,7 +179,8 @@ class AgencyController extends FOSRestController
      * @param string $className
      * @return \Doctrine\Common\Persistence\ObjectRepository|\Doctrine\ORM\EntityRepository
      */
-    protected function getRepo($className = 'Agency') {
+    protected function getRepo($className = 'Agency')
+    {
         return $this->getEM()->getRepository('BarraFrontBundle:'.$className);
     }
 }

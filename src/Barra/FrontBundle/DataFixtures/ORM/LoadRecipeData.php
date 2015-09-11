@@ -22,7 +22,7 @@ class LoadRecipeData extends AbstractFixture implements OrderedFixtureInterface
         self::$members[] = $this->instantiate('Recipe2');
         self::$members[] = $this->instantiate('Recipe3');
 
-        foreach(self::$members as $i => $e) {
+        foreach (self::$members as $i => $e) {
             $this->addReference('refRecipe'.($i+1), $e);
             $em->persist($e);
         }
