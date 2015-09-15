@@ -41,7 +41,7 @@ class LoadReferenceData extends AbstractFixture implements OrderedFixtureInterfa
             ]
         );
 
-        foreach(self::$members as $i => $e) {
+        foreach (self::$members as $i => $e) {
             $this->addReference('refReference'.($i+1), $e);
             $em->persist($e);
         }

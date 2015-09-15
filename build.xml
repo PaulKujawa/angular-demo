@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Vpit" default="error">
+    <target hidden="true" name="error">
+        <echo message="Choose your task, please - use 'phing -l' to see the list of available tasks" />
+    </target>
+
+
+
+
+
+    <!--
+
+        SSH KEYS + COMPOSER
+
+    -->
+    <!-- password needs to be identical to app/config/parameters.yml -->
+    <target hidden="true" name="ssh-keys">
+        <echo message="SSH keys generating" />
+        <echo message="-------------------" />
+        <available file="app/var/jwt/private.pem" property="ssh-keys-exists" value="true" />
+        <if>
+            <equals arg1="${ssh-keys-exists}" arg2="1" />
+            <then>
+                <echo message="SSH keys has already been generated. Skipping." />
+            </then>
+            <else>
+                <exec logoutput="true" checkreturn="true" command="openssl genrsa -passout pass:unsecureJWTPP -out app/var/jwt/private.pem -aes256 4096" />
+                <exec logoutput="true" checkreturn="true" command="openssl rsa -passin pass:unsecureJWTPP -pubout -in app/var/jwt/private.pem -out app/var/jwt/public.pem" />
+            </else>
+        </if>
+    </target>
+
+    <target hidden="true" name="composer-self-update">
+        <echo message="Composer self-updating" />
+        <echo message="----------------------" />
+        <exec logoutput="true" checkreturn="true" command="composer self-update" />
+    </target>
+
+    <target hidden="true" name="composer-lock-file">
+        <echo message="Composer lock file removing" />
+        <echo message="---------------------------" />
+        <exec logoutput="true" checkreturn="true" command="rm -f composer.lock" />
+    </target>
+
+    <target hidden="true" name="composer-install" depends="ssh-keys">
+        <echo message="Composer dependencies installing" />
+        <echo message="--------------------------------" />
+        <exec logoutput="true" checkreturn="true" command="composer update -n" />
+    </target>
+
+
+
+
+
+    <!--
+
+        STATISTIC TOOLS
+
+    -->
+    <target name="prepare"/>
+
+    <!-- code sniffer (jenkins' plugin: Checkstyle) -->
+    <target name="PHPCS" depends="prepare">
+        <autoloader autoloaderpath="/var/lib/jenkins/.composer/vendor/autoload.php"/>
+        <phpcodesniffer standard="PSR2" showSniffs="true" showWarnings="true">
+            <fileset dir="src">
+                <include name="**/*.php" />
+            </fileset>
+            <formatter type="checkstyle" outfile="build/logs/checkstyle.xml" />
+        </phpcodesniffer>
+    </target>
+
+    <!-- copy paste detector (jenkins' plugin: DRY) -->
+    <target name="PHPCPD" depends="prepare">
+        <autoloader autoloaderpath="/var/lib/jenkins/.composer/vendor/autoload.php"/>
+        <phpcpd>
+            <fileset dir="src">
+                <include name="**/*.php" />
+                <exclude name="**/*Test.php" />
+                <exclude name="**/Tests/*" />
+            </fileset>
+            <formatter type="pmd" outfile="build/logs/pmd-cpd.xml" />
+        </phpcpd>
+    </target>
+
+    <!-- frontend for raw metrics by PHP depend (jenkins' plugin: PMD) -->
+    <target name="PHPMD" depends="prepare">
+        <autoloader autoloaderpath="/var/lib/jenkins/.composer/vendor/autoload.php"/>
+        <phpmd>
+            <fileset dir="src">
+                <include name="**/*.php" />
+                <exclude name="**/*Test.php" />
+                <exclude name="**/Tests/*" />
+            </fileset>
+            <formatter type="xml" outfile="build/logs/pmd.xml" />
+        </phpmd>
+    </target>
+
+    <!-- measures project size (jenkins' plugin: Plot) -->
+    <target name="PHPLOC" depends="prepare">
+        <autoloader autoloaderpath="/var/lib/jenkins/.composer/vendor/autoload.php"/>
+        <phploc reportName="phploc" reportType="csv" reportDirectory="build/logs">
+            <fileset dir="src" />
+        </phploc>
+    </target>
+
+    <!-- generates metrics as abstract quality measurements (jenkins' plugin: JDepend) -->
+    <target name="PDEPEND" depends="prepare">
+        <autoloader autoloaderpath="/var/lib/jenkins/.composer/vendor/autoload.php"/>
+        <phpdepend>
+            <fileset dir="src">
+                <include name="**/*.php" />
+            </fileset>
+            <logger type="jdepend-xml"      outfile="build/logs/jdepend.xml"/>
+            <logger type="jdepend-chart"    outfile="build/pdepend/dependencies.svg"/>
+            <logger type="overview-pyramid" outfile="build/pdepend/overview-pyramid.svg"/>
+        </phpdepend>
+    </target>
+
+    <!-- see phpunit.xml.dist for Junit, clover, HTML-CC -->
+    <target name="PHPUnit" depends="prepare">
+        <exec logoutput="true" checkreturn="true" command="~/.composer/vendor/bin/phpunit -c app/phpunit.xml.dist" />
+    </target>
+</project>

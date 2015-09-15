@@ -27,7 +27,8 @@ class ReferenceController extends FOSRestController
      * Returns form
      * @return \Symfony\Component\Form\Form
      */
-    public function newReferenceAction() {
+    public function newReferenceAction()
+    {
         $form = $this->createForm(new ReferenceType(), new Reference());
 
         return ['data' => $form];
@@ -183,7 +184,8 @@ class ReferenceController extends FOSRestController
      * @param string $className
      * @return \Doctrine\Common\Persistence\ObjectRepository|\Doctrine\ORM\EntityRepository
      */
-    protected function getRepo($className = 'Reference') {
+    protected function getRepo($className = 'Reference')
+    {
         return $this->getEM()->getRepository('BarraFrontBundle:'.$className);
     }
 }

@@ -37,7 +37,7 @@ class IngredientType extends AbstractType
                 'attr'      => [
                     'placeholder' => 'back.product.name',
                 ],
-                'query_builder' => function(EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) {
                     return $er
                         ->createQueryBuilder('i')
                         ->orderBy('i.name', 'ASC')

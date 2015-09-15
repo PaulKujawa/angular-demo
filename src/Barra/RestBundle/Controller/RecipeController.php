@@ -27,7 +27,8 @@ class RecipeController extends FOSRestController
      * Returns form
      * @return \Symfony\Component\Form\Form
      */
-    public function newRecipeAction() {
+    public function newRecipeAction()
+    {
         $form = $this->createForm(new RecipeType(), new Recipe());
 
         return ['data' => $form];
@@ -179,7 +180,8 @@ class RecipeController extends FOSRestController
      * @param string $className
      * @return \Doctrine\Common\Persistence\ObjectRepository|\Doctrine\ORM\EntityRepository
      */
-    protected function getRepo($className = 'Recipe') {
+    protected function getRepo($className = 'Recipe')
+    {
         return $this->getEM()->getRepository('BarraFrontBundle:'.$className);
     }
 }

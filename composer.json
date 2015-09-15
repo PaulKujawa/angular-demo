@@ -1,8 +1,15 @@
 {
-    "name": "symfony/framework-standard-edition",
+    "name": "barra/Vpit",
     "license": "MIT",
     "type": "project",
-    "description": "The \"Symfony Standard Edition\" distribution",
+    "description": "own, private project for education.",
+    "authors": [
+        {
+            "name": "Paul Kujawa",
+            "email": "p.kujawa@gmx.net",
+            "role": "Developer"
+        }
+    ],
     "autoload": {
         "psr-0": { "": "src/" }
     },
@@ -30,7 +37,6 @@
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
-        "phpunit/phpunit": "4.5.*",
         "liip/functional-test-bundle": "~1.0"
     },
     "scripts": {
