@@ -2,23 +2,22 @@
 
 namespace Barra\FrontBundle\Tests\Entity;
 
-use Barra\FrontBundle\Entity\Agency;
-use Barra\FrontBundle\Entity\Reference;
+use Barra\FrontBundle\Entity\Manufacturer;
+use Barra\FrontBundle\Entity\Product;
 
 /**
- * Class AgencyTest
+ * Class ManufacturerTest
  * @author Paul Kujawa <p.kujawa@gmx.net>
  * @package Barra\FrontBundle\Tests\Entity
  */
-class AgencyTest extends \PHPUnit_Framework_TestCase
+class ManufacturerTest extends \PHPUnit_Framework_TestCase
 {
-    const SELF_FQDN         = 'Barra\FrontBundle\Entity\Agency';
-    const REFERENCE_FQDN    = 'Barra\FrontBundle\Entity\Reference';
+    const SELF_FQDN         = 'Barra\FrontBundle\Entity\Manufacturer';
+    const PRODUCT_FQDN      = 'Barra\FrontBundle\Entity\Product';
     const ID                = 2;
-    const TITLE             = 'demoName';
-    const URL               = 'demoUrl';
+    const NAME              = 'demoName';
 
-    /** @var  Agency $model */
+    /** @var  Manufacturer $model */
     protected $model;
 
     /**
@@ -26,7 +25,7 @@ class AgencyTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->model = new Agency();
+        $this->model = new Manufacturer();
     }
 
     /**
@@ -52,15 +51,15 @@ class AgencyTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    
+
 
     /**
      * @test
-     * @return Agency
+     * @return Manufacturer
      */
     public function setNameTest()
     {
-        $resource = $this->model->setName(self::TITLE);
+        $resource = $this->model->setName(self::NAME);
         $this->assertInstanceOf(
             self::SELF_FQDN,
             $resource
@@ -72,9 +71,9 @@ class AgencyTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @depends setNameTest
-     * @param Agency $self
+     * @param Manufacturer $self
      */
-    public function getNameTest(Agency $self)
+    public function getNameTest(Manufacturer $self)
     {
         $got = $self->getName();
         $this->assertInternalType(
@@ -83,18 +82,19 @@ class AgencyTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals(
-            self::TITLE,
+            self::NAME,
             $got
         );
     }
 
     /**
      * @test
-     * @return Agency
+     * @return Manufacturer
      */
-    public function setUrl()
+    public function addProduct()
     {
-        $resource = $this->model->setUrl(self::URL);
+        $productMock = $this->getMock(self::PRODUCT_FQDN);
+        $resource      = $this->model->addProduct($productMock);
         $this->assertInstanceOf(
             self::SELF_FQDN,
             $resource
@@ -105,74 +105,39 @@ class AgencyTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @depends setUrl
-     * @param Agency $self
+     * @depends addProduct
+     * @param Manufacturer $self
+     * @return Product
      */
-    public function getUrl(Agency $self)
+    public function getProducts(Manufacturer $self)
     {
-        $got = $self->getUrl();
-        $this->assertInternalType(
-            'string',
-            $got
-        );
-
-        $this->assertEquals(
-            self::URL,
-            $got
-        );
-    }
-    
-    /**
-     * @test
-     * @return Agency
-     */
-    public function addReference()
-    {
-        $referenceMock = $this->getMock(self::REFERENCE_FQDN);
-        $resource      = $this->model->addReference($referenceMock);
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
-
-        return $resource;
-    }
-
-    /**
-     * @test
-     * @depends addReference
-     * @param Agency $self
-     * @return Reference
-     */
-    public function getReferences(Agency $self)
-    {
-        $references  = $self->getReferences();
-        $reference   = $references->get(0);
+        $products  = $self->getProducts();
+        $product   = $products->get(0);
 
         $this->assertCount(
             1,
-            $references
+            $products
         );
 
-        $referenceMock = $this->getMock(self::REFERENCE_FQDN);
+        $productMock = $this->getMock(self::PRODUCT_FQDN);
         $this->assertEquals(
-            $referenceMock,
-            $reference
+            $productMock,
+            $product
         );
 
-        return $reference;
+        return $product;
     }
 
     /**
      * @test
-     * @depends addReference
-     * @depends getReferences
-     * @param Agency $self
-     * @param Reference   $reference
+     * @depends addProduct
+     * @depends getProducts
+     * @param Manufacturer  $self
+     * @param Product       $product
      */
-    public function removeReference(Agency $self, Reference $reference)
+    public function removeProduct(Manufacturer $self, Product $product)
     {
-        $resource = $self->removeReference($reference);
+        $resource = $self->removeProduct($product);
 
         $this->assertInstanceOf(
             self::SELF_FQDN,
@@ -181,7 +146,7 @@ class AgencyTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(
             0,
-            $self->getReferences()
+            $self->getProducts()
         );
     }
 
@@ -189,18 +154,18 @@ class AgencyTest extends \PHPUnit_Framework_TestCase
      * @test
      * @expectedException PHPUnit_Framework_Error
      */
-    public function addInvalidReference()
+    public function addInvalidProduct()
     {
-        $this->model->addReference(1);
+        $this->model->addProduct(1);
     }
 
     /**
      * @test
      * @expectedException PHPUnit_Framework_Error
      */
-    public function removeInvalidReference()
+    public function removeInvalidProduct()
     {
-        $this->model->removeReference(1);
+        $this->model->removeProduct(1);
     }
 
     /**
@@ -224,10 +189,6 @@ class AgencyTest extends \PHPUnit_Framework_TestCase
         return [
             [
                 'name',
-                1,
-            ],
-            [
-                'url',
                 1,
             ],
         ];

@@ -96,10 +96,13 @@ class Measurement
      * Remove ingredients
      *
      * @param Ingredient $ingredients
+     * @return $this
      */
     public function removeIngredient(Ingredient $ingredients)
     {
         $this->ingredients->removeElement($ingredients);
+
+        return $this;
     }
 
     /**

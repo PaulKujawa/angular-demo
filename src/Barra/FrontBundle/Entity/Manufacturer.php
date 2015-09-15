@@ -57,11 +57,14 @@ class Manufacturer
     /**
      * Remove products
      *
-     * @param Product $products
+     * @param Product $product
+     * @return $this
      */
-    public function removeProduct(Product $products)
+    public function removeProduct(Product $product)
     {
-        $this->products->removeElement($products);
+        $this->products->removeElement($product);
+
+        return $this;
     }
 
     /**

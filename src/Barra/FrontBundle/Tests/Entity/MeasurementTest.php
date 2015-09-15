@@ -2,23 +2,23 @@
 
 namespace Barra\FrontBundle\Tests\Entity;
 
-use Barra\FrontBundle\Entity\Agency;
-use Barra\FrontBundle\Entity\Reference;
+use Barra\FrontBundle\Entity\Measurement;
+use Barra\FrontBundle\Entity\Ingredient;
 
 /**
- * Class AgencyTest
+ * Class MeasurementTest
  * @author Paul Kujawa <p.kujawa@gmx.net>
  * @package Barra\FrontBundle\Tests\Entity
  */
-class AgencyTest extends \PHPUnit_Framework_TestCase
+class MeasurementTest extends \PHPUnit_Framework_TestCase
 {
-    const SELF_FQDN         = 'Barra\FrontBundle\Entity\Agency';
-    const REFERENCE_FQDN    = 'Barra\FrontBundle\Entity\Reference';
+    const SELF_FQDN         = 'Barra\FrontBundle\Entity\Measurement';
+    const PRODUCT_FQDN      = 'Barra\FrontBundle\Entity\Ingredient';
     const ID                = 2;
-    const TITLE             = 'demoName';
-    const URL               = 'demoUrl';
+    const GR                = 22;
+    const NAME              = 'demoName';
 
-    /** @var  Agency $model */
+    /** @var  Measurement $model */
     protected $model;
 
     /**
@@ -26,7 +26,7 @@ class AgencyTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->model = new Agency();
+        $this->model = new Measurement();
     }
 
     /**
@@ -52,15 +52,48 @@ class AgencyTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    
+    /**
+     * @test
+     *
+     * @return Measurement
+     */
+    public function setGr()
+    {
+        $resource = $this->model->setGr(self::GR);
+        $this->assertInstanceOf(
+            self::SELF_FQDN,
+            $resource
+        );
+
+        return $resource;
+    }
 
     /**
      * @test
-     * @return Agency
+     * @depends setGr
+     * @param Measurement $self
+     */
+    public function getGr(Measurement $self)
+    {
+        $got = $self->getGr();
+        $this->assertInternalType(
+            'int',
+            $got
+        );
+
+        $this->assertEquals(
+            self::GR,
+            $got
+        );
+    }
+
+    /**
+     * @test
+     * @return Measurement
      */
     public function setNameTest()
     {
-        $resource = $this->model->setName(self::TITLE);
+        $resource = $this->model->setName(self::NAME);
         $this->assertInstanceOf(
             self::SELF_FQDN,
             $resource
@@ -72,9 +105,9 @@ class AgencyTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @depends setNameTest
-     * @param Agency $self
+     * @param Measurement $self
      */
-    public function getNameTest(Agency $self)
+    public function getNameTest(Measurement $self)
     {
         $got = $self->getName();
         $this->assertInternalType(
@@ -83,18 +116,19 @@ class AgencyTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals(
-            self::TITLE,
+            self::NAME,
             $got
         );
     }
 
     /**
      * @test
-     * @return Agency
+     * @return Measurement
      */
-    public function setUrl()
+    public function addIngredient()
     {
-        $resource = $this->model->setUrl(self::URL);
+        $ingredientMock = $this->getMock(self::PRODUCT_FQDN);
+        $resource      = $this->model->addIngredient($ingredientMock);
         $this->assertInstanceOf(
             self::SELF_FQDN,
             $resource
@@ -105,74 +139,39 @@ class AgencyTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @depends setUrl
-     * @param Agency $self
+     * @depends addIngredient
+     * @param Measurement $self
+     * @return Ingredient
      */
-    public function getUrl(Agency $self)
+    public function getIngredients(Measurement $self)
     {
-        $got = $self->getUrl();
-        $this->assertInternalType(
-            'string',
-            $got
-        );
-
-        $this->assertEquals(
-            self::URL,
-            $got
-        );
-    }
-    
-    /**
-     * @test
-     * @return Agency
-     */
-    public function addReference()
-    {
-        $referenceMock = $this->getMock(self::REFERENCE_FQDN);
-        $resource      = $this->model->addReference($referenceMock);
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
-
-        return $resource;
-    }
-
-    /**
-     * @test
-     * @depends addReference
-     * @param Agency $self
-     * @return Reference
-     */
-    public function getReferences(Agency $self)
-    {
-        $references  = $self->getReferences();
-        $reference   = $references->get(0);
+        $ingredients  = $self->getIngredients();
+        $ingredient   = $ingredients->get(0);
 
         $this->assertCount(
             1,
-            $references
+            $ingredients
         );
 
-        $referenceMock = $this->getMock(self::REFERENCE_FQDN);
+        $ingredientMock = $this->getMock(self::PRODUCT_FQDN);
         $this->assertEquals(
-            $referenceMock,
-            $reference
+            $ingredientMock,
+            $ingredient
         );
 
-        return $reference;
+        return $ingredient;
     }
 
     /**
      * @test
-     * @depends addReference
-     * @depends getReferences
-     * @param Agency $self
-     * @param Reference   $reference
+     * @depends addIngredient
+     * @depends getIngredients
+     * @param Measurement  $self
+     * @param Ingredient       $ingredient
      */
-    public function removeReference(Agency $self, Reference $reference)
+    public function removeIngredient(Measurement $self, Ingredient $ingredient)
     {
-        $resource = $self->removeReference($reference);
+        $resource = $self->removeIngredient($ingredient);
 
         $this->assertInstanceOf(
             self::SELF_FQDN,
@@ -181,7 +180,7 @@ class AgencyTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(
             0,
-            $self->getReferences()
+            $self->getIngredients()
         );
     }
 
@@ -189,18 +188,18 @@ class AgencyTest extends \PHPUnit_Framework_TestCase
      * @test
      * @expectedException PHPUnit_Framework_Error
      */
-    public function addInvalidReference()
+    public function addInvalidIngredient()
     {
-        $this->model->addReference(1);
+        $this->model->addIngredient(1);
     }
 
     /**
      * @test
      * @expectedException PHPUnit_Framework_Error
      */
-    public function removeInvalidReference()
+    public function removeInvalidIngredient()
     {
-        $this->model->removeReference(1);
+        $this->model->removeIngredient(1);
     }
 
     /**
@@ -227,8 +226,8 @@ class AgencyTest extends \PHPUnit_Framework_TestCase
                 1,
             ],
             [
-                'url',
-                1,
+                'gr',
+                '1',
             ],
         ];
     }
