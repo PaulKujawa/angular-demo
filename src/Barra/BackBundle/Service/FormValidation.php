@@ -33,8 +33,7 @@ class FormValidation
 
                 // saves object keys as array entries and exchanges these entries with their result of getMessage()
                 $fieldErrors = array_map(
-                    function ($field)
-                    {
+                    function ($field) {
                         return $field->getMessage();
                     },
                     iterator_to_array($formErrorIterator)

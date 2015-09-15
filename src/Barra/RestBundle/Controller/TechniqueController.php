@@ -38,10 +38,30 @@ class TechniqueController extends FOSRestController
     /**
      * List all entries
      * @Annotations\View()
-     * @Annotations\QueryParam(name="offset",   requirements="\d+", default="0",   description="Offset to start from.")
-     * @Annotations\QueryParam(name="limit",    requirements="\d+", default="2",   description="How many entries to return.")
-     * @Annotations\QueryParam(name="order_by", requirements="\w+", default="id",  description="Column to order by.")
-     * @Annotations\QueryParam(name="order",    requirements="\w+", default="ASC", description="Order, either ASC or DESC.")
+     * @Annotations\QueryParam(
+     *      name            = "offset",
+     *      requirements    = "\d+",
+     *      default         = "0",
+     *      description     = "Offset to start from."
+     * )
+     * @Annotations\QueryParam(
+     *      name            = "limit",
+     *      requirements    = "\d+",
+     *      default         = "4",
+     *      description     = "How many entries to return."
+     * )
+     * @Annotations\QueryParam(
+     *      name            = "order_by",
+     *      requirements    = "\w+",
+     *      default         = "id",
+     *      description     = "Column to order by."
+     * )
+     * @Annotations\QueryParam(
+     *      name            = "order",
+     *      requirements    = "\w+",
+     *      default         = "ASC",
+     *      description     = "Order, either ASC or DESC."
+     * )
      * @param ParamFetcher $paramFetcher
      * @return array
      */

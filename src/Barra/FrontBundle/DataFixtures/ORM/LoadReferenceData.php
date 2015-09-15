@@ -121,4 +121,3 @@ class LoadReferenceData extends AbstractFixture implements OrderedFixtureInterfa
         return 10;
     }
 }
-

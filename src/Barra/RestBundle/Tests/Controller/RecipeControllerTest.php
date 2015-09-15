@@ -94,7 +94,13 @@
 //        $recipes = LoadRecipeData::$members; // 3 entities
 //
 //        // one entity in the middle
-//        $this->client->request('GET', '/api/recipes?offset=1&limit=1&order_by=id&order=DESC', ['ACCEPT' => 'application/json']);
+//        $this->client->request(
+//            'GET',
+//            '/api/recipes?offset=1&limit=1&order_by=id&order=DESC',
+//            [
+//                'ACCEPT' => 'application/json',
+//            ]
+//        );
 //        $response = $this->client->getResponse();
 //        $this->assertJsonResponse($response);
 //
@@ -305,7 +311,9 @@
 //            $this->assertTrue($response->headers->contains('content-type', 'application/json'), $response->headers);
 //
 //            $decode = json_decode($response->getContent());
-//            $this->assertTrue(($decode != null && $decode != false), 'is response valid json: [' . $response->getContent() . ']');
+//            $this->assertTrue(
+//                ($decode != null && $decode != false), 'is response valid json: [' . $response->getContent() . ']'
+//            );
 //        }
 //    }
 //}
