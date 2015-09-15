@@ -55,9 +55,9 @@ class RecipeDetailController extends Controller
         /** @var Ingredient $ingredient */
         foreach ($ingredients as $ingredient) {
             if (! is_null($ingredient->getAmount())) {
-                if ($ingredient->getMeasurement()->getGr() != 0) /* eg pieces or bags */
+                if ($ingredient->getMeasurement()->getGr() != 0) { /* eg pieces or bags */
                     $gr = $ingredient->getAmount();
-                else {
+                } else {
                     $gr = $ingredient->getProduct()->getGr();
                 }
 

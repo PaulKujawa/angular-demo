@@ -23,19 +23,37 @@ class LoadReferenceData extends AbstractFixture implements OrderedFixtureInterfa
     public function load(ObjectManager $em)
     {
         self::$members[] = $this->instantiate(
-            'a.de', 'description1', new \DateTime(), new \DateTime(), 'refAgency1', 1, [
+            'a.de',
+            'description1',
+            new \DateTime(),
+            new \DateTime(),
+            'refAgency1',
+            1,
+            [
                 'refTechnique1',
             ]
         );
         self::$members[] = $this->instantiate(
-            'b.de', 'description2', new \DateTime(), new \DateTime(), 'refAgency2', 2, [
+            'b.de',
+            'description2',
+            new \DateTime(),
+            new \DateTime(),
+            'refAgency2',
+            2,
+            [
                 'refTechnique1',
                 'refTechnique2',
                 'refTechnique3',
             ]
         );
         self::$members[] = $this->instantiate(
-            'c.de', 'description3', new \DateTime(), new \DateTime(), 'refAgency3', 3, [
+            'c.de',
+            'description3',
+            new \DateTime(),
+            new \DateTime(),
+            'refAgency3',
+            3,
+            [
                 'refTechnique1',
                 'refTechnique2',
             ]
@@ -103,3 +121,4 @@ class LoadReferenceData extends AbstractFixture implements OrderedFixtureInterfa
         return 10;
     }
 }
+

@@ -92,5 +92,3 @@ class LoadPhotoData extends AbstractFixture implements OrderedFixtureInterface
         return 7;
     }
 }
-
-

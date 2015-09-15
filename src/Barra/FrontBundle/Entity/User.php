@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 
-
 /**
  * Class User
  * @author Paul Kujawa <p.kujawa@gmx.net>

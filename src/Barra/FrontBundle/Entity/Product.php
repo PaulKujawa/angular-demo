@@ -165,7 +165,7 @@ class Product
     /**
      * Get vegan
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getVegan()
     {
@@ -196,7 +196,7 @@ class Product
     /**
      * Get kcal
      *
-     * @return string 
+     * @return string
      */
     public function getKcal()
     {

@@ -2,51 +2,35 @@
 
 namespace Barra\FrontBundle\Controller;
 
-use Barra\FrontBundle\Entity\ReferencePicture;
-
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Barra\FrontBundle\Entity\Repository\ReferenceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * Class ReferenceController
+ * @author Paul Kujawa <p.kujawa@gmx.net>
+ * @package Barra\FrontBundle\Controller
+ */
 class ReferenceController extends Controller
 {
-    public function indexAction($paginationActive)
-    {
-        $paginationRange = 4;
-        $startPos = ($paginationActive-1)*$paginationRange;
-        $em = $this->getDoctrine()->getManager();
-        $references = $em->getRepository('BarraFrontBundle:Reference')->getSome($startPos, $paginationRange);
-        $paginationCnt = $em->getRepository('BarraFrontBundle:Reference')->count();
-        $paginationCnt = ceil($paginationCnt/$paginationRange);
-
-        if (!$references)
-            throw $this->createNotFoundException('References not found');
-
-        return $this->render('BarraFrontBundle:Reference:references.html.twig', [
-            'paginationActive' => $paginationActive,
-            'paginationCnt' => $paginationCnt,
-            'references' => $references,
-        ]);
-    }
-
+    const RANGE = 6;
 
     /**
-     * for carousel's AJAX calls, all pictures from one reference
-     * @param $referenceId
-     * @return Response
+     * @param int $paginationActive
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getAction($referenceId)
+    public function indexAction($paginationActive)
     {
-        $em = $this->getDoctrine()->getManager();
-        $files = $em->getRepository('BarraFrontBundle:ReferencePicture')->findByReference($referenceId);
+        $offset         = ($paginationActive-1)*self::RANGE +1;
+        $repo           = $this->getDoctrine()->getManager()->getRepository('BarraFrontBundle:Reference');
+        /** @var ReferenceRepository $repo */
+        $references     = $repo->getSome($offset, self::RANGE, "finished", "DESC");
+        $paginationCnt  = $repo->count();
+        $paginationCnt  = ceil($paginationCnt/self::RANGE);
 
-        $container = [];
-        for ($i=0; $i < count($files); $i++) {
-            $container[$i]['caption']     = $files[$i]->getTitle();
-            $container[$i]['url']       = $files[$i]->getWebPath();
-        }
-
-        $ajaxResponse = ["code"=>200, "files"=>$container];
-        return new Response(json_encode($ajaxResponse), 200, ['Content-Type'=>'application/json']);
+        return $this->render('BarraFrontBundle:Reference:references.html.twig', [
+            'paginationActive'  => $paginationActive,
+            'paginationCnt'     => $paginationCnt,
+            'references'        => $references,
+        ]);
     }
 }

@@ -44,7 +44,7 @@ class ReferenceType extends AbstractType
             ->add('agency', 'entity', [
                 'class'         => 'BarraFrontBundle:Agency',
                 'property'      => 'name',
-                'query_builder' => function(EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) {
                     return $er
                         ->createQueryBuilder('a')
                         ->orderBy('a.name', 'ASC')
@@ -55,7 +55,7 @@ class ReferenceType extends AbstractType
                 'class'         => 'BarraFrontBundle:Technique',
                 'property'      => 'name',
                 'multiple'      => 'true',
-                'query_builder' => function(EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) {
                     return $er
                         ->createQueryBuilder('t')
                         ->orderBy('t.name', 'ASC')

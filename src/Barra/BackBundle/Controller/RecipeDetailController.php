@@ -54,3 +54,4 @@ class RecipeDetailController extends Controller
         ]);
     }
 }
+

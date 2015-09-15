@@ -72,7 +72,7 @@ class ProductType extends AbstractType
                 'attr'      => [
                     'placeholder' => 'back.manufacturer.name',
                 ],
-                'query_builder' => function(EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) {
                     return $er
                         ->createQueryBuilder('m')
                         ->orderBy('m.name', 'ASC')

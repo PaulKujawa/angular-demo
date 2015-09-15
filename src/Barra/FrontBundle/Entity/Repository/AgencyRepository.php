@@ -7,4 +7,7 @@ namespace Barra\FrontBundle\Entity\Repository;
  * @author Paul Kujawa <p.kujawa@gmx.net>
  * @package Barra\FrontBundle\Entity\Repository
  */
-class AgencyRepository extends StandAlone {}
+class AgencyRepository extends StandAlone
+{
+
+}

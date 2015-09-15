@@ -54,3 +54,4 @@ class StandByRecipe extends EntityRepository
         return $query->getResult();
     }
 }
+

@@ -118,7 +118,7 @@ class Reference
     /**
      * Get started
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getStarted()
     {
@@ -141,7 +141,7 @@ class Reference
     /**
      * Get finished
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFinished()
     {

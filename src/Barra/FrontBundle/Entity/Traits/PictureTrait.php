@@ -59,7 +59,7 @@ trait PictureTrait
      */
     public function preUpload()
     {
-        if ($this->getFile() !== null) {
+        if (!is_null($this->getFile())) {
             $filename = sha1(uniqid(mt_rand(), true));
             $extension = $this->getFile()->guessExtension();
             $this->title = $this->filename;
@@ -73,8 +73,9 @@ trait PictureTrait
      */
     public function upload()
     {
-        if ($this->getFile() === null)
+        if (is_null($this->getFile())) {
             return;
+        }
 
         $this->getFile()->move($this->getPath(), $this->filename);
 
@@ -91,8 +92,9 @@ trait PictureTrait
      */
     public function removeUpload()
     {
-        if ($file = $this->getPathWithFilename())
+        if ($file = $this->getPathWithFilename()) {
             unlink($file);
+        }
     }
 
 
@@ -106,7 +108,7 @@ trait PictureTrait
      */
     public function getPathWithFilename()
     {
-        return $this->filename === null
+        return is_null($this->filename)
             ? null
             : $this->getPath().'/'.$this->filename;
     }
@@ -124,7 +126,7 @@ trait PictureTrait
      */
     public function getWebPathWithFilename()
     {
-        return $this->filename === null
+        return is_null($this->filename)
             ? null
             : $this->getDirectory().'/'.$this->filename;
     }
@@ -213,8 +215,9 @@ trait PictureTrait
         if (isset($this->filename)) {
             $this->temp = $this->filename;
             $this->filename = null;
-        } else
+        } else {
             $this->filename = $this->file->getClientOriginalName();
+        }
 
         return $this;
     }

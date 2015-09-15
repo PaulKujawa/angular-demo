@@ -30,3 +30,4 @@ class ReferencePictureController extends Controller
         ]);
     }
 }
+

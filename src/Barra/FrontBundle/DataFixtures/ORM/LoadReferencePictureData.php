@@ -96,5 +96,3 @@ class LoadReferencePictureData extends AbstractFixture implements OrderedFixture
         return 11;
     }
 }
-
-

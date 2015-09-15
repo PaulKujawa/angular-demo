@@ -6,8 +6,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * Class ContactController
+ * @author Paul Kujawa <p.kujawa@gmx.net>
+ * @package Barra\FrontBundle\Controller
+ */
 class ContactController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
     public function indexAction(Request $request)
     {
         $form = $this->createFormBuilder()

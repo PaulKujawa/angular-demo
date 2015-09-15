@@ -2,19 +2,30 @@
 
 namespace Barra\FrontBundle\Controller;
 
-use Barra\FrontBundle\Entity\Recipe;
+use Barra\FrontBundle\Entity\Repository\RecipeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * Class RecipeController
+ * @author Paul Kujawa <p.kujawa@gmx.net>
+ * @package Barra\FrontBundle\Controller
+ */
 class RecipeController extends Controller
 {
+    const RANGE = 6;
+
+    /**
+     * @param int $paginationActive
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction($paginationActive)
     {
-        $paginationRange = 6;
-        $offset = ($paginationActive-1)*$paginationRange +1;
-        $em = $this->getDoctrine()->getManager();
-        $recipes = $em->getRepository('BarraFrontBundle:Recipe')->getSome($offset, $paginationRange, "name", "ASC");
-        $paginationCnt = $em->getRepository('BarraFrontBundle:Recipe')->count();
-        $paginationCnt = ceil($paginationCnt/$paginationRange);
+        $offset         = ($paginationActive-1)*self::RANGE +1;
+        /** @var RecipeRepository $repo */
+        $repo           = $this->getDoctrine()->getManager()->getRepository('BarraFrontBundle:Recipe');
+        $recipes        = $repo->getSome($offset, self::RANGE, "name", "ASC");
+        $paginationCnt  = $repo->count();
+        $paginationCnt  = ceil($paginationCnt/self::RANGE);
 
         return $this->render('BarraFrontBundle:Recipe:recipes.html.twig', [
             'paginationActive'  => $paginationActive,

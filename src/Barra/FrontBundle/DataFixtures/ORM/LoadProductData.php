@@ -20,17 +20,17 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
 
     public function load(ObjectManager $em)
     {
-        self::$members[] = $this->instantiate('Product1', false, 1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 'refManufacturer1');
-        self::$members[] = $this->instantiate('Product2', true,  1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 'refManufacturer1');
-        self::$members[] = $this->instantiate('Product3', true,  1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 'refManufacturer1');
+        self::$members[] = $this->instantiate('Product1', false, [1, 1, 1.0, 1.0, 1.0, 1.0, 1.0], 'refManufacturer1');
+        self::$members[] = $this->instantiate('Product2', true, [1, 1, 1.0, 1.0, 1.0, 1.0, 1.0], 'refManufacturer1');
+        self::$members[] = $this->instantiate('Product3', true, [1, 1, 1.0, 1.0, 1.0, 1.0, 1.0], 'refManufacturer1');
 
-        self::$members[] = $this->instantiate('Product4', true,  1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 'refManufacturer2');
-        self::$members[] = $this->instantiate('Product5', false, 1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 'refManufacturer2');
-        self::$members[] = $this->instantiate('Product6', true,  1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 'refManufacturer2');
+        self::$members[] = $this->instantiate('Product4', true, [1, 1, 1.0, 1.0, 1.0, 1.0, 1.0], 'refManufacturer2');
+        self::$members[] = $this->instantiate('Product5', false, [1, 1, 1.0, 1.0, 1.0, 1.0, 1.0], 'refManufacturer2');
+        self::$members[] = $this->instantiate('Product6', true, [1, 1, 1.0, 1.0, 1.0, 1.0, 1.0], 'refManufacturer2');
 
-        self::$members[] = $this->instantiate('Product7', false, 1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 'refManufacturer3');
-        self::$members[] = $this->instantiate('Product8', true,  1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 'refManufacturer3');
-        self::$members[] = $this->instantiate('Product9', true,  1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 'refManufacturer3');
+        self::$members[] = $this->instantiate('Product7', false, [1, 1, 1.0, 1.0, 1.0, 1.0, 1.0], 'refManufacturer3');
+        self::$members[] = $this->instantiate('Product8', true, [1, 1, 1.0, 1.0, 1.0, 1.0, 1.0], 'refManufacturer3');
+        self::$members[] = $this->instantiate('Product9', true, [1, 1, 1.0, 1.0, 1.0, 1.0, 1.0], 'refManufacturer3');
 
         foreach (self::$members as $i => $e) {
             $this->addReference('refProduct'.($i+1), $e);
@@ -40,47 +40,43 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
     }
 
     /**
-     * @param string    $name
-     * @param bool      $isVegan
-     * @param int       $gr
-     * @param int       $kcal
-     * @param double    $carbs
-     * @param double    $sugar
-     * @param double    $protein
-     * @param double    $fat
-     * @param double    $gfat
-     * @param string    $refManufacturer
+     * @param string $name
+     * @param bool $isVegan
+     * @param array $nutritions
+     * @param string $refManufacturer
      * @return Product
      */
-    protected function instantiate($name, $isVegan, $gr, $kcal, $carbs, $sugar, $protein, $fat, $gfat, $refManufacturer)
+    protected function instantiate($name, $isVegan, array $nutritions, $refManufacturer)
     {
         $manufacturer = $this->getReference($refManufacturer);
 
         if (!$manufacturer instanceof Manufacturer ||
             !is_string($name) ||
             !is_bool($isVegan) ||
-            !is_int($gr) ||
-            !is_int($kcal) ||
-            !is_double($carbs) ||
-            !is_double($sugar) ||
-            !is_double($protein) ||
-            !is_double($fat) ||
-            !is_double($gfat)
+            !is_int($nutritions['gr']) ||
+            !is_int($nutritions['kcal']) ||
+            !is_double($nutritions['carbs']) ||
+            !is_double($nutritions['sugar']) ||
+            !is_double($nutritions['protein']) ||
+            !is_double($nutritions['fat']) ||
+            !is_double($nutritions['gfat'])
         ) {
-            throw new InvalidArgumentException();
+            throw new InvalidArgumentException(
+                'array nutritions has to include gr, kcal, carbs, sugar, protein, fat and gfat.'
+            );
         }
 
         $entity = new Product();
         $entity
             ->setName($name)
             ->setVegan($isVegan)
-            ->setGr($gr)
-            ->setKcal($kcal)
-            ->setCarbs($carbs)
-            ->setSugar($sugar)
-            ->setProtein($protein)
-            ->setFat($fat)
-            ->setGfat($gfat)
+            ->setGr($nutritions['gr'])
+            ->setKcal($nutritions['kcal'])
+            ->setCarbs($nutritions['carbs'])
+            ->setSugar($nutritions['sugar'])
+            ->setProtein($nutritions['protein'])
+            ->setFat($nutritions['fat'])
+            ->setGfat($nutritions['gfat'])
             ->setManufacturer($manufacturer)
         ;
 
