@@ -133,6 +133,15 @@ class CookingTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @expectedException \RuntimeException
+     */
+    public function createIdNegativeTest()
+    {
+        $this->model->createId();
+    }
+
+    /**
+     * @test
      * @depends setPosition
      * @depends setRecipe
      * @return Cooking

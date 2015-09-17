@@ -92,7 +92,8 @@ trait PictureTrait
      */
     public function removeUpload()
     {
-        if ($file = $this->getPathWithFilename()) {
+        $file = $this->getPathWithFilename();
+        if (!is_null($file)) {
             unlink($file);
         }
     }
@@ -161,6 +162,7 @@ trait PictureTrait
             ));
         }
         $this->filename = $filename;
+
         return $this;
     }
 
