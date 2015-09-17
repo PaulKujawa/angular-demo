@@ -20,17 +20,27 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
 
     public function load(ObjectManager $em)
     {
-        self::$members[] = $this->instantiate('Product1', false, [1, 1, 1.0, 1.0, 1.0, 1.0, 1.0], 'refManufacturer1');
-        self::$members[] = $this->instantiate('Product2', true, [1, 1, 1.0, 1.0, 1.0, 1.0, 1.0], 'refManufacturer1');
-        self::$members[] = $this->instantiate('Product3', true, [1, 1, 1.0, 1.0, 1.0, 1.0, 1.0], 'refManufacturer1');
+        $nutritions = [
+            'gr'        => 1,
+            'kcal'      => 1,
+            'carbs'     => 1.0,
+            'sugar'     => 1.0,
+            'protein'   => 1.0,
+            'fat'       => 1.0,
+            'gfat'      => 1.0,
+        ];
+        
+        self::$members[] = $this->instantiate('Product1', false, $nutritions, 'refManufacturer1');
+        self::$members[] = $this->instantiate('Product2', true, $nutritions, 'refManufacturer1');
+        self::$members[] = $this->instantiate('Product3', true, $nutritions, 'refManufacturer1');
 
-        self::$members[] = $this->instantiate('Product4', true, [1, 1, 1.0, 1.0, 1.0, 1.0, 1.0], 'refManufacturer2');
-        self::$members[] = $this->instantiate('Product5', false, [1, 1, 1.0, 1.0, 1.0, 1.0, 1.0], 'refManufacturer2');
-        self::$members[] = $this->instantiate('Product6', true, [1, 1, 1.0, 1.0, 1.0, 1.0, 1.0], 'refManufacturer2');
+        self::$members[] = $this->instantiate('Product4', true, $nutritions, 'refManufacturer2');
+        self::$members[] = $this->instantiate('Product5', false, $nutritions, 'refManufacturer2');
+        self::$members[] = $this->instantiate('Product6', true, $nutritions, 'refManufacturer2');
 
-        self::$members[] = $this->instantiate('Product7', false, [1, 1, 1.0, 1.0, 1.0, 1.0, 1.0], 'refManufacturer3');
-        self::$members[] = $this->instantiate('Product8', true, [1, 1, 1.0, 1.0, 1.0, 1.0, 1.0], 'refManufacturer3');
-        self::$members[] = $this->instantiate('Product9', true, [1, 1, 1.0, 1.0, 1.0, 1.0, 1.0], 'refManufacturer3');
+        self::$members[] = $this->instantiate('Product7', false, $nutritions, 'refManufacturer3');
+        self::$members[] = $this->instantiate('Product8', true, $nutritions, 'refManufacturer3');
+        self::$members[] = $this->instantiate('Product9', true, $nutritions, 'refManufacturer3');
 
         foreach (self::$members as $i => $e) {
             $this->addReference('refProduct'.($i+1), $e);

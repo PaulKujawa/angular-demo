@@ -14,6 +14,7 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
  * @package Barra\FrontBundle\Entity
  *
  * @ExclusionPolicy("none")
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Table()
  * @ORM\Entity(repositoryClass = "Barra\FrontBundle\Entity\Repository\CookingRepository")
  */
@@ -35,6 +36,8 @@ class Cooking
     protected $id;
 
     /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
      * @return $this
      * @throws \RuntimeException
      */

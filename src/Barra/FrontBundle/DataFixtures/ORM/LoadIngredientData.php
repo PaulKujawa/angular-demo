@@ -72,7 +72,6 @@ class LoadIngredientData extends AbstractFixture implements OrderedFixtureInterf
             ->setMeasurement($measurement)
             ->setRecipe($recipe)
             ->setProduct($product)
-            ->createId()
         ;
 
         return $entity;

@@ -159,7 +159,6 @@ class IngredientController extends FOSRestController
                 ->setRecipe($recipe)
             ;
         }
-        $entity->createId();
 
         $duplicate = $this->getRepo()->find($entity->getId());
         if ($duplicate instanceof Ingredient) {

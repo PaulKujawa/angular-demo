@@ -47,5 +47,6 @@ app/var/jwt/private.pem
 
 
 # Mix
+*~
 .idea/
 .htaccess

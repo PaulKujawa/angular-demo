@@ -160,9 +160,7 @@ class CookingController extends FOSRestController
                 ->setPosition($position)
                 ->setRecipe($recipe)
             ;
-        }
-
-        $entity->createId();
+        };
 
         $duplicate = $this->getRepo()->find($entity->getId());
         if ($duplicate instanceof Cooking) {

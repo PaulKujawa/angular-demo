@@ -5,7 +5,6 @@ namespace Barra\FrontBundle\Entity;
 use Barra\FrontBundle\Entity\Traits\IdAutoTrait;
 use Barra\FrontBundle\Entity\Traits\NameTrait;
 use Barra\FrontBundle\Entity\Traits\PictureTrait;
-use Barra\FrontBundle\Entity\Traits\RecipeTrait;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 

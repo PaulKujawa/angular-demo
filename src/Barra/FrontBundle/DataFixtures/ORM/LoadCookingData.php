@@ -63,7 +63,6 @@ class LoadCookingData extends AbstractFixture implements OrderedFixtureInterface
             ->setPosition($position)
             ->setDescription($description)
             ->setRecipe($recipe)
-            ->createId()
         ;
 
         return $entity;
