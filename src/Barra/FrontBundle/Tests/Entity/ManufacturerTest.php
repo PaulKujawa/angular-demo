@@ -51,8 +51,6 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
-
     /**
      * @test
      * @return Manufacturer

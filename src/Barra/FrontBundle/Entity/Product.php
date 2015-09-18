@@ -429,10 +429,13 @@ class Product
      * Remove ingredient
      *
      * @param Ingredient $ingredient
+     * @return $this
      */
     public function removeIngredient(Ingredient $ingredient)
     {
         $this->ingredients->removeElement($ingredient);
+
+        return $this;
     }
 
     /**

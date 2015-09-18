@@ -3,9 +3,6 @@
 namespace Barra\FrontBundle\Tests\Entity;
 
 use Barra\FrontBundle\Entity\Photo;
-use Barra\FrontBundle\Entity\Ingredient;
-use Barra\FrontBundle\Entity\Recipe;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Class PhotoTest
@@ -21,7 +18,7 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
     const SIZE                   = 33;
     const NAME                   = 'demoName';
     const FILENAME               = 'demoFilename';
-    const DIRECTORY              = 'uploads/documents';
+    const WEB_DIRECTORY          = 'uploads/documents';
 
     /** @var  Photo $model */
     protected $model;
@@ -130,18 +127,23 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
      * @param Photo $self
      * @depends setFilename
      */
-    public function getWebPathWithFilename(Photo $self)
+    public function getWebDirectoryWithFilename(Photo $self)
     {
-        // todo depends getPath()
         $this->assertNull(
-            $this->model->getWebPathWithFilename()
+            $this->model->getWebDirectoryWithFilename()
         );
 
         // todo assert path
-        $got = $self->getWebPathWithFilename();
+        $got = $self->getWebDirectoryWithFilename();
         $this->assertInternalType(
             'string',
             $got
+        );
+
+        $directory = substr($got, 0, strrpos($got, '/'));
+        $this->assertEquals(
+            self::WEB_DIRECTORY,
+            $directory
         );
     }
 
@@ -271,16 +273,57 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function getDirectory()
+    public function generateFilename()
     {
-        $got = $this->model->getDirectory();
+        $fileMock = $this->getMock(self::UPLOADED_DOCUMENT_FQDN, [], [], '', false);
+        $fileMock
+            ->expects($this->once())
+            ->method('getClientOriginalName')
+            ->will($this->returnValue('someName'))
+        ;
+
+        $fileMock
+            ->expects($this->once())
+            ->method('guessExtension')
+            ->will($this->returnValue('jpg'))
+        ;
+
+        $this->model
+            ->setFile($fileMock)
+            ->generateFilename()
+        ;
+
+        $this->assertInternalType(
+            'string',
+            $this->model->getFilename()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function generateFileNameNegative()
+    {
+        $resource = $this->model->generateFilename();
+        $this->assertInstanceOf(
+            self::SELF_FQDN,
+            $resource
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getWebDirectory()
+    {
+        $got = $this->model->getWebDirectory();
         $this->assertInternalType(
             'string',
             $got
         );
 
         $this->assertEquals(
-            self::DIRECTORY,
+            self::WEB_DIRECTORY,
             $got
         );
     }
@@ -308,6 +351,10 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
                 'recipe',
                 1,
             ],
+            [
+                'file',
+                1,
+            ]
         ];
     }
 

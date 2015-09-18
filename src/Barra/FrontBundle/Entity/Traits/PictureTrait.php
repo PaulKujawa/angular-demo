@@ -2,6 +2,7 @@
 
 namespace Barra\FrontBundle\Entity\Traits;
 
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -47,7 +48,7 @@ trait PictureTrait
      * @var string
      * temp var for encoded filename
      */
-    private $temp;
+    private $oldImageFilename;
 
 
 
@@ -56,46 +57,55 @@ trait PictureTrait
     /**
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
+     * @return $this
      */
-    public function preUpload()
+    public function generateFilename()
     {
-        if (!is_null($this->getFile())) {
-            $filename = sha1(uniqid(mt_rand(), true));
-            $extension = $this->getFile()->guessExtension();
-            $this->title = $this->filename;
-            $this->filename = $filename.'.'.$extension;
+        if (is_null($this->getFile())) {
+            return $this;
         }
+        $this->filename = sha1(uniqid(mt_rand(), true)).'.'.$this->getFile()->guessExtension();
+
+        return $this;
     }
 
     /**
      * @ORM\PostPersist()
      * @ORM\PostUpdate()
+     * @return $this
+     * @throws FileException if, for any reason, the file could not have been moved
      */
-    public function upload()
+    public function saveFile()
     {
         if (is_null($this->getFile())) {
-            return;
+            return $this;
+        }
+        $this->getFile()->move($this->getAbsolutePath(), $this->filename);
+
+        if (isset($this->oldImageFilename)) {
+            unlink($this->getAbsolutePath().'/'.$this->oldImageFilename);
         }
 
-        $this->getFile()->move($this->getPath(), $this->filename);
-
-        if (isset($this->temp)) {
-            unlink($this->getPath().'/'.$this->temp);
-            $this->temp = null;
-        }
-        $this->file = null;
+        return $this;
     }
 
     /**
-     * Called before entity removal
      * @ORM\PostRemove()
+     * @return $this
      */
-    public function removeUpload()
+    public function removeFile()
     {
-        $file = $this->getPathWithFilename();
+        $file = $this->getAbsolutePathWithFilename();
         if (!is_null($file)) {
             unlink($file);
+            // just relevant if manually called to set a new file afterwards
+            $this->oldImageFilename = $this->filename;
+            $this->size             = null;
+            $this->file             = null;
+            $this->filename         = null;
         }
+
+        return $this;
     }
 
 
@@ -107,38 +117,38 @@ trait PictureTrait
     /**
      * @return null|string
      */
-    public function getPathWithFilename()
+    public function getAbsolutePathWithFilename()
     {
         return is_null($this->filename)
             ? null
-            : $this->getPath().'/'.$this->filename;
+            : $this->getAbsolutePath().DIRECTORY_SEPARATOR.$this->filename;
     }
 
     /**
      * @return string
      */
-    public function getPath()
+    public function getAbsolutePath()
     {
-        return __DIR__.'/../../../../../web/'.$this->getDirectory();
+        return __DIR__.'/../../../../../web/'.$this->getWebDirectory();
     }
 
     /**
      * @return null|string  inclusive filename
      */
-    public function getWebPathWithFilename()
+    public function getWebDirectoryWithFilename()
     {
         return is_null($this->filename)
             ? null
-            : $this->getDirectory().'/'.$this->filename;
+            : $this->getWebDirectory().DIRECTORY_SEPARATOR.$this->filename;
     }
 
 
     /**
      * @return string   sub directory
      */
-    public function getDirectory()
+    public function getWebDirectory()
     {
-        return 'uploads/documents';
+        return 'uploads'.DIRECTORY_SEPARATOR.'documents';
     }
 
 
@@ -214,9 +224,10 @@ trait PictureTrait
     public function setFile(UploadedFile $file)
     {
         $this->file = $file;
+
         if (isset($this->filename)) {
-            $this->temp = $this->filename;
-            $this->filename = null;
+            $this->oldImageFilename = $this->filename;
+            $this->filename         = null;
         } else {
             $this->filename = $this->file->getClientOriginalName();
         }

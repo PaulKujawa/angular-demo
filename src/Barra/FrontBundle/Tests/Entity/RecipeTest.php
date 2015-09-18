@@ -2,23 +2,23 @@
 
 namespace Barra\FrontBundle\Tests\Entity;
 
-use Barra\FrontBundle\Entity\Measurement;
-use Barra\FrontBundle\Entity\Ingredient;
+use Barra\FrontBundle\Entity\Recipe;
+use Barra\FrontBundle\Entity\Photo;
 
 /**
- * Class MeasurementTest
+ * Class RecipeTest
  * @author Paul Kujawa <p.kujawa@gmx.net>
  * @package Barra\FrontBundle\Tests\Entity
  */
-class MeasurementTest extends \PHPUnit_Framework_TestCase
+class RecipeTest extends \PHPUnit_Framework_TestCase
 {
-    const SELF_FQDN         = 'Barra\FrontBundle\Entity\Measurement';
-    const PRODUCT_FQDN      = 'Barra\FrontBundle\Entity\Ingredient';
-    const ID                = 2;
-    const GR                = 22;
-    const NAME              = 'demoName';
+    const SELF_FQDN     = 'Barra\FrontBundle\Entity\Recipe';
+    const PHOTO_FQDN    = 'Barra\FrontBundle\Entity\Photo';
+    const ID            = 2;
+    const TITLE         = 'demoName';
+    const URL           = 'demoUrl';
 
-    /** @var  Measurement $model */
+    /** @var  Recipe $model */
     protected $model;
 
     /**
@@ -26,7 +26,7 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->model = new Measurement();
+        $this->model = new Recipe();
     }
 
     /**
@@ -54,46 +54,11 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     *
-     * @return Measurement
-     */
-    public function setGr()
-    {
-        $resource = $this->model->setGr(self::GR);
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
-
-        return $resource;
-    }
-
-    /**
-     * @test
-     * @depends setGr
-     * @param Measurement $self
-     */
-    public function getGr(Measurement $self)
-    {
-        $got = $self->getGr();
-        $this->assertInternalType(
-            'int',
-            $got
-        );
-
-        $this->assertEquals(
-            self::GR,
-            $got
-        );
-    }
-
-    /**
-     * @test
-     * @return Measurement
+     * @return Recipe
      */
     public function setNameTest()
     {
-        $resource = $this->model->setName(self::NAME);
+        $resource = $this->model->setName(self::TITLE);
         $this->assertInstanceOf(
             self::SELF_FQDN,
             $resource
@@ -105,9 +70,9 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @depends setNameTest
-     * @param Measurement $self
+     * @param Recipe $self
      */
-    public function getNameTest(Measurement $self)
+    public function getNameTest(Recipe $self)
     {
         $got = $self->getName();
         $this->assertInternalType(
@@ -116,19 +81,19 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals(
-            self::NAME,
+            self::TITLE,
             $got
         );
     }
-
+    
     /**
      * @test
-     * @return Measurement
+     * @return Recipe
      */
-    public function addIngredient()
+    public function addPhoto()
     {
-        $ingredientMock = $this->getMock(self::PRODUCT_FQDN);
-        $resource       = $this->model->addIngredient($ingredientMock);
+        $photoMock = $this->getMock(self::PHOTO_FQDN);
+        $resource  = $this->model->addPhoto($photoMock);
         $this->assertInstanceOf(
             self::SELF_FQDN,
             $resource
@@ -139,39 +104,39 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @depends addIngredient
-     * @param Measurement $self
-     * @return Ingredient
+     * @depends addPhoto
+     * @param Recipe $self
+     * @return Photo
      */
-    public function getIngredients(Measurement $self)
+    public function getPhotos(Recipe $self)
     {
-        $ingredients  = $self->getIngredients();
-        $ingredient   = $ingredients->get(0);
+        $photos = $self->getPhotos();
+        $photo  = $photos->get(0);
 
         $this->assertCount(
             1,
-            $ingredients
+            $photos
         );
 
-        $ingredientMock = $this->getMock(self::PRODUCT_FQDN);
+        $photoMock = $this->getMock(self::PHOTO_FQDN);
         $this->assertEquals(
-            $ingredientMock,
-            $ingredient
+            $photoMock,
+            $photo
         );
 
-        return $ingredient;
+        return $photo;
     }
 
     /**
      * @test
-     * @depends addIngredient
-     * @depends getIngredients
-     * @param Measurement  $self
-     * @param Ingredient       $ingredient
+     * @depends addPhoto
+     * @depends getPhotos
+     * @param Recipe $self
+     * @param Photo  $photo
      */
-    public function removeIngredient(Measurement $self, Ingredient $ingredient)
+    public function removePhoto(Recipe $self, Photo $photo)
     {
-        $resource = $self->removeIngredient($ingredient);
+        $resource = $self->removePhoto($photo);
 
         $this->assertInstanceOf(
             self::SELF_FQDN,
@@ -180,7 +145,7 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(
             0,
-            $self->getIngredients()
+            $self->getPhotos()
         );
     }
 
@@ -188,18 +153,18 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
      * @test
      * @expectedException PHPUnit_Framework_Error
      */
-    public function addInvalidIngredient()
+    public function addInvalidPhoto()
     {
-        $this->model->addIngredient(1);
+        $this->model->addPhoto(1);
     }
 
     /**
      * @test
      * @expectedException PHPUnit_Framework_Error
      */
-    public function removeInvalidIngredient()
+    public function removeInvalidPhoto()
     {
-        $this->model->removeIngredient(1);
+        $this->model->removePhoto(1);
     }
 
     /**
@@ -224,10 +189,6 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
             [
                 'name',
                 1,
-            ],
-            [
-                'gr',
-                '1',
             ],
         ];
     }

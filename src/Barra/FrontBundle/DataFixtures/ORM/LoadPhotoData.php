@@ -69,10 +69,10 @@ class LoadPhotoData extends AbstractFixture implements OrderedFixtureInterface
     {
         // set up demo picture to simulate an upload
         $demoFileName   = $entity->getName().'jpg';
-        $demoFile       = $entity->getPath().'/'.$demoFileName;
+        $demoFile       = $entity->getAbsolutePath().DIRECTORY_SEPARATOR.$demoFileName;
 
         copy(
-            $entity->getPath().'/fixture.jpg',
+            $entity->getAbsolutePath().'/fixture.jpg',
             $demoFile
         );
 

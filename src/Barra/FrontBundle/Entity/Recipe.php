@@ -56,12 +56,14 @@ class Recipe
 
     /**
      * Remove photos
-     *
      * @param Photo $photos
+     * @return $this
      */
     public function removePhoto(Photo $photos)
     {
         $this->photos->removeElement($photos);
+
+        return $this;
     }
 
     /**
