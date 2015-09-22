@@ -154,14 +154,14 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
      */
     public function setFileWithPreviousSetFilename(Photo $self)
     {
-        $fileMock = $this->getMock(self::UPLOADED_DOCUMENT_FQDN, [], [], '', false);
-        $fileMock
+        $mock = $this->getMock(self::UPLOADED_DOCUMENT_FQDN, [], [], '', false);
+        $mock
             ->expects($this->never())
             ->method('getClientOriginalName')
             ->will($this->returnValue('someName'))
         ;
+        $resource = $self->setFile($mock);
 
-        $resource = $self->setFile($fileMock);
         $this->assertInstanceOf(
             self::SELF_FQDN,
             $resource
@@ -208,8 +208,9 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
      */
     public function setRecipe()
     {
-        $recipeMock = $this->getMock(self::RECIPE_FQDN);
-        $resource   = $this->model->setRecipe($recipeMock);
+        $mock     = $this->getMock(self::RECIPE_FQDN);
+        $resource = $this->model->setRecipe($mock);
+
         $this->assertInstanceOf(
             self::SELF_FQDN,
             $resource
@@ -225,10 +226,11 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
      */
     public function getRecipe(Photo $self)
     {
-        $recipe     = $self->getRecipe();
-        $recipeMock = $this->getMock(self::RECIPE_FQDN);
+        $mock   = $this->getMock(self::RECIPE_FQDN);
+        $recipe = $self->getRecipe();
+
         $this->assertEquals(
-            $recipeMock,
+            $mock,
             $recipe
         );
     }
@@ -239,14 +241,14 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
      */
     public function setFile()
     {
-        $fileMock = $this->getMock(self::UPLOADED_DOCUMENT_FQDN, [], [], '', false);
-        $fileMock
+        $mock = $this->getMock(self::UPLOADED_DOCUMENT_FQDN, [], [], '', false);
+        $mock
             ->expects($this->once())
             ->method('getClientOriginalName')
             ->will($this->returnValue('someName'))
         ;
+        $resource = $this->model->setFile($mock);
 
-        $resource = $this->model->setFile($fileMock);
         $this->assertInstanceOf(
             self::SELF_FQDN,
             $resource
@@ -262,10 +264,11 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
      */
     public function getFile(Photo $self)
     {
-        $file     = $self->getFile();
-        $fileMock = $this->getMock(self::UPLOADED_DOCUMENT_FQDN, [], [], '', false);
+        $mock = $this->getMock(self::UPLOADED_DOCUMENT_FQDN, [], [], '', false);
+        $file = $self->getFile();
+
         $this->assertEquals(
-            $fileMock,
+            $mock,
             $file
         );
     }

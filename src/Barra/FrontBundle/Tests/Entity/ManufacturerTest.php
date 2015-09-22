@@ -91,8 +91,9 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
      */
     public function addProduct()
     {
-        $productMock = $this->getMock(self::PRODUCT_FQDN);
-        $resource      = $this->model->addProduct($productMock);
+        $mock     = $this->getMock(self::PRODUCT_FQDN);
+        $resource = $this->model->addProduct($mock);
+
         $this->assertInstanceOf(
             self::SELF_FQDN,
             $resource
@@ -110,16 +111,16 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
     public function getProducts(Manufacturer $self)
     {
         $products  = $self->getProducts();
-        $product   = $products->get(0);
+        $product   = $products[0];
 
         $this->assertCount(
             1,
             $products
         );
 
-        $productMock = $this->getMock(self::PRODUCT_FQDN);
+        $mock = $this->getMock(self::PRODUCT_FQDN);
         $this->assertEquals(
-            $productMock,
+            $mock,
             $product
         );
 

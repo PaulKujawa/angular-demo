@@ -15,7 +15,7 @@ class AgencyTest extends \PHPUnit_Framework_TestCase
     const SELF_FQDN         = 'Barra\FrontBundle\Entity\Agency';
     const REFERENCE_FQDN    = 'Barra\FrontBundle\Entity\Reference';
     const ID                = 2;
-    const TITLE             = 'demoName';
+    const NAME             = 'demoName';
     const URL               = 'demoUrl';
 
     /** @var  Agency $model */
@@ -58,7 +58,7 @@ class AgencyTest extends \PHPUnit_Framework_TestCase
      */
     public function setNameTest()
     {
-        $resource = $this->model->setName(self::TITLE);
+        $resource = $this->model->setName(self::NAME);
         $this->assertInstanceOf(
             self::SELF_FQDN,
             $resource
@@ -81,7 +81,7 @@ class AgencyTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals(
-            self::TITLE,
+            self::NAME,
             $got
         );
     }
@@ -126,8 +126,9 @@ class AgencyTest extends \PHPUnit_Framework_TestCase
      */
     public function addReference()
     {
-        $referenceMock = $this->getMock(self::REFERENCE_FQDN);
-        $resource      = $this->model->addReference($referenceMock);
+        $mock     = $this->getMock(self::REFERENCE_FQDN);
+        $resource = $this->model->addReference($mock);
+
         $this->assertInstanceOf(
             self::SELF_FQDN,
             $resource
@@ -144,17 +145,17 @@ class AgencyTest extends \PHPUnit_Framework_TestCase
      */
     public function getReferences(Agency $self)
     {
-        $references  = $self->getReferences();
-        $reference   = $references->get(0);
+        $references = $self->getReferences();
+        $reference  = $references[0];
 
         $this->assertCount(
             1,
             $references
         );
 
-        $referenceMock = $this->getMock(self::REFERENCE_FQDN);
+        $mock = $this->getMock(self::REFERENCE_FQDN);
         $this->assertEquals(
-            $referenceMock,
+            $mock,
             $reference
         );
 
@@ -165,8 +166,8 @@ class AgencyTest extends \PHPUnit_Framework_TestCase
      * @test
      * @depends addReference
      * @depends getReferences
-     * @param Agency $self
-     * @param Reference   $reference
+     * @param Agency    $self
+     * @param Reference $reference
      */
     public function removeReference(Agency $self, Reference $reference)
     {

@@ -89,17 +89,13 @@ class Reference
      */
     private $referencePictures;
 
-
-
-
-
-
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->techniques = new ArrayCollection();
+        $this->techniques        = new ArrayCollection();
+        $this->referencePictures = new ArrayCollection();
     }
 
     /**
@@ -186,12 +182,14 @@ class Reference
 
     /**
      * Remove techniques
-     *
      * @param Technique $techniques
+     * @return $this
      */
     public function removeTechnique(Technique $techniques)
     {
         $this->techniques->removeElement($techniques);
+
+        return $this;
     }
 
     /**
@@ -219,12 +217,14 @@ class Reference
 
     /**
      * Remove referencePictures
-     *
      * @param ReferencePicture $referencePictures
+     * @return $this
      */
     public function removeReferencePicture(ReferencePicture $referencePictures)
     {
         $this->referencePictures->removeElement($referencePictures);
+
+        return $this;
     }
 
     /**

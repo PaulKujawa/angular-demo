@@ -92,8 +92,9 @@ class RecipeTest extends \PHPUnit_Framework_TestCase
      */
     public function addPhoto()
     {
-        $photoMock = $this->getMock(self::PHOTO_FQDN);
-        $resource  = $this->model->addPhoto($photoMock);
+        $mock     = $this->getMock(self::PHOTO_FQDN);
+        $resource = $this->model->addPhoto($mock);
+
         $this->assertInstanceOf(
             self::SELF_FQDN,
             $resource
@@ -111,16 +112,16 @@ class RecipeTest extends \PHPUnit_Framework_TestCase
     public function getPhotos(Recipe $self)
     {
         $photos = $self->getPhotos();
-        $photo  = $photos->get(0);
+        $photo  = $photos[0];
 
         $this->assertCount(
             1,
             $photos
         );
 
-        $photoMock = $this->getMock(self::PHOTO_FQDN);
+        $mock = $this->getMock(self::PHOTO_FQDN);
         $this->assertEquals(
-            $photoMock,
+            $mock,
             $photo
         );
 
@@ -137,7 +138,6 @@ class RecipeTest extends \PHPUnit_Framework_TestCase
     public function removePhoto(Recipe $self, Photo $photo)
     {
         $resource = $self->removePhoto($photo);
-
         $this->assertInstanceOf(
             self::SELF_FQDN,
             $resource

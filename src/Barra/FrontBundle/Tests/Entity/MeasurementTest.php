@@ -12,11 +12,11 @@ use Barra\FrontBundle\Entity\Ingredient;
  */
 class MeasurementTest extends \PHPUnit_Framework_TestCase
 {
-    const SELF_FQDN         = 'Barra\FrontBundle\Entity\Measurement';
-    const PRODUCT_FQDN      = 'Barra\FrontBundle\Entity\Ingredient';
-    const ID                = 2;
-    const GR                = 22;
-    const NAME              = 'demoName';
+    const SELF_FQDN     = 'Barra\FrontBundle\Entity\Measurement';
+    const PRODUCT_FQDN  = 'Barra\FrontBundle\Entity\Ingredient';
+    const ID            = 2;
+    const GR            = 22;
+    const NAME          = 'demoName';
 
     /** @var  Measurement $model */
     protected $model;
@@ -127,8 +127,9 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
      */
     public function addIngredient()
     {
-        $ingredientMock = $this->getMock(self::PRODUCT_FQDN);
-        $resource       = $this->model->addIngredient($ingredientMock);
+        $mock     = $this->getMock(self::PRODUCT_FQDN);
+        $resource = $this->model->addIngredient($mock);
+
         $this->assertInstanceOf(
             self::SELF_FQDN,
             $resource
@@ -145,17 +146,17 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
      */
     public function getIngredients(Measurement $self)
     {
-        $ingredients  = $self->getIngredients();
-        $ingredient   = $ingredients->get(0);
+        $ingredients = $self->getIngredients();
+        $ingredient  = $ingredients[0];
 
         $this->assertCount(
             1,
             $ingredients
         );
 
-        $ingredientMock = $this->getMock(self::PRODUCT_FQDN);
+        $mock = $this->getMock(self::PRODUCT_FQDN);
         $this->assertEquals(
-            $ingredientMock,
+            $mock,
             $ingredient
         );
 
@@ -172,7 +173,6 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
     public function removeIngredient(Measurement $self, Ingredient $ingredient)
     {
         $resource = $self->removeIngredient($ingredient);
-
         $this->assertInstanceOf(
             self::SELF_FQDN,
             $resource

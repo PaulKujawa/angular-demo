@@ -103,8 +103,9 @@ class CookingTest extends \PHPUnit_Framework_TestCase
      */
     public function setRecipe()
     {
-        $recipeMock = $this->getMock(self::RECIPE_FQDN);
-        $resource   = $this->model->setRecipe($recipeMock);
+        $mock     = $this->getMock(self::RECIPE_FQDN);
+        $resource = $this->model->setRecipe($mock);
+
         $this->assertInstanceOf(
             self::SELF_FQDN,
             $resource
@@ -117,18 +118,16 @@ class CookingTest extends \PHPUnit_Framework_TestCase
      * @test
      * @depends setRecipe
      * @param Cooking $self
-     * @return Recipe
      */
     public function getRecipe(Cooking $self)
     {
-        $recipe     = $self->getRecipe();
-        $recipeMock = $this->getMock(self::RECIPE_FQDN);
+        $mock   = $this->getMock(self::RECIPE_FQDN);
+        $recipe = $self->getRecipe();
+
         $this->assertEquals(
-            $recipeMock,
+            $mock,
             $recipe
         );
-
-        return $recipe;
     }
 
     /**
@@ -148,17 +147,17 @@ class CookingTest extends \PHPUnit_Framework_TestCase
      */
     public function createId()
     {
-        $recipeMock = $this->getMock(self::RECIPE_FQDN);
-        $recipeMock
+        $mock = $this->getMock(self::RECIPE_FQDN);
+        $mock
             ->expects($this->exactly(2))
             ->method('getId')
             ->will($this->returnValue(self::ID))
         ;
 
-        $this->model->setRecipe($recipeMock);
+        $this->model->setRecipe($mock);
         $this->model->setPosition(self::POSITION);
-
         $resource = $this->model->createId();
+
         $this->assertInstanceOf(
             self::SELF_FQDN,
             $resource

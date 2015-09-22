@@ -71,7 +71,6 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     *
      * @return Ingredient
      */
     public function setAmount()
@@ -110,8 +109,9 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
      */
     public function setRecipe()
     {
-        $recipeMock = $this->getMock(self::RECIPE_FQDN);
-        $resource   = $this->model->setRecipe($recipeMock);
+        $mock     = $this->getMock(self::RECIPE_FQDN);
+        $resource = $this->model->setRecipe($mock);
+
         $this->assertInstanceOf(
             self::SELF_FQDN,
             $resource
@@ -124,18 +124,16 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
      * @test
      * @depends setRecipe
      * @param Ingredient $self
-     * @return Recipe
      */
     public function getRecipe(Ingredient $self)
     {
-        $recipe     = $self->getRecipe();
-        $recipeMock = $this->getMock(self::RECIPE_FQDN);
+        $mock   = $this->getMock(self::RECIPE_FQDN);
+        $recipe = $self->getRecipe();
+
         $this->assertEquals(
-            $recipeMock,
+            $mock,
             $recipe
         );
-
-        return $recipe;
     }
 
     /**
@@ -144,8 +142,9 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
      */
     public function setProduct()
     {
-        $productMock = $this->getMock(self::PRODUCT_FQDN);
-        $resource   = $this->model->setProduct($productMock);
+        $mock     = $this->getMock(self::PRODUCT_FQDN);
+        $resource = $this->model->setProduct($mock);
+
         $this->assertInstanceOf(
             self::SELF_FQDN,
             $resource
@@ -158,18 +157,16 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
      * @test
      * @depends setProduct
      * @param Ingredient $self
-     * @return Product
      */
     public function getProduct(Ingredient $self)
     {
-        $product     = $self->getProduct();
-        $productMock = $this->getMock(self::PRODUCT_FQDN);
+        $mock    = $this->getMock(self::PRODUCT_FQDN);
+        $product = $self->getProduct();
+
         $this->assertEquals(
-            $productMock,
+            $mock,
             $product
         );
-
-        return $product;
     }
 
     /**
@@ -178,8 +175,9 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
      */
     public function setMeasurement()
     {
-        $measurementMock = $this->getMock(self::MEASUREMENT_FQDN);
-        $resource   = $this->model->setMeasurement($measurementMock);
+        $mock     = $this->getMock(self::MEASUREMENT_FQDN);
+        $resource = $this->model->setMeasurement($mock);
+
         $this->assertInstanceOf(
             self::SELF_FQDN,
             $resource
@@ -192,18 +190,16 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
      * @test
      * @depends setMeasurement
      * @param Ingredient $self
-     * @return Measurement
      */
     public function getMeasurement(Ingredient $self)
     {
-        $measurement     = $self->getMeasurement();
-        $measurementMock = $this->getMock(self::MEASUREMENT_FQDN);
+        $mock        = $this->getMock(self::MEASUREMENT_FQDN);
+        $measurement = $self->getMeasurement();
+
         $this->assertEquals(
-            $measurementMock,
+            $mock,
             $measurement
         );
-
-        return $measurement;
     }
 
     /**
@@ -228,6 +224,8 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
             ->method('getId')
             ->will($this->returnValue(self::ID))
         ;
+        $this->model->setRecipe($recipeMock);
+
 
         $productMock = $this->getMock(self::PRODUCT_FQDN);
         $productMock
@@ -235,8 +233,6 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
             ->method('getId')
             ->will($this->returnValue(self::PRODUCT_ID))
         ;
-
-        $this->model->setRecipe($recipeMock);
         $this->model->setProduct($productMock);
 
         $resource = $this->model->createId();
