@@ -7,11 +7,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Class ReferencePictureType
+ * Class ScreenshotType
  * @author Paul Kujawa <p.kujawa@gmx.net>
  * @package Barra\BackBundle\Form\Type
  */
-class ReferencePictureType extends AbstractType
+class ScreenshotType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -28,7 +28,7 @@ class ReferencePictureType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class'        => 'Barra\FrontBundle\Entity\ReferencePicture',
+            'data_class'        => 'Barra\FrontBundle\Entity\Screenshot',
             'intention'         => 'recipeFile',
             'csrf_protection'   => false,
         ]);
@@ -36,6 +36,6 @@ class ReferencePictureType extends AbstractType
 
     public function getName()
     {
-        return 'formReferencePicture';
+        return 'formScreenshot';
     }
 }

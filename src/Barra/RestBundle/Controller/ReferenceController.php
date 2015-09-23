@@ -175,8 +175,8 @@ class ReferenceController extends FOSRestController
             return $this->view(null, Codes::HTTP_NOT_FOUND);
         }
 
-        // TODO onDelete=Cascade instead of manually calling ReferencePicture.removeUpload()
-        foreach ($entity->getReferencePictures() as $image) {
+        // TODO onDelete=Cascade instead of manually calling Screenshot.removeUpload()
+        foreach ($entity->getScreenshots() as $image) {
             $this->getEM()->remove($image);
         }
 

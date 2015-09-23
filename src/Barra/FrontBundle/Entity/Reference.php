@@ -82,12 +82,12 @@ class Reference
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(
-     *      targetEntity = "ReferencePicture",
+     *      targetEntity = "Screenshot",
      *      mappedBy     = "reference"
      * )
      * @ORM\OrderBy({"id" = "ASC"})
      */
-    private $referencePictures;
+    private $screenshots;
 
     /**
      * Constructor
@@ -95,7 +95,7 @@ class Reference
     public function __construct()
     {
         $this->techniques        = new ArrayCollection();
-        $this->referencePictures = new ArrayCollection();
+        $this->screenshots = new ArrayCollection();
     }
 
     /**
@@ -195,35 +195,35 @@ class Reference
     }
 
     /**
-     * Add referencePictures
-     * @param ReferencePicture $referencePictures
+     * Add screenshots
+     * @param Screenshot $screenshots
      * @return Reference
      */
-    public function addReferencePicture(ReferencePicture $referencePictures)
+    public function addScreenshot(Screenshot $screenshots)
     {
-        $this->referencePictures[] = $referencePictures;
+        $this->screenshots[] = $screenshots;
 
         return $this;
     }
 
     /**
-     * Remove referencePictures
-     * @param ReferencePicture $referencePictures
+     * Remove screenshots
+     * @param Screenshot $screenshots
      * @return $this
      */
-    public function removeReferencePicture(ReferencePicture $referencePictures)
+    public function removeScreenshot(Screenshot $screenshots)
     {
-        $this->referencePictures->removeElement($referencePictures);
+        $this->screenshots->removeElement($screenshots);
 
         return $this;
     }
 
     /**
-     * Get referencePictures
+     * Get screenshots
      * @return ArrayCollection
      */
-    public function getReferencePictures()
+    public function getScreenshots()
     {
-        return $this->referencePictures;
+        return $this->screenshots;
     }
 }

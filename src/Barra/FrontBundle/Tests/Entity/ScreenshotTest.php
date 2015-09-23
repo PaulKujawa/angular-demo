@@ -2,17 +2,16 @@
 
 namespace Barra\FrontBundle\Tests\Entity;
 
-use Barra\FrontBundle\Entity\ReferencePicture;
-use Barra\FrontBundle\Entity\Reference;
+use Barra\FrontBundle\Entity\Screenshot;
 
 /**
- * Class ReferencePictureTest
+ * Class ScreenshotTest
  * @author Paul Kujawa <p.kujawa@gmx.net>
  * @package Barra\FrontBundle\Tests\Entity
  */
-class ReferencePictureTest extends \PHPUnit_Framework_TestCase
+class ScreenshotTest extends \PHPUnit_Framework_TestCase
 {
-    const SELF_FQDN              = 'Barra\FrontBundle\Entity\ReferencePicture';
+    const SELF_FQDN              = 'Barra\FrontBundle\Entity\Screenshot';
     const REFERENCE_FQDN         = 'Barra\FrontBundle\Entity\Reference';
     const ID                     = 2;
     const SIZE                   = 33;
@@ -21,9 +20,7 @@ class ReferencePictureTest extends \PHPUnit_Framework_TestCase
     const FILENAME               = 'demoFilename';
     const WEB_DIRECTORY          = 'uploads/documents';
 
-    
-
-    /** @var  ReferencePicture $model */
+    /** @var  Screenshot $model */
     protected $model;
 
     /**
@@ -31,7 +28,7 @@ class ReferencePictureTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->model = new ReferencePicture();
+        $this->model = new Screenshot();
     }
 
     /**
@@ -59,7 +56,7 @@ class ReferencePictureTest extends \PHPUnit_Framework_TestCase
     
     /**
      * @test
-     * @return ReferencePicture
+     * @return Screenshot
      */
     public function setNameTest()
     {
@@ -75,9 +72,9 @@ class ReferencePictureTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @depends setNameTest
-     * @param ReferencePicture $self
+     * @param Screenshot $self
      */
-    public function getNameTest(ReferencePicture $self)
+    public function getNameTest(Screenshot $self)
     {
         $got = $self->getName();
         $this->assertInternalType(
@@ -93,7 +90,7 @@ class ReferencePictureTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @return ReferencePicture
+     * @return Screenshot
      */
     public function setReference()
     {
@@ -111,9 +108,9 @@ class ReferencePictureTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @depends setReference
-     * @param ReferencePicture $self
+     * @param Screenshot $self
      */
-    public function getReference(ReferencePicture $self)
+    public function getReference(Screenshot $self)
     {
         $mock      = $this->getMock(self::REFERENCE_FQDN);
         $reference = $self->getReference();
@@ -126,7 +123,7 @@ class ReferencePictureTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @return ReferencePicture
+     * @return Screenshot
      */
     public function setFile()
     {
@@ -149,9 +146,9 @@ class ReferencePictureTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @depends setFile
-     * @param ReferencePicture $self
+     * @param Screenshot $self
      */
-    public function getFile(ReferencePicture $self)
+    public function getFile(Screenshot $self)
     {
         $mock = $this->getMock(self::UPLOADED_DOCUMENT_FQDN, [], [], '', false);
         $file = $self->getFile();
@@ -222,7 +219,7 @@ class ReferencePictureTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @return ReferencePicture
+     * @return Screenshot
      */
     public function setFilename()
     {
@@ -238,9 +235,9 @@ class ReferencePictureTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @depends setFilename
-     * @param ReferencePicture $self
+     * @param Screenshot $self
      */
-    public function getFilename(ReferencePicture $self)
+    public function getFilename(Screenshot $self)
     {
         $got = $self->getFilename();
         $this->assertInternalType(
@@ -256,10 +253,10 @@ class ReferencePictureTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @param ReferencePicture $self
+     * @param Screenshot $self
      * @depends setFilename
      */
-    public function getWebDirectoryWithFilename(ReferencePicture $self)
+    public function getWebDirectoryWithFilename(Screenshot $self)
     {
         $this->assertNull(
             $this->model->getWebDirectoryWithFilename()
@@ -281,10 +278,10 @@ class ReferencePictureTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @param ReferencePicture $self
+     * @param Screenshot $self
      * @depends setFilename
      */
-    public function setFileWithPreviousSetFilename(ReferencePicture $self)
+    public function setFileWithPreviousSetFilename(Screenshot $self)
     {
         $mock = $this->getMock(self::UPLOADED_DOCUMENT_FQDN, [], [], '', false);
         $mock
@@ -302,7 +299,7 @@ class ReferencePictureTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @return ReferencePicture
+     * @return Screenshot
      */
     public function setSize()
     {
@@ -318,9 +315,9 @@ class ReferencePictureTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @depends setSize
-     * @param ReferencePicture $self
+     * @param Screenshot $self
      */
-    public function getSizeTest(ReferencePicture $self)
+    public function getSizeTest(Screenshot $self)
     {
         $got = $self->getSize();
         $this->assertInternalType(
@@ -334,37 +331,6 @@ class ReferencePictureTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
     /**
      * @test
      * @param string    $field

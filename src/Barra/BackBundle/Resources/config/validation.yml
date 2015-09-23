@@ -101,7 +101,7 @@ Barra\FrontBundle\Entity\Reference:
     finished:
       - Date: ~
 
-Manager\ManagerBundle\Entity\ReferencePicture:
+Manager\ManagerBundle\Entity\Screenshot:
   properties:
     file:
       - File:

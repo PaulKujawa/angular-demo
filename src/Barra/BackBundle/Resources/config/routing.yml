@@ -42,9 +42,9 @@ barra_back_references:
     requirements:
         paginationActive: \d+
 
-barra_back_reference_pictures:
-    path:     /referencePictures/{id}
-    defaults: { _controller: BarraBackBundle:ReferencePicture:index }
+barra_back_screenshot:
+    path:     /screenshots/{id}
+    defaults: { _controller: BarraBackBundle:Screenshot:index }
     requirements:
         id: \d+
 

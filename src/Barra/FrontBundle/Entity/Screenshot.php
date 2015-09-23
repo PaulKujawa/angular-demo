@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 
 /**
- * Class ReferencePicture
+ * Class Screenshot
  * @author Paul Kujawa <p.kujawa@gmx.net>
  * @package Barra\FrontBundle\Entity
  *
@@ -18,7 +18,7 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks
  */
-class ReferencePicture
+class Screenshot
 {
     use IdAutoTrait,
         NameTrait,
@@ -29,7 +29,7 @@ class ReferencePicture
      * @var Reference
      * @ORM\ManyToOne(
      *      targetEntity = "Reference",
-     *      inversedBy   = "referencePictures"
+     *      inversedBy   = "screenshots"
      * )
      * @ORM\JoinColumn(
      *      name                 = "reference",

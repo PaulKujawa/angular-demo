@@ -3,7 +3,7 @@
 namespace Barra\FrontBundle\Tests\Entity;
 
 use Barra\FrontBundle\Entity\Reference;
-use Barra\FrontBundle\Entity\ReferencePicture;
+use Barra\FrontBundle\Entity\Screenshot;
 use Barra\FrontBundle\Entity\Technique;
 
 /**
@@ -16,7 +16,7 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
     const SELF_FQDN                 = 'Barra\FrontBundle\Entity\Reference';
     const AGENCY_FQDN               = 'Barra\FrontBundle\Entity\Agency';
     const TECHNIQUE_FQDN            = 'Barra\FrontBundle\Entity\Technique';
-    const REFERENCE_PICTURE_FQDN    = 'Barra\FrontBundle\Entity\ReferencePicture';
+    const REFERENCE_PICTURE_FQDN    = 'Barra\FrontBundle\Entity\Screenshot';
     const ID                        = 2;
     const DESCRIPTION               = 'demoDescription';
 
@@ -267,10 +267,10 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
      * @test
      * @return Reference
      */
-    public function addReferencePicture()
+    public function addScreenshot()
     {
         $mock     = $this->getMock(self::REFERENCE_PICTURE_FQDN);
-        $resource = $this->model->addReferencePicture($mock);
+        $resource = $this->model->addScreenshot($mock);
 
         $this->assertInstanceOf(
             self::SELF_FQDN,
@@ -282,13 +282,13 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @depends addReferencePicture
+     * @depends addScreenshot
      * @param Reference $self
-     * @return ReferencePicture
+     * @return Screenshot
      */
-    public function getReferencePictures(Reference $self)
+    public function getScreenshots(Reference $self)
     {
-        $pics = $self->getReferencePictures();
+        $pics = $self->getScreenshots();
         $pic  = $pics[0];
 
         $this->assertCount(
@@ -308,14 +308,14 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @depends addReferencePicture
-     * @depends getReferencePictures
+     * @depends addScreenshot
+     * @depends getScreenshots
      * @param Reference         $self
-     * @param ReferencePicture  $pic
+     * @param Screenshot  $pic
      */
-    public function removeReferencePicture(Reference $self, ReferencePicture $pic)
+    public function removeScreenshot(Reference $self, Screenshot $pic)
     {
-        $resource = $self->removeReferencePicture($pic);
+        $resource = $self->removeScreenshot($pic);
         $this->assertInstanceOf(
             self::SELF_FQDN,
             $resource
@@ -323,7 +323,7 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(
             0,
-            $self->getReferencePictures()
+            $self->getScreenshots()
         );
     }
 
@@ -331,18 +331,18 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
      * @test
      * @expectedException PHPUnit_Framework_Error
      */
-    public function addInvalidReferencePicture()
+    public function addInvalidScreenshot()
     {
-        $this->model->addReferencePicture(1);
+        $this->model->addScreenshot(1);
     }
 
     /**
      * @test
      * @expectedException PHPUnit_Framework_Error
      */
-    public function removeInvalidReferencePicture()
+    public function removeInvalidScreenshot()
     {
-        $this->model->removeReferencePicture(1);
+        $this->model->removeScreenshot(1);
     }
 
     /**
