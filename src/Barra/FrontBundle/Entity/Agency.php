@@ -44,7 +44,6 @@ class Agency
 
     /**
      * Add references
-     *
      * @param Reference $references
      * @return $this
      */
@@ -57,7 +56,6 @@ class Agency
 
     /**
      * Remove references
-     *
      * @param Reference $references
      * @return $this
      */
@@ -70,7 +68,6 @@ class Agency
 
     /**
      * Get references
-     *
      * @return ArrayCollection
      */
     public function getReferences()

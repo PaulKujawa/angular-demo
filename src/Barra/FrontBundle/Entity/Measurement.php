@@ -43,7 +43,6 @@ class Measurement
 
     /**
      * Set gr
-     *
      * @param int $gr
      * @return $this
      * @throws \InvalidArgumentException
@@ -64,13 +63,13 @@ class Measurement
 
     /**
      * Get gr
-     *
      * @return int
      */
     public function getGr()
     {
         return $this->gr;
     }
+
     /**
      * Constructor
      */
@@ -81,7 +80,6 @@ class Measurement
 
     /**
      * Add ingredients
-     *
      * @param Ingredient $ingredients
      * @return $this
      */
@@ -94,7 +92,6 @@ class Measurement
 
     /**
      * Remove ingredients
-     *
      * @param Ingredient $ingredients
      * @return $this
      */
@@ -107,7 +104,6 @@ class Measurement
 
     /**
      * Get ingredients
-     *
      * @return ArrayCollection
      */
     public function getIngredients()

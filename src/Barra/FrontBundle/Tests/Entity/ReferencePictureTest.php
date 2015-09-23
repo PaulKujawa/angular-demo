@@ -2,25 +2,28 @@
 
 namespace Barra\FrontBundle\Tests\Entity;
 
-use Barra\FrontBundle\Entity\Photo;
+use Barra\FrontBundle\Entity\ReferencePicture;
+use Barra\FrontBundle\Entity\Reference;
 
 /**
- * Class PhotoTest
+ * Class ReferencePictureTest
  * @author Paul Kujawa <p.kujawa@gmx.net>
  * @package Barra\FrontBundle\Tests\Entity
  */
-class PhotoTest extends \PHPUnit_Framework_TestCase
+class ReferencePictureTest extends \PHPUnit_Framework_TestCase
 {
-    const SELF_FQDN              = 'Barra\FrontBundle\Entity\Photo';
-    const RECIPE_FQDN            = 'Barra\FrontBundle\Entity\Recipe';
-    const UPLOADED_DOCUMENT_FQDN = 'Symfony\Component\HttpFoundation\File\UploadedFile';
+    const SELF_FQDN              = 'Barra\FrontBundle\Entity\ReferencePicture';
+    const REFERENCE_FQDN         = 'Barra\FrontBundle\Entity\Reference';
     const ID                     = 2;
     const SIZE                   = 33;
     const NAME                   = 'demoName';
+    const UPLOADED_DOCUMENT_FQDN = 'Symfony\Component\HttpFoundation\File\UploadedFile';
     const FILENAME               = 'demoFilename';
     const WEB_DIRECTORY          = 'uploads/documents';
 
-    /** @var  Photo $model */
+    
+
+    /** @var  ReferencePicture $model */
     protected $model;
 
     /**
@@ -28,7 +31,7 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->model = new Photo();
+        $this->model = new ReferencePicture();
     }
 
     /**
@@ -53,10 +56,10 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
             $got
         );
     }
-
+    
     /**
      * @test
-     * @return Photo
+     * @return ReferencePicture
      */
     public function setNameTest()
     {
@@ -72,9 +75,9 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @depends setNameTest
-     * @param Photo $self
+     * @param ReferencePicture $self
      */
-    public function getNameTest(Photo $self)
+    public function getNameTest(ReferencePicture $self)
     {
         $got = $self->getName();
         $this->assertInternalType(
@@ -90,126 +93,12 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @return Photo
+     * @return ReferencePicture
      */
-    public function setFilename()
+    public function setReference()
     {
-        $resource = $this->model->setFilename(self::FILENAME);
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
-
-        return $resource;
-    }
-
-    /**
-     * @test
-     * @depends setFilename
-     * @param Photo $self
-     */
-    public function getFilename(Photo $self)
-    {
-        $got = $self->getFilename();
-        $this->assertInternalType(
-            'string',
-            $got
-        );
-
-        $this->assertEquals(
-            self::FILENAME,
-            $got
-        );
-    }
-
-    /**
-     * @test
-     * @param Photo $self
-     * @depends setFilename
-     */
-    public function getWebDirectoryWithFilename(Photo $self)
-    {
-        $this->assertNull(
-            $this->model->getWebDirectoryWithFilename()
-        );
-
-        // todo assert path
-        $got = $self->getWebDirectoryWithFilename();
-        $this->assertInternalType(
-            'string',
-            $got
-        );
-
-        $directory = substr($got, 0, strrpos($got, '/'));
-        $this->assertEquals(
-            self::WEB_DIRECTORY,
-            $directory
-        );
-    }
-
-    /**
-     * @test
-     * @param Photo $self
-     * @depends setFilename
-     */
-    public function setFileWithPreviousSetFilename(Photo $self)
-    {
-        $mock = $this->getMock(self::UPLOADED_DOCUMENT_FQDN, [], [], '', false);
-        $mock
-            ->expects($this->never())
-            ->method('getClientOriginalName')
-            ->will($this->returnValue('someName'))
-        ;
-        $resource = $self->setFile($mock);
-
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
-    }
-
-    /**
-     * @test
-     * @return Photo
-     */
-    public function setSize()
-    {
-        $resource = $this->model->setSize(self::SIZE);
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
-
-        return $resource;
-    }
-
-    /**
-     * @test
-     * @depends setSize
-     * @param Photo $self
-     */
-    public function getSizeTest(Photo $self)
-    {
-        $got = $self->getSize();
-        $this->assertInternalType(
-            'int',
-            $got
-        );
-
-        $this->assertEquals(
-            self::SIZE,
-            $got
-        );
-    }
-
-    /**
-     * @test
-     * @return Photo
-     */
-    public function setRecipe()
-    {
-        $mock     = $this->getMock(self::RECIPE_FQDN);
-        $resource = $this->model->setRecipe($mock);
+        $mock     = $this->getMock(self::REFERENCE_FQDN);
+        $resource = $this->model->setReference($mock);
 
         $this->assertInstanceOf(
             self::SELF_FQDN,
@@ -221,23 +110,23 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @depends setRecipe
-     * @param Photo $self
+     * @depends setReference
+     * @param ReferencePicture $self
      */
-    public function getRecipe(Photo $self)
+    public function getReference(ReferencePicture $self)
     {
-        $mock   = $this->getMock(self::RECIPE_FQDN);
-        $recipe = $self->getRecipe();
+        $mock      = $this->getMock(self::REFERENCE_FQDN);
+        $reference = $self->getReference();
 
         $this->assertEquals(
             $mock,
-            $recipe
+            $reference
         );
     }
 
     /**
      * @test
-     * @return Photo
+     * @return ReferencePicture
      */
     public function setFile()
     {
@@ -260,9 +149,9 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @depends setFile
-     * @param Photo $self
+     * @param ReferencePicture $self
      */
-    public function getFile(Photo $self)
+    public function getFile(ReferencePicture $self)
     {
         $mock = $this->getMock(self::UPLOADED_DOCUMENT_FQDN, [], [], '', false);
         $file = $self->getFile();
@@ -333,6 +222,151 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @return ReferencePicture
+     */
+    public function setFilename()
+    {
+        $resource = $this->model->setFilename(self::FILENAME);
+        $this->assertInstanceOf(
+            self::SELF_FQDN,
+            $resource
+        );
+
+        return $resource;
+    }
+
+    /**
+     * @test
+     * @depends setFilename
+     * @param ReferencePicture $self
+     */
+    public function getFilename(ReferencePicture $self)
+    {
+        $got = $self->getFilename();
+        $this->assertInternalType(
+            'string',
+            $got
+        );
+
+        $this->assertEquals(
+            self::FILENAME,
+            $got
+        );
+    }
+
+    /**
+     * @test
+     * @param ReferencePicture $self
+     * @depends setFilename
+     */
+    public function getWebDirectoryWithFilename(ReferencePicture $self)
+    {
+        $this->assertNull(
+            $this->model->getWebDirectoryWithFilename()
+        );
+
+        // todo assert path
+        $got = $self->getWebDirectoryWithFilename();
+        $this->assertInternalType(
+            'string',
+            $got
+        );
+
+        $directory = substr($got, 0, strrpos($got, '/'));
+        $this->assertEquals(
+            self::WEB_DIRECTORY,
+            $directory
+        );
+    }
+
+    /**
+     * @test
+     * @param ReferencePicture $self
+     * @depends setFilename
+     */
+    public function setFileWithPreviousSetFilename(ReferencePicture $self)
+    {
+        $mock = $this->getMock(self::UPLOADED_DOCUMENT_FQDN, [], [], '', false);
+        $mock
+            ->expects($this->never())
+            ->method('getClientOriginalName')
+            ->will($this->returnValue('someName'))
+        ;
+        $resource = $self->setFile($mock);
+
+        $this->assertInstanceOf(
+            self::SELF_FQDN,
+            $resource
+        );
+    }
+
+    /**
+     * @test
+     * @return ReferencePicture
+     */
+    public function setSize()
+    {
+        $resource = $this->model->setSize(self::SIZE);
+        $this->assertInstanceOf(
+            self::SELF_FQDN,
+            $resource
+        );
+
+        return $resource;
+    }
+
+    /**
+     * @test
+     * @depends setSize
+     * @param ReferencePicture $self
+     */
+    public function getSizeTest(ReferencePicture $self)
+    {
+        $got = $self->getSize();
+        $this->assertInternalType(
+            'int',
+            $got
+        );
+
+        $this->assertEquals(
+            self::SIZE,
+            $got
+        );
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    /**
+     * @test
      * @param string    $field
      * @param mixed     $value
      * @expectedException PHPUnit_Framework_Error
@@ -351,7 +385,7 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [
-                'recipe',
+                'reference',
                 1,
             ],
             [

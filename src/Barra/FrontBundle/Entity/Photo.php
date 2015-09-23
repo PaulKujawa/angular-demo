@@ -43,7 +43,6 @@ class Photo
 
     /**
      * Set recipe
-     *
      * @param Recipe $recipe
      * @return $this
      */
@@ -56,7 +55,6 @@ class Photo
 
     /**
      * Get recipe
-     *
      * @return Recipe
      */
     public function getRecipe()

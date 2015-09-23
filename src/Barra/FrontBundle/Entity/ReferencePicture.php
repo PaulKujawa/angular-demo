@@ -43,7 +43,6 @@ class ReferencePicture
 
     /**
      * Set reference
-     *
      * @param Reference $reference
      * @return $this
      */
@@ -55,7 +54,6 @@ class ReferencePicture
 
     /**
      * Get reference
-     *
      * @return Reference
      */
     public function getReference()

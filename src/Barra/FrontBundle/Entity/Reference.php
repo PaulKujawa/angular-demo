@@ -100,7 +100,6 @@ class Reference
 
     /**
      * Set started
-     *
      * @param \DateTime $started
      * @return Reference
      */
@@ -113,7 +112,6 @@ class Reference
 
     /**
      * Get started
-     *
      * @return \DateTime
      */
     public function getStarted()
@@ -123,7 +121,6 @@ class Reference
 
     /**
      * Set finished
-     *
      * @param \DateTime $finished
      * @return Reference
      */
@@ -136,7 +133,6 @@ class Reference
 
     /**
      * Get finished
-     *
      * @return \DateTime
      */
     public function getFinished()
@@ -146,7 +142,6 @@ class Reference
 
     /**
      * Set agency
-     *
      * @param Agency $agency
      * @return Reference
      */
@@ -159,7 +154,6 @@ class Reference
 
     /**
      * Get agency
-     *
      * @return Agency
      */
     public function getAgency()
@@ -169,7 +163,6 @@ class Reference
 
     /**
      * Add techniques
-     *
      * @param Technique $techniques
      * @return Reference
      */
@@ -194,7 +187,6 @@ class Reference
 
     /**
      * Get techniques
-     *
      * @return ArrayCollection
      */
     public function getTechniques()
@@ -204,7 +196,6 @@ class Reference
 
     /**
      * Add referencePictures
-     *
      * @param ReferencePicture $referencePictures
      * @return Reference
      */
@@ -229,7 +220,6 @@ class Reference
 
     /**
      * Get referencePictures
-     *
      * @return ArrayCollection
      */
     public function getReferencePictures()

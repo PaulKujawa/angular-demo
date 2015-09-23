@@ -95,7 +95,6 @@ class Ingredient
 
     /**
      * Get amount
-     *
      * @return int
      */
     public function getAmount()
@@ -105,7 +104,6 @@ class Ingredient
 
     /**
      * Set product
-     *
      * @param Product $product
      * @return $this
      */
@@ -118,7 +116,6 @@ class Ingredient
 
     /**
      * Get product
-     *
      * @return Product
      */
     public function getProduct()
@@ -128,7 +125,6 @@ class Ingredient
 
     /**
      * Set measurement
-     *
      * @param Measurement $measurement
      * @return $this
      */
@@ -141,14 +137,12 @@ class Ingredient
 
     /**
      * Get measurement
-     *
      * @return Measurement
      */
     public function getMeasurement()
     {
         return $this->measurement;
     }
-
 
     /**
      * @ORM\PrePersist()
@@ -174,10 +168,8 @@ class Ingredient
         return $this;
     }
 
-
     /**
      * Get id
-     *
      * @return int
      */
     public function getId()

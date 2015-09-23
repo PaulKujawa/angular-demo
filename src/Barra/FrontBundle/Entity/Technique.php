@@ -49,7 +49,6 @@ class Technique
 
     /**
      * Add references
-     *
      * @param Reference $references
      * @return $this
      */
@@ -62,17 +61,18 @@ class Technique
 
     /**
      * Remove references
-     *
      * @param Reference $references
+     * @return $this
      */
     public function removeReference(Reference $references)
     {
         $this->references->removeElement($references);
+
+        return $this;
     }
 
     /**
      * Get references
-     *
      * @return ArrayCollection
      */
     public function getReferences()
