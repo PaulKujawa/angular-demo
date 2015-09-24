@@ -3,8 +3,8 @@
 namespace Barra\RestBundle\Controller;
 
 use Barra\BackBundle\Form\Type\RecipeType;
-use Barra\FrontBundle\Entity\Recipe;
-use Barra\FrontBundle\Entity\Repository\RecipeRepository;
+use Barra\BackBundle\Entity\Recipe;
+use Barra\BackBundle\Entity\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Annotations;
@@ -202,6 +202,6 @@ class RecipeController extends FOSRestController
      */
     protected function getRepo($className = 'Recipe')
     {
-        return $this->getEM()->getRepository('BarraFrontBundle:'.$className);
+        return $this->getEM()->getRepository('BarraBackBundle:'.$className);
     }
 }

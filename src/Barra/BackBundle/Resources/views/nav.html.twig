@@ -31,7 +31,7 @@
         </a>
         <ul class="dropdown-menu" role="menu">
             <li {% if app.request.attributes.get('_route') == 'barra_back_recipes' or
-                app.request.attributes.get('_route') == 'barra_back_recipeDetail' %}class="active"{% endif %}>
+                app.request.attributes.get('_route') == 'barra_back_recipe' %}class="active"{% endif %}>
                 <a href="{{ path('barra_back_recipes') }}">{{ ('back.title.recipes')|trans }}</a>
             </li>
             <li {% if app.request.attributes.get('_route') == 'barra_back_measurements' %}class="active"{% endif %}>

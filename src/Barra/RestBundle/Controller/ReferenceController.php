@@ -3,8 +3,8 @@
 namespace Barra\RestBundle\Controller;
 
 use Barra\BackBundle\Form\Type\ReferenceType;
-use Barra\FrontBundle\Entity\Reference;
-use Barra\FrontBundle\Entity\Repository\ReferenceRepository;
+use Barra\BackBundle\Entity\Reference;
+use Barra\BackBundle\Entity\Repository\ReferenceRepository;
 use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Annotations;
@@ -206,6 +206,6 @@ class ReferenceController extends FOSRestController
      */
     protected function getRepo($className = 'Reference')
     {
-        return $this->getEM()->getRepository('BarraFrontBundle:'.$className);
+        return $this->getEM()->getRepository('BarraBackBundle:'.$className);
     }
 }

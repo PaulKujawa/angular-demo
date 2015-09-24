@@ -3,8 +3,8 @@
 namespace Barra\RestBundle\Controller;
 
 use Barra\BackBundle\Form\Type\MeasurementType;
-use Barra\FrontBundle\Entity\Measurement;
-use Barra\FrontBundle\Entity\Repository\MeasurementRepository;
+use Barra\BackBundle\Entity\Measurement;
+use Barra\BackBundle\Entity\Repository\MeasurementRepository;
 use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Annotations;
@@ -201,6 +201,6 @@ class MeasurementController extends FOSRestController
      */
     protected function getRepo($className = 'Measurement')
     {
-        return $this->getEM()->getRepository('BarraFrontBundle:'.$className);
+        return $this->getEM()->getRepository('BarraBackBundle:'.$className);
     }
 }

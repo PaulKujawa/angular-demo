@@ -28,7 +28,7 @@ class PhotoType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class'        => 'Barra\FrontBundle\Entity\Photo',
+            'data_class'        => 'Barra\BackBundle\Entity\Photo',
             'intention'         => 'recipeFile',
             'csrf_protection'   => false,
         ]);

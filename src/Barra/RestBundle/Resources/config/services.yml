@@ -1,8 +1,1 @@
-services:
-    wsse.security.authentication.provider:
-        class: Barra\RestBundle\Security\Authentication\Provider\WsseProvider
-        arguments: ["", "%kernel.cache_dir%/security/nonces"]
-
-    wsse.security.authentication.listener:
-        class: Barra\RestBundle\Security\Firewall\WsseListener
-        arguments: ["@security.token_storage", "@security.authentication.manager"]
+# no services registred yet

@@ -1,20 +1,20 @@
 {% trans_default_domain "messages" %}
 
 {% block pagination %}
-    {% if paginationCnt > 1 %}
+    {% if pages > 1 %}
         <nav class="paginationNav">
             <ul class="pagination">
-                {% if paginationActive >= 3 and paginationActive <= paginationCnt-2 %} {# full 5 pages #}
+                {% if paginationActive >= 3 and paginationActive <= pages-2 %} {# full 5 pages #}
                     {% set from = paginationActive-2 %}
                     {% set until = paginationActive+2 %}
 
                 {% elseif paginationActive < 3 %}
                     {% set from = 1 %}
-                    {% set until = min(5, paginationCnt) %} {# up to 5 pages from begin #}
+                    {% set until = min(5, pages) %} {# up to 5 pages from begin #}
 
                 {% else %} {# active page is second last and over 3 #}
-                    {% set from = max(1, paginationCnt-4) %} {# min 1 #}
-                    {% set until = min(paginationActive+2, paginationCnt) %} {# max +2 #}
+                    {% set from = max(1, pages-4) %} {# min 1 #}
+                    {% set until = min(paginationActive+2, pages) %} {# max +2 #}
                 {% endif %}
 
 
@@ -36,8 +36,8 @@
                 {% endfor %}
 
 
-                <li {% if paginationActive == paginationCnt %}class="disabled"{% endif %}>
-                    <a {% if paginationActive == paginationCnt %} class="disabled" href=""
+                <li {% if paginationActive == pages %}class="disabled"{% endif %}>
+                    <a {% if paginationActive == pages %} class="disabled" href=""
                     {% else %} href="{{ path(route, {'paginationActive': paginationActive+1}) }}" {% endif %}
                     >
                         <span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span>

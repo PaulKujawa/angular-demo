@@ -3,9 +3,9 @@
 namespace Barra\RestBundle\Controller;
 
 use Barra\BackBundle\Form\Type\ManufacturerType;
-use Barra\FrontBundle\Entity\Manufacturer;
-use Barra\FrontBundle\Entity\Recipe;
-use Barra\FrontBundle\Entity\Repository\ManufacturerRepository;
+use Barra\BackBundle\Entity\Manufacturer;
+use Barra\BackBundle\Entity\Recipe;
+use Barra\BackBundle\Entity\Repository\ManufacturerRepository;
 use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Annotations;
@@ -203,6 +203,6 @@ class ManufacturerController extends FOSRestController
      */
     protected function getRepo($className = 'Manufacturer')
     {
-        return $this->getEM()->getRepository('BarraFrontBundle:'.$className);
+        return $this->getEM()->getRepository('BarraBackBundle:'.$className);
     }
 }

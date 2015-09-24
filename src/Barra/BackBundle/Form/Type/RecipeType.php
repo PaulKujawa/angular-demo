@@ -24,7 +24,7 @@ class RecipeType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class'        => 'Barra\FrontBundle\Entity\Recipe',
+            'data_class'        => 'Barra\BackBundle\Entity\Recipe',
             'intention'         => 'recipe',
             'csrf_protection'   => false,
         ]);

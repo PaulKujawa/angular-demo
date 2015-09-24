@@ -486,7 +486,7 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
         };
     })
     .controller('RecipeCtrl', function($scope, $http, Restangular, FormError, FormFieldError, Api) {
-        $scope.urlRecipeDetail = Routing.generate('barra_back_recipeDetail', {_locale:'de'});
+        $scope.urlRecipe = Routing.generate('barra_back_recipe', {_locale:'de'});
 
         //$scope.$watch('projectId', function () {
         var route = Routing.generate('barra_api_get_recipes', {offset:0, limit:10, order_by:'name'});

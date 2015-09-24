@@ -2,7 +2,7 @@
 
 namespace Barra\BackBundle\Controller;
 
-use Barra\FrontBundle\Entity\Agency;
+use Barra\BackBundle\Entity\Agency;
 use Barra\BackBundle\Form\Type\AgencyType;
 use Symfony\Component\HttpFoundation\Response;
 

@@ -34,7 +34,7 @@ class MeasurementType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class'        => 'Barra\FrontBundle\Entity\Measurement',
+            'data_class'        => 'Barra\BackBundle\Entity\Measurement',
             'intention'         => 'measurement',
             'csrf_protection'   => false,
         ]);

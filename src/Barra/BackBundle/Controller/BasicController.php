@@ -28,7 +28,7 @@ class BasicController extends Controller
 
         // == false wouldn't work for offset 0
         if (strpos($entityFQDN, ':') === false) {
-            $entityFQDN = 'BarraFrontBundle:'.$entityFQDN;
+            $entityFQDN = 'BarraBackBundle:'.$entityFQDN;
         }
 
         $repo = $this

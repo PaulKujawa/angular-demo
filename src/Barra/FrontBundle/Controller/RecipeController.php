@@ -2,8 +2,8 @@
 
 namespace Barra\FrontBundle\Controller;
 
-use Barra\FrontBundle\Entity\Ingredient;
-use Barra\FrontBundle\Entity\Repository\RecipeRepository;
+use Barra\BackBundle\Entity\Ingredient;
+use Barra\BackBundle\Entity\Repository\RecipeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -24,7 +24,7 @@ class RecipeController extends Controller
     {
         $offset         = ($paginationActive-1)*self::RANGE +1;
         /** @var RecipeRepository $repo */
-        $repo           = $this->getDoctrine()->getManager()->getRepository('BarraFrontBundle:Recipe');
+        $repo           = $this->getDoctrine()->getManager()->getRepository('BarraBackBundle:Recipe');
         $recipes        = $repo->getSome($offset, self::RANGE, "name", "ASC");
         $paginationCnt  = $repo->count();
         $paginationCnt  = ceil($paginationCnt/self::RANGE);
@@ -44,14 +44,14 @@ class RecipeController extends Controller
     public function showRecipeAction($name)
     {
         $em     = $this->getDoctrine()->getManager();
-        $recipe = $em->getRepository('BarraFrontBundle:Recipe')->findOneByName(str_replace('_', ' ', $name));
+        $recipe = $em->getRepository('BarraBackBundle:Recipe')->findOneByName(str_replace('_', ' ', $name));
 
         if (!$recipe) {
             throw $this->createNotFoundException();
         }
 
-        $cookings    = $em->getRepository('BarraFrontBundle:Cooking')->findByRecipe($recipe, ['position' => 'ASC']);
-        $ingredients = $em->getRepository('BarraFrontBundle:Ingredient')->findByRecipe($recipe, ['position' => 'ASC']);
+        $cookings    = $em->getRepository('BarraBackBundle:Cooking')->findByRecipe($recipe, ['position' => 'ASC']);
+        $ingredients = $em->getRepository('BarraBackBundle:Ingredient')->findByRecipe($recipe, ['position' => 'ASC']);
         $macros      = $this->calculateMacros($ingredients);
 
         return $this->render('BarraFrontBundle:Recipe:recipe.html.twig', [

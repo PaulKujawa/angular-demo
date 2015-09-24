@@ -18,7 +18,7 @@
                     <tr ng-repeat="recipe in recipes | orderBy:'name'">
                         <td data-mobile-title="{{'back.recipe.name'|trans()}}">[[recipe.name]]</td>
                         <td data-mobile-title="{{'back.action.manage'|trans()}}">
-                            <a href="[[urlRecipeDetail]]/[[recipe.name.replace(' ', '_')]]">
+                            <a href="[[urlRecipe]]/[[recipe.name.replace(' ', '_')]]">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                             </a>
                             <span class="glyphicon glyphicon-minus" ng-click="deleteEntry(recipe)"></span>

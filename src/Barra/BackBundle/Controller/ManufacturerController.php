@@ -3,7 +3,7 @@
 namespace Barra\BackBundle\Controller;
 
 use Barra\BackBundle\Form\Type\ManufacturerType;
-use Barra\FrontBundle\Entity\Manufacturer;
+use Barra\BackBundle\Entity\Manufacturer;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -19,10 +19,10 @@ class ManufacturerController extends BasicController
      */
     public function indexAction($pageIndex)
     {
-        $pages = $this->getPaginationPages('Reference', 10);
+        $pages = $this->getPaginationPages('Manufacturer', 10);
         $form  = $this->createForm(new ManufacturerType(), new Manufacturer());
 
-        return $this->render('BarraBackBundle:Reference:references.html.twig', [
+        return $this->render('BarraBackBundle:Manufacturer:manufacturers.html.twig', [
             'pageIndex' => $pageIndex,
             'pages'     => $pages,
             'form'      => $form->createView(),

@@ -3,7 +3,7 @@
 namespace Barra\BackBundle\Controller;
 
 use Barra\BackBundle\Form\Type\MeasurementType;
-use Barra\FrontBundle\Entity\Measurement;
+use Barra\BackBundle\Entity\Measurement;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -19,10 +19,10 @@ class MeasurementController extends BasicController
      */
     public function indexAction($pageIndex)
     {
-        $pages = $this->getPaginationPages('Reference', 10);
+        $pages = $this->getPaginationPages('Measurement', 10);
         $form  = $this->createForm(new MeasurementType(), new Measurement());
 
-        return $this->render('BarraBackBundle:Reference:references.html.twig', [
+        return $this->render('BarraBackBundle:Measurement:measurements.html.twig', [
             'pageIndex' => $pageIndex,
             'pages'     => $pages,
             'form'      => $form->createView(),

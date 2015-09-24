@@ -2,7 +2,7 @@
 
 namespace Barra\BackBundle\Controller;
 
-use Barra\FrontBundle\Entity\Reference;
+use Barra\BackBundle\Entity\Reference;
 use Barra\BackBundle\Form\Type\ReferenceType;
 use Symfony\Component\HttpFoundation\Response;
 

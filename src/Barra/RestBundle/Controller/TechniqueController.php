@@ -3,8 +3,8 @@
 namespace Barra\RestBundle\Controller;
 
 use Barra\BackBundle\Form\Type\TechniqueType;
-use Barra\FrontBundle\Entity\Repository\TechniqueRepository;
-use Barra\FrontBundle\Entity\Technique;
+use Barra\BackBundle\Entity\Repository\TechniqueRepository;
+use Barra\BackBundle\Entity\Technique;
 use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Annotations;
@@ -201,6 +201,6 @@ class TechniqueController extends FOSRestController
      */
     protected function getRepo($className = 'Technique')
     {
-        return $this->getEM()->getRepository('BarraFrontBundle:'.$className);
+        return $this->getEM()->getRepository('BarraBackBundle:'.$className);
     }
 }

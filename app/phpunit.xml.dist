@@ -18,7 +18,7 @@
     <!-- tests -->
     <testsuites>
         <testsuite name="Model Test Suite">
-            <directory>../src/Barra/FrontBundle/Tests</directory>
+            <directory>../src/Barra/BackBundle/Tests</directory>
         </testsuite>
     </testsuites>
 

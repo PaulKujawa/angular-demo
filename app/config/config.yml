@@ -92,7 +92,7 @@ fos_rest:
 fos_user:
     db_driver:      orm
     firewall_name:  admino
-    user_class:     Barra\FrontBundle\Entity\User
+    user_class:     Barra\BackBundle\Entity\User
 
 
 jms_serializer:                                             # JMS exlusion for 3th party entites needs to be done via config file

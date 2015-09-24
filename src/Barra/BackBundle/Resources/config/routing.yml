@@ -3,44 +3,44 @@ barra_back_user:
   defaults: { _controller: BarraBackBundle:User:index }
 
 barra_back_agencies:
-  path:     /agencies/{paginationActive}
-  defaults: { _controller: BarraBackBundle:Agency:index, paginationActive: 1 }
+  path:     /agencies/{pageIndex}
+  defaults: { _controller: BarraBackBundle:Agency:index, pageIndex: 1 }
   requirements:
-    paginationActive: \d+
+    pageIndex: \d+
 
 barra_back_manufacturers:
-  path:     /manufacturers/{paginationActive}
-  defaults: { _controller: BarraBackBundle:Manufacturer:index, paginationActive: 1 }
+  path:     /manufacturers/{pageIndex}
+  defaults: { _controller: BarraBackBundle:Manufacturer:index, pageIndex: 1 }
   requirements:
-    paginationActive: \d+
+    pageIndex: \d+
 
 barra_back_measurements:
-  path:     /measurements/{paginationActive}
-  defaults: { _controller: BarraBackBundle:Measurement:index, paginationActive: 1 }
+  path:     /measurements/{pageIndex}
+  defaults: { _controller: BarraBackBundle:Measurement:index, pageIndex: 1 }
   requirements:
-    paginationActive: \d+
+    pageIndex: \d+
 
 barra_back_products:
-  path:     /products/{paginationActive}
-  defaults: { _controller: BarraBackBundle:Product:index, paginationActive: 1 }
+  path:     /products/{pageIndex}
+  defaults: { _controller: BarraBackBundle:Product:index, pageIndex: 1 }
   requirements:
-    paginationActive: \d+
+    pageIndex: \d+
 
 barra_back_recipes:
-  path:     /recipes/{paginationActive}
-  defaults: { _controller: BarraBackBundle:Recipe:index, paginationActive: 1 }
+  path:     /recipes/{pageIndex}
+  defaults: { _controller: BarraBackBundle:Recipe:index, pageIndex: 1 }
   requirements:
-    paginationActive: \d+
+    pageIndex: \d+
 
-barra_back_recipeDetail:
+barra_back_recipe:
   path:     /recipe/{name}
-  defaults: { _controller: BarraBackBundle:RecipeDetail:index }
+  defaults: { _controller: BarraBackBundle:Recipe:showRecipe }
 
 barra_back_references:
-    path:     /references/{paginationActive}
-    defaults: { _controller: BarraBackBundle:Reference:index, paginationActive: 1 }
+    path:     /references/{pageIndex}
+    defaults: { _controller: BarraBackBundle:Reference:index, pageIndex: 1 }
     requirements:
-        paginationActive: \d+
+        pageIndex: \d+
 
 barra_back_screenshot:
     path:     /screenshots/{id}
@@ -49,8 +49,7 @@ barra_back_screenshot:
         id: \d+
 
 barra_back_techniques:
-  path:     /techniques/{paginationActive}
-  defaults: { _controller: BarraBackBundle:Technique:index, paginationActive: 1 }
+  path:     /techniques/{pageIndex}
+  defaults: { _controller: BarraBackBundle:Technique:index, pageIndex: 1 }
   requirements:
-    paginationActive: \d+
-
+    pageIndex: \d+

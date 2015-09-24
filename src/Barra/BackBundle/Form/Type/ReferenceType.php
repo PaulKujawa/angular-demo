@@ -42,7 +42,7 @@ class ReferenceType extends AbstractType
                 ],
             ])
             ->add('agency', 'entity', [
-                'class'         => 'BarraFrontBundle:Agency',
+                'class'         => 'BarraBackBundle:Agency',
                 'property'      => 'name',
                 'query_builder' => function (EntityRepository $er) {
                     return $er
@@ -52,7 +52,7 @@ class ReferenceType extends AbstractType
                 },
             ])
             ->add('techniques', 'entity', [
-                'class'         => 'BarraFrontBundle:Technique',
+                'class'         => 'BarraBackBundle:Technique',
                 'property'      => 'name',
                 'multiple'      => 'true',
                 'query_builder' => function (EntityRepository $er) {
@@ -71,7 +71,7 @@ class ReferenceType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class'        => 'Barra\FrontBundle\Entity\Reference',
+            'data_class'        => 'Barra\BackBundle\Entity\Reference',
             'intention'         => 'reference',
             'csrf_protection'   => false,
         ]);

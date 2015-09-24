@@ -34,7 +34,7 @@ class AgencyType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class'        => 'Barra\FrontBundle\Entity\Agency',
+            'data_class'        => 'Barra\BackBundle\Entity\Agency',
             'intention'         => 'agency',
             'csrf_protection'   => false,
 

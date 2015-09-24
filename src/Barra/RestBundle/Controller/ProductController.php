@@ -3,8 +3,8 @@
 namespace Barra\RestBundle\Controller;
 
 use Barra\BackBundle\Form\Type\ProductType;
-use Barra\FrontBundle\Entity\Product;
-use Barra\FrontBundle\Entity\Repository\ProductRepository;
+use Barra\BackBundle\Entity\Product;
+use Barra\BackBundle\Entity\Repository\ProductRepository;
 use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Annotations;
@@ -201,6 +201,6 @@ class ProductController extends FOSRestController
      */
     protected function getRepo($className = 'Product')
     {
-        return $this->getEM()->getRepository('BarraFrontBundle:'.$className);
+        return $this->getEM()->getRepository('BarraBackBundle:'.$className);
     }
 }

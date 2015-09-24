@@ -39,7 +39,7 @@ class TechniqueType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class'        =>'Barra\FrontBundle\Entity\Technique',
+            'data_class'        =>'Barra\BackBundle\Entity\Technique',
             'intention'         =>'technique',
             'csrf_protection'   => false,
         ]);

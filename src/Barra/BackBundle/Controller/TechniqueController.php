@@ -2,7 +2,7 @@
 
 namespace Barra\BackBundle\Controller;
 
-use Barra\FrontBundle\Entity\Technique;
+use Barra\BackBundle\Entity\Technique;
 use Barra\BackBundle\Form\Type\TechniqueType;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -19,10 +19,10 @@ class TechniqueController extends BasicController
      */
     public function indexAction($pageIndex)
     {
-        $pages = $this->getPaginationPages('Reference', 10);
+        $pages = $this->getPaginationPages('Technique', 10);
         $form  = $this->createForm(new TechniqueType(), new Technique());
 
-        return $this->render('BarraBackBundle:Reference:references.html.twig', [
+        return $this->render('BarraBackBundle:Technique:techniques.html.twig', [
             'pageIndex' => $pageIndex,
             'pages'     => $pages,
             'form'      => $form->createView(),

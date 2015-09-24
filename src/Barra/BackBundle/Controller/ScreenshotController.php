@@ -2,8 +2,8 @@
 
 namespace Barra\BackBundle\Controller;
 
-use Barra\FrontBundle\Entity\Reference;
-use Barra\FrontBundle\Entity\Screenshot;
+use Barra\BackBundle\Entity\Reference;
+use Barra\BackBundle\Entity\Screenshot;
 use Barra\BackBundle\Form\Type\ScreenshotType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -11,10 +11,10 @@ class ScreenshotController extends Controller
 {
     public function indexAction($id)
     {
-        $reference = $this->getDoctrine()->getManager()->getRepository('BarraFrontBundle:Reference')->find($id);
+        $reference = $this->getDoctrine()->getManager()->getRepository('BarraBackBundle:Reference')->find($id);
 
         if (!$reference instanceof Reference) {
-            throw $this->createNotFoundException('Reference not found');
+            throw $this->createNotFoundException();
         }
 
         $formReferenceLogo  = $this->createForm(new ScreenshotType(), new Screenshot());

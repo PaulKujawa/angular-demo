@@ -3,8 +3,8 @@
 namespace Barra\RestBundle\Controller;
 
 use Barra\BackBundle\Form\Type\AgencyType;
-use Barra\FrontBundle\Entity\Agency;
-use Barra\FrontBundle\Entity\Repository\AgencyRepository;
+use Barra\BackBundle\Entity\Agency;
+use Barra\BackBundle\Entity\Repository\AgencyRepository;
 use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Annotations;
@@ -201,6 +201,6 @@ class AgencyController extends FOSRestController
      */
     protected function getRepo($className = 'Agency')
     {
-        return $this->getEM()->getRepository('BarraFrontBundle:'.$className);
+        return $this->getEM()->getRepository('BarraBackBundle:'.$className);
     }
 }

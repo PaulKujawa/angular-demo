@@ -24,7 +24,7 @@ class IngredientType extends AbstractType
                 ],
             ])
             ->add('measurement', 'entity', [
-                'class'     => 'BarraFrontBundle:Measurement',
+                'class'     => 'BarraBackBundle:Measurement',
                 'property'  => 'name',
                 'required'  => false,
                 'attr'      => [
@@ -32,7 +32,7 @@ class IngredientType extends AbstractType
                 ],
             ])
             ->add('product', 'entity', [
-                'class'     => 'BarraFrontBundle:Product',
+                'class'     => 'BarraBackBundle:Product',
                 'property'  => 'name',
                 'attr'      => [
                     'placeholder' => 'back.product.name',
@@ -56,7 +56,7 @@ class IngredientType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class'            => 'Barra\FrontBundle\Entity\Ingredient',
+            'data_class'            => 'Barra\BackBundle\Entity\Ingredient',
             'intention'             => 'ingredient',
             'csrf_protection'       => false,
             'cascade_validation'    => true,

@@ -33,7 +33,7 @@ class CookingType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class'        => 'Barra\FrontBundle\Entity\Cooking',
+            'data_class'        => 'Barra\BackBundle\Entity\Cooking',
             'intention'         => 'cooking',
             'csrf_protection'   => false,
         ]);

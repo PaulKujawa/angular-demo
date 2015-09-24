@@ -3,9 +3,9 @@
 namespace Barra\RestBundle\Controller;
 
 use Barra\BackBundle\Form\Type\PhotoType;
-use Barra\FrontBundle\Entity\Recipe;
-use Barra\FrontBundle\Entity\Photo;
-use Barra\FrontBundle\Entity\Repository\PhotoRepository;
+use Barra\BackBundle\Entity\Recipe;
+use Barra\BackBundle\Entity\Photo;
+use Barra\BackBundle\Entity\Repository\PhotoRepository;
 use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Annotations;
@@ -222,6 +222,6 @@ class PhotoController extends FOSRestController
      */
     protected function getRepo($className = 'Photo')
     {
-        return $this->getEM()->getRepository('BarraFrontBundle:'.$className);
+        return $this->getEM()->getRepository('BarraBackBundle:'.$className);
     }
 }

@@ -4,7 +4,7 @@ Just my crib
 1) Commandline
 ---------------
   * create bundle       `php app/console generate:bundle --namespace=Barra/DemoBundle --format=yml`
-  * create form         `php app/console doctrine:generate:form BarraDemoBundle:Entity --no-interaction`
+  * create form         `php app/console doctrine:generate:form BarraBackBundle:Entity --no-interaction`
   
 2.) Commandline Assets
 -----------------------
@@ -18,9 +18,9 @@ Just my crib
   * create DB           `php app/console doctrine:database:create`
   * set Tables          `php app/console doctrine:schema:update --force`
   
-  * create entity       `php app/console doctrine:generate:entity --entity="BarraDefaultBundle:Product"`
+  * create entity       `php app/console doctrine:generate:entity --entity="BarraBackBundle:Product"`
   * create get/set      `php app/console doctrine:generate:entities Barra`
-  * load fixtures       `php app/console doctrine:fixtures:load`
+  * load fixtures       `php app/console doctrine:fixtures:load --append`
   
 4) 3rd Party quick view
 -----------------------

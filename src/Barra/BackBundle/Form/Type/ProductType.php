@@ -67,7 +67,7 @@ class ProductType extends AbstractType
                 ],
             ])
             ->add('manufacturer', 'entity', [
-                'class'     => 'BarraFrontBundle:Manufacturer',
+                'class'     => 'BarraBackBundle:Manufacturer',
                 'property'  => 'name',
                 'attr'      => [
                     'placeholder' => 'back.manufacturer.name',
@@ -87,7 +87,7 @@ class ProductType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class'        => 'Barra\FrontBundle\Entity\Product',
+            'data_class'        => 'Barra\BackBundle\Entity\Product',
             'intention'         => 'product',
             'csrf_protection'   => false,
         ]);

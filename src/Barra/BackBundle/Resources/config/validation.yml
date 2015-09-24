@@ -1,11 +1,11 @@
-Barra\FrontBundle\Entity\Manufacturer:
+Barra\BackBundle\Entity\Manufacturer:
   properties:
     name:
       - NotBlank: ~
       - Type: string
 
 
-Barra\FrontBundle\Entity\Product:
+Barra\BackBundle\Entity\Product:
   properties:
     name:
       - NotBlank: ~
@@ -49,7 +49,7 @@ Barra\FrontBundle\Entity\Product:
           value: 0
 
 
-Barra\FrontBundle\Entity\Recipe:
+Barra\BackBundle\Entity\Recipe:
   properties:
     name:
       - NotBlank: ~
@@ -62,7 +62,7 @@ Manager\ManagerBundle\Entity\Photo:
           maxSize: 2M
           mimeTypes: image/*
 
-Barra\FrontBundle\Entity\Measurement:
+Barra\BackBundle\Entity\Measurement:
   properties:
     name:
       - NotBlank:
@@ -74,21 +74,21 @@ Barra\FrontBundle\Entity\Measurement:
           value: 0
 
 
-Barra\FrontBundle\Entity\Ingredient:
+Barra\BackBundle\Entity\Ingredient:
   properties:
     amount:
       - Type: { type: integer , groups: [ingredient] }
       - GreaterThanOrEqual: { value: 0, groups: [ingredient] }
 
 
-Barra\FrontBundle\Entity\Cooking:
+Barra\BackBundle\Entity\Cooking:
   properties:
     description:
       - NotBlank: ~
       - Type: string
 
 
-Barra\FrontBundle\Entity\Reference:
+Barra\BackBundle\Entity\Reference:
   properties:
     url:
       - NotBlank:
@@ -108,7 +108,7 @@ Manager\ManagerBundle\Entity\Screenshot:
           maxSize: 2M
           mimeTypes: image/*
 
-Barra\FrontBundle\Entity\Agency:
+Barra\BackBundle\Entity\Agency:
   properties:
     name:
       - NotBlank:
@@ -118,7 +118,7 @@ Barra\FrontBundle\Entity\Agency:
       - Type: string
 
 
-Barra\FrontBundle\Entity\Technique:
+Barra\BackBundle\Entity\Technique:
   properties:
     name:
       - NotBlank:

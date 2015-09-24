@@ -28,7 +28,7 @@ class ScreenshotType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class'        => 'Barra\FrontBundle\Entity\Screenshot',
+            'data_class'        => 'Barra\BackBundle\Entity\Screenshot',
             'intention'         => 'recipeFile',
             'csrf_protection'   => false,
         ]);
