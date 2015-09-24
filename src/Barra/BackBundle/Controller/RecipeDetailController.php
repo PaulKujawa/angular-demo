@@ -22,6 +22,7 @@ class RecipeDetailController extends Controller
 {
     /**
      * @param string $name
+     * @throws NotFoundHttpException
      * @return Response
      */
     public function indexAction($name)
@@ -40,11 +41,6 @@ class RecipeDetailController extends Controller
         $formPicture    = $this->createForm(new PhotoType(), new Photo());
         $formCooking    = $this->createForm(new CookingType(), new Cooking());
         $formIngredient = $this->createForm(new IngredientType(), new Ingredient());
-        $recipeId       = $recipe->getId();
-
-        $formPicture->get('recipe')->setData($recipeId);
-        $formCooking->get('recipe')->setData($recipeId);
-        $formIngredient->get('recipe')->setData($recipeId);
 
         return $this->render('BarraBackBundle:Recipe:recipeDetail.html.twig', [
             'recipe'            => $recipe,

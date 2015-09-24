@@ -9,19 +9,11 @@ barra_front_contact:
     defaults: { _controller: BarraFrontBundle:Contact:index }
 
 
-
 barra_front_references:
     path:     /references/{paginationActive}
     defaults: { _controller: BarraFrontBundle:Reference:index, paginationActive: 1 }
     requirements:
       paginationActive: \d+
-
-barra_front_reference_getPictures:
-    path:     /reference/pictures/{referenceId}
-    defaults: { _controller: BarraFrontBundle:Reference:get }
-    requirements:
-      referenceId: \d+
-
 
 
 barra_front_recipes:
@@ -32,4 +24,4 @@ barra_front_recipes:
 
 barra_front_recipe:
     path:     /recipe/{name}
-    defaults: { _controller: BarraFrontBundle:RecipeDetail:index }
+    defaults: { _controller: BarraFrontBundle:Recipe:showRecipe }

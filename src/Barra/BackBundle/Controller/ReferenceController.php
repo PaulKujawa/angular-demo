@@ -4,36 +4,28 @@ namespace Barra\BackBundle\Controller;
 
 use Barra\FrontBundle\Entity\Reference;
 use Barra\BackBundle\Form\Type\ReferenceType;
-use Barra\FrontBundle\Entity\Repository\ReferenceRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class ReferenceController
  * @author Paul Kujawa <p.kujawa@gmx.net>
  * @package Barra\BackBundle\Controller
  */
-class ReferenceController extends Controller
+class ReferenceController extends BasicController
 {
-    const RANGE = 10;
-
     /**
-     * @param int $paginationActive
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param int $pageIndex
+     * @return Response
      */
-    public function indexAction($paginationActive)
+    public function indexAction($pageIndex)
     {
-        $form           = $this->createForm(new ReferenceType(), new Reference());
-        $startPos       = ($paginationActive-1)*self::RANGE;
-        /** @var ReferenceRepository $repo */
-        $repo           = $this->getDoctrine()->getManager()->getRepository('BarraFrontBundle:Reference');
-        $references     = $repo->getSome($startPos, self::RANGE, 'url', 'ASC');
-        $paginationCnt  = ceil($repo->count()/self::RANGE);
+        $pages = $this->getPaginationPages('Reference', 10);
+        $form  = $this->createForm(new ReferenceType(), new Reference());
 
         return $this->render('BarraBackBundle:Reference:references.html.twig', [
-            'paginationActive'  => $paginationActive,
-            'paginationCnt'     => $paginationCnt,
-            'references'        => $references,
-            'form'              => $form->createView(),
+            'pageIndex' => $pageIndex,
+            'pages'     => $pages,
+            'form'      => $form->createView(),
         ]);
     }
 }

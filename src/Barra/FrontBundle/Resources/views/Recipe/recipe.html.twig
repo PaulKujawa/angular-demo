@@ -35,7 +35,7 @@
                 {% if ingredient.amount is null %}
                     <li>{{ ingredient.product.name }}</li>
                 {% else %}
-                    <li>{{ ingredient.amount }}{{ ingredient.measurement.type }} {{ ingredient.product.name }}</li>
+                    <li>{{ ingredient.amount }}{{ ingredient.measurement.name }} {{ ingredient.product.name }}</li>
                 {% endif %}
             {% endfor %}
         </ul>

@@ -32,9 +32,6 @@ sensio_framework_extra:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
- #   form:
-  #      resources:
-   #         - 'BarraBackBundle:Form:tableRow.html.twig'     # for autoinclude
 
 
 doctrine:
