@@ -7,6 +7,7 @@ use Barra\BackBundle\Entity\Traits\NameTrait;
 use Barra\BackBundle\Entity\Traits\ImageTrait;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Photo
@@ -27,6 +28,7 @@ class Photo
 
     /**
      * @var Recipe
+     * @Assert\NotNull()
      * @ORM\ManyToOne(
      *      targetEntity = "Recipe",
      *      inversedBy   = "photos"

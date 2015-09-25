@@ -4,14 +4,12 @@ namespace Barra\BackBundle\Entity;
 
 use Barra\BackBundle\Entity\Traits\DescriptionTrait;
 use Barra\BackBundle\Entity\Traits\IdAutoTrait;
-use Barra\BackBundle\Entity\Traits\NameTrait;
 use Barra\BackBundle\Entity\Traits\ImageTrait;
 use Barra\BackBundle\Entity\Traits\UrlTrait;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Exclude;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Reference
@@ -33,6 +31,7 @@ class Reference
 
     /**
      * @var \DateTime
+     * @Assert\NotNull()
      * @ORM\Column(
      *      name        = "started",
      *      type        = "date",
@@ -43,6 +42,7 @@ class Reference
 
     /**
      * @var \DateTime
+     * @Assert\NotNull()
      * @ORM\Column(
      *      name        = "finished",
      *      type        = "date",
@@ -53,6 +53,7 @@ class Reference
 
     /**
      * @var Agency
+     * @Assert\NotNull()
      * @ORM\ManyToOne(
      *      targetEntity = "Agency",
      *      inversedBy   = "references"
@@ -68,6 +69,7 @@ class Reference
 
     /**
      * @var ArrayCollection
+     * @Assert\NotNull()
      * @ORM\ManyToMany(
      *      targetEntity = "Technique",
      *      inversedBy   = "references")

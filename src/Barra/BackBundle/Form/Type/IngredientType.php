@@ -59,10 +59,6 @@ class IngredientType extends AbstractType
             'data_class'            => 'Barra\BackBundle\Entity\Ingredient',
             'intention'             => 'ingredient',
             'csrf_protection'       => false,
-            'cascade_validation'    => true,
-            'validation_groups'     => [
-                'ingredient',
-            ],
         ]);
     }
 

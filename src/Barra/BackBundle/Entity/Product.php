@@ -7,6 +7,7 @@ use Barra\BackBundle\Entity\Traits\NameTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Product
@@ -25,6 +26,7 @@ class Product
 
     /**
      * @var bool
+     * @Assert\NotNull()
      * @ORM\Column(
      *      name = "vegan",
      *      type = "boolean"
@@ -34,6 +36,10 @@ class Product
 
     /**
      * @var int
+     * @Assert\NotNull()
+     * @Assert\GreaterThanOrEqual(
+     *      value = 1
+     * )
      * @ORM\Column(
      *      name = "gr",
      *      type = "smallint"
@@ -43,6 +49,10 @@ class Product
 
     /**
      * @var int
+     * @Assert\NotNull()
+     * @Assert\GreaterThanOrEqual(
+     *      value = 0
+     * )
      * @ORM\Column(
      *      name  = "kcal",
      *      type  = "integer"
@@ -52,6 +62,10 @@ class Product
 
     /**
      * @var double
+     * @Assert\NotNull()
+     * @Assert\GreaterThanOrEqual(
+     *      value = 0.0
+     * )
      * @ORM\Column(
      *      name  = "protein",
      *      type  = "decimal",
@@ -62,6 +76,10 @@ class Product
 
     /**
      * @var double
+     * @Assert\NotNull()
+     * @Assert\GreaterThanOrEqual(
+     *      value = 0.0
+     * )
      * @ORM\Column(
      *      name  = "carbs",
      *      type  = "decimal",
@@ -72,6 +90,10 @@ class Product
 
     /**
      * @var double
+     * @Assert\NotNull()
+     * @Assert\GreaterThanOrEqual(
+     *      value = 0.0
+     * )
      * @ORM\Column(
      *      name  = "sugar",
      *      type  = "decimal",
@@ -82,6 +104,10 @@ class Product
 
     /**
      * @var double
+     * @Assert\NotNull()
+     * @Assert\GreaterThanOrEqual(
+     *      value = 0.0
+     * )
      * @ORM\Column(
      *      name  = "fat",
      *      type  = "decimal",
@@ -92,6 +118,10 @@ class Product
 
     /**
      * @var double
+     * @Assert\NotNull()
+     * @Assert\GreaterThanOrEqual(
+     *      value = 0.0
+     * )
      * @ORM\Column(
      *      name  = "gfat",
      *      type  = "decimal",
@@ -102,6 +132,7 @@ class Product
 
     /**
      * @var Manufacturer
+     * @Assert\NotNull()
      * @ORM\ManyToOne(
      *      targetEntity = "Manufacturer",
      *      inversedBy   = "products"

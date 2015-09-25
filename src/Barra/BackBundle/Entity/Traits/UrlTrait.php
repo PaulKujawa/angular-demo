@@ -2,6 +2,8 @@
 
 namespace Barra\BackBundle\Entity\Traits;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Class UrlTrait
  * @author Paul Kujawa <p.kujawa@gmx.net>
@@ -11,6 +13,8 @@ trait UrlTrait
 {
     /**
      * @var string
+     * @Assert\NotBlank()
+     * @Assert\Url()
      * @ORM\Column(
      *      name        = "url",
      *      type        = "string",

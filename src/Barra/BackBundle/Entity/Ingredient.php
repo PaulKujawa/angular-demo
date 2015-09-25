@@ -6,6 +6,7 @@ use Barra\BackBundle\Entity\Traits\PositionTrait;
 use Barra\BackBundle\Entity\Traits\RecipeTrait;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Ingredient
@@ -35,6 +36,7 @@ class Ingredient
 
     /**
      * @var Product
+     * @Assert\NotNull()
      * @ORM\ManyToOne(
      *      targetEntity = "Product",
      *      inversedBy   = "ingredients"
@@ -49,6 +51,10 @@ class Ingredient
 
     /**
      * @var int
+     * @Assert\NotNull()
+     * @Assert\GreaterThanOrEqual(
+     *      value = 1
+     * )
      * @ORM\Column(
      *      name     = "amount",
      *      type     = "smallint",
@@ -59,6 +65,7 @@ class Ingredient
 
     /**
      * @var Measurement
+     * @Assert\NotNull()
      * @ORM\ManyToOne(
      *      targetEntity = "Measurement",
      *      inversedBy   = "ingredients"
@@ -74,7 +81,6 @@ class Ingredient
 
     /**
      * Set amount
-     *
      * @param int $amount
      * @return $this
      * @throws \InvalidArgumentException

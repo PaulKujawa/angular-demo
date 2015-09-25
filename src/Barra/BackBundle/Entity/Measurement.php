@@ -7,6 +7,7 @@ use Barra\BackBundle\Entity\Traits\NameTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Measurement
@@ -25,6 +26,10 @@ class Measurement
 
     /**
      * @var int
+     * @Assert\NotNull()
+     * @Assert\GreaterThanOrEqual(
+     *      value = 1
+     * )
      * @ORM\Column(
      *      name = "gr",
      *      type = "smallint"

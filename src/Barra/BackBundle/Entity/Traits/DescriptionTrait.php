@@ -2,6 +2,8 @@
 
 namespace Barra\BackBundle\Entity\Traits;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Class DescriptionTrait
  * @author Paul Kujawa <p.kujawa@gmx.net>
@@ -11,6 +13,7 @@ trait DescriptionTrait
 {
     /**
      * @var string
+     * @Assert\NotBlank()
      * @ORM\Column(
      *      name        = "description",
      *      type        = "string",

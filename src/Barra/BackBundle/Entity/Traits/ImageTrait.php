@@ -35,11 +35,17 @@ trait ImageTrait
      */
     private $size;
 
+    // todo check correct image sizes
     /**
      * @var UploadedFile
-     * @Assert\File(
-     *      maxSize   = "2M",
-     *      mimeTypes = {"image/*"},
+     * @Assert\NotNull()
+     * @Assert\Image(
+     *      mimeTypes   = "image/*",
+     *      maxSize     = "2M",
+     *      minWidth    = 200,
+     *      maxWidth    = 400,
+     *      minHeight   = 200,
+     *      maxHeight   = 400
      * )
      */
     private $file;
@@ -133,7 +139,7 @@ trait ImageTrait
     }
 
     /**
-     * @return null|string  inclusive filename
+     * @return null|string
      */
     public function getWebDirectoryWithFilename()
     {
@@ -142,9 +148,8 @@ trait ImageTrait
             : $this->getWebDirectory().DIRECTORY_SEPARATOR.$this->filename;
     }
 
-
     /**
-     * @return string   sub directory
+     * @return string
      */
     public function getWebDirectory()
     {
@@ -178,7 +183,6 @@ trait ImageTrait
 
     /**
      * Get filename
-     *
      * @return string
      */
     public function getFilename()
@@ -209,7 +213,6 @@ trait ImageTrait
 
     /**
      * Get size
-     *
      * @return string
      */
     public function getSize()
@@ -219,7 +222,7 @@ trait ImageTrait
 
     /**
      * @param UploadedFile $file
-     * @return $this
+     * @return bool
      */
     public function setFile(UploadedFile $file)
     {
@@ -232,7 +235,7 @@ trait ImageTrait
             $this->filename = $this->file->getClientOriginalName();
         }
 
-        return $this;
+        return true;
     }
 
     /**

@@ -2,6 +2,8 @@
 
 namespace Barra\BackBundle\Entity\Traits;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Class PositionTrait
  * @author Paul Kujawa <p.kujawa@gmx.net>
@@ -11,6 +13,10 @@ trait PositionTrait
 {
     /**
      * @var int
+     * @Assert\NotNull()
+     * @Assert\GreaterThanOrEqual(
+     *      value = 1
+     * )
      * @ORM\Column(
      *      name = "position",
      *      type = "smallint"

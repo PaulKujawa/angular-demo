@@ -2,6 +2,8 @@
 
 namespace Barra\BackBundle\Entity\Traits;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Class NameTrait
  * @author Paul Kujawa <p.kujawa@gmx.net>
@@ -10,6 +12,8 @@ namespace Barra\BackBundle\Entity\Traits;
 trait NameTrait
 {
     /**
+     * @var string
+     * @Assert\NotBlank()
      * @ORM\Column(
      *      name   = "name",
      *      type   = "string",
