@@ -222,7 +222,7 @@ trait ImageTrait
 
     /**
      * @param UploadedFile $file
-     * @return bool
+     * @return $this
      */
     public function setFile(UploadedFile $file)
     {
@@ -235,7 +235,7 @@ trait ImageTrait
             $this->filename = $this->file->getClientOriginalName();
         }
 
-        return true;
+        return $this;
     }
 
     /**
