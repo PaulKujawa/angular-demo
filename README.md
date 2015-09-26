@@ -5,6 +5,7 @@ Just my crib
 ---------------
   * create bundle       `php app/console generate:bundle --namespace=Barra/DemoBundle --format=yml`
   * create form         `php app/console doctrine:generate:form BarraBackBundle:Entity --no-interaction`
+  * debug routes        `php app/console debug:router | grep foo`
   
 2.) Commandline Assets
 -----------------------

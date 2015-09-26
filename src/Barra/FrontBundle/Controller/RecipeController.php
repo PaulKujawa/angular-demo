@@ -46,7 +46,7 @@ class RecipeController extends Controller
         $em     = $this->getDoctrine()->getManager();
         $recipe = $em->getRepository('BarraBackBundle:Recipe')->findOneByName(str_replace('_', ' ', $name));
 
-        if (!$recipe) {
+        if (null === $recipe) {
             throw $this->createNotFoundException();
         }
 
@@ -70,16 +70,16 @@ class RecipeController extends Controller
     protected function calculateMacros(array $ingredients)
     {
         $macros = [
-            'kcal'      => 0,
-            'carbs'     => 0,
-            'protein'   => 0,
-            'fat'       => 0,
+            'kcal'    => 0,
+            'carbs'   => 0,
+            'protein' => 0,
+            'fat'     => 0,
         ];
 
         /** @var Ingredient $ingredient */
         foreach ($ingredients as $ingredient) {
-            if (! is_null($ingredient->getAmount())) {
-                if ($ingredient->getMeasurement()->getGr() != 0) { /* eg pieces or bags */
+            if (null !== $ingredient->getAmount()) {
+                if (0 != $ingredient->getMeasurement()->getGr()) { /* eg pieces or bags */
                     $gr = $ingredient->getAmount();
                 } else {
                     $gr = $ingredient->getProduct()->getGr();

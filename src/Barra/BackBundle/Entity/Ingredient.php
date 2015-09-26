@@ -158,10 +158,10 @@ class Ingredient
      */
     public function createId()
     {
-        if (is_null($this->getRecipe()) ||
-            is_null($this->getRecipe()->getId()) ||
-            is_null($this->getProduct()) ||
-            is_null($this->getProduct()->getId())
+        if (null === $this->getRecipe() ||
+            null === $this->getRecipe()->getId() ||
+            null === $this->getProduct() ||
+            null === $this->getProduct()->getId()
         ) {
             throw new \RuntimeException(sprintf(
                 '"%s" and "%s" must have been set',

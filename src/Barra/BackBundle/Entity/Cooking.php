@@ -43,9 +43,9 @@ class Cooking
      */
     public function createId()
     {
-        if (is_null($this->getRecipe()) ||
-            is_null($this->getRecipe()->getId()) ||
-            is_null($this->getPosition())
+        if (null === $this->getRecipe() ||
+            null === $this->getRecipe()->getId() ||
+            null === $this->getPosition()
         ) {
             throw new \RuntimeException(sprintf(
                 '"%s" and "%s" must have been set',

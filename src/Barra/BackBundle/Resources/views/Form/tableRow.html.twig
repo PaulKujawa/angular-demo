@@ -27,7 +27,7 @@
         {% endif %}
 
         {# class 'hidden' for checkboxes #}
-        {% if form.vars.block_prefixes.1 == "checkbox" %}
+        {% if 'checkbox' == form.vars.block_prefixes.1 %}
             {{ form_widget(form, {'attr': {'class': 'hidden'}, 'angularFormName': angularFormName}) }}
         {% else %}
             {{ form_widget(form, {'attr': {'class': 'form-control'}, 'angularFormName': angularFormName}) }}
@@ -45,7 +45,7 @@
     {{ parent() }}
 
     {# eg ng-model="formData['id']" #}
-    {% if type is defined and type == 'hidden' %}
+    {% if type is defined and 'hidden' == type %}
         ng-init="{{ angularFormName }}['{{ name }}'] = '{{value}}'"
     {% else %}
         ng-model="{{ angularFormName }}['{{ name }}']"

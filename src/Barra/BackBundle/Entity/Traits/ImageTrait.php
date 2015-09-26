@@ -67,7 +67,7 @@ trait ImageTrait
      */
     public function generateFilename()
     {
-        if (is_null($this->getFile())) {
+        if (null === $this->getFile()) {
             return $this;
         }
         $this->filename = sha1(uniqid(mt_rand(), true)).'.'.$this->getFile()->guessExtension();
@@ -83,7 +83,7 @@ trait ImageTrait
      */
     public function saveFile()
     {
-        if (is_null($this->getFile())) {
+        if (null === $this->getFile()) {
             return $this;
         }
         $this->getFile()->move($this->getAbsolutePath(), $this->filename);
@@ -102,7 +102,7 @@ trait ImageTrait
     public function removeFile()
     {
         $file = $this->getAbsolutePathWithFilename();
-        if (!is_null($file)) {
+        if (null !== $file) {
             unlink($file);
             // just relevant if manually called to set a new file afterwards
             $this->oldImageFilename = $this->filename;
@@ -125,7 +125,7 @@ trait ImageTrait
      */
     public function getAbsolutePathWithFilename()
     {
-        return is_null($this->filename)
+        return null === $this->filename
             ? null
             : $this->getAbsolutePath().DIRECTORY_SEPARATOR.$this->filename;
     }
@@ -143,7 +143,7 @@ trait ImageTrait
      */
     public function getWebDirectoryWithFilename()
     {
-        return is_null($this->filename)
+        return null === $this->filename
             ? null
             : $this->getWebDirectory().DIRECTORY_SEPARATOR.$this->filename;
     }
@@ -228,7 +228,7 @@ trait ImageTrait
     {
         $this->file = $file;
 
-        if (isset($this->filename)) {
+        if (null !== $this->filename) {
             $this->oldImageFilename = $this->filename;
             $this->filename         = null;
         } else {

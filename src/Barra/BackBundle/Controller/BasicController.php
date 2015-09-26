@@ -29,7 +29,7 @@ class BasicController extends Controller
         $repo = $this
             ->getDoctrine()
             ->getManager()
-            ->getRepository('BarraBackBundle:'.$entityClass)
+            ->getRepository('BarraBackBundle:'.ucfirst($entityClass))
         ;
 
         if (!method_exists($repo, 'count')) {
