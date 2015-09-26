@@ -76,4 +76,12 @@ class Manufacturer
     {
         return $this->products;
     }
+
+    /**
+     * @return bool
+     */
+    public function isRemovable()
+    {
+        return $this->getProducts()->isEmpty();
+    }
 }

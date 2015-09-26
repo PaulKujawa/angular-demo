@@ -228,4 +228,12 @@ class Reference
     {
         return $this->screenshots;
     }
+
+    /**
+     * @return bool
+     */
+    public function isRemovable()
+    {
+        return true;
+    }
 }

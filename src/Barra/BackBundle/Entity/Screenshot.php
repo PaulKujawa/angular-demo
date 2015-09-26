@@ -60,4 +60,12 @@ class Screenshot
     {
         return $this->reference;
     }
+
+    /**
+     * @return bool
+     */
+    public function isRemovable()
+    {
+        return true;
+    }
 }

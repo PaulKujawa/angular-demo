@@ -12,29 +12,24 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class BasicController extends Controller
 {
     /**
-     * @param string    $entityFQDN
+     * @param string    $entityClass
      * @param int       $range
      * @throws \InvalidArgumentException
      * @return int
      */
-    protected function getPaginationPages($entityFQDN, $range)
+    protected function getPaginationPages($entityClass, $range)
     {
-        if (!is_string($entityFQDN) ||
+        if (!is_string($entityClass) ||
             !is_int($range) ||
             $range < 1
         ) {
             throw new \InvalidArgumentException();
         }
 
-        // == false wouldn't work for offset 0
-        if (strpos($entityFQDN, ':') === false) {
-            $entityFQDN = 'BarraBackBundle:'.$entityFQDN;
-        }
-
         $repo = $this
             ->getDoctrine()
             ->getManager()
-            ->getRepository($entityFQDN)
+            ->getRepository('BarraBackBundle:'.$entityClass)
         ;
 
         if (!method_exists($repo, 'count')) {

@@ -79,4 +79,12 @@ class Technique
     {
         return $this->references;
     }
+
+    /**
+     * @return bool
+     */
+    public function isRemovable()
+    {
+        return $this->getReferences()->isEmpty();
+    }
 }

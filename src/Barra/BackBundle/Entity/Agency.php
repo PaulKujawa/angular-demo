@@ -74,4 +74,12 @@ class Agency
     {
         return $this->references;
     }
+
+    /**
+     * @return bool
+     */
+    public function isRemovable()
+    {
+        return $this->getReferences()->isEmpty();
+    }
 }

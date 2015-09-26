@@ -175,6 +175,10 @@ class ReferenceController extends FOSRestController
             return $this->view(null, Codes::HTTP_NOT_FOUND);
         }
 
+        if (!$entity->isRemovable()) {
+            return $this->view(null, Codes::HTTP_CONFLICT);
+        }
+
         // TODO onDelete=Cascade instead of manually calling Screenshot.removeUpload()
         foreach ($entity->getScreenshots() as $image) {
             $this->getEM()->remove($image);

@@ -457,4 +457,12 @@ class Product
     {
         return $this->ingredients;
     }
+
+    /**
+     * @return bool
+     */
+    public function isRemovable()
+    {
+        return $this->getIngredients()->isEmpty();
+    }
 }

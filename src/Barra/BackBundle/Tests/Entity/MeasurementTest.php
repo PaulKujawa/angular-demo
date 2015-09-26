@@ -13,7 +13,7 @@ use Barra\BackBundle\Entity\Ingredient;
 class MeasurementTest extends \PHPUnit_Framework_TestCase
 {
     const SELF_FQDN     = 'Barra\BackBundle\Entity\Measurement';
-    const PRODUCT_FQDN  = 'Barra\BackBundle\Entity\Ingredient';
+    const INGREDIENT_FQDN  = 'Barra\BackBundle\Entity\Ingredient';
     const ID            = 2;
     const GR            = 22;
     const NAME          = 'demoName';
@@ -127,7 +127,7 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
      */
     public function addIngredient()
     {
-        $mock     = $this->getMock(self::PRODUCT_FQDN);
+        $mock     = $this->getMock(self::INGREDIENT_FQDN);
         $resource = $this->model->addIngredient($mock);
 
         $this->assertInstanceOf(
@@ -154,7 +154,7 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
             $ingredients
         );
 
-        $mock = $this->getMock(self::PRODUCT_FQDN);
+        $mock = $this->getMock(self::INGREDIENT_FQDN);
         $this->assertEquals(
             $mock,
             $ingredient
@@ -200,6 +200,43 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
     public function removeInvalidIngredient()
     {
         $this->model->removeIngredient(1);
+    }
+
+    /**
+     * @test
+     */
+    public function isRemovableTrue()
+    {
+        $got = $this->model->isRemovable();
+        $this->assertInternalType(
+            'bool',
+            $got
+        );
+
+        $this->assertEquals(
+            true,
+            $got
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function isRemovableFalse()
+    {
+        $mock = $this->getMock(self::INGREDIENT_FQDN);
+        $this->model->addIngredient($mock);
+        $got  = $this->model->isRemovable();
+
+        $this->assertInternalType(
+            'bool',
+            $got
+        );
+
+        $this->assertEquals(
+            false,
+            $got
+        );
     }
 
     /**

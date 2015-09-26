@@ -191,6 +191,10 @@ class IngredientController extends FOSRestController
             return $this->view(null, Codes::HTTP_NOT_FOUND);
         }
 
+        if (!$entity->isRemovable()) {
+            return $this->view(null, Codes::HTTP_CONFLICT);
+        }
+
         $this->getEM()->remove($entity);
         $this->getEM()->flush();
 

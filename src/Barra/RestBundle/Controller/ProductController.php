@@ -171,7 +171,7 @@ class ProductController extends FOSRestController
             return $this->view(null, Codes::HTTP_NOT_FOUND);
         }
 
-        if (!$entity->getIngredients()->isEmpty()) {
+        if (!$entity->isRemovable()) {
             return $this->view(null, Codes::HTTP_CONFLICT);
         }
 

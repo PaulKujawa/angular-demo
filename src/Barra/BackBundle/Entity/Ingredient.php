@@ -182,4 +182,12 @@ class Ingredient
     {
         return $this->id;
     }
+
+    /**
+     * @return bool
+     */
+    public function isRemovable()
+    {
+        return true;
+    }
 }

@@ -173,7 +173,7 @@ class ManufacturerController extends FOSRestController
             return $this->view(null, Codes::HTTP_NOT_FOUND);
         }
 
-        if (!$entity->getProducts()->isEmpty()) {
+        if (!$entity->isRemovable()) {
             return $this->view(null, Codes::HTTP_CONFLICT);
         }
 

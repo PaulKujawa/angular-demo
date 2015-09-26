@@ -192,8 +192,13 @@ class PhotoController extends FOSRestController
     public function deletePhotoAction($id)
     {
         $entity = $this->getRepo()->find($id);
+
         if (!$entity instanceof Photo) {
             return $this->view(null, Codes::HTTP_NOT_FOUND);
+        }
+
+        if (!$entity->isRemovable()) {
+            return $this->view(null, Codes::HTTP_CONFLICT);
         }
 
         $this->getEM()->remove($entity);

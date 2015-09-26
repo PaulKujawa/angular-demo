@@ -171,7 +171,7 @@ class TechniqueController extends FOSRestController
             return $this->view(null, Codes::HTTP_NOT_FOUND);
         }
 
-        if (!$entity->getReferences()->isEmpty()) {
+        if (!$entity->isRemovable()) {
             return $this->view(null, Codes::HTTP_CONFLICT);
         }
 

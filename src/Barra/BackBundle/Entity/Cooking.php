@@ -66,4 +66,12 @@ class Cooking
     {
         return $this->id;
     }
+
+    /**
+     * @return bool
+     */
+    public function isRemovable()
+    {
+        return true;
+    }
 }

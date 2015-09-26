@@ -167,8 +167,13 @@ class RecipeController extends FOSRestController
     public function deleteRecipeAction($id)
     {
         $entity = $this->getRepo()->find($id);
+
         if (!$entity instanceof Recipe) {
             return $this->view(null, Codes::HTTP_NOT_FOUND);
+        }
+
+        if (!$entity->isRemovable()) {
+            return $this->view(null, Codes::HTTP_CONFLICT);
         }
 
         // TODO onDelete=Cascade instead of manually calling RecipePicture.removeUpload()

@@ -167,11 +167,12 @@ class AgencyController extends FOSRestController
     public function deleteAgencyAction($id)
     {
         $entity = $this->getRepo()->find($id);
+
         if (!$entity instanceof Agency) {
             return $this->view(null, Codes::HTTP_NOT_FOUND);
         }
 
-        if (!$entity->getReferences()->isEmpty()) {
+        if (!$entity->isRemovable()) {
             return $this->view(null, Codes::HTTP_CONFLICT);
         }
 

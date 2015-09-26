@@ -73,4 +73,12 @@ class Recipe
     {
         return $this->photos;
     }
+
+    /**
+     * @return bool
+     */
+    public function isRemovable()
+    {
+        return true;
+    }
 }

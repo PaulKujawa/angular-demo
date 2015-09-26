@@ -256,7 +256,24 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
             $self->getId()
         );
     }
-    
+
+    /**
+     * @test
+     */
+    public function isRemovableTrue()
+    {
+        $got = $this->model->isRemovable();
+        $this->assertInternalType(
+            'bool',
+            $got
+        );
+
+        $this->assertEquals(
+            true,
+            $got
+        );
+    }
+
     /**
      * @test
      * @param string    $field

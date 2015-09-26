@@ -151,6 +151,43 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     */
+    public function isRemovableTrue()
+    {
+        $got = $this->model->isRemovable();
+        $this->assertInternalType(
+            'bool',
+            $got
+        );
+
+        $this->assertEquals(
+            true,
+            $got
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function isRemovableFalse()
+    {
+        $mock = $this->getMock(self::PRODUCT_FQDN);
+        $this->model->addProduct($mock);
+        $got  = $this->model->isRemovable();
+
+        $this->assertInternalType(
+            'bool',
+            $got
+        );
+
+        $this->assertEquals(
+            false,
+            $got
+        );
+    }
+
+    /**
+     * @test
      * @expectedException PHPUnit_Framework_Error
      */
     public function addInvalidProduct()
