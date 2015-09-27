@@ -16,7 +16,10 @@
                         <div class="thumbnail">
                             <a href="{{ path('barra_front_recipe', {'name': recipe.name|replace({' ': '_'})}) }}">
                                 {% if recipe.Photos is not empty %}
-                                    <img src="{{ asset('uploads/documents/'~(recipe.Photos|first).filename) }}" alt="{{ recipe.name }}">
+                                    <img
+                                        src="{{ asset('uploads/documents/'~(recipe.Photos|first).filename) }}"
+                                        alt="{{ recipe.name }}"
+                                    >
                                 {% endif %}
                                 <div class="caption">{{ recipe.name }}</div>
                             </a>
@@ -26,6 +29,6 @@
             </div>
         {% endfor %}
 
-        {{ include('BarraFrontBundle::pagination.html.twig', { 'route': 'barra_front_recipes'})}}
+        {{ include('BarraFrontBundle:parts:pagination.html.twig', { 'route': 'barra_front_recipes'})}}
     </section>
 {% endblock %}

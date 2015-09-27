@@ -216,8 +216,8 @@ abstract class AbstractRestController extends FOSRestController implements Class
         if (null === $this->entityClass) {
             $this->entityClass = ucfirst(
                 substr(
-                    __CLASS__,
-                    strrpos(__CLASS__, '\\')+1,
+                    get_class($this),
+                    strrpos(get_class($this), '\\')+1,
                     -10
                 )
             );

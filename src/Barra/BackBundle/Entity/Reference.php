@@ -85,7 +85,8 @@ class Reference
      * @var ArrayCollection
      * @ORM\OneToMany(
      *      targetEntity = "Screenshot",
-     *      mappedBy     = "reference"
+     *      mappedBy     = "reference",
+     *      cascade      = {"remove"}
      * )
      * @ORM\OrderBy({"id" = "ASC"})
      */
@@ -96,7 +97,7 @@ class Reference
      */
     public function __construct()
     {
-        $this->techniques        = new ArrayCollection();
+        $this->techniques  = new ArrayCollection();
         $this->screenshots = new ArrayCollection();
     }
 

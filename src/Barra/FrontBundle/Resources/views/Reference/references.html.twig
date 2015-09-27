@@ -26,13 +26,18 @@
                                     {{ reference.url|split('.')[0] }}
                                 </div>
                                 <div class="referenceStamp">
-                                    <a href="http://{{ reference.agency.url }}" target="_blank">{{ reference.agency.name }}</a> | {{ reference.finished|date('Y') }}
+                                    <a href="http://{{ reference.agency.url }}" target="_blank">
+                                        {{ reference.agency.name }}
+                                    </a>
+                                    | {{ reference.finished|date('Y') }}
                                 </div>
                             </div>
 
                             <div class="referenceFooter">
                                 {% for technique in reference.techniques %}
-                                    <span title="{{ technique.description }}">{{ technique.name }}{% if not loop.last %}, {% endif %}</span>
+                                    <span title="{{ technique.description }}">
+                                        {{ technique.name }}{% if not loop.last %}, {% endif %}
+                                    </span>
                                 {% endfor %}
                             </div>
                         </div>
@@ -43,10 +48,12 @@
         {% endfor %}
 
         <div class="overlay hidden">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            {{ include('BarraFrontBundle::carousel.html.twig') }}
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{ include('BarraFrontBundle:parts:carousel.html.twig') }}
         </div>
 
-        {{ include('BarraFrontBundle::pagination.html.twig', { 'route': 'barra_front_references'})}}
+        {{ include('BarraFrontBundle:parts:pagination.html.twig', { 'route': 'barra_front_references'})}}
     </section>
 {% endblock %}

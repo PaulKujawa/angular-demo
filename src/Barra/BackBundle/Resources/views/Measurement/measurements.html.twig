@@ -4,7 +4,7 @@
 
 {% block section %}
     <section class="container mobileTables" ng-controller="MeasurementCtrl">
-        {{ include('BarraBackBundle::formValidation.html.twig') }}
+        {{ include('BarraBackBundle:parts:formValidation.html.twig') }}
 
         {{ form_start(form) }}
             <table class="table table-striped">
@@ -20,7 +20,7 @@
                         <td data-mobile-title={{ 'back.measurement.name'|trans() }}>[[measurement.name]]</td>
                         <td data-mobile-title={{ 'back.measurement.gr'|trans() }}>[[measurement.gr]]</td>
                         <td data-mobile-title={{ 'back.action.delete'|trans() }}>
-                            <span class="glyphicon glyphicon-minus" ng-click="deleteEntry(measurement)"></span>
+                            <span class="glyphicon glyphicon-trash" ng-click="deleteEntry(measurement)"></span>
                         </td>
                     </tr>
                     <tr class="formInRow">
@@ -32,6 +32,6 @@
             </table>
         {{ form_end(form) }}
 
-        {{ include('BarraBackBundle::pagination.html.twig', { 'route': 'barra_back_measurements'})}}
+        {{ include('BarraBackBundle:parts:pagination.html.twig', { 'route': 'barra_back_measurements'})}}
     </section>
 {% endblock %}

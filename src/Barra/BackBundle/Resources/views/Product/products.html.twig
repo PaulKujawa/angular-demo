@@ -4,7 +4,7 @@
 
 {% block section %}
     <section class="container mobileTables" ng-controller="ProductCtrl">
-        {{ include('BarraBackBundle::formValidation.html.twig') }}
+        {{ include('BarraBackBundle:parts:formValidation.html.twig') }}
 
         {{ form_start(form) }}
             <table class="table table-striped">
@@ -38,7 +38,7 @@
                         <td data-mobile-title={{ 'back.product.gfat'|trans() }}>[[product.gfat]]</td>
                         <td data-mobile-title={{ 'back.product.manufacturer'|trans() }}>[[product.manufacturer.name]]</td>
                         <td data-mobile-title={{ 'back.action.delete'|trans() }}>
-                            <span class="glyphicon glyphicon-minus" ng-click="deleteEntry(product)"></span>
+                            <span class="glyphicon glyphicon-trash" ng-click="deleteEntry(product)"></span>
                         </td>
                     </tr>
                     <tr class="formInRow">
@@ -58,6 +58,6 @@
             </table>
         {{ form_end(form) }}
 
-        {{ include('BarraBackBundle::pagination.html.twig', { 'route': 'barra_back_products'})}}
+        {{ include('BarraBackBundle:parts:pagination.html.twig', { 'route': 'barra_back_products'})}}
     </section>
 {% endblock %}

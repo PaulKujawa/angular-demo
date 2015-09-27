@@ -4,6 +4,7 @@ namespace Barra\FrontBundle\DataFixtures\ORM;
 
 use Barra\BackBundle\Entity\Agency;
 use Barra\BackBundle\Entity\Reference;
+use Barra\BackBundle\Entity\Technique;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -110,6 +111,9 @@ class LoadReferenceData extends AbstractFixture implements OrderedFixtureInterfa
 
         foreach ($refTechniques as $refTechnique) {
             $technique = $this->getReference($refTechnique);
+            if (!$technique instanceof Technique) {
+                throw new \InvalidArgumentException();
+            }
             $entity->addTechnique($technique);
         }
 

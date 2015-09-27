@@ -26,6 +26,6 @@ front:
     name: Your name
     email: Your e-mail
     message: Your message to me
-    description: I am Paul Kujawa, eager Symfony developer and my freetime focuses fitness. Get in contact with me.
+    description: I am Paul Kujawa, eager Symfony|ZendFW developer and my freetime focuses fitness.
 
   word:

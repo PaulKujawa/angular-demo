@@ -27,7 +27,8 @@ class Recipe
      * @var ArrayCollection
      * @ORM\OneToMany(
      *      targetEntity = "Photo",
-     *      mappedBy     = "recipe"
+     *      mappedBy     = "recipe",
+     *      cascade      = {"remove"}
      * )
      * @ORM\OrderBy({"name" = "ASC"})
      */

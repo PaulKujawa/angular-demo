@@ -16,7 +16,7 @@
         </form>
 
         <div ng-controller="IngredientCtrl" ng-init="recipeId={{recipe.id}}">
-            {{ include('BarraBackBundle::formValidation.html.twig') }}
+            {{ include('BarraBackBundle:parts:formValidation.html.twig') }}
 
             {{ form_start(formIngredient) }}
                 <table class="table table-striped">
@@ -34,7 +34,7 @@
                             <td data-mobile-title={{ 'back.measurement.type'|trans() }}>[[ingredient.measurement.type]]</td>
                             <td data-mobile-title={{ 'back.product.name'|trans() }}>[[ingredient.product.name]]</td>
                             <td data-mobile-title={{ 'back.action.delete'|trans() }}>
-                                <span class="glyphicon glyphicon-minus" ng-click="deleteEntry(ingredient)"></span>
+                                <span class="glyphicon glyphicon-trash" ng-click="deleteEntry(ingredient)"></span>
                                 <span class="glyphicon glyphicon-resize-vertical"></span>
                             </td>
                         </tr>
@@ -52,7 +52,7 @@
         </div>
 
         <div ng-controller="CookingCtrl" ng-init="recipeId={{recipe.id}}">
-            {{ include('BarraBackBundle::formValidation.html.twig') }}
+            {{ include('BarraBackBundle:parts:formValidation.html.twig') }}
             {{ form_start(formCooking) }}
                 <table class="table table-striped">
                     <thead>
@@ -65,7 +65,7 @@
                         <tr ng-repeat="cooking in cookings | orderBy:'position'">
                             <td data-mobile-title={{ 'back.cooking.description'|trans() }}>[[cooking.description]]</td>
                             <td data-mobile-title={{ 'back.action.delete'|trans() }}>
-                                <span class="glyphicon glyphicon-minus" ng-click="deleteEntry(cooking)"></span>
+                                <span class="glyphicon glyphicon-trash" ng-click="deleteEntry(cooking)"></span>
                                 <span class="glyphicon glyphicon-resize-vertical"></span>
                             </td>
                         </tr>

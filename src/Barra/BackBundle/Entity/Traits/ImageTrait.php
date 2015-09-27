@@ -127,7 +127,8 @@ trait ImageTrait
     {
         return null === $this->filename
             ? null
-            : $this->getAbsolutePath().DIRECTORY_SEPARATOR.$this->filename;
+            : $this->getAbsolutePath().DIRECTORY_SEPARATOR.$this->filename
+        ;
     }
 
     /**
@@ -145,7 +146,8 @@ trait ImageTrait
     {
         return null === $this->filename
             ? null
-            : $this->getWebDirectory().DIRECTORY_SEPARATOR.$this->filename;
+            : $this->getWebDirectory().DIRECTORY_SEPARATOR.$this->filename
+        ;
     }
 
     /**

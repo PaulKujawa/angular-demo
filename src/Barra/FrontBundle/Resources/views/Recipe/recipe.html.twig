@@ -19,7 +19,11 @@
         <div id="recipeCircles">
             <div id="recipePic">
                 {% if recipe.Photos is not empty %}
-                    <img class="img-circle" src="{{ asset('uploads/documents/'~(recipe.photos|first).filename) }}" alt="{{ recipe.name }}">
+                    <img
+                        class="img-circle"
+                        src="{{ asset('uploads/documents/'~(recipe.photos|first).filename) }}"
+                        alt="{{ recipe.name }}"
+                    >
                 {% endif %}
             </div>
 
@@ -30,7 +34,10 @@
         </div>
 
         <h1 class="centeredTitle">{{ recipe.name }}</h1>
-        <ul id="productList" class="list-unstyled fontL" data-carbs={{ macros.carbs }} data-protein={{ macros.protein }} data-fat={{ macros.fat }}>
+        <ul
+            id="productList" class="list-unstyled fontL"
+            data-carbs="{{ macros.carbs }}" data-protein="{{ macros.protein }}" data-fat="{{ macros.fat }}"
+        >
             {% for ingredient in ingredients %}
                 {% if ingredient.amount is null %}
                     <li>{{ ingredient.product.name }}</li>

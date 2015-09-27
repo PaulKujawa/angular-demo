@@ -26,6 +26,6 @@ front:
     name: Ihr Name
     email: Ihre E-Mail
     message: Ihre Nachricht an mich
-    description: Ich trage den Namen Paul Kujawa, bin eifriger Symfony Entwickler und meine Freizeit fokussiert Fitness. Treten Sie mit mir in Kontakt.
+    description: Ich trage den Namen Paul Kujawa, bin eifriger Symfony|ZendFW Entwickler und meine Freizeit fokussiert Fitness.
 
   word:

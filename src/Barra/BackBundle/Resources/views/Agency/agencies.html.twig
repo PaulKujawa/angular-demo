@@ -4,7 +4,7 @@
 
 {% block section %}
     <section class="container mobileTables" ng-controller="AgencyCtrl">
-        {{ include('BarraBackBundle::formValidation.html.twig') }}
+        {{ include('BarraBackBundle:parts:formValidation.html.twig') }}
 
         {{ form_start(form) }}
             <table class="table table-striped">
@@ -20,7 +20,7 @@
                         <td data-mobile-title={{ 'back.agency.name'|trans() }}>[[agency.name]]</td>
                         <td data-mobile-title={{ 'back.agency.url'|trans() }}>[[agency.url]]</td>
                         <td data-mobile-title={{ 'back.action.delete'|trans() }}>
-                            <span class="glyphicon glyphicon-minus" ng-click="deleteEntry(agency)"></span>
+                            <span class="glyphicon glyphicon-trash" ng-click="deleteEntry(agency)"></span>
                         </td>
                     </tr>
                     <tr class="formInRow">
@@ -32,6 +32,6 @@
             </table>
         {{ form_end(form) }}
 
-        {{ include('BarraBackBundle::pagination.html.twig', { 'route': 'barra_back_recipes'}) }}
+        {{ include('BarraBackBundle:parts:pagination.html.twig', { 'route': 'barra_back_recipes'}) }}
     </section>
 {% endblock %}

@@ -1,11 +1,16 @@
 /* ICONS
 ---------------------------------------------------------*/
 table span.glyphicon { margin-right: 9px; }
-.glyphicon-minus { color: #F7464A; cursor: pointer}
-.glyphicon-plus { color: #3C948B; }
-.glyphicon-eye-open { color: #777777; }
-.inactiveLink span.glyphicon-minus { color: #777777; }
-.glyphicon-resize-vertical { cursor: move; color: #777777; }
+
+.glyphicon { color: #777777; cursor: pointer }
+
+.glyphicon-plus             { color: #3C948B }
+.glyphicon-eye-open         {  }
+.glyphicon-resize-vertical  { cursor: move }
+
+
+.glyphicon-trash:hover                  { color: #F7464A }
+.inactiveLink .glyphicon-trash:hover    { color: #777777; }
 
 /* BUTTONS
 ---------------------------------------------------------*/
