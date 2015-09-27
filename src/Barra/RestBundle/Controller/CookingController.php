@@ -2,10 +2,10 @@
 
 namespace Barra\RestBundle\Controller;
 
-use Barra\BackBundle\Form\Type\CookingType;
-use Barra\BackBundle\Entity\Cooking;
-use Barra\BackBundle\Entity\Recipe;
-use Barra\BackBundle\Entity\Repository\CookingRepository;
+use Barra\AdminBundle\Form\Type\CookingType;
+use Barra\AdminBundle\Entity\Cooking;
+use Barra\AdminBundle\Entity\Recipe;
+use Barra\AdminBundle\Entity\Repository\CookingRepository;
 use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Annotations;

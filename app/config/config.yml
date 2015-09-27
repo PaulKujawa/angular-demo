@@ -1,7 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
-    - { resource: "@BarraBackBundle/Resources/config/services.yml" }
+    - { resource: "@BarraAdminBundle/Resources/config/services.yml" }
 
 framework:
     #esi:             ~
@@ -50,7 +50,7 @@ doctrine:
 assetic:
   debug:          "%kernel.debug%"
   use_controller: false
-  bundles:        [ BarraBackBundle, BarraFrontBundle, FOSUserBundle, TwigBundle ] # User & Twig for overwritten templates
+  bundles:        [ BarraAdminBundle, BarraFrontBundle, FOSUserBundle, TwigBundle ] # User & Twig for overwritten templates
   filters:
       cssrewrite: ~
 
@@ -92,7 +92,7 @@ fos_rest:
 fos_user:
     db_driver:      orm
     firewall_name:  admino
-    user_class:     Barra\BackBundle\Entity\User
+    user_class:     Barra\AdminBundle\Entity\User
 
 
 jms_serializer:                                             # JMS exlusion for 3th party entites needs to be done via config file

@@ -1,0 +1,42 @@
+{% extends '::base.html.twig' %}
+
+{% block navList %}
+    {{ include('BarraAdminBundle:parts:nav.html.twig') }}
+{% endblock %}
+
+{% block stylesheets %}
+    {% stylesheets filter='cssrewrite'
+        'vendor/jquery-ui/themes/smoothness/jquery-ui.min.css'
+        'vendor/bootstrap/dist/css/bootstrap.min.css'
+        'vendor/angular-chart.js/dist/angular-chart.css'
+        'vendor/angular-ui-tree/dist/angular-ui-tree.min.css'
+        'vendor/dropzone/dist/min/dropzone.min.css'
+        '../app/Resources/public/css/app.css'
+        'bundles/barraadmin/css/admin.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    {% javascripts
+        'vendor/jquery/dist/jquery.js'
+        'vendor/jquery-ui/jquery-ui.js'
+        'vendor/jquery-ui-touch-punch-improved/jquery.ui.touch-punch-improved.js'
+        'vendor/lodash/dist/lodash.js'
+        'vendor/chartjs/Chart.js'
+        'vendor/bootstrap/dist/js/bootstrap.js'
+        'vendor/angular/angular.js'
+        'vendor/restangular/dist/restangular.js'
+        'vendor/angular-chart.js/dist/angular-chart.js'
+        'vendor/angular-ui-tree/dist/angular-ui-tree.js'
+        'vendor/dropzone/dist/dropzone.js'
+        'bundles/fosjsrouting/js/router.js'
+        'bundles/barraadmin/js/app.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {# controller generated JS file. include in assetic would require a manual dump every time a route changes #}
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+{% endblock %}

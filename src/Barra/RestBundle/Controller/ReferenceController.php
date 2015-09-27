@@ -2,8 +2,8 @@
 
 namespace Barra\RestBundle\Controller;
 
-use Barra\BackBundle\Form\Type\ReferenceType;
-use Barra\BackBundle\Entity\Reference;
+use Barra\AdminBundle\Form\Type\ReferenceType;
+use Barra\AdminBundle\Entity\Reference;
 use FOS\RestBundle\Util\Codes;
 use Symfony\Component\HttpFoundation\Request;
 

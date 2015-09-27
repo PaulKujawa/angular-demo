@@ -1,0 +1,39 @@
+{% extends 'BarraAdminBundle::layout.html.twig' %}
+{% form_theme form 'BarraAdminBundle:Form:tableRow.html.twig' %}
+{% block title %}{{ 'back.title.techniques'|trans() }}{% endblock %}
+
+{% block section %}
+    <section class="container mobileTables" ng-controller="TechniqueCtrl">
+        {{ include('BarraAdminBundle:parts:formValidation.html.twig') }}
+
+        {{ form_start(form) }}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>{{ 'back.technique.name'|trans() }}</th>
+                        <th>{{ 'back.technique.description'|trans() }}</th>
+                        <th>{{ 'back.technique.url'|trans() }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="technique in techniques | orderBy:'name'">
+                        <td data-mobile-title={{ 'back.technique.name'|trans() }}>[[technique.name]]</td>
+                        <td data-mobile-title={{ 'back.technique.description'|trans() }}>[[technique.description]]</td>
+                        <td data-mobile-title={{ 'back.technique.url'|trans() }}>[[technique.url]]</td>
+                        <td data-mobile-title={{ 'back.action.delete'|trans() }}>
+                            <span class="glyphicon glyphicon-trash" ng-click="deleteEntry(technique)"></span>
+                        </td>
+                    </tr>
+                    <tr class="formInRow">
+                        {{ form_row(form.name) }}
+                        {{ form_row(form.description) }}
+                        {{ form_row(form.url) }}
+                        {{ form_widget(form.submit, {'label': 'back.action.new', 'attr': {'class': 'btn'} }) }}
+                    </tr>
+                </tbody>
+            </table>
+        {{ form_end(form) }}
+
+        {{ include('BarraAdminBundle:parts:pagination.html.twig', { 'route': 'barra_back_recipes'}) }}
+    </section>
+{% endblock %}

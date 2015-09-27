@@ -1,0 +1,19 @@
+{% extends 'BarraAdminBundle::layout.html.twig' %}
+{% block title %}{{ 'back.title.user'|trans() }}{% endblock %}
+
+{% block section %}
+    <section class="container">
+        <a href="{{ path('barra_front_root') }}">
+            <span class="glyphicon glyphicon-home"></span>
+            {{ 'back.action.frontend'|trans() }}
+        </a>
+
+        <br>
+
+        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+        <a href="{{ path('fos_user_security_logout') }}">
+            <span class="glyphicon glyphicon-log-out"></span>
+            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+        </a>
+    </section>
+{% endblock %}

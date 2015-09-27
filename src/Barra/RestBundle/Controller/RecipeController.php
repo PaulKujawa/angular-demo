@@ -2,8 +2,8 @@
 
 namespace Barra\RestBundle\Controller;
 
-use Barra\BackBundle\Form\Type\RecipeType;
-use Barra\BackBundle\Entity\Recipe;
+use Barra\AdminBundle\Form\Type\RecipeType;
+use Barra\AdminBundle\Entity\Recipe;
 use FOS\RestBundle\Util\Codes;
 use Symfony\Component\HttpFoundation\Request;
 

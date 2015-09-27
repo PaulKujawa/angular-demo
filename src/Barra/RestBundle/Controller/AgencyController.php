@@ -2,8 +2,8 @@
 
 namespace Barra\RestBundle\Controller;
 
-use Barra\BackBundle\Form\Type\AgencyType;
-use Barra\BackBundle\Entity\Agency;
+use Barra\AdminBundle\Form\Type\AgencyType;
+use Barra\AdminBundle\Entity\Agency;
 use FOS\RestBundle\Util\Codes;
 use Symfony\Component\HttpFoundation\Request;
 

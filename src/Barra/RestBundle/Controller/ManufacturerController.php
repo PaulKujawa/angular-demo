@@ -2,8 +2,8 @@
 
 namespace Barra\RestBundle\Controller;
 
-use Barra\BackBundle\Form\Type\ManufacturerType;
-use Barra\BackBundle\Entity\Manufacturer;
+use Barra\AdminBundle\Form\Type\ManufacturerType;
+use Barra\AdminBundle\Entity\Manufacturer;
 use FOS\RestBundle\Util\Codes;
 use Symfony\Component\HttpFoundation\Request;
 

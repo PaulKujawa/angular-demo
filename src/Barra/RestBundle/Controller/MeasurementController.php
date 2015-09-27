@@ -2,8 +2,8 @@
 
 namespace Barra\RestBundle\Controller;
 
-use Barra\BackBundle\Form\Type\MeasurementType;
-use Barra\BackBundle\Entity\Measurement;
+use Barra\AdminBundle\Form\Type\MeasurementType;
+use Barra\AdminBundle\Entity\Measurement;
 use FOS\RestBundle\Util\Codes;
 use Symfony\Component\HttpFoundation\Request;
 

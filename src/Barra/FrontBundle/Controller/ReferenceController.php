@@ -2,7 +2,7 @@
 
 namespace Barra\FrontBundle\Controller;
 
-use Barra\BackBundle\Entity\Repository\ReferenceRepository;
+use Barra\AdminBundle\Entity\Repository\ReferenceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
@@ -21,7 +21,7 @@ class ReferenceController extends Controller
     public function indexAction($paginationActive)
     {
         $offset         = ($paginationActive-1)*self::RANGE +1;
-        $repo           = $this->getDoctrine()->getManager()->getRepository('BarraBackBundle:Reference');
+        $repo           = $this->getDoctrine()->getManager()->getRepository('BarraAdminBundle:Reference');
         /** @var ReferenceRepository $repo */
         $references     = $repo->getSome($offset, self::RANGE, "finished", "DESC");
         $paginationCnt  = $repo->count();

@@ -2,8 +2,8 @@
 
 namespace Barra\RestBundle\Controller;
 
-use Barra\BackBundle\Form\Type\TechniqueType;
-use Barra\BackBundle\Entity\Technique;
+use Barra\AdminBundle\Form\Type\TechniqueType;
+use Barra\AdminBundle\Entity\Technique;
 use FOS\RestBundle\Util\Codes;
 use Symfony\Component\HttpFoundation\Request;
 

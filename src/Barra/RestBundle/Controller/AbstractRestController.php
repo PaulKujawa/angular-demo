@@ -30,7 +30,7 @@ abstract class AbstractRestController extends FOSRestController implements Class
     /**
      * @param Request                           $request
      * @param int                               $successCode
-     * @param null|\Barra\BackBundle\Entity\    $entity
+     * @param null|\Barra\AdminBundle\Entity\   $entity
      * @return \FOS\RestBundle\View\View
      */
     abstract protected function processForm(Request $request, $successCode, $entity = null);
@@ -82,9 +82,9 @@ abstract class AbstractRestController extends FOSRestController implements Class
 
 
         if (null === $recipe) {
-            $entities   = $repo->getSome($offset, $limit, $orderBy, $order);
+            $entities = $repo->getSome($offset, $limit, $orderBy, $order);
         } else {
-            $entities   = $repo->getSome($recipe, $offset, $limit, $orderBy, $order);
+            $entities = $repo->getSome($recipe, $offset, $limit, $orderBy, $order);
         }
 
         return ['data' => $entities];
@@ -125,7 +125,7 @@ abstract class AbstractRestController extends FOSRestController implements Class
      */
     public function putAction(Request $request, $id)
     {
-        /** @var \Barra\BackBundle\Entity\ $entity */
+        /** @var \Barra\AdminBundle\Entity\ $entity */
         $entity = $this->getRepo()->find($id);
 
         if (null === $entity) {
@@ -171,8 +171,8 @@ abstract class AbstractRestController extends FOSRestController implements Class
         $this->getEM()->flush();
 
         $params = [
-            'id'        => $entity->getId(),
-            '_format'   => $request->get('_format'),
+            'id'      => $entity->getId(),
+            '_format' => $request->get('_format'),
         ];
         $route = 'barra_api_get_'.lcfirst($this->getEntityClass());
 
@@ -191,7 +191,7 @@ abstract class AbstractRestController extends FOSRestController implements Class
             $entityClass = $this->getEntityClass();
         }
 
-        return $this->getEM()->getRepository('BarraBackBundle:'.ucfirst($entityClass));
+        return $this->getEM()->getRepository('BarraAdminBundle:'.ucfirst($entityClass));
     }
 
 

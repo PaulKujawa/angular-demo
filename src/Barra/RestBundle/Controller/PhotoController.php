@@ -2,10 +2,10 @@
 
 namespace Barra\RestBundle\Controller;
 
-use Barra\BackBundle\Form\Type\PhotoType;
-use Barra\BackBundle\Entity\Recipe;
-use Barra\BackBundle\Entity\Photo;
-use Barra\BackBundle\Entity\Repository\PhotoRepository;
+use Barra\AdminBundle\Form\Type\PhotoType;
+use Barra\AdminBundle\Entity\Recipe;
+use Barra\AdminBundle\Entity\Photo;
+use Barra\AdminBundle\Entity\Repository\PhotoRepository;
 use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Annotations;
