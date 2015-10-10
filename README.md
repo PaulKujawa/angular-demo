@@ -1,45 +1,50 @@
 Just my crib
 =============
 
-1) Commandline
----------------
+1) Create Bundle, Form, Route
+------------------------------
   * create bundle       `php app/console generate:bundle --namespace=Barra/DemoBundle --format=yml`
-  * create form         `php app/console doctrine:generate:form BarraBackBundle:Entity --no-interaction`
+  * create form         `php app/console doctrine:generate:form BarraAdminBundle:EntityName --no-interaction`
   * debug routes        `php app/console debug:router | grep foo`
   
-2.) Commandline Assets
------------------------
+2.) Assets/Assetic
+-------------------
   * Cache clear prod    `php app/console --env=prod cache:clear`
   * include assets dev  `php app/console assets:install --symlink`
   * include assets prod `php app/console assetic:dump --env=prod --no-debug`
 
-3) Commandline Database
-------------------------
+3) Doctrine
+------------
   * delete DB           `php app/console doctrine:database:drop --force`
   * create DB           `php app/console doctrine:database:create`
-  * set Tables          `php app/console doctrine:schema:update --force`
+  * Tables in Dev       `php app/console doctrine:schema:update --force`
   
-  * create entity       `php app/console doctrine:generate:entity --entity="BarraBackBundle:Product"`
-  * create get/set      `php app/console doctrine:generate:entities Barra`
   * load fixtures       `php app/console doctrine:fixtures:load --append`
+  * create entity       `php app/console doctrine:generate:entity --entity="BarraAdminBundle:Demo"`
+  * create get/set      `php app/console doctrine:generate:entities Barra`
   
-4) 3rd Party quick view
+4. Doctrine migrations
 -----------------------
-  * AuthNAuth   (FOS/User + Lexik/LexikJWTAuthentication)
-  * Tests       (PHPUnit + Doctrine/Doctrine-fixtures)
-  * API         (FOS/Rest + JMS/Serializer + LiipFixture/Functional-test)
-  * JS          (FOS/JSRouting)
-  * JS-Libs     (Restangular, jQuery, ChartJS, Dropzone, bootstrap)
+doctrine:migrations
+  * overview            `php app/console doctrine:migrations:status`
+  * build automatically `php app/console doctrine:migrations:diff`
+  * build manually      `php app/console doctrine:migrations:generate`
+  
+  * execute 1 migration `php app/console doctrine:migrations:execute [up|down] version`
+  * migrate to version  `php app/console doctrine:migrations:migrate [version]`
+  
+5) 3rd Party quick overview
+----------------------------
+  * AuthNAuth           (FOS/User + Lexik/LexikJWTAuthentication)
+  * Tests               (PHPUnit + LiipFixture/Functional-test)
+  * API                 (FOS/Rest + JMS/Serializer + FOS/JSRouting)
+  * Database            (Doctrine/Doctrine-fixtures + Doctrine/doctrine-migrations)
+  * JS-Libs             (RestAngular, jQuery, ChartJS, Dropzone, bootstrap)
 
-5) Notices for myself
+6) Notices for myself
 ----------------------
-  * filter: `{{ 'reference'|trans({'%name%':'Max'}, 'layout') }}`
-  ** reference: `Referenz %name%
-
-  * Form Theming
+  * Forms
   ** check widget e.g. `{% if form.vars.block_prefixes.1 == "checkbox" %}`
-
-  * handle forms manually
   ** `...handleRequest($request)` && `$id = $form->all()->getId()`
 
 

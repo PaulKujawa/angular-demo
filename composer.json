@@ -1,5 +1,5 @@
 {
-    "name": "barra/Vpit",
+    "name": "barra/vPit",
     "license": "MIT",
     "type": "project",
     "description": "own, private project for education.",
@@ -17,8 +17,14 @@
         "doctrine/orm": "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle": "~1.2",
         "doctrine/doctrine-fixtures-bundle": "2.2.*",
+        "doctrine/doctrine-migrations-bundle": "^1.0",
+        "friendsofsymfony/rest-bundle": "~1.5",
+        "friendsofsymfony/user-bundle": "~2.0@dev",
+        "friendsofsymfony/jsrouting-bundle": "~1.5",
         "incenteev/composer-parameter-handler": "~2.0",
+        "jms/serializer-bundle": "0.13.*",
         "ircmaxell/password-compat": "~1.0.3",
+        "lexik/jwt-authentication-bundle": "~1.0",
         "php": ">=5.3.3",
         "sensio/distribution-bundle": "~3.0",
         "sensio/framework-extra-bundle": "~3.0",
@@ -26,14 +32,7 @@
         "symfony/monolog-bundle": "~2.4",
         "symfony/swiftmailer-bundle": "~2.3",
         "symfony/assetic-bundle": "~2.3",
-        "twig/extensions": "~1.0",
-
-        "friendsofsymfony/rest-bundle": "~1.5",
-        "friendsofsymfony/user-bundle": "~2.0@dev",
-        "friendsofsymfony/jsrouting-bundle": "~1.5",
-
-        "jms/serializer-bundle": "0.13.*",
-        "lexik/jwt-authentication-bundle": "~1.0"
+        "twig/extensions": "~1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
