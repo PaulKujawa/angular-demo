@@ -1,51 +1,43 @@
-Just my crib
-=============
+# Just my crib
+---
 
-1) Create Bundle, Form, Route
-------------------------------
-  * create bundle       `php app/console generate:bundle --namespace=Barra/DemoBundle --format=yml`
-  * create form         `php app/console doctrine:generate:form BarraAdminBundle:EntityName --no-interaction`
-  * debug routes        `php app/console debug:router | grep foo`
-  
-2.) Assets/Assetic
--------------------
-  * Cache clear prod    `php app/console --env=prod cache:clear`
-  * include assets dev  `php app/console assets:install --symlink`
-  * include assets prod `php app/console assetic:dump --env=prod --no-debug`
+### Create Bundle, Form, Route
+* create bundle       `php app/console generate:bundle --namespace=Barra/DemoBundle --format=yml`
+* create form         `php app/console doctrine:generate:form {Bundle:Entity} --no-interaction`
+* debug routes        `php app/console debug:router | grep foo`
 
-3) Doctrine
-------------
+### Assets
+* Cache clear prod    `php app/console --env=prod cache:clear`
+* include assets dev  `php app/console assets:install --symlink`
+* include assets prod `php app/console assetic:dump --env=prod --no-debug`
+
+### Doctrine
+* DEV
   * delete DB           `php app/console doctrine:database:drop --force`
   * create DB           `php app/console doctrine:database:create`
-  * Tables in Dev       `php app/console doctrine:schema:update --force`
-  
+  * Update DB           `php app/console doctrine:schema:update --force`
   * load fixtures       `php app/console doctrine:fixtures:load --append`
-  * create entity       `php app/console doctrine:generate:entity --entity="BarraAdminBundle:Demo"`
-  * create get/set      `php app/console doctrine:generate:entities Barra`
-  
-4. Doctrine migrations
------------------------
-doctrine:migrations
+* PROD
   * overview            `php app/console doctrine:migrations:status`
-  * build automatically `php app/console doctrine:migrations:diff`
-  * build manually      `php app/console doctrine:migrations:generate`
-  
-  * execute 1 migration `php app/console doctrine:migrations:execute [up|down] version`
-  * migrate to version  `php app/console doctrine:migrations:migrate [version]`
-  
-5) 3rd Party quick overview
-----------------------------
-  * AuthNAuth           (FOS/User + Lexik/LexikJWTAuthentication)
-  * Tests               (PHPUnit + LiipFixture/Functional-test)
-  * API                 (FOS/Rest + JMS/Serializer + FOS/JSRouting)
-  * Database            (Doctrine/Doctrine-fixtures + Doctrine/doctrine-migrations)
-  * JS-Libs             (RestAngular, jQuery, ChartJS, Dropzone, bootstrap)
+  * build 
+    * build manually      `php app/console doctrine:migrations:generate`
+    * build automatically `php app/console doctrine:migrations:diff`
+  * deploy
+    * execute 1 migration `php app/console doctrine:migrations:execute [up|down] version`
+    * migrate to version  `php app/console doctrine:migrations:migrate [version]`
 
-6) Notices for myself
-----------------------
-  * Forms
-  ** check widget e.g. `{% if form.vars.block_prefixes.1 == "checkbox" %}`
-  ** `...handleRequest($request)` && `$id = $form->all()->getId()`
+### Bundles & Libraries
+* AuthNAuth           (FOS/User + Lexik/LexikJWTAuthentication)
+* Tests               (PHPUnit + LiipFixture/Functional-test)
+* API                 (FOS/Rest + JMS/Serializer + FOS/JSRouting)
+* Database            (Doctrine/Doctrine-fixtures + Doctrine/doctrine-migrations)
+* JS-Libs             (RestAngular, jQuery, ChartJS, Dropzone, bootstrap)
+
+
+### Temp notices
+---
+* check form widget e.g. `{% if form.vars.block_prefixes.1 == "checkbox" %}`
+* get all request values `...handleRequest($request)` && `$id = $form->all()->getId()`
 
 
 ```php
