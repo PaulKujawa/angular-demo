@@ -38,8 +38,8 @@ class Cooking
     /**
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
-     * @return $this
      * @throws \RuntimeException
+     * @return $this
      */
     public function createId()
     {
@@ -59,7 +59,6 @@ class Cooking
     }
 
     /**
-     * Get id
      * @return int
      */
     public function getId()

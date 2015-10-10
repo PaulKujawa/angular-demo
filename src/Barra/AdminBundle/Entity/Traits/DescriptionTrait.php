@@ -15,10 +15,9 @@ trait DescriptionTrait
      * @var string
      * @Assert\NotBlank()
      * @ORM\Column(
-     *      name        = "description",
-     *      type        = "string",
-     *      length      = 50,
-     *      nullable    = false
+     *      name    = "description",
+     *      type    = "string",
+     *      length  = 50,
      * )
      */
     private $description;
@@ -43,8 +42,6 @@ trait DescriptionTrait
     }
 
     /**
-     * Get description
-     *
      * @return string
      */
     public function getDescription()

@@ -19,7 +19,6 @@ trait ImageTrait
      *      name        = "filename",
      *      type        = "string",
      *      length      = 255,
-     *      unique      = true,
      *      nullable    = true
      * )
      */
@@ -70,7 +69,10 @@ trait ImageTrait
         if (null === $this->getFile()) {
             return $this;
         }
-        $this->filename = sha1(uniqid(mt_rand(), true)).'.'.$this->getFile()->guessExtension();
+
+        do {
+            $this->filename = sha1(uniqid(mt_rand(), true)).'.'.$this->getFile()->guessExtension();
+        } while (file_exists($this->getAbsolutePathWithFilename())); // unique?
 
         return $this;
     }
@@ -89,7 +91,7 @@ trait ImageTrait
         $this->getFile()->move($this->getAbsolutePath(), $this->filename);
 
         if (isset($this->oldImageFilename)) {
-            unlink($this->getAbsolutePath().'/'.$this->oldImageFilename);
+            unlink($this->getAbsolutePath().DIRECTORY_SEPARATOR.$this->oldImageFilename);
         }
 
         return $this;

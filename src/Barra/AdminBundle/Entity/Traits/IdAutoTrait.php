@@ -21,7 +21,6 @@ trait IdAutoTrait
 
     /**
      * Get id
-     *
      * @return int
      */
     public function getId()

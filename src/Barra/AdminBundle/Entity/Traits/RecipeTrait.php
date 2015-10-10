@@ -27,8 +27,6 @@ trait RecipeTrait
     private $recipe;
 
     /**
-     * Set recipe
-     *
      * @param Recipe $recipe
      * @return $this
      */
@@ -40,8 +38,6 @@ trait RecipeTrait
     }
 
     /**
-     * Get recipe
-     *
      * @return Recipe
      */
     public function getRecipe()

@@ -148,7 +148,10 @@ class Product
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="Ingredient", mappedBy="product")
+     * @ORM\OneToMany(
+     *      targetEntity = "Ingredient",
+     *      mappedBy     = "product"
+     * )
      */
     private $ingredients;
 
@@ -173,7 +176,6 @@ class Product
     }
 
     /**
-     * Set vegan
      * @param boolean $vegan
      * @return $this
      * @throws \InvalidArgumentException
@@ -193,7 +195,6 @@ class Product
     }
 
     /**
-     * Get vegan
      * @return boolean
      */
     public function getVegan()
@@ -202,7 +203,6 @@ class Product
     }
 
     /**
-     * Set kcal
      * @param int $kcal
      * @return $this
      * @throws \InvalidArgumentException
@@ -222,7 +222,6 @@ class Product
     }
 
     /**
-     * Get kcal
      * @return string
      */
     public function getKcal()
@@ -231,7 +230,6 @@ class Product
     }
 
     /**
-     * Set gr
      * @param int $gr
      * @return $this
      * @throws \InvalidArgumentException
@@ -251,7 +249,6 @@ class Product
     }
 
     /**
-     * Get gr
      * @return int
      */
     public function getGr()
@@ -260,7 +257,6 @@ class Product
     }
 
     /**
-     * Set protein
      * @param double $protein
      * @return $this
      * @throws \InvalidArgumentException
@@ -280,7 +276,6 @@ class Product
     }
 
     /**
-     * Get protein
      * @return double
      */
     public function getProtein()
@@ -289,7 +284,6 @@ class Product
     }
 
     /**
-     * Set carbs
      * @param double $carbs
      * @return $this
      * @throws \InvalidArgumentException
@@ -309,7 +303,6 @@ class Product
     }
 
     /**
-     * Get carbs
      * @return double
      */
     public function getCarbs()
@@ -318,7 +311,6 @@ class Product
     }
 
     /**
-     * Set sugar
      * @param double $sugar
      * @return $this
      * @throws \InvalidArgumentException
@@ -338,7 +330,6 @@ class Product
     }
 
     /**
-     * Get sugar
      * @return string
      */
     public function getSugar()
@@ -347,7 +338,6 @@ class Product
     }
 
     /**
-     * Set fat
      * @param double $fat
      * @return $this
      * @throws \InvalidArgumentException
@@ -367,7 +357,6 @@ class Product
     }
 
     /**
-     * Get fat
      * @return double
      */
     public function getFat()
@@ -376,7 +365,6 @@ class Product
     }
 
     /**
-     * Set gfat
      * @param double $gfat
      * @return $this
      * @throws \InvalidArgumentException
@@ -396,7 +384,6 @@ class Product
     }
 
     /**
-     * Get gfat
      * @return double
      */
     public function getGfat()
@@ -405,7 +392,6 @@ class Product
     }
 
     /**
-     * Set manufacturer
      * @param Manufacturer $manufacturer
      * @return $this
      */
@@ -417,7 +403,6 @@ class Product
     }
 
     /**
-     * Get manufacturer
      * @return Manufacturer
      */
     public function getManufacturer()
@@ -426,7 +411,6 @@ class Product
     }
 
     /**
-     * Add ingredient
      * @param Ingredient $ingredient
      * @return $this
      */
@@ -438,7 +422,6 @@ class Product
     }
 
     /**
-     * Remove ingredient
      * @param Ingredient $ingredient
      * @return $this
      */
@@ -450,7 +433,6 @@ class Product
     }
 
     /**
-     * Get ingredients
      * @return ArrayCollection
      */
     public function getIngredients()

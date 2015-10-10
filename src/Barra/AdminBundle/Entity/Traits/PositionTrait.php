@@ -25,8 +25,6 @@ trait PositionTrait
     private $position;
 
     /**
-     * Set position
-     *
      * @param int $position
      * @return $this
      * @throws \InvalidArgumentException
@@ -46,8 +44,6 @@ trait PositionTrait
     }
 
     /**
-     * Get position
-     *
      * @return integer
      */
     public function getPosition()

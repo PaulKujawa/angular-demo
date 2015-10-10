@@ -43,7 +43,6 @@ class Recipe
     }
 
     /**
-     * Add photos
      * @param Photo $photos
      * @return $this
      */
@@ -55,7 +54,6 @@ class Recipe
     }
 
     /**
-     * Remove photos
      * @param Photo $photos
      * @return $this
      */
@@ -67,7 +65,6 @@ class Recipe
     }
 
     /**
-     * Get photos
      * @return ArrayCollection
      */
     public function getPhotos()

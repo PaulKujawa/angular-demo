@@ -16,18 +16,15 @@ trait UrlTrait
      * @Assert\NotBlank()
      * @Assert\Url()
      * @ORM\Column(
-     *      name        = "url",
-     *      type        = "string",
-     *      length      = 50,
-     *      nullable    = false,
-     *      unique      = true
+     *      name   = "url",
+     *      type   = "string",
+     *      length = 50,
+     *      unique = true
      * )
      */
     private $url;
 
     /**
-     * Set url
-     *
      * @param string $url
      * @return $this
      * @throws \InvalidArgumentException
@@ -47,8 +44,6 @@ trait UrlTrait
     }
 
     /**
-     * Get url
-     *
      * @return string
      */
     public function getUrl()
