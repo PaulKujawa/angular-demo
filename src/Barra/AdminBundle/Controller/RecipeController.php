@@ -39,8 +39,8 @@ class RecipeController extends BasicController
 
     /**
      * @param string $name
-     * @throws NotFoundHttpException
      * @return Response
+     * @throws NotFoundHttpException
      */
     public function showRecipeAction($name)
     {

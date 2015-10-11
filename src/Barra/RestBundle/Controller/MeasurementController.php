@@ -36,11 +36,6 @@ class MeasurementController extends AbstractRestController
             return $this->view($form, Codes::HTTP_BAD_REQUEST);
         }
 
-        $duplicate = $this->getRepo()->findOneByName($entity->getName());
-        if ($duplicate instanceof Measurement) {
-            return $this->view($form, Codes::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
         return $this->persistEntity($request, $entity, $successCode);
     }
 }

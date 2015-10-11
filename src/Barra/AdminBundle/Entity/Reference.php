@@ -9,6 +9,7 @@ use Barra\AdminBundle\Entity\Traits\UrlTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -17,9 +18,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @package Barra\AdminBundle\Entity
 
  * @ExclusionPolicy("none")
+ *
+ * @UniqueEntity("url")
+ * @UniqueEntity("filename")
+ *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass = "Barra\AdminBundle\Entity\Repository\ReferenceRepository")
  * @ORM\HasLifecycleCallbacks
+ * @ORM\Entity(repositoryClass = "Barra\AdminBundle\Entity\Repository\ReferenceRepository")
  */
 class Reference
 {
@@ -31,7 +36,10 @@ class Reference
 
     /**
      * @var \DateTime
+     *
      * @Assert\NotNull()
+     * @Assert\DateTime()
+     *
      * @ORM\Column(
      *      name        = "started",
      *      type        = "date",
@@ -42,7 +50,10 @@ class Reference
 
     /**
      * @var \DateTime
+     *
      * @Assert\NotNull()
+     * @Assert\DateTime()
+     *
      * @ORM\Column(
      *      name        = "finished",
      *      type        = "date",
@@ -53,7 +64,9 @@ class Reference
 
     /**
      * @var Agency
+     *
      * @Assert\NotNull()
+     *
      * @ORM\ManyToOne(
      *      targetEntity = "Agency",
      *      inversedBy   = "references"
@@ -69,7 +82,7 @@ class Reference
 
     /**
      * @var ArrayCollection
-     * @Assert\NotNull()
+     *
      * @ORM\ManyToMany(
      *      targetEntity = "Technique",
      *      inversedBy   = "references")
@@ -83,6 +96,7 @@ class Reference
 
     /**
      * @var ArrayCollection
+     *
      * @ORM\OneToMany(
      *      targetEntity = "Screenshot",
      *      mappedBy     = "reference",
@@ -102,9 +116,8 @@ class Reference
     }
 
     /**
-     * Set started
      * @param \DateTime $started
-     * @return Reference
+     * @return $this
      */
     public function setStarted(\DateTime $started)
     {
@@ -114,7 +127,6 @@ class Reference
     }
 
     /**
-     * Get started
      * @return \DateTime
      */
     public function getStarted()
@@ -123,9 +135,8 @@ class Reference
     }
 
     /**
-     * Set finished
      * @param \DateTime $finished
-     * @return Reference
+     * @return $this
      */
     public function setFinished(\DateTime $finished)
     {
@@ -135,7 +146,6 @@ class Reference
     }
 
     /**
-     * Get finished
      * @return \DateTime
      */
     public function getFinished()
@@ -144,9 +154,8 @@ class Reference
     }
 
     /**
-     * Set agency
      * @param Agency $agency
-     * @return Reference
+     * @return $this
      */
     public function setAgency(Agency $agency)
     {
@@ -156,7 +165,6 @@ class Reference
     }
 
     /**
-     * Get agency
      * @return Agency
      */
     public function getAgency()
@@ -165,9 +173,8 @@ class Reference
     }
 
     /**
-     * Add techniques
      * @param Technique $techniques
-     * @return Reference
+     * @return $this
      */
     public function addTechnique(Technique $techniques)
     {
@@ -177,7 +184,6 @@ class Reference
     }
 
     /**
-     * Remove techniques
      * @param Technique $techniques
      * @return $this
      */
@@ -189,7 +195,6 @@ class Reference
     }
 
     /**
-     * Get techniques
      * @return ArrayCollection
      */
     public function getTechniques()
@@ -198,9 +203,8 @@ class Reference
     }
 
     /**
-     * Add screenshots
      * @param Screenshot $screenshots
-     * @return Reference
+     * @return $this
      */
     public function addScreenshot(Screenshot $screenshots)
     {
@@ -210,7 +214,6 @@ class Reference
     }
 
     /**
-     * Remove screenshots
      * @param Screenshot $screenshots
      * @return $this
      */
@@ -222,7 +225,6 @@ class Reference
     }
 
     /**
-     * Get screenshots
      * @return ArrayCollection
      */
     public function getScreenshots()

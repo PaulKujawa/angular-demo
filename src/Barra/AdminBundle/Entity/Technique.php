@@ -9,6 +9,7 @@ use Barra\AdminBundle\Entity\Traits\UrlTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Class Technique
@@ -16,6 +17,10 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
  * @package Barra\AdminBundle\Entity
  *
  * @ExclusionPolicy("none")
+ *
+ * @UniqueEntity("name")
+ * @UniqueEntity("url")
+ *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass = "Barra\AdminBundle\Entity\Repository\TechniqueRepository")
  */
@@ -29,6 +34,7 @@ class Technique
 
     /**
      * @var ArrayCollection
+     *
      * @ORM\ManyToMany(
      *      targetEntity = "Reference",
      *      mappedBy     = "techniques"
@@ -48,7 +54,6 @@ class Technique
 
 
     /**
-     * Add references
      * @param Reference $references
      * @return $this
      */
@@ -60,7 +65,6 @@ class Technique
     }
 
     /**
-     * Remove references
      * @param Reference $references
      * @return $this
      */
@@ -72,7 +76,6 @@ class Technique
     }
 
     /**
-     * Get references
      * @return ArrayCollection
      */
     public function getReferences()

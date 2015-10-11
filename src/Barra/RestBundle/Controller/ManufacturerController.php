@@ -36,11 +36,6 @@ class ManufacturerController extends AbstractRestController
             return $this->view($form, Codes::HTTP_BAD_REQUEST);
         }
 
-        $duplicate = $this->getRepo()->findByName($entity->getName());
-        if ($duplicate instanceof Manufacturer) {
-            return $this->view($form, Codes::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
         return $this->persistEntity($request, $entity, $successCode);
     }
 }

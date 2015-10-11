@@ -41,9 +41,7 @@ class PhotoController extends AbstractRestController
         $form        = $this->createForm(new PhotoType(), $entity, ['method' => $request->getMethod()]);
         $form->handleRequest($request);
 
-        if (!$form->isValid() ||
-            !$recipe instanceof Recipe
-        ) {
+        if (!$recipe instanceof Recipe) {
             return $this->view($form, Codes::HTTP_BAD_REQUEST);
         }
 
@@ -59,9 +57,8 @@ class PhotoController extends AbstractRestController
             ;
         }
 
-        $duplicate = $this->getRepo()->findOneByName($entity->getName());
-        if ($duplicate instanceof Photo) {
-            return $this->view($form, Codes::HTTP_UNPROCESSABLE_ENTITY);
+        if (!$form->isValid()) {
+            return $this->view($form, Codes::HTTP_BAD_REQUEST);
         }
 
         return $this->persistEntity($request, $entity, $successCode);

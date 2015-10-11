@@ -7,6 +7,7 @@ use Barra\AdminBundle\Entity\Traits\PositionTrait;
 use Barra\AdminBundle\Entity\Traits\RecipeTrait;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Class Cooking
@@ -14,8 +15,14 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
  * @package Barra\AdminBundle\Entity
  *
  * @ExclusionPolicy("none")
- * @ORM\HasLifecycleCallbacks
+ *
+ * @UniqueEntity({
+ *      "recipe",
+ *      "position"
+ * })
+ *
  * @ORM\Table()
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass = "Barra\AdminBundle\Entity\Repository\CookingRepository")
  */
 class Cooking
@@ -27,6 +34,7 @@ class Cooking
 
     /**
      * @var int
+     *
      * @ORM\Id
      * @ORM\Column(
      *      name = "id",
@@ -38,8 +46,9 @@ class Cooking
     /**
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
-     * @throws \RuntimeException
+     *
      * @return $this
+     * @throws \RuntimeException
      */
     public function createId()
     {

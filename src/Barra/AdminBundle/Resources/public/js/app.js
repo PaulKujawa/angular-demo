@@ -43,8 +43,6 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
                         return ['(403) You are not authorized to access this project.'];
                     case 409:
                         return ['(409) This entry could not be deleted. Please check for dependencies.'];
-                    case 422:
-                        return ['(422) Your new entry has a conflict. Please check for duplicates.'];
                     default :
                         return ['(500) A server error occurred. Please contact the administrator for support.'];
                 }

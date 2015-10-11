@@ -6,6 +6,7 @@ use Barra\AdminBundle\Entity\Traits\IdAutoTrait;
 use Barra\AdminBundle\Entity\Traits\NameTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 
 /**
@@ -14,6 +15,9 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
  * @package Barra\AdminBundle\Entity
  *
  * @ExclusionPolicy("none")
+ *
+ * @UniqueEntity("name")
+ *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass = "Barra\AdminBundle\Entity\Repository\RecipeRepository")
  */
@@ -25,6 +29,7 @@ class Recipe
 
     /**
      * @var ArrayCollection
+     *
      * @ORM\OneToMany(
      *      targetEntity = "Photo",
      *      mappedBy     = "recipe",

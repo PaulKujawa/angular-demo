@@ -7,6 +7,8 @@ use Barra\AdminBundle\Entity\Traits\NameTrait;
 use Barra\AdminBundle\Entity\Traits\ImageTrait;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Screenshot
@@ -14,9 +16,13 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
  * @package Barra\AdminBundle\Entity
  *
  * @ExclusionPolicy("none")
+ *
+ * @UniqueEntity("name")
+ * @UniqueEntity("filename")
+ *
  * @ORM\Table()
- * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks
+ * @ORM\Entity()
  */
 class Screenshot
 {
@@ -27,6 +33,9 @@ class Screenshot
 
     /**
      * @var Reference
+     *
+     * @Assert\NotNull()
+     *
      * @ORM\ManyToOne(
      *      targetEntity = "Reference",
      *      inversedBy   = "screenshots"
@@ -42,7 +51,6 @@ class Screenshot
     protected $reference;
 
     /**
-     * Set reference
      * @param Reference $reference
      * @return $this
      */
@@ -53,7 +61,6 @@ class Screenshot
     }
 
     /**
-     * Get reference
      * @return Reference
      */
     public function getReference()

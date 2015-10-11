@@ -40,11 +40,6 @@ class ReferenceController extends AbstractRestController
 //           TODO $entity->setFile()
         }
 
-        $duplicate = $this->getRepo()->findOneByUrl($entity->getUrl());
-        if ($duplicate instanceof Reference) {
-            return $this->view($form, Codes::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
         return $this->persistEntity($request, $entity, $successCode);
     }
 }

@@ -13,10 +13,12 @@ trait PositionTrait
 {
     /**
      * @var int
+     *
      * @Assert\NotNull()
-     * @Assert\GreaterThanOrEqual(
-     *      value = 1
+     * @Assert\GreaterThan(
+     *      value = 0
      * )
+     *
      * @ORM\Column(
      *      name = "position",
      *      type = "smallint"

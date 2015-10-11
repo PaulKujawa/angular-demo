@@ -15,17 +15,24 @@ trait ImageTrait
 {
     /**
      * @var string
+     *
      * @ORM\Column(
      *      name        = "filename",
      *      type        = "string",
      *      length      = 255,
-     *      nullable    = true
+     *      nullable    = true,
+     *      unique      = true
      * )
      */
     private $filename;
 
     /**
      * @var int
+     *
+     * @Assert\GreaterThan(
+     *      value = 0
+     * )
+     *
      * @ORM\Column(
      *      name        = "size",
      *      type        = "integer",
@@ -34,10 +41,10 @@ trait ImageTrait
      */
     private $size;
 
-    // todo check correct image sizes
+    // todo check correct image size
     /**
      * @var UploadedFile
-     * @Assert\NotNull()
+     *
      * @Assert\Image(
      *      mimeTypes   = "image/*",
      *      maxSize     = "2M",
@@ -51,7 +58,6 @@ trait ImageTrait
 
     /**
      * @var string
-     * temp var for encoded filename
      */
     private $oldImageFilename;
 
@@ -62,6 +68,7 @@ trait ImageTrait
     /**
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
+     *
      * @return $this
      */
     public function generateFilename()
@@ -80,8 +87,9 @@ trait ImageTrait
     /**
      * @ORM\PostPersist()
      * @ORM\PostUpdate()
+     *
      * @return $this
-     * @throws FileException if, for any reason, the file could not have been moved
+     * @throws FileException
      */
     public function saveFile()
     {
@@ -99,6 +107,7 @@ trait ImageTrait
 
     /**
      * @ORM\PostRemove()
+     *
      * @return $this
      */
     public function removeFile()
@@ -165,8 +174,6 @@ trait ImageTrait
 
     // ### GETTER AND SETTER ###
     /**
-     * Set filename
-     *
      * @param string $filename
      * @return $this
      * @throws \InvalidArgumentException
@@ -186,7 +193,6 @@ trait ImageTrait
     }
 
     /**
-     * Get filename
      * @return string
      */
     public function getFilename()
@@ -195,8 +201,6 @@ trait ImageTrait
     }
 
     /**
-     * Set size
-     *
      * @param int $size
      * @return $this
      * @throws \InvalidArgumentException
@@ -216,7 +220,6 @@ trait ImageTrait
     }
 
     /**
-     * Get size
      * @return string
      */
     public function getSize()

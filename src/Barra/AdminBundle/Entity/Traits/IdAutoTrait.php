@@ -10,6 +10,8 @@ namespace Barra\AdminBundle\Entity\Traits;
 trait IdAutoTrait
 {
     /**
+     * @var int
+     *
      * @ORM\Id
      * @ORM\Column(
      *      name = "id",
@@ -20,7 +22,6 @@ trait IdAutoTrait
     private $id;
 
     /**
-     * Get id
      * @return int
      */
     public function getId()

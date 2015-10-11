@@ -38,13 +38,11 @@ class CookingController extends AbstractRestController
         }
 
         $requestBody = array_values($request->request->all())[0];
-        $recipe = $this->getRepo('Recipe')->find($requestBody['recipe']);
-        $form = $this->createForm(new CookingType(), $entity, ['method' => $request->getMethod()]);
+        $recipe      = $this->getRepo('Recipe')->find($requestBody['recipe']);
+        $form        = $this->createForm(new CookingType(), $entity, ['method' => $request->getMethod()]);
         $form->handleRequest($request);
 
-        if (!$form->isValid() ||
-            !$recipe instanceof Recipe
-        ) {
+        if (!$recipe instanceof Recipe) {
             return $this->view($form, Codes::HTTP_BAD_REQUEST);
         }
 
@@ -52,12 +50,12 @@ class CookingController extends AbstractRestController
             $position = $this->getRepo()->getNextPosition($recipe->getId());
             $entity
                 ->setPosition($position)
-                ->setRecipe($recipe);
+                ->setRecipe($recipe)
+            ;
         };
 
-        $duplicate = $this->getRepo()->find($entity->getId());
-        if ($duplicate instanceof Cooking) {
-            return $this->view($form, Codes::HTTP_UNPROCESSABLE_ENTITY);
+        if (!$form->isValid()) {
+            return $this->view($form, Codes::HTTP_BAD_REQUEST);
         }
 
         return $this->persistEntity($request, $entity, $successCode);

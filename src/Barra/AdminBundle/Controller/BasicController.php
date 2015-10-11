@@ -14,8 +14,8 @@ class BasicController extends Controller
     /**
      * @param string    $entityClass
      * @param int       $range
-     * @throws \InvalidArgumentException
      * @return int
+     * @throws \InvalidArgumentException
      */
     protected function getPaginationPages($entityClass, $range)
     {

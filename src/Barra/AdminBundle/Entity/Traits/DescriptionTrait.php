@@ -13,7 +13,13 @@ trait DescriptionTrait
 {
     /**
      * @var string
+     *
      * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 20,
+     *      max = 50
+     * )
+     *
      * @ORM\Column(
      *      name    = "description",
      *      type    = "string",

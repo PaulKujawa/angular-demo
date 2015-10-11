@@ -13,8 +13,10 @@ trait UrlTrait
 {
     /**
      * @var string
+     *
      * @Assert\NotBlank()
      * @Assert\Url()
+     *
      * @ORM\Column(
      *      name   = "url",
      *      type   = "string",

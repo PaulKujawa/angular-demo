@@ -7,6 +7,7 @@ use Barra\AdminBundle\Entity\Traits\NameTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -15,6 +16,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @package Barra\AdminBundle\Entity
 
  * @ExclusionPolicy("none")
+ *
+ * @UniqueEntity("name")
+ *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass = "Barra\AdminBundle\Entity\Repository\MeasurementRepository")
  */
@@ -26,10 +30,12 @@ class Measurement
 
     /**
      * @var int
+     *
      * @Assert\NotNull()
-     * @Assert\GreaterThanOrEqual(
-     *      value = 1
+     * @Assert\GreaterThan(
+     *      value = 0
      * )
+     *
      * @ORM\Column(
      *      name = "gr",
      *      type = "smallint"
@@ -39,6 +45,7 @@ class Measurement
 
     /**
      * @var ArrayCollection
+     *
      * @ORM\OneToMany(
      *      targetEntity = "Ingredient",
      *      mappedBy     = "measurement"
@@ -47,7 +54,14 @@ class Measurement
     private $ingredients;
 
     /**
-     * Set gr
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->ingredients = new ArrayCollection();
+    }
+
+    /**
      * @param int $gr
      * @return $this
      * @throws \InvalidArgumentException
@@ -67,7 +81,6 @@ class Measurement
     }
 
     /**
-     * Get gr
      * @return int
      */
     public function getGr()
@@ -76,15 +89,6 @@ class Measurement
     }
 
     /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->ingredients = new ArrayCollection();
-    }
-
-    /**
-     * Add ingredients
      * @param Ingredient $ingredients
      * @return $this
      */
@@ -96,7 +100,6 @@ class Measurement
     }
 
     /**
-     * Remove ingredients
      * @param Ingredient $ingredients
      * @return $this
      */
@@ -108,7 +111,6 @@ class Measurement
     }
 
     /**
-     * Get ingredients
      * @return ArrayCollection
      */
     public function getIngredients()

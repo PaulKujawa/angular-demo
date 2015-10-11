@@ -30,8 +30,7 @@ class ProductType extends AbstractType
                     'placeholder' => 'back.product.gr',
                 ],
             ])
-            ->add('kcal', 'number', [
-                'precision' => 2,
+            ->add('kcal', 'integer', [
                 'attr'      => [
                     'placeholder' => 'back.product.kcal',
                 ],

@@ -12,12 +12,15 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
  * @package Barra\AdminBundle\Entity
  *
  * @ExclusionPolicy("all")
+ *
  * @ORM\Table(name="AppUser")
  * @ORM\Entity
  */
 class User extends BaseUser
 {
     /**
+     * @var int
+     *
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -25,7 +28,6 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * Get id
      * @return int
      */
     public function getId()

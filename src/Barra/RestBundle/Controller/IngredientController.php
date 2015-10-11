@@ -35,9 +35,7 @@ class IngredientController extends AbstractRestController
         $form        = $this->createForm(new IngredientType(), $entity, ['method' => $request->getMethod()]);
         $form->handleRequest($request);
 
-        if (!$form->isValid() ||
-            !$recipe instanceof Recipe
-        ) {
+        if (!$recipe instanceof Recipe) {
             return $this->view($form, Codes::HTTP_BAD_REQUEST);
         }
 
@@ -49,9 +47,8 @@ class IngredientController extends AbstractRestController
             ;
         }
 
-        $duplicate = $this->getRepo()->find($entity->getId());
-        if ($duplicate instanceof Ingredient) {
-            return $this->view($form, Codes::HTTP_UNPROCESSABLE_ENTITY);
+        if (!$form->isValid()) {
+            return $this->view($form, Codes::HTTP_BAD_REQUEST);
         }
 
         return $this->persistEntity($request, $entity, $successCode);

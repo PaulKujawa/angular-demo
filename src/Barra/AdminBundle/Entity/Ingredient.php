@@ -6,6 +6,7 @@ use Barra\AdminBundle\Entity\Traits\PositionTrait;
 use Barra\AdminBundle\Entity\Traits\RecipeTrait;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -14,8 +15,18 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @package Barra\AdminBundle\Entity
  *
  * @ExclusionPolicy("none")
- * @ORM\HasLifecycleCallbacks
+ *
+ * @UniqueEntity({
+ *      "recipe",
+ *      "product"
+ * })
+ * @UniqueEntity({
+ *      "recipe",
+ *      "position"
+ * })
+ *
  * @ORM\Table()
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass = "Barra\AdminBundle\Entity\Repository\IngredientRepository")
  */
 class Ingredient
@@ -26,6 +37,7 @@ class Ingredient
 
     /**
      * @var int
+     *
      * @ORM\Id
      * @ORM\Column(
      *      name = "id",
@@ -36,7 +48,9 @@ class Ingredient
 
     /**
      * @var Product
+     *
      * @Assert\NotNull()
+     *
      * @ORM\ManyToOne(
      *      targetEntity = "Product",
      *      inversedBy   = "ingredients"
@@ -51,10 +65,11 @@ class Ingredient
 
     /**
      * @var int
-     * @Assert\NotNull()
-     * @Assert\GreaterThanOrEqual(
-     *      value = 1
+     *
+     * @Assert\GreaterThan(
+     *      value = 0
      * )
+     *
      * @ORM\Column(
      *      name     = "amount",
      *      type     = "smallint",
@@ -65,7 +80,7 @@ class Ingredient
 
     /**
      * @var Measurement
-     * @Assert\NotNull()
+     *
      * @ORM\ManyToOne(
      *      targetEntity = "Measurement",
      *      inversedBy   = "ingredients"
@@ -80,7 +95,6 @@ class Ingredient
     private $measurement;
 
     /**
-     * Set amount
      * @param int $amount
      * @return $this
      * @throws \InvalidArgumentException
@@ -100,7 +114,6 @@ class Ingredient
     }
 
     /**
-     * Get amount
      * @return int
      */
     public function getAmount()
@@ -109,7 +122,6 @@ class Ingredient
     }
 
     /**
-     * Set product
      * @param Product $product
      * @return $this
      */
@@ -121,7 +133,6 @@ class Ingredient
     }
 
     /**
-     * Get product
      * @return Product
      */
     public function getProduct()
@@ -130,7 +141,6 @@ class Ingredient
     }
 
     /**
-     * Set measurement
      * @param Measurement $measurement
      * @return $this
      */
@@ -142,7 +152,6 @@ class Ingredient
     }
 
     /**
-     * Get measurement
      * @return Measurement
      */
     public function getMeasurement()
@@ -153,6 +162,7 @@ class Ingredient
     /**
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
+     *
      * @return $this
      * @throws \RuntimeException
      */
@@ -175,7 +185,6 @@ class Ingredient
     }
 
     /**
-     * Get id
      * @return int
      */
     public function getId()

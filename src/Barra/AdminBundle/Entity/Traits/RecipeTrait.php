@@ -3,6 +3,8 @@
 namespace Barra\AdminBundle\Entity\Traits;
 
 use Barra\AdminBundle\Entity\Recipe;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Class RecipeTrait
@@ -13,6 +15,9 @@ trait RecipeTrait
 {
     /**
      * @var Recipe
+     *
+     * @Assert\NotNull()
+     *
      * @ORM\ManyToOne(
      *      targetEntity = "Recipe"
      * )

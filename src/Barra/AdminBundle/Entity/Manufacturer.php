@@ -7,13 +7,17 @@ use Barra\AdminBundle\Entity\Traits\NameTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Class Manufacturer
  * @author Paul Kujawa <p.kujawa@gmx.net>
  * @package Barra\AdminBundle\Entity
-
+ *
  * @ExclusionPolicy("none")
+ *
+ * @UniqueEntity("name")
+ *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass = "Barra\AdminBundle\Entity\Repository\ManufacturerRepository")
  */
@@ -25,6 +29,7 @@ class Manufacturer
 
     /**
      * @var ArrayCollection
+     *
      * @ORM\OneToMany(
      *      targetEntity = "Product",
      *      mappedBy     = "manufacturer"
@@ -42,8 +47,6 @@ class Manufacturer
     }
 
     /**
-     * Add products
-     *
      * @param Product $products
      * @return $this
      */
@@ -55,8 +58,6 @@ class Manufacturer
     }
 
     /**
-     * Remove products
-     *
      * @param Product $product
      * @return $this
      */
@@ -68,8 +69,6 @@ class Manufacturer
     }
 
     /**
-     * Get products
-     *
      * @return ArrayCollection
      */
     public function getProducts()

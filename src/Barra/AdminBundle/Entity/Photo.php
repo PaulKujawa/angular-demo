@@ -7,6 +7,7 @@ use Barra\AdminBundle\Entity\Traits\NameTrait;
 use Barra\AdminBundle\Entity\Traits\ImageTrait;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -15,8 +16,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @package Barra\AdminBundle\Entity
  *
  * @ExclusionPolicy("none")
- * @ORM\HasLifecycleCallbacks
+ *
+ * @UniqueEntity("name")
+ * @UniqueEntity("filename")
+ *
  * @ORM\Table()
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass = "Barra\AdminBundle\Entity\Repository\PhotoRepository")
  */
 class Photo
@@ -28,7 +33,9 @@ class Photo
 
     /**
      * @var Recipe
+     *
      * @Assert\NotNull()
+     *
      * @ORM\ManyToOne(
      *      targetEntity = "Recipe",
      *      inversedBy   = "photos"
@@ -44,7 +51,6 @@ class Photo
     private $recipe;
 
     /**
-     * Set recipe
      * @param Recipe $recipe
      * @return $this
      */
@@ -56,7 +62,6 @@ class Photo
     }
 
     /**
-     * Get recipe
      * @return Recipe
      */
     public function getRecipe()

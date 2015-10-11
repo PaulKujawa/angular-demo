@@ -19,9 +19,9 @@ class LoadAgencyData extends AbstractFixture implements OrderedFixtureInterface
 
     public function load(ObjectManager $em)
     {
-        self::$members[] = $this->instantiate('Agency1', 'a.com');
-        self::$members[] = $this->instantiate('Agency2', 'b.com');
-        self::$members[] = $this->instantiate('Agency3', 'c.com');
+        self::$members[] = $this->instantiate('Agency1', 'http://a.com');
+        self::$members[] = $this->instantiate('Agency2', 'http://b.com');
+        self::$members[] = $this->instantiate('Agency3', 'http://c.com');
 
         foreach (self::$members as $i => $e) {
             $this->addReference('refAgency'.($i+1), $e);

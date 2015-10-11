@@ -8,6 +8,7 @@ use Barra\AdminBundle\Entity\Traits\UrlTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Class Agency
@@ -15,6 +16,10 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
  * @package Barra\AdminBundle\Entity
  *
  * @ExclusionPolicy("none")
+ *
+ * @UniqueEntity("name")
+ * @UniqueEntity("url")
+ *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass = "Barra\AdminBundle\Entity\Repository\AgencyRepository")
  */
@@ -27,6 +32,7 @@ class Agency
 
     /**
      * @var ArrayCollection
+     *
      * @ORM\OneToMany(
      *      targetEntity = "Reference",
      *      mappedBy     = "agency"
@@ -43,7 +49,6 @@ class Agency
     }
 
     /**
-     * Add references
      * @param Reference $references
      * @return $this
      */
@@ -55,7 +60,6 @@ class Agency
     }
 
     /**
-     * Remove references
      * @param Reference $references
      * @return $this
      */
@@ -67,7 +71,6 @@ class Agency
     }
 
     /**
-     * Get references
      * @return ArrayCollection
      */
     public function getReferences()
