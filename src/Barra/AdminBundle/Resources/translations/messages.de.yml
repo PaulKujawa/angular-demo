@@ -4,10 +4,10 @@ back:
     manage: Bearbeiten
     new: Neu
     update: Aktualisieren
-    frontend: Öffentlicher Bereich
+    frontend: Frontend
 
   title:
-    products: Zutaten
+    products: Produkte
     manufacturers: Hersteller
     measurements: Messeinheiten
     recipes: Rezepte

@@ -5,11 +5,11 @@ namespace Barra\AdminBundle\Entity\Repository;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * Class BasicByRecipe
+ * Class RecipeRelatedRepository
  * @author Paul Kujawa <p.kujawa@gmx.net>
  * @package Barra\AdminBundle\Entity\Repository
  */
-class StandByRecipe extends EntityRepository
+class RecipeRelatedRepository extends EntityRepository
 {
     /**
      * @param int $recipeId

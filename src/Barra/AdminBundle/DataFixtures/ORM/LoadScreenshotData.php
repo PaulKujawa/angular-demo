@@ -33,20 +33,18 @@ class LoadScreenshotData extends AbstractFixture implements OrderedFixtureInterf
         $em->flush();
     }
 
+
     /**
-     * @param string        $name
-     * @param string        $refReference
-     * @param string        $index
+     * @param string    $name
+     * @param string    $refReference
+     * @param string    $index
      * @return Screenshot
      */
     protected function instantiate($name, $refReference, $index)
     {
         $reference = $this->getReference($refReference);
 
-        if (!$reference instanceof Reference ||
-            !is_string($name) ||
-            !is_string($index)
-        ) {
+        if (!$reference instanceof Reference) {
             throw new InvalidArgumentException();
         }
 
@@ -62,6 +60,7 @@ class LoadScreenshotData extends AbstractFixture implements OrderedFixtureInterf
 
         return $entity;
     }
+
 
     /**
      * @param Screenshot  $entity
@@ -89,6 +88,7 @@ class LoadScreenshotData extends AbstractFixture implements OrderedFixtureInterf
             true
         );
     }
+
 
     public function getOrder()
     {

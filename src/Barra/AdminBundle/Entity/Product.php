@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @UniqueEntity("name")
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass = "Barra\AdminBundle\Entity\Repository\ProductRepository")
+ * @ORM\Entity(repositoryClass = "Barra\AdminBundle\Entity\Repository\PaginationRepository")
  */
 class Product
 {

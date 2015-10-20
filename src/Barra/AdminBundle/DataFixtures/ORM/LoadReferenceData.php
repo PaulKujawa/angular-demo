@@ -67,6 +67,7 @@ class LoadReferenceData extends AbstractFixture implements OrderedFixtureInterfa
         $em->flush();
     }
 
+
     /**
      * @param string    $url
      * @param string    $description
@@ -77,17 +78,11 @@ class LoadReferenceData extends AbstractFixture implements OrderedFixtureInterfa
      * @param array     $refTechniques
      * @return Reference
      */
-    protected function instantiate($url, $description, $started, $finished, $refAgency, $index, array $refTechniques)
+    protected function instantiate($url, $description, \DateTime $started, \DateTime $finished, $refAgency, $index, array $refTechniques)
     {
         $agency = $this->getReference($refAgency);
 
-        if (!is_string($url) ||
-            !is_string($description) ||
-            !$started instanceof \DateTime ||
-            !$finished instanceof \DateTime ||
-            !$agency instanceof Agency ||
-            !is_int($index)
-        ) {
+        if (!$agency instanceof Agency) {
             throw new InvalidArgumentException();
         }
 
@@ -119,6 +114,7 @@ class LoadReferenceData extends AbstractFixture implements OrderedFixtureInterfa
 
         return $entity;
     }
+
 
     public function getOrder()
     {

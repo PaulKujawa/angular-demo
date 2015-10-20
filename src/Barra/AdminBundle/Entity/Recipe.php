@@ -19,7 +19,7 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
  * @UniqueEntity("name")
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass = "Barra\AdminBundle\Entity\Repository\RecipeRepository")
+ * @ORM\Entity(repositoryClass = "Barra\AdminBundle\Entity\Repository\PaginationRepository")
  */
 class Recipe
 {

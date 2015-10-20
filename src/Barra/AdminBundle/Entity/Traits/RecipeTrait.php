@@ -5,7 +5,6 @@ namespace Barra\AdminBundle\Entity\Traits;
 use Barra\AdminBundle\Entity\Recipe;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 /**
  * Class RecipeTrait
  * @author Paul Kujawa <p.kujawa@gmx.net>

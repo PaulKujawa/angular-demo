@@ -58,9 +58,7 @@ class LoadIngredientData extends AbstractFixture implements OrderedFixtureInterf
 
         if (!$measurement instanceof Measurement ||
             !$recipe instanceof Recipe ||
-            !$product instanceof Product ||
-            !is_int($position) ||
-            !is_int($amount)
+            !$product instanceof Product
         ) {
             throw new InvalidArgumentException();
         }
@@ -76,6 +74,7 @@ class LoadIngredientData extends AbstractFixture implements OrderedFixtureInterf
 
         return $entity;
     }
+
 
     public function getOrder()
     {

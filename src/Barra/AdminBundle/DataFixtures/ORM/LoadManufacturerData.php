@@ -30,6 +30,7 @@ class LoadManufacturerData extends AbstractFixture implements OrderedFixtureInte
         $em->flush();
     }
 
+
     /**
      * @param string $name
      * @return Manufacturer
@@ -37,15 +38,12 @@ class LoadManufacturerData extends AbstractFixture implements OrderedFixtureInte
      */
     protected function instantiate($name)
     {
-        if (!is_string($name)) {
-            throw new InvalidArgumentException();
-        }
-
         $entity = new Manufacturer();
         $entity->setName($name);
 
         return $entity;
     }
+
 
     public function getOrder()
     {

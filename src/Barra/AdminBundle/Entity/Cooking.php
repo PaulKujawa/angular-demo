@@ -23,7 +23,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table()
  * @ORM\HasLifecycleCallbacks
- * @ORM\Entity(repositoryClass = "Barra\AdminBundle\Entity\Repository\CookingRepository")
+ * @ORM\Entity(repositoryClass = "Barra\AdminBundle\Entity\Repository\RecipeRelatedRepository")
  */
 class Cooking
 {

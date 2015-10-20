@@ -51,10 +51,7 @@ class LoadCookingData extends AbstractFixture implements OrderedFixtureInterface
     {
         $recipe = $this->getReference($refRecipe);
 
-        if (!$recipe instanceof Recipe ||
-            !is_int($position) ||
-            !is_string($description)
-        ) {
+        if (!$recipe instanceof Recipe) {
             throw new InvalidArgumentException();
         }
 
@@ -67,6 +64,7 @@ class LoadCookingData extends AbstractFixture implements OrderedFixtureInterface
 
         return $entity;
     }
+
 
     public function getOrder()
     {

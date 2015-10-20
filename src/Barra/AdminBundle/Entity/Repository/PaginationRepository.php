@@ -5,11 +5,11 @@ namespace Barra\AdminBundle\Entity\Repository;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * Class StandAlone
+ * Class PaginationRepository
  * @author Paul Kujawa <p.kujawa@gmx.net>
  * @package Barra\AdminBundle\Entity\Repository
  */
-class StandAlone extends EntityRepository implements PaginationInterface
+class PaginationRepository extends EntityRepository
 {
     public function count()
     {

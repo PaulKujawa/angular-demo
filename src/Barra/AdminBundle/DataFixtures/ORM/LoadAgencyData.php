@@ -30,6 +30,7 @@ class LoadAgencyData extends AbstractFixture implements OrderedFixtureInterface
         $em->flush();
     }
 
+
     /**
      * @param string    $name
      * @param string    $url
@@ -38,12 +39,6 @@ class LoadAgencyData extends AbstractFixture implements OrderedFixtureInterface
      */
     protected function instantiate($name, $url)
     {
-        if (!is_string($name) ||
-            !is_string($url)
-        ) {
-            throw new InvalidArgumentException();
-        }
-
         $entity = new Agency();
         $entity
             ->setName($name)
@@ -52,6 +47,7 @@ class LoadAgencyData extends AbstractFixture implements OrderedFixtureInterface
 
         return $entity;
     }
+
 
     public function getOrder()
     {

@@ -122,6 +122,7 @@ class RestController extends FOSRestController implements ClassResourceInterface
         $entityName = $this->getEntityClass();
         $entity     = new $entityName();
         $form       = $this->createForm($this->getFormType(), $entity);
+
         $form->handleRequest($request);
 
         return $this->processRequest($request, $entity, $form, Codes::HTTP_CREATED);
@@ -135,7 +136,6 @@ class RestController extends FOSRestController implements ClassResourceInterface
      */
     public function putAction(Request $request, $id)
     {
-        /** @var  $entity */
         $entity = $this->getRepo()->find($id);
 
         if (null === $entity) {

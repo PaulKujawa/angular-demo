@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table()
  * @ORM\HasLifecycleCallbacks
- * @ORM\Entity(repositoryClass = "Barra\AdminBundle\Entity\Repository\PhotoRepository")
+ * @ORM\Entity(repositoryClass = "Barra\AdminBundle\Entity\Repository\RecipeRelatedRepository")
  */
 class Photo
 {

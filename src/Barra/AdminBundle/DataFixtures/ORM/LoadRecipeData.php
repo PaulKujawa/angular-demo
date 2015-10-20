@@ -29,21 +29,19 @@ class LoadRecipeData extends AbstractFixture implements OrderedFixtureInterface
         $em->flush();
     }
 
+
     /**
      * @param string $name
      * @return Recipe
      */
     protected function instantiate($name)
     {
-        if (!is_string($name)) {
-            throw new \InvalidArgumentException();
-        }
-
         $entity = new Recipe;
         $entity->setName($name);
 
         return $entity;
     }
+
 
     public function getOrder()
     {

@@ -14,7 +14,7 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
  * @ExclusionPolicy("all")
  *
  * @ORM\Table(name="AppUser")
- * @ORM\Entity
+ * @ORM\Entity()
  */
 class User extends BaseUser
 {

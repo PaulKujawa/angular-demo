@@ -4,7 +4,7 @@ back:
     manage: Manage
     new: New
     update: Update
-    frontend: frontend
+    frontend: Frontend
 
   title:
     products: Products

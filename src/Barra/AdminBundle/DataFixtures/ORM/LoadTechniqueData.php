@@ -30,6 +30,7 @@ class LoadTechniqueData extends AbstractFixture implements OrderedFixtureInterfa
         $em->flush();
     }
 
+
     /**
      * @param string    $name
      * @param string    $description
@@ -38,13 +39,6 @@ class LoadTechniqueData extends AbstractFixture implements OrderedFixtureInterfa
      */
     protected function instantiate($name, $description, $url)
     {
-        if (!is_string($name) ||
-            !is_string($description) ||
-            !is_string($url)
-        ) {
-            throw new InvalidArgumentException();
-        }
-
         $entity = new Technique();
         $entity
             ->setName($name)
@@ -54,6 +48,7 @@ class LoadTechniqueData extends AbstractFixture implements OrderedFixtureInterfa
 
         return $entity;
     }
+
 
     public function getOrder()
     {

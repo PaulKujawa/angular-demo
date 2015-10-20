@@ -34,17 +34,15 @@ class LoadPhotoData extends AbstractFixture implements OrderedFixtureInterface
 
 
     /**
-     * @param string        $name
-     * @param string        $refRecipe
+     * @param string $name
+     * @param string $refRecipe
      * @return Photo
      */
     protected function instantiate($name, $refRecipe)
     {
         $recipe = $this->getReference($refRecipe);
 
-        if (!$recipe instanceof Recipe ||
-            !is_string($name)
-        ) {
+        if (!$recipe instanceof Recipe) {
             throw new InvalidArgumentException();
         }
 
@@ -60,6 +58,7 @@ class LoadPhotoData extends AbstractFixture implements OrderedFixtureInterface
 
         return $entity;
     }
+
 
     /**
      * @param Photo $entity
@@ -86,6 +85,7 @@ class LoadPhotoData extends AbstractFixture implements OrderedFixtureInterface
             true
         );
     }
+
 
     public function getOrder()
     {

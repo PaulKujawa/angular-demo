@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table()
  * @ORM\HasLifecycleCallbacks
- * @ORM\Entity(repositoryClass = "Barra\AdminBundle\Entity\Repository\ReferenceRepository")
+ * @ORM\Entity(repositoryClass = "Barra\AdminBundle\Entity\Repository\PaginationRepository")
  */
 class Reference
 {

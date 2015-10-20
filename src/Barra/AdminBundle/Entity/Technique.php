@@ -22,7 +22,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity("url")
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass = "Barra\AdminBundle\Entity\Repository\TechniqueRepository")
+ * @ORM\Entity(repositoryClass = "Barra\AdminBundle\Entity\Repository\PaginationRepository")
  */
 class Technique
 {

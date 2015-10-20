@@ -2,7 +2,7 @@
 
 namespace Barra\AdminBundle\Controller;
 
-use Barra\AdminBundle\Entity\Repository\PaginationInterface;
+use Barra\AdminBundle\Entity\Repository\PaginationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
@@ -20,7 +20,7 @@ class BasicController extends Controller
 
 
     /**
-     * @param null|int $range >= 1
+     * @param null|int $range value bigger than 0
      * @return float
      */
     protected function getPaginationPages($range = 10)
@@ -30,7 +30,7 @@ class BasicController extends Controller
         }
 
         $repo = $this->getRepo();
-        if (!$repo instanceof PaginationInterface) {
+        if (!$repo instanceof PaginationRepository) {
             throw new \RuntimeException();
         }
 

@@ -30,6 +30,7 @@ class LoadMeasurementData extends AbstractFixture implements OrderedFixtureInter
         $em->flush();
     }
 
+
     /**
      * @param string    $name
      * @param int       $gr
@@ -37,12 +38,6 @@ class LoadMeasurementData extends AbstractFixture implements OrderedFixtureInter
      */
     protected function instantiate($name, $gr)
     {
-        if (!is_string($name) ||
-            !is_int($gr)
-        ) {
-            throw new InvalidArgumentException();
-        }
-
         $entity = new Measurement();
         $entity
             ->setName($name)
@@ -51,6 +46,7 @@ class LoadMeasurementData extends AbstractFixture implements OrderedFixtureInter
 
         return $entity;
     }
+
 
     public function getOrder()
     {

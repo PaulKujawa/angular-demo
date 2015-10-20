@@ -27,7 +27,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table()
  * @ORM\HasLifecycleCallbacks
- * @ORM\Entity(repositoryClass = "Barra\AdminBundle\Entity\Repository\IngredientRepository")
+ * @ORM\Entity(repositoryClass = "Barra\AdminBundle\Entity\Repository\RecipeRelatedRepository")
  */
 class Ingredient
 {
