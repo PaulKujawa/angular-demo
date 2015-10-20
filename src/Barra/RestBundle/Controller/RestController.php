@@ -2,19 +2,22 @@
 
 namespace Barra\RestBundle\Controller;
 
+use Barra\AdminBundle\Entity as EntityClass;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Annotations;
 use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\Util\Codes;
+use FOS\RestBundle\View\View;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class AbstractRest
+ * Class RestController
  * @author Paul Kujawa <p.kujawa@gmx.net>
  * @package Barra\RestBundle\Controller
  */
-abstract class AbstractRestController extends FOSRestController implements ClassResourceInterface
+class RestController extends FOSRestController implements ClassResourceInterface
 {
     /** @var \Doctrine\ORM\EntityManager */
     protected $em;
@@ -22,18 +25,38 @@ abstract class AbstractRestController extends FOSRestController implements Class
     /** string */
     protected $entityClass;
 
-
-    /** @return \Symfony\Component\Form\Form */
-    abstract public function newAction();
+    /** @var  \Symfony\Component\Form\AbstractType */
+    protected $formType;
 
 
     /**
-     * @param Request                           $request
-     * @param int                               $successCode
-     * @param null|\Barra\AdminBundle\Entity\   $entity
-     * @return \FOS\RestBundle\View\View
+     * @Annotations\View()
+     * @return array
      */
-    abstract protected function processForm(Request $request, $successCode, $entity = null);
+    public function newAction()
+    {
+        $entity = $this->getEntityClass();
+        $form   = $this->createForm($this->getFormType(), new $entity());
+
+        return ['data' => $form];
+    }
+
+
+    /**
+     * @Annotations\View()
+     * @param int $id
+     * @return array
+     */
+    public function getAction($id)
+    {
+        $entity = $this->getRepo()->find($id);
+
+        if (null === $entity) {
+            return $this->view(null, Codes::HTTP_NOT_FOUND);
+        }
+
+        return ['data' => $entity];
+    }
 
 
     /**
@@ -80,7 +103,6 @@ abstract class AbstractRestController extends FOSRestController implements Class
         $order      = $paramFetcher->get('order');
         $repo       = $this->getRepo();
 
-
         if (null === $recipe) {
             $entities = $repo->getSome($offset, $limit, $orderBy, $order);
         } else {
@@ -92,40 +114,28 @@ abstract class AbstractRestController extends FOSRestController implements Class
 
 
     /**
-     * @Annotations\View()
-     * @param int $id
-     * @return array
-     */
-    public function getAction($id)
-    {
-        $entity = $this->getRepo()->find($id);
-
-        if (null === $entity) {
-            return $this->view(null, Codes::HTTP_NOT_FOUND);
-        }
-
-        return ['data' => $entity];
-    }
-
-
-    /**
      * @param Request $request
-     * @return \FOS\RestBundle\View\View
+     * @return View
      */
     public function postAction(Request $request)
     {
-        return $this->processForm($request, Codes::HTTP_CREATED);
+        $entityName = $this->getEntityClass();
+        $entity     = new $entityName();
+        $form       = $this->createForm($this->getFormType(), $entity);
+        $form->handleRequest($request);
+
+        return $this->processRequest($request, $entity, $form, Codes::HTTP_CREATED);
     }
 
 
     /**
      * @param Request   $request
      * @param int       $id
-     * @return \FOS\RestBundle\View\View
+     * @return View
      */
     public function putAction(Request $request, $id)
     {
-        /** @var \Barra\AdminBundle\Entity\ $entity */
+        /** @var  $entity */
         $entity = $this->getRepo()->find($id);
 
         if (null === $entity) {
@@ -133,14 +143,17 @@ abstract class AbstractRestController extends FOSRestController implements Class
             return $this->routeRedirectView($route, ['request' => $request]);
         }
 
-        return $this->processForm($request, Codes::HTTP_NO_CONTENT, $entity);
+        $form = $this->createForm($this->getFormType(), $entity, ['method' => $request->getMethod()]);
+        $form->handleRequest($request);
+
+        return $this->processRequest($request, $entity, $form, Codes::HTTP_NO_CONTENT);
     }
 
 
     /**
      * @Annotations\View()
      * @param int $id
-     * @return \FOS\RestBundle\View\View
+     * @return View
      */
     public function deleteAction($id)
     {
@@ -165,19 +178,65 @@ abstract class AbstractRestController extends FOSRestController implements Class
 
 
 
-    protected function persistEntity(Request $request, $entity, $successCode)
+    // ######### HELPER #########################################
+
+    /**
+     * @param Request   $request
+     * @param object    $entity
+     * @param Form      $form
+     * @param int       $successCode
+     * @return View
+     */
+    protected function processRequest(Request $request, $entity, Form $form, $successCode)
     {
+        if (!$form->isValid()) {
+            return $this->view($form, Codes::HTTP_BAD_REQUEST);
+        }
+
         $this->getEM()->persist($entity);
         $this->getEM()->flush();
 
+        $route  = 'barra_api_get_'.lcfirst($this->getEntityClass());
         $params = [
             'id'      => $entity->getId(),
             '_format' => $request->get('_format'),
         ];
-        $route = 'barra_api_get_'.lcfirst($this->getEntityClass());
-
 
         return $this->routeRedirectView($route, $params, $successCode);
+    }
+
+
+    /**
+     * @return string upper cased semantic name of inheriting controller
+     */
+    protected function getEntityClass()
+    {
+        if (null === $this->entityClass) {
+            $className = get_class($this);
+            $this->entityClass = ucfirst(
+                substr(
+                    $className,
+                    strrpos($className, '\\') + 1,
+                    -10
+                )
+            );
+        }
+
+        return $this->entityClass;
+    }
+
+
+    /**
+     * @return \Symfony\Component\Form\AbstractType
+     */
+    protected function getFormType()
+    {
+        if (null === $this->formType) {
+            $entity         = $this->getEntityClass().'Type';
+            $this->formType = new $entity();
+        }
+
+        return $this->formType;
     }
 
 
@@ -205,24 +264,5 @@ abstract class AbstractRestController extends FOSRestController implements Class
         }
 
         return $this->em;
-    }
-
-
-    /**
-     * @return string supposed model name based on controller class
-     */
-    protected function getEntityClass()
-    {
-        if (null === $this->entityClass) {
-            $this->entityClass = ucfirst(
-                substr(
-                    get_class($this),
-                    strrpos(get_class($this), '\\')+1,
-                    -10
-                )
-            );
-        }
-
-        return $this->entityClass;
     }
 }

@@ -19,12 +19,11 @@ class ManufacturerController extends BasicController
      */
     public function indexAction($pageIndex)
     {
-        $pages = $this->getPaginationPages('Manufacturer', 10);
-        $form  = $this->createForm(new ManufacturerType(), new Manufacturer());
+        $form = $this->createForm(new ManufacturerType(), new Manufacturer());
 
         return $this->render('BarraAdminBundle:Manufacturer:manufacturers.html.twig', [
             'pageIndex' => $pageIndex,
-            'pages'     => $pages,
+            'pages'     => $this->getPaginationPages(),
             'form'      => $form->createView(),
         ]);
     }

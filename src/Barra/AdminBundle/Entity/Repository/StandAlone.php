@@ -9,11 +9,8 @@ use Doctrine\ORM\EntityRepository;
  * @author Paul Kujawa <p.kujawa@gmx.net>
  * @package Barra\AdminBundle\Entity\Repository
  */
-class StandAlone extends EntityRepository
+class StandAlone extends EntityRepository implements PaginationInterface
 {
-    /**
-     * @return int
-     */
     public function count()
     {
         $query = $this

@@ -19,12 +19,11 @@ class AgencyController extends BasicController
      */
     public function indexAction($pageIndex)
     {
-        $pages = $this->getPaginationPages('Agency', 10);
-        $form  = $this->createForm(new AgencyType(), new Agency());
+        $form = $this->createForm(new AgencyType(), new Agency());
 
         return $this->render('BarraAdminBundle:Agency:agencies.html.twig', [
             'pageIndex' => $pageIndex,
-            'pages'     => $pages,
+            'pages'     => $this->getPaginationPages(),
             'form'      => $form->createView(),
         ]);
     }

@@ -19,12 +19,11 @@ class MeasurementController extends BasicController
      */
     public function indexAction($pageIndex)
     {
-        $pages = $this->getPaginationPages('Measurement', 10);
-        $form  = $this->createForm(new MeasurementType(), new Measurement());
+        $form = $this->createForm(new MeasurementType(), new Measurement());
 
         return $this->render('BarraAdminBundle:Measurement:measurements.html.twig', [
             'pageIndex' => $pageIndex,
-            'pages'     => $pages,
+            'pages'     => $this->getPaginationPages(),
             'form'      => $form->createView(),
         ]);
     }

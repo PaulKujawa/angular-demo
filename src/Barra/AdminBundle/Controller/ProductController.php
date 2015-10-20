@@ -19,12 +19,11 @@ class ProductController extends BasicController
      */
     public function indexAction($pageIndex)
     {
-        $pages = $this->getPaginationPages('Product', 10);
-        $form  = $this->createForm(new ProductType(), new Product());
+        $form = $this->createForm(new ProductType(), new Product());
 
         return $this->render('BarraAdminBundle:Product:products.html.twig', [
             'pageIndex' => $pageIndex,
-            'pages'     => $pages,
+            'pages'     => $this->getPaginationPages(),
             'form'      => $form->createView(),
         ]);
     }

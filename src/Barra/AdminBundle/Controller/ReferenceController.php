@@ -19,12 +19,11 @@ class ReferenceController extends BasicController
      */
     public function indexAction($pageIndex)
     {
-        $pages = $this->getPaginationPages('Reference', 10);
-        $form  = $this->createForm(new ReferenceType(), new Reference());
+        $form = $this->createForm(new ReferenceType(), new Reference());
 
         return $this->render('BarraAdminBundle:Reference:references.html.twig', [
             'pageIndex' => $pageIndex,
-            'pages'     => $pages,
+            'pages'     => $this->getPaginationPages(),
             'form'      => $form->createView(),
         ]);
     }

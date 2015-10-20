@@ -26,12 +26,11 @@ class RecipeController extends BasicController
      */
     public function indexAction($pageIndex)
     {
-        $pages = $this->getPaginationPages('Recipe', 10);
-        $form  = $this->createForm(new RecipeType(), new Recipe());
+        $form = $this->createForm(new RecipeType(), new Recipe());
 
         return $this->render('BarraAdminBundle:Recipe:recipes.html.twig', [
             'pageIndex' => $pageIndex,
-            'pages'     => $pages,
+            'pages'     => $this->getPaginationPages(),
             'form'      => $form->createView(),
         ]);
     }

@@ -2,6 +2,7 @@
 
 namespace Barra\AdminBundle\Controller;
 
+use Barra\AdminBundle\Entity\Repository\PaginationInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
@@ -11,32 +12,75 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  */
 class BasicController extends Controller
 {
+    /** @var \Doctrine\ORM\EntityManager */
+    protected $em;
+
+    /** string */
+    protected $entityClass;
+
+
     /**
-     * @param string    $entityClass
-     * @param int       $range
-     * @return int
-     * @throws \InvalidArgumentException
+     * @param null|int $range >= 1
+     * @return float
      */
-    protected function getPaginationPages($entityClass, $range)
+    protected function getPaginationPages($range = 10)
     {
-        if (!is_string($entityClass) ||
-            !is_int($range) ||
-            $range < 1
-        ) {
+        if ($range < 1) {
             throw new \InvalidArgumentException();
         }
 
-        $repo = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('BarraAdminBundle:'.ucfirst($entityClass))
-        ;
-
-        if (!method_exists($repo, 'count')) {
+        $repo = $this->getRepo();
+        if (!$repo instanceof PaginationInterface) {
             throw new \RuntimeException();
         }
-        $pages = ceil($repo->count() / $range);
 
-        return $pages;
+        return ceil($repo->count() / $range);
+    }
+
+
+    /**
+     * @return string upper cased semantic name of inheriting controller
+     */
+    protected function getEntityClass()
+    {
+        if (null === $this->entityClass) {
+            $className = get_class($this);
+            $this->entityClass = ucfirst(
+                substr(
+                    $className,
+                    strrpos($className, '\\') + 1,
+                    -10
+                )
+            );
+        }
+
+        return $this->entityClass;
+    }
+
+
+    /**
+     * @param string $entityClass
+     * @return \Doctrine\ORM\EntityRepository
+     */
+    protected function getRepo($entityClass = null)
+    {
+        if (null === $entityClass) {
+            $entityClass = $this->getEntityClass();
+        }
+
+        return $this->getEM()->getRepository('BarraAdminBundle:'.ucfirst($entityClass));
+    }
+
+
+    /**
+     * @return \Doctrine\ORM\EntityManager
+     */
+    protected function getEM()
+    {
+        if (null === $this->em) {
+            $this->em = $this->getDoctrine()->getManager();
+        }
+
+        return $this->em;
     }
 }

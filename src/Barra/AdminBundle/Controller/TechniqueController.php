@@ -19,12 +19,11 @@ class TechniqueController extends BasicController
      */
     public function indexAction($pageIndex)
     {
-        $pages = $this->getPaginationPages('Technique', 10);
-        $form  = $this->createForm(new TechniqueType(), new Technique());
+        $form = $this->createForm(new TechniqueType(), new Technique());
 
         return $this->render('BarraAdminBundle:Technique:techniques.html.twig', [
             'pageIndex' => $pageIndex,
-            'pages'     => $pages,
+            'pages'     => $this->getPaginationPages(),
             'form'      => $form->createView(),
         ]);
     }
