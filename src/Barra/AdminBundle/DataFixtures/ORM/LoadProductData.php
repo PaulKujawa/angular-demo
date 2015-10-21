@@ -1,6 +1,6 @@
 <?php
 
-namespace Barra\FrontBundle\DataFixtures\ORM;
+namespace Barra\AdminBundle\DataFixtures\ORM;
 
 use Barra\AdminBundle\Entity\Manufacturer;
 use Barra\AdminBundle\Entity\Product;
@@ -12,7 +12,7 @@ use InvalidArgumentException;
 /**
  * Class LoadProductData
  * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\FrontBundle\DataFixtures\ORM
+ * @package Barra\AdminBundle\DataFixtures\ORM
  */
 class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
 {

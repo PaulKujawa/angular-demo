@@ -1,6 +1,6 @@
 <?php
 
-namespace Barra\FrontBundle\DataFixtures\ORM;
+namespace Barra\AdminBundle\DataFixtures\ORM;
 
 use Barra\AdminBundle\Entity\Agency;
 use Barra\AdminBundle\Entity\Reference;
@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * Class LoadReferenceData
  * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\FrontBundle\DataFixtures\ORM
+ * @package Barra\AdminBundle\DataFixtures\ORM
  */
 class LoadReferenceData extends AbstractFixture implements OrderedFixtureInterface
 {

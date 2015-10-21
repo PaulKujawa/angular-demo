@@ -12,13 +12,8 @@ swiftmailer:
 
 framework:
     test: ~
-    session:
-        storage_id: session.storage.filesystem                                                # instead of mock_file
-        name: API                                                                             # both for liipBundle
     profiler:
         collect: false
-
-liip_functional_test:
-    authentication:                                                                           # user fixture
-        username: demoAdmin
-        password: nAvQH42Sy1PieuO6uNwJQoyozg16lGtKmi9wxVeyx/6j6CfFQ0X+epJ+Tidkw2dffA4r1rU2TtKHRNM8WfopHw==
+    session:
+        storage_id: session.storage.mock_file                       # LiipFunctionalTest (default .filesystem')
+        name: api

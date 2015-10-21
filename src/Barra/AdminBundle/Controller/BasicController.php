@@ -18,7 +18,6 @@ class BasicController extends Controller
     /** string */
     protected $entityClass;
 
-
     /**
      * @param null|int $range value bigger than 0
      * @return float

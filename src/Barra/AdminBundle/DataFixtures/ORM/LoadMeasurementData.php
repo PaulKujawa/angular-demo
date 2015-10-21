@@ -1,6 +1,6 @@
 <?php
 
-namespace Barra\FrontBundle\DataFixtures\ORM;
+namespace Barra\AdminBundle\DataFixtures\ORM;
 
 use Barra\AdminBundle\Entity\Measurement;
 use Doctrine\Common\DataFixtures\AbstractFixture;
@@ -11,7 +11,7 @@ use InvalidArgumentException;
 /**
  * Class LoadMeasurementData
  * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\FrontBundle\DataFixtures\ORM
+ * @package Barra\AdminBundle\DataFixtures\ORM
  */
 class LoadMeasurementData extends AbstractFixture implements OrderedFixtureInterface
 {

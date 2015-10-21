@@ -1,6 +1,6 @@
 <?php
 
-namespace Barra\FrontBundle\DataFixtures\ORM;
+namespace Barra\AdminBundle\DataFixtures\ORM;
 
 use Barra\AdminBundle\Entity\Ingredient;
 use Barra\AdminBundle\Entity\Measurement;
@@ -14,7 +14,7 @@ use InvalidArgumentException;
 /**
  * Class LoadIngredientData
  * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\FrontBundle\DataFixtures\ORM
+ * @package Barra\AdminBundle\DataFixtures\ORM
  */
 class LoadIngredientData extends AbstractFixture implements OrderedFixtureInterface
 {

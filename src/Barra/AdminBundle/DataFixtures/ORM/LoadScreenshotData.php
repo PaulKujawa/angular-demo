@@ -1,6 +1,6 @@
 <?php
 
-namespace Barra\FrontBundle\DataFixtures\ORM;
+namespace Barra\AdminBundle\DataFixtures\ORM;
 
 use Barra\AdminBundle\Entity\Reference;
 use Barra\AdminBundle\Entity\Screenshot;
@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * Class LoadScreenshotData
  * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\FrontBundle\DataFixtures\ORM
+ * @package Barra\AdminBundle\DataFixtures\ORM
  */
 class LoadScreenshotData extends AbstractFixture implements OrderedFixtureInterface
 {

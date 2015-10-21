@@ -1,6 +1,6 @@
 <?php
 
-namespace Barra\FrontBundle\DataFixtures\ORM;
+namespace Barra\AdminBundle\DataFixtures\ORM;
 
 use Barra\AdminBundle\Entity\Recipe;
 use Doctrine\Common\DataFixtures\AbstractFixture;
@@ -10,7 +10,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 /**
  * Class LoadRecipeData
  * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\FrontBundle\DataFixtures\ORM
+ * @package Barra\AdminBundle\DataFixtures\ORM
  */
 class LoadRecipeData extends AbstractFixture implements OrderedFixtureInterface
 {

@@ -18,7 +18,7 @@
     <!-- tests -->
     <testsuites>
         <testsuite name="Model Test Suite">
-            <directory>../src/Barra/AdminBundle/Tests</directory>
+            <directory>../src/Barra/*Bundle/Tests</directory>
         </testsuite>
     </testsuites>
 
@@ -29,7 +29,6 @@
             <directory>../src/**</directory>
             <exclude>
                 <directory>../src/Barra/*Bundle/DependencyInjection</directory>  <!-- TODO to include by time -->
-                <directory>../src/Barra/*Bundle/DataFixtures</directory>
                 <directory>../src/Barra/*Bundle/Resources</directory>
                 <directory>../src/Barra/*Bundle/Tests</directory>
             </exclude>

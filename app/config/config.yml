@@ -1,3 +1,5 @@
+# liip_functional_test added in .config_test.yml
+
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
@@ -117,7 +119,3 @@ lexik_jwt_authentication:
     public_key_path:  %kernel.root_dir%/var/jwt/public.pem    # ssh public key path
     pass_phrase:      "%jwt_ssh_key_passphrase%"                      # ssh key pass phrase included from parameters.yml
     token_ttl:        86400                                   # token ttl - defaults to 86400
-
-
-
-# liip_functional_test added in config_test.yml

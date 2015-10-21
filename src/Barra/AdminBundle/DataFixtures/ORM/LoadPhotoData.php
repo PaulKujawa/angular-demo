@@ -1,6 +1,6 @@
 <?php
 
-namespace Barra\FrontBundle\DataFixtures\ORM;
+namespace Barra\AdminBundle\DataFixtures\ORM;
 
 use Barra\AdminBundle\Entity\Recipe;
 use Barra\AdminBundle\Entity\Photo;
@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * Class LoadPhotoData
  * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\FrontBundle\DataFixtures\ORM
+ * @package Barra\AdminBundle\DataFixtures\ORM
  */
 class LoadPhotoData extends AbstractFixture implements OrderedFixtureInterface
 {
