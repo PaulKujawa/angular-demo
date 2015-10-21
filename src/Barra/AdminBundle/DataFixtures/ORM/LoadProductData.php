@@ -56,6 +56,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
      * @param array     $nutritions
      * @param string    $refManufacturer
      * @return Product
+     * @throws InvalidArgumentException
      */
     protected function instantiate($name, $isVegan, array $nutritions, $refManufacturer)
     {

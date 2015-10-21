@@ -49,6 +49,7 @@ class LoadIngredientData extends AbstractFixture implements OrderedFixtureInterf
      * @param string    $refRecipe
      * @param string    $refProduct
      * @return Ingredient
+     * @throws InvalidArgumentException
      */
     protected function instantiate($position, $amount, $refMeasurement, $refRecipe, $refProduct)
     {

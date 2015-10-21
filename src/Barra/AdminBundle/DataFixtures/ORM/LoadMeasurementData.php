@@ -6,7 +6,6 @@ use Barra\AdminBundle\Entity\Measurement;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use InvalidArgumentException;
 
 /**
  * Class LoadMeasurementData

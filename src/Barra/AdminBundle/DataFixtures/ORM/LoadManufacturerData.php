@@ -6,7 +6,6 @@ use Barra\AdminBundle\Entity\Manufacturer;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use InvalidArgumentException;
 
 /**
  * Class LoadManufacturerData
@@ -34,7 +33,6 @@ class LoadManufacturerData extends AbstractFixture implements OrderedFixtureInte
     /**
      * @param string $name
      * @return Manufacturer
-     * @throws InvalidArgumentException
      */
     protected function instantiate($name)
     {

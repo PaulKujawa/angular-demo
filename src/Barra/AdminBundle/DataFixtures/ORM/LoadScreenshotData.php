@@ -39,6 +39,7 @@ class LoadScreenshotData extends AbstractFixture implements OrderedFixtureInterf
      * @param string    $refReference
      * @param string    $index
      * @return Screenshot
+     * @throws InvalidArgumentException
      */
     protected function instantiate($name, $refReference, $index)
     {

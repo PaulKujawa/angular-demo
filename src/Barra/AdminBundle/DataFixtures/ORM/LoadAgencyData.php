@@ -6,7 +6,6 @@ use Barra\AdminBundle\Entity\Agency;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use InvalidArgumentException;
 
 /**
  * Class LoadAgencyData
@@ -35,7 +34,6 @@ class LoadAgencyData extends AbstractFixture implements OrderedFixtureInterface
      * @param string    $name
      * @param string    $url
      * @return Agency
-     * @throws InvalidArgumentException
      */
     protected function instantiate($name, $url)
     {

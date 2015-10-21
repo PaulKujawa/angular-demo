@@ -77,6 +77,7 @@ class LoadReferenceData extends AbstractFixture implements OrderedFixtureInterfa
      * @param int       $index
      * @param array     $refTechniques
      * @return Reference
+     * @throws InvalidArgumentException
      */
     protected function instantiate($url, $description, \DateTime $started, \DateTime $finished, $refAgency, $index, array $refTechniques)
     {
