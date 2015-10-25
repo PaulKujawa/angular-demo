@@ -69,16 +69,16 @@ swiftmailer:
 
 
 fos_rest:
-    param_fetcher_listener: true                            # reading parameters from the request
-    format_listener: true                                   # determining the correct response format
-    body_listener:                                          # decoding the request content
+    param_fetcher_listener: true                            # Enable request's query-body like ?foo=bar
+    format_listener: true                                   # Allow to request a format like api/foo/2.json
+    body_listener:                                          # Allow different request formats like app/json
         decoders:
-          json: fos_rest.decoder.jsontoform                 # for checkboxes with boolean values
+          json: fos_rest.decoder.jsontoform
           xml: fos_rest.decoder.xml
-          #array_normalizer: fos_rest.normalizer.camel_keys # transform underscored array keys to camel cased ones [be aware of form_name]
+
     view:
-        view_response_listener: 'force'                     # formatting the response (with twig or serializer [xml/json])
-        formats:                                            # serializer for rendering
+        view_response_listener: 'force'                     # Enable & force to return a view instance like @View()
+        formats:
             xml: true
             json : true
         templating_formats:                                 # template for rendering via templating service
@@ -107,7 +107,6 @@ jms_serializer:                                             # JMS exlusion for 3
 
 
 lexik_jwt_authentication:
-    # APACHE webserver needs this to add in /etc/apache2/apache2.conf (or included extra file in sub folder sites-available)
     # <VirtualHost *:80>
     #	RewriteEngine on
     #	DocumentRoot /var/www/html
@@ -115,7 +114,8 @@ lexik_jwt_authentication:
     #   RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
     # </VirtualHost>
 
+    # overridden in config_test.yml to use committed test ssh keys
     private_key_path: %kernel.root_dir%/var/jwt/private.pem   # ssh private key path
     public_key_path:  %kernel.root_dir%/var/jwt/public.pem    # ssh public key path
-    pass_phrase:      "%jwt_ssh_key_passphrase%"                      # ssh key pass phrase included from parameters.yml
+    pass_phrase:      "%jwt_prod_ssh_key_pp%"                 # ssh key pass phrase included from parameters.yml
     token_ttl:        86400                                   # token ttl - defaults to 86400

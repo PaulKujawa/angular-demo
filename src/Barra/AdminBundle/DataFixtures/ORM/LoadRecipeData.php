@@ -16,6 +16,7 @@ class LoadRecipeData extends AbstractFixture implements OrderedFixtureInterface
 {
     static public $members = [];
 
+
     public function load(ObjectManager $em)
     {
         self::$members[] = $this->instantiate('Recipe1');

@@ -23,22 +23,21 @@ class ProductTest extends \PHPUnit_Framework_TestCase
     const DEMO_DOUBLE        = 222.333;
     const IS_VEGAN           = true;
 
-    /** @var  Product $model */
+
+    /** @var  Product */
     protected $model;
 
-    /**
-     * Initialises model entity
-     */
+
     public function setUp()
     {
         $this->model = new Product();
     }
 
+
     /**
      * Sets protected id field first to test the get function
-     * @test
      */
-    public function getId()
+    public function testGetId()
     {
         $reflected = new \ReflectionClass(self::SELF_FQDN);
         $idField   = $reflected->getProperty('id');
@@ -57,11 +56,11 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Product
      */
-    public function addIngredient()
+    public function testAddIngredient()
     {
         $mock     = $this->getMock(self::INGREDIENT_FQDN);
         $resource = $this->model->addIngredient($mock);
@@ -74,13 +73,13 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends addIngredient
+     * @depends testAddIngredient
      * @param Product $self
      * @return Ingredient
      */
-    public function getIngredients(Product $self)
+    public function testGetIngredients(Product $self)
     {
         $ingredients = $self->getIngredients();
         $ingredient  = $ingredients[0];
@@ -99,14 +98,14 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         return $ingredient;
     }
 
+
     /**
-     * @test
-     * @depends addIngredient
-     * @depends getIngredients
+     * @depends testAddIngredient
+     * @depends testGetIngredients
      * @param Product $self
      * @param Ingredient  $ingredient
      */
-    public function removeIngredient(Product $self, Ingredient $ingredient)
+    public function testremoveIngredient(Product $self, Ingredient $ingredient)
     {
         $resource = $self->removeIngredient($ingredient);
         $this->assertInstanceOf(
@@ -120,29 +119,29 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @expectedException PHPUnit_Framework_Error
      */
-    public function addInvalidIngredient()
+    public function testAddInvalidIngredient()
     {
         $this->model->addIngredient(1);
     }
 
+
     /**
-     * @test
      * @expectedException PHPUnit_Framework_Error
      */
-    public function removeInvalidIngredient()
+    public function testremoveInvalidIngredient()
     {
         $this->model->removeIngredient(1);
     }
 
+
     /**
-     * @test
      * @return Product
      */
-    public function setKcal()
+    public function testSetKcal()
     {
         $resource = $this->model->setKcal(self::DEMO_INT);
         $this->assertInstanceOf(
@@ -153,12 +152,12 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setKcal
+     * @depends testSetKcal
      * @param Product $self
      */
-    public function getKcal(Product $self)
+    public function testGetKcal(Product $self)
     {
         $got = $self->getKcal();
         $this->assertInternalType(
@@ -172,11 +171,11 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Product
      */
-    public function setGr()
+    public function testSetGr()
     {
         $resource = $this->model->setGr(self::DEMO_INT);
         $this->assertInstanceOf(
@@ -187,12 +186,12 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setGr
+     * @depends testSetGr
      * @param Product $self
      */
-    public function getGr(Product $self)
+    public function testGetGr(Product $self)
     {
         $got = $self->getGr();
         $this->assertInternalType(
@@ -206,11 +205,11 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Product
      */
-    public function setProtein()
+    public function testSetProtein()
     {
         $resource = $this->model->setProtein(self::DEMO_DOUBLE);
         $this->assertInstanceOf(
@@ -221,12 +220,12 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setProtein
+     * @depends testSetProtein
      * @param Product $self
      */
-    public function getProtein(Product $self)
+    public function testGetProtein(Product $self)
     {
         $got = $self->getProtein();
         $this->assertInternalType(
@@ -240,11 +239,11 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Product
      */
-    public function setCarbs()
+    public function testSetCarbs()
     {
         $resource = $this->model->setCarbs(self::DEMO_DOUBLE);
         $this->assertInstanceOf(
@@ -255,12 +254,12 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setCarbs
+     * @depends testSetCarbs
      * @param Product $self
      */
-    public function getCarbs(Product $self)
+    public function testGetCarbs(Product $self)
     {
         $got = $self->getCarbs();
         $this->assertInternalType(
@@ -274,11 +273,11 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Product
      */
-    public function setSugar()
+    public function testSetSugar()
     {
         $resource = $this->model->setSugar(self::DEMO_DOUBLE);
         $this->assertInstanceOf(
@@ -289,12 +288,12 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setSugar
+     * @depends testSetSugar
      * @param Product $self
      */
-    public function getSugar(Product $self)
+    public function testGetSugar(Product $self)
     {
         $got = $self->getSugar();
         $this->assertInternalType(
@@ -308,11 +307,11 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Product
      */
-    public function setFat()
+    public function testSetFat()
     {
         $resource = $this->model->setFat(self::DEMO_DOUBLE);
         $this->assertInstanceOf(
@@ -323,12 +322,12 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setFat
+     * @depends testSetFat
      * @param Product $self
      */
-    public function getFat(Product $self)
+    public function testGetFat(Product $self)
     {
         $got = $self->getFat();
         $this->assertInternalType(
@@ -342,11 +341,11 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Product
      */
-    public function setGfat()
+    public function testSetGfat()
     {
         $resource = $this->model->setGfat(self::DEMO_DOUBLE);
         $this->assertInstanceOf(
@@ -357,12 +356,12 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setGfat
+     * @depends testSetGfat
      * @param Product $self
      */
-    public function getGfat(Product $self)
+    public function testGetGfat(Product $self)
     {
         $got = $self->getGfat();
         $this->assertInternalType(
@@ -376,11 +375,11 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Product
      */
-    public function setVegan()
+    public function testSetVegan()
     {
         $resource = $this->model->setVegan(self::IS_VEGAN);
         $this->assertInstanceOf(
@@ -391,12 +390,12 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setVegan
+     * @depends testSetVegan
      * @param Product $self
      */
-    public function getVegan(Product $self)
+    public function testGetVegan(Product $self)
     {
         $got = $self->getVegan();
         $this->assertInternalType(
@@ -410,10 +409,8 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function getRecipes()
+
+    public function testGetRecipes()
     {
 
         $mock = $this->getMock(self::INGREDIENT_FQDN);
@@ -436,11 +433,11 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Product
      */
-    public function setManufacturer()
+    public function testSetManufacturer()
     {
         $mock     = $this->getMock(self::MANUFACTURER_FQDN);
         $resource = $this->model->setManufacturer($mock);
@@ -453,13 +450,13 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setManufacturer
+     * @depends testSetManufacturer
      * @param Product $self
      * @return Manufacturer
      */
-    public function getManufacturer(Product $self)
+    public function testGetManufacturer(Product $self)
     {
         $mock   = $this->getMock(self::MANUFACTURER_FQDN);
         $recipe = $self->getManufacturer();
@@ -472,10 +469,8 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         return $recipe;
     }
 
-    /**
-     * @test
-     */
-    public function isRemovableTrue()
+
+    public function testisRemovableTrue()
     {
         $got = $this->model->isRemovable();
         $this->assertInternalType(
@@ -489,10 +484,8 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function isRemovableFalse()
+
+    public function testisRemovableFalse()
     {
         $mock = $this->getMock(self::INGREDIENT_FQDN);
         $this->model->addIngredient($mock);
@@ -509,17 +502,18 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @param string    $field
      * @param mixed     $value
      * @expectedException PHPUnit_Framework_Error
      * @dataProvider providerSetInvalidComplexValues
      */
-    public function setInvalidComplexValues($field, $value)
+    public function testSetInvalidComplexValues($field, $value)
     {
         $this->model->{'set'.ucfirst($field)}($value);
     }
+
 
     /**
      * Invalid complex values for setter
@@ -535,17 +529,18 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
+
     /**
-     * @test
      * @param string    $field
      * @param mixed     $value
      * @expectedException \InvalidArgumentException
      * @dataProvider providerSetInvalidNativeValues
      */
-    public function setInvalidNativeValues($field, $value)
+    public function testSetInvalidNativeValues($field, $value)
     {
         $this->model->{'set'.ucfirst($field)}($value);
     }
+
 
     /**
      * Invalid native values for setter

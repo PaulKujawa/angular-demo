@@ -4,6 +4,8 @@ imports:
 #framework:
 #    validation:
 #        cache: apc
+#    serializer:
+#        cache: serializer.mapping.cache.apc
 
 #doctrine:
 #    orm:
@@ -11,7 +13,7 @@ imports:
 #        result_cache_driver: apc
 #        query_cache_driver: apc
 
-monolog:
+monolog:                                                                    # default settings as in v2.8
     handlers:
         main:
             type:         fingers_crossed

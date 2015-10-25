@@ -38,6 +38,7 @@ class Manufacturer
      */
     private $products;
 
+
     /**
      * Constructor
      */
@@ -45,6 +46,7 @@ class Manufacturer
     {
         $this->products = new ArrayCollection();
     }
+
 
     /**
      * @param Product $products
@@ -57,6 +59,7 @@ class Manufacturer
         return $this;
     }
 
+
     /**
      * @param Product $product
      * @return $this
@@ -68,6 +71,7 @@ class Manufacturer
         return $this;
     }
 
+
     /**
      * @return ArrayCollection
      */
@@ -75,6 +79,7 @@ class Manufacturer
     {
         return $this->products;
     }
+
 
     /**
      * @return bool

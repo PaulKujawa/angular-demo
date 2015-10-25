@@ -94,6 +94,7 @@ class Ingredient
      */
     private $measurement;
 
+
     /**
      * @param int $amount
      * @return $this
@@ -113,6 +114,7 @@ class Ingredient
         return $this;
     }
 
+
     /**
      * @return int
      */
@@ -120,6 +122,7 @@ class Ingredient
     {
         return $this->amount;
     }
+
 
     /**
      * @param Product $product
@@ -132,6 +135,7 @@ class Ingredient
         return $this;
     }
 
+
     /**
      * @return Product
      */
@@ -139,6 +143,7 @@ class Ingredient
     {
         return $this->product;
     }
+
 
     /**
      * @param Measurement $measurement
@@ -151,6 +156,7 @@ class Ingredient
         return $this;
     }
 
+
     /**
      * @return Measurement
      */
@@ -158,6 +164,7 @@ class Ingredient
     {
         return $this->measurement;
     }
+
 
     /**
      * @ORM\PrePersist()
@@ -184,6 +191,7 @@ class Ingredient
         return $this;
     }
 
+
     /**
      * @return int
      */
@@ -191,6 +199,7 @@ class Ingredient
     {
         return $this->id;
     }
+
 
     /**
      * @return bool

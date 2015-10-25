@@ -26,6 +26,7 @@ class ManufacturerType extends AbstractType
         ;
     }
 
+
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
@@ -34,6 +35,7 @@ class ManufacturerType extends AbstractType
             'csrf_protection'   => false,
         ]);
     }
+
 
     public function getName()
     {

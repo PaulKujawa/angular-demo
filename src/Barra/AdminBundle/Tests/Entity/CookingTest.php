@@ -18,22 +18,21 @@ class CookingTest extends \PHPUnit_Framework_TestCase
     const POSITION      = 22;
     const DESCRIPTION   = 'demoDescription';
 
-    /** @var  Cooking $model */
+
+    /** @var  Cooking */
     protected $model;
 
-    /**
-     * Initialises model entity
-     */
+
     public function setUp()
     {
         $this->model = new Cooking();
     }
 
+
     /**
-     * @test
      * @return Cooking
      */
-    public function setDescriptionTest()
+    public function testSetDescriptionTest()
     {
         $resource = $this->model->setDescription(self::DESCRIPTION);
         $this->assertInstanceOf(
@@ -44,12 +43,12 @@ class CookingTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setDescriptionTest
+     * @depends testSetDescriptionTest
      * @param Cooking $self
      */
-    public function getDescriptionTest(Cooking $self)
+    public function testGetDescriptionTest(Cooking $self)
     {
         $got = $self->getDescription();
         $this->assertInternalType(
@@ -63,11 +62,11 @@ class CookingTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Cooking
      */
-    public function setPosition()
+    public function testSetPosition()
     {
         $resource = $this->model->setPosition(self::POSITION);
         $this->assertInstanceOf(
@@ -78,12 +77,12 @@ class CookingTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setPosition
+     * @depends testSetPosition
      * @param Cooking $self
      */
-    public function getPosition(Cooking $self)
+    public function testGetPosition(Cooking $self)
     {
         $got = $self->getPosition();
         $this->assertInternalType(
@@ -97,11 +96,11 @@ class CookingTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Cooking
      */
-    public function setRecipe()
+    public function testSetRecipe()
     {
         $mock     = $this->getMock(self::RECIPE_FQDN);
         $resource = $this->model->setRecipe($mock);
@@ -114,12 +113,12 @@ class CookingTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setRecipe
+     * @depends testSetRecipe
      * @param Cooking $self
      */
-    public function getRecipe(Cooking $self)
+    public function testGetRecipe(Cooking $self)
     {
         $mock   = $this->getMock(self::RECIPE_FQDN);
         $recipe = $self->getRecipe();
@@ -130,22 +129,22 @@ class CookingTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @expectedException \RuntimeException
      */
-    public function createIdNegativeTest()
+    public function testCreateIdNegativeTest()
     {
         $this->model->createId();
     }
 
+
     /**
-     * @test
-     * @depends setPosition
-     * @depends setRecipe
+     * @depends testSetPosition
+     * @depends testSetRecipe
      * @return Cooking
      */
-    public function createId()
+    public function testCreateId()
     {
         $mock = $this->getMock(self::RECIPE_FQDN);
         $mock
@@ -166,12 +165,12 @@ class CookingTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends createId
+     * @depends testCreateId
      * @param Cooking $self
      */
-    public function getId(Cooking $self)
+    public function testGetId(Cooking $self)
     {
         $this->assertEquals(
             self::ID.self::POSITION,
@@ -179,10 +178,10 @@ class CookingTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      */
-    public function isRemovableTrue()
+    public function testisRemovableTrue()
     {
         $got = $this->model->isRemovable();
         $this->assertInternalType(
@@ -196,17 +195,18 @@ class CookingTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @param string    $field
      * @param mixed     $value
      * @expectedException PHPUnit_Framework_Error
      * @dataProvider providerSetInvalidComplexValues
      */
-    public function setInvalidComplexValues($field, $value)
+    public function testSetInvalidComplexValues($field, $value)
     {
         $this->model->{'set'.ucfirst($field)}($value);
     }
+
 
     /**
      * Invalid complex values for setter
@@ -222,17 +222,18 @@ class CookingTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
+
     /**
-     * @test
      * @param string    $field
      * @param mixed     $value
      * @expectedException \InvalidArgumentException
      * @dataProvider providerSetInvalidNativeValues
      */
-    public function setInvalidNativeValues($field, $value)
+    public function testSetInvalidNativeValues($field, $value)
     {
         $this->model->{'set'.ucfirst($field)}($value);
     }
+
 
     /**
      * Invalid native values for setter

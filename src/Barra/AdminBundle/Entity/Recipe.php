@@ -39,13 +39,12 @@ class Recipe
      */
     private $photos;
 
-    /**
-     * Constructor
-     */
+
     public function __construct()
     {
         $this->photos = new ArrayCollection();
     }
+
 
     /**
      * @param Photo $photos
@@ -58,6 +57,7 @@ class Recipe
         return $this;
     }
 
+
     /**
      * @param Photo $photos
      * @return $this
@@ -69,6 +69,7 @@ class Recipe
         return $this;
     }
 
+
     /**
      * @return ArrayCollection
      */
@@ -76,6 +77,7 @@ class Recipe
     {
         return $this->photos;
     }
+
 
     /**
      * @return bool

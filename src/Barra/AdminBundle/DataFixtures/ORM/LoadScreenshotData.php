@@ -18,7 +18,10 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class LoadScreenshotData extends AbstractFixture implements OrderedFixtureInterface
 {
     static public $members = [];
+
+
     const REL_UPLOAD_PATH  = '/../../../../../web/uploads/documents/';
+
 
     public function load(ObjectManager $em)
     {

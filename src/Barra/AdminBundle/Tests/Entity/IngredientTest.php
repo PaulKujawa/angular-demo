@@ -23,23 +23,21 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
     const POSITION          = 22;
     const AMOUNT            = 11;
 
-    /** @var  Ingredient $model */
+
+    /** @var  Ingredient */
     protected $model;
 
-    /**
-     * Initialises model entity
-     */
+
     public function setUp()
     {
         $this->model = new Ingredient();
     }
 
+
     /**
-     * @test
-     *
      * @return Ingredient
      */
-    public function setPosition()
+    public function testSetPosition()
     {
         $resource = $this->model->setPosition(self::POSITION);
         $this->assertInstanceOf(
@@ -50,12 +48,12 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setPosition
+     * @depends testSetPosition
      * @param Ingredient $self
      */
-    public function getPosition(Ingredient $self)
+    public function testGetPosition(Ingredient $self)
     {
         $got = $self->getPosition();
         $this->assertInternalType(
@@ -69,11 +67,11 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Ingredient
      */
-    public function setAmount()
+    public function testSetAmount()
     {
         $resource = $this->model->setAmount(self::AMOUNT);
         $this->assertInstanceOf(
@@ -84,12 +82,12 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setAmount
+     * @depends testSetAmount
      * @param Ingredient $self
      */
-    public function getAmount(Ingredient $self)
+    public function testGetAmount(Ingredient $self)
     {
         $got = $self->getAmount();
         $this->assertInternalType(
@@ -103,11 +101,11 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Ingredient
      */
-    public function setRecipe()
+    public function testSetRecipe()
     {
         $mock     = $this->getMock(self::RECIPE_FQDN);
         $resource = $this->model->setRecipe($mock);
@@ -120,12 +118,12 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setRecipe
+     * @depends testSetRecipe
      * @param Ingredient $self
      */
-    public function getRecipe(Ingredient $self)
+    public function testGetRecipe(Ingredient $self)
     {
         $mock   = $this->getMock(self::RECIPE_FQDN);
         $recipe = $self->getRecipe();
@@ -136,11 +134,11 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Ingredient
      */
-    public function setProduct()
+    public function testSetProduct()
     {
         $mock     = $this->getMock(self::PRODUCT_FQDN);
         $resource = $this->model->setProduct($mock);
@@ -153,12 +151,12 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setProduct
+     * @depends testSetProduct
      * @param Ingredient $self
      */
-    public function getProduct(Ingredient $self)
+    public function testGetProduct(Ingredient $self)
     {
         $mock    = $this->getMock(self::PRODUCT_FQDN);
         $product = $self->getProduct();
@@ -169,11 +167,11 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Ingredient
      */
-    public function setMeasurement()
+    public function testSetMeasurement()
     {
         $mock     = $this->getMock(self::MEASUREMENT_FQDN);
         $resource = $this->model->setMeasurement($mock);
@@ -186,12 +184,12 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setMeasurement
+     * @depends testSetMeasurement
      * @param Ingredient $self
      */
-    public function getMeasurement(Ingredient $self)
+    public function testGetMeasurement(Ingredient $self)
     {
         $mock        = $this->getMock(self::MEASUREMENT_FQDN);
         $measurement = $self->getMeasurement();
@@ -202,21 +200,21 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @expectedException \RuntimeException
      */
-    public function createIdNegativeTest()
+    public function testCreateIdNegativeTest()
     {
         $this->model->createId();
     }
 
+
     /**
-     * @test
-     * @depends setRecipe
+     * @depends testSetRecipe
      * @return Ingredient
      */
-    public function createId()
+    public function testCreateId()
     {
         $recipeMock = $this->getMock(self::RECIPE_FQDN);
         $recipeMock
@@ -244,12 +242,12 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends createId
+     * @depends testCreateId
      * @param Ingredient $self
      */
-    public function getId(Ingredient $self)
+    public function testGetId(Ingredient $self)
     {
         $this->assertEquals(
             self::ID.self::PRODUCT_ID,
@@ -257,10 +255,10 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      */
-    public function isRemovableTrue()
+    public function testisRemovableTrue()
     {
         $got = $this->model->isRemovable();
         $this->assertInternalType(
@@ -274,17 +272,18 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @param string    $field
      * @param mixed     $value
      * @expectedException PHPUnit_Framework_Error
      * @dataProvider providerSetInvalidComplexValues
      */
-    public function setInvalidComplexValues($field, $value)
+    public function testSetInvalidComplexValues($field, $value)
     {
         $this->model->{'set'.ucfirst($field)}($value);
     }
+
 
     /**
      * Invalid complex values for setter
@@ -308,17 +307,18 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
+
     /**
-     * @test
      * @param string    $field
      * @param mixed     $value
      * @expectedException \InvalidArgumentException
      * @dataProvider providerSetInvalidNativeValues
      */
-    public function setInvalidNativeValues($field, $value)
+    public function testSetInvalidNativeValues($field, $value)
     {
         $this->model->{'set'.ucfirst($field)}($value);
     }
+
 
     /**
      * Invalid native values for setter

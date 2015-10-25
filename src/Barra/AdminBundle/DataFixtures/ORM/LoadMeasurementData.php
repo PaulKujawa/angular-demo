@@ -16,6 +16,7 @@ class LoadMeasurementData extends AbstractFixture implements OrderedFixtureInter
 {
     static public $members = [];
 
+
     public function load(ObjectManager $em)
     {
         self::$members[] = $this->instantiate('gr', 1);

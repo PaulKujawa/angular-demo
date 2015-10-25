@@ -21,7 +21,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity("url")
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass = "Barra\AdminBundle\Entity\Repository\PaginationRepository)
+ * @ORM\Entity(repositoryClass = "Barra\AdminBundle\Entity\Repository\PaginationRepository")
  */
 class Agency
 {
@@ -40,13 +40,12 @@ class Agency
      */
     private $references;
 
-    /**
-     * Constructor
-     */
+
     public function __construct()
     {
         $this->references = new ArrayCollection();
     }
+
 
     /**
      * @param Reference $references
@@ -59,6 +58,7 @@ class Agency
         return $this;
     }
 
+
     /**
      * @param Reference $references
      * @return $this
@@ -70,6 +70,7 @@ class Agency
         return $this;
     }
 
+
     /**
      * @return ArrayCollection
      */
@@ -77,6 +78,7 @@ class Agency
     {
         return $this->references;
     }
+
 
     /**
      * @return bool

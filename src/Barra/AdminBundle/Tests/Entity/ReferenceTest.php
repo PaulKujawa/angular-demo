@@ -20,14 +20,13 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
     const ID                        = 2;
     const DESCRIPTION               = 'demoDescription';
 
-    /** @var  Reference $model */
+
+    /** @var  Reference */
     protected $model;
     protected $started;
     protected $finished;
 
-    /**
-     * Initialises model entity
-     */
+
     public function setUp()
     {
         $this->model    = new Reference();
@@ -35,11 +34,11 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
         $this->finished = new \DateTime('12.12.2000');
     }
 
+
     /**
      * Sets protected id field first to test the get function
-     * @test
      */
-    public function getId()
+    public function testGetId()
     {
         $reflected = new \ReflectionClass(self::SELF_FQDN);
         $idField   = $reflected->getProperty('id');
@@ -58,11 +57,11 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Reference
      */
-    public function setDescription()
+    public function testSetDescription()
     {
         $resource = $this->model->setDescription(self::DESCRIPTION);
         $this->assertInstanceOf(
@@ -73,12 +72,12 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setDescription
+     * @depends testSetDescription
      * @param Reference $self
      */
-    public function getDescription(Reference $self)
+    public function testGetDescription(Reference $self)
     {
         $got = $self->getDescription();
         $this->assertInternalType(
@@ -92,11 +91,11 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Reference
      */
-    public function setStarted()
+    public function testSetStarted()
     {
         $resource = $this->model->setStarted($this->started);
         $this->assertInstanceOf(
@@ -107,12 +106,12 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setStarted
+     * @depends testSetStarted
      * @param Reference $self
      */
-    public function getStarted(Reference $self)
+    public function testGetStarted(Reference $self)
     {
         $got = $self->getStarted();
         $this->assertEquals(
@@ -121,11 +120,11 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Reference
      */
-    public function setFinished()
+    public function testSetFinished()
     {
         $resource = $this->model->setFinished($this->finished);
         $this->assertInstanceOf(
@@ -136,12 +135,12 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setFinished
+     * @depends testSetFinished
      * @param Reference $self
      */
-    public function getFinished(Reference $self)
+    public function testGetFinished(Reference $self)
     {
         $got = $self->getFinished();
         $this->assertEquals(
@@ -150,11 +149,11 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Reference
      */
-    public function setAgency()
+    public function testSetAgency()
     {
         $mock     = $this->getMock(self::AGENCY_FQDN);
         $resource = $this->model->setAgency($mock);
@@ -166,12 +165,12 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setAgency
+     * @depends testSetAgency
      * @param Reference $self
      */
-    public function getAgency(Reference $self)
+    public function testGetAgency(Reference $self)
     {
         $mock   = $this->getMock(self::AGENCY_FQDN);
         $agency = $self->getAgency();
@@ -182,11 +181,11 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
         );
     }
     
+
     /**
-     * @test
      * @return Reference
      */
-    public function addTechnique()
+    public function testAddTechnique()
     {
         $mock     = $this->getMock(self::TECHNIQUE_FQDN);
         $resource = $this->model->addTechnique($mock);
@@ -199,13 +198,13 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends addTechnique
+     * @depends testAddTechnique
      * @param Reference $self
      * @return Technique
      */
-    public function getTechniques(Reference $self)
+    public function testGetTechniques(Reference $self)
     {
         $techniques = $self->getTechniques();
         $technique  = $techniques[0];
@@ -224,14 +223,14 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
         return $technique;
     }
 
+
     /**
-     * @test
-     * @depends addTechnique
-     * @depends getTechniques
+     * @depends testAddTechnique
+     * @depends testGetTechniques
      * @param Reference $self
      * @param Technique $technique
      */
-    public function removeTechnique(Reference $self, Technique $technique)
+    public function testremoveTechnique(Reference $self, Technique $technique)
     {
         $resource = $self->removeTechnique($technique);
         $this->assertInstanceOf(
@@ -245,29 +244,29 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @expectedException PHPUnit_Framework_Error
      */
-    public function addInvalidTechnique()
+    public function testAddInvalidTechnique()
     {
         $this->model->addTechnique(1);
     }
 
+
     /**
-     * @test
      * @expectedException PHPUnit_Framework_Error
      */
-    public function removeInvalidTechnique()
+    public function testremoveInvalidTechnique()
     {
         $this->model->removeTechnique(1);
     }
 
+
     /**
-     * @test
      * @return Reference
      */
-    public function addScreenshot()
+    public function testAddScreenshot()
     {
         $mock     = $this->getMock(self::REFERENCE_PICTURE_FQDN);
         $resource = $this->model->addScreenshot($mock);
@@ -280,13 +279,13 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends addScreenshot
+     * @depends testAddScreenshot
      * @param Reference $self
      * @return Screenshot
      */
-    public function getScreenshots(Reference $self)
+    public function testGetScreenshots(Reference $self)
     {
         $pics = $self->getScreenshots();
         $pic  = $pics[0];
@@ -307,13 +306,12 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * @test
-     * @depends addScreenshot
-     * @depends getScreenshots
+     * @depends testAddScreenshot
+     * @depends testGetScreenshots
      * @param Reference         $self
      * @param Screenshot  $pic
      */
-    public function removeScreenshot(Reference $self, Screenshot $pic)
+    public function testremoveScreenshot(Reference $self, Screenshot $pic)
     {
         $resource = $self->removeScreenshot($pic);
         $this->assertInstanceOf(
@@ -327,10 +325,8 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function isRemovableTrue()
+
+    public function testisRemovableTrue()
     {
         $got = $this->model->isRemovable();
         $this->assertInternalType(
@@ -344,35 +340,36 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @expectedException PHPUnit_Framework_Error
      */
-    public function addInvalidScreenshot()
+    public function testAddInvalidScreenshot()
     {
         $this->model->addScreenshot(1);
     }
 
+
     /**
-     * @test
      * @expectedException PHPUnit_Framework_Error
      */
-    public function removeInvalidScreenshot()
+    public function testremoveInvalidScreenshot()
     {
         $this->model->removeScreenshot(1);
     }
 
+
     /**
-     * @test
      * @param string    $field
      * @param mixed     $value
      * @expectedException PHPUnit_Framework_Error
      * @dataProvider providerSetInvalidComplexValues
      */
-    public function setInvalidComplexValues($field, $value)
+    public function testSetInvalidComplexValues($field, $value)
     {
         $this->model->{'set'.ucfirst($field)}($value);
     }
+
 
     /**
      * Invalid complex values for setter
@@ -396,17 +393,18 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
+
     /**
-     * @test
      * @param string    $field
      * @param mixed     $value
      * @expectedException \InvalidArgumentException
      * @dataProvider providerSetInvalidNativeValues
      */
-    public function setInvalidNativeValues($field, $value)
+    public function testSetInvalidNativeValues($field, $value)
     {
         $this->model->{'set'.ucfirst($field)}($value);
     }
+
 
     /**
      * Invalid native values for setter

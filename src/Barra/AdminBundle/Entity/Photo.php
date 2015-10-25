@@ -50,6 +50,7 @@ class Photo
      */
     private $recipe;
 
+
     /**
      * @param Recipe $recipe
      * @return $this
@@ -61,6 +62,7 @@ class Photo
         return $this;
     }
 
+
     /**
      * @return Recipe
      */
@@ -68,6 +70,7 @@ class Photo
     {
         return $this->recipe;
     }
+
 
     /**
      * @return bool

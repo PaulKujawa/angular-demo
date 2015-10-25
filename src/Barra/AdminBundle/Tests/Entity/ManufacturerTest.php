@@ -17,22 +17,21 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
     const ID                = 2;
     const NAME              = 'demoName';
 
-    /** @var  Manufacturer $model */
+
+    /** @var  Manufacturer */
     protected $model;
 
-    /**
-     * Initialises model entity
-     */
+
     public function setUp()
     {
         $this->model = new Manufacturer();
     }
 
+
     /**
      * Sets protected id field first to test the get function
-     * @test
      */
-    public function getId()
+    public function testGetId()
     {
         $reflected = new \ReflectionClass(self::SELF_FQDN);
         $idField   = $reflected->getProperty('id');
@@ -51,11 +50,11 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Manufacturer
      */
-    public function setNameTest()
+    public function testSetName()
     {
         $resource = $this->model->setName(self::NAME);
         $this->assertInstanceOf(
@@ -66,12 +65,12 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setNameTest
+     * @depends testSetName
      * @param Manufacturer $self
      */
-    public function getNameTest(Manufacturer $self)
+    public function testGetName(Manufacturer $self)
     {
         $got = $self->getName();
         $this->assertInternalType(
@@ -85,11 +84,11 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Manufacturer
      */
-    public function addProduct()
+    public function testAddProduct()
     {
         $mock     = $this->getMock(self::PRODUCT_FQDN);
         $resource = $this->model->addProduct($mock);
@@ -102,13 +101,13 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends addProduct
+     * @depends testAddProduct
      * @param Manufacturer $self
      * @return Product
      */
-    public function getProducts(Manufacturer $self)
+    public function testGetProducts(Manufacturer $self)
     {
         $products  = $self->getProducts();
         $product   = $products[0];
@@ -127,14 +126,14 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
         return $product;
     }
 
+
     /**
-     * @test
-     * @depends addProduct
-     * @depends getProducts
+     * @depends testAddProduct
+     * @depends testGetProducts
      * @param Manufacturer  $self
      * @param Product       $product
      */
-    public function removeProduct(Manufacturer $self, Product $product)
+    public function testremoveProduct(Manufacturer $self, Product $product)
     {
         $resource = $self->removeProduct($product);
 
@@ -149,10 +148,8 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function isRemovableTrue()
+
+    public function testisRemovableTrue()
     {
         $got = $this->model->isRemovable();
         $this->assertInternalType(
@@ -166,10 +163,8 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function isRemovableFalse()
+
+    public function testisRemovableFalse()
     {
         $mock = $this->getMock(self::PRODUCT_FQDN);
         $this->model->addProduct($mock);
@@ -186,35 +181,36 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @expectedException PHPUnit_Framework_Error
      */
-    public function addInvalidProduct()
+    public function testAddInvalidProduct()
     {
         $this->model->addProduct(1);
     }
 
+
     /**
-     * @test
      * @expectedException PHPUnit_Framework_Error
      */
-    public function removeInvalidProduct()
+    public function testremoveInvalidProduct()
     {
         $this->model->removeProduct(1);
     }
 
+
     /**
-     * @test
      * @param string    $field
      * @param mixed     $value
      * @expectedException \InvalidArgumentException
      * @dataProvider providerSetInvalidNativeValues
      */
-    public function setInvalidNativeValues($field, $value)
+    public function testSetInvalidNativeValues($field, $value)
     {
         $this->model->{'set'.ucfirst($field)}($value);
     }
+
 
     /**
      * Invalid native values for setter

@@ -106,14 +106,13 @@ class Reference
      */
     private $screenshots;
 
-    /**
-     * Constructor
-     */
+
     public function __construct()
     {
         $this->techniques  = new ArrayCollection();
         $this->screenshots = new ArrayCollection();
     }
+
 
     /**
      * @param \DateTime $started
@@ -126,6 +125,7 @@ class Reference
         return $this;
     }
 
+
     /**
      * @return \DateTime
      */
@@ -133,6 +133,7 @@ class Reference
     {
         return $this->started;
     }
+
 
     /**
      * @param \DateTime $finished
@@ -145,6 +146,7 @@ class Reference
         return $this;
     }
 
+
     /**
      * @return \DateTime
      */
@@ -152,6 +154,7 @@ class Reference
     {
         return $this->finished;
     }
+
 
     /**
      * @param Agency $agency
@@ -164,6 +167,7 @@ class Reference
         return $this;
     }
 
+
     /**
      * @return Agency
      */
@@ -171,6 +175,7 @@ class Reference
     {
         return $this->agency;
     }
+
 
     /**
      * @param Technique $techniques
@@ -183,6 +188,7 @@ class Reference
         return $this;
     }
 
+
     /**
      * @param Technique $techniques
      * @return $this
@@ -194,6 +200,7 @@ class Reference
         return $this;
     }
 
+
     /**
      * @return ArrayCollection
      */
@@ -201,6 +208,7 @@ class Reference
     {
         return $this->techniques;
     }
+
 
     /**
      * @param Screenshot $screenshots
@@ -213,6 +221,7 @@ class Reference
         return $this;
     }
 
+
     /**
      * @param Screenshot $screenshots
      * @return $this
@@ -224,6 +233,7 @@ class Reference
         return $this;
     }
 
+
     /**
      * @return ArrayCollection
      */
@@ -231,6 +241,7 @@ class Reference
     {
         return $this->screenshots;
     }
+
 
     /**
      * @return bool

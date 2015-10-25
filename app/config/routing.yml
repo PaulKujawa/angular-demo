@@ -26,7 +26,7 @@ barra_front:
     options:
         expose: true
 
-barra_back:
+barra_admin:
     resource: "@BarraAdminBundle/Resources/config/routing.yml"
     prefix:   /{_locale}/admino
     options:

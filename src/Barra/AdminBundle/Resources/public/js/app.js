@@ -7,7 +7,7 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
         RestangularProvider
             .setFullResponse(true) // to get the location header from POST responses
             .setBaseUrl(Routing.getBaseUrl() + '/api')
-            .setDefaultHeaders({Authorization: 'Bearer {'+window.sessionStorage.token+'}'})
+            .setDefaultHeaders({Authorization: 'Bearer ' + window.sessionStorage.token})
             .setResponseExtractor(function(response, operation) {
                 return response.data;
             });
@@ -38,7 +38,7 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
                     case 400:
                         return response.data.errors.errors;
                     case 401:
-                        return ['(400) Bad credentials.'];
+                        return ['(401) Bad credentials.'];
                     case 403:
                         return ['(403) You are not authorized to access this project.'];
                     case 409:

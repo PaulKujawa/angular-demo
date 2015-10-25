@@ -16,6 +16,7 @@ class LoadTechniqueData extends AbstractFixture implements OrderedFixtureInterfa
 {
     static public $members = [];
 
+
     public function load(ObjectManager $em)
     {
         self::$members[] = $this->instantiate('Technique1', 'a', 'a.com');

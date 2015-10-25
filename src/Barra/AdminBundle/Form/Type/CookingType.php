@@ -30,6 +30,7 @@ class CookingType extends AbstractType
         ;
     }
 
+
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
@@ -38,6 +39,7 @@ class CookingType extends AbstractType
             'csrf_protection'   => false,
         ]);
     }
+
 
     public function getName()
     {

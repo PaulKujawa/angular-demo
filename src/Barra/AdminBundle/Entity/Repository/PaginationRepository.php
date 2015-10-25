@@ -22,6 +22,7 @@ class PaginationRepository extends EntityRepository
         return $query->getSingleScalarResult();
     }
 
+
     /**
      * @param int       $offset
      * @param int       $limit

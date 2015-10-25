@@ -44,9 +44,6 @@ class Technique
     private $references;
 
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         $this->references = new ArrayCollection();
@@ -64,6 +61,7 @@ class Technique
         return $this;
     }
 
+
     /**
      * @param Reference $references
      * @return $this
@@ -75,6 +73,7 @@ class Technique
         return $this;
     }
 
+
     /**
      * @return ArrayCollection
      */
@@ -82,6 +81,7 @@ class Technique
     {
         return $this->references;
     }
+
 
     /**
      * @return bool

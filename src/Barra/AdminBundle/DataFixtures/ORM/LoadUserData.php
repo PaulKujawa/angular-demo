@@ -16,6 +16,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
 {
     static public $members = [];
 
+
     public function load(ObjectManager $em)
     {
         self::$members[] = $this->instantiate('demoSA', 'test@gmx.de', 'testo', 'ROLE_SUPER_ADMIN');
@@ -47,6 +48,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
             ->addRole($role)
             ->setEnabled(true)
         ;
+
         return $entity;
     }
 

@@ -178,13 +178,12 @@ class Product
      */
     private $ingredients;
 
-    /**
-     * Constructor
-     */
+
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
     }
+
 
     /**
      * Own method for direct access to using recipes
@@ -197,6 +196,7 @@ class Product
         }
         return $recipes;
     }
+
 
     /**
      * @param boolean $vegan
@@ -217,6 +217,7 @@ class Product
         return $this;
     }
 
+
     /**
      * @return boolean
      */
@@ -224,6 +225,7 @@ class Product
     {
         return $this->vegan;
     }
+
 
     /**
      * @param int $kcal
@@ -244,6 +246,7 @@ class Product
         return $this;
     }
 
+
     /**
      * @return string
      */
@@ -251,6 +254,7 @@ class Product
     {
         return $this->kcal;
     }
+
 
     /**
      * @param int $gr
@@ -271,6 +275,7 @@ class Product
         return $this;
     }
 
+
     /**
      * @return int
      */
@@ -278,6 +283,7 @@ class Product
     {
         return $this->gr;
     }
+
 
     /**
      * @param double $protein
@@ -298,6 +304,7 @@ class Product
         return $this;
     }
 
+
     /**
      * @return double
      */
@@ -305,6 +312,7 @@ class Product
     {
         return $this->protein;
     }
+
 
     /**
      * @param double $carbs
@@ -325,6 +333,7 @@ class Product
         return $this;
     }
 
+
     /**
      * @return double
      */
@@ -332,6 +341,7 @@ class Product
     {
         return $this->carbs;
     }
+
 
     /**
      * @param double $sugar
@@ -352,6 +362,7 @@ class Product
         return $this;
     }
 
+
     /**
      * @return string
      */
@@ -359,6 +370,7 @@ class Product
     {
         return $this->sugar;
     }
+
 
     /**
      * @param double $fat
@@ -379,6 +391,7 @@ class Product
         return $this;
     }
 
+
     /**
      * @return double
      */
@@ -386,6 +399,7 @@ class Product
     {
         return $this->fat;
     }
+
 
     /**
      * @param double $gfat
@@ -406,6 +420,7 @@ class Product
         return $this;
     }
 
+
     /**
      * @return double
      */
@@ -413,6 +428,7 @@ class Product
     {
         return $this->gfat;
     }
+
 
     /**
      * @param Manufacturer $manufacturer
@@ -425,6 +441,7 @@ class Product
         return $this;
     }
 
+
     /**
      * @return Manufacturer
      */
@@ -432,6 +449,7 @@ class Product
     {
         return $this->manufacturer;
     }
+
 
     /**
      * @param Ingredient $ingredient
@@ -444,6 +462,7 @@ class Product
         return $this;
     }
 
+
     /**
      * @param Ingredient $ingredient
      * @return $this
@@ -455,6 +474,7 @@ class Product
         return $this;
     }
 
+
     /**
      * @return ArrayCollection
      */
@@ -462,6 +482,7 @@ class Product
     {
         return $this->ingredients;
     }
+
 
     /**
      * @return bool

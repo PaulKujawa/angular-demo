@@ -50,6 +50,7 @@ class Screenshot
      */
     protected $reference;
 
+
     /**
      * @param Reference $reference
      * @return $this
@@ -60,6 +61,7 @@ class Screenshot
         return $this;
     }
 
+
     /**
      * @return Reference
      */
@@ -67,6 +69,7 @@ class Screenshot
     {
         return $this->reference;
     }
+
 
     /**
      * @return bool

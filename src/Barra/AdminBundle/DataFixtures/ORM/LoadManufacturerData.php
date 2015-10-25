@@ -16,6 +16,7 @@ class LoadManufacturerData extends AbstractFixture implements OrderedFixtureInte
 {
     static public $members = [];
 
+
     public function load(ObjectManager $em)
     {
         self::$members[] = $this->instantiate('Manufacturer1');

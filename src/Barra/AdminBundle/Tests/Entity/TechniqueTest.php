@@ -20,22 +20,21 @@ class TechniqueTest extends \PHPUnit_Framework_TestCase
     const NAME                      = 'demoName';
     const DESCRIPTION               = 'demoDescription';
 
-    /** @var  Technique $model */
+
+    /** @var  Technique */
     protected $model;
 
-    /**
-     * Initialises model entity
-     */
+
     public function setUp()
     {
         $this->model = new Technique();
     }
 
+
     /**
      * Sets protected id field first to test the get function
-     * @test
      */
-    public function getId()
+    public function testGetId()
     {
         $reflected = new \ReflectionClass(self::SELF_FQDN);
         $idField   = $reflected->getProperty('id');
@@ -54,11 +53,11 @@ class TechniqueTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Technique
      */
-    public function setDescription()
+    public function testSetDescription()
     {
         $resource = $this->model->setDescription(self::DESCRIPTION);
         $this->assertInstanceOf(
@@ -69,12 +68,12 @@ class TechniqueTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setDescription
+     * @depends testSetDescription
      * @param Technique $self
      */
-    public function getDescription(Technique $self)
+    public function testGetDescription(Technique $self)
     {
         $got = $self->getDescription();
         $this->assertInternalType(
@@ -88,11 +87,11 @@ class TechniqueTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Technique
      */
-    public function setUrl()
+    public function testSetUrl()
     {
         $resource = $this->model->setUrl(self::URL);
         $this->assertInstanceOf(
@@ -103,12 +102,12 @@ class TechniqueTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setUrl
+     * @depends testSetUrl
      * @param Technique $self
      */
-    public function getUrl(Technique $self)
+    public function testGetUrl(Technique $self)
     {
         $got = $self->getUrl();
         $this->assertInternalType(
@@ -122,11 +121,11 @@ class TechniqueTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Technique
      */
-    public function setNameTest()
+    public function testSetName()
     {
         $resource = $this->model->setName(self::NAME);
         $this->assertInstanceOf(
@@ -137,12 +136,12 @@ class TechniqueTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setNameTest
+     * @depends testSetName
      * @param Technique $self
      */
-    public function getNameTest(Technique $self)
+    public function testGetName(Technique $self)
     {
         $got = $self->getName();
         $this->assertInternalType(
@@ -156,11 +155,11 @@ class TechniqueTest extends \PHPUnit_Framework_TestCase
         );
     }
     
+
     /**
-     * @test
      * @return Technique
      */
-    public function addReference()
+    public function testAddReference()
     {
         $mock     = $this->getMock(self::REFERENCE_FQDN);
         $resource = $this->model->addReference($mock);
@@ -173,13 +172,13 @@ class TechniqueTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends addReference
+     * @depends testAddReference
      * @param Technique $self
      * @return Reference
      */
-    public function getReferences(Technique $self)
+    public function testGetReferences(Technique $self)
     {
         $techniques = $self->getReferences();
         $technique  = $techniques[0];
@@ -198,14 +197,14 @@ class TechniqueTest extends \PHPUnit_Framework_TestCase
         return $technique;
     }
 
+
     /**
-     * @test
-     * @depends addReference
-     * @depends getReferences
+     * @depends testAddReference
+     * @depends testGetReferences
      * @param Technique $self
      * @param Reference $technique
      */
-    public function removeReference(Technique $self, Reference $technique)
+    public function testremoveReference(Technique $self, Reference $technique)
     {
         $resource = $self->removeReference($technique);
         $this->assertInstanceOf(
@@ -219,10 +218,8 @@ class TechniqueTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function isRemovableTrue()
+
+    public function testisRemovableTrue()
     {
         $got = $this->model->isRemovable();
         $this->assertInternalType(
@@ -236,10 +233,8 @@ class TechniqueTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function isRemovableFalse()
+
+    public function testisRemovableFalse()
     {
         $mock = $this->getMock(self::REFERENCE_FQDN);
         $this->model->addReference($mock);
@@ -256,35 +251,36 @@ class TechniqueTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @expectedException PHPUnit_Framework_Error
      */
-    public function addInvalidReference()
+    public function testAddInvalidReference()
     {
         $this->model->addReference(1);
     }
 
+
     /**
-     * @test
      * @expectedException PHPUnit_Framework_Error
      */
-    public function removeInvalidReference()
+    public function testremoveInvalidReference()
     {
         $this->model->removeReference(1);
     }
 
+
     /**
-     * @test
      * @param string    $field
      * @param mixed     $value
      * @expectedException \InvalidArgumentException
      * @dataProvider providerSetInvalidNativeValues
      */
-    public function setInvalidNativeValues($field, $value)
+    public function testSetInvalidNativeValues($field, $value)
     {
         $this->model->{'set'.ucfirst($field)}($value);
     }
+
 
     /**
      * Invalid native values for setter

@@ -18,22 +18,21 @@ class RecipeTest extends \PHPUnit_Framework_TestCase
     const TITLE         = 'demoName';
     const URL           = 'demoUrl';
 
-    /** @var  Recipe $model */
+
+    /** @var  Recipe */
     protected $model;
 
-    /**
-     * Initialises model entity
-     */
+
     public function setUp()
     {
         $this->model = new Recipe();
     }
 
+
     /**
      * Sets protected id field first to test the get function
-     * @test
      */
-    public function getId()
+    public function testGetId()
     {
         $reflected = new \ReflectionClass(self::SELF_FQDN);
         $idField   = $reflected->getProperty('id');
@@ -52,11 +51,11 @@ class RecipeTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Recipe
      */
-    public function setNameTest()
+    public function testSetName()
     {
         $resource = $this->model->setName(self::TITLE);
         $this->assertInstanceOf(
@@ -67,12 +66,12 @@ class RecipeTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setNameTest
+     * @depends testSetName
      * @param Recipe $self
      */
-    public function getNameTest(Recipe $self)
+    public function testGetName(Recipe $self)
     {
         $got = $self->getName();
         $this->assertInternalType(
@@ -86,11 +85,11 @@ class RecipeTest extends \PHPUnit_Framework_TestCase
         );
     }
     
+
     /**
-     * @test
      * @return Recipe
      */
-    public function addPhoto()
+    public function testAddPhoto()
     {
         $mock     = $this->getMock(self::PHOTO_FQDN);
         $resource = $this->model->addPhoto($mock);
@@ -103,13 +102,13 @@ class RecipeTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends addPhoto
+     * @depends testAddPhoto
      * @param Recipe $self
      * @return Photo
      */
-    public function getPhotos(Recipe $self)
+    public function testGetPhotos(Recipe $self)
     {
         $photos = $self->getPhotos();
         $photo  = $photos[0];
@@ -128,14 +127,14 @@ class RecipeTest extends \PHPUnit_Framework_TestCase
         return $photo;
     }
 
+
     /**
-     * @test
-     * @depends addPhoto
-     * @depends getPhotos
+     * @depends testAddPhoto
+     * @depends testGetPhotos
      * @param Recipe $self
      * @param Photo  $photo
      */
-    public function removePhoto(Recipe $self, Photo $photo)
+    public function testremovePhoto(Recipe $self, Photo $photo)
     {
         $resource = $self->removePhoto($photo);
         $this->assertInstanceOf(
@@ -149,10 +148,8 @@ class RecipeTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function isRemovableTrue()
+
+    public function testisRemovableTrue()
     {
         $got = $this->model->isRemovable();
         $this->assertInternalType(
@@ -166,32 +163,32 @@ class RecipeTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @expectedException PHPUnit_Framework_Error
      */
-    public function addInvalidPhoto()
+    public function testAddInvalidPhoto()
     {
         $this->model->addPhoto(1);
     }
 
+
     /**
-     * @test
      * @expectedException PHPUnit_Framework_Error
      */
-    public function removeInvalidPhoto()
+    public function testremoveInvalidPhoto()
     {
         $this->model->removePhoto(1);
     }
 
+
     /**
-     * @test
      * @param string    $field
      * @param mixed     $value
      * @expectedException \InvalidArgumentException
      * @dataProvider providerSetInvalidNativeValues
      */
-    public function setInvalidNativeValues($field, $value)
+    public function testSetInvalidNativeValues($field, $value)
     {
         $this->model->{'set'.ucfirst($field)}($value);
     }

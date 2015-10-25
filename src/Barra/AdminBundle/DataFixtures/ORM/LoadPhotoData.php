@@ -19,6 +19,7 @@ class LoadPhotoData extends AbstractFixture implements OrderedFixtureInterface
 {
     static public $members = [];
 
+
     public function load(ObjectManager $em)
     {
         self::$members[] = $this->instantiate('Photo1', 'refRecipe1');

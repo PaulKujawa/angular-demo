@@ -53,6 +53,7 @@ class Measurement
      */
     private $ingredients;
 
+
     /**
      * Constructor
      */
@@ -60,6 +61,7 @@ class Measurement
     {
         $this->ingredients = new ArrayCollection();
     }
+
 
     /**
      * @param int $gr
@@ -80,6 +82,7 @@ class Measurement
         return $this;
     }
 
+
     /**
      * @return int
      */
@@ -87,6 +90,7 @@ class Measurement
     {
         return $this->gr;
     }
+
 
     /**
      * @param Ingredient $ingredients
@@ -99,6 +103,7 @@ class Measurement
         return $this;
     }
 
+
     /**
      * @param Ingredient $ingredients
      * @return $this
@@ -110,6 +115,7 @@ class Measurement
         return $this;
     }
 
+
     /**
      * @return ArrayCollection
      */
@@ -117,6 +123,7 @@ class Measurement
     {
         return $this->ingredients;
     }
+
 
     /**
      * @return bool

@@ -25,6 +25,7 @@ class PhotoType extends AbstractType
         ;
     }
 
+
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
@@ -33,6 +34,7 @@ class PhotoType extends AbstractType
             'csrf_protection'   => false,
         ]);
     }
+
 
     public function getName()
     {

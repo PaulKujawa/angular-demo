@@ -53,6 +53,7 @@ class IngredientType extends AbstractType
         ;
     }
 
+
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
@@ -61,6 +62,7 @@ class IngredientType extends AbstractType
             'csrf_protection'       => false,
         ]);
     }
+
 
     public function getName()
     {

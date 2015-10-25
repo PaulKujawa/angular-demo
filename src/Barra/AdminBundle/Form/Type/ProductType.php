@@ -83,6 +83,7 @@ class ProductType extends AbstractType
         ;
     }
 
+
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
@@ -91,6 +92,7 @@ class ProductType extends AbstractType
             'csrf_protection'   => false,
         ]);
     }
+
 
     public function getName()
     {

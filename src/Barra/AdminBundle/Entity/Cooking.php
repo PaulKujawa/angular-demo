@@ -43,6 +43,7 @@ class Cooking
      */
     protected $id;
 
+
     /**
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
@@ -67,6 +68,7 @@ class Cooking
         return $this;
     }
 
+
     /**
      * @return int
      */
@@ -74,6 +76,7 @@ class Cooking
     {
         return $this->id;
     }
+
 
     /**
      * @return bool

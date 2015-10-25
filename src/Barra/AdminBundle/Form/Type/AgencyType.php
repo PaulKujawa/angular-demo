@@ -31,6 +31,7 @@ class AgencyType extends AbstractType
         ;
     }
 
+
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
@@ -40,6 +41,7 @@ class AgencyType extends AbstractType
 
         ]);
     }
+
 
     public function getName()
     {

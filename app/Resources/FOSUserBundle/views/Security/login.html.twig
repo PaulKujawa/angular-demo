@@ -9,16 +9,28 @@
         </div>
 
         <form ng-submit="submit()" method="post">
-            {% if error %}<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>{% endif %}
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
 
-            <input ng-init="userdata._csrf_token='{{ csrf_token }}'" type="hidden" class="form-control" name="_csrf_token" value="{{ csrf_token }}"/>
-            <input ng-model="userdata._username"    type="text" id="username" class="form-control" name="_username" value="{{ last_username }}"
-                                                    required="required" placeholder={{ 'security.login.username'|trans() }} autofocus />
-            <input ng-model="userdata._password"    type="password" id="password" class="form-control" name="_password"
-                                                    required="required" placeholder={{ 'security.login.password'|trans() }} />
-            <!--<label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
-            <input ng-model="userdata.remember" type="checkbox" id="remember_me" class="form-control" name="_remember_me" value="on" /> -->
-            <input type="submit" id="_submit" class="btn btn-default btn-block" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+            <input ng-init="userdata._csrf_token='{{ csrf_token }}'" value="{{ csrf_token }}"
+                   name="_csrf_token" type="hidden" class="form-control" />
+
+            <input ng-model="userdata._username" value="{{ last_username }}"
+                   type="text" id="username" class="form-control" name="_username" required="required" autofocus
+                   placeholder={{ 'security.login.username'|trans() }} />
+
+            <input ng-model="userdata._password"
+                   type="password" id="password" class="form-control" name="_password"
+                   required="required" placeholder={{ 'security.login.password'|trans() }} />
+
+            {#<label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>#}
+
+            {#<input ng-model="userdata.remember" type="checkbox" id="remember_me" #}
+                   {#class="form-control" name="_remember_me" value="on" />#}
+
+            <input type="submit" value="{{ 'security.login.submit'|trans }}" id="_submit" name="_submit"
+                   class="btn btn-default btn-block" />
         </form>
     </div>
 {% endblock fos_user_content %}

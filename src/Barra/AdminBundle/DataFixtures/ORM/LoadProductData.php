@@ -18,6 +18,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
 {
     static public $members = [];
 
+
     public function load(ObjectManager $em)
     {
         $nutritions = [

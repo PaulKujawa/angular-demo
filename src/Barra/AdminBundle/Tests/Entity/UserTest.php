@@ -15,22 +15,21 @@ class UserTest extends \PHPUnit_Framework_TestCase
     const SELF_FQDN                 = 'Barra\AdminBundle\Entity\User';
     const ID                        = 2;
 
-    /** @var  User $model */
+
+    /** @var  User */
     protected $model;
 
-    /**
-     * Initialises model entity
-     */
+
     public function setUp()
     {
         $this->model = new User();
     }
 
+
     /**
      * Sets protected id field first to test the get function
-     * @test
      */
-    public function getId()
+    public function testGetId()
     {
         $reflected = new \ReflectionClass(self::SELF_FQDN);
         $idField   = $reflected->getProperty('id');

@@ -20,22 +20,21 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
     const FILENAME               = 'demoFilename';
     const WEB_DIRECTORY          = 'uploads/documents';
 
-    /** @var  Photo $model */
+
+    /** @var  Photo */
     protected $model;
 
-    /**
-     * Initialises model entity
-     */
+
     public function setUp()
     {
         $this->model = new Photo();
     }
 
+
     /**
      * Sets protected id field first to test the get function
-     * @test
      */
-    public function getId()
+    public function testGetId()
     {
         $reflected = new \ReflectionClass(self::SELF_FQDN);
         $idField   = $reflected->getProperty('id');
@@ -54,11 +53,11 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Photo
      */
-    public function setNameTest()
+    public function testSetName()
     {
         $resource = $this->model->setName(self::NAME);
         $this->assertInstanceOf(
@@ -69,12 +68,12 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setNameTest
+     * @depends testSetName
      * @param Photo $self
      */
-    public function getNameTest(Photo $self)
+    public function testGetName(Photo $self)
     {
         $got = $self->getName();
         $this->assertInternalType(
@@ -88,11 +87,11 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Photo
      */
-    public function setFilename()
+    public function testSetFilename()
     {
         $resource = $this->model->setFilename(self::FILENAME);
         $this->assertInstanceOf(
@@ -103,12 +102,12 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setFilename
+     * @depends testSetFilename
      * @param Photo $self
      */
-    public function getFilename(Photo $self)
+    public function testGetFilename(Photo $self)
     {
         $got = $self->getFilename();
         $this->assertInternalType(
@@ -122,12 +121,12 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @param Photo $self
-     * @depends setFilename
+     * @depends testSetFilename
      */
-    public function getWebDirectoryWithFilename(Photo $self)
+    public function testGetWebDirectoryWithFilename(Photo $self)
     {
         $this->assertNull(
             $this->model->getWebDirectoryWithFilename()
@@ -147,12 +146,12 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @param Photo $self
-     * @depends setFilename
+     * @depends testSetFilename
      */
-    public function setFileWithPreviousSetFilename(Photo $self)
+    public function testSetFileWithPreviousSetFilename(Photo $self)
     {
         $mock = $this->getMock(self::UPLOADED_DOCUMENT_FQDN, [], [], '', false);
         $mock
@@ -168,11 +167,11 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Photo
      */
-    public function setSize()
+    public function testSetSize()
     {
         $resource = $this->model->setSize(self::SIZE);
         $this->assertInstanceOf(
@@ -183,12 +182,12 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setSize
+     * @depends testSetSize
      * @param Photo $self
      */
-    public function getSizeTest(Photo $self)
+    public function testGetSizeTest(Photo $self)
     {
         $got = $self->getSize();
         $this->assertInternalType(
@@ -202,11 +201,11 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Photo
      */
-    public function setRecipe()
+    public function testSetRecipe()
     {
         $mock     = $this->getMock(self::RECIPE_FQDN);
         $resource = $this->model->setRecipe($mock);
@@ -219,12 +218,12 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setRecipe
+     * @depends testSetRecipe
      * @param Photo $self
      */
-    public function getRecipe(Photo $self)
+    public function testGetRecipe(Photo $self)
     {
         $mock   = $this->getMock(self::RECIPE_FQDN);
         $recipe = $self->getRecipe();
@@ -235,11 +234,11 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @return Photo
      */
-    public function setFile()
+    public function testSetFile()
     {
         $mock = $this->getMock(self::UPLOADED_DOCUMENT_FQDN, [], [], '', false);
         $mock
@@ -257,12 +256,12 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
 
+
     /**
-     * @test
-     * @depends setFile
+     * @depends testSetFile
      * @param Photo $self
      */
-    public function getFile(Photo $self)
+    public function testGetFile(Photo $self)
     {
         $mock = $this->getMock(self::UPLOADED_DOCUMENT_FQDN, [], [], '', false);
         $file = $self->getFile();
@@ -273,10 +272,8 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function generateFilename()
+
+    public function testGenerateFilename()
     {
         $mock = $this->getMock(self::UPLOADED_DOCUMENT_FQDN, [], [], '', false);
         $mock
@@ -302,10 +299,8 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function generateFileNameNegative()
+
+    public function testGenerateFileNameNegative()
     {
         $resource = $this->model->generateFilename();
         $this->assertInstanceOf(
@@ -314,10 +309,8 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function getWebDirectory()
+
+    public function testGetWebDirectory()
     {
         $got = $this->model->getWebDirectory();
         $this->assertInternalType(
@@ -331,10 +324,8 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function isRemovableTrue()
+
+    public function testisRemovableTrue()
     {
         $got = $this->model->isRemovable();
         $this->assertInternalType(
@@ -348,17 +339,18 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+
     /**
-     * @test
      * @param string    $field
      * @param mixed     $value
      * @expectedException PHPUnit_Framework_Error
      * @dataProvider providerSetInvalidComplexValues
      */
-    public function setInvalidComplexValues($field, $value)
+    public function testSetInvalidComplexValues($field, $value)
     {
         $this->model->{'set'.ucfirst($field)}($value);
     }
+
 
     /**
      * Invalid complex values for setter
@@ -378,17 +370,18 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
+
     /**
-     * @test
      * @param string    $field
      * @param mixed     $value
      * @expectedException \InvalidArgumentException
      * @dataProvider providerSetInvalidNativeValues
      */
-    public function setInvalidNativeValues($field, $value)
+    public function testSetInvalidNativeValues($field, $value)
     {
         $this->model->{'set'.ucfirst($field)}($value);
     }
+
 
     /**
      * Invalid native values for setter

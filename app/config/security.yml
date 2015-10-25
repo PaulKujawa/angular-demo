@@ -3,46 +3,43 @@ security:
         fos_userbundle:
             id: fos_user.user_provider.username
     encoders:
-        FOS\UserBundle\Model\UserInterface: sha512
+        FOS\UserBundle\Model\UserInterface: bcrypt
 
     firewalls:
         admino:
-            pattern:                  ^/[a-z][a-z]/admino/.*
-            anonymous:                true                                                      # to enable IS_AUTHENTICATED_ANONYMOUSLY
-            form_login:                                                                         # redirects unauth. requests to this form
-                provider:             fos_userbundle                                            # declared at the top
-                csrf_provider:        form.csrf_provider
-                login_path:           fos_user_security_login                                   # controller which handles login form's data
-                check_path:           fos_user_security_check                                   # Login Form target (action)
-                default_target_path:  barra_back_user                                           # if redirected from /login
-                                                                                                # succes_handler for api firewall (breaks redirect though)
-                success_handler:      lexik_jwt_authentication.handler.authentication_success   # returns the JWT token JSON after successful login
-                failure_handler:      lexik_jwt_authentication.handler.authentication_failure   # returns bad login JSON object
+            pattern:                      ^/[a-z][a-z]/admino/.*
+            anonymous:                    true                      # to allow anonymous in access_control below
+            form_login:
+                require_previous_session: false                     # no session required for auth. request (funcTests)
+                provider:                 fos_userbundle
+                csrf_provider:            form.csrf_provider        # enable CSRF protection in general
+                login_path:               fos_user_security_login   # render login view and form
+                check_path:               fos_user_security_check   # checks credentials
+                default_target_path:      barra_back_user           # default redirect when user just targeted /login
+                success_handler:          lexik_jwt_authentication.handler.authentication_success   # returns JWT
+                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
             logout:
-                path:                 fos_user_security_logout                                  # initialize logout process
-                target:               barra_front_root                                          # redirect target after logged out
-
+                path:                     fos_user_security_logout
+                target:                   barra_front_root
         api:
-            pattern:                  ^/api/.*
-            stateless:                true
-            anonymous:                true
-            provider:                 fos_userbundle                                            # declared at the top
-            methods:                  [POST, PUT, DELETE]                                       # GET keeps free for public pages
+            pattern:                      ^/api/.*
+            provider:                     fos_userbundle
+            stateless:                    true                      # anonymous key not enabled
+            methods:                      [POST, PUT, DELETE]       # GET keeps public
             lexik_jwt:
                 authorization_header:
-                    enabled:          true
-                    prefix:           Bearer
-
+                    enabled:              true
+                    prefix:               Bearer
 
 
     role_hierarchy: #Admin >= User
-        ROLE_ADMIN:                               ROLE_USER
-        ROLE_SUPER_ADMIN:                         ROLE_ADMIN
+        ROLE_ADMIN:                       ROLE_USER
+        ROLE_SUPER_ADMIN:                 ROLE_ADMIN
 
 
     access_control:
-        - { path: ^/api/,                         role: ROLE_ADMIN } #, requires_channel: https
-        - { path: ^/[a-z][a-z]/admino/login$,     role: IS_AUTHENTICATED_ANONYMOUSLY }          # excluding login_check
-      # - { path: ^/[a-z][a-z]/admino/register,   role: IS_AUTHENTICATED_ANONYMOUSLY }          # todo overwrite form & include user view
+        - { path: ^/api/,                         role: ROLE_ADMIN }
+        - { path: ^/[a-z][a-z]/admino/login$,     role: IS_AUTHENTICATED_ANONYMOUSLY }
+      # - { path: ^/[a-z][a-z]/admino/register,   role: IS_AUTHENTICATED_ANONYMOUSLY }
       # - { path: ^/[a-z][a-z]/admino/resetting,  role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/[a-z][a-z]/admino,            role: ROLE_ADMIN } #, requires_channel: https
+        - { path: ^/[a-z][a-z]/admino,            role: ROLE_ADMIN }

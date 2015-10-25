@@ -2,12 +2,10 @@
 /app/cache/*
 /app/logs/*
 /app/var/jwt/*
-!app/var/jwt/.gitkeep
+!app/var/jwt/public-test.pem
+!app/var/jwt/private-test.pem
 !app/cache/.gitkeep
 !app/logs/.gitkeep
-
-
-app/var/jwt/private.pem
 
 # Cache and logs (Symfony3)
 /var/cache/*

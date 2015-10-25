@@ -2,7 +2,6 @@
 
 namespace Barra\RestBundle\Controller;
 
-use Barra\AdminBundle\Entity as EntityClass;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Annotations;
 use FOS\RestBundle\Request\ParamFetcher;
@@ -28,6 +27,9 @@ class RestController extends FOSRestController implements ClassResourceInterface
     /** @var  \Symfony\Component\Form\AbstractType */
     protected $formType;
 
+    /** @var  mixed */
+    protected $entity;
+
 
     /**
      * @Annotations\View()
@@ -35,8 +37,7 @@ class RestController extends FOSRestController implements ClassResourceInterface
      */
     public function newAction()
     {
-        $entity = $this->getEntityClass();
-        $form   = $this->createForm($this->getFormType(), new $entity());
+        $form = $this->createForm($this->getFormType(), $this->getEntity());
 
         return ['data' => $form];
     }
@@ -119,10 +120,8 @@ class RestController extends FOSRestController implements ClassResourceInterface
      */
     public function postAction(Request $request)
     {
-        $entityName = $this->getEntityClass();
-        $entity     = new $entityName();
-        $form       = $this->createForm($this->getFormType(), $entity);
-
+        $entity = $this->getEntity();
+        $form   = $this->createForm($this->getFormType(), $entity);
         $form->handleRequest($request);
 
         return $this->processRequest($request, $entity, $form, Codes::HTTP_CREATED);
@@ -232,11 +231,27 @@ class RestController extends FOSRestController implements ClassResourceInterface
     protected function getFormType()
     {
         if (null === $this->formType) {
-            $entity         = $this->getEntityClass().'Type';
-            $this->formType = new $entity();
+            $namespace      = '\Barra\AdminBundle\Form\Type\\';
+            $entity         = $namespace.$this->getEntityClass().'Type';
+            $this->formType = new $entity(); //
         }
 
         return $this->formType;
+    }
+
+
+    /**
+     * @return mixed entity
+     */
+    protected function getEntity()
+    {
+        if (null === $this->entity) {
+            $namespace      = '\Barra\AdminBundle\Entity\\';
+            $entity         = $namespace.$this->getEntityClass();
+            $this->entity   = new $entity(); //
+        }
+
+        return $this->entity;
     }
 
 
