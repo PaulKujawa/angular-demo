@@ -230,7 +230,7 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
      * @param Reference $self
      * @param Technique $technique
      */
-    public function testremoveTechnique(Reference $self, Technique $technique)
+    public function testRemoveTechnique(Reference $self, Technique $technique)
     {
         $resource = $self->removeTechnique($technique);
         $this->assertInstanceOf(
@@ -257,7 +257,7 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException PHPUnit_Framework_Error
      */
-    public function testremoveInvalidTechnique()
+    public function testRemoveInvalidTechnique()
     {
         $this->model->removeTechnique(1);
     }
@@ -311,7 +311,7 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
      * @param Reference         $self
      * @param Screenshot  $pic
      */
-    public function testremoveScreenshot(Reference $self, Screenshot $pic)
+    public function testRemoveScreenshot(Reference $self, Screenshot $pic)
     {
         $resource = $self->removeScreenshot($pic);
         $this->assertInstanceOf(
@@ -326,7 +326,7 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    public function testisRemovableTrue()
+    public function testIsRemovableTrue()
     {
         $got = $this->model->isRemovable();
         $this->assertInternalType(
@@ -353,7 +353,7 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException PHPUnit_Framework_Error
      */
-    public function testremoveInvalidScreenshot()
+    public function testRemoveInvalidScreenshot()
     {
         $this->model->removeScreenshot(1);
     }

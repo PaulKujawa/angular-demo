@@ -168,7 +168,7 @@ class AgencyTest extends \PHPUnit_Framework_TestCase
      * @param Agency    $self
      * @param Reference $reference
      */
-    public function testremoveReference(Agency $self, Reference $reference)
+    public function testRemoveReference(Agency $self, Reference $reference)
     {
         $resource = $self->removeReference($reference);
 
@@ -184,7 +184,7 @@ class AgencyTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    public function testisRemovableTrue()
+    public function testIsRemovableTrue()
     {
         $got = $this->model->isRemovable();
         $this->assertInternalType(
@@ -199,7 +199,7 @@ class AgencyTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    public function testisRemovableFalse()
+    public function testIsRemovableFalse()
     {
         $mock = $this->getMock(self::REFERENCE_FQDN);
         $this->model->addReference($mock);
@@ -229,7 +229,7 @@ class AgencyTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException PHPUnit_Framework_Error
      */
-    public function testremoveInvalidReference()
+    public function testRemoveInvalidReference()
     {
         $this->model->removeReference(1);
     }

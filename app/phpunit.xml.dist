@@ -29,6 +29,7 @@
             <directory>../src/**</directory>
             <exclude>
                 <directory>../src/Barra/*Bundle/DependencyInjection</directory>  <!-- TODO to include by time -->
+                <directory>../src/Barra/*Bundle/DataFixtures</directory> <!-- their instantiations won't noticed -->
                 <directory>../src/Barra/*Bundle/Resources</directory>
                 <directory>../src/Barra/*Bundle/Tests</directory>
             </exclude>

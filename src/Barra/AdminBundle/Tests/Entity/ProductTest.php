@@ -105,7 +105,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase
      * @param Product $self
      * @param Ingredient  $ingredient
      */
-    public function testremoveIngredient(Product $self, Ingredient $ingredient)
+    public function testRemoveIngredient(Product $self, Ingredient $ingredient)
     {
         $resource = $self->removeIngredient($ingredient);
         $this->assertInstanceOf(
@@ -132,7 +132,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException PHPUnit_Framework_Error
      */
-    public function testremoveInvalidIngredient()
+    public function testRemoveInvalidIngredient()
     {
         $this->model->removeIngredient(1);
     }
@@ -470,7 +470,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    public function testisRemovableTrue()
+    public function testIsRemovableTrue()
     {
         $got = $this->model->isRemovable();
         $this->assertInternalType(
@@ -485,7 +485,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    public function testisRemovableFalse()
+    public function testIsRemovableFalse()
     {
         $mock = $this->getMock(self::INGREDIENT_FQDN);
         $this->model->addIngredient($mock);

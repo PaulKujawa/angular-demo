@@ -258,7 +258,7 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
 
     /**
      */
-    public function testisRemovableTrue()
+    public function testIsRemovableTrue()
     {
         $got = $this->model->isRemovable();
         $this->assertInternalType(

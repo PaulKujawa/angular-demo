@@ -2,7 +2,7 @@
 
 namespace Barra\AdminBundle\Controller;
 
-use Barra\AdminBundle\Entity\Repository\PaginationRepository;
+use Barra\AdminBundle\Entity\Repository\BasicRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
@@ -30,7 +30,7 @@ class BasicController extends Controller
         }
 
         $repo = $this->getRepo();
-        if (!$repo instanceof PaginationRepository) {
+        if (!$repo instanceof BasicRepository) {
             throw new \RuntimeException();
         }
 

@@ -2,6 +2,8 @@
 
 namespace Barra\RestBundle\Controller;
 
+use Barra\AdminBundle\Entity\Repository\BasicRepository;
+use Barra\AdminBundle\Entity\Repository\RecipeRelatedRepository;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Annotations;
 use FOS\RestBundle\Request\ParamFetcher;
@@ -32,21 +34,19 @@ class RestController extends FOSRestController implements ClassResourceInterface
 
 
     /**
-     * @Annotations\View()
-     * @return array
+     * @return View
      */
     public function newAction()
     {
         $form = $this->createForm($this->getFormType(), $this->getEntity());
 
-        return ['data' => $form];
+        return $this->view(['data' => $form]);
     }
 
 
     /**
-     * @Annotations\View()
      * @param int $id
-     * @return array
+     * @return View
      */
     public function getAction($id)
     {
@@ -56,13 +56,13 @@ class RestController extends FOSRestController implements ClassResourceInterface
             return $this->view(null, Codes::HTTP_NOT_FOUND);
         }
 
-        return ['data' => $entity];
+        return $this->view(['data' => $entity]);
     }
 
 
     /**
-     * List all entries
-     * @Annotations\View()
+     * @link http://symfony.com/doc/current/bundles/FOSRestBundle/param_fetcher_listener.html
+     *
      * @Annotations\QueryParam(
      *      name            = "recipe",
      *      requirements    = "\d+",
@@ -77,7 +77,6 @@ class RestController extends FOSRestController implements ClassResourceInterface
      * @Annotations\QueryParam(
      *      name            = "limit",
      *      requirements    = "\d+",
-     *      default         = "4",
      *      description     = "How many entries to return."
      * )
      * @Annotations\QueryParam(
@@ -88,12 +87,13 @@ class RestController extends FOSRestController implements ClassResourceInterface
      * )
      * @Annotations\QueryParam(
      *      name            = "order",
-     *      requirements    = "\w+",
-     *      default         = "ASC",
-     *      description     = "Order, either ASC or DESC."
+     *      requirements    = "(asc|desc)",
+     *      default         = "asc",
+     *      description     = "Sort direction."
      * )
      * @param ParamFetcher $paramFetcher
      * @return array
+     * @throws \RuntimeException
      */
     public function cgetAction(ParamFetcher $paramFetcher)
     {
@@ -104,13 +104,23 @@ class RestController extends FOSRestController implements ClassResourceInterface
         $order      = $paramFetcher->get('order');
         $repo       = $this->getRepo();
 
-        if (null === $recipe) {
+        // alternatively, 'limit' could be set as strict, in it's annotation, to set it mandatory.
+        // however, RestBundle's own error message is too detailed IMHO.
+        if (null === $limit ||
+            1 > $limit ||
+            0 > $offset
+        ) {
+            return $this->view(null, Codes::HTTP_BAD_REQUEST);
+        }
+
+        $entities = null;
+        if ($repo instanceof BasicRepository) {
             $entities = $repo->getSome($offset, $limit, $orderBy, $order);
-        } else {
+        } elseif ($repo instanceof RecipeRelatedRepository) {
             $entities = $repo->getSome($recipe, $offset, $limit, $orderBy, $order);
         }
 
-        return ['data' => $entities];
+        return $this->view(['data' => $entities]);
     }
 
 
@@ -138,8 +148,7 @@ class RestController extends FOSRestController implements ClassResourceInterface
         $entity = $this->getRepo()->find($id);
 
         if (null === $entity) {
-            $route = 'barra_api_post_'.lcfirst($this->getEntityClass());
-            return $this->routeRedirectView($route, ['request' => $request]);
+            return $this->view(null, Codes::HTTP_NOT_FOUND);
         }
 
         $form = $this->createForm($this->getFormType(), $entity, ['method' => $request->getMethod()]);
@@ -150,7 +159,6 @@ class RestController extends FOSRestController implements ClassResourceInterface
 
 
     /**
-     * @Annotations\View()
      * @param int $id
      * @return View
      */
@@ -189,7 +197,7 @@ class RestController extends FOSRestController implements ClassResourceInterface
     protected function processRequest(Request $request, $entity, Form $form, $successCode)
     {
         if (!$form->isValid()) {
-            return $this->view($form, Codes::HTTP_BAD_REQUEST);
+            return $this->view(['data' => $form], Codes::HTTP_BAD_REQUEST);
         }
 
         $this->getEM()->persist($entity);
@@ -211,6 +219,7 @@ class RestController extends FOSRestController implements ClassResourceInterface
     protected function getEntityClass()
     {
         if (null === $this->entityClass) {
+	    // __CLASS_ returns RestController, get_class($this) inheriting class
             $className = get_class($this);
             $this->entityClass = ucfirst(
                 substr(

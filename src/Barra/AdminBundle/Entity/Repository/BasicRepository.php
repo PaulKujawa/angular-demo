@@ -5,11 +5,11 @@ namespace Barra\AdminBundle\Entity\Repository;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * Class PaginationRepository
+ * Class BasicRepository
  * @author Paul Kujawa <p.kujawa@gmx.net>
  * @package Barra\AdminBundle\Entity\Repository
  */
-class PaginationRepository extends EntityRepository
+class BasicRepository extends EntityRepository
 {
     public function count()
     {

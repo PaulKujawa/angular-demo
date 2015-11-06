@@ -2,6 +2,7 @@
 
 namespace Barra\FrontBundle\Tests\Entity;
 
+use FOS\RestBundle\Util\Codes;
 use Liip\FunctionalTestBundle\Test\WebTestCase as WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
 
@@ -56,44 +57,140 @@ class AgencyControllerTest extends WebTestCase
     public function testNewAction()
     {
         $this->client->request('GET', '/api/agencies/new');
-        $this->validateResponse(200, '{"data":{"children":{"name":[],"url":[]}}}');
+        $this->validateResponse(Codes::HTTP_OK, '{"data":{"children":{"name":[],"url":[]}}}');
     }
 
 
     public function testGetAction()
     {
         $this->client->request('GET', '/api/agencies/3');
-        $expectedJson = '{"data":{"references":[],"id":3,"name":"Agency3","url":"http:\/\/c.com"}}';
-        $this->validateResponse(200, $expectedJson);
+        $this->validateResponse(
+            Codes::HTTP_OK,
+            '{"data":{"references":[],"id":3,"name":"Agency3","url":"http:\/\/c.com"}}'
+        );
+
+        $this->client->request('GET', '/api/agencies/-3');
+        $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
 
     public function testCgetAction()
     {
+        $this->client->request('GET', '/api/agencies?limit=2');
+        $this->validateResponse(
+            Codes::HTTP_OK,
+            '{"data":['.
+                '{"references":[],"id":1,"name":"Agency1","url":"http:\/\/a.com"},'.
+                '{"references":[],"id":2,"name":"Agency2","url":"http:\/\/b.com"}'.
+            ']}'
+        );
+
         $this->client->request('GET', '/api/agencies');
-        $expectedJson = '{"data":['.
-                            '{"references":[],"id":1,"name":"Agency1","url":"http:\/\/a.com"},'.
-                            '{"references":[],"id":2,"name":"Agency2","url":"http:\/\/b.com"},'.
-                            '{"references":[],"id":3,"name":"Agency3","url":"http:\/\/c.com"}'.
-                        ']}';
-        $this->validateResponse(200, $expectedJson);
+        $this->validateResponse(Codes::HTTP_BAD_REQUEST);
+    }
+
+
+    public function testPostAction()
+    {
+        $this->client->request(
+            'POST',
+            '/api/agencies',
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            '{"formAgency":{"name":"Agency4","url":"http://d.de"}}'
+        );
+
+        $this->validateResponse(Codes::HTTP_CREATED);
+        $this->assertStringEndsWith(
+            '/api/agencies/4',
+            $this->client->getResponse()->headers->get('Location')
+        );
+    }
+
+
+    public function testPutAction()
+    {
+        $this->client->request(
+            'PUT',
+            '/api/agencies/2',
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            '{"formAgency":{"name":"updated","url":"http://updated.de"}}'
+        );
+
+        $this->validateResponse(Codes::HTTP_NO_CONTENT);
+        $this->assertStringEndsWith(
+            '/api/agencies/2',
+            $this->client->getResponse()->headers->get('Location')
+        );
+    }
+    
+    public function testPutActionNotFound()
+    {
+        $this->client->request(
+            'PUT',
+            '/api/agencies/4',
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            '{"formAgency":{"name":"updated","url":"http://updated.de"}}'
+        );        
+        $this->validateResponse(Codes::HTTP_NOT_FOUND);
+    }
+    
+
+    public function testPutActionInvalidForm()
+    {
+        $this->client->request(
+            'PUT',
+            '/api/agencies/2',
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            '{"INVALID":{"name":"updated","url":"http://updated.de"}}'
+        );
+        $this->validateResponse(Codes::HTTP_BAD_REQUEST, '{"data":{"children":{"name":[],"url":[]}}}');
+    }
+
+
+    public function testDeleteAction()
+    {
+        $this->client->request('DELETE', '/api/agencies/3');
+        $this->validateResponse(Codes::HTTP_NO_CONTENT);
+
+        $this->client->request('DELETE', '/api/agencies/4');
+        $this->validateResponse(Codes::HTTP_NOT_FOUND);
+
+        $this->loadFixtures([
+            'Barra\AdminBundle\DataFixtures\ORM\LoadUserData',
+            'Barra\AdminBundle\DataFixtures\ORM\LoadAgencyData',
+            'Barra\AdminBundle\DataFixtures\ORM\LoadTechniqueData',
+            'Barra\AdminBundle\DataFixtures\ORM\LoadReferenceData',
+        ]);
+
+        $this->client->request('DELETE', '/api/agencies/3');
+        $this->validateResponse(Codes::HTTP_CONFLICT);
     }
 
 
     /**
-     * @param null|int      $expectedStatusCode
+     * @param int           $expectedStatusCode
      * @param null|string   $expectedJSON
      */
-    protected function validateResponse($expectedStatusCode = 200, $expectedJSON = null)
+    protected function validateResponse($expectedStatusCode, $expectedJSON = null)
     {
         $this->assertEquals(
             $expectedStatusCode,
             $this->client->getResponse()->getStatusCode()
         );
 
-        $this->assertEquals(
-            $expectedJSON,
-            $this->client->getResponse()->getContent()
-        );
+        if (null !== $expectedJSON) {
+            $this->assertEquals(
+                $expectedJSON,
+                $this->client->getResponse()->getContent()
+            );
+        }
     }
 }

@@ -133,7 +133,7 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
      * @param Manufacturer  $self
      * @param Product       $product
      */
-    public function testremoveProduct(Manufacturer $self, Product $product)
+    public function testRemoveProduct(Manufacturer $self, Product $product)
     {
         $resource = $self->removeProduct($product);
 
@@ -149,7 +149,7 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    public function testisRemovableTrue()
+    public function testIsRemovableTrue()
     {
         $got = $this->model->isRemovable();
         $this->assertInternalType(
@@ -164,7 +164,7 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    public function testisRemovableFalse()
+    public function testIsRemovableFalse()
     {
         $mock = $this->getMock(self::PRODUCT_FQDN);
         $this->model->addProduct($mock);
@@ -194,7 +194,7 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException PHPUnit_Framework_Error
      */
-    public function testremoveInvalidProduct()
+    public function testRemoveInvalidProduct()
     {
         $this->model->removeProduct(1);
     }

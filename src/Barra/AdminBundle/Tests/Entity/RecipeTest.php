@@ -134,7 +134,7 @@ class RecipeTest extends \PHPUnit_Framework_TestCase
      * @param Recipe $self
      * @param Photo  $photo
      */
-    public function testremovePhoto(Recipe $self, Photo $photo)
+    public function testRemovePhoto(Recipe $self, Photo $photo)
     {
         $resource = $self->removePhoto($photo);
         $this->assertInstanceOf(
@@ -149,7 +149,7 @@ class RecipeTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    public function testisRemovableTrue()
+    public function testIsRemovableTrue()
     {
         $got = $this->model->isRemovable();
         $this->assertInternalType(
@@ -176,7 +176,7 @@ class RecipeTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException PHPUnit_Framework_Error
      */
-    public function testremoveInvalidPhoto()
+    public function testRemoveInvalidPhoto()
     {
         $this->model->removePhoto(1);
     }

@@ -169,7 +169,7 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
      * @param Measurement  $self
      * @param Ingredient       $ingredient
      */
-    public function testremoveIngredient(Measurement $self, Ingredient $ingredient)
+    public function testRemoveIngredient(Measurement $self, Ingredient $ingredient)
     {
         $resource = $self->removeIngredient($ingredient);
         $this->assertInstanceOf(
@@ -196,13 +196,13 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException PHPUnit_Framework_Error
      */
-    public function testremoveInvalidIngredient()
+    public function testRemoveInvalidIngredient()
     {
         $this->model->removeIngredient(1);
     }
 
 
-    public function testisRemovableTrue()
+    public function testIsRemovableTrue()
     {
         $got = $this->model->isRemovable();
         $this->assertInternalType(
@@ -217,7 +217,7 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    public function testisRemovableFalse()
+    public function testIsRemovableFalse()
     {
         $mock = $this->getMock(self::INGREDIENT_FQDN);
         $this->model->addIngredient($mock);
