@@ -205,13 +205,6 @@ class Product
      */
     public function setVegan($vegan)
     {
-        if (!is_bool($vegan)) {
-            throw new \InvalidArgumentException(sprintf(
-                '"%s" needs to be of type "%s',
-                'vegan',
-                'bool'
-            ));
-        }
         $this->vegan = $vegan;
 
         return $this;
@@ -234,13 +227,6 @@ class Product
      */
     public function setKcal($kcal)
     {
-        if (!is_int($kcal)) {
-            throw new \InvalidArgumentException(sprintf(
-                '"%s" needs to be of type "%s',
-                'kcal',
-                'int'
-            ));
-        }
         $this->kcal = $kcal;
 
         return $this;
@@ -263,13 +249,6 @@ class Product
      */
     public function setGr($gr)
     {
-        if (!is_int($gr)) {
-            throw new \InvalidArgumentException(sprintf(
-                '"%s" needs to be of type "%s',
-                'gr',
-                'int'
-            ));
-        }
         $this->gr = $gr;
 
         return $this;
@@ -292,13 +271,6 @@ class Product
      */
     public function setProtein($protein)
     {
-        if (!is_double($protein)) {
-            throw new \InvalidArgumentException(sprintf(
-                '"%s" needs to be of type "%s',
-                'protein',
-                'double'
-            ));
-        }
         $this->protein = $protein;
 
         return $this;
@@ -321,13 +293,6 @@ class Product
      */
     public function setCarbs($carbs)
     {
-        if (!is_double($carbs)) {
-            throw new \InvalidArgumentException(sprintf(
-                '"%s" needs to be of type "%s',
-                'carbs',
-                'double'
-            ));
-        }
         $this->carbs = $carbs;
 
         return $this;
@@ -350,13 +315,6 @@ class Product
      */
     public function setSugar($sugar)
     {
-        if (!is_double($sugar)) {
-            throw new \InvalidArgumentException(sprintf(
-                '"%s" needs to be of type "%s',
-                'sugar',
-                'double'
-            ));
-        }
         $this->sugar = $sugar;
 
         return $this;
@@ -379,13 +337,6 @@ class Product
      */
     public function setFat($fat)
     {
-        if (!is_double($fat)) {
-            throw new \InvalidArgumentException(sprintf(
-                '"%s" needs to be of type "%s',
-                'fat',
-                'double'
-            ));
-        }
         $this->fat = $fat;
 
         return $this;
@@ -408,13 +359,6 @@ class Product
      */
     public function setGfat($gfat)
     {
-        if (!is_double($gfat)) {
-            throw new \InvalidArgumentException(sprintf(
-                '"%s" needs to be of type "%s',
-                'gfat',
-                'double'
-            ));
-        }
         $this->gfat = $gfat;
 
         return $this;

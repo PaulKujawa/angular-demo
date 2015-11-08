@@ -36,13 +36,6 @@ trait NameTrait
      */
     public function setName($name)
     {
-        if (!is_string($name)) {
-            throw new \InvalidArgumentException(sprintf(
-                '"%s" needs to be of type "%s',
-                'name',
-                'string'
-            ));
-        }
         $this->name = $name;
 
         return $this;

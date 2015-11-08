@@ -70,13 +70,6 @@ class Measurement
      */
     public function setGr($gr)
     {
-        if (!is_int($gr)) {
-            throw new \InvalidArgumentException(sprintf(
-                '"%s" needs to be of type "%s',
-                'gr',
-                'int'
-            ));
-        }
         $this->gr = $gr;
 
         return $this;

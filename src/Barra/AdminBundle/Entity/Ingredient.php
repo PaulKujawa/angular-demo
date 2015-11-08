@@ -102,13 +102,6 @@ class Ingredient
      */
     public function setAmount($amount)
     {
-        if (!is_int($amount)) {
-            throw new \InvalidArgumentException(sprintf(
-                '"%s" needs to be of type "%s',
-                'amount',
-                'int'
-            ));
-        }
         $this->amount = $amount;
 
         return $this;

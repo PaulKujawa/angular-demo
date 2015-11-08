@@ -180,13 +180,6 @@ trait ImageTrait
      */
     public function setFilename($filename)
     {
-        if (!is_string($filename)) {
-            throw new \InvalidArgumentException(sprintf(
-                '"%s" needs to be of type "%s',
-                'filename',
-                'string'
-            ));
-        }
         $this->filename = $filename;
 
         return $this;
@@ -207,13 +200,6 @@ trait ImageTrait
      */
     public function setSize($size)
     {
-        if (!is_int($size)) {
-            throw new \InvalidArgumentException(sprintf(
-                '"%s" needs to be of type "%s',
-                'size',
-                'int'
-            ));
-        }
         $this->size = $size;
 
         return $this;

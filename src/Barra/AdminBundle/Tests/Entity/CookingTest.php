@@ -221,35 +221,4 @@ class CookingTest extends \PHPUnit_Framework_TestCase
             ],
         ];
     }
-
-
-    /**
-     * @param string    $field
-     * @param mixed     $value
-     * @expectedException \InvalidArgumentException
-     * @dataProvider providerSetInvalidNativeValues
-     */
-    public function testSetInvalidNativeValues($field, $value)
-    {
-        $this->model->{'set'.ucfirst($field)}($value);
-    }
-
-
-    /**
-     * Invalid native values for setter
-     * @return array
-     */
-    public static function providerSetInvalidNativeValues()
-    {
-        return [
-            [
-                'description',
-                1,
-            ],
-            [
-                'position',
-                '1',
-            ],
-        ];
-    }
 }

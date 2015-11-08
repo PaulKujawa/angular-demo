@@ -19,9 +19,9 @@ class LoadTechniqueData extends AbstractFixture implements OrderedFixtureInterfa
 
     public function load(ObjectManager $em)
     {
-        self::$members[] = $this->instantiate('Technique1', 'a', 'a.com');
-        self::$members[] = $this->instantiate('Technique2', 'b', 'b.net');
-        self::$members[] = $this->instantiate('Technique3', 'c', 'c.org');
+        self::$members[] = $this->instantiate('Technique1', 'description1', 'http://a.com');
+        self::$members[] = $this->instantiate('Technique2', 'description2', 'http://b.com');
+        self::$members[] = $this->instantiate('Technique3', 'description3', 'http://c.com');
 
         foreach (self::$members as $i => $e) {
             $this->addReference('refTechnique'.($i+1), $e);

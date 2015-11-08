@@ -233,35 +233,4 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
             $got
         );
     }
-
-
-    /**
-     * @param string    $field
-     * @param mixed     $value
-     * @expectedException \InvalidArgumentException
-     * @dataProvider providerSetInvalidNativeValues
-     */
-    public function testSetInvalidNativeValues($field, $value)
-    {
-        $this->model->{'set'.ucfirst($field)}($value);
-    }
-
-
-    /**
-     * Invalid native values for setter
-     * @return array
-     */
-    public static function providerSetInvalidNativeValues()
-    {
-        return [
-            [
-                'name',
-                1,
-            ],
-            [
-                'gr',
-                '1',
-            ],
-        ];
-    }
 }

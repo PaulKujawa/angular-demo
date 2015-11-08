@@ -33,13 +33,6 @@ trait PositionTrait
      */
     public function setPosition($position)
     {
-        if (!is_int($position)) {
-            throw new \InvalidArgumentException(sprintf(
-                '"%s" needs to be of type "%s',
-                'position',
-                'int'
-            ));
-        }
         $this->position = $position;
 
         return $this;
