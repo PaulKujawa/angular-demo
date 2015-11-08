@@ -1,13 +1,13 @@
 <?php
 
-namespace Barra\FrontBundle\Tests\Entity;
+namespace Barra\AdminBundle\Tests\Entity;
 
 use Barra\AdminBundle\Entity\Photo;
 
 /**
  * Class PhotoTest
  * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\FrontBundle\Tests\Entity
+ * @package Barra\AdminBundle\Tests\Entity
  */
 class PhotoTest extends \PHPUnit_Framework_TestCase
 {
@@ -343,7 +343,7 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
     /**
      * @param string    $field
      * @param mixed     $value
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException \PHPUnit_Framework_Error
      * @dataProvider providerSetInvalidComplexValues
      */
     public function testSetInvalidComplexValues($field, $value)

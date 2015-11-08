@@ -4,24 +4,6 @@
     <li {% if app.request.attributes.get('_route') == 'barra_back_user' %}class="active"{% endif %}>
         <a href="{{ path('barra_back_user') }}">{{ ('back.title.user')|trans }}</a>
     </li>
-    <li class="dropdown {% if app.request.attributes.get('_route') == 'barra_back_references' or
-    app.request.attributes.get('_route') == 'barra_back_techniques' or
-    app.request.attributes.get('_route') == 'barra_back_agencies' %}active{% endif %}">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-            {{ ('back.title.references')|trans }} <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu" role="menu">
-            <li {% if app.request.attributes.get('_route') == 'barra_back_references' %}class="active"{% endif %}>
-                <a href="{{ path('barra_back_references') }}">{{ ('back.title.references')|trans }}</a>
-            </li>
-            <li {% if app.request.attributes.get('_route') == 'barra_back_techniques' %}class="active"{% endif %}>
-                <a href="{{ path('barra_back_techniques') }}">{{ ('back.title.techniques')|trans }}</a>
-            </li>
-            <li {% if app.request.attributes.get('_route') == 'barra_back_agencies' %}class="active"{% endif %}>
-                <a href="{{ path('barra_back_agencies') }}">{{ ('back.title.agencies')|trans }}</a>
-            </li>
-        </ul>
-    </li>
 
     <li class="dropdown {% if app.request.attributes.get('_route') == 'barra_back_recipes' or
     app.request.attributes.get('_route') == 'barra_back_recipeDetail' or

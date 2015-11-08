@@ -1,35 +1,32 @@
 back:
   action:
     delete: Delete
+    frontend: Frontend
     manage: Manage
     new: New
     update: Update
-    frontend: Frontend
 
   title:
-    products: Products
     manufacturers: Manufacturer
     measurements: Measurements
+    products: Products
     recipes: Recipes
-    references: References
     user: User
-    techniques: Techniques
-    agencies: Agencies
 
   message:
     insertError: Invalid entry
 
   product: #object
-    name: Name
-    manufacturer: Manufacturer
-    vegan: Vegan
-    gr: Gr
-    kcal: Kcal
     carbs: Carbs
-    sugar: Sugar
-    protein: Protein
     fat: Fat
     gfat: sat. fat
+    gr: Gr
+    kcal: Kcal
+    manufacturer: Manufacturer
+    name: Name
+    protein: Protein
+    sugar: Sugar
+    vegan: Vegan
 
   measurement: #object
     gr: Gr
@@ -46,25 +43,6 @@ back:
 
   ingredient: #object
     amount: Amount
-
-  reference: #object
-    url: Url
-    description: Description
-    started: Started
-    finished: Finished
-    startedPlaceholder: from dd.mm.yyyy
-    finishedPlaceholder: until dd.mm.yyyy
-    agency: Agency
-    techniques: Techniques
-
-  agency: #object
-    name: Name
-    url: Url
-
-  technique: #object
-    name: Name
-    description: Description
-    url: Url
 
   word:
     product: Product

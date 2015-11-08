@@ -1,6 +1,6 @@
 <?php
 
-namespace Barra\FrontBundle\Tests\Entity;
+namespace Barra\AdminBundle\Tests\Entity;
 
 use Barra\AdminBundle\Entity\Recipe;
 use Barra\AdminBundle\Entity\Photo;
@@ -8,7 +8,7 @@ use Barra\AdminBundle\Entity\Photo;
 /**
  * Class RecipeTest
  * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\FrontBundle\Tests\Entity
+ * @package Barra\AdminBundle\Tests\Entity
  */
 class RecipeTest extends \PHPUnit_Framework_TestCase
 {
@@ -165,7 +165,7 @@ class RecipeTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException \PHPUnit_Framework_Error
      */
     public function testAddInvalidPhoto()
     {
@@ -174,7 +174,7 @@ class RecipeTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException \PHPUnit_Framework_Error
      */
     public function testRemoveInvalidPhoto()
     {

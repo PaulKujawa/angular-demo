@@ -32,18 +32,3 @@ barra_rest_manufacturers:
   type: rest
   resource: "BarraRestBundle:Manufacturer"
   name_prefix: barra_api_
-
-barra_rest_references:
-  type: rest
-  resource: "BarraRestBundle:Reference"
-  name_prefix: barra_api_
-
-barra_rest_agencies:
-  type: rest
-  resource: "BarraRestBundle:Agency"
-  name_prefix: barra_api_
-
-barra_rest_techniques:
-  type: rest
-  resource: "BarraRestBundle:Technique"
-  name_prefix: barra_api_

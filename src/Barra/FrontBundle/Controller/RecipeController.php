@@ -3,7 +3,7 @@
 namespace Barra\FrontBundle\Controller;
 
 use Barra\AdminBundle\Entity\Ingredient;
-use Barra\AdminBundle\Entity\Repository\RecipeRepository;
+use Barra\AdminBundle\Entity\Repository\BasicRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -23,7 +23,7 @@ class RecipeController extends Controller
     public function indexAction($paginationActive)
     {
         $offset         = ($paginationActive-1)*self::RANGE +1;
-        /** @var RecipeRepository $repo */
+        /** @var BasicRepository $repo */
         $repo           = $this->getDoctrine()->getManager()->getRepository('BarraAdminBundle:Recipe');
         $recipes        = $repo->getSome($offset, self::RANGE, "name", "ASC");
         $paginationCnt  = $repo->count();

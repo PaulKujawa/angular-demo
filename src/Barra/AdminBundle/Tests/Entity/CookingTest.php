@@ -1,6 +1,6 @@
 <?php
 
-namespace Barra\FrontBundle\Tests\Entity;
+namespace Barra\AdminBundle\Tests\Entity;
 
 use Barra\AdminBundle\Entity\Cooking;
 use Barra\AdminBundle\Entity\Recipe;
@@ -8,7 +8,7 @@ use Barra\AdminBundle\Entity\Recipe;
 /**
  * Class CookingTest
  * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\FrontBundle\Tests\Entity
+ * @package Barra\AdminBundle\Tests\Entity
  */
 class CookingTest extends \PHPUnit_Framework_TestCase
 {
@@ -199,7 +199,7 @@ class CookingTest extends \PHPUnit_Framework_TestCase
     /**
      * @param string    $field
      * @param mixed     $value
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException \PHPUnit_Framework_Error
      * @dataProvider providerSetInvalidComplexValues
      */
     public function testSetInvalidComplexValues($field, $value)

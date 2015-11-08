@@ -5,9 +5,6 @@
               app.request.attributes.get('_route') == 'barra_front_root' %}class="active"{% endif %}>
         <a href="{{ path('barra_front_contact') }}">{{ ('front.title.contact')|trans }}</a>
     </li>
-    <li {% if app.request.attributes.get('_route') == 'barra_front_references' %}class="active"{% endif %}>
-        <a href="{{ path('barra_front_references') }}">{{ ('front.title.references')|trans }}</a>
-    </li>
     <li {% if app.request.attributes.get('_route') == 'barra_front_recipes' %}class="active"{% endif %}>
         <a href="{{ path('barra_front_recipes') }}">{{ ('front.title.recipes')|trans }}</a>
     </li>

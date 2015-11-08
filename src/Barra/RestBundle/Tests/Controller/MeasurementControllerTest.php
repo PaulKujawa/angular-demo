@@ -1,6 +1,6 @@
 <?php
 
-namespace Barra\FrontBundle\Tests\Entity;
+namespace Barra\RestBundle\Tests\Controller;
 
 use FOS\RestBundle\Util\Codes;
 use Liip\FunctionalTestBundle\Test\WebTestCase as WebTestCase;
@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Client;
 
 /**
  * Class MeasurementControllerTest
- * @package Barra\FrontBundle\Tests\Entity
+ * @package Barra\RestBundle\Tests\Controller
  */
 class MeasurementControllerTest extends WebTestCase
 {
@@ -126,7 +126,7 @@ class MeasurementControllerTest extends WebTestCase
             $this->client->getResponse()->headers->get('Location')
         );
     }
-    
+
     public function testPutActionNotFound()
     {
         $this->client->request(
@@ -136,10 +136,10 @@ class MeasurementControllerTest extends WebTestCase
             [],
             ['CONTENT_TYPE' => 'application/json'],
             '{"formMeasurement":{"name":"not found","gr":1}}'
-        );        
+        );
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
-    
+
 
     public function testPutActionInvalidForm()
     {
@@ -166,9 +166,9 @@ class MeasurementControllerTest extends WebTestCase
         $this->loadFixtures([
             'Barra\AdminBundle\DataFixtures\ORM\LoadUserData',
             'Barra\AdminBundle\DataFixtures\ORM\LoadManufacturerData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadProductData',
             'Barra\AdminBundle\DataFixtures\ORM\LoadMeasurementData',
             'Barra\AdminBundle\DataFixtures\ORM\LoadRecipeData',
+            'Barra\AdminBundle\DataFixtures\ORM\LoadProductData',
             'Barra\AdminBundle\DataFixtures\ORM\LoadIngredientData',
         ]);
 

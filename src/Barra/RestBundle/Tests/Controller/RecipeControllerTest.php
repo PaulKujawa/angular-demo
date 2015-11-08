@@ -1,6 +1,6 @@
 <?php
 
-namespace Barra\FrontBundle\Tests\Entity;
+namespace Barra\RestBundle\Tests\Controller;
 
 use FOS\RestBundle\Util\Codes;
 use Liip\FunctionalTestBundle\Test\WebTestCase as WebTestCase;
@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Client;
 
 /**
  * Class RecipeControllerTest
- * @package Barra\FrontBundle\Tests\Entity
+ * @package Barra\RestBundle\Tests\Controller
  */
 class RecipeControllerTest extends WebTestCase
 {
@@ -126,7 +126,7 @@ class RecipeControllerTest extends WebTestCase
             $this->client->getResponse()->headers->get('Location')
         );
     }
-    
+
     public function testPutActionNotFound()
     {
         $this->client->request(
@@ -136,10 +136,10 @@ class RecipeControllerTest extends WebTestCase
             [],
             ['CONTENT_TYPE' => 'application/json'],
             '{"formRecipe":{"name":"updated"}}'
-        );        
+        );
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
-    
+
 
     public function testPutActionInvalidForm()
     {

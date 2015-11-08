@@ -91,9 +91,9 @@ class RestController extends FOSRestController implements ClassResourceInterface
      *      default         = "asc",
      *      description     = "Sort direction."
      * )
+     *
      * @param ParamFetcher $paramFetcher
      * @return array
-     * @throws \RuntimeException
      */
     public function cgetAction(ParamFetcher $paramFetcher)
     {

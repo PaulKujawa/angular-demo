@@ -1,6 +1,6 @@
 <?php
 
-namespace Barra\FrontBundle\Tests\Entity;
+namespace Barra\AdminBundle\Tests\Entity;
 
 use Barra\AdminBundle\Entity\Reference;
 use Barra\AdminBundle\Entity\User;
@@ -8,7 +8,7 @@ use Barra\AdminBundle\Entity\User;
 /**
  * Class UserTest
  * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\FrontBundle\Tests\Entity
+ * @package Barra\AdminBundle\Tests\Entity
  */
 class UserTest extends \PHPUnit_Framework_TestCase
 {

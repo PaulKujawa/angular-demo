@@ -1,35 +1,32 @@
 back:
   action:
     delete: Löschen
+    frontend: Frontend
     manage: Bearbeiten
     new: Neu
     update: Aktualisieren
-    frontend: Frontend
 
   title:
-    products: Produkte
     manufacturers: Hersteller
     measurements: Messeinheiten
+    products: Produkte
     recipes: Rezepte
-    references: Referenzen
     user: Benutzer
-    techniques: Techniken
-    agencies: Agenturen
 
   message:
     insertError: Ungültiger Eintrag
 
   product: #object
-    name: Name
-    manufacturer: Hersteller
-    vegan: Vegan
+    carbs: Kohlenhydrate
+    fat: Fett
+    gfat: ges. Fett
     gr: Gr
     kcal: Kcal
-    fat: Fett
-    carbs: Kohlenhydrate
-    sugar: Zucker
+    manufacturer: Hersteller
+    name: Name
     protein: Eiweiß
-    gfat: ges. Fett
+    sugar: Zucker
+    vegan: Vegan
 
   measurement: #object
     gr: Gr
@@ -46,25 +43,6 @@ back:
 
   ingredient: #object
     amount: Menge
-
-  reference: #object
-    url: Url
-    description: Beschreibung
-    started: Begonnen
-    finished: Abgeschlossen
-    startedPlaceholder: von tt.mm.jjjj
-    finishedPlaceholder: bis tt.mm.jjjj
-    agency: Agentur
-    techniques: Techniken
-
-  agency: #object
-    name: Name
-    url: Url
-
-  technique: #object
-    name: Name
-    description: Beschreibung
-    url: Url
 
   word:
     product: Zutat

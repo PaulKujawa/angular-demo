@@ -1,6 +1,6 @@
 <?php
 
-namespace Barra\FrontBundle\Tests\Entity;
+namespace Barra\AdminBundle\Tests\Entity;
 
 use Barra\AdminBundle\Entity\Manufacturer;
 use Barra\AdminBundle\Entity\Product;
@@ -9,7 +9,7 @@ use Barra\AdminBundle\Entity\Ingredient;
 /**
  * Class ProductTest
  * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\FrontBundle\Tests\Entity
+ * @package Barra\AdminBundle\Tests\Entity
  */
 class ProductTest extends \PHPUnit_Framework_TestCase
 {
@@ -121,7 +121,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException \PHPUnit_Framework_Error
      */
     public function testAddInvalidIngredient()
     {
@@ -130,7 +130,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException \PHPUnit_Framework_Error
      */
     public function testRemoveInvalidIngredient()
     {
@@ -506,7 +506,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase
     /**
      * @param string    $field
      * @param mixed     $value
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException \PHPUnit_Framework_Error
      * @dataProvider providerSetInvalidComplexValues
      */
     public function testSetInvalidComplexValues($field, $value)

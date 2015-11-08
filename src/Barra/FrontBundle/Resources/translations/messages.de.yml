@@ -3,29 +3,29 @@ front:
     send: Senden
 
   title:
-    pageAboutMe: Kujawa
     aboutMe: Über mich
-    references: Referenzen
-    recipes: Rezepte
     contact: Kontakt
+    myAccomplishments: Meine Erfolge
     myPerson: Wer bin ich
     mySkills: Meine Fähigkeiten
-    myAccomplishments: Meine Erfolge
+    pageAboutMe: Kujawa
+    recipes: Rezepte
+    references: Referenzen
 
   message:
     emailSent: Danke für Ihre Anfrage. Ich werde mich bei Ihnen melden.
 
   meta:
     contactDescription: PHP Symfony Entwickler aus Berlin - Paul Kujawa
-    referenceDescription: PHP Symfony Entwickler aus Berlin - Referenzen - Paul Kujawa
     contactKeywords: Paul Kujawa, Symfony, PHP, Berlin, Kontakt
     recipeKeywords: %recipe%, vegan, vegetarisch, kaloreichreich, kaloreinhaltig, viel kalorien
+    referenceDescription: PHP Symfony Entwickler aus Berlin - Referenzen - Paul Kujawa
     referenceKeywords: Paul Kujawa, Symfony, PHP, Berlin, Referenzen
 
   contact: #object
-    name: Ihr Name
     email: Ihre E-Mail
-    message: Ihre Nachricht an mich
     description: Ich trage den Namen Paul Kujawa, bin eifriger Symfony|ZendFW Entwickler und meine Freizeit fokussiert Fitness.
+    message: Ihre Nachricht an mich
+    name: Ihr Name
 
   word:

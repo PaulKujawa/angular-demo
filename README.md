@@ -25,7 +25,7 @@
     * build manually      `php app/console doctrine:migrations:generate`
     * build automatically `php app/console doctrine:migrations:diff`
   * deploy
-    * execute 1 migration `php app/console doctrine:migrations:execute [up|down] version`
+    * execute 1 migration `php app/console doctrine:migrations:execute version`
     * migrate to version  `php app/console doctrine:migrations:migrate [version]`
 
 ### Bundles & Libraries

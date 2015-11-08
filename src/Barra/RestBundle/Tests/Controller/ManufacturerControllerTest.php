@@ -1,6 +1,6 @@
 <?php
 
-namespace Barra\FrontBundle\Tests\Entity;
+namespace Barra\RestBundle\Tests\Controller;
 
 use FOS\RestBundle\Util\Codes;
 use Liip\FunctionalTestBundle\Test\WebTestCase as WebTestCase;
@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Client;
 
 /**
  * Class ManufacturerControllerTest
- * @package Barra\FrontBundle\Tests\Entity
+ * @package Barra\RestBundle\Tests\Controller
  */
 class ManufacturerControllerTest extends WebTestCase
 {
