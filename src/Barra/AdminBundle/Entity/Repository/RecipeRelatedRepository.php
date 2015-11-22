@@ -2,14 +2,12 @@
 
 namespace Barra\AdminBundle\Entity\Repository;
 
-use Doctrine\ORM\EntityRepository;
-
 /**
  * Class RecipeRelatedRepository
  * @author Paul Kujawa <p.kujawa@gmx.net>
  * @package Barra\AdminBundle\Entity\Repository
  */
-class RecipeRelatedRepository extends EntityRepository
+class RecipeRelatedRepository extends BasicRepository
 {
     /**
      * @param int $recipeId
@@ -28,29 +26,5 @@ class RecipeRelatedRepository extends EntityRepository
         ;
 
         return $query->getSingleScalarResult();
-    }
-
-
-    /**
-     * @param int       $recipeId
-     * @param int       $offset
-     * @param int       $limit
-     * @param string    $orderBy
-     * @param string    $order
-     * @return array
-     */
-    public function getSome($recipeId, $offset, $limit, $orderBy, $order)
-    {
-        $query = $this
-            ->createQueryBuilder('c')
-            ->where('c.recipe = :recipeId')
-            ->orderBy('c.'.$orderBy, $order)
-            ->setFirstResult($offset)
-            ->setMaxResults($limit)
-            ->setParameter('recipeId', $recipeId)
-            ->getQuery()
-        ;
-
-        return $query->getResult();
     }
 }

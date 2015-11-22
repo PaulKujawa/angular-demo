@@ -11,6 +11,9 @@ use Doctrine\ORM\EntityRepository;
  */
 class BasicRepository extends EntityRepository
 {
+    /**
+     * @return mixed
+     */
     public function count()
     {
         $query = $this

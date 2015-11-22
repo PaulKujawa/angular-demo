@@ -20,8 +20,6 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
     public function load(ObjectManager $em)
     {
         self::$members[] = $this->instantiate('demoSA', 'test@gmx.de', 'testo', 'ROLE_SUPER_ADMIN');
-        self::$members[] = $this->instantiate('demoA', 'test@gmx.net', 'testo', 'ROLE_ADMIN');
-        self::$members[] = $this->instantiate('demoU', 'test@gmx.com', 'testo', 'ROLE_USER');
 
         foreach (self::$members as $i => $e) {
             $this->addReference('refUser'.($i+1), $e);

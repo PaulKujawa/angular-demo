@@ -38,8 +38,9 @@
 
 ### Temp notices
 ---
+* appDir in Tests        `$this->client->getContainer()->get('kernel')->getRootDir()`
+* newest file            `array_multisort(array_map('filemtime', $files), SORT_NUMERIC, SORT_DESC, $files)`
 * check form widget e.g. `{% if form.vars.block_prefixes.1 == "checkbox" %}`
-* get all request values `...handleRequest($request)` && `$id = $form->all()->getId()`
 
 
 ```php

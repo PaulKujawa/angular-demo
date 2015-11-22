@@ -85,11 +85,12 @@ class RecipeController extends Controller
                     $gr = $ingredient->getProduct()->getGr();
                 }
 
-                $product            = $ingredient->getProduct();
-                $macros['kcal']     += $gr*$product->getKcal()/100;
-                $macros['carbs']    += $gr*$product->getCarbs()/100;
-                $macros['protein']  += $gr*$product->getProtein()/100;
-                $macros['fat']      += $gr*$product->getFat()/100;
+                $rel                 = $gr/100;
+                $product             = $ingredient->getProduct();
+                $macros['kcal']     += $rel*$product->getKcal();
+                $macros['carbs']    += $rel*$product->getCarbs();
+                $macros['protein']  += $rel*$product->getProtein();
+                $macros['fat']      += $rel*$product->getFat();
             }
         }
 

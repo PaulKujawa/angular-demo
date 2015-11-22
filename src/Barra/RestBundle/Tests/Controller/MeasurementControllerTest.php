@@ -44,44 +44,38 @@ class MeasurementControllerTest extends WebTestCase
         );
 
         $response = json_decode($this->client->getResponse()->getContent(), true);
-        $this->assertArrayHasKey(
-            'token',
-            $response
-        );
+        $this->assertArrayHasKey('token', $response);
 
         $this->client = static::createClient(); // without (recent/any) session
         $this->client->setServerParameter('HTTP_Authorization', 'Bearer '.$response['token']);
     }
 
 
-    public function testNewAction()
+    public function testNew()
     {
         $this->client->request('GET', '/api/measurements/new');
         $this->validateResponse(Codes::HTTP_OK, '{"data":{"children":{"name":[],"gr":[]}}}');
     }
 
 
-    public function testGetAction()
+    public function testGet()
     {
-        $this->client->request('GET', '/api/measurements/3');
-        $this->validateResponse(
-            Codes::HTTP_OK,
-            '{"data":{"gr":1,"ingredients":[],"id":3,"name":"ml"}}'
-        );
+        $this->client->request('GET', '/api/measurements/1');
+        $this->validateResponse(Codes::HTTP_OK, '{"data":{"gr":1,"id":1,"name":"gr"}}');
 
-        $this->client->request('GET', '/api/measurements/-3');
+        $this->client->request('GET', '/api/measurements/0');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
 
-    public function testCgetAction()
+    public function testCget()
     {
         $this->client->request('GET', '/api/measurements?limit=2');
         $this->validateResponse(
             Codes::HTTP_OK,
             '{"data":['.
-                '{"gr":1,"ingredients":[],"id":1,"name":"gr"},'.
-                '{"gr":15,"ingredients":[],"id":2,"name":"el"}'.
+                '{"gr":1,"id":1,"name":"gr"},'.
+                '{"gr":15,"id":2,"name":"el"}'.
             ']}'
         );
 
@@ -90,7 +84,33 @@ class MeasurementControllerTest extends WebTestCase
     }
 
 
-    public function testPostAction()
+    public function testGetIngredients()
+    {
+        $this->loadFixtures([
+            'Barra\AdminBundle\DataFixtures\ORM\LoadUserData',
+            'Barra\AdminBundle\DataFixtures\ORM\LoadManufacturerData',
+            'Barra\AdminBundle\DataFixtures\ORM\LoadMeasurementData',
+            'Barra\AdminBundle\DataFixtures\ORM\LoadRecipeData',
+            'Barra\AdminBundle\DataFixtures\ORM\LoadProductData',
+            'Barra\AdminBundle\DataFixtures\ORM\LoadIngredientData',
+        ]);
+
+        $this->client->request('GET', '/api/measurements/1/ingredients');
+        $this->validateResponse(
+            Codes::HTTP_OK,
+            '{"data":['.
+                '{"id":11,"amount":1,"position":1},'.
+                '{"id":12,"amount":2,"position":2},'.
+                '{"id":13,"amount":3,"position":3}'.
+            ']}'
+        );
+
+        $this->client->request('GET', '/api/measurements/0/ingredients');
+        $this->validateResponse(Codes::HTTP_NOT_FOUND);
+    }
+
+
+    public function testPost()
     {
         $this->client->request(
             'POST',
@@ -102,67 +122,61 @@ class MeasurementControllerTest extends WebTestCase
         );
 
         $this->validateResponse(Codes::HTTP_CREATED);
-        $this->assertStringEndsWith(
-            '/api/measurements/4',
-            $this->client->getResponse()->headers->get('Location')
-        );
+        $this->assertStringEndsWith('/api/measurements/4', $this->client->getResponse()->headers->get('Location'));
     }
 
 
-    public function testPutAction()
+    public function testPostInvalid()
     {
         $this->client->request(
-            'PUT',
-            '/api/measurements/2',
+            'POST',
+            '/api/measurements',
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
-            '{"formMeasurement":{"name":"updated","gr":100}}'
-        );
-
-        $this->validateResponse(Codes::HTTP_NO_CONTENT);
-        $this->assertStringEndsWith(
-            '/api/measurements/2',
-            $this->client->getResponse()->headers->get('Location')
-        );
-    }
-
-    public function testPutActionNotFound()
-    {
-        $this->client->request(
-            'PUT',
-            '/api/measurements/4',
-            [],
-            [],
-            ['CONTENT_TYPE' => 'application/json'],
-            '{"formMeasurement":{"name":"not found","gr":1}}'
-        );
-        $this->validateResponse(Codes::HTTP_NOT_FOUND);
-    }
-
-
-    public function testPutActionInvalidForm()
-    {
-        $this->client->request(
-            'PUT',
-            '/api/measurements/2',
-            [],
-            [],
-            ['CONTENT_TYPE' => 'application/json'],
-            '{"INVALID":{"name":"updated","gr":15}}'
+            '{}'
         );
         $this->validateResponse(Codes::HTTP_BAD_REQUEST, '{"data":{"children":{"name":[],"gr":[]}}}');
     }
 
 
-    public function testDeleteAction()
+    public function testPut()
     {
-        $this->client->request('DELETE', '/api/measurements/3');
+        $this->client->request(
+            'PUT',
+            '/api/measurements/1',
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            '{"formMeasurement":{"name":"updated","gr":100}}'
+        );
+        $this->validateResponse(Codes::HTTP_NO_CONTENT);
+        $this->assertStringEndsWith('/api/measurements/1', $this->client->getResponse()->headers->get('Location'));
+
+        $this->client->request(
+            'PUT',
+            '/api/measurements/0',
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            '{}'
+        );
+        $this->validateResponse(Codes::HTTP_NOT_FOUND);
+    }
+
+
+    public function testDelete()
+    {
+        $this->client->request('DELETE', '/api/measurements/1');
         $this->validateResponse(Codes::HTTP_NO_CONTENT);
 
-        $this->client->request('DELETE', '/api/measurements/4');
+        $this->client->request('DELETE', '/api/measurements/0');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
+    }
 
+
+    public function testDeleteInvalid()
+    {
         $this->loadFixtures([
             'Barra\AdminBundle\DataFixtures\ORM\LoadUserData',
             'Barra\AdminBundle\DataFixtures\ORM\LoadManufacturerData',
@@ -172,7 +186,7 @@ class MeasurementControllerTest extends WebTestCase
             'Barra\AdminBundle\DataFixtures\ORM\LoadIngredientData',
         ]);
 
-        $this->client->request('DELETE', '/api/measurements/3');
+        $this->client->request('DELETE', '/api/measurements/1');
         $this->validateResponse(Codes::HTTP_CONFLICT);
     }
 

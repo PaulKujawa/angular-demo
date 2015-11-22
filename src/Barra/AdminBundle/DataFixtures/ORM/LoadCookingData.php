@@ -25,14 +25,6 @@ class LoadCookingData extends AbstractFixture implements OrderedFixtureInterface
         self::$members[] = $this->instantiate(2, '2th step', 'refRecipe1');
         self::$members[] = $this->instantiate(3, '3th step', 'refRecipe1');
 
-        self::$members[] = $this->instantiate(4, '1th step', 'refRecipe2');
-        self::$members[] = $this->instantiate(5, '2th step', 'refRecipe2');
-        self::$members[] = $this->instantiate(6, '3th step', 'refRecipe2');
-
-        self::$members[] = $this->instantiate(7, '1th step', 'refRecipe3');
-        self::$members[] = $this->instantiate(8, '2th step', 'refRecipe3');
-        self::$members[] = $this->instantiate(9, '3th step', 'refRecipe3');
-
         foreach (self::$members as $i => $e) {
             $this->addReference('refCooking'.($i+1), $e);
             $em->persist($e);

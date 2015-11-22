@@ -3,14 +3,12 @@
 namespace Barra\RestBundle\Controller;
 
 use Barra\AdminBundle\Entity\Repository\BasicRepository;
-use Barra\AdminBundle\Entity\Repository\RecipeRelatedRepository;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Annotations;
 use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\View\View;
-use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -23,7 +21,7 @@ class RestController extends FOSRestController implements ClassResourceInterface
     /** @var \Doctrine\ORM\EntityManager */
     protected $em;
 
-    /** string */
+    /** @var string */
     protected $entityClass;
 
     /** @var  \Symfony\Component\Form\AbstractType */
@@ -64,11 +62,6 @@ class RestController extends FOSRestController implements ClassResourceInterface
      * @link http://symfony.com/doc/current/bundles/FOSRestBundle/param_fetcher_listener.html
      *
      * @Annotations\QueryParam(
-     *      name            = "recipe",
-     *      requirements    = "\d+",
-     *      description     = "Recipe to get entries from."
-     * )
-     * @Annotations\QueryParam(
      *      name            = "offset",
      *      requirements    = "\d+",
      *      default         = "0",
@@ -97,12 +90,10 @@ class RestController extends FOSRestController implements ClassResourceInterface
      */
     public function cgetAction(ParamFetcher $paramFetcher)
     {
-        $recipe     = $paramFetcher->get('recipe');
         $offset     = $paramFetcher->get('offset');
         $limit      = $paramFetcher->get('limit');
         $orderBy    = $paramFetcher->get('order_by');
         $order      = $paramFetcher->get('order');
-        $repo       = $this->getRepo();
 
         // alternatively, 'limit' could be set as strict, in it's annotation, to set it mandatory.
         // however, RestBundle's own error message is too detailed IMHO.
@@ -113,12 +104,7 @@ class RestController extends FOSRestController implements ClassResourceInterface
             return $this->view(null, Codes::HTTP_BAD_REQUEST);
         }
 
-        $entities = null;
-        if ($repo instanceof BasicRepository) {
-            $entities = $repo->getSome($offset, $limit, $orderBy, $order);
-        } elseif ($repo instanceof RecipeRelatedRepository) {
-            $entities = $repo->getSome($recipe, $offset, $limit, $orderBy, $order);
-        }
+        $entities = $this->getRepo()->getSome($offset, $limit, $orderBy, $order);
 
         return $this->view(['data' => $entities]);
     }
@@ -131,10 +117,8 @@ class RestController extends FOSRestController implements ClassResourceInterface
     public function postAction(Request $request)
     {
         $entity = $this->getEntity();
-        $form   = $this->createForm($this->getFormType(), $entity);
-        $form->handleRequest($request);
 
-        return $this->processRequest($request, $entity, $form, Codes::HTTP_CREATED);
+        return $this->processRequest($request, $entity, Codes::HTTP_CREATED);
     }
 
 
@@ -151,10 +135,7 @@ class RestController extends FOSRestController implements ClassResourceInterface
             return $this->view(null, Codes::HTTP_NOT_FOUND);
         }
 
-        $form = $this->createForm($this->getFormType(), $entity, ['method' => $request->getMethod()]);
-        $form->handleRequest($request);
-
-        return $this->processRequest($request, $entity, $form, Codes::HTTP_NO_CONTENT);
+        return $this->processRequest($request, $entity, Codes::HTTP_NO_CONTENT);
     }
 
 
@@ -188,14 +169,16 @@ class RestController extends FOSRestController implements ClassResourceInterface
     // ######### HELPER #########################################
 
     /**
-     * @param Request   $request
-     * @param object    $entity
-     * @param Form      $form
-     * @param int       $successCode
+     * @param Request       $request
+     * @param object        $entity
+     * @param int           $successCode
      * @return View
      */
-    protected function processRequest(Request $request, $entity, Form $form, $successCode)
+    protected function processRequest(Request $request, $entity, $successCode)
     {
+        $form = $this->createForm($this->getFormType(), $entity, ['method' => $request->getMethod()]);
+        $form->handleRequest($request);
+
         if (!$form->isValid()) {
             return $this->view(['data' => $form], Codes::HTTP_BAD_REQUEST);
         }
@@ -266,7 +249,7 @@ class RestController extends FOSRestController implements ClassResourceInterface
 
     /**
      * @param string $entityClass
-     * @return \Doctrine\ORM\EntityRepository
+     * @return BasicRepository
      */
     protected function getRepo($entityClass = null)
     {

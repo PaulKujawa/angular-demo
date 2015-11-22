@@ -7,6 +7,7 @@ use Barra\AdminBundle\Entity\Traits\NameTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Exclude;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -24,9 +25,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Measurement
 {
-    use IdAutoTrait,
-        NameTrait
-    ;
+    use IdAutoTrait;
+    use NameTrait;
 
     /**
      * @var int
@@ -45,6 +45,8 @@ class Measurement
 
     /**
      * @var ArrayCollection
+     *
+     * @Exclude
      *
      * @ORM\OneToMany(
      *      targetEntity = "Ingredient",

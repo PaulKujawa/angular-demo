@@ -147,6 +147,7 @@ trait ImageTrait
      */
     public function getAbsolutePath()
     {
+
         return __DIR__.'/../../../../../web/'.$this->getWebDirectory();
     }
 

@@ -6,8 +6,9 @@ use Barra\AdminBundle\Entity\Traits\IdAutoTrait;
 use Barra\AdminBundle\Entity\Traits\NameTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use JMS\Serializer\Annotation\Exclude;
 use JMS\Serializer\Annotation\ExclusionPolicy;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Class Recipe
@@ -23,12 +24,39 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
  */
 class Recipe
 {
-    use IdAutoTrait,
-        NameTrait
-    ;
+    use IdAutoTrait;
+    use NameTrait;
 
     /**
      * @var ArrayCollection
+     *
+     * @Exclude
+     *
+     * @ORM\OneToMany(
+     *      targetEntity = "Ingredient",
+     *      mappedBy     = "recipe"
+     * )
+     * @ORM\OrderBy({"position" = "ASC"})
+     */
+    private $ingredients;
+
+    /**
+     * @var ArrayCollection
+
+     * @Exclude
+
+     * @ORM\OneToMany(
+     *      targetEntity = "Cooking",
+     *      mappedBy     = "recipe"
+     * )
+     * @ORM\OrderBy({"position" = "ASC"})
+     */
+    private $cookings;
+    
+    /**
+     * @var ArrayCollection
+     *
+     * @Exclude
      *
      * @ORM\OneToMany(
      *      targetEntity = "Photo",
@@ -42,10 +70,77 @@ class Recipe
 
     public function __construct()
     {
-        $this->photos = new ArrayCollection();
+        $this->photos      = new ArrayCollection();
+        $this->cookings    = new ArrayCollection();
+        $this->ingredients = new ArrayCollection();
+    }
+
+    /**
+     * @param Ingredient $ingredients
+     * @return $this
+     */
+    public function addIngredient(Ingredient $ingredients)
+    {
+        $this->ingredients[] = $ingredients;
+
+        return $this;
     }
 
 
+    /**
+     * @param Ingredient $cooking
+     * @return $this
+     */
+    public function removeIngredient(Ingredient $cooking)
+    {
+        $this->ingredients->removeElement($cooking);
+
+        return $this;
+    }
+
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getIngredients()
+    {
+        return $this->ingredients;
+    }
+
+
+    /**
+     * @param Cooking $cookings
+     * @return $this
+     */
+    public function addCooking(Cooking $cookings)
+    {
+        $this->cookings[] = $cookings;
+
+        return $this;
+    }
+
+
+    /**
+     * @param Cooking $cooking
+     * @return $this
+     */
+    public function removeCooking(Cooking $cooking)
+    {
+        $this->cookings->removeElement($cooking);
+
+        return $this;
+    }
+
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getCookings()
+    {
+        return $this->cookings;
+    }
+    
+    
     /**
      * @param Photo $photos
      * @return $this

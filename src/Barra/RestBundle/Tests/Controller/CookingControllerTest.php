@@ -7,10 +7,10 @@ use Liip\FunctionalTestBundle\Test\WebTestCase as WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
 
 /**
- * Class ManufacturerControllerTest
+ * Class CookingControllerTest
  * @package Barra\RestBundle\Tests\Controller
  */
-class ManufacturerControllerTest extends WebTestCase
+class CookingControllerTest extends WebTestCase
 {
     /** @var  Client */
     protected $client;
@@ -23,7 +23,8 @@ class ManufacturerControllerTest extends WebTestCase
     {
         $this->loadFixtures([
             'Barra\AdminBundle\DataFixtures\ORM\LoadUserData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadManufacturerData',
+            'Barra\AdminBundle\DataFixtures\ORM\LoadRecipeData',
+            'Barra\AdminBundle\DataFixtures\ORM\LoadCookingData',
         ]);
 
         $this->client = static::createClient();
@@ -53,68 +54,43 @@ class ManufacturerControllerTest extends WebTestCase
 
     public function testNew()
     {
-        $this->client->request('GET', '/api/manufacturers/new');
-        $this->validateResponse(Codes::HTTP_OK, '{"data":{"children":{"name":[]}}}');
+        $this->client->request('GET', '/api/cookings/new');
+        $this->validateResponse(Codes::HTTP_OK, '{"data":{"children":{"description":[],"recipe":[]}}}');
     }
 
 
     public function testGet()
     {
-        $this->client->request('GET', '/api/manufacturers/1');
-        $this->validateResponse(Codes::HTTP_OK, '{"data":{"id":1,"name":"Manufacturer1"}}');
+        $this->client->request('GET', '/api/cookings/11');
+        $this->validateResponse(Codes::HTTP_OK, '{"data":{"id":11,"description":"1th step","position":1}}');
 
-        $this->client->request('GET', '/api/manufacturers/0');
+        $this->client->request('GET', '/api/cookings/0');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
 
     public function testCget()
     {
-        $this->client->request('GET', '/api/manufacturers?limit=2');
+        $this->client->request('GET', '/api/cookings?limit=2');
         $this->validateResponse(
             Codes::HTTP_OK,
             '{"data":['.
-                '{"id":1,"name":"Manufacturer1"},'.
-                '{"id":2,"name":"Manufacturer2"}'.
+                '{"id":11,"description":"1th step","position":1},'.
+                '{"id":12,"description":"2th step","position":2}'.
             ']}'
         );
 
-        $this->client->request('GET', '/api/manufacturers');
+        $this->client->request('GET', '/api/cookings');
         $this->validateResponse(Codes::HTTP_BAD_REQUEST);
     }
 
 
-    public function testGetProducts()
+    public function testGetRecipe()
     {
-        $this->loadFixtures(
-            [
-                'Barra\AdminBundle\DataFixtures\ORM\LoadUserData',
-                'Barra\AdminBundle\DataFixtures\ORM\LoadManufacturerData',
-                'Barra\AdminBundle\DataFixtures\ORM\LoadProductData',
-            ]
-        );
+        $this->client->request('GET', '/api/cookings/11/recipe');
+        $this->validateResponse(Codes::HTTP_OK, '{"data":{"id":1,"name":"Recipe1"}}');
 
-        $this->client->request('GET', '/api/manufacturers/1/products');
-        $this->validateResponse(
-            Codes::HTTP_OK,
-            '{"data":['.
-                '{'.
-                    '"vegan":false,"gr":1,"kcal":1,"protein":1,"carbs":1,'.
-                    '"sugar":1,"fat":1,"gfat":1,"id":1,"name":"Product1"'.
-                '},{'.
-                    '"vegan":true,"gr":1,"kcal":1,"protein":1,"carbs":1,'.
-                    '"sugar":1,"fat":1,"gfat":1,"id":2,"name":"Product2"'.
-                '},{'.
-                    '"vegan":true,"gr":1,"kcal":1,"protein":1,"carbs":1,'.
-                    '"sugar":1,"fat":1,"gfat":1,"id":3,"name":"Product3"'.
-                '},{'.
-                    '"vegan":true,"gr":1,"kcal":1,"protein":1,"carbs":1,'.
-                    '"sugar":1,"fat":1,"gfat":1,"id":4,"name":"Product4"'.
-                '}'.
-            ']}'
-        );
-
-        $this->client->request('GET', '/api/manufacturers/0/products');
+        $this->client->request('GET', '/api/cookings/0/recipe');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
@@ -123,15 +99,15 @@ class ManufacturerControllerTest extends WebTestCase
     {
         $this->client->request(
             'POST',
-            '/api/manufacturers',
+            '/api/cookings',
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
-            '{"formManufacturer":{"name":"Manufacturer4"}}'
+            '{"formCooking":{"description":"new step","recipe":1}}'
         );
 
         $this->validateResponse(Codes::HTTP_CREATED);
-        $this->assertStringEndsWith('/api/manufacturers/4', $this->client->getResponse()->headers->get('Location'));
+        $this->assertStringEndsWith('/api/cookings/14', $this->client->getResponse()->headers->get('Location'));
     }
 
 
@@ -139,13 +115,24 @@ class ManufacturerControllerTest extends WebTestCase
     {
         $this->client->request(
             'POST',
-            '/api/manufacturers',
+            '/api/cookings',
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             '{}'
         );
-        $this->validateResponse(Codes::HTTP_BAD_REQUEST, '{"data":{"children":{"name":[]}}}');
+        $this->validateResponse(Codes::HTTP_BAD_REQUEST, '{"data":{"children":{"description":[],"recipe":[]}}}');
+
+
+        $this->client->request(
+            'POST',
+            '/api/cookings',
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            '{"formCooking":{"recipe":0}}'
+        );
+        $this->validateResponse(Codes::HTTP_BAD_REQUEST, '{"data":{"children":{"description":[],"recipe":[]}}}');
     }
 
 
@@ -153,18 +140,18 @@ class ManufacturerControllerTest extends WebTestCase
     {
         $this->client->request(
             'PUT',
-            '/api/manufacturers/1',
+            '/api/cookings/11',
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
-            '{"formManufacturer":{"name":"updated"}}'
+            '{"formCooking":{"description":"updated step","recipe":1}}'
         );
         $this->validateResponse(Codes::HTTP_NO_CONTENT);
-        $this->assertStringEndsWith('/api/manufacturers/1', $this->client->getResponse()->headers->get('Location'));
+        $this->assertStringEndsWith('/api/cookings/11', $this->client->getResponse()->headers->get('Location'));
 
         $this->client->request(
             'PUT',
-            '/api/manufacturers/0',
+            '/api/cookings/0',
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
@@ -176,24 +163,11 @@ class ManufacturerControllerTest extends WebTestCase
 
     public function testDelete()
     {
-        $this->client->request('DELETE', '/api/manufacturers/1');
+        $this->client->request('DELETE', '/api/cookings/11');
         $this->validateResponse(Codes::HTTP_NO_CONTENT);
 
-        $this->client->request('DELETE', '/api/manufacturers/0');
+        $this->client->request('DELETE', '/api/cookings/0');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
-    }
-
-
-    public function testDeleteInvalid()
-    {
-        $this->loadFixtures([
-            'Barra\AdminBundle\DataFixtures\ORM\LoadUserData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadManufacturerData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadProductData',
-        ]);
-
-        $this->client->request('DELETE', '/api/manufacturers/1');
-        $this->validateResponse(Codes::HTTP_CONFLICT);
     }
 
 

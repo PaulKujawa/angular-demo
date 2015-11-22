@@ -15,13 +15,20 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class PhotoController extends RestController
 {
-    protected function processRequest(Request $request, $entity, Form $form, $successCode)
+    protected function processRequest(Request $request, $entity, $successCode)
     {
         if ($request->isMethod('POST')) {
-            $requestBody = array_values($request->request->all())[0];
-            $recipe      = $this->getRepo('Recipe')->find($requestBody['recipe']);
+            $requestBody = array_values($request->request->all());
+
+            if (empty($requestBody)) {
+                $form = $this->createForm($this->getFormType(), $entity, ['method' => $request->getMethod()]);
+                return $this->view(['data' => $form], Codes::HTTP_BAD_REQUEST);
+            }
+
+            $recipe = $this->getRepo('Recipe')->find($requestBody[0]['recipe']);
 
             if (!$recipe instanceof Recipe) {
+                $form = $this->createForm($this->getFormType(), $entity, ['method' => $request->getMethod()]);
                 return $this->view($form, Codes::HTTP_BAD_REQUEST);
             }
 
@@ -34,6 +41,6 @@ class PhotoController extends RestController
             ;
         }
 
-        return parent::processRequest($request, $entity, $form, $successCode);
+        return parent::processRequest($request, $entity, $successCode);
     }
 }

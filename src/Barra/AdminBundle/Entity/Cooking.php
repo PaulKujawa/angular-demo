@@ -4,10 +4,11 @@ namespace Barra\AdminBundle\Entity;
 
 use Barra\AdminBundle\Entity\Traits\DescriptionTrait;
 use Barra\AdminBundle\Entity\Traits\PositionTrait;
-use Barra\AdminBundle\Entity\Traits\RecipeTrait;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Exclude;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Cooking
@@ -27,10 +28,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class Cooking
 {
-    use PositionTrait,
-        RecipeTrait,
-        DescriptionTrait
-    ;
+    use DescriptionTrait;
+    use PositionTrait;
 
     /**
      * @var int
@@ -42,6 +41,48 @@ class Cooking
      * )
      */
     protected $id;
+
+    /**
+     * @var Recipe
+     *
+     * @Assert\NotNull()
+     *
+     * @Exclude
+     *
+     * @ORM\ManyToOne(
+     *      targetEntity = "Recipe",
+     *      inversedBy   = "cookings"
+     * )
+     * @ORM\JoinColumn(
+     *      name                 = "recipe",
+     *      referencedColumnName = "id",
+     *      nullable             = false,
+     *      onDelete             = "CASCADE"
+     * )
+     * @ORM\OrderBy({"name" = "ASC"})
+     */
+    private $recipe;
+
+
+    /**
+     * @param Recipe $recipe
+     * @return $this
+     */
+    public function setRecipe(Recipe $recipe)
+    {
+        $this->recipe = $recipe;
+
+        return $this;
+    }
+
+
+    /**
+     * @return Recipe
+     */
+    public function getRecipe()
+    {
+        return $this->recipe;
+    }
 
 
     /**

@@ -3,8 +3,8 @@
 namespace Barra\AdminBundle\Entity;
 
 use Barra\AdminBundle\Entity\Traits\PositionTrait;
-use Barra\AdminBundle\Entity\Traits\RecipeTrait;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Exclude;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -31,9 +31,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Ingredient
 {
-    use PositionTrait,
-        RecipeTrait
-    ;
+    use PositionTrait;
 
     /**
      * @var int
@@ -47,9 +45,32 @@ class Ingredient
     protected $id;
 
     /**
+     * @var Recipe
+     *
+     * @Assert\NotNull()
+     *
+     * @Exclude
+     *
+     * @ORM\ManyToOne(
+     *      targetEntity = "Recipe",
+     *      inversedBy   = "ingredients"
+     * )
+     * @ORM\JoinColumn(
+     *      name                 = "recipe",
+     *      referencedColumnName = "id",
+     *      nullable             = false,
+     *      onDelete             = "CASCADE"
+     * )
+     * @ORM\OrderBy({"name" = "ASC"})
+     */
+    private $recipe;
+
+    /**
      * @var Product
      *
      * @Assert\NotNull()
+     *
+     * @Exclude
      *
      * @ORM\ManyToOne(
      *      targetEntity = "Product",
@@ -81,6 +102,8 @@ class Ingredient
     /**
      * @var Measurement
      *
+     * @Exclude
+     *
      * @ORM\ManyToOne(
      *      targetEntity = "Measurement",
      *      inversedBy   = "ingredients"
@@ -93,6 +116,27 @@ class Ingredient
      * @ORM\OrderBy({"name" = "ASC"})
      */
     private $measurement;
+
+
+    /**
+     * @param Recipe $recipe
+     * @return $this
+     */
+    public function setRecipe(Recipe $recipe)
+    {
+        $this->recipe = $recipe;
+
+        return $this;
+    }
+
+
+    /**
+     * @return Recipe
+     */
+    public function getRecipe()
+    {
+        return $this->recipe;
+    }
 
 
     /**

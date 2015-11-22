@@ -6,6 +6,7 @@ use Barra\AdminBundle\Entity\Traits\IdAutoTrait;
 use Barra\AdminBundle\Entity\Traits\NameTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Exclude;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -24,9 +25,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Product
 {
-    use NameTrait,
-        IdAutoTrait
-    ;
+    use IdAutoTrait;
+    use NameTrait;
 
     /**
      * @var bool
@@ -155,6 +155,8 @@ class Product
      *
      * @Assert\NotNull()
      *
+     * @Exclude
+     *
      * @ORM\ManyToOne(
      *      targetEntity = "Manufacturer",
      *      inversedBy   = "products"
@@ -170,6 +172,8 @@ class Product
 
     /**
      * @var ArrayCollection
+     *
+     * @Exclude
      *
      * @ORM\OneToMany(
      *      targetEntity = "Ingredient",

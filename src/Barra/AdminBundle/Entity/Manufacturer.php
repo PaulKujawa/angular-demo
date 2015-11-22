@@ -6,6 +6,7 @@ use Barra\AdminBundle\Entity\Traits\IdAutoTrait;
 use Barra\AdminBundle\Entity\Traits\NameTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Exclude;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -23,12 +24,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class Manufacturer
 {
-    use IdAutoTrait,
-        NameTrait
-    ;
+    use IdAutoTrait;
+    use NameTrait;
 
     /**
      * @var ArrayCollection
+     *
+     * @Exclude
      *
      * @ORM\OneToMany(
      *      targetEntity = "Product",

@@ -6,6 +6,7 @@ use Barra\AdminBundle\Entity\Traits\IdAutoTrait;
 use Barra\AdminBundle\Entity\Traits\NameTrait;
 use Barra\AdminBundle\Entity\Traits\ImageTrait;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Exclude;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -26,13 +27,14 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Photo
 {
-    use IdAutoTrait,
-        NameTrait,
-        ImageTrait
-    ;
+    use IdAutoTrait;
+    use ImageTrait;
+    use NameTrait;
 
     /**
      * @var Recipe
+     *
+     * @Exclude
      *
      * @Assert\NotNull()
      *

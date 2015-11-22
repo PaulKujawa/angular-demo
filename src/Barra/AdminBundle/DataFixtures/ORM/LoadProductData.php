@@ -34,14 +34,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         self::$members[] = $this->instantiate('Product1', false, $nutritions, 'refManufacturer1');
         self::$members[] = $this->instantiate('Product2', true, $nutritions, 'refManufacturer1');
         self::$members[] = $this->instantiate('Product3', true, $nutritions, 'refManufacturer1');
-
-        self::$members[] = $this->instantiate('Product4', true, $nutritions, 'refManufacturer2');
-        self::$members[] = $this->instantiate('Product5', false, $nutritions, 'refManufacturer2');
-        self::$members[] = $this->instantiate('Product6', true, $nutritions, 'refManufacturer2');
-
-        self::$members[] = $this->instantiate('Product7', false, $nutritions, 'refManufacturer3');
-        self::$members[] = $this->instantiate('Product8', true, $nutritions, 'refManufacturer3');
-        self::$members[] = $this->instantiate('Product9', true, $nutritions, 'refManufacturer3');
+        self::$members[] = $this->instantiate('Product4', true, $nutritions, 'refManufacturer1');
 
         foreach (self::$members as $i => $e) {
             $this->addReference('refProduct'.($i+1), $e);
