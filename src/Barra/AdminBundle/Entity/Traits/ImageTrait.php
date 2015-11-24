@@ -2,6 +2,8 @@
 
 namespace Barra\AdminBundle\Entity\Traits;
 
+use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\VirtualProperty;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -170,6 +172,9 @@ trait ImageTrait
     }
 
     /**
+     * @VirtualProperty
+     * @SerializedName("path")
+
      * @return string
      */
     public function getWebDirectory()

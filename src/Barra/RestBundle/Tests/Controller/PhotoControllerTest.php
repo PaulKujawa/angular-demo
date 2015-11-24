@@ -82,7 +82,7 @@ class PhotoControllerTest extends WebTestCase
 
         $this->validateResponse(
             Codes::HTTP_OK,
-            '{"data":{"id":1,"filename":"'.$matches[1].'","size":145263}}'
+            '{"data":{"path":"uploads\/documents","id":1,"filename":"'.$matches[1].'","size":145263}}'
         );
 
         $this->client->request('GET', '/en/api/photos/0');
@@ -101,8 +101,8 @@ class PhotoControllerTest extends WebTestCase
         $this->validateResponse(
             Codes::HTTP_OK,
             '{"data":['.
-                '{"id":1,"filename":"'.$matches[1].'","size":145263},'.
-                '{"id":2,"filename":"'.$matches[2].'","size":145263}'.
+                '{"path":"uploads\/documents","id":1,"filename":"'.$matches[1].'","size":145263},'.
+                '{"path":"uploads\/documents","id":2,"filename":"'.$matches[2].'","size":145263}'.
             ']}'
         );
 

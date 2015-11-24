@@ -3,7 +3,6 @@
 namespace Barra\AdminBundle\Entity;
 
 use Barra\AdminBundle\Entity\Traits\IdAutoTrait;
-use Barra\AdminBundle\Entity\Traits\NameTrait;
 use Barra\AdminBundle\Entity\Traits\ImageTrait;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Exclude;
