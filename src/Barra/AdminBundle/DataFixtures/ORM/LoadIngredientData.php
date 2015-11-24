@@ -25,7 +25,7 @@ class LoadIngredientData extends AbstractFixture implements OrderedFixtureInterf
     {
         self::$members[] = $this->instantiate(1, 1, 'refMeasurement1', 'refRecipe1', 'refProduct1');
         self::$members[] = $this->instantiate(2, 2, 'refMeasurement1', 'refRecipe1', 'refProduct2');
-        self::$members[] = $this->instantiate(3, 3, 'refMeasurement1', 'refRecipe1', 'refProduct3');
+        self::$members[] = $this->instantiate(3, 3, 'refMeasurement1', 'refRecipe2', 'refProduct1');
 
         foreach (self::$members as $i => $e) {
             $this->addReference('refIngredient'.($i+1), $e);

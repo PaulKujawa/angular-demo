@@ -18,7 +18,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ExclusionPolicy("none")
  *
- * @UniqueEntity("name")
  * @UniqueEntity("filename")
  *
  * @ORM\Table()
@@ -29,7 +28,6 @@ class Photo
 {
     use IdAutoTrait;
     use ImageTrait;
-    use NameTrait;
 
     /**
      * @var Recipe

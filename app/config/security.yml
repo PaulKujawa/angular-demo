@@ -22,7 +22,7 @@ security:
                 path:                     fos_user_security_logout
                 target:                   barra_front_root
         api:
-            pattern:                      ^/api/.*
+            pattern:                      ^/[a-z][a-z]/api/.*
             provider:                     fos_userbundle
             stateless:                    true                      # anonymous key not enabled
             methods:                      [POST, PUT, DELETE]       # GET keeps public
@@ -38,7 +38,7 @@ security:
 
 
     access_control:
-        - { path: ^/api/,                         role: ROLE_ADMIN }
+        - { path: ^/[a-z][a-z]/api/,              role: ROLE_ADMIN }
         - { path: ^/[a-z][a-z]/admino/login$,     role: IS_AUTHENTICATED_ANONYMOUSLY }
       # - { path: ^/[a-z][a-z]/admino/register,   role: IS_AUTHENTICATED_ANONYMOUSLY }
       # - { path: ^/[a-z][a-z]/admino/resetting,  role: IS_AUTHENTICATED_ANONYMOUSLY }

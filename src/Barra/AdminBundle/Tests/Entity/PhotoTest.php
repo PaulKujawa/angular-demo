@@ -57,40 +57,6 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
     /**
      * @return Photo
      */
-    public function testSetName()
-    {
-        $resource = $this->model->setName(self::NAME);
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
-
-        return $resource;
-    }
-
-
-    /**
-     * @depends testSetName
-     * @param Photo $self
-     */
-    public function testGetName(Photo $self)
-    {
-        $got = $self->getName();
-        $this->assertInternalType(
-            'string',
-            $got
-        );
-
-        $this->assertEquals(
-            self::NAME,
-            $got
-        );
-    }
-
-
-    /**
-     * @return Photo
-     */
     public function testSetFilename()
     {
         $resource = $this->model->setFilename(self::FILENAME);

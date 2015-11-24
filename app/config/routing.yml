@@ -16,7 +16,7 @@ fos_user:
 barra_rest:
     type:     rest
     resource: "@BarraRestBundle/Resources/config/routing.yml"
-    prefix:   /api
+    prefix:   /{_locale}/api
     options:
         expose: true
 

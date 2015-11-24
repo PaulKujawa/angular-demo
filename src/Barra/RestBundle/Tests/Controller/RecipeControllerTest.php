@@ -2,8 +2,6 @@
 
 namespace Barra\RestBundle\Tests\Controller;
 
-use Barra\AdminBundle\DataFixtures\ORM\LoadPhotoData;
-use Barra\AdminBundle\Entity\Photo;
 use FOS\RestBundle\Util\Codes;
 use Liip\FunctionalTestBundle\Test\WebTestCase as WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
@@ -55,24 +53,24 @@ class RecipeControllerTest extends WebTestCase
 
     public function testNew()
     {
-        $this->client->request('GET', '/api/recipes/new');
+        $this->client->request('GET', '/en/api/recipes/new');
         $this->validateResponse(Codes::HTTP_OK, '{"data":{"children":{"name":[]}}}');
     }
 
 
     public function testGet()
     {
-        $this->client->request('GET', '/api/recipes/1');
+        $this->client->request('GET', '/en/api/recipes/1');
         $this->validateResponse(Codes::HTTP_OK, '{"data":{"id":1,"name":"Recipe1"}}');
 
-        $this->client->request('GET', '/api/recipes/0');
+        $this->client->request('GET', '/en/api/recipes/0');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
 
     public function testCget()
     {
-        $this->client->request('GET', '/api/recipes?limit=2');
+        $this->client->request('GET', '/en/api/recipes?limit=2');
         $this->validateResponse(
             Codes::HTTP_OK,
             '{"data":['.
@@ -81,7 +79,7 @@ class RecipeControllerTest extends WebTestCase
             ']}'
         );
 
-        $this->client->request('GET', '/api/recipes');
+        $this->client->request('GET', '/en/api/recipes');
         $this->validateResponse(Codes::HTTP_BAD_REQUEST);
     }
 
@@ -97,17 +95,16 @@ class RecipeControllerTest extends WebTestCase
             'Barra\AdminBundle\DataFixtures\ORM\LoadIngredientData',
         ]);
 
-        $this->client->request('GET', '/api/recipes/1/ingredients');
+        $this->client->request('GET', '/en/api/recipes/1/ingredients');
         $this->validateResponse(
             Codes::HTTP_OK,
             '{"data":['.
                 '{"id":11,"amount":1,"position":1},'.
-                '{"id":12,"amount":2,"position":2},'.
-                '{"id":13,"amount":3,"position":3}'.
+                '{"id":12,"amount":2,"position":2}'.
             ']}'
         );
 
-        $this->client->request('GET', '/api/recipes/0/ingredients');
+        $this->client->request('GET', '/en/api/recipes/0/ingredients');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
@@ -120,7 +117,7 @@ class RecipeControllerTest extends WebTestCase
             'Barra\AdminBundle\DataFixtures\ORM\LoadCookingData',
         ]);
 
-        $this->client->request('GET', '/api/recipes/1/cookings');
+        $this->client->request('GET', '/en/api/recipes/1/cookings');
         $this->validateResponse(
             Codes::HTTP_OK,
             '{"data":['.
@@ -130,13 +127,12 @@ class RecipeControllerTest extends WebTestCase
             ']}'
         );
 
-        $this->client->request('GET', '/api/recipes/0/cookings');
+        $this->client->request('GET', '/en/api/recipes/0/cookings');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
 
-    /** TODO deactivated, since $members is empty */
-    public function GetPhotos()
+    public function testGetPhotos()
     {
         $this->loadFixtures([
             'Barra\AdminBundle\DataFixtures\ORM\LoadUserData',
@@ -144,20 +140,21 @@ class RecipeControllerTest extends WebTestCase
             'Barra\AdminBundle\DataFixtures\ORM\LoadPhotoData',
         ]);
 
-        $this->client->request('GET', '/api/recipes/1/photos');
-
-        /** @var Photo $photo */
-        $photo = LoadPhotoData::$members[0];
+        $this->client->request('GET', '/en/api/recipes/1/photos');
+        preg_match(
+            "/.*\"filename\":\"(.*jpeg).*\"filename\":\"(.*jpeg)/",
+            $this->client->getResponse()->getContent(), $matches
+        );
 
         $this->validateResponse(
             Codes::HTTP_OK,
             '{"data":['.
-                '{"id":3,"filename":"'.$photo->getFilename().'","size":145263,"name":"Photo3"}'.
+                '{"id":1,"filename":"'.$matches[1].'","size":145263},'.
+                '{"id":2,"filename":"'.$matches[2].'","size":145263}'.
             ']}'
         );
-        unlink($photo->getAbsolutePathWithFilename());
 
-        $this->client->request('GET', '/api/recipes/0/photos');
+        $this->client->request('GET', '/en/api/recipes/0/photos');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
@@ -166,7 +163,7 @@ class RecipeControllerTest extends WebTestCase
     {
         $this->client->request(
             'POST',
-            '/api/recipes',
+            '/en/api/recipes',
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
@@ -174,7 +171,7 @@ class RecipeControllerTest extends WebTestCase
         );
 
         $this->validateResponse(Codes::HTTP_CREATED);
-        $this->assertStringEndsWith('/api/recipes/4', $this->client->getResponse()->headers->get('Location'));
+        $this->assertStringEndsWith('/en/api/recipes/4', $this->client->getResponse()->headers->get('Location'));
     }
 
 
@@ -182,7 +179,7 @@ class RecipeControllerTest extends WebTestCase
     {
         $this->client->request(
             'POST',
-            '/api/recipes',
+            '/en/api/recipes',
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
@@ -196,18 +193,18 @@ class RecipeControllerTest extends WebTestCase
     {
         $this->client->request(
             'PUT',
-            '/api/recipes/1',
+            '/en/api/recipes/1',
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             '{"formRecipe":{"name":"updated"}}'
         );
         $this->validateResponse(Codes::HTTP_NO_CONTENT);
-        $this->assertStringEndsWith('/api/recipes/1', $this->client->getResponse()->headers->get('Location'));
+        $this->assertStringEndsWith('/en/api/recipes/1', $this->client->getResponse()->headers->get('Location'));
 
         $this->client->request(
             'PUT',
-            '/api/recipes/0',
+            '/en/api/recipes/0',
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
@@ -219,10 +216,10 @@ class RecipeControllerTest extends WebTestCase
 
     public function testDelete()
     {
-        $this->client->request('DELETE', '/api/recipes/1');
+        $this->client->request('DELETE', '/en/api/recipes/1');
         $this->validateResponse(Codes::HTTP_NO_CONTENT);
 
-        $this->client->request('DELETE', '/api/recipes/0');
+        $this->client->request('DELETE', '/en/api/recipes/0');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 

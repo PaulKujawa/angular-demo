@@ -2,10 +2,10 @@
 
 namespace Barra\RestBundle\Controller;
 
+use Barra\AdminBundle\Entity\Photo;
 use Barra\AdminBundle\Entity\Recipe;
+use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Util\Codes;
-use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -15,6 +15,22 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class PhotoController extends RestController
 {
+    /**
+     * @param int $id
+     * @return View
+     */
+    public function getRecipeAction($id)
+    {
+        $entity = $this->getRepo()->find($id);
+
+        if (!$entity instanceof Photo) {
+            return $this->view(null, Codes::HTTP_NOT_FOUND);
+        }
+
+        return $this->view(['data' => $entity->getRecipe()]);
+    }
+
+
     protected function processRequest(Request $request, $entity, $successCode)
     {
         if ($request->isMethod('POST')) {
@@ -29,16 +45,9 @@ class PhotoController extends RestController
 
             if (!$recipe instanceof Recipe) {
                 $form = $this->createForm($this->getFormType(), $entity, ['method' => $request->getMethod()]);
-                return $this->view($form, Codes::HTTP_BAD_REQUEST);
+                return $this->view(['data' => $form], Codes::HTTP_BAD_REQUEST);
             }
-
-            /** @var UploadedFile $file */
-            $file = $request->files[0];
-            $entity
-                ->setRecipe($recipe)
-                ->setFile($file)
-                ->setSize($file->getClientSize())
-            ;
+            $entity->setRecipe($recipe);
         }
 
         return parent::processRequest($request, $entity, $successCode);

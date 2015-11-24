@@ -23,7 +23,7 @@ class LoadPhotoData extends AbstractFixture implements OrderedFixtureInterface
     public function load(ObjectManager $em)
     {
         self::$members[] = $this->instantiate('Photo1', 'refRecipe1');
-        self::$members[] = $this->instantiate('Photo2', 'refRecipe2');
+        self::$members[] = $this->instantiate('Photo2', 'refRecipe1');
         self::$members[] = $this->instantiate('Photo3', 'refRecipe3');
 
         foreach (self::$members as $i => $e) {
@@ -49,13 +49,11 @@ class LoadPhotoData extends AbstractFixture implements OrderedFixtureInterface
         }
 
         $entity = new Photo();
-        $entity->setName($name);
-        $file = $this->simulateUpload($entity);
+        $file   = $this->simulateUpload($entity, $name);
 
         $entity
             ->setRecipe($recipe)
             ->setFile($file)
-            ->setSize($file->getClientSize())
         ;
 
         return $entity;
@@ -63,26 +61,23 @@ class LoadPhotoData extends AbstractFixture implements OrderedFixtureInterface
 
 
     /**
-     * @param Photo $entity
+     * @param Photo     $entity
+     * @param string    $filename
      * @return UploadedFile
      */
-    protected function simulateUpload(Photo $entity)
+    protected function simulateUpload(Photo $entity, $filename)
     {
-        // set up demo picture to simulate an upload
-        $demoFileName   = $entity->getName().'jpg';
-        $demoFile       = $entity->getAbsolutePath().DIRECTORY_SEPARATOR.$demoFileName;
+        $filename .= 'jpg';
+        $newFile   = $entity->getAbsolutePath().'/'.$filename;
 
-        copy(
-            $entity->getAbsolutePath().'/fixture.jpg',
-            $demoFile
-        );
+        copy($entity->getAbsolutePath().'/fixture.jpg', $newFile);
 
         // 'receive' uploaded file and instantiate an representing object
         return new UploadedFile(
-            $demoFile,
-            $demoFileName,
-            null,
-            filesize($demoFile),
+            $newFile,
+            $filename,
+            'image/jpeg',
+            filesize($newFile),
             null,
             true
         );

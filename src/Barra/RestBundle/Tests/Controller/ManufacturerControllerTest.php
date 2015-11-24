@@ -53,24 +53,24 @@ class ManufacturerControllerTest extends WebTestCase
 
     public function testNew()
     {
-        $this->client->request('GET', '/api/manufacturers/new');
+        $this->client->request('GET', '/en/api/manufacturers/new');
         $this->validateResponse(Codes::HTTP_OK, '{"data":{"children":{"name":[]}}}');
     }
 
 
     public function testGet()
     {
-        $this->client->request('GET', '/api/manufacturers/1');
+        $this->client->request('GET', '/en/api/manufacturers/1');
         $this->validateResponse(Codes::HTTP_OK, '{"data":{"id":1,"name":"Manufacturer1"}}');
 
-        $this->client->request('GET', '/api/manufacturers/0');
+        $this->client->request('GET', '/en/api/manufacturers/0');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
 
     public function testCget()
     {
-        $this->client->request('GET', '/api/manufacturers?limit=2');
+        $this->client->request('GET', '/en/api/manufacturers?limit=2');
         $this->validateResponse(
             Codes::HTTP_OK,
             '{"data":['.
@@ -79,7 +79,7 @@ class ManufacturerControllerTest extends WebTestCase
             ']}'
         );
 
-        $this->client->request('GET', '/api/manufacturers');
+        $this->client->request('GET', '/en/api/manufacturers');
         $this->validateResponse(Codes::HTTP_BAD_REQUEST);
     }
 
@@ -94,7 +94,7 @@ class ManufacturerControllerTest extends WebTestCase
             ]
         );
 
-        $this->client->request('GET', '/api/manufacturers/1/products');
+        $this->client->request('GET', '/en/api/manufacturers/1/products');
         $this->validateResponse(
             Codes::HTTP_OK,
             '{"data":['.
@@ -114,7 +114,7 @@ class ManufacturerControllerTest extends WebTestCase
             ']}'
         );
 
-        $this->client->request('GET', '/api/manufacturers/0/products');
+        $this->client->request('GET', '/en/api/manufacturers/0/products');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
@@ -123,7 +123,7 @@ class ManufacturerControllerTest extends WebTestCase
     {
         $this->client->request(
             'POST',
-            '/api/manufacturers',
+            '/en/api/manufacturers',
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
@@ -131,7 +131,7 @@ class ManufacturerControllerTest extends WebTestCase
         );
 
         $this->validateResponse(Codes::HTTP_CREATED);
-        $this->assertStringEndsWith('/api/manufacturers/4', $this->client->getResponse()->headers->get('Location'));
+        $this->assertStringEndsWith('/en/api/manufacturers/4', $this->client->getResponse()->headers->get('Location'));
     }
 
 
@@ -139,7 +139,7 @@ class ManufacturerControllerTest extends WebTestCase
     {
         $this->client->request(
             'POST',
-            '/api/manufacturers',
+            '/en/api/manufacturers',
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
@@ -153,18 +153,18 @@ class ManufacturerControllerTest extends WebTestCase
     {
         $this->client->request(
             'PUT',
-            '/api/manufacturers/1',
+            '/en/api/manufacturers/1',
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             '{"formManufacturer":{"name":"updated"}}'
         );
         $this->validateResponse(Codes::HTTP_NO_CONTENT);
-        $this->assertStringEndsWith('/api/manufacturers/1', $this->client->getResponse()->headers->get('Location'));
+        $this->assertStringEndsWith('/en/api/manufacturers/1', $this->client->getResponse()->headers->get('Location'));
 
         $this->client->request(
             'PUT',
-            '/api/manufacturers/0',
+            '/en/api/manufacturers/0',
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
@@ -176,10 +176,10 @@ class ManufacturerControllerTest extends WebTestCase
 
     public function testDelete()
     {
-        $this->client->request('DELETE', '/api/manufacturers/1');
+        $this->client->request('DELETE', '/en/api/manufacturers/1');
         $this->validateResponse(Codes::HTTP_NO_CONTENT);
 
-        $this->client->request('DELETE', '/api/manufacturers/0');
+        $this->client->request('DELETE', '/en/api/manufacturers/0');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
@@ -192,7 +192,7 @@ class ManufacturerControllerTest extends WebTestCase
             'Barra\AdminBundle\DataFixtures\ORM\LoadProductData',
         ]);
 
-        $this->client->request('DELETE', '/api/manufacturers/1');
+        $this->client->request('DELETE', '/en/api/manufacturers/1');
         $this->validateResponse(Codes::HTTP_CONFLICT);
     }
 

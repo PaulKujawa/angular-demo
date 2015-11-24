@@ -5,12 +5,13 @@ namespace Barra\RestBundle\Tests\Controller;
 use FOS\RestBundle\Util\Codes;
 use Liip\FunctionalTestBundle\Test\WebTestCase as WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * Class CookingControllerTest
+ * Class PhotoControllerTest
  * @package Barra\RestBundle\Tests\Controller
  */
-class CookingControllerTest extends WebTestCase
+class PhotoControllerTest extends WebTestCase
 {
     /** @var  Client */
     protected $client;
@@ -24,7 +25,7 @@ class CookingControllerTest extends WebTestCase
         $this->loadFixtures([
             'Barra\AdminBundle\DataFixtures\ORM\LoadUserData',
             'Barra\AdminBundle\DataFixtures\ORM\LoadRecipeData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadCookingData',
+            'Barra\AdminBundle\DataFixtures\ORM\LoadPhotoData',
         ]);
 
         $this->client = static::createClient();
@@ -52,62 +53,91 @@ class CookingControllerTest extends WebTestCase
     }
 
 
+    public function tearDown()
+    {
+        $this->client->request('GET', '/en/api/photos?limit=4');
+        $response = json_decode($this->client->getResponse()->getContent(), true);
+        $path     = $this->client->getContainer()->get('kernel')->getRootDir().'/../web/uploads/documents/';
+
+        // since the whole DB is cached, most of the time no fixtures are loaded and therefore no files created
+        foreach ($response['data'] as $i => $e) {
+            if (file_exists($path.$e['filename'])) {
+                unlink($path.$e['filename']);
+            }
+        }
+    }
+
+
     public function testNew()
     {
-        $this->client->request('GET', '/en/api/cookings/new');
-        $this->validateResponse(Codes::HTTP_OK, '{"data":{"children":{"description":[],"recipe":[]}}}');
+        $this->client->request('GET', '/en/api/photos/new');
+        $this->validateResponse(Codes::HTTP_OK, '{"data":{"children":{"recipe":[],"file":[]}}}');
     }
 
 
     public function testGet()
     {
-        $this->client->request('GET', '/en/api/cookings/11');
-        $this->validateResponse(Codes::HTTP_OK, '{"data":{"id":11,"description":"1th step","position":1}}');
+        $this->client->request('GET', '/en/api/photos/1');
+        preg_match("/.*\"filename\":\"(.*jpeg)/", $this->client->getResponse()->getContent(), $matches);
 
-        $this->client->request('GET', '/en/api/cookings/0');
+        $this->validateResponse(
+            Codes::HTTP_OK,
+            '{"data":{"id":1,"filename":"'.$matches[1].'","size":145263}}'
+        );
+
+        $this->client->request('GET', '/en/api/photos/0');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
 
     public function testCget()
     {
-        $this->client->request('GET', '/en/api/cookings?limit=2');
+        $this->client->request('GET', '/en/api/photos?limit=2');
+        preg_match(
+            "/.*\"filename\":\"(.*jpeg).*\"filename\":\"(.*jpeg)/",
+            $this->client->getResponse()->getContent(), $matches
+        );
+
         $this->validateResponse(
             Codes::HTTP_OK,
             '{"data":['.
-                '{"id":11,"description":"1th step","position":1},'.
-                '{"id":12,"description":"2th step","position":2}'.
+                '{"id":1,"filename":"'.$matches[1].'","size":145263},'.
+                '{"id":2,"filename":"'.$matches[2].'","size":145263}'.
             ']}'
         );
 
-        $this->client->request('GET', '/en/api/cookings');
+        $this->client->request('GET', '/en/api/photos');
         $this->validateResponse(Codes::HTTP_BAD_REQUEST);
     }
 
 
     public function testGetRecipe()
     {
-        $this->client->request('GET', '/en/api/cookings/11/recipe');
+        $this->client->request('GET', '/en/api/photos/1/recipe');
         $this->validateResponse(Codes::HTTP_OK, '{"data":{"id":1,"name":"Recipe1"}}');
 
-        $this->client->request('GET', '/en/api/cookings/0/recipe');
+        $this->client->request('GET', '/en/api/photos/0/recipe');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
 
     public function testPost()
     {
+        $photo = $this->getNewFile();
+
         $this->client->request(
             'POST',
-            '/en/api/cookings',
-            [],
-            [],
-            ['CONTENT_TYPE' => 'application/json'],
-            '{"formCooking":{"description":"new step","recipe":1}}'
+            '/en/api/photos',
+            [
+                'formPhoto' => [
+                    'recipe' => 1,
+                    'file'   => $photo,
+                ],
+            ]
         );
 
         $this->validateResponse(Codes::HTTP_CREATED);
-        $this->assertStringEndsWith('/en/api/cookings/14', $this->client->getResponse()->headers->get('Location'));
+        $this->assertStringEndsWith('/en/api/photos/4', $this->client->getResponse()->headers->get('Location'));
     }
 
 
@@ -115,42 +145,46 @@ class CookingControllerTest extends WebTestCase
     {
         $this->client->request(
             'POST',
-            '/en/api/cookings',
+            '/en/api/photos',
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             '{}'
         );
-        $this->validateResponse(Codes::HTTP_BAD_REQUEST, '{"data":{"children":{"description":[],"recipe":[]}}}');
+        $this->validateResponse(Codes::HTTP_BAD_REQUEST, '{"data":{"children":{"recipe":[],"file":[]}}}');
 
         $this->client->request(
             'POST',
-            '/en/api/cookings',
+            '/en/api/photos',
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
-            '{"formCooking":{"recipe":0}}'
+            '{"formPhoto":{"recipe":0}}'
         );
-        $this->validateResponse(Codes::HTTP_BAD_REQUEST, '{"data":{"children":{"description":[],"recipe":[]}}}');
+        $this->validateResponse(Codes::HTTP_BAD_REQUEST, '{"data":{"children":{"recipe":[],"file":[]}}}');
     }
 
 
     public function testPut()
     {
-        $this->client->request(
-            'PUT',
-            '/en/api/cookings/11',
-            [],
-            [],
-            ['CONTENT_TYPE' => 'application/json'],
-            '{"formCooking":{"description":"updated step","recipe":1}}'
-        );
-        $this->validateResponse(Codes::HTTP_NO_CONTENT);
-        $this->assertStringEndsWith('/en/api/cookings/11', $this->client->getResponse()->headers->get('Location'));
+        $photo = $this->getNewFile();
 
         $this->client->request(
             'PUT',
-            '/en/api/cookings/0',
+            '/en/api/photos/1',
+            [
+                'formPhoto' => [
+                    'recipe' => 1,
+                    'file'   => $photo,
+                ],
+            ]
+        );
+        $this->validateResponse(Codes::HTTP_NO_CONTENT);
+        $this->assertStringEndsWith('/en/api/photos/1', $this->client->getResponse()->headers->get('Location'));
+
+        $this->client->request(
+            'PUT',
+            '/en/api/photos/0',
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
@@ -162,11 +196,35 @@ class CookingControllerTest extends WebTestCase
 
     public function testDelete()
     {
-        $this->client->request('DELETE', '/en/api/cookings/11');
+        $this->client->request('DELETE', '/en/api/photos/1');
         $this->validateResponse(Codes::HTTP_NO_CONTENT);
 
-        $this->client->request('DELETE', '/en/api/cookings/0');
+        $this->client->request('DELETE', '/en/api/photos/0');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
+    }
+
+
+    /**
+     * @return UploadedFile
+     */
+    protected function getNewFile()
+    {
+        $path     = $this->client->getContainer()->get('kernel')->getRootDir().'/../web/uploads/documents/';
+        $filename = 'testPhoto.jpg';
+        $newFile  = $path.'/'.$filename;
+
+        copy($path.'fixture.jpg', $newFile);
+
+        $photo = new UploadedFile(
+            $newFile,
+            $filename,
+            'image/jpeg',
+            filesize($newFile),
+            null,
+            true
+        );
+
+        return $photo;
     }
 
 

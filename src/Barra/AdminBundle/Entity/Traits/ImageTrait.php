@@ -81,6 +81,8 @@ trait ImageTrait
             $this->filename = sha1(uniqid(mt_rand(), true)).'.'.$this->getFile()->guessExtension();
         } while (file_exists($this->getAbsolutePathWithFilename())); // unique?
 
+        $this->setSize($this->getFile()->getClientSize());
+
         return $this;
     }
 
@@ -99,7 +101,10 @@ trait ImageTrait
         $this->getFile()->move($this->getAbsolutePath(), $this->filename);
 
         if (isset($this->oldImageFilename)) {
-            unlink($this->getAbsolutePath().DIRECTORY_SEPARATOR.$this->oldImageFilename);
+            $file = $this->getAbsolutePath().'/'.$this->oldImageFilename;
+            if (file_exists($file)) {
+                unlink($file);
+            }
         }
 
         return $this;
@@ -114,7 +119,9 @@ trait ImageTrait
     {
         $file = $this->getAbsolutePathWithFilename();
         if (null !== $file) {
-            unlink($file);
+            if (file_exists($file)) {
+                unlink($file);
+            }
             // just relevant if manually called to set a new file afterwards
             $this->oldImageFilename = $this->filename;
             $this->size             = null;
@@ -138,7 +145,7 @@ trait ImageTrait
     {
         return null === $this->filename
             ? null
-            : $this->getAbsolutePath().DIRECTORY_SEPARATOR.$this->filename
+            : $this->getAbsolutePath().'/'.$this->filename
         ;
     }
 
@@ -158,7 +165,7 @@ trait ImageTrait
     {
         return null === $this->filename
             ? null
-            : $this->getWebDirectory().DIRECTORY_SEPARATOR.$this->filename
+            : $this->getWebDirectory().'/'.$this->filename
         ;
     }
 
@@ -167,7 +174,7 @@ trait ImageTrait
      */
     public function getWebDirectory()
     {
-        return 'uploads'.DIRECTORY_SEPARATOR.'documents';
+        return 'uploads/documents';
     }
 
 

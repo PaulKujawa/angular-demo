@@ -7,10 +7,10 @@ use Liip\FunctionalTestBundle\Test\WebTestCase as WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
 
 /**
- * Class MeasurementControllerTest
+ * Class ProductControllerTest
  * @package Barra\RestBundle\Tests\Controller
  */
-class MeasurementControllerTest extends WebTestCase
+class ProductControllerTest extends WebTestCase
 {
     /** @var  Client */
     protected $client;
@@ -23,7 +23,8 @@ class MeasurementControllerTest extends WebTestCase
     {
         $this->loadFixtures([
             'Barra\AdminBundle\DataFixtures\ORM\LoadUserData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadMeasurementData',
+            'Barra\AdminBundle\DataFixtures\ORM\LoadManufacturerData',
+            'Barra\AdminBundle\DataFixtures\ORM\LoadProductData',
         ]);
 
         $this->client = static::createClient();
@@ -53,34 +54,59 @@ class MeasurementControllerTest extends WebTestCase
 
     public function testNew()
     {
-        $this->client->request('GET', '/en/api/measurements/new');
-        $this->validateResponse(Codes::HTTP_OK, '{"data":{"children":{"name":[],"gr":[]}}}');
+        $this->client->request('GET', '/en/api/products/new');
+        $this->validateResponse(
+            Codes::HTTP_OK,
+            '{"data":{"children":{'.
+                '"name":[],"vegan":[],"gr":[],"kcal":[],"protein":[],"carbs":[],'.
+                '"sugar":[],"fat":[],"gfat":[],"manufacturer":[]'.
+            '}}}'
+        );
     }
 
 
     public function testGet()
     {
-        $this->client->request('GET', '/en/api/measurements/1');
-        $this->validateResponse(Codes::HTTP_OK, '{"data":{"gr":1,"id":1,"name":"gr"}}');
+        $this->client->request('GET', '/en/api/products/1');
+        $this->validateResponse(
+            Codes::HTTP_OK,
+            '{"data":{"vegan":false,"gr":1,"kcal":1,"protein":1,"carbs":1,'.
+            '"sugar":1,"fat":1,"gfat":1,"id":1,"name":"Product1"}}'
+        );
 
-        $this->client->request('GET', '/en/api/measurements/0');
+        $this->client->request('GET', '/en/api/products/0');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
 
     public function testCget()
     {
-        $this->client->request('GET', '/en/api/measurements?limit=2');
+        $this->client->request('GET', '/en/api/products?limit=2');
         $this->validateResponse(
             Codes::HTTP_OK,
             '{"data":['.
-                '{"gr":1,"id":1,"name":"gr"},'.
-                '{"gr":15,"id":2,"name":"el"}'.
+                '{'.
+                    '"vegan":false,"gr":1,"kcal":1,"protein":1,"carbs":1,'.
+                    '"sugar":1,"fat":1,"gfat":1,"id":1,"name":"Product1"'.
+                '},{'.
+                    '"vegan":true,"gr":1,"kcal":1,"protein":1,"carbs":1,'.
+                    '"sugar":1,"fat":1,"gfat":1,"id":2,"name":"Product2"'.
+                '}'.
             ']}'
         );
 
-        $this->client->request('GET', '/en/api/measurements');
+        $this->client->request('GET', '/en/api/products');
         $this->validateResponse(Codes::HTTP_BAD_REQUEST);
+    }
+
+
+    public function testGetRecipe()
+    {
+        $this->client->request('GET', '/en/api/products/1/manufacturer');
+        $this->validateResponse(Codes::HTTP_OK, '{"data":{"id":1,"name":"Manufacturer1"}}');
+
+        $this->client->request('GET', '/en/api/products/0/manufacturer');
+        $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
 
@@ -95,17 +121,16 @@ class MeasurementControllerTest extends WebTestCase
             'Barra\AdminBundle\DataFixtures\ORM\LoadIngredientData',
         ]);
 
-        $this->client->request('GET', '/en/api/measurements/1/ingredients');
+        $this->client->request('GET', '/en/api/products/1/ingredients');
         $this->validateResponse(
             Codes::HTTP_OK,
             '{"data":['.
                 '{"id":11,"amount":1,"position":1},'.
-                '{"id":12,"amount":2,"position":2},'.
                 '{"id":21,"amount":3,"position":3}'.
             ']}'
         );
 
-        $this->client->request('GET', '/en/api/measurements/0/ingredients');
+        $this->client->request('GET', '/en/api/products/0/ingredients');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
@@ -114,15 +139,18 @@ class MeasurementControllerTest extends WebTestCase
     {
         $this->client->request(
             'POST',
-            '/en/api/measurements',
+            '/en/api/products',
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
-            '{"formMeasurement":{"name":"kg","gr":1000}}'
+            '{"formProduct":{'.
+                '"name":"new product","vegan":1,"gr":1,"kcal":1,"protein":1.1,"carbs":1.2,'.
+                '"sugar":1.3,"fat":1.4,"gfat":1.5,"manufacturer":1'.
+            '}}'
         );
 
         $this->validateResponse(Codes::HTTP_CREATED);
-        $this->assertStringEndsWith('/en/api/measurements/4', $this->client->getResponse()->headers->get('Location'));
+        $this->assertStringEndsWith('/en/api/products/5', $this->client->getResponse()->headers->get('Location'));
     }
 
 
@@ -130,13 +158,19 @@ class MeasurementControllerTest extends WebTestCase
     {
         $this->client->request(
             'POST',
-            '/en/api/measurements',
+            '/en/api/products',
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             '{}'
         );
-        $this->validateResponse(Codes::HTTP_BAD_REQUEST, '{"data":{"children":{"name":[],"gr":[]}}}');
+        $this->validateResponse(
+            Codes::HTTP_BAD_REQUEST,
+            '{"data":{"children":{'.
+                '"name":[],"vegan":[],"gr":[],"kcal":[],"protein":[],"carbs":[],'.
+                '"sugar":[],"fat":[],"gfat":[],"manufacturer":[]'.
+            '}}}'
+        );
     }
 
 
@@ -144,18 +178,21 @@ class MeasurementControllerTest extends WebTestCase
     {
         $this->client->request(
             'PUT',
-            '/en/api/measurements/1',
+            '/en/api/products/1',
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
-            '{"formMeasurement":{"name":"updated","gr":100}}'
+            '{"formProduct":{'.
+                '"name":"updated product","vegan":1,"gr":1,"kcal":1,"protein":1.1,"carbs":1.2,'.
+                '"sugar":1.3,"fat":1.4,"gfat":1.5,"manufacturer":1'.
+            '}}'
         );
         $this->validateResponse(Codes::HTTP_NO_CONTENT);
-        $this->assertStringEndsWith('/en/api/measurements/1', $this->client->getResponse()->headers->get('Location'));
+        $this->assertStringEndsWith('/en/api/products/1', $this->client->getResponse()->headers->get('Location'));
 
         $this->client->request(
             'PUT',
-            '/en/api/measurements/0',
+            '/en/api/products/0',
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
@@ -167,10 +204,10 @@ class MeasurementControllerTest extends WebTestCase
 
     public function testDelete()
     {
-        $this->client->request('DELETE', '/en/api/measurements/1');
+        $this->client->request('DELETE', '/en/api/products/1');
         $this->validateResponse(Codes::HTTP_NO_CONTENT);
 
-        $this->client->request('DELETE', '/en/api/measurements/0');
+        $this->client->request('DELETE', '/en/api/products/0');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
@@ -186,7 +223,7 @@ class MeasurementControllerTest extends WebTestCase
             'Barra\AdminBundle\DataFixtures\ORM\LoadIngredientData',
         ]);
 
-        $this->client->request('DELETE', '/en/api/measurements/1');
+        $this->client->request('DELETE', '/en/api/products/1');
         $this->validateResponse(Codes::HTTP_CONFLICT);
     }
 

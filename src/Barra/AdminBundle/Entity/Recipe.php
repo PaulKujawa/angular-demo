@@ -63,7 +63,7 @@ class Recipe
      *      mappedBy     = "recipe",
      *      cascade      = {"remove"}
      * )
-     * @ORM\OrderBy({"name" = "ASC"})
+     * @ORM\OrderBy({"id" = "ASC"})
      */
     private $photos;
 
