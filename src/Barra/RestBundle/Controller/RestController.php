@@ -106,6 +106,16 @@ class RestController extends FOSRestController implements ClassResourceInterface
     }
 
     /**
+     * @return View
+     */
+    public function countAction()
+    {
+        $count = $this->getRepo()->count();
+
+        return $this->view(['data' => $count]);
+    }
+
+    /**
      * @param Request $request
      * @return View
      */

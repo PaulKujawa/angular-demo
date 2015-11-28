@@ -79,6 +79,12 @@ class MeasurementControllerTest extends WebTestCase
         $this->validateResponse(Codes::HTTP_BAD_REQUEST);
     }
 
+    public function testCount()
+    {
+        $this->client->request('GET', '/en/api/measurements/count');
+        $this->validateResponse(Codes::HTTP_OK, '{"data":"3"}');
+    }
+
     public function testGetIngredients()
     {
         $this->loadFixtures([

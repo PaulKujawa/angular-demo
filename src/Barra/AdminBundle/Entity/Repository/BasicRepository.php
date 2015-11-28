@@ -19,12 +19,10 @@ class BasicRepository extends EntityRepository
         $query = $this
             ->createQueryBuilder('a')
             ->select('COUNT(a)')
-            ->getQuery()
-        ;
+            ->getQuery();
 
         return $query->getSingleScalarResult();
     }
-
 
     /**
      * @param int       $offset
@@ -40,8 +38,7 @@ class BasicRepository extends EntityRepository
             ->orderBy('m.'.$orderBy, $order)
             ->setFirstResult($offset)
             ->setMaxResults($limit)
-            ->getQuery()
-        ;
+            ->getQuery();
 
         return $query->getResult();
     }

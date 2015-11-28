@@ -16,7 +16,6 @@ class CookingControllerTest extends WebTestCase
     /** @var  Client */
     protected $client;
 
-
     /**
      * Login with credentials to receive JWT and attach it as future request http_auth header
      */
@@ -51,13 +50,11 @@ class CookingControllerTest extends WebTestCase
         $this->client->setServerParameter('HTTP_Authorization', 'Bearer '.$response['token']);
     }
 
-
     public function testNew()
     {
         $this->client->request('GET', '/en/api/cookings/new');
         $this->validateResponse(Codes::HTTP_OK, '{"data":{"children":{"description":[],"recipe":[]}}}');
     }
-
 
     public function testGet()
     {
@@ -67,7 +64,6 @@ class CookingControllerTest extends WebTestCase
         $this->client->request('GET', '/en/api/cookings/0');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
-
 
     public function testCget()
     {
@@ -84,6 +80,11 @@ class CookingControllerTest extends WebTestCase
         $this->validateResponse(Codes::HTTP_BAD_REQUEST);
     }
 
+    public function testCount()
+    {
+        $this->client->request('GET', '/en/api/cookings/count');
+        $this->validateResponse(Codes::HTTP_OK, '{"data":"3"}');
+    }
 
     public function testGetRecipe()
     {
@@ -93,7 +94,6 @@ class CookingControllerTest extends WebTestCase
         $this->client->request('GET', '/en/api/cookings/0/recipe');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
-
 
     public function testPost()
     {
@@ -109,7 +109,6 @@ class CookingControllerTest extends WebTestCase
         $this->validateResponse(Codes::HTTP_CREATED);
         $this->assertStringEndsWith('/en/api/cookings/14', $this->client->getResponse()->headers->get('Location'));
     }
-
 
     public function testPostInvalid()
     {
@@ -133,7 +132,6 @@ class CookingControllerTest extends WebTestCase
         );
         $this->validateResponse(Codes::HTTP_BAD_REQUEST, '{"data":{"children":{"description":[],"recipe":[]}}}');
     }
-
 
     public function testPut()
     {
@@ -159,7 +157,6 @@ class CookingControllerTest extends WebTestCase
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
-
     public function testDelete()
     {
         $this->client->request('DELETE', '/en/api/cookings/11');
@@ -168,7 +165,6 @@ class CookingControllerTest extends WebTestCase
         $this->client->request('DELETE', '/en/api/cookings/0');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
-
 
     /**
      * @param int           $expectedStatusCode

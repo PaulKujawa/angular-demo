@@ -79,6 +79,12 @@ class RecipeControllerTest extends WebTestCase
         $this->validateResponse(Codes::HTTP_BAD_REQUEST);
     }
 
+    public function testCount()
+    {
+        $this->client->request('GET', '/en/api/recipes/count');
+        $this->validateResponse(Codes::HTTP_OK, '{"data":"3"}');
+    }
+
     public function testGetIngredients()
     {
         $this->loadFixtures([

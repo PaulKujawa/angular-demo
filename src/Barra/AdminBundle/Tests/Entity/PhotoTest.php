@@ -73,6 +73,11 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
         $this->assertStringEndsWith(self::WEB_DIRECTORY, $got);
     }
 
+    public function testIsRemovable()
+    {
+        $this->assertTrue($this->model->isRemovable());
+    }
+
     /**
      * @return Photo
      */
@@ -84,6 +89,8 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
 
         return $resource;
     }
+
+    // ----------------------------------------------------------------------------------------
 
     /**
      * @depends testSetFile
@@ -104,17 +111,19 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @depends testSetFile
+     * @param Photo $self
      * @return Photo
      */
-    public function testGenerateFilename()
+    public function testGenerateFilename(Photo $self)
     {
-        $photo    = $this->createPhotoFile();
-        $resource = $this->model
-            ->setFile($photo)
-            ->generateFilename();
+        $resource = $self->generateFilename();
+        $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
         return $resource;
     }
+
+    // ----------------------------------------------------------------------------------------
 
     /**
      * @depends testGenerateFilename
@@ -129,7 +138,8 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends testGetFilename
+     * @depends testGenerateFilename
+     * @depends testGetWebDirectory
      * @param Photo $self
      */
     public function testGetWebDirectoryWithFilename(Photo $self)
@@ -142,7 +152,7 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends testGetFilename
+     * @depends testGenerateFilename
      * @depends testGetAbsolutePath
      * @param Photo $self
      */
@@ -168,6 +178,8 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
 
         return $resource;
     }
+
+    // ----------------------------------------------------------------------------------------
 
     /**
      * @depends testSaveFile
@@ -202,10 +214,7 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
         unlink($photo->getPath().'/'.$photo->getFilename());
     }
 
-    public function testIsRemovable()
-    {
-        $this->assertTrue($this->model->isRemovable());
-    }
+    // ----------------------------------------------------------------------------------------
 
     /**
      * @param string    $field

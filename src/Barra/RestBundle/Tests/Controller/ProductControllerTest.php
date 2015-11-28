@@ -95,6 +95,12 @@ class ProductControllerTest extends WebTestCase
         $this->validateResponse(Codes::HTTP_BAD_REQUEST);
     }
 
+    public function testCount()
+    {
+        $this->client->request('GET', '/en/api/products/count');
+        $this->validateResponse(Codes::HTTP_OK, '{"data":"4"}');
+    }
+
     public function testGetRecipe()
     {
         $this->client->request('GET', '/en/api/products/1/manufacturer');
