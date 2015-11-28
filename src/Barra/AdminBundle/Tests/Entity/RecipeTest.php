@@ -2,6 +2,8 @@
 
 namespace Barra\AdminBundle\Tests\Entity;
 
+use Barra\AdminBundle\Entity\Cooking;
+use Barra\AdminBundle\Entity\Ingredient;
 use Barra\AdminBundle\Entity\Recipe;
 use Barra\AdminBundle\Entity\Photo;
 
@@ -12,22 +14,21 @@ use Barra\AdminBundle\Entity\Photo;
  */
 class RecipeTest extends \PHPUnit_Framework_TestCase
 {
-    const SELF_FQDN     = 'Barra\AdminBundle\Entity\Recipe';
-    const PHOTO_FQDN    = 'Barra\AdminBundle\Entity\Photo';
-    const ID            = 2;
-    const TITLE         = 'demoName';
-    const URL           = 'demoUrl';
-
+    const SELF_FQDN         = 'Barra\AdminBundle\Entity\Recipe';
+    const PHOTO_FQDN        = 'Barra\AdminBundle\Entity\Photo';
+    const INGREDIENT_FQDN   = 'Barra\AdminBundle\Entity\Ingredient';
+    const COOKING_FQDN      = 'Barra\AdminBundle\Entity\Cooking';
+    const ID                = 2;
+    const TITLE             = 'demoName';
+    const URL               = 'demoUrl';
 
     /** @var  Recipe */
     protected $model;
-
 
     public function setUp()
     {
         $this->model = new Recipe();
     }
-
 
     /**
      * Sets protected id field first to test the get function
@@ -40,17 +41,8 @@ class RecipeTest extends \PHPUnit_Framework_TestCase
         $idField->setValue($this->model, self::ID);
 
         $got = $this->model->getId();
-        $this->assertInternalType(
-            'int',
-            $got
-        );
-
-        $this->assertEquals(
-            self::ID,
-            $got
-        );
+        $this->assertEquals(self::ID, $got);
     }
-
 
     /**
      * @return Recipe
@@ -58,14 +50,10 @@ class RecipeTest extends \PHPUnit_Framework_TestCase
     public function testSetName()
     {
         $resource = $this->model->setName(self::TITLE);
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
+        $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
         return $resource;
     }
-
 
     /**
      * @depends testSetName
@@ -73,18 +61,13 @@ class RecipeTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetName(Recipe $self)
     {
-        $got = $self->getName();
-        $this->assertInternalType(
-            'string',
-            $got
-        );
-
-        $this->assertEquals(
-            self::TITLE,
-            $got
-        );
+        $this->assertEquals(self::TITLE, $self->getName());
     }
-    
+
+    public function testIsRemovable()
+    {
+        $this->assertTrue($this->model->isRemovable());
+    }
 
     /**
      * @return Recipe
@@ -93,15 +76,10 @@ class RecipeTest extends \PHPUnit_Framework_TestCase
     {
         $mock     = $this->getMock(self::PHOTO_FQDN);
         $resource = $this->model->addPhoto($mock);
-
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
+        $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
         return $resource;
     }
-
 
     /**
      * @depends testAddPhoto
@@ -111,22 +89,11 @@ class RecipeTest extends \PHPUnit_Framework_TestCase
     public function testGetPhotos(Recipe $self)
     {
         $photos = $self->getPhotos();
+        $this->assertCount(1, $photos);
         $photo  = $photos[0];
-
-        $this->assertCount(
-            1,
-            $photos
-        );
-
-        $mock = $this->getMock(self::PHOTO_FQDN);
-        $this->assertEquals(
-            $mock,
-            $photo
-        );
 
         return $photo;
     }
-
 
     /**
      * @depends testAddPhoto
@@ -137,47 +104,133 @@ class RecipeTest extends \PHPUnit_Framework_TestCase
     public function testRemovePhoto(Recipe $self, Photo $photo)
     {
         $resource = $self->removePhoto($photo);
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
-
-        $this->assertCount(
-            0,
-            $self->getPhotos()
-        );
+        $this->assertInstanceOf(self::SELF_FQDN, $resource);
+        $this->assertCount(0, $self->getPhotos());
     }
 
-
-    public function testIsRemovableTrue()
+    // ---------------------------------------------------------------------------------------------------
+    /**
+     * @return Recipe
+     */
+    public function testAddIngredient()
     {
-        $got = $this->model->isRemovable();
-        $this->assertInternalType(
-            'bool',
-            $got
-        );
+        $mock     = $this->getMock(self::INGREDIENT_FQDN);
+        $resource = $this->model->addIngredient($mock);
+        $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
-        $this->assertEquals(
-            true,
-            $got
-        );
+        return $resource;
     }
-
 
     /**
-     * @expectedException \PHPUnit_Framework_Error
+     * @depends testAddIngredient
+     * @param Recipe $self
+     * @return Ingredient
      */
-    public function testAddInvalidPhoto()
+    public function testGetIngredients(Recipe $self)
     {
-        $this->model->addPhoto(1);
+        $ingredients = $self->getIngredients();
+        $this->assertCount(1, $ingredients);
+        $ingredient  = $ingredients[0];
+
+        return $ingredient;
     }
 
+    /**
+     * @depends testAddIngredient
+     * @depends testGetIngredients
+     * @param Recipe $self
+     * @param Ingredient  $ingredient
+     */
+    public function testRemoveIngredient(Recipe $self, Ingredient $ingredient)
+    {
+        $resource = $self->removeIngredient($ingredient);
+        $this->assertInstanceOf(self::SELF_FQDN, $resource);
+        $this->assertCount(0, $self->getIngredients());
+    }
+    // ---------------------------------------------------------------------------------------------------------
 
     /**
-     * @expectedException \PHPUnit_Framework_Error
+     * @return Recipe
      */
-    public function testRemoveInvalidPhoto()
+    public function testAddCooking()
     {
-        $this->model->removePhoto(1);
+        $mock     = $this->getMock(self::COOKING_FQDN);
+        $resource = $this->model->addCooking($mock);
+        $this->assertInstanceOf(self::SELF_FQDN, $resource);
+
+        return $resource;
+    }
+
+    /**
+     * @depends testAddCooking
+     * @param Recipe $self
+     * @return Cooking
+     */
+    public function testGetCookings(Recipe $self)
+    {
+        $cookings = $self->getCookings();
+        $this->assertCount(1, $cookings);
+        $cooking  = $cookings[0];
+
+        return $cooking;
+    }
+
+    /**
+     * @depends testAddCooking
+     * @depends testGetCookings
+     * @param Recipe $self
+     * @param Cooking  $cooking
+     */
+    public function testRemoveCooking(Recipe $self, Cooking $cooking)
+    {
+        $resource = $self->removeCooking($cooking);
+        $this->assertInstanceOf(self::SELF_FQDN, $resource);
+        $this->assertCount(0, $self->getCookings());
+    }
+    // ----------------------------------------------------------------------------------------------------------
+
+    /**
+     * @param string    $method
+     * @param mixed     $value
+     * @expectedException \PHPUnit_Framework_Error
+     * @dataProvider providerCollectionsWithInvalidValues
+     */
+    public function testCollectionsWithInvalidValues($method, $value)
+    {
+        $this->model->{$method}($value);
+    }
+
+    /**
+     * Negative tests for add and remove methods of collections
+     * @return array
+     */
+    public static function providerCollectionsWithInvalidValues()
+    {
+        return [
+            [
+                'addPhoto',
+                1,
+            ],
+            [
+                'removePhoto',
+                1,
+            ],
+            [
+                'addIngredient',
+                1,
+            ],
+            [
+                'removeIngredient',
+                1,
+            ],
+            [
+                'addCooking',
+                1,
+            ],
+            [
+                'removeCooking',
+                1,
+            ],
+        ];
     }
 }

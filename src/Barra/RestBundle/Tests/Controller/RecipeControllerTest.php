@@ -8,13 +8,13 @@ use Symfony\Bundle\FrameworkBundle\Client;
 
 /**
  * Class RecipeControllerTest
+ * @author Paul Kujawa <p.kujawa@gmx.net>
  * @package Barra\RestBundle\Tests\Controller
  */
 class RecipeControllerTest extends WebTestCase
 {
     /** @var  Client */
     protected $client;
-
 
     /**
      * Login with credentials to receive JWT and attach it as future request http_auth header
@@ -30,8 +30,7 @@ class RecipeControllerTest extends WebTestCase
         $csrfToken    = $this->client
             ->getContainer()
             ->get('form.csrf_provider')
-            ->generateCsrfToken('authenticate')
-        ;
+            ->generateCsrfToken('authenticate');
 
         $this->client->request(
             'POST',
@@ -50,13 +49,11 @@ class RecipeControllerTest extends WebTestCase
         $this->client->setServerParameter('HTTP_Authorization', 'Bearer '.$response['token']);
     }
 
-
     public function testNew()
     {
         $this->client->request('GET', '/en/api/recipes/new');
         $this->validateResponse(Codes::HTTP_OK, '{"data":{"children":{"name":[]}}}');
     }
-
 
     public function testGet()
     {
@@ -66,7 +63,6 @@ class RecipeControllerTest extends WebTestCase
         $this->client->request('GET', '/en/api/recipes/0');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
-
 
     public function testCget()
     {
@@ -82,7 +78,6 @@ class RecipeControllerTest extends WebTestCase
         $this->client->request('GET', '/en/api/recipes');
         $this->validateResponse(Codes::HTTP_BAD_REQUEST);
     }
-
 
     public function testGetIngredients()
     {
@@ -108,7 +103,6 @@ class RecipeControllerTest extends WebTestCase
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
-
     public function testGetCookings()
     {
         $this->loadFixtures([
@@ -130,7 +124,6 @@ class RecipeControllerTest extends WebTestCase
         $this->client->request('GET', '/en/api/recipes/0/cookings');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
-
 
     public function testGetPhotos()
     {
@@ -158,7 +151,6 @@ class RecipeControllerTest extends WebTestCase
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
-
     public function testPost()
     {
         $this->client->request(
@@ -174,7 +166,6 @@ class RecipeControllerTest extends WebTestCase
         $this->assertStringEndsWith('/en/api/recipes/4', $this->client->getResponse()->headers->get('Location'));
     }
 
-
     public function testPostInvalid()
     {
         $this->client->request(
@@ -187,7 +178,6 @@ class RecipeControllerTest extends WebTestCase
         );
         $this->validateResponse(Codes::HTTP_BAD_REQUEST, '{"data":{"children":{"name":[]}}}');
     }
-
 
     public function testPut()
     {
@@ -213,7 +203,6 @@ class RecipeControllerTest extends WebTestCase
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
-
     public function testDelete()
     {
         $this->client->request('DELETE', '/en/api/recipes/1');
@@ -222,7 +211,6 @@ class RecipeControllerTest extends WebTestCase
         $this->client->request('DELETE', '/en/api/recipes/0');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
-
 
     /**
      * @param int           $expectedStatusCode

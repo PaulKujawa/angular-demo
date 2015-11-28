@@ -8,13 +8,13 @@ use Symfony\Bundle\FrameworkBundle\Client;
 
 /**
  * Class MeasurementControllerTest
+ * @author Paul Kujawa <p.kujawa@gmx.net>
  * @package Barra\RestBundle\Tests\Controller
  */
 class MeasurementControllerTest extends WebTestCase
 {
     /** @var  Client */
     protected $client;
-
 
     /**
      * Login with credentials to receive JWT and attach it as future request http_auth header
@@ -30,8 +30,7 @@ class MeasurementControllerTest extends WebTestCase
         $csrfToken    = $this->client
             ->getContainer()
             ->get('form.csrf_provider')
-            ->generateCsrfToken('authenticate')
-        ;
+            ->generateCsrfToken('authenticate');
 
         $this->client->request(
             'POST',
@@ -50,13 +49,11 @@ class MeasurementControllerTest extends WebTestCase
         $this->client->setServerParameter('HTTP_Authorization', 'Bearer '.$response['token']);
     }
 
-
     public function testNew()
     {
         $this->client->request('GET', '/en/api/measurements/new');
         $this->validateResponse(Codes::HTTP_OK, '{"data":{"children":{"name":[],"gr":[]}}}');
     }
-
 
     public function testGet()
     {
@@ -66,7 +63,6 @@ class MeasurementControllerTest extends WebTestCase
         $this->client->request('GET', '/en/api/measurements/0');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
-
 
     public function testCget()
     {
@@ -82,7 +78,6 @@ class MeasurementControllerTest extends WebTestCase
         $this->client->request('GET', '/en/api/measurements');
         $this->validateResponse(Codes::HTTP_BAD_REQUEST);
     }
-
 
     public function testGetIngredients()
     {
@@ -109,7 +104,6 @@ class MeasurementControllerTest extends WebTestCase
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
-
     public function testPost()
     {
         $this->client->request(
@@ -125,7 +119,6 @@ class MeasurementControllerTest extends WebTestCase
         $this->assertStringEndsWith('/en/api/measurements/4', $this->client->getResponse()->headers->get('Location'));
     }
 
-
     public function testPostInvalid()
     {
         $this->client->request(
@@ -138,7 +131,6 @@ class MeasurementControllerTest extends WebTestCase
         );
         $this->validateResponse(Codes::HTTP_BAD_REQUEST, '{"data":{"children":{"name":[],"gr":[]}}}');
     }
-
 
     public function testPut()
     {
@@ -164,7 +156,6 @@ class MeasurementControllerTest extends WebTestCase
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
-
     public function testDelete()
     {
         $this->client->request('DELETE', '/en/api/measurements/1');
@@ -173,7 +164,6 @@ class MeasurementControllerTest extends WebTestCase
         $this->client->request('DELETE', '/en/api/measurements/0');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
-
 
     public function testDeleteInvalid()
     {
@@ -189,7 +179,6 @@ class MeasurementControllerTest extends WebTestCase
         $this->client->request('DELETE', '/en/api/measurements/1');
         $this->validateResponse(Codes::HTTP_CONFLICT);
     }
-
 
     /**
      * @param int           $expectedStatusCode

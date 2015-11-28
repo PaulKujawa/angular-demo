@@ -30,7 +30,6 @@ class RestController extends FOSRestController implements ClassResourceInterface
     /** @var  mixed */
     protected $entity;
 
-
     /**
      * @return View
      */
@@ -40,7 +39,6 @@ class RestController extends FOSRestController implements ClassResourceInterface
 
         return $this->view(['data' => $form]);
     }
-
 
     /**
      * @param int $id
@@ -56,7 +54,6 @@ class RestController extends FOSRestController implements ClassResourceInterface
 
         return $this->view(['data' => $entity]);
     }
-
 
     /**
      * @link http://symfony.com/doc/current/bundles/FOSRestBundle/param_fetcher_listener.html
@@ -103,12 +100,10 @@ class RestController extends FOSRestController implements ClassResourceInterface
         ) {
             return $this->view(null, Codes::HTTP_BAD_REQUEST);
         }
-
         $entities = $this->getRepo()->getSome($offset, $limit, $orderBy, $order);
 
         return $this->view(['data' => $entities]);
     }
-
 
     /**
      * @param Request $request
@@ -120,7 +115,6 @@ class RestController extends FOSRestController implements ClassResourceInterface
 
         return $this->processRequest($request, $entity, Codes::HTTP_CREATED);
     }
-
 
     /**
      * @param Request   $request
@@ -137,7 +131,6 @@ class RestController extends FOSRestController implements ClassResourceInterface
 
         return $this->processRequest($request, $entity, Codes::HTTP_NO_CONTENT);
     }
-
 
     /**
      * @param int $id
@@ -163,12 +156,10 @@ class RestController extends FOSRestController implements ClassResourceInterface
 
 
 
-
-
-
     // ######### HELPER #########################################
 
     /**
+     * So far for POST and PUT requests
      * @param Request       $request
      * @param object        $entity
      * @param int           $successCode
@@ -183,7 +174,9 @@ class RestController extends FOSRestController implements ClassResourceInterface
             return $this->view(['data' => $form], Codes::HTTP_BAD_REQUEST);
         }
 
-        $this->getEM()->persist($entity);
+        if ($request->isMethod('POST')) {
+            $this->getEM()->persist($entity);
+        }
         $this->getEM()->flush();
 
         $route  = 'barra_api_get_'.lcfirst($this->getEntityClass());
@@ -194,7 +187,6 @@ class RestController extends FOSRestController implements ClassResourceInterface
 
         return $this->routeRedirectView($route, $params, $successCode);
     }
-
 
     /**
      * @return string upper cased semantic name of inheriting controller
@@ -216,7 +208,6 @@ class RestController extends FOSRestController implements ClassResourceInterface
         return $this->entityClass;
     }
 
-
     /**
      * @return \Symfony\Component\Form\AbstractType
      */
@@ -224,13 +215,12 @@ class RestController extends FOSRestController implements ClassResourceInterface
     {
         if (null === $this->formType) {
             $namespace      = '\Barra\AdminBundle\Form\Type\\';
-            $entity         = $namespace.$this->getEntityClass().'Type';
-            $this->formType = new $entity(); //
+            $form           = $namespace.$this->getEntityClass().'Type';
+            $this->formType = new $form();
         }
 
         return $this->formType;
     }
-
 
     /**
      * @return mixed entity
@@ -240,12 +230,11 @@ class RestController extends FOSRestController implements ClassResourceInterface
         if (null === $this->entity) {
             $namespace      = '\Barra\AdminBundle\Entity\\';
             $entity         = $namespace.$this->getEntityClass();
-            $this->entity   = new $entity(); //
+            $this->entity   = new $entity();
         }
 
         return $this->entity;
     }
-
 
     /**
      * @param string $entityClass
@@ -259,7 +248,6 @@ class RestController extends FOSRestController implements ClassResourceInterface
 
         return $this->getEM()->getRepository('BarraAdminBundle:'.ucfirst($entityClass));
     }
-
 
     /**
      * @return \Doctrine\ORM\EntityManager

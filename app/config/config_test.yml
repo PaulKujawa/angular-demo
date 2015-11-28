@@ -16,17 +16,19 @@ framework:                                                          # default se
         collect: false
 
 lexik_jwt_authentication:                                           # separate, commited SSH keys for func. tests
-    private_key_path:   %kernel.root_dir%/var/jwt/private-test.pem
-    public_key_path:    %kernel.root_dir%/var/jwt/public-test.pem
-    pass_phrase:        "%jwt_test_ssh_key_pp%"                     # this passphrase is commited as well
+    private_key_path: %kernel.root_dir%/var/jwt/private-test.pem
+    public_key_path: %kernel.root_dir%/var/jwt/public-test.pem
+    pass_phrase: "%jwt_test_ssh_key_pp%"                            # this passphrase is commited as well
 
 doctrine:                                                           # separate, fresh SQLite DB for every test
     dbal:
         default_connection: default
         connections:
             default:
-                driver:   pdo_sqlite
-                path:     %kernel.cache_dir%/test.db
+                driver: pdo_sqlite
+                path: %kernel.cache_dir%/test.db
 
 liip_functional_test:
-    cache_sqlite_db: true                                           # use backups of SQLite db (incl. loaded fixtures)
+    query:
+        max_query_count: 50                                         # max DB queries per test
+    cache_sqlite_db: true                                           # caches database (scheme and fixture entries)

@@ -3,6 +3,7 @@
 namespace Barra\AdminBundle\Tests\Entity;
 
 use Barra\AdminBundle\Entity\Photo;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Class PhotoTest
@@ -11,25 +12,18 @@ use Barra\AdminBundle\Entity\Photo;
  */
 class PhotoTest extends \PHPUnit_Framework_TestCase
 {
-    const SELF_FQDN              = 'Barra\AdminBundle\Entity\Photo';
-    const RECIPE_FQDN            = 'Barra\AdminBundle\Entity\Recipe';
-    const UPLOADED_DOCUMENT_FQDN = 'Symfony\Component\HttpFoundation\File\UploadedFile';
-    const ID                     = 2;
-    const SIZE                   = 33;
-    const NAME                   = 'demoName';
-    const FILENAME               = 'demoFilename';
-    const WEB_DIRECTORY          = 'uploads/documents';
-
+    const SELF_FQDN          = 'Barra\AdminBundle\Entity\Photo';
+    const RECIPE_FQDN        = 'Barra\AdminBundle\Entity\Recipe';
+    const WEB_DIRECTORY      = 'uploads/documents';
+    const ID                 = 2;
 
     /** @var  Photo */
     protected $model;
-
 
     public function setUp()
     {
         $this->model = new Photo();
     }
-
 
     /**
      * Sets protected id field first to test the get function
@@ -42,131 +36,8 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
         $idField->setValue($this->model, self::ID);
 
         $got = $this->model->getId();
-        $this->assertInternalType(
-            'int',
-            $got
-        );
-
-        $this->assertEquals(
-            self::ID,
-            $got
-        );
+        $this->assertEquals(self::ID, $got);
     }
-
-
-    /**
-     * @return Photo
-     */
-    public function testSetFilename()
-    {
-        $resource = $this->model->setFilename(self::FILENAME);
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
-
-        return $resource;
-    }
-
-
-    /**
-     * @depends testSetFilename
-     * @param Photo $self
-     */
-    public function testGetFilename(Photo $self)
-    {
-        $got = $self->getFilename();
-        $this->assertInternalType(
-            'string',
-            $got
-        );
-
-        $this->assertEquals(
-            self::FILENAME,
-            $got
-        );
-    }
-
-
-    /**
-     * @param Photo $self
-     * @depends testSetFilename
-     */
-    public function testGetWebDirectoryWithFilename(Photo $self)
-    {
-        $this->assertNull(
-            $this->model->getWebDirectoryWithFilename()
-        );
-
-        // todo assert path
-        $got = $self->getWebDirectoryWithFilename();
-        $this->assertInternalType(
-            'string',
-            $got
-        );
-
-        $directory = substr($got, 0, strrpos($got, '/'));
-        $this->assertEquals(
-            self::WEB_DIRECTORY,
-            $directory
-        );
-    }
-
-
-    /**
-     * @param Photo $self
-     * @depends testSetFilename
-     */
-    public function testSetFileWithPreviousSetFilename(Photo $self)
-    {
-        $mock = $this->getMock(self::UPLOADED_DOCUMENT_FQDN, [], [], '', false);
-        $mock
-            ->expects($this->never())
-            ->method('getClientOriginalName')
-            ->will($this->returnValue('someName'))
-        ;
-        $resource = $self->setFile($mock);
-
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
-    }
-
-
-    /**
-     * @return Photo
-     */
-    public function testSetSize()
-    {
-        $resource = $this->model->setSize(self::SIZE);
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
-
-        return $resource;
-    }
-
-
-    /**
-     * @depends testSetSize
-     * @param Photo $self
-     */
-    public function testGetSizeTest(Photo $self)
-    {
-        $got = $self->getSize();
-        $this->assertInternalType(
-            'int',
-            $got
-        );
-
-        $this->assertEquals(
-            self::SIZE,
-            $got
-        );
-    }
-
 
     /**
      * @return Photo
@@ -175,15 +46,10 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
     {
         $mock     = $this->getMock(self::RECIPE_FQDN);
         $resource = $this->model->setRecipe($mock);
-
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
+        $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
         return $resource;
     }
-
 
     /**
      * @depends testSetRecipe
@@ -191,37 +57,33 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetRecipe(Photo $self)
     {
-        $mock   = $this->getMock(self::RECIPE_FQDN);
-        $recipe = $self->getRecipe();
-
-        $this->assertEquals(
-            $mock,
-            $recipe
-        );
+        $mock = $this->getMock(self::RECIPE_FQDN);
+        $this->assertEquals($mock, $self->getRecipe());
     }
 
+    public function testGetWebDirectory()
+    {
+        $got = $this->model->getWebDirectory();
+        $this->assertEquals(self::WEB_DIRECTORY, $got);
+    }
+
+    public function testGetAbsolutePath()
+    {
+        $got = $this->model->getAbsolutePath();
+        $this->assertStringEndsWith(self::WEB_DIRECTORY, $got);
+    }
 
     /**
      * @return Photo
      */
     public function testSetFile()
     {
-        $mock = $this->getMock(self::UPLOADED_DOCUMENT_FQDN, [], [], '', false);
-        $mock
-            ->expects($this->once())
-            ->method('getClientOriginalName')
-            ->will($this->returnValue('someName'))
-        ;
-        $resource = $this->model->setFile($mock);
-
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
+        $photo    = $this->createPhotoFile();
+        $resource = $this->model->setFile($photo);
+        $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
         return $resource;
     }
-
 
     /**
      * @depends testSetFile
@@ -229,82 +91,121 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetFile(Photo $self)
     {
-        $mock = $this->getMock(self::UPLOADED_DOCUMENT_FQDN, [], [], '', false);
-        $file = $self->getFile();
-
-        $this->assertEquals(
-            $mock,
-            $file
-        );
+        $this->assertNotNull($self->getFile());
     }
 
+    /**
+     * @depends testSetFile
+     * @param Photo $self
+     */
+    public function testGetSize(Photo $self)
+    {
+        $this->assertEquals($self->getFile()->getSize(), $self->getSize());
+    }
 
+    /**
+     * @return Photo
+     */
     public function testGenerateFilename()
     {
-        $mock = $this->getMock(self::UPLOADED_DOCUMENT_FQDN, [], [], '', false);
-        $mock
-            ->expects($this->once())
-            ->method('getClientOriginalName')
-            ->will($this->returnValue('someName'))
-        ;
+        $photo    = $this->createPhotoFile();
+        $resource = $this->model
+            ->setFile($photo)
+            ->generateFilename();
 
-        $mock
-            ->expects($this->once())
-            ->method('guessExtension')
-            ->will($this->returnValue('jpg'))
-        ;
+        return $resource;
+    }
 
+    /**
+     * @depends testGenerateFilename
+     * @param Photo $self
+     * @return Photo
+     */
+    public function testGetFilename(Photo $self)
+    {
+        $this->assertStringEndsWith('.jpeg', $self->getFilename());
+
+        return $self;
+    }
+
+    /**
+     * @depends testGetFilename
+     * @param Photo $self
+     */
+    public function testGetWebDirectoryWithFilename(Photo $self)
+    {
+        $this->assertNull($this->model->getWebDirectoryWithFilename());
+        $this->assertEquals(
+            $self->getWebDirectoryWithFilename(),
+            self::WEB_DIRECTORY.'/'.$self->getFilename()
+        );
+    }
+
+    /**
+     * @depends testGetFilename
+     * @depends testGetAbsolutePath
+     * @param Photo $self
+     */
+    public function testGetAbsolutePathWithFilename(Photo $self)
+    {
+        $this->assertNull($this->model->getAbsolutePathWithFilename());
+        $this->assertEquals(
+            $self->getAbsolutePathWithFilename(),
+            $self->getAbsolutePath().'/'.$self->getFilename()
+        );
+    }
+
+    /**
+     * @depends testGenerateFilename
+     * @param Photo $self
+     * @return Photo
+     */
+    public function testSaveFile(Photo $self)
+    {
+        $resource = $self->saveFile();
+        $this->assertInstanceOf(self::SELF_FQDN, $resource);
+        $this->assertFileExists($self->getAbsolutePathWithFilename());
+
+        return $resource;
+    }
+
+    /**
+     * @depends testSaveFile
+     * @param Photo $self
+     */
+    public function testRemoveFile(Photo $self)
+    {
+        $path = $self->getAbsolutePathWithFilename();
+        $this->assertInstanceOf(self::SELF_FQDN, $self->removeFile());
+        $this->assertFileNotExists($path);
+    }
+
+    /**
+     * @depends testRemoveFile
+     * @return Photo
+     */
+    public function testFileOverwrite()
+    {
+        $photo = $this->createPhotoFile();
         $this->model
-            ->setFile($mock)
+            ->setFile($photo)
             ->generateFilename()
-        ;
+            ->saveFile();
+        $path = $this->model->getAbsolutePathWithFilename();
+        $this->assertFileExists($path);
 
-        $this->assertInternalType(
-            'string',
-            $this->model->getFilename()
-        );
+        // overwrite (and implicitly remove) old file with a new one
+        $photo = $this->createPhotoFile();
+        $this->model->setFile($photo);
+        $this->assertFileNotExists($path);
+
+        unlink($photo->getPath().'/'.$photo->getFilename());
     }
 
-
-    public function testGenerateFileNameNegative()
+    public function testIsRemovable()
     {
-        $resource = $this->model->generateFilename();
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
+        $this->assertTrue($this->model->isRemovable());
     }
-
-
-    public function testGetWebDirectory()
-    {
-        $got = $this->model->getWebDirectory();
-        $this->assertInternalType(
-            'string',
-            $got
-        );
-
-        $this->assertEquals(
-            self::WEB_DIRECTORY,
-            $got
-        );
-    }
-
-
-    public function testIsRemovableTrue()
-    {
-        $got = $this->model->isRemovable();
-        $this->assertInternalType(
-            'bool',
-            $got
-        );
-
-        $this->assertEquals(
-            true,
-            $got
-        );
-    }
-
 
     /**
      * @param string    $field
@@ -316,7 +217,6 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
     {
         $this->model->{'set'.ucfirst($field)}($value);
     }
-
 
     /**
      * Invalid complex values for setter
@@ -334,5 +234,29 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
                 1,
             ],
         ];
+    }
+
+
+    /**
+     * @return UploadedFile
+     */
+    protected function createPhotoFile()
+    {
+        $path     = $this->model->getAbsolutePath().'/';
+        $filename = 'unitTest.jpg';
+        $newFile  = $path.$filename;
+
+        copy($path.'fixture.jpg', $newFile);
+
+        $photo = new UploadedFile(
+            $newFile,
+            $filename,
+            'image/jpeg',
+            filesize($newFile),
+            null,
+            true
+        );
+
+        return $photo;
     }
 }

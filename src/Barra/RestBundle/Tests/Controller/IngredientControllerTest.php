@@ -8,13 +8,13 @@ use Symfony\Bundle\FrameworkBundle\Client;
 
 /**
  * Class IngredientControllerTest
+ * @author Paul Kujawa <p.kujawa@gmx.net>
  * @package Barra\RestBundle\Tests\Controller
  */
 class IngredientControllerTest extends WebTestCase
 {
     /** @var  Client */
     protected $client;
-
 
     /**
      * Login with credentials to receive JWT and attach it as future request http_auth header
@@ -34,8 +34,7 @@ class IngredientControllerTest extends WebTestCase
         $csrfToken    = $this->client
             ->getContainer()
             ->get('form.csrf_provider')
-            ->generateCsrfToken('authenticate')
-        ;
+            ->generateCsrfToken('authenticate');
 
         $this->client->request(
             'POST',
@@ -54,7 +53,6 @@ class IngredientControllerTest extends WebTestCase
         $this->client->setServerParameter('HTTP_Authorization', 'Bearer '.$response['token']);
     }
 
-
     public function testNew()
     {
         $this->client->request('GET', '/en/api/ingredients/new');
@@ -64,7 +62,6 @@ class IngredientControllerTest extends WebTestCase
         );
     }
 
-
     public function testGet()
     {
         $this->client->request('GET', '/en/api/ingredients/11');
@@ -73,7 +70,6 @@ class IngredientControllerTest extends WebTestCase
         $this->client->request('GET', '/en/api/ingredients/0');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
-
 
     public function testCget()
     {
@@ -90,7 +86,6 @@ class IngredientControllerTest extends WebTestCase
         $this->validateResponse(Codes::HTTP_BAD_REQUEST);
     }
 
-
     public function testGetProduct()
     {
         $this->client->request('GET', '/en/api/ingredients/11/product');
@@ -106,7 +101,6 @@ class IngredientControllerTest extends WebTestCase
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
-
     public function testGetMeasurement()
     {
         $this->client->request('GET', '/en/api/ingredients/11/measurement');
@@ -116,7 +110,6 @@ class IngredientControllerTest extends WebTestCase
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
-
     public function testGetRecipe()
     {
         $this->client->request('GET', '/en/api/ingredients/11/recipe');
@@ -125,7 +118,6 @@ class IngredientControllerTest extends WebTestCase
         $this->client->request('GET', '/en/api/ingredients/0/recipe');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
-
 
     public function testPost()
     {
@@ -141,7 +133,6 @@ class IngredientControllerTest extends WebTestCase
         $this->validateResponse(Codes::HTTP_CREATED);
         $this->assertStringEndsWith('/en/api/ingredients/14', $this->client->getResponse()->headers->get('Location'));
     }
-
 
     public function testPostInvalid()
     {
@@ -172,7 +163,6 @@ class IngredientControllerTest extends WebTestCase
         );
     }
 
-
     public function testPut()
     {
         $this->client->request(
@@ -197,7 +187,6 @@ class IngredientControllerTest extends WebTestCase
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
-
     public function testDelete()
     {
         $this->client->request('DELETE', '/en/api/ingredients/11');
@@ -206,7 +195,6 @@ class IngredientControllerTest extends WebTestCase
         $this->client->request('DELETE', '/en/api/ingredients/0');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
-
 
     /**
      * @param int           $expectedStatusCode

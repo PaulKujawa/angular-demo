@@ -12,8 +12,8 @@ use Barra\AdminBundle\Entity\User;
  */
 class UserTest extends \PHPUnit_Framework_TestCase
 {
-    const SELF_FQDN                 = 'Barra\AdminBundle\Entity\User';
-    const ID                        = 2;
+    const SELF_FQDN = 'Barra\AdminBundle\Entity\User';
+    const ID        = 2;
 
 
     /** @var  User */
@@ -37,14 +37,6 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $idField->setValue($this->model, self::ID);
 
         $got = $this->model->getId();
-        $this->assertInternalType(
-            'int',
-            $got
-        );
-
-        $this->assertEquals(
-            self::ID,
-            $got
-        );
+        $this->assertEquals(self::ID, $got);
     }
 }

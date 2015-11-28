@@ -17,16 +17,13 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
     const ID                = 2;
     const NAME              = 'demoName';
 
-
     /** @var  Manufacturer */
     protected $model;
-
 
     public function setUp()
     {
         $this->model = new Manufacturer();
     }
-
 
     /**
      * Sets protected id field first to test the get function
@@ -39,17 +36,8 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
         $idField->setValue($this->model, self::ID);
 
         $got = $this->model->getId();
-        $this->assertInternalType(
-            'int',
-            $got
-        );
-
-        $this->assertEquals(
-            self::ID,
-            $got
-        );
+        $this->assertEquals(self::ID, $got);
     }
-
 
     /**
      * @return Manufacturer
@@ -57,14 +45,10 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
     public function testSetName()
     {
         $resource = $this->model->setName(self::NAME);
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
+        $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
         return $resource;
     }
-
 
     /**
      * @depends testSetName
@@ -72,18 +56,8 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetName(Manufacturer $self)
     {
-        $got = $self->getName();
-        $this->assertInternalType(
-            'string',
-            $got
-        );
-
-        $this->assertEquals(
-            self::NAME,
-            $got
-        );
+        $this->assertEquals(self::NAME, $self->getName());
     }
-
 
     /**
      * @return Manufacturer
@@ -92,15 +66,10 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
     {
         $mock     = $this->getMock(self::PRODUCT_FQDN);
         $resource = $this->model->addProduct($mock);
-
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
+        $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
         return $resource;
     }
-
 
     /**
      * @depends testAddProduct
@@ -110,22 +79,11 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
     public function testGetProducts(Manufacturer $self)
     {
         $products  = $self->getProducts();
+        $this->assertCount(1, $products);
         $product   = $products[0];
-
-        $this->assertCount(
-            1,
-            $products
-        );
-
-        $mock = $this->getMock(self::PRODUCT_FQDN);
-        $this->assertEquals(
-            $mock,
-            $product
-        );
 
         return $product;
     }
-
 
     /**
      * @depends testAddProduct
@@ -136,51 +94,18 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
     public function testRemoveProduct(Manufacturer $self, Product $product)
     {
         $resource = $self->removeProduct($product);
-
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
-
-        $this->assertCount(
-            0,
-            $self->getProducts()
-        );
+        $this->assertInstanceOf(self::SELF_FQDN, $resource);
+        $this->assertCount(0, $self->getProducts());
     }
 
-
-    public function testIsRemovableTrue()
+    public function testIsRemovable()
     {
-        $got = $this->model->isRemovable();
-        $this->assertInternalType(
-            'bool',
-            $got
-        );
+        $this->assertTrue($this->model->isRemovable());
 
-        $this->assertEquals(
-            true,
-            $got
-        );
-    }
-
-
-    public function testIsRemovableFalse()
-    {
         $mock = $this->getMock(self::PRODUCT_FQDN);
         $this->model->addProduct($mock);
-        $got  = $this->model->isRemovable();
-
-        $this->assertInternalType(
-            'bool',
-            $got
-        );
-
-        $this->assertEquals(
-            false,
-            $got
-        );
+        $this->assertFalse($this->model->isRemovable());
     }
-
 
     /**
      * @expectedException \PHPUnit_Framework_Error
@@ -190,9 +115,8 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
         $this->model->addProduct(1);
     }
 
-
     /**
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException \PHPUnit_Framework_Error
      */
     public function testRemoveInvalidProduct()
     {

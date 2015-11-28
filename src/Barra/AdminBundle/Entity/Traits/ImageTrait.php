@@ -58,97 +58,17 @@ trait ImageTrait
      */
     private $file;
 
-    /**
-     * @var string
-     */
-    private $oldImageFilename;
-
-
-
-
-    // ### LIFECYCLE FUNCTIONS
-    /**
-     * @ORM\PrePersist()
-     * @ORM\PreUpdate()
-     *
-     * @return $this
-     */
-    public function generateFilename()
-    {
-        if (null === $this->getFile()) {
-            return $this;
-        }
-
-        do {
-            $this->filename = sha1(uniqid(mt_rand(), true)).'.'.$this->getFile()->guessExtension();
-        } while (file_exists($this->getAbsolutePathWithFilename())); // unique?
-
-        $this->setSize($this->getFile()->getClientSize());
-
-        return $this;
-    }
-
-    /**
-     * @ORM\PostPersist()
-     * @ORM\PostUpdate()
-     *
-     * @return $this
-     * @throws FileException
-     */
-    public function saveFile()
-    {
-        if (null === $this->getFile()) {
-            return $this;
-        }
-        $this->getFile()->move($this->getAbsolutePath(), $this->filename);
-
-        if (isset($this->oldImageFilename)) {
-            $file = $this->getAbsolutePath().'/'.$this->oldImageFilename;
-            if (file_exists($file)) {
-                unlink($file);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @ORM\PostRemove()
-     *
-     * @return $this
-     */
-    public function removeFile()
-    {
-        $file = $this->getAbsolutePathWithFilename();
-        if (null !== $file) {
-            if (file_exists($file)) {
-                unlink($file);
-            }
-            // just relevant if manually called to set a new file afterwards
-            $this->oldImageFilename = $this->filename;
-            $this->size             = null;
-            $this->file             = null;
-            $this->filename         = null;
-        }
-
-        return $this;
-    }
-
-
-
-
-
-
-    // ### FILE PATH
+    // ### FILE PATH -----------------------------------------------------------------------------
     /**
      * @return null|string
      */
     public function getAbsolutePathWithFilename()
     {
-        return null === $this->filename
-            ? null
-            : $this->getAbsolutePath().'/'.$this->filename
-        ;
+        if (null === $this->filename) {
+            return null;
+        }
+
+        return $this->getAbsolutePath().'/'.$this->filename;
     }
 
     /**
@@ -156,7 +76,6 @@ trait ImageTrait
      */
     public function getAbsolutePath()
     {
-
         return __DIR__.'/../../../../../web/'.$this->getWebDirectory();
     }
 
@@ -165,10 +84,11 @@ trait ImageTrait
      */
     public function getWebDirectoryWithFilename()
     {
-        return null === $this->filename
-            ? null
-            : $this->getWebDirectory().'/'.$this->filename
-        ;
+        if (null === $this->filename) {
+            return null;
+        }
+
+        return $this->getWebDirectory().'/'.$this->filename;
     }
 
     /**
@@ -182,20 +102,80 @@ trait ImageTrait
         return 'uploads/documents';
     }
 
-
-
-
-    // ### GETTER AND SETTER ###
+    // ### LIFECYCLE FUNCTIONS --------------------------------------------------------------------
     /**
-     * @param string $filename
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     *
      * @return $this
-     * @throws \InvalidArgumentException
      */
-    public function setFilename($filename)
+    public function generateFilename()
     {
-        $this->filename = $filename;
+        if (null !== $this->file) {
+            do {
+                $this->filename = sha1(uniqid(mt_rand(), true)).'.'.$this->getFile()->guessExtension();
+            } while (file_exists($this->getAbsolutePathWithFilename()));
+        }
 
         return $this;
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     *
+     * @return $this
+     */
+    public function saveFile()
+    {
+        if (null !== $this->getFile()) {
+            $this->getFile()->move($this->getAbsolutePath(), $this->filename);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PostRemove()
+     *
+     * @return $this
+     */
+    public function removeFile()
+    {
+        $path = $this->getAbsolutePathWithFilename();
+        if (null !== $path) {
+            $this->file     = null;
+            $this->size     = null;
+            $this->filename = null;
+            unlink($path);
+        }
+
+        return $this;
+    }
+
+    // ### GETTER AND SETTER --------------------------------------------------------------------
+    /**
+     * @param UploadedFile $file
+     * @return $this
+     */
+    public function setFile(UploadedFile $file)
+    {
+        if (null !== $this->filename) {
+            $this->removeFile();
+        }
+        $this->file = $file;
+        $this->size = $file->getClientSize();
+        // @here you could save the original filename via $file->getClientOriginalName()
+
+        return $this;
+    }
+
+    /**
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
     }
 
     /**
@@ -207,48 +187,10 @@ trait ImageTrait
     }
 
     /**
-     * @param int $size
-     * @return $this
-     * @throws \InvalidArgumentException
-     */
-    public function setSize($size)
-    {
-        $this->size = $size;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getSize()
     {
         return $this->size;
-    }
-
-    /**
-     * @param UploadedFile $file
-     * @return $this
-     */
-    public function setFile(UploadedFile $file)
-    {
-        $this->file = $file;
-
-        if (null !== $this->filename) {
-            $this->oldImageFilename = $this->filename;
-            $this->filename         = null;
-        } else {
-            $this->filename = $this->file->getClientOriginalName();
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return UploadedFile
-     */
-    public function getFile()
-    {
-        return $this->file;
     }
 }

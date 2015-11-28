@@ -3,7 +3,6 @@
 namespace Barra\AdminBundle\Tests\Entity;
 
 use Barra\AdminBundle\Entity\Cooking;
-use Barra\AdminBundle\Entity\Recipe;
 
 /**
  * Class CookingTest
@@ -18,16 +17,13 @@ class CookingTest extends \PHPUnit_Framework_TestCase
     const POSITION      = 22;
     const DESCRIPTION   = 'demoDescription';
 
-
     /** @var  Cooking */
     protected $model;
-
 
     public function setUp()
     {
         $this->model = new Cooking();
     }
-
 
     /**
      * @return Cooking
@@ -35,14 +31,10 @@ class CookingTest extends \PHPUnit_Framework_TestCase
     public function testSetDescriptionTest()
     {
         $resource = $this->model->setDescription(self::DESCRIPTION);
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
+        $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
         return $resource;
     }
-
 
     /**
      * @depends testSetDescriptionTest
@@ -50,18 +42,8 @@ class CookingTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetDescriptionTest(Cooking $self)
     {
-        $got = $self->getDescription();
-        $this->assertInternalType(
-            'string',
-            $got
-        );
-
-        $this->assertEquals(
-            self::DESCRIPTION,
-            $got
-        );
+        $this->assertEquals(self::DESCRIPTION, $self->getDescription());
     }
-
 
     /**
      * @return Cooking
@@ -69,14 +51,10 @@ class CookingTest extends \PHPUnit_Framework_TestCase
     public function testSetPosition()
     {
         $resource = $this->model->setPosition(self::POSITION);
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
+        $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
         return $resource;
     }
-
 
     /**
      * @depends testSetPosition
@@ -84,18 +62,8 @@ class CookingTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetPosition(Cooking $self)
     {
-        $got = $self->getPosition();
-        $this->assertInternalType(
-            'int',
-            $got
-        );
-
-        $this->assertEquals(
-            self::POSITION,
-            $got
-        );
+        $this->assertEquals(self::POSITION, $self->getPosition());
     }
-
 
     /**
      * @return Cooking
@@ -104,15 +72,10 @@ class CookingTest extends \PHPUnit_Framework_TestCase
     {
         $mock     = $this->getMock(self::RECIPE_FQDN);
         $resource = $this->model->setRecipe($mock);
-
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
+        $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
         return $resource;
     }
-
 
     /**
      * @depends testSetRecipe
@@ -120,15 +83,8 @@ class CookingTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetRecipe(Cooking $self)
     {
-        $mock   = $this->getMock(self::RECIPE_FQDN);
-        $recipe = $self->getRecipe();
-
-        $this->assertEquals(
-            $mock,
-            $recipe
-        );
+        $this->assertNotNull($self->getRecipe());
     }
-
 
     /**
      * @expectedException \RuntimeException
@@ -137,7 +93,6 @@ class CookingTest extends \PHPUnit_Framework_TestCase
     {
         $this->model->createId();
     }
-
 
     /**
      * @depends testSetPosition
@@ -150,21 +105,15 @@ class CookingTest extends \PHPUnit_Framework_TestCase
         $mock
             ->expects($this->exactly(2))
             ->method('getId')
-            ->will($this->returnValue(self::ID))
-        ;
+            ->will($this->returnValue(self::ID));
 
         $this->model->setRecipe($mock);
         $this->model->setPosition(self::POSITION);
         $resource = $this->model->createId();
-
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
+        $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
         return $resource;
     }
-
 
     /**
      * @depends testCreateId
@@ -172,29 +121,13 @@ class CookingTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetId(Cooking $self)
     {
-        $this->assertEquals(
-            self::ID.self::POSITION,
-            $self->getId()
-        );
+        $this->assertEquals(self::ID.self::POSITION, $self->getId());
     }
 
-
-    /**
-     */
-    public function testIsRemovableTrue()
+    public function testIsRemovable()
     {
-        $got = $this->model->isRemovable();
-        $this->assertInternalType(
-            'bool',
-            $got
-        );
-
-        $this->assertEquals(
-            true,
-            $got
-        );
+        $this->assertTrue($this->model->isRemovable());
     }
-
 
     /**
      * @param string    $field
@@ -206,7 +139,6 @@ class CookingTest extends \PHPUnit_Framework_TestCase
     {
         $this->model->{'set'.ucfirst($field)}($value);
     }
-
 
     /**
      * Invalid complex values for setter

@@ -16,9 +16,6 @@
   * delete DB           `php app/console doctrine:database:drop --force`
   * create DB           `php app/console doctrine:database:create`
   * Update DB           `php app/console doctrine:schema:update --force`
-  * load fixtures       `php app/console doctrine:fixtures:load --append`
-* TEST
-  * just functional tests, which use a separate, cached SQLite db
 * PROD
   * overview            `php app/console doctrine:migrations:status`
   * build 

@@ -23,16 +23,13 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
     const POSITION          = 22;
     const AMOUNT            = 11;
 
-
     /** @var  Ingredient */
     protected $model;
-
 
     public function setUp()
     {
         $this->model = new Ingredient();
     }
-
 
     /**
      * @return Ingredient
@@ -40,14 +37,10 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
     public function testSetPosition()
     {
         $resource = $this->model->setPosition(self::POSITION);
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
+        $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
         return $resource;
     }
-
 
     /**
      * @depends testSetPosition
@@ -55,18 +48,8 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetPosition(Ingredient $self)
     {
-        $got = $self->getPosition();
-        $this->assertInternalType(
-            'int',
-            $got
-        );
-
-        $this->assertEquals(
-            self::POSITION,
-            $got
-        );
+        $this->assertEquals(self::POSITION, $self->getPosition());
     }
-
 
     /**
      * @return Ingredient
@@ -74,14 +57,10 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
     public function testSetAmount()
     {
         $resource = $this->model->setAmount(self::AMOUNT);
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
+        $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
         return $resource;
     }
-
 
     /**
      * @depends testSetAmount
@@ -89,18 +68,8 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetAmount(Ingredient $self)
     {
-        $got = $self->getAmount();
-        $this->assertInternalType(
-            'int',
-            $got
-        );
-
-        $this->assertEquals(
-            self::AMOUNT,
-            $got
-        );
+        $this->assertEquals(self::AMOUNT, $self->getAmount());
     }
-
 
     /**
      * @return Ingredient
@@ -109,15 +78,10 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
     {
         $mock     = $this->getMock(self::RECIPE_FQDN);
         $resource = $this->model->setRecipe($mock);
-
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
+        $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
         return $resource;
     }
-
 
     /**
      * @depends testSetRecipe
@@ -125,15 +89,8 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetRecipe(Ingredient $self)
     {
-        $mock   = $this->getMock(self::RECIPE_FQDN);
-        $recipe = $self->getRecipe();
-
-        $this->assertEquals(
-            $mock,
-            $recipe
-        );
+        $this->assertNotNull($self->getRecipe());
     }
-
 
     /**
      * @return Ingredient
@@ -142,15 +99,10 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
     {
         $mock     = $this->getMock(self::PRODUCT_FQDN);
         $resource = $this->model->setProduct($mock);
-
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
+        $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
         return $resource;
     }
-
 
     /**
      * @depends testSetProduct
@@ -158,15 +110,8 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetProduct(Ingredient $self)
     {
-        $mock    = $this->getMock(self::PRODUCT_FQDN);
-        $product = $self->getProduct();
-
-        $this->assertEquals(
-            $mock,
-            $product
-        );
+        $this->assertNotNull($self->getProduct());
     }
-
 
     /**
      * @return Ingredient
@@ -175,15 +120,10 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
     {
         $mock     = $this->getMock(self::MEASUREMENT_FQDN);
         $resource = $this->model->setMeasurement($mock);
-
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
+        $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
         return $resource;
     }
-
 
     /**
      * @depends testSetMeasurement
@@ -191,15 +131,8 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetMeasurement(Ingredient $self)
     {
-        $mock        = $this->getMock(self::MEASUREMENT_FQDN);
-        $measurement = $self->getMeasurement();
-
-        $this->assertEquals(
-            $mock,
-            $measurement
-        );
+        $this->assertNotNull($self->getMeasurement());
     }
-
 
     /**
      * @expectedException \RuntimeException
@@ -208,7 +141,6 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
     {
         $this->model->createId();
     }
-
 
     /**
      * @depends testSetRecipe
@@ -220,28 +152,23 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
         $recipeMock
             ->expects($this->exactly(2))
             ->method('getId')
-            ->will($this->returnValue(self::ID))
-        ;
-        $this->model->setRecipe($recipeMock);
+            ->will($this->returnValue(self::ID));
 
+        $this->model->setRecipe($recipeMock);
 
         $productMock = $this->getMock(self::PRODUCT_FQDN);
         $productMock
             ->expects($this->exactly(2))
             ->method('getId')
-            ->will($this->returnValue(self::PRODUCT_ID))
-        ;
+            ->will($this->returnValue(self::PRODUCT_ID));
+
         $this->model->setProduct($productMock);
 
         $resource = $this->model->createId();
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
+        $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
         return $resource;
     }
-
 
     /**
      * @depends testCreateId
@@ -249,29 +176,13 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetId(Ingredient $self)
     {
-        $this->assertEquals(
-            self::ID.self::PRODUCT_ID,
-            $self->getId()
-        );
+        $this->assertEquals(self::ID.self::PRODUCT_ID, $self->getId());
     }
 
-
-    /**
-     */
-    public function testIsRemovableTrue()
+    public function testIsRemovable()
     {
-        $got = $this->model->isRemovable();
-        $this->assertInternalType(
-            'bool',
-            $got
-        );
-
-        $this->assertEquals(
-            true,
-            $got
-        );
+        $this->assertTrue($this->model->isRemovable());
     }
-
 
     /**
      * @param string    $field
@@ -283,7 +194,6 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
     {
         $this->model->{'set'.ucfirst($field)}($value);
     }
-
 
     /**
      * Invalid complex values for setter

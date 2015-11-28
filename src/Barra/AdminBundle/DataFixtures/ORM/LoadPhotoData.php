@@ -19,28 +19,32 @@ class LoadPhotoData extends AbstractFixture implements OrderedFixtureInterface
 {
     static public $members = [];
 
-
     public function load(ObjectManager $em)
     {
-        self::$members[] = $this->instantiate('Photo1', 'refRecipe1');
-        self::$members[] = $this->instantiate('Photo2', 'refRecipe1');
-        self::$members[] = $this->instantiate('Photo3', 'refRecipe3');
+        self::$members[] = $this->instantiate('refRecipe1');
+        self::$members[] = $this->instantiate('refRecipe1');
+        self::$members[] = $this->instantiate('refRecipe3');
 
         foreach (self::$members as $i => $e) {
             $this->addReference('refPhoto'.($i+1), $e);
             $em->persist($e);
         }
         $em->flush();
+
+        // file creation doesn't belong to fixtures but is necessary to set up these instances
+        // some functional tests however recreate a file themselves
+        /** @var Photo $e */
+        foreach (self::$members as $e) {
+            unlink($e->getAbsolutePathWithFilename());
+        }
     }
 
-
     /**
-     * @param string $name
      * @param string $refRecipe
      * @return Photo
      * @throws InvalidArgumentException
      */
-    protected function instantiate($name, $refRecipe)
+    protected function instantiate($refRecipe)
     {
         $recipe = $this->getReference($refRecipe);
 
@@ -49,30 +53,25 @@ class LoadPhotoData extends AbstractFixture implements OrderedFixtureInterface
         }
 
         $entity = new Photo();
-        $file   = $this->simulateUpload($entity, $name);
+        $file   = $this->simulateUpload($entity);
 
         $entity
             ->setRecipe($recipe)
-            ->setFile($file)
-        ;
+            ->setFile($file);
 
         return $entity;
     }
 
-
     /**
-     * @param Photo     $entity
-     * @param string    $filename
+     * @param Photo $entity
      * @return UploadedFile
      */
-    protected function simulateUpload(Photo $entity, $filename)
+    protected function simulateUpload(Photo $entity)
     {
-        $filename .= 'jpg';
-        $newFile   = $entity->getAbsolutePath().'/'.$filename;
-
+        $filename = uniqid('tempFile').'.jpg';
+        $newFile  = $entity->getAbsolutePath().'/'.$filename;
         copy($entity->getAbsolutePath().'/fixture.jpg', $newFile);
 
-        // 'receive' uploaded file and instantiate an representing object
         return new UploadedFile(
             $newFile,
             $filename,
@@ -82,7 +81,6 @@ class LoadPhotoData extends AbstractFixture implements OrderedFixtureInterface
             true
         );
     }
-
 
     public function getOrder()
     {

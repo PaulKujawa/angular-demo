@@ -8,13 +8,13 @@ use Symfony\Bundle\FrameworkBundle\Client;
 
 /**
  * Class ManufacturerControllerTest
+ * @author Paul Kujawa <p.kujawa@gmx.net>
  * @package Barra\RestBundle\Tests\Controller
  */
 class ManufacturerControllerTest extends WebTestCase
 {
     /** @var  Client */
     protected $client;
-
 
     /**
      * Login with credentials to receive JWT and attach it as future request http_auth header
@@ -30,8 +30,7 @@ class ManufacturerControllerTest extends WebTestCase
         $csrfToken    = $this->client
             ->getContainer()
             ->get('form.csrf_provider')
-            ->generateCsrfToken('authenticate')
-        ;
+            ->generateCsrfToken('authenticate');
 
         $this->client->request(
             'POST',
@@ -50,13 +49,11 @@ class ManufacturerControllerTest extends WebTestCase
         $this->client->setServerParameter('HTTP_Authorization', 'Bearer '.$response['token']);
     }
 
-
     public function testNew()
     {
         $this->client->request('GET', '/en/api/manufacturers/new');
         $this->validateResponse(Codes::HTTP_OK, '{"data":{"children":{"name":[]}}}');
     }
-
 
     public function testGet()
     {
@@ -66,7 +63,6 @@ class ManufacturerControllerTest extends WebTestCase
         $this->client->request('GET', '/en/api/manufacturers/0');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
-
 
     public function testCget()
     {
@@ -82,7 +78,6 @@ class ManufacturerControllerTest extends WebTestCase
         $this->client->request('GET', '/en/api/manufacturers');
         $this->validateResponse(Codes::HTTP_BAD_REQUEST);
     }
-
 
     public function testGetProducts()
     {
@@ -118,7 +113,6 @@ class ManufacturerControllerTest extends WebTestCase
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
-
     public function testPost()
     {
         $this->client->request(
@@ -134,7 +128,6 @@ class ManufacturerControllerTest extends WebTestCase
         $this->assertStringEndsWith('/en/api/manufacturers/4', $this->client->getResponse()->headers->get('Location'));
     }
 
-
     public function testPostInvalid()
     {
         $this->client->request(
@@ -147,7 +140,6 @@ class ManufacturerControllerTest extends WebTestCase
         );
         $this->validateResponse(Codes::HTTP_BAD_REQUEST, '{"data":{"children":{"name":[]}}}');
     }
-
 
     public function testPut()
     {
@@ -173,7 +165,6 @@ class ManufacturerControllerTest extends WebTestCase
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
-
     public function testDelete()
     {
         $this->client->request('DELETE', '/en/api/manufacturers/1');
@@ -182,7 +173,6 @@ class ManufacturerControllerTest extends WebTestCase
         $this->client->request('DELETE', '/en/api/manufacturers/0');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
-
 
     public function testDeleteInvalid()
     {
@@ -195,7 +185,6 @@ class ManufacturerControllerTest extends WebTestCase
         $this->client->request('DELETE', '/en/api/manufacturers/1');
         $this->validateResponse(Codes::HTTP_CONFLICT);
     }
-
 
     /**
      * @param int           $expectedStatusCode

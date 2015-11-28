@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Client;
 
 /**
  * Class CookingControllerTest
+ * @author Paul Kujawa <p.kujawa@gmx.net>
  * @package Barra\RestBundle\Tests\Controller
  */
 class CookingControllerTest extends WebTestCase
@@ -31,8 +32,7 @@ class CookingControllerTest extends WebTestCase
         $csrfToken    = $this->client
             ->getContainer()
             ->get('form.csrf_provider')
-            ->generateCsrfToken('authenticate')
-        ;
+            ->generateCsrfToken('authenticate');
 
         $this->client->request(
             'POST',

@@ -18,16 +18,13 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
     const GR                = 22;
     const NAME              = 'demoName';
 
-
     /** @var  Measurement */
     protected $model;
-
 
     public function setUp()
     {
         $this->model = new Measurement();
     }
-
 
     /**
      * Sets protected id field first to test the get function
@@ -40,17 +37,8 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
         $idField->setValue($this->model, self::ID);
 
         $got = $this->model->getId();
-        $this->assertInternalType(
-            'int',
-            $got
-        );
-
-        $this->assertEquals(
-            self::ID,
-            $got
-        );
+        $this->assertEquals(self::ID, $got);
     }
-
 
     /**
      *
@@ -59,14 +47,10 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
     public function testSetGr()
     {
         $resource = $this->model->setGr(self::GR);
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
+        $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
         return $resource;
     }
-
 
     /**
      * @depends testSetGr
@@ -74,18 +58,8 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetGr(Measurement $self)
     {
-        $got = $self->getGr();
-        $this->assertInternalType(
-            'int',
-            $got
-        );
-
-        $this->assertEquals(
-            self::GR,
-            $got
-        );
+        $this->assertEquals(self::GR, $self->getGr());
     }
-
 
     /**
      * @return Measurement
@@ -93,14 +67,10 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
     public function testSetName()
     {
         $resource = $this->model->setName(self::NAME);
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
+        $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
         return $resource;
     }
-
 
     /**
      * @depends testSetName
@@ -108,18 +78,8 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetName(Measurement $self)
     {
-        $got = $self->getName();
-        $this->assertInternalType(
-            'string',
-            $got
-        );
-
-        $this->assertEquals(
-            self::NAME,
-            $got
-        );
+        $this->assertEquals(self::NAME, $self->getName());
     }
-
 
     /**
      * @return Measurement
@@ -128,15 +88,10 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
     {
         $mock     = $this->getMock(self::INGREDIENT_FQDN);
         $resource = $this->model->addIngredient($mock);
-
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
+        $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
         return $resource;
     }
-
 
     /**
      * @depends testAddIngredient
@@ -146,18 +101,8 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
     public function testGetIngredients(Measurement $self)
     {
         $ingredients = $self->getIngredients();
+        $this->assertCount(1, $ingredients);
         $ingredient  = $ingredients[0];
-
-        $this->assertCount(
-            1,
-            $ingredients
-        );
-
-        $mock = $this->getMock(self::INGREDIENT_FQDN);
-        $this->assertEquals(
-            $mock,
-            $ingredient
-        );
 
         return $ingredient;
     }
@@ -172,17 +117,9 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
     public function testRemoveIngredient(Measurement $self, Ingredient $ingredient)
     {
         $resource = $self->removeIngredient($ingredient);
-        $this->assertInstanceOf(
-            self::SELF_FQDN,
-            $resource
-        );
-
-        $this->assertCount(
-            0,
-            $self->getIngredients()
-        );
+        $this->assertInstanceOf(self::SELF_FQDN, $resource);
+        $this->assertCount(0, $self->getIngredients());
     }
-
 
     /**
      * @expectedException \PHPUnit_Framework_Error
@@ -192,7 +129,6 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
         $this->model->addIngredient(1);
     }
 
-
     /**
      * @expectedException \PHPUnit_Framework_Error
      */
@@ -201,36 +137,12 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
         $this->model->removeIngredient(1);
     }
 
-
-    public function testIsRemovableTrue()
+    public function testIsRemovable()
     {
-        $got = $this->model->isRemovable();
-        $this->assertInternalType(
-            'bool',
-            $got
-        );
+        $this->assertTrue($this->model->isRemovable());
 
-        $this->assertEquals(
-            true,
-            $got
-        );
-    }
-
-
-    public function testIsRemovableFalse()
-    {
         $mock = $this->getMock(self::INGREDIENT_FQDN);
         $this->model->addIngredient($mock);
-        $got  = $this->model->isRemovable();
-
-        $this->assertInternalType(
-            'bool',
-            $got
-        );
-
-        $this->assertEquals(
-            false,
-            $got
-        );
+        $this->assertFalse($this->model->isRemovable());
     }
 }
