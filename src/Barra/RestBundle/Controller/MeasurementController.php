@@ -2,7 +2,7 @@
 
 namespace Barra\RestBundle\Controller;
 
-use Barra\AdminBundle\Entity\Measurement;
+use Barra\RecipeBundle\Entity\Measurement;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Util\Codes;
 

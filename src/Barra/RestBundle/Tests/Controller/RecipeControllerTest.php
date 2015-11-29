@@ -22,8 +22,8 @@ class RecipeControllerTest extends WebTestCase
     public function setUp()
     {
         $this->loadFixtures([
-            'Barra\AdminBundle\DataFixtures\ORM\LoadUserData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadRecipeData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadUserData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadRecipeData',
         ]);
 
         $this->client = static::createClient();
@@ -34,7 +34,7 @@ class RecipeControllerTest extends WebTestCase
 
         $this->client->request(
             'POST',
-            '/de/admino/login_check',
+            '/en/admino/login_check',
             [
                 '_username'     => 'demoSA',
                 '_password'     => 'testo',
@@ -88,12 +88,12 @@ class RecipeControllerTest extends WebTestCase
     public function testGetIngredients()
     {
         $this->loadFixtures([
-            'Barra\AdminBundle\DataFixtures\ORM\LoadUserData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadManufacturerData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadMeasurementData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadRecipeData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadProductData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadIngredientData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadUserData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadManufacturerData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadMeasurementData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadRecipeData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadProductData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadIngredientData',
         ]);
 
         $this->client->request('GET', '/en/api/recipes/1/ingredients');
@@ -112,9 +112,9 @@ class RecipeControllerTest extends WebTestCase
     public function testGetCookings()
     {
         $this->loadFixtures([
-            'Barra\AdminBundle\DataFixtures\ORM\LoadUserData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadRecipeData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadCookingData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadUserData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadRecipeData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadCookingData',
         ]);
 
         $this->client->request('GET', '/en/api/recipes/1/cookings');
@@ -134,9 +134,9 @@ class RecipeControllerTest extends WebTestCase
     public function testGetPhotos()
     {
         $this->loadFixtures([
-            'Barra\AdminBundle\DataFixtures\ORM\LoadUserData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadRecipeData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadPhotoData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadUserData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadRecipeData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadPhotoData',
         ]);
 
         $this->client->request('GET', '/en/api/recipes/1/photos');

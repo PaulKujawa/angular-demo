@@ -22,12 +22,12 @@ class IngredientControllerTest extends WebTestCase
     public function setUp()
     {
         $this->loadFixtures([
-            'Barra\AdminBundle\DataFixtures\ORM\LoadUserData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadManufacturerData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadMeasurementData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadRecipeData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadProductData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadIngredientData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadUserData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadManufacturerData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadMeasurementData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadRecipeData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadProductData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadIngredientData',
         ]);
 
         $this->client = static::createClient();
@@ -38,7 +38,7 @@ class IngredientControllerTest extends WebTestCase
 
         $this->client->request(
             'POST',
-            '/de/admino/login_check',
+            '/en/admino/login_check',
             [
                 '_username'     => 'demoSA',
                 '_password'     => 'testo',

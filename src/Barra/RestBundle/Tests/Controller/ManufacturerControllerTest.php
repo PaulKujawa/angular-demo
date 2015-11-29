@@ -22,8 +22,8 @@ class ManufacturerControllerTest extends WebTestCase
     public function setUp()
     {
         $this->loadFixtures([
-            'Barra\AdminBundle\DataFixtures\ORM\LoadUserData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadManufacturerData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadUserData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadManufacturerData',
         ]);
 
         $this->client = static::createClient();
@@ -34,7 +34,7 @@ class ManufacturerControllerTest extends WebTestCase
 
         $this->client->request(
             'POST',
-            '/de/admino/login_check',
+            '/en/admino/login_check',
             [
                 '_username'     => 'demoSA',
                 '_password'     => 'testo',
@@ -89,9 +89,9 @@ class ManufacturerControllerTest extends WebTestCase
     {
         $this->loadFixtures(
             [
-                'Barra\AdminBundle\DataFixtures\ORM\LoadUserData',
-                'Barra\AdminBundle\DataFixtures\ORM\LoadManufacturerData',
-                'Barra\AdminBundle\DataFixtures\ORM\LoadProductData',
+                'Barra\RecipeBundle\DataFixtures\ORM\LoadUserData',
+                'Barra\RecipeBundle\DataFixtures\ORM\LoadManufacturerData',
+                'Barra\RecipeBundle\DataFixtures\ORM\LoadProductData',
             ]
         );
 
@@ -183,9 +183,9 @@ class ManufacturerControllerTest extends WebTestCase
     public function testDeleteInvalid()
     {
         $this->loadFixtures([
-            'Barra\AdminBundle\DataFixtures\ORM\LoadUserData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadManufacturerData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadProductData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadUserData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadManufacturerData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadProductData',
         ]);
 
         $this->client->request('DELETE', '/en/api/manufacturers/1');

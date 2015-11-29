@@ -1,0 +1,27 @@
+barra_recipe_recipes_admin:
+  path:     /recipes/{pageIndex}
+  defaults: { _controller: BarraRecipeBundle:Recipe:recipesAdmin, pageIndex: 1 }
+  requirements:
+    pageIndex: \d+
+
+barra_recipe_recipe_admin:
+  path:     /recipe/{name}
+  defaults: { _controller: BarraRecipeBundle:Recipe:recipeAdmin }
+
+barra_recipe_manufacturers:
+  path:     /manufacturers/{pageIndex}
+  defaults: { _controller: BarraRecipeBundle:Manufacturer:index, pageIndex: 1 }
+  requirements:
+    pageIndex: \d+
+
+barra_recipe_measurements:
+  path:     /measurements/{pageIndex}
+  defaults: { _controller: BarraRecipeBundle:Measurement:index, pageIndex: 1 }
+  requirements:
+    pageIndex: \d+
+
+barra_recipe_products:
+  path:     /products/{pageIndex}
+  defaults: { _controller: BarraRecipeBundle:Product:index, pageIndex: 1 }
+  requirements:
+    pageIndex: \d+

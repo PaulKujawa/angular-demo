@@ -1,11 +1,11 @@
 {
-  "name": "vpit",
+  "name": "recipe",
   "version": "2.0.0",
   "homepage": "http://kujawa.berlin",
   "authors": [
     "Paul Kujawa <p.kujawa@gmx.net>"
   ],
-  "description": "portfolio and own test project",
+  "description": "test project about recipes",
   "license": "MIT",
   "private": true,
   "ignore": [

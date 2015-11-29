@@ -2,7 +2,7 @@
 
 namespace Barra\RestBundle\Controller;
 
-use Barra\AdminBundle\Entity\Recipe;
+use Barra\RecipeBundle\Entity\Recipe;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Util\Codes;
 
@@ -29,7 +29,6 @@ class RecipeController extends RestController
         return $this->view(['data' => $entity->getIngredients()]);
     }
 
-
     /**
      * @param int $id
      * @return View
@@ -45,7 +44,6 @@ class RecipeController extends RestController
 
         return $this->view(['data' => $entity->getCookings()]);
     }
-
 
     /**
      * @param int $id

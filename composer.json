@@ -1,8 +1,8 @@
 {
-    "name": "barra/vPit",
+    "name": "barra/recipe",
     "license": "MIT",
     "type": "project",
-    "description": "own, private project for education.",
+    "description": "test project about recipes.",
     "authors": [
         {
             "name": "Paul Kujawa",

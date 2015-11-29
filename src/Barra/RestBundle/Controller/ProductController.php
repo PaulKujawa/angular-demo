@@ -2,7 +2,7 @@
 
 namespace Barra\RestBundle\Controller;
 
-use Barra\AdminBundle\Entity\Product;
+use Barra\RecipeBundle\Entity\Product;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Util\Codes;
 
@@ -27,7 +27,6 @@ class ProductController extends RestController
 
         return $this->view(['data' => $entity->getManufacturer()]);
     }
-
 
     /**
      * @param int $id

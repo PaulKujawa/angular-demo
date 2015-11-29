@@ -1,0 +1,37 @@
+{% extends 'BarraRecipeBundle::layout.html.twig' %}
+{% form_theme form 'BarraRecipeBundle:Form:tableRow.html.twig' %}
+{% block title %}{{ 'recipe.title.measurements'|trans() }}{% endblock %}
+
+{% block section %}
+    <section class="container mobileTables" ng-controller="MeasurementCtrl">
+        {{ include('BarraRecipeBundle:parts:formValidation.html.twig') }}
+
+        {{ form_start(form) }}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>{{ 'recipe.measurement.name'|trans() }}</th>
+                        <th>{{ 'recipe.measurement.gr'|trans() }}</th>
+                        <th>{{ 'recipe.action.delete'|trans() }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="measurement in measurements | orderBy:'name'">
+                        <td data-mobile-title={{ 'recipe.measurement.name'|trans() }}>[[measurement.name]]</td>
+                        <td data-mobile-title={{ 'recipe.measurement.gr'|trans() }}>[[measurement.gr]]</td>
+                        <td data-mobile-title={{ 'recipe.action.delete'|trans() }}>
+                            <span class="glyphicon glyphicon-trash" ng-click="deleteEntry(measurement)"></span>
+                        </td>
+                    </tr>
+                    <tr class="formInRow">
+                        {{ form_row(form.name) }}
+                        {{ form_row(form.gr) }}
+                        {{ form_widget(form.submit, {'label': 'recipe.action.new', 'attr': {'class': 'btn'} }) }}
+                    </tr>
+                </tbody>
+            </table>
+        {{ form_end(form) }}
+
+        {{ include('BarraRecipeBundle:parts:pagination.html.twig', { 'route': 'barra_recipe_measurements'})}}
+    </section>
+{% endblock %}

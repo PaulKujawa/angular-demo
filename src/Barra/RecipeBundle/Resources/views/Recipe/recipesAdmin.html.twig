@@ -1,0 +1,37 @@
+{% extends 'BarraRecipeBundle::layout.html.twig' %}
+{% form_theme form 'BarraRecipeBundle:Form:tableRow.html.twig' %}
+{% block title %}{{ 'recipe.title.recipes'|trans() }}{% endblock %}
+
+{% block section %}
+    <section class="container mobileTables" ng-controller="RecipeCtrl">
+        {{ include('BarraRecipeBundle:parts:formValidation.html.twig') }}
+
+        {{ form_start(form) }}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>{{ 'recipe.recipe.name'|trans() }}</th>
+                        <th>{{ 'recipe.action.manage'|trans() }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="recipe in recipes | orderBy:'name'">
+                        <td data-mobile-title="{{'recipe.recipe.name'|trans()}}">[[recipe.name]]</td>
+                        <td data-mobile-title="{{'recipe.action.manage'|trans()}}">
+                            <a href="[[urlRecipe]]/[[recipe.name.replace(' ', '_')]]">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                            </a>
+                            <span class="glyphicon glyphicon-trash" ng-click="deleteEntry(recipe)"></span>
+                        </td>
+                    </tr>
+                    <tr class="formInRow">
+                        {{ form_row(form.name) }}
+                        {{ form_widget(form.submit, {'label': 'recipe.action.new', 'attr': {'class': 'btn'} }) }}
+                    </tr>
+                </tbody>
+            </table>
+        {{ form_end(form) }}
+
+        {{ include('BarraRecipeBundle:parts:pagination.html.twig', { 'route': 'barra_recipe_recipes'}) }}
+    </section>
+{% endblock %}

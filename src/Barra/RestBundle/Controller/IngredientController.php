@@ -2,8 +2,8 @@
 
 namespace Barra\RestBundle\Controller;
 
-use Barra\AdminBundle\Entity\Ingredient;
-use Barra\AdminBundle\Entity\Recipe;
+use Barra\RecipeBundle\Entity\Ingredient;
+use Barra\RecipeBundle\Entity\Recipe;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Util\Codes;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +30,6 @@ class IngredientController extends RestController
         return $this->view(['data' => $entity->getProduct()]);
     }
 
-
     /**
      * @param int $id
      * @return View
@@ -46,7 +45,6 @@ class IngredientController extends RestController
         return $this->view(['data' => $entity->getRecipe()]);
     }
 
-
     /**
      * @param int $id
      * @return View
@@ -61,7 +59,6 @@ class IngredientController extends RestController
 
         return $this->view(['data' => $entity->getMeasurement()]);
     }
-
 
     protected function processRequest(Request $request, $entity, $successCode)
     {

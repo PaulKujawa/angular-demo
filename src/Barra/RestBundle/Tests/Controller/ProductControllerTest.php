@@ -22,9 +22,9 @@ class ProductControllerTest extends WebTestCase
     public function setUp()
     {
         $this->loadFixtures([
-            'Barra\AdminBundle\DataFixtures\ORM\LoadUserData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadManufacturerData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadProductData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadUserData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadManufacturerData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadProductData',
         ]);
 
         $this->client = static::createClient();
@@ -35,7 +35,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->client->request(
             'POST',
-            '/de/admino/login_check',
+            '/en/admino/login_check',
             [
                 '_username'     => 'demoSA',
                 '_password'     => 'testo',
@@ -113,12 +113,12 @@ class ProductControllerTest extends WebTestCase
     public function testGetIngredients()
     {
         $this->loadFixtures([
-            'Barra\AdminBundle\DataFixtures\ORM\LoadUserData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadManufacturerData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadMeasurementData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadRecipeData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadProductData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadIngredientData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadUserData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadManufacturerData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadMeasurementData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadRecipeData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadProductData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadIngredientData',
         ]);
 
         $this->client->request('GET', '/en/api/products/1/ingredients');
@@ -210,12 +210,12 @@ class ProductControllerTest extends WebTestCase
     public function testDeleteInvalid()
     {
         $this->loadFixtures([
-            'Barra\AdminBundle\DataFixtures\ORM\LoadUserData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadManufacturerData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadMeasurementData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadRecipeData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadProductData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadIngredientData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadUserData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadManufacturerData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadMeasurementData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadRecipeData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadProductData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadIngredientData',
         ]);
 
         $this->client->request('DELETE', '/en/api/products/1');

@@ -2,7 +2,7 @@
 
 namespace Barra\RestBundle\Controller;
 
-use Barra\AdminBundle\Entity\Repository\BasicRepository;
+use Barra\RecipeBundle\Entity\Repository\BasicRepository;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Annotations;
 use FOS\RestBundle\Request\ParamFetcher;
@@ -224,7 +224,7 @@ class RestController extends FOSRestController implements ClassResourceInterface
     protected function getFormType()
     {
         if (null === $this->formType) {
-            $namespace      = '\Barra\AdminBundle\Form\Type\\';
+            $namespace      = '\Barra\RecipeBundle\Form\Type\\';
             $form           = $namespace.$this->getEntityClass().'Type';
             $this->formType = new $form();
         }
@@ -238,7 +238,7 @@ class RestController extends FOSRestController implements ClassResourceInterface
     protected function getEntity()
     {
         if (null === $this->entity) {
-            $namespace      = '\Barra\AdminBundle\Entity\\';
+            $namespace      = '\Barra\RecipeBundle\Entity\\';
             $entity         = $namespace.$this->getEntityClass();
             $this->entity   = new $entity();
         }
@@ -256,7 +256,7 @@ class RestController extends FOSRestController implements ClassResourceInterface
             $entityClass = $this->getEntityClass();
         }
 
-        return $this->getEM()->getRepository('BarraAdminBundle:'.ucfirst($entityClass));
+        return $this->getEM()->getRepository('BarraRecipeBundle:'.ucfirst($entityClass));
     }
 
     /**

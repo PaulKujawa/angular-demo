@@ -25,9 +25,9 @@ class PhotoControllerTest extends WebTestCase
     public function setUp()
     {
         $this->loadFixtures([
-            'Barra\AdminBundle\DataFixtures\ORM\LoadUserData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadRecipeData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadPhotoData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadUserData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadRecipeData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadPhotoData',
         ]);
 
         $this->client = static::createClient();
@@ -38,7 +38,7 @@ class PhotoControllerTest extends WebTestCase
 
         $this->client->request(
             'POST',
-            '/de/admino/login_check',
+            '/en/admino/login_check',
             [
                 '_username'     => 'demoSA',
                 '_password'     => 'testo',

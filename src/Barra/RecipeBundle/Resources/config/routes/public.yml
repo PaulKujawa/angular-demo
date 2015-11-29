@@ -1,0 +1,9 @@
+barra_recipe_recipes_public:
+  path:     /recipes/{pageIndex}
+  defaults: { _controller: BarraRecipeBundle:Recipe:recipesPublic, pageIndex: 1 }
+  requirements:
+    pageIndex: \d+
+
+barra_recipe_recipe_public:
+  path:     /recipe/{name}
+  defaults: { _controller: BarraRecipeBundle:Recipe:recipePublic }

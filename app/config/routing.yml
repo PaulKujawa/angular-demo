@@ -21,7 +21,7 @@ barra_rest:
         expose: true
 
 barra_recipe:
-    resource: "@BarraAdminBundle/Resources/config/routing.yml"
+    resource: "@BarraRecipeBundle/Resources/config/routing.yml"
     prefix:   /{_locale}
     options:
         expose: true

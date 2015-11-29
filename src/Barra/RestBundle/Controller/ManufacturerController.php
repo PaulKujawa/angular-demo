@@ -2,7 +2,7 @@
 
 namespace Barra\RestBundle\Controller;
 
-use Barra\AdminBundle\Entity\Manufacturer;
+use Barra\RecipeBundle\Entity\Manufacturer;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Util\Codes;
 

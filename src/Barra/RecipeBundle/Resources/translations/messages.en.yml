@@ -1,0 +1,71 @@
+recipe:
+  action:
+    delete:             Delete
+    frontend:           Frontend
+    manage:             Manage
+    new:                New
+    update:             Update
+    send:               Send
+
+  message:
+    emailSent:          Thank you for your inquiry. I will be in touch with you.
+    insertError:        Invalid entry
+
+  meta:
+    contactDescription: PHP Symfony Developer from Berlin - Paul Kujawa
+    contactKeywords:    Paul Kujawa, Symfony, PHP, Berlin, Contact
+    referenceKeywords:  Paul Kujawa, Symfony, PHP, Berlin, References
+    referenceDescription: PHP Symfony Developer from Berlin - References - Paul Kujawa
+    recipeKeywords:     %recipe%, vegan, vegetarian, caloric, high in caloric
+
+  title:
+    aboutMe:            About Me
+    contact:            Contact
+    manufacturers:      Manufacturer
+    measurements:       Measurements
+    myAccomplishments:  My accomplishments
+    myPerson:           Who am I
+    mySkills:           My skills
+    pageAboutMe:        Kujawa
+    products:           Products
+    recipes:            Recipes
+    dashboard:          Dashboard
+
+  word:
+    product:            Product
+
+  #objects: ######################################################
+
+  contact:
+    email:              Your e-mail
+    description:        I am Paul Kujawa, eager Symfony developer and my freetime focuses fitness.
+    message:            Your message to me
+    name:               Your name
+
+  cooking:
+    description:        Description
+
+  ingredient:
+    amount:             Amount
+
+  manufacturer:
+    name:               Name
+
+  measurement:
+    gr:                 Gr
+    name:               Type
+
+  product:
+    carbs:              Carbs
+    fat:                Fat
+    gfat:               sat. fat
+    gr:                 Gr
+    kcal:               Kcal
+    manufacturer:       Manufacturer
+    name:               Name
+    protein:            Protein
+    sugar:              Sugar
+    vegan:              Vegan
+
+  recipe:
+    name:               Name

@@ -1,0 +1,34 @@
+{% extends 'BarraRecipeBundle::layout.html.twig' %}
+{% trans_default_domain "messages" %}
+{% block title %}{{ 'recipe.title.recipes'|trans() }} | Kujawa{% endblock %}
+{% block metaData %}
+    <meta name="description" content="Vegan {{ 'recipe.title.recipes'|trans() }}" />
+    <meta name="keywords" content="{{ 'recipe.meta.recipeKeywords'|trans() }}" />
+{% endblock %}
+
+
+{% block section %}
+    <section class="container" id="recipesPage">
+        {% for row in recipes|batch(3) %}
+            <div class="row">
+                {% for recipe in row %}
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="thumbnail">
+                            <a href="{{ path('barra_recipe_recipe', {'name': recipe.name|replace({' ': '_'})}) }}">
+                                {% if recipe.Photos is not empty %}
+                                    <img
+                                        src="{{ asset('uploads/documents/'~(recipe.Photos|first).filename) }}"
+                                        alt="{{ recipe.name }}"
+                                    >
+                                {% endif %}
+                                <div class="caption">{{ recipe.name }}</div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        {{ include('BarraRecipeBundle:parts:pagination.html.twig', { 'route': 'barra_recipe_recipes'})}}
+    </section>
+{% endblock %}

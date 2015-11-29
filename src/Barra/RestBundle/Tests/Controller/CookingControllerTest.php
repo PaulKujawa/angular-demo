@@ -22,9 +22,9 @@ class CookingControllerTest extends WebTestCase
     public function setUp()
     {
         $this->loadFixtures([
-            'Barra\AdminBundle\DataFixtures\ORM\LoadUserData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadRecipeData',
-            'Barra\AdminBundle\DataFixtures\ORM\LoadCookingData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadUserData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadRecipeData',
+            'Barra\RecipeBundle\DataFixtures\ORM\LoadCookingData',
         ]);
 
         $this->client = static::createClient();
@@ -35,7 +35,7 @@ class CookingControllerTest extends WebTestCase
 
         $this->client->request(
             'POST',
-            '/de/admino/login_check',
+            '/en/admino/login_check',
             [
                 '_username'     => 'demoSA',
                 '_password'     => 'testo',

@@ -1,0 +1,52 @@
+{% extends 'BarraRecipeBundle::layout.html.twig' %}
+{% trans_default_domain "messages" %}
+{% block title %}{{ recipe.name }} | Kujawa{% endblock %}
+{% block metaData %}
+    <meta name="description" content="Vegan {{ recipe.name }}"/>
+    <meta name="keywords" content="{{ 'recipe.meta.recipeKeywords'|trans({'%recipe%':recipe.name}) }}" />
+{% endblock %}
+
+{% block javascripts %}
+    {% javascripts 'bundles/barrarecipe/js/nutricionChart.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block section %}
+    <section class="container">
+        <div id="recipeCircles">
+            <div id="recipePic">
+                {% if recipe.Photos is not empty %}
+                    <img class="img-circle" alt="{{ recipe.name }}"
+                         src="{{ asset('uploads/documents/'~(recipe.photos|first).filename) }}"
+                    >
+                {% endif %}
+            </div>
+
+            <div id="recipeChartWrapper">
+                <canvas id="macroChart" width="301px" height="301px"></canvas>
+                <span id="kcalSpan" class="badge" title="Kcal">{{ macros.kcal }}</span>
+            </div>
+        </div>
+
+        <h1 class="centeredTitle">{{ recipe.name }}</h1>
+        <ul
+            id="productList" class="list-unstyled fontL"
+            data-carbs="{{ macros.carbs }}" data-protein="{{ macros.protein }}" data-fat="{{ macros.fat }}"
+        >
+            {% for ingredient in ingredients %}
+                {% if ingredient.amount is null %}
+                    <li>{{ ingredient.product.name }}</li>
+                {% else %}
+                    <li>{{ ingredient.amount }}{{ ingredient.measurement.name }} {{ ingredient.product.name }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+
+        <ol id="cookingList" class="fontM">
+            {% for cooking in cookings %}
+                <li>{{ cooking.description }}</li>
+            {% endfor %}
+        </ol>
+    </section>
+{% endblock %}
