@@ -18,7 +18,7 @@ class CookingType extends AbstractType
         $builder
             ->add('description', 'text', [
                 'attr' => [
-                    'placeholder' => 'back.cooking.description',
+                    'placeholder' => 'admin.cooking.description',
                 ],
             ])
             ->add('recipe', 'hidden', [

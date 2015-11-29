@@ -1,28 +1,24 @@
-{% extends 'BarraFrontBundle::layout.html.twig' %}
+{% extends 'BarraAdminBundle::layout.html.twig' %}
 {% trans_default_domain "messages" %}
 {% block title %}{{ recipe.name }} | Kujawa{% endblock %}
 {% block metaData %}
     <meta name="description" content="Vegan {{ recipe.name }}"/>
-    <meta name="keywords" content="{{ 'front.meta.recipeKeywords'|trans({'%recipe%':recipe.name}) }}" />
+    <meta name="keywords" content="{{ 'admin.meta.recipeKeywords'|trans({'%recipe%':recipe.name}) }}" />
 {% endblock %}
 
 {% block javascripts %}
-    {{ parent() }}
-    {% javascripts '@BarraFrontBundle/Resources/public/js/makroChart.js' %}
+    {% javascripts 'bundles/barraadmin/js/nutricionChart.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}
-
 
 {% block section %}
     <section class="container">
         <div id="recipeCircles">
             <div id="recipePic">
                 {% if recipe.Photos is not empty %}
-                    <img
-                        class="img-circle"
-                        src="{{ asset('uploads/documents/'~(recipe.photos|first).filename) }}"
-                        alt="{{ recipe.name }}"
+                    <img class="img-circle" alt="{{ recipe.name }}"
+                         src="{{ asset('uploads/documents/'~(recipe.photos|first).filename) }}"
                     >
                 {% endif %}
             </div>

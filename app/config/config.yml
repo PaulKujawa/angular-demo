@@ -52,7 +52,7 @@ doctrine:
 assetic:
   debug:          "%kernel.debug%"
   use_controller: false
-  bundles:        [ BarraAdminBundle, BarraFrontBundle, FOSUserBundle, TwigBundle ] # User & Twig for overwritten templates
+  bundles:        [ BarraAdminBundle, FOSUserBundle, TwigBundle ] # User & Twig for overwritten templates
   filters:
       cssrewrite: ~
 

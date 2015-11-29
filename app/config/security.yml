@@ -20,7 +20,7 @@ security:
                 failure_handler:          lexik_jwt_authentication.handler.authentication_failure
             logout:
                 path:                     fos_user_security_logout
-                target:                   barra_front_root
+                target:                   barra_recipe_root
         api:
             pattern:                      ^/[a-z][a-z]/api/.*
             provider:                     fos_userbundle

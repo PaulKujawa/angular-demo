@@ -1,31 +1,22 @@
-barra_back_user:
+barra_recipe_root:
   path:     /
-  defaults: { _controller: BarraAdminBundle:User:index }
-
-barra_back_manufacturers:
-  path:     /manufacturers/{pageIndex}
-  defaults: { _controller: BarraAdminBundle:Manufacturer:index, pageIndex: 1 }
+  defaults: { _controller: BarraAdminBundle:Index:contact }
   requirements:
-    pageIndex: \d+
+    _locale: de|en
 
-barra_back_measurements:
-  path:     /measurements/{pageIndex}
-  defaults: { _controller: BarraAdminBundle:Measurement:index, pageIndex: 1 }
-  requirements:
-    pageIndex: \d+
+barra_recipe_contact:
+  path:     /contact
+  defaults: { _controller: BarraAdminBundle:Index:contact }
 
-barra_back_products:
-  path:     /products/{pageIndex}
-  defaults: { _controller: BarraAdminBundle:Product:index, pageIndex: 1 }
-  requirements:
-    pageIndex: \d+
+barra_recipe_dashboard:
+  path:     /admino/
+  defaults: { _controller: BarraAdminBundle:Index:dashboard }
 
-barra_back_recipes:
-  path:     /recipes/{pageIndex}
-  defaults: { _controller: BarraAdminBundle:Recipe:index, pageIndex: 1 }
-  requirements:
-    pageIndex: \d+
+barra_recipe_public:
+  resource: "@BarraAdminBundle/Resources/config/routes/public.yml"
 
-barra_back_recipe:
-  path:     /recipe/{name}
-  defaults: { _controller: BarraAdminBundle:Recipe:showRecipe }
+barra_recipe_admin:
+  resource: "@BarraAdminBundle/Resources/config/routes/admin.yml"
+  prefix:   /admino
+
+

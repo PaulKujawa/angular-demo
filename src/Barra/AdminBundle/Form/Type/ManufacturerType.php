@@ -18,7 +18,7 @@ class ManufacturerType extends AbstractType
         $builder
             ->add('name', 'text', [
                 'attr' => [
-                    'placeholder' => 'back.manufacturer.name',
+                    'placeholder' => 'admin.manufacturer.name',
                 ],
             ])
             ->add('submit', 'submit')

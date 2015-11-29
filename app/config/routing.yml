@@ -1,8 +1,8 @@
-barra_front_redirect:
+barra_recipe_redirect:
     path: /
     defaults:
       _controller: FrameworkBundle:Redirect:redirect
-      route: barra_front_root
+      route: barra_recipe_root
       permanent: true
     options:
         expose: true
@@ -20,15 +20,9 @@ barra_rest:
     options:
         expose: true
 
-barra_front:
-    resource: "@BarraFrontBundle/Resources/config/routing.yml"
-    prefix:   /{_locale}
-    options:
-        expose: true
-
-barra_admin:
+barra_recipe:
     resource: "@BarraAdminBundle/Resources/config/routing.yml"
-    prefix:   /{_locale}/admino
+    prefix:   /{_locale}
     options:
         expose: true
 

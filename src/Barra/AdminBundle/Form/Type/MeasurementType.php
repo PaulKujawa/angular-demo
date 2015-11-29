@@ -18,12 +18,12 @@ class MeasurementType extends AbstractType
         $builder
             ->add('name', 'text', [
                 'attr' => [
-                    'placeholder' => 'back.measurement.name',
+                    'placeholder' => 'admin.measurement.name',
                 ],
             ])
             ->add('gr', 'integer', [
                 'attr' => [
-                    'placeholder' => 'back.measurement.gr',
+                    'placeholder' => 'admin.measurement.gr',
                 ],
             ])
             ->add('submit', 'submit')

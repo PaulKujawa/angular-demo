@@ -1,11 +1,11 @@
-{% extends 'BarraFrontBundle::layout.html.twig' %}
-{% form_theme form 'BarraFrontBundle:Form:contactRow.html.twig' %}
+{% extends 'BarraAdminBundle::layout.html.twig' %}
+{% form_theme form 'BarraAdminBundle:Form:contactRow.html.twig' %}
 
 {% trans_default_domain "messages" %}
-{% block title %}{{ 'front.title.contact'|trans() }} | Kujawa{% endblock %}
+{% block title %}{{ 'admin.title.contact'|trans() }} | Kujawa{% endblock %}
 {% block metaData %}
-    <meta name="description" content="{{ 'front.meta.contactDescription'|trans() }}" />
-    <meta name="keywords" content="{{ 'front.meta.contactKeywords'|trans() }}" />
+    <meta name="description" content="{{ 'admin.meta.contactDescription'|trans() }}" />
+    <meta name="keywords" content="{{ 'admin.meta.contactKeywords'|trans() }}" />
 {% endblock %}
 
 
@@ -14,14 +14,13 @@
     <section class="container" id="contactPage">
         <div id="aboutMe" class="clearfix">
             <div id="contactPic">
-                <img class="img-circle" src="{{ asset('bundles/barrafront/images/kujawa.jpg') }}" alt="Paul Kujawa">
+                <img class="img-circle" src="{{ asset('bundles/barraadmin/images/kujawa.jpg') }}" alt="Paul Kujawa">
             </div>
 
             <div id="contactDescription">
-                <p class="fontL">{{ 'front.contact.description'|trans() }}</p>
+                <p class="fontL">{{ 'admin.contact.description'|trans() }}</p>
             </div>
         </div>
-
 
         {{ form_start(form, {'attr': {'id': "contactForm"}} ) }}
             {% for flashMessage in app.session.flashbag.get('emailSent') %}
@@ -38,7 +37,7 @@
                 </div>
                 {{ form_row(form.message) }}
             </div>
-            {{ form_widget(form.submit, {'label': 'front.action.send', 'attr': {'class': 'btn'} }) }}
+            {{ form_widget(form.submit, {'label': 'admin.action.send', 'attr': {'class': 'btn'} }) }}
         {{ form_end(form) }}
     </section>
 {% endblock %}

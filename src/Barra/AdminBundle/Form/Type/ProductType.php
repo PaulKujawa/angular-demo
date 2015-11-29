@@ -19,7 +19,7 @@ class ProductType extends AbstractType
         $builder
             ->add('name', 'text', [
                 'attr'      => [
-                    'placeholder' => 'back.product.name',
+                    'placeholder' => 'admin.product.name',
                 ],
             ])
             ->add('vegan', 'checkbox', [
@@ -27,49 +27,49 @@ class ProductType extends AbstractType
             ])
             ->add('gr', 'integer', [
                 'attr'      => [
-                    'placeholder' => 'back.product.gr',
+                    'placeholder' => 'admin.product.gr',
                 ],
             ])
             ->add('kcal', 'integer', [
                 'attr'      => [
-                    'placeholder' => 'back.product.kcal',
+                    'placeholder' => 'admin.product.kcal',
                 ],
             ])
             ->add('protein', 'number', [
                 'precision' => 2,
                 'attr'      => [
-                    'placeholder' => 'back.product.protein',
+                    'placeholder' => 'admin.product.protein',
                 ],
             ])
             ->add('carbs', 'number', [
                 'precision' => 2,
                 'attr'      => [
-                    'placeholder' => 'back.product.carbs',
+                    'placeholder' => 'admin.product.carbs',
                 ],
             ])
             ->add('sugar', 'number', [
                 'precision' => 2,
                 'attr'      => [
-                    'placeholder' => 'back.product.sugar',
+                    'placeholder' => 'admin.product.sugar',
                 ],
             ])
             ->add('fat', 'number', [
                 'precision' => 2,
                 'attr'      => [
-                    'placeholder' => 'back.product.fat',
+                    'placeholder' => 'admin.product.fat',
                 ],
             ])
             ->add('gfat', 'number', [
                 'precision' => 2,
                 'attr'      => [
-                    'placeholder' => 'back.product.gfat',
+                    'placeholder' => 'admin.product.gfat',
                 ],
             ])
             ->add('manufacturer', 'entity', [
                 'class'     => 'BarraAdminBundle:Manufacturer',
                 'property'  => 'name',
                 'attr'      => [
-                    'placeholder' => 'back.manufacturer.name',
+                    'placeholder' => 'admin.manufacturer.name',
                 ],
                 'query_builder' => function (EntityRepository $er) {
                     return $er

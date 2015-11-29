@@ -1,6 +1,6 @@
 {% extends 'BarraAdminBundle::layout.html.twig' %}
 {% form_theme form 'BarraAdminBundle:Form:tableRow.html.twig' %}
-{% block title %}{{ 'back.title.products'|trans() }}{% endblock %}
+{% block title %}{{ 'admin.title.products'|trans() }}{% endblock %}
 
 {% block section %}
     <section class="container mobileTables" ng-controller="ProductCtrl">
@@ -10,34 +10,34 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>{{ 'back.product.name'|trans() }}</th>
-                        <th>{{ 'back.product.vegan'|trans() }}</th>
-                        <th>{{ 'back.product.gr'|trans() }}</th>
-                        <th>{{ 'back.product.kcal'|trans() }}</th>
-                        <th>{{ 'back.product.protein'|trans() }}</th>
-                        <th>{{ 'back.product.carbs'|trans() }}</th>
-                        <th>{{ 'back.product.sugar'|trans() }}</th>
-                        <th>{{ 'back.product.fat'|trans() }}</th>
-                        <th>{{ 'back.product.gfat'|trans() }}</th>
-                        <th>{{ 'back.product.manufacturer'|trans() }}</th>
-                        <th>{{ 'back.action.delete'|trans() }}</th>
+                        <th>{{ 'admin.product.name'|trans() }}</th>
+                        <th>{{ 'admin.product.vegan'|trans() }}</th>
+                        <th>{{ 'admin.product.gr'|trans() }}</th>
+                        <th>{{ 'admin.product.kcal'|trans() }}</th>
+                        <th>{{ 'admin.product.protein'|trans() }}</th>
+                        <th>{{ 'admin.product.carbs'|trans() }}</th>
+                        <th>{{ 'admin.product.sugar'|trans() }}</th>
+                        <th>{{ 'admin.product.fat'|trans() }}</th>
+                        <th>{{ 'admin.product.gfat'|trans() }}</th>
+                        <th>{{ 'admin.product.manufacturer'|trans() }}</th>
+                        <th>{{ 'admin.action.delete'|trans() }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="product in products | orderBy:'name'">
-                        <td data-mobile-title={{ 'back.product.name'|trans() }}>[[product.name]]</td>
-                        <td data-mobile-title={{ 'back.product.vegan'|trans() }}>
+                        <td data-mobile-title={{ 'admin.product.name'|trans() }}>[[product.name]]</td>
+                        <td data-mobile-title={{ 'admin.product.vegan'|trans() }}>
                             <span ng-if="product.vegan">✖</span>
                         </td>
-                        <td data-mobile-title={{ 'back.product.gr'|trans() }}>[[product.gr]]</td>
-                        <td data-mobile-title={{ 'back.product.kcal'|trans() }}>[[product.kcal]]</td>
-                        <td data-mobile-title={{ 'back.product.protein'|trans() }}>[[product.protein]]</td>
-                        <td data-mobile-title={{ 'back.product.carbs'|trans() }}>[[product.carbs]]</td>
-                        <td data-mobile-title={{ 'back.product.sugar'|trans() }}>[[product.sugar]]</td>
-                        <td data-mobile-title={{ 'back.product.fat'|trans() }}>[[product.fat]]</td>
-                        <td data-mobile-title={{ 'back.product.gfat'|trans() }}>[[product.gfat]]</td>
-                        <td data-mobile-title={{ 'back.product.manufacturer'|trans() }}>[[product.manufacturer.name]]</td>
-                        <td data-mobile-title={{ 'back.action.delete'|trans() }}>
+                        <td data-mobile-title={{ 'admin.product.gr'|trans() }}>[[product.gr]]</td>
+                        <td data-mobile-title={{ 'admin.product.kcal'|trans() }}>[[product.kcal]]</td>
+                        <td data-mobile-title={{ 'admin.product.protein'|trans() }}>[[product.protein]]</td>
+                        <td data-mobile-title={{ 'admin.product.carbs'|trans() }}>[[product.carbs]]</td>
+                        <td data-mobile-title={{ 'admin.product.sugar'|trans() }}>[[product.sugar]]</td>
+                        <td data-mobile-title={{ 'admin.product.fat'|trans() }}>[[product.fat]]</td>
+                        <td data-mobile-title={{ 'admin.product.gfat'|trans() }}>[[product.gfat]]</td>
+                        <td data-mobile-title={{ 'admin.product.manufacturer'|trans() }}>[[product.manufacturer.name]]</td>
+                        <td data-mobile-title={{ 'admin.action.delete'|trans() }}>
                             <span class="glyphicon glyphicon-trash" ng-click="deleteEntry(product)"></span>
                         </td>
                     </tr>
@@ -52,12 +52,12 @@
                         {{ form_row(form.fat) }}
                         {{ form_row(form.gfat) }}
                         {{ form_row(form.manufacturer) }}
-                        {{ form_widget(form.submit, {'label': 'back.action.new', 'attr': {'class': 'btn'} }) }}
+                        {{ form_widget(form.submit, {'label': 'admin.action.new', 'attr': {'class': 'btn'} }) }}
                     </tr>
                 </tbody>
             </table>
         {{ form_end(form) }}
 
-        {{ include('BarraAdminBundle:parts:pagination.html.twig', { 'route': 'barra_back_products'})}}
+        {{ include('BarraAdminBundle:parts:pagination.html.twig', { 'route': 'barra_admin_products'})}}
     </section>
 {% endblock %}

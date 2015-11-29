@@ -13,7 +13,7 @@ class RecipeType extends AbstractType
         $builder
             ->add('name', 'text', [
                 'attr' => [
-                    'placeholder' => 'back.recipe.name',
+                    'placeholder' => 'admin.recipe.name',
                 ],
             ])
             ->add('submit', 'submit')

@@ -24,7 +24,6 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
 
-            new Barra\FrontBundle\BarraFrontBundle(),
             new Barra\AdminBundle\BarraAdminBundle(),
             new Barra\RestBundle\BarraRestBundle(),
         );

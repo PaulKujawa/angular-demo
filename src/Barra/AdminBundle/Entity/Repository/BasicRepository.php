@@ -31,7 +31,7 @@ class BasicRepository extends EntityRepository
      * @param string    $order
      * @return array
      */
-    public function getSome($offset, $limit, $orderBy, $order)
+    public function getSome($offset, $limit, $orderBy, $order = 'ASC')
     {
         $query = $this
             ->createQueryBuilder('m')

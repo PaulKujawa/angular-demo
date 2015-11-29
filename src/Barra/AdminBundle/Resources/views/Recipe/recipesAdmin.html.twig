@@ -1,6 +1,6 @@
 {% extends 'BarraAdminBundle::layout.html.twig' %}
 {% form_theme form 'BarraAdminBundle:Form:tableRow.html.twig' %}
-{% block title %}{{ 'back.title.recipes'|trans() }}{% endblock %}
+{% block title %}{{ 'admin.title.recipes'|trans() }}{% endblock %}
 
 {% block section %}
     <section class="container mobileTables" ng-controller="RecipeCtrl">
@@ -10,14 +10,14 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>{{ 'back.recipe.name'|trans() }}</th>
-                        <th>{{ 'back.action.manage'|trans() }}</th>
+                        <th>{{ 'admin.recipe.name'|trans() }}</th>
+                        <th>{{ 'admin.action.manage'|trans() }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="recipe in recipes | orderBy:'name'">
-                        <td data-mobile-title="{{'back.recipe.name'|trans()}}">[[recipe.name]]</td>
-                        <td data-mobile-title="{{'back.action.manage'|trans()}}">
+                        <td data-mobile-title="{{'admin.recipe.name'|trans()}}">[[recipe.name]]</td>
+                        <td data-mobile-title="{{'admin.action.manage'|trans()}}">
                             <a href="[[urlRecipe]]/[[recipe.name.replace(' ', '_')]]">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                             </a>
@@ -26,12 +26,12 @@
                     </tr>
                     <tr class="formInRow">
                         {{ form_row(form.name) }}
-                        {{ form_widget(form.submit, {'label': 'back.action.new', 'attr': {'class': 'btn'} }) }}
+                        {{ form_widget(form.submit, {'label': 'admin.action.new', 'attr': {'class': 'btn'} }) }}
                     </tr>
                 </tbody>
             </table>
         {{ form_end(form) }}
 
-        {{ include('BarraAdminBundle:parts:pagination.html.twig', { 'route': 'barra_back_recipes'}) }}
+        {{ include('BarraAdminBundle:parts:pagination.html.twig', { 'route': 'barra_admin_recipes'}) }}
     </section>
 {% endblock %}

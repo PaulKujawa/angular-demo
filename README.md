@@ -3,11 +3,11 @@
 
 ### Create Bundle, Form, Route
 * create bundle       `php app/console generate:bundle --namespace=Barra/DemoBundle --format=yml`
-* create form         `php app/console doctrine:generate:form {Bundle:Entity} --no-interaction`
+* create form         `php app/console doctrine:generate:form {Bundle:Entity}`
 * debug routes        `php app/console debug:router | grep foo`
 
 ### Assets
-* Cache clear prod    `php app/console --env=prod cache:clear`
+* Cache clear prod    `php app/console [--env=prod] cache:clear`
 * include assets dev  `php app/console assets:install --symlink`
 * include assets prod `php app/console assetic:dump --env=prod --no-debug`
 

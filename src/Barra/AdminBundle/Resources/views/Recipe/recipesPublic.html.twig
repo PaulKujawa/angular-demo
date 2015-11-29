@@ -1,9 +1,9 @@
-{% extends 'BarraFrontBundle::layout.html.twig' %}
+{% extends 'BarraAdminBundle::layout.html.twig' %}
 {% trans_default_domain "messages" %}
-{% block title %}{{ 'front.title.recipes'|trans() }} | Kujawa{% endblock %}
+{% block title %}{{ 'admin.title.recipes'|trans() }} | Kujawa{% endblock %}
 {% block metaData %}
-    <meta name="description" content="Vegan {{ 'front.title.recipes'|trans() }}" />
-    <meta name="keywords" content="{{ 'front.meta.recipeKeywords'|trans() }}" />
+    <meta name="description" content="Vegan {{ 'admin.title.recipes'|trans() }}" />
+    <meta name="keywords" content="{{ 'admin.meta.recipeKeywords'|trans() }}" />
 {% endblock %}
 
 
@@ -14,7 +14,7 @@
                 {% for recipe in row %}
                     <div class="col-xs-12 col-sm-4">
                         <div class="thumbnail">
-                            <a href="{{ path('barra_front_recipe', {'name': recipe.name|replace({' ': '_'})}) }}">
+                            <a href="{{ path('barra_admin_recipe', {'name': recipe.name|replace({' ': '_'})}) }}">
                                 {% if recipe.Photos is not empty %}
                                     <img
                                         src="{{ asset('uploads/documents/'~(recipe.Photos|first).filename) }}"
@@ -29,6 +29,6 @@
             </div>
         {% endfor %}
 
-        {{ include('BarraFrontBundle:parts:pagination.html.twig', { 'route': 'barra_front_recipes'})}}
+        {{ include('BarraAdminBundle:parts:pagination.html.twig', { 'route': 'barra_admin_recipes'})}}
     </section>
 {% endblock %}

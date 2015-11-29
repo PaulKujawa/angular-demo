@@ -1,48 +1,71 @@
-back:
+admin:
   action:
-    delete: Löschen
-    frontend: Frontend
-    manage: Bearbeiten
-    new: Neu
-    update: Aktualisieren
-
-  title:
-    manufacturers: Hersteller
-    measurements: Messeinheiten
-    products: Produkte
-    recipes: Rezepte
-    user: Benutzer
+    delete:             Löschen
+    frontend:           Frontend
+    manage:             Bearbeiten
+    new:                Neu
+    update:             Aktualisieren
+    send:               Senden
 
   message:
-    insertError: Ungültiger Eintrag
+    emailSent:          Danke für Ihre Anfrage. Ich werde mich bei Ihnen melden.
+    insertError:        Ungültiger Eintrag
 
-  product: #object
-    carbs: Kohlenhydrate
-    fat: Fett
-    gfat: ges. Fett
-    gr: Gr
-    kcal: Kcal
-    manufacturer: Hersteller
-    name: Name
-    protein: Eiweiß
-    sugar: Zucker
-    vegan: Vegan
+  meta:
+    contactDescription: PHP Symfony Entwickler aus Berlin - Paul Kujawa
+    contactKeywords:    Paul Kujawa, Symfony, PHP, Berlin, Kontakt
+    recipeKeywords:     %recipe%, vegan, vegetarisch, kaloreichreich, kaloreinhaltig, viel kalorien
+    referenceDescription: PHP Symfony Entwickler aus Berlin - Referenzen - Paul Kujawa
+    referenceKeywords:  Paul Kujawa, Symfony, PHP, Berlin, Referenzen
 
-  measurement: #object
-    gr: Gr
-    name: Typ
-
-  manufacturer: #object
-    name: Name
-
-  recipe: #object
-    name: Name
-
-  cooking: #object
-    description: Beschreibung
-
-  ingredient: #object
-    amount: Menge
+  title:
+    aboutMe:            Über mich
+    contact:            Kontakt
+    manufacturers:      Hersteller
+    measurements:       Messeinheiten
+    myAccomplishments:  Meine Erfolge
+    myPerson:           Wer bin ich
+    mySkills:           Meine Fähigkeiten
+    pageAboutMe:        Kujawa
+    products:           Produkte
+    recipes:            Rezepte
+    dashboard:          Dashboard
 
   word:
-    product: Zutat
+    product:            Zutat
+
+  #objects: ######################################################
+
+  contact:
+    email:              Ihre E-Mail
+    description:        Ich trage den Namen Paul Kujawa, bin eifriger Symfony Entwickler und meine Freizeit fokussiert Fitness.
+    message:            Ihre Nachricht an mich
+    name:               Ihr Name
+
+  cooking:
+    description:        Beschreibung
+
+  ingredient:
+    amount:             Menge
+
+  manufacturer:
+    name:               Name
+
+  measurement:
+    gr:                 Gr
+    name:               Typ
+
+  product:
+      carbs:            Kohlenhydrate
+      fat:              Fett
+      gfat:             ges. Fett
+      gr:               Gr
+      kcal:             Kcal
+      manufacturer:     Hersteller
+      name:             Name
+      protein:          Eiweiß
+      sugar:            Zucker
+      vegan:            Vegan
+
+  recipe:
+    name:               Name

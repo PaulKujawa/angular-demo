@@ -20,7 +20,7 @@ class IngredientType extends AbstractType
             ->add('amount', 'integer', [
                 'required'  => false,
                 'attr'      => [
-                    'placeholder' => 'back.ingredient.amount',
+                    'placeholder' => 'admin.ingredient.amount',
                 ],
             ])
             ->add('measurement', 'entity', [
@@ -28,14 +28,14 @@ class IngredientType extends AbstractType
                 'property'  => 'name',
                 'required'  => false,
                 'attr'      => [
-                    'placeholder' => 'back.measurement.name',
+                    'placeholder' => 'admin.measurement.name',
                 ],
             ])
             ->add('product', 'entity', [
                 'class'     => 'BarraAdminBundle:Product',
                 'property'  => 'name',
                 'attr'      => [
-                    'placeholder' => 'back.product.name',
+                    'placeholder' => 'admin.product.name',
                 ],
                 'query_builder' => function (EntityRepository $er) {
                     return $er

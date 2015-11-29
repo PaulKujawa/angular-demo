@@ -1,6 +1,6 @@
 {% extends 'BarraAdminBundle::layout.html.twig' %}
 {% form_theme form 'BarraAdminBundle:Form:tableRow.html.twig' %}
-{% block title %}{{ 'back.title.manufacturers'|trans() }}{% endblock %}
+{% block title %}{{ 'admin.title.manufacturers'|trans() }}{% endblock %}
 
 {% block section %}
     <section class="container mobileTables" ng-controller="ManufacturerCtrl">
@@ -10,25 +10,25 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>{{ 'back.manufacturer.name'|trans() }}</th>
-                        <th>{{ 'back.action.delete'|trans() }}</th>
+                        <th>{{ 'admin.manufacturer.name'|trans() }}</th>
+                        <th>{{ 'admin.action.delete'|trans() }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="manufacturer in manufacturers | orderBy:'name'">
-                        <td data-mobile-title={{ 'back.manufacturer.name'|trans() }}>[[manufacturer.name]]</td>
-                        <td data-mobile-title={{ 'back.action.delete'|trans() }}>
+                        <td data-mobile-title={{ 'admin.manufacturer.name'|trans() }}>[[manufacturer.name]]</td>
+                        <td data-mobile-title={{ 'admin.action.delete'|trans() }}>
                             <span class="glyphicon glyphicon-trash" ng-click="deleteEntry(manufacturer)"></span>
                         </td>
                     </tr>
                     <tr class="formInRow">
                         {{ form_row(form.name) }}
-                        {{ form_widget(form.submit, {'label': 'back.action.new', 'attr': {'class': 'btn'} }) }}
+                        {{ form_widget(form.submit, {'label': 'admin.action.new', 'attr': {'class': 'btn'} }) }}
                     </tr>
                 </tbody>
             </table>
         {{ form_end(form) }}
 
-        {{ include('BarraAdminBundle:parts:pagination.html.twig', { 'route': 'barra_back_manufacturers'})}}
+        {{ include('BarraAdminBundle:parts:pagination.html.twig', { 'route': 'barra_admin_manufacturers'})}}
     </section>
 {% endblock %}
