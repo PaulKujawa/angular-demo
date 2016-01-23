@@ -10,7 +10,7 @@
 
 ### Assets
 * Cache clear prod    `php app/console [--env=prod] cache:clear`
-* include assets dev  `php app/console assets:install --symlink`
+* include assets dev  `php app/console assets:install [--symlink]`
 * include assets prod `php app/console assetic:dump --env=prod --no-debug`
 
 ### Doctrine

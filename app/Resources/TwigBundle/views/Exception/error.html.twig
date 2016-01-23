@@ -5,11 +5,11 @@
 
 {% block stylesheets %}
     {% stylesheets filter='cssrewrite'
-    'vendor/jquery-ui/themes/smoothness/jquery-ui.min.css'
-    'vendor/bootstrap/dist/css/bootstrap.min.css'
-    '../app/Resources/public/css/app.css'
+        'vendor/jquery-ui/themes/smoothness/jquery-ui.min.css'
+        'vendor/bootstrap/dist/css/bootstrap.min.css'
+        'css/app.css'
     %}
-    <link rel="stylesheet" href="{{ asset_url }}">
+        <link rel="stylesheet" href="{{ asset_url }}">
     {% endstylesheets %}
 {% endblock %}
 
@@ -21,7 +21,7 @@
     'vendor/angular/angular.min.js'
     'vendor/restangular/dist/restangular.min.js'
     'bundles/fosjsrouting/js/router.js'
-    'bundles/barrarecipe/js/app.js'
+    'js/admin.js'
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
@@ -36,6 +36,6 @@
 {% block section %}
     <section class="container errorPage">
         <h1>{{ 'app.message.errorCode'|trans({'%code%':status_code}) }}</h1>
-        <a href="{{ path('barra_front_root') }}">{{ 'app.word.startpage'|trans() }}</a>
+        <a href="{{ path('barra_recipe_root') }}">{{ 'app.word.startpage'|trans() }}</a>
     </section>
 {% endblock %}

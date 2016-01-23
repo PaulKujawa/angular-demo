@@ -14,10 +14,10 @@
                 {% for recipe in row %}
                     <div class="col-xs-12 col-sm-4">
                         <div class="thumbnail">
-                            <a href="{{ path('barra_recipe_recipe', {'name': recipe.name|replace({' ': '_'})}) }}">
+                            <a href="{{ path('barra_recipe_recipe_public', {'name': recipe.name|replace({' ': '_'})}) }}">
                                 {% if recipe.Photos is not empty %}
                                     <img
-                                        src="{{ asset('uploads/documents/'~(recipe.Photos|first).filename) }}"
+                                        src="{{ asset('images/uploads/'~(recipe.Photos|first).filename) }}"
                                         alt="{{ recipe.name }}"
                                     >
                                 {% endif %}

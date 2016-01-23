@@ -53,7 +53,7 @@ recipe:
 
   measurement:
     gr:                 Gr
-    name:               Typ
+    type:               Typ
 
   product:
       carbs:            Kohlenhydrate

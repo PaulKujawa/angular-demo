@@ -27,13 +27,10 @@
 
 # Assets and user uploads
 /web/bundles/
-/web/uploads/
-/web/vendor/
 /web/css/
+/web/images/
 /web/js/
-
-# PHPUnit
-/app/phpunit.xml
+/web/vendor/
 
 # Build data
 /build/ccHTML/*
