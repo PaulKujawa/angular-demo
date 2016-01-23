@@ -2,36 +2,9 @@
 {% trans_default_domain "messages" %}
 {% block title %}{{ status_code }}{% endblock %}
 
-
-{% block stylesheets %}
-    {% stylesheets filter='cssrewrite'
-        'vendor/jquery-ui/themes/smoothness/jquery-ui.min.css'
-        'vendor/bootstrap/dist/css/bootstrap.min.css'
-        'css/app.css'
-    %}
-        <link rel="stylesheet" href="{{ asset_url }}">
-    {% endstylesheets %}
-{% endblock %}
-
-{% block javascripts %}
-    {% javascripts
-    'vendor/jquery/dist/jquery.min.js'
-    'vendor/jquery-ui/jquery-ui.min.js'
-    'vendor/lodash/dist/lodash.min.js'
-    'vendor/angular/angular.min.js'
-    'vendor/restangular/dist/restangular.min.js'
-    'bundles/fosjsrouting/js/router.js'
-    'js/admin.js'
-    %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-    {# controller generated JS file. include in assetic would require a manual dump every time a route changes #}
-    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-{% endblock %}
-
-
-
+{# keep empty nav container #}
 {% block languageBtn %}{% endblock %}
+{% block navList %}{% endblock %}
 
 {% block section %}
     <section class="container errorPage">

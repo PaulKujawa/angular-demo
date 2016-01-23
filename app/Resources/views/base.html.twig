@@ -12,8 +12,45 @@
             <META name="publisher"              content="Paul Kujawa">
 
             {% block metaData %}{% endblock %}
-            {% block stylesheets %}{% endblock %}
-            {% block javascripts %}{% endblock %}
+
+            {# TODO notices on error page overrites from login.css aganst app.css #}
+            {% block stylesheets %}
+                {% stylesheets filter='cssrewrite'
+                    'vendor/jquery-ui/themes/smoothness/jquery-ui.min.css'
+                    'vendor/bootstrap/dist/css/bootstrap.min.css'
+                    'vendor/angular-chart.js/dist/angular-chart.css'
+                    'vendor/angular-ui-tree/dist/angular-ui-tree.min.css'
+                    'css/app.css'
+                    'css/admin.css'
+                    'css/login.css'
+                    'css/public.css'
+                %}
+                    <link rel="stylesheet" href="{{ asset_url }}">
+                {% endstylesheets %}
+            {% endblock %}
+
+            {# NOTICE doubt angular-chart and angular-ui-tree are necessary #}
+            {% block javascripts %}
+                {% javascripts
+                    'vendor/jquery/dist/jquery.min.js'
+                    'vendor/jquery-ui/jquery-ui.min.js'
+                    'vendor/jquery-ui-touch-punch-improved/jquery.ui.touch-punch-improved.js'
+                    'vendor/lodash/dist/lodash.min.js'
+                    'vendor/chartjs/Chart.js'
+                    'vendor/bootstrap/dist/js/bootstrap.js'
+                    'vendor/angular/angular.min.js'
+                    'vendor/restangular/dist/restangular.min.js'
+                    'vendor/angular-chart.js/dist/angular-chart.js'
+                    'vendor/angular-ui-tree/dist/angular-ui-tree.js'
+                    'bundles/fosjsrouting/js/router.js'
+                    'js/admin.js'
+                %}
+                    <script type="text/javascript" src="{{ asset_url }}"></script>
+                {% endjavascripts %}
+
+                {# controller generated JS file. include in assetic would require a manual dump every time a route changes #}
+                <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+            {% endblock %}
         {% endblock %}
     </head>
 
@@ -38,11 +75,12 @@
                         {% endblock %}
                     </div>
 
-
                     <!-- all elements for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                            {% block navList %}{% endblock %}
+                            {% block navList %}
+                                {{ include(':parts:nav.html.twig') }}
+                            {% endblock %}
                         </ul>
                     </div>
                 </div>
