@@ -7,11 +7,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * Class IndexController
- * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RecipeBundle\Controller
- */
 class IndexController extends Controller
 {
     /**
@@ -51,7 +46,7 @@ class IndexController extends Controller
             return $this->redirect($this->generateUrl('barra_recipe_contact'));
         }
 
-        return $this->render('BarraRecipeBundle:Index:contact.html.twig', [
+        return $this->render(':index:contact.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -61,7 +56,7 @@ class IndexController extends Controller
      */
     public function dashboardAction()
     {
-        return $this->render('BarraRecipeBundle:Index:dashboard.html.twig', []);
+        return $this->render(':index:dashboard.html.twig', []);
     }
 
     /**

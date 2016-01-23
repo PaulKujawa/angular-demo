@@ -1,4 +1,4 @@
-{% extends 'BarraRecipeBundle::layout.html.twig' %}
+{% extends '::layout.html.twig' %}
 {% form_theme formIngredient 'BarraRecipeBundle:Form:tableRow.html.twig' %}
 {% form_theme formCooking 'BarraRecipeBundle:Form:tableRow.html.twig' %}
 {% block title %}{{ recipe.name }}{% endblock %}
@@ -16,7 +16,7 @@
         </form>
 
         <div ng-controller="IngredientCtrl" ng-init="recipeId={{recipe.id}}">
-            {{ include('BarraRecipeBundle:parts:formValidation.html.twig') }}
+            {{ include(':parts:form_validation.html.twig') }}
 
             {{ form_start(formIngredient) }}
                 <table class="table table-striped">
@@ -52,7 +52,7 @@
         </div>
 
         <div ng-controller="CookingCtrl" ng-init="recipeId={{recipe.id}}">
-            {{ include('BarraRecipeBundle:parts:formValidation.html.twig') }}
+            {{ include(':parts:form_validation.html.twig') }}
             {{ form_start(formCooking) }}
                 <table class="table table-striped">
                     <thead>

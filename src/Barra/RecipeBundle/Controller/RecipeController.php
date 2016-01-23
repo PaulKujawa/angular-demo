@@ -14,11 +14,6 @@ use Barra\RecipeBundle\Entity\Recipe;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
- * Class RecipeController
- * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RecipeBundle\Controller
- */
 class RecipeController extends BasicController
 {
     const LIMIT = 6;
@@ -31,7 +26,7 @@ class RecipeController extends BasicController
     {
         $form = $this->createForm(new RecipeType(), new Recipe());
 
-        return $this->render('BarraRecipeBundle:Recipe:recipesAdmin.html.twig', [
+        return $this->render(':recipe:recipes_admin.html.twig', [
             'pageIndex' => $pageIndex,
             'pages'     => $this->getPaginationPages(),
             'form'      => $form->createView(),
@@ -58,7 +53,7 @@ class RecipeController extends BasicController
         $formCooking    = $this->createForm(new CookingType(), new Cooking());
         $formIngredient = $this->createForm(new IngredientType(), new Ingredient());
 
-        return $this->render('BarraRecipeBundle:Recipe:recipeAdmin.html.twig', [
+        return $this->render(':recipe:recipe_admin.html.twig', [
             'recipe'            => $recipe,
             'formPicture'       => $formPicture->createView(),
             'formIngredient'    => $formIngredient->createView(),
@@ -79,7 +74,7 @@ class RecipeController extends BasicController
         $pages      = $repo->count();
         $pages      = ceil($pages/self::LIMIT);
 
-        return $this->render('BarraRecipeBundle:Recipe:recipesPublic.html.twig', [
+        return $this->render(':recipe:recipes_public.html.twig', [
             'pageIndex' => $pageIndex,
             'pages'     => $pages,
             'recipes'   => $recipes,
@@ -103,7 +98,7 @@ class RecipeController extends BasicController
         $ingredients = $em->getRepository('BarraRecipeBundle:Ingredient')->findByRecipe($recipe, ['position' => 'ASC']);
         $macros      = $this->calculateMacros($ingredients);
 
-        return $this->render('BarraRecipeBundle:Recipe:recipePublic.html.twig', [
+        return $this->render(':recipe:recipe_public.html.twig', [
             'recipe'      => $recipe,
             'macros'      => $macros,
             'cookings'    => $cookings,

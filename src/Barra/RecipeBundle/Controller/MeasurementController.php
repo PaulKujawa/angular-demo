@@ -6,11 +6,6 @@ use Barra\RecipeBundle\Form\MeasurementType;
 use Barra\RecipeBundle\Entity\Measurement;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * Class MeasurementController
- * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RecipeBundle\Controller
- */
 class MeasurementController extends BasicController
 {
     /**
@@ -21,7 +16,7 @@ class MeasurementController extends BasicController
     {
         $form = $this->createForm(new MeasurementType(), new Measurement());
 
-        return $this->render('BarraRecipeBundle:Measurement:measurements.html.twig', [
+        return $this->render(':measurement:measurements.html.twig', [
             'pageIndex' => $pageIndex,
             'pages'     => $this->getPaginationPages(),
             'form'      => $form->createView(),

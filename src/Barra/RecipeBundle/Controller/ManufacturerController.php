@@ -6,11 +6,6 @@ use Barra\RecipeBundle\Form\ManufacturerType;
 use Barra\RecipeBundle\Entity\Manufacturer;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * Class ManufacturerController
- * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RecipeBundle\Controller
- */
 class ManufacturerController extends BasicController
 {
     /**
@@ -21,7 +16,7 @@ class ManufacturerController extends BasicController
     {
         $form = $this->createForm(new ManufacturerType(), new Manufacturer());
 
-        return $this->render('BarraRecipeBundle:Manufacturer:manufacturers.html.twig', [
+        return $this->render(':manufacturer:manufacturers.html.twig', [
             'pageIndex' => $pageIndex,
             'pages'     => $this->getPaginationPages(),
             'form'      => $form->createView(),

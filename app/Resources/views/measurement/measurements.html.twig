@@ -1,10 +1,10 @@
-{% extends 'BarraRecipeBundle::layout.html.twig' %}
+{% extends '::layout.html.twig' %}
 {% form_theme form 'BarraRecipeBundle:Form:tableRow.html.twig' %}
 {% block title %}{{ 'recipe.title.measurements'|trans() }}{% endblock %}
 
 {% block section %}
     <section class="container mobileTables" ng-controller="MeasurementCtrl">
-        {{ include('BarraRecipeBundle:parts:formValidation.html.twig') }}
+        {{ include(':parts:form_validation.html.twig') }}
 
         {{ form_start(form) }}
             <table class="table table-striped">
@@ -32,6 +32,6 @@
             </table>
         {{ form_end(form) }}
 
-        {{ include('BarraRecipeBundle:parts:pagination.html.twig', { 'route': 'barra_recipe_measurements'})}}
+        {{ include(':parts:pagination.html.twig', { 'route': 'barra_recipe_measurements'})}}
     </section>
 {% endblock %}
