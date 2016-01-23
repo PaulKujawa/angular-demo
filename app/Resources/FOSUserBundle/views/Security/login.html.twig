@@ -3,7 +3,7 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block fos_user_content %}
-    <div ng-controller="LoginCtrl">
+    <div id="loginPage" ng-controller="LoginCtrl">
         <div class="alert alert-danger" role="alert" ng-show="formErrors.length">
             <ul><li ng-repeat="errorMsg in formErrors">[[errorMsg]]</li></ul>
         </div>

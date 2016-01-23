@@ -2,6 +2,7 @@
 {% trans_default_domain "messages" %}
 {% block title %}{{ 'recipe.title.recipes'|trans() }} | Kujawa{% endblock %}
 {% block metaData %}
+    {{ parent() }}
     <meta name="description" content="Vegan {{ 'recipe.title.recipes'|trans() }}" />
     <meta name="keywords" content="{{ 'recipe.meta.recipeKeywords'|trans() }}" />
 {% endblock %}

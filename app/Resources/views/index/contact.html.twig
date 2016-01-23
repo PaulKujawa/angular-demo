@@ -4,6 +4,7 @@
 {% trans_default_domain "messages" %}
 {% block title %}{{ 'recipe.title.contact'|trans() }} | Kujawa{% endblock %}
 {% block metaData %}
+    {{ parent() }}
     <meta name="description" content="{{ 'recipe.meta.contactDescription'|trans() }}" />
     <meta name="keywords" content="{{ 'recipe.meta.contactKeywords'|trans() }}" />
 {% endblock %}
