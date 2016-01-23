@@ -42,7 +42,6 @@ class LoadPhotoData extends AbstractFixture implements OrderedFixtureInterface
     /**
      * @param string $refRecipe
      * @return Photo
-     * @throws InvalidArgumentException
      */
     protected function instantiate($refRecipe)
     {

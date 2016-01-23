@@ -32,7 +32,6 @@ trait NameTrait
     /**
      * @param string $name
      * @return $this
-     * @throws \InvalidArgumentException
      */
     public function setName($name)
     {

@@ -6,10 +6,10 @@ use Barra\RecipeBundle\Entity\Cooking;
 use Barra\RecipeBundle\Entity\Ingredient;
 use Barra\RecipeBundle\Entity\Photo;
 use Barra\RecipeBundle\Entity\Repository\BasicRepository;
-use Barra\RecipeBundle\Form\Type\CookingType;
-use Barra\RecipeBundle\Form\Type\IngredientType;
-use Barra\RecipeBundle\Form\Type\PhotoType;
-use Barra\RecipeBundle\Form\Type\RecipeType;
+use Barra\RecipeBundle\Form\CookingType;
+use Barra\RecipeBundle\Form\IngredientType;
+use Barra\RecipeBundle\Form\PhotoType;
+use Barra\RecipeBundle\Form\RecipeType;
 use Barra\RecipeBundle\Entity\Recipe;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -41,7 +41,6 @@ class RecipeController extends BasicController
     /**
      * @param string $name
      * @return Response
-     * @throws NotFoundHttpException
      */
     public function recipeAdminAction($name)
     {

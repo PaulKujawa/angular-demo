@@ -2,7 +2,7 @@
 
 namespace Barra\RecipeBundle\Controller;
 
-use Barra\RecipeBundle\Form\Type\ProductType;
+use Barra\RecipeBundle\Form\ProductType;
 use Barra\RecipeBundle\Entity\Product;
 use Symfony\Component\HttpFoundation\Response;
 

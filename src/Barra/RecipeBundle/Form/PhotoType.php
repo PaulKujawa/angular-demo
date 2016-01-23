@@ -1,36 +1,40 @@
 <?php
 
-namespace Barra\RecipeBundle\Form\Type;
+namespace Barra\RecipeBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class RecipeType extends AbstractType
+/**
+ * Class PhotoType
+ * @author Paul Kujawa <p.kujawa@gmx.net>
+ * @package Barra\RecipeBundle\Form
+ */
+class PhotoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', [
-                'attr' => [
-                    'placeholder' => 'recipe.recipe.name',
-                ],
+            ->add('recipe', 'hidden', [
+                'mapped' => false,
+                'label'  => false,
             ])
-            ->add('submit', 'submit')
+            ->add('file', 'file')
             ->getForm();
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class'        => 'Barra\RecipeBundle\Entity\Recipe',
-            'intention'         => 'recipe',
+            'data_class'        => 'Barra\RecipeBundle\Entity\Photo',
+            'intention'         => 'recipeFile',
             'csrf_protection'   => false,
         ]);
     }
 
     public function getName()
     {
-        return 'formRecipe';
+        return 'formPhoto';
     }
 }

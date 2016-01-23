@@ -3,6 +3,7 @@
 namespace Barra\RecipeBundle\Controller;
 
 use Barra\RecipeBundle\Entity\Repository\BasicRepository;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
@@ -12,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  */
 class BasicController extends Controller
 {
-    /** @var \Doctrine\ORM\EntityManager */
+    /** @var EntityManager */
     protected $em;
 
     /** string */
@@ -21,7 +22,6 @@ class BasicController extends Controller
     /**
      * @param int $range > 0
      * @return float
-     * @throws \InvalidArgumentException
      */
     protected function getPaginationPages($range = 10)
     {
@@ -40,13 +40,8 @@ class BasicController extends Controller
     {
         if (null === $this->entityClass) {
             $className = get_class($this);
-            $this->entityClass = ucfirst(
-                substr(
-                    $className,
-                    strrpos($className, '\\') + 1,
-                    -10
-                )
-            );
+            $className = substr($className, strrpos($className, '\\') + 1, -10);
+            $this->entityClass = ucfirst($className);
         }
 
         return $this->entityClass;
@@ -62,11 +57,11 @@ class BasicController extends Controller
             $entityClass = $this->getEntityClass();
         }
 
-        return $this->getEM()->getRepository('BarraRecipeBundle:'.ucfirst($entityClass));
+        return $this->getEM()->getRepository('BarraRecipeBundle:' . ucfirst($entityClass));
     }
 
     /**
-     * @return \Doctrine\ORM\EntityManager
+     * @return EntityManager
      */
     protected function getEM()
     {

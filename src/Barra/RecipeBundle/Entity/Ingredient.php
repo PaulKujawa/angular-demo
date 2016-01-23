@@ -139,7 +139,6 @@ class Ingredient
     /**
      * @param int $amount
      * @return $this
-     * @throws \InvalidArgumentException
      */
     public function setAmount($amount)
     {
@@ -199,7 +198,6 @@ class Ingredient
      * @ORM\PreUpdate()
      *
      * @return $this
-     * @throws \RuntimeException
      */
     public function createId()
     {

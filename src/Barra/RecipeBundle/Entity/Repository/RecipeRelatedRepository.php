@@ -12,8 +12,6 @@ class RecipeRelatedRepository extends BasicRepository
     /**
      * @param int $recipeId
      * @return int
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getNextPosition($recipeId)
     {

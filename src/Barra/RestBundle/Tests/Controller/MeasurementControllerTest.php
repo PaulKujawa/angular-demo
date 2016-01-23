@@ -192,16 +192,10 @@ class MeasurementControllerTest extends WebTestCase
      */
     protected function validateResponse($expectedStatusCode, $expectedJSON = null)
     {
-        $this->assertEquals(
-            $expectedStatusCode,
-            $this->client->getResponse()->getStatusCode()
-        );
+        $this->assertEquals($expectedStatusCode, $this->client->getResponse()->getStatusCode());
 
         if (null !== $expectedJSON) {
-            $this->assertEquals(
-                $expectedJSON,
-                $this->client->getResponse()->getContent()
-            );
+            $this->assertEquals($expectedJSON, $this->client->getResponse()->getContent());
         }
     }
 }

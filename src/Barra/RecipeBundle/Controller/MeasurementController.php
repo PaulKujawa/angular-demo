@@ -2,7 +2,7 @@
 
 namespace Barra\RecipeBundle\Controller;
 
-use Barra\RecipeBundle\Form\Type\MeasurementType;
+use Barra\RecipeBundle\Form\MeasurementType;
 use Barra\RecipeBundle\Entity\Measurement;
 use Symfony\Component\HttpFoundation\Response;
 

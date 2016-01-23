@@ -37,6 +37,7 @@ class PhotoController extends RestController
 
             if (empty($requestBody)) {
                 $form = $this->createForm($this->getFormType(), $entity, ['method' => $request->getMethod()]);
+
                 return $this->view(['data' => $form], Codes::HTTP_BAD_REQUEST);
             }
 
@@ -44,6 +45,7 @@ class PhotoController extends RestController
 
             if (!$recipe instanceof Recipe) {
                 $form = $this->createForm($this->getFormType(), $entity, ['method' => $request->getMethod()]);
+
                 return $this->view(['data' => $form], Codes::HTTP_BAD_REQUEST);
             }
             $entity->setRecipe($recipe);

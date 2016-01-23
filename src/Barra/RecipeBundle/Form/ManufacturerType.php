@@ -1,6 +1,6 @@
 <?php
 
-namespace Barra\RecipeBundle\Form\Type;
+namespace Barra\RecipeBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -9,7 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 /**
  * Class ManufacturerType
  * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RecipeBundle\Form\Type
+ * @package Barra\RecipeBundle\Form
  */
 class ManufacturerType extends AbstractType
 {

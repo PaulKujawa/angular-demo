@@ -202,7 +202,6 @@ class Product
     /**
      * @param boolean $vegan
      * @return $this
-     * @throws \InvalidArgumentException
      */
     public function setVegan($vegan)
     {
@@ -223,7 +222,6 @@ class Product
     /**
      * @param int $kcal
      * @return $this
-     * @throws \InvalidArgumentException
      */
     public function setKcal($kcal)
     {
@@ -243,7 +241,6 @@ class Product
     /**
      * @param int $gr
      * @return $this
-     * @throws \InvalidArgumentException
      */
     public function setGr($gr)
     {
@@ -263,7 +260,6 @@ class Product
     /**
      * @param double $protein
      * @return $this
-     * @throws \InvalidArgumentException
      */
     public function setProtein($protein)
     {
@@ -283,7 +279,6 @@ class Product
     /**
      * @param double $carbs
      * @return $this
-     * @throws \InvalidArgumentException
      */
     public function setCarbs($carbs)
     {
@@ -303,7 +298,6 @@ class Product
     /**
      * @param double $sugar
      * @return $this
-     * @throws \InvalidArgumentException
      */
     public function setSugar($sugar)
     {
@@ -323,7 +317,6 @@ class Product
     /**
      * @param double $fat
      * @return $this
-     * @throws \InvalidArgumentException
      */
     public function setFat($fat)
     {
@@ -343,7 +336,6 @@ class Product
     /**
      * @param double $gfat
      * @return $this
-     * @throws \InvalidArgumentException
      */
     public function setGfat($gfat)
     {

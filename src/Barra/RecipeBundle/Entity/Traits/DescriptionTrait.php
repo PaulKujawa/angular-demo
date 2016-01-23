@@ -31,7 +31,6 @@ trait DescriptionTrait
     /**
      * @param string $description
      * @return $this
-     * @throws \InvalidArgumentException
      */
     public function setDescription($description)
     {

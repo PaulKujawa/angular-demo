@@ -6,7 +6,7 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
         $interpolateProvider.startSymbol('[[').endSymbol(']]');
         RestangularProvider
             .setFullResponse(true) // to get the location header from POST responses
-            .setBaseUrl(Routing.getBaseUrl() + '/api')
+            .setBaseUrl(Routing.getBaseUrl() + '/en/api')
             .setDefaultHeaders({Authorization: 'Bearer ' + window.sessionStorage.token})
             .setResponseExtractor(function(response, operation) {
                 return response.data;
@@ -51,12 +51,21 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
     })
     .factory('FormFieldError', function() {
         return {
-            selectMsg: function(formChildren) {
-                var formFieldErrors = [];
-                for (var fieldName in formChildren)
-                    if (formChildren.hasOwnProperty(fieldName) && formChildren[fieldName].hasOwnProperty('errors'))
-                        formFieldErrors.push({fieldName: fieldName, errors: formChildren[fieldName].errors});
-                return formFieldErrors;
+            selectMsg: function(response) {
+                var formFields  = response.data.data.children,
+                    fieldErrors = [];
+
+                for (var fieldName in formFields) {
+                    if (formFields.hasOwnProperty(fieldName) && formFields[fieldName].hasOwnProperty('errors')) {
+                        var errorMsg = {
+                            fieldName:  fieldName,
+                            errors:     formFields[fieldName].errors
+                        };
+                        fieldErrors.push(errorMsg);
+                    }
+                }
+
+                return fieldErrors;
             }
         }
     })
@@ -85,10 +94,10 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
                     var url = response.headers('location');
                     Api.get('cookings', url.substring(url.lastIndexOf('/')+1)).then(
                         function(response) {
-                            $scope.formData     = null;
-                            $scope.formErrors   = null;
+                            $scope.formData         = null;
+                            $scope.formErrors       = null;
+                            $scope.formFieldErrors  = null;
                             $scope.cookings.push(response.data);
-                            $scope.formCooking.$setPristine(true);
                         }, function(errorMsg) {
                             $scope.formErrors = errorMsg;
                         }
@@ -109,7 +118,8 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
         $scope.deleteEntry = function(element) {
             element.remove().then(
                 function() {
-                    $scope.cookings.splice($scope.cookings.indexOf(element), 1);
+                    var i = $scope.cookings.indexOf(element);
+                    $scope.cookings.splice(i, 1);
                 },
                 function(response) {
                     $scope.formErrors = FormError.selectMsg(response);
@@ -156,10 +166,10 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
                     var url = response.headers('location');
                     Api.get('ingredients', url.substring(url.lastIndexOf('/')+1)).then(
                         function(response) {
-                            $scope.formData     = null;
-                            $scope.formErrors   = null;
+                            $scope.formData         = null;
+                            $scope.formErrors       = null;
+                            $scope.formFieldErrors  = null;
                             $scope.ingredients.push(response.data);
-                            $scope.formIngredient.$setPristine(true);
                         }, function(errorMsg) {
                             $scope.formErrors = errorMsg;
                         }
@@ -217,7 +227,7 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
     })
     .controller('ManufacturerCtrl', function($scope, $http, Restangular, FormError, FormFieldError, Api) {
         //$scope.$watch('projectId', function () {
-        var route = Routing.generate('barra_api_get_manufacturers', {offset:0, limit:10, order_by:'name'});
+        var route = Routing.generate('barra_api_get_manufacturers', {_locale:'en', offset:0, limit:10, order_by:'name'});
         Restangular.allUrl('manufacturers', route).getList().then(
             function(response) {
                 $scope.manufacturers = response.data;
@@ -234,21 +244,24 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
         $scope.submit = function() {
             Api.post($scope.manufacturers, $scope.formData, 'formManufacturer').then(
                 function(response) {
-                    var url = response.headers('location');
-                    Api.get('manufacturers', url.substring(url.lastIndexOf('/')+1)).then(
+                    var url = response.headers('location'),
+                        id  = url.substring(url.lastIndexOf('/')+1);
+
+                    Api.get('manufacturers', id).then(
                         function(response) {
-                            $scope.formData     = null;
-                            $scope.formErrors   = null;
+                            $scope.formData         = null;
+                            $scope.formErrors       = null;
+                            $scope.formFieldErrors  = null;
                             $scope.manufacturers.push(response.data);
-                            $scope.formManufacturer.$setPristine(true);
                         }, function(errorMsg) {
                             $scope.formErrors = errorMsg;
                         }
                     );
                 }, function(response) {
-                    $scope.formErrors = FormError.selectMsg(response);
+                    //$scope.formErrors = FormError.selectMsg(response);
+
                     if (response.status == 400) {
-                        $scope.formFieldErrors = FormFieldError.selectMsg(response.data.errors.children);
+                        $scope.formFieldErrors = FormFieldError.selectMsg(response);
                     }
                 }
             );
@@ -284,7 +297,7 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
     })
     .controller('MeasurementCtrl', function($scope, $http, Restangular, FormError, FormFieldError, Api) {
         //$scope.$watch('projectId', function () {
-        var route = Routing.generate('barra_api_get_measurements', {offset:0, limit:10, order_by:'name'});
+        var route = Routing.generate('barra_api_get_measurements', {_locale:'en', offset:0, limit:10, order_by:'name'});
         Restangular.allUrl('measurements', route).getList().then(
             function(response) {
                 $scope.measurements = response.data;
@@ -304,10 +317,10 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
                     var url = response.headers('location');
                     Api.get('measurements', url.substring(url.lastIndexOf('/')+1)).then(
                         function(response) {
-                            $scope.formData     = null;
-                            $scope.formErrors   = null;
+                            $scope.formData         = null;
+                            $scope.formErrors       = null;
+                            $scope.formFieldErrors  = null;
                             $scope.measurements.push(response.data);
-                            $scope.formMeasurement.$setPristine(true);
                         }, function(errorMsg) {
                             $scope.formErrors = errorMsg;
                         }
@@ -315,7 +328,7 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
                 }, function(response) {
                     $scope.formErrors = FormError.selectMsg(response);
                     if (response.status == 400) {
-                        $scope.formFieldErrors = FormFieldError.selectMsg(response.data.errors.children);
+                        $scope.formFieldErrors = FormFieldError.selectMsg(response);
                     }
                 }
             );
@@ -351,7 +364,7 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
     })
     .controller('ProductCtrl', function($scope, $http, Restangular, FormError, FormFieldError, Api) {
         //$scope.$watch('projectId', function () {
-        var route = Routing.generate('barra_api_get_products', {offset:0, limit:10, order_by:'name'});
+        var route = Routing.generate('barra_api_get_products', {_locale:'en', offset:0, limit:10, order_by:'name'});
         Restangular.allUrl('products', route).getList().then(
             function(response) {
                 $scope.products = response.data;
@@ -371,10 +384,10 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
                     var url = response.headers('location');
                     Api.get('products', url.substring(url.lastIndexOf('/')+1)).then(
                         function(response) {
-                            $scope.formData     = null;
-                            $scope.formErrors   = null;
+                            $scope.formData         = null;
+                            $scope.formErrors       = null;
+                            $scope.formFieldErrors  = null;
                             $scope.products.push(response.data);
-                            $scope.formProduct.$setPristine(true);
                         }, function(errorMsg) {
                             $scope.formErrors = errorMsg;
                         }
@@ -382,7 +395,7 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
                 }, function(response) {
                     $scope.formErrors = FormError.selectMsg(response);
                     if (response.status == 400) {
-                        $scope.formFieldErrors = FormFieldError.selectMsg(response.data.errors.children);
+                        $scope.formFieldErrors = FormFieldError.selectMsg(response);
                     }
                 }
             );
@@ -417,10 +430,10 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
         };
     })
     .controller('RecipeCtrl', function($scope, $http, Restangular, FormError, FormFieldError, Api) {
-        $scope.urlRecipe = Routing.generate('barra_recipe_recipe', {_locale:'de'});
+        $scope.urlRecipe = Routing.generate('barra_recipe_recipe_admin', {_locale:'de'});
 
         //$scope.$watch('projectId', function () {
-        var route = Routing.generate('barra_api_get_recipes', {offset:0, limit:10, order_by:'name'});
+        var route = Routing.generate('barra_api_get_recipes', {_locale:'en',offset:0, limit:10, order_by:'name'});
         Restangular.allUrl('recipes', route).getList().then(
             function(response) {
                 $scope.recipes = response.data;
@@ -440,10 +453,10 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
                     var url = response.headers('location');
                     Api.get('recipes', url.substring(url.lastIndexOf('/')+1)).then(
                         function(response) {
-                            $scope.formData     = null;
-                            $scope.formErrors   = null;
+                            $scope.formData         = null;
+                            $scope.formErrors       = null;
+                            $scope.formFieldErrors  = null;
                             $scope.recipes.push(response.data);
-                            $scope.formRecipe.$setPristine(true);
                         }, function(errorMsg) {
                             $scope.formErrors = errorMsg;
                         }
@@ -451,7 +464,7 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
                 }, function(response) {
                     $scope.formErrors = FormError.selectMsg(response);
                     if (response.status == 400) {
-                        $scope.formFieldErrors = FormFieldError.selectMsg(response.data.errors.children);
+                        $scope.formFieldErrors = FormFieldError.selectMsg(response);
                     }
                 }
             );
@@ -488,10 +501,10 @@ angular.module('angularApp', ['restangular', 'chart.js', 'ui.tree'])
     .controller('PhotoCtrl', function($scope, $http, Restangular, FormError, FormFieldError, Api) {
         $scope.$watch('recipeId', function () {
             var path = '/barra/vpit/web/uploads/documents/',
-                route = Routing.generate('barra_api_get_photos', {
+                route = Routing.generate('barra_api_get_recipes_photos', {
                     recipe: $scope.recipeId, offset:0, limit:10, order_by:'name'
                 })
-            ;
+            ; // TODO get photos, ingredients und measurements via recipe api endpoint
 
             Restangular.allUrl('photos', route).getList().then(
                 function(response) {

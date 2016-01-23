@@ -87,7 +87,6 @@ class Cooking
      * @ORM\PreUpdate()
      *
      * @return $this
-     * @throws \RuntimeException
      */
     public function createId()
     {

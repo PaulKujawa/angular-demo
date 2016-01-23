@@ -1,6 +1,6 @@
 <?php
 
-namespace Barra\RecipeBundle\Form\Type;
+namespace Barra\RecipeBundle\Form;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
@@ -10,7 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 /**
  * Class IngredientType
  * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RecipeBundle\Form\Type
+ * @package Barra\RecipeBundle\Form
  */
 class IngredientType extends AbstractType
 {

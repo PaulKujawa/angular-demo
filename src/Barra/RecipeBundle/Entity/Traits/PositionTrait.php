@@ -29,7 +29,6 @@ trait PositionTrait
     /**
      * @param int $position
      * @return $this
-     * @throws \InvalidArgumentException
      */
     public function setPosition($position)
     {

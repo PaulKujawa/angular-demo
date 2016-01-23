@@ -3,12 +3,14 @@
 namespace Barra\RestBundle\Controller;
 
 use Barra\RecipeBundle\Entity\Repository\BasicRepository;
+use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Annotations;
 use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\View\View;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -18,13 +20,13 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class RestController extends FOSRestController implements ClassResourceInterface
 {
-    /** @var \Doctrine\ORM\EntityManager */
+    /** @var EntityManager */
     protected $em;
 
     /** @var string */
     protected $entityClass;
 
-    /** @var  \Symfony\Component\Form\AbstractType */
+    /** @var  AbstractType */
     protected $formType;
 
     /** @var  mixed */
@@ -219,12 +221,12 @@ class RestController extends FOSRestController implements ClassResourceInterface
     }
 
     /**
-     * @return \Symfony\Component\Form\AbstractType
+     * @return AbstractType
      */
     protected function getFormType()
     {
         if (null === $this->formType) {
-            $namespace      = '\Barra\RecipeBundle\Form\Type\\';
+            $namespace      = '\Barra\RecipeBundle\Form\\';
             $form           = $namespace.$this->getEntityClass().'Type';
             $this->formType = new $form();
         }
@@ -260,7 +262,7 @@ class RestController extends FOSRestController implements ClassResourceInterface
     }
 
     /**
-     * @return \Doctrine\ORM\EntityManager
+     * @return EntityManager
      */
     protected function getEM()
     {

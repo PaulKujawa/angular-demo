@@ -1,10 +1,12 @@
 # Just my crib
 ---
 
-### Create Bundle, Form, Route
+### General
 * create bundle       `php app/console generate:bundle --namespace=Barra/DemoBundle --format=yml`
 * create form         `php app/console doctrine:generate:form {Bundle:Entity}`
 * debug routes        `php app/console debug:router | grep foo`
+* dump default conf   `php app/console config:dump-reference`
+* dump services	      `php app/console debug:container`
 
 ### Assets
 * Cache clear prod    `php app/console [--env=prod] cache:clear`

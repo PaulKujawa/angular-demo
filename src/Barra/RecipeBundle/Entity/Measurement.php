@@ -66,7 +66,6 @@ class Measurement
     /**
      * @param int $gr
      * @return $this
-     * @throws \InvalidArgumentException
      */
     public function setGr($gr)
     {

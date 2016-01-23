@@ -67,6 +67,7 @@ class IngredientController extends RestController
 
             if (empty($requestBody)) {
                 $form = $this->createForm($this->getFormType(), $entity, ['method' => $request->getMethod()]);
+
                 return $this->view(['data' => $form], Codes::HTTP_BAD_REQUEST);
             }
 
@@ -74,14 +75,14 @@ class IngredientController extends RestController
 
             if (!$recipe instanceof Recipe) {
                 $form = $this->createForm($this->getFormType(), $entity, ['method' => $request->getMethod()]);
+
                 return $this->view(['data' => $form], Codes::HTTP_BAD_REQUEST);
             }
 
             $position = $this->getRepo()->getNextPosition($recipe->getId());
             $entity
                 ->setPosition($position)
-                ->setRecipe($recipe)
-            ;
+                ->setRecipe($recipe);
         }
 
         return parent::processRequest($request, $entity, $successCode);

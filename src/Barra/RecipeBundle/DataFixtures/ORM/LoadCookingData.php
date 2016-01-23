@@ -36,7 +36,6 @@ class LoadCookingData extends AbstractFixture implements OrderedFixtureInterface
      * @param string    $description
      * @param string    $refRecipe
      * @return Cooking
-     * @throws InvalidArgumentException
      */
     protected function instantiate($position, $description, $refRecipe)
     {
