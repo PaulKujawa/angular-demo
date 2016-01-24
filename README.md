@@ -1,17 +1,16 @@
 # Just my crib
 ---
 
-### General
-* create bundle       `php app/console generate:bundle --namespace=Barra/DemoBundle --format=yml`
-* create form         `php app/console doctrine:generate:form {Bundle:Entity}`
-* debug routes        `php app/console debug:router | grep foo`
-* dump default conf   `php app/console config:dump-reference`
+### Dumps
+* dump routes         `php app/console debug:router`
 * dump services	      `php app/console debug:container`
+* dump default conf   `php app/console config:dump-reference`
 
 ### Assets
 * Cache clear prod    `php app/console [--env=prod] cache:clear`
 * include assets dev  `php app/console assets:install [--symlink]`
 * include assets prod `php app/console assetic:dump --env=prod --no-debug`
+* compile sass        `grunt sass`
 
 ### Doctrine
 * DEV
@@ -26,19 +25,6 @@
   * deploy
     * execute 1 migration `php app/console doctrine:migrations:execute version`
     * migrate to version  `php app/console doctrine:migrations:migrate [version]`
-
-### Bundles & Libraries
-* AuthNAuth           (FOS/User + Lexik/LexikJWTAuthentication)
-* Tests               (PHPUnit + LiipFixture/Functional-test)
-* API                 (FOS/Rest + JMS/Serializer + FOS/JSRouting)
-* Database            (Doctrine/Doctrine-fixtures + Doctrine/doctrine-migrations)
-* JS-Libs             (RestAngular, jQuery, ChartJS, Dropzone, bootstrap)
-
-
-### Temp notices
----
-* newest file            `array_multisort(array_map('filemtime', $files), SORT_NUMERIC, SORT_DESC, $files)`
-* check form widget e.g. `{% if form.vars.block_prefixes.1 == "checkbox" %}`
 
 
 ```php
