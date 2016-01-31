@@ -11,10 +11,6 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * Class Recipe
- * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RecipeBundle\Entity
- *
  * @ExclusionPolicy("none")
  *
  * @UniqueEntity("name")

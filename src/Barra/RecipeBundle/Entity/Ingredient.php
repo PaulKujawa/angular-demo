@@ -2,6 +2,7 @@
 
 namespace Barra\RecipeBundle\Entity;
 
+use Barra\RecipeBundle\Entity\Traits\IdAutoTrait;
 use Barra\RecipeBundle\Entity\Traits\PositionTrait;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Exclude;
@@ -10,10 +11,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class Ingredient
- * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RecipeBundle\Entity
- *
  * @ExclusionPolicy("none")
  *
  * @UniqueEntity({
@@ -31,18 +28,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Ingredient
 {
+    use IdAutoTrait;
     use PositionTrait;
-
-    /**
-     * @var int
-     *
-     * @ORM\Id
-     * @ORM\Column(
-     *      name = "id",
-     *      type = "integer"
-     * )
-     */
-    protected $id;
 
     /**
      * @var Recipe
@@ -191,38 +178,6 @@ class Ingredient
     public function getMeasurement()
     {
         return $this->measurement;
-    }
-
-    /**
-     * @ORM\PrePersist()
-     * @ORM\PreUpdate()
-     *
-     * @return $this
-     */
-    public function createId()
-    {
-        if (null === $this->getRecipe() ||
-            null === $this->getRecipe()->getId() ||
-            null === $this->getProduct() ||
-            null === $this->getProduct()->getId()
-        ) {
-            throw new \RuntimeException(sprintf(
-                '"%s" and "%s" must have been set',
-                'recipe',
-                'product'
-            ));
-        }
-        $this->id = $this->getRecipe()->getId() . $this->getProduct()->getId();
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**

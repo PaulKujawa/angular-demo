@@ -7,10 +7,6 @@ use FOS\UserBundle\Model\User as BaseUser;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 
 /**
- * Class User
- * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RecipeBundle\Entity
- *
  * @ExclusionPolicy("all")
  *
  * @ORM\Table(name="AppUser")

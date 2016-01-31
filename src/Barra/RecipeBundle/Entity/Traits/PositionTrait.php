@@ -4,11 +4,6 @@ namespace Barra\RecipeBundle\Entity\Traits;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * Class PositionTrait
- * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RecipeBundle\Entity
- */
 trait PositionTrait
 {
     /**

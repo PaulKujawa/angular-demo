@@ -3,6 +3,7 @@
 namespace Barra\RecipeBundle\Entity;
 
 use Barra\RecipeBundle\Entity\Traits\DescriptionTrait;
+use Barra\RecipeBundle\Entity\Traits\IdAutoTrait;
 use Barra\RecipeBundle\Entity\Traits\PositionTrait;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Exclude;
@@ -11,10 +12,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class Cooking
- * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RecipeBundle\Entity
- *
  * @ExclusionPolicy("none")
  *
  * @UniqueEntity({
@@ -29,18 +26,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Cooking
 {
     use DescriptionTrait;
+    use IdAutoTrait;
     use PositionTrait;
-
-    /**
-     * @var int
-     *
-     * @ORM\Id
-     * @ORM\Column(
-     *      name = "id",
-     *      type = "integer"
-     * )
-     */
-    protected $id;
 
     /**
      * @var Recipe
@@ -80,37 +67,6 @@ class Cooking
     public function getRecipe()
     {
         return $this->recipe;
-    }
-
-    /**
-     * @ORM\PrePersist()
-     * @ORM\PreUpdate()
-     *
-     * @return $this
-     */
-    public function createId()
-    {
-        if (null === $this->getRecipe() ||
-            null === $this->getRecipe()->getId() ||
-            null === $this->getPosition()
-        ) {
-            throw new \RuntimeException(sprintf(
-                '"%s" and "%s" must have been set',
-                'recipe',
-                'position'
-            ));
-        }
-        $this->id = $this->getRecipe()->getId() . $this->getPosition();
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
