@@ -1,0 +1,36 @@
+@import "../common/variables";
+
+html {
+  height: 100%;
+}
+
+body {
+  position: relative;
+  min-height: 100%;
+  color: $barra-black !important;
+  font-size: $barra-font-size-default;
+  line-height: $barra-line-height-default;
+}
+
+body,
+caption,
+th,
+td,
+input,
+textarea,
+select,
+option,
+legend,
+fieldset,
+h1, h2, h3, h4, h5, h6 {
+  font-size-adjust: 0.5;
+}
+
+section {
+  margin: 0 auto;
+  padding-top: 80px; // height of nav
+
+  @media #{$media-query-max-xs} {
+    padding: 50px 0; // 50 = height of navi and footer
+  }
+}

@@ -9,36 +9,38 @@
     <meta name="keywords" content="{{ 'recipe.meta.contactKeywords'|trans() }}" />
 {% endblock %}
 
-
-
 {% block section %}
     <section class="container" id="contactPage">
-        <div id="aboutMe" class="clearfix">
-            <div id="contactPic">
-                <img class="img-circle" src="{{ asset('images/kujawa.jpg') }}" alt="Paul Kujawa">
+        <div class="row flex flex-align-v">
+            <div class="col-xs-12 col-sm-5">
+                <img class="img-circle center-block image-responsive"
+                     src="{{ asset('images/kujawa.jpg') }}" alt="Paul Kujawa">
             </div>
-
-            <div id="contactDescription">
+            <div class="col-xs-12 col-sm-7">
                 <p class="fontL">{{ 'recipe.contact.description'|trans() }}</p>
             </div>
         </div>
 
-        {{ form_start(form, {'attr': {'id': "contactForm"}} ) }}
-            {% for flashMessage in app.session.flashbag.get('emailSent') %}
-                <div class="alert alert-success" role="alert">
+        {% for flashMessage in app.session.flashbag.get('emailSent') %}
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 alert alert-success" role="alert">
                     {{ flashMessage }}
                 </div>
-            {% endfor %}
+            </div>
+        {% endfor %}
 
-            <div class="clearfix">
-                <div id="contactFormLeft">
+        {{ form_start(form) }}
+            <div class="row"> {# class=clearfix #}
+                <div class="col-xs-12 col-sm-5"> {# id="contactFormLeft" #}
                     {{ form_errors(form) }}
                     {{ form_row(form.name) }}
                     {{ form_row(form.email) }}
                 </div>
-                {{ form_row(form.message) }}
+                <div class="col-xs-12 col-sm-7">
+                    {{ form_row(form.message) }}
+                    {{ form_widget(form.submit, {'label': 'recipe.action.send', 'attr': {'class': 'btn'} }) }}
+                </div>
             </div>
-            {{ form_widget(form.submit, {'label': 'recipe.action.send', 'attr': {'class': 'btn'} }) }}
         {{ form_end(form) }}
     </section>
 {% endblock %}

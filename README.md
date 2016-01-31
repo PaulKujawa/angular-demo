@@ -1,16 +1,17 @@
 # Just my crib
 ---
 
-### Dumps
+### DEPLOY
+* php                 `composer install`
+* js                  `bower install`
+* clear cache         `app/console [--env=prod] cache:clear`
+* sass compile        `gulp sass`
+* compile assets      `app/console assetic:dump --env=prod --no-debug`
+
+### Dumping
 * dump routes         `php app/console debug:router`
 * dump services	      `php app/console debug:container`
 * dump default conf   `php app/console config:dump-reference`
-
-### Assets
-* Cache clear prod    `php app/console [--env=prod] cache:clear`
-* include assets dev  `php app/console assets:install [--symlink]`
-* include assets prod `php app/console assetic:dump --env=prod --no-debug`
-* compile sass        `grunt sass`
 
 ### Doctrine
 * DEV

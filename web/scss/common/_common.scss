@@ -1,0 +1,59 @@
+@import "variables";
+@import "partials";
+
+.flex {
+  @media #{$media-query-min-sm} {
+    display: flex;
+  }
+}
+
+.flex-align-v {
+  align-items: center; // align-self for overrides
+}
+
+.ui-tooltip {
+  box-shadow: none !important;
+  border: 1px solid #dddddd;
+}
+
+.ui-tooltip ul {
+  list-style: none;
+  padding-left: 0 !important;
+}
+
+.fontM {
+  font-size: $barra-font-size-m;
+}
+
+.fontL {
+  font-size: $barra-font-size-l;
+}
+
+.fontXL {
+  font-size: $barra-font-size-xl;
+}
+
+.centeredTitle {
+  text-align: center;
+}
+
+.alert {
+  border: 0;
+}
+
+.alert-success {
+  background-color: $barra-green;
+  color: $barra-white;
+}
+
+p {
+  margin-bottom: 0; // BT override
+}
+
+textarea {
+  resize: vertical;
+}
+
+button {
+  text-transform: uppercase;
+}

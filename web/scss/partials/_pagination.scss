@@ -1,0 +1,16 @@
+@import "../common/variables";
+
+.paginationNav {
+  text-align: center;
+
+  li > a,
+  .paginationNav li > a:hover {
+    color: $barra-grey-font-bright;
+  }
+
+  li.active > a,
+  li.active > a:hover {
+    border-color: $barra-black;
+    background-color: $barra-black;
+  }
+}

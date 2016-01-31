@@ -1,0 +1,58 @@
+@import "../common/variables";
+
+.navbar {
+  z-index: 9999;
+  position: fixed !important; // BT override
+  margin-bottom: 0; // BT override
+  width: 100%;
+  border: none !important; // BT override
+  color: $barra-grey-font-bright;
+  text-transform: uppercase;
+  background-color: $barra-black !important; // BT override
+
+  .navbar-brand {
+    position: absolute;
+    right: 60px;
+  }
+
+  .navbar-nav {
+    margin: 0 -15px;
+
+    a,
+    a:hover {
+      background-color: inherit !important; // BT override
+    }
+
+    li.active > a {
+      color: $barra-white !important;
+    }
+
+    .dropdown-menu {
+      background-color: $barra-black !important; // BT override
+
+      > li > a {
+        color: $barra-grey-font-bright; // BT override
+      }
+    }
+  }
+
+  a:hover {
+    color: $barra-white !important;
+  }
+
+  @media #{$media-query-min-sm} {
+    .navbar-collapse.collapse {
+      height: 80px !important; // fixes height-bug owing to display:inline-block (85px)
+      text-align: center;
+    }
+
+    a {
+      padding: 30px 15px !important;
+    }
+
+    ul.navbar-nav {
+      display: inline-block;
+      float: none;
+    }
+  }
+}
