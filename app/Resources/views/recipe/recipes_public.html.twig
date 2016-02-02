@@ -10,26 +10,23 @@
 
 {% block section %}
     <section class="container" id="recipesPage">
-        {% for row in recipes|batch(3) %}
-            <div class="row">
-                {% for recipe in row %}
-                    <div class="col-xs-12 col-sm-4">
-                        <div class="thumbnail">
-                            <a href="{{ path('barra_recipe_recipe_public', {'name': recipe.name|replace({' ': '_'})}) }}">
-                                {% if recipe.Photos is not empty %}
-                                    <img
-                                        src="{{ asset('images/uploads/'~(recipe.Photos|first).filename) }}"
-                                        alt="{{ recipe.name }}"
-                                    >
-                                {% endif %}
-                                <div class="caption">{{ recipe.name }}</div>
-                            </a>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        {% endfor %}
+        <div class="row">
+            {% for recipe in recipes %}
+                <div class="col-xs-6 col-md-4 col-lg-3">
+                    <a class="thumbnail"
+                       href="{{ path('barra_recipe_recipe_public', {'name': recipe.name|replace({' ': '_'})}) }}">
+                        {% if recipe.Photos is empty %}
+                            <img src="http://placehold.it/400x300" alt="{{ recipe.name }}">
+                        {% else %}
+                            <img src="{{ asset('images/uploads/'~(recipe.Photos|first).filename) }}"
+                                 alt="{{ recipe.name }}">
+                        {% endif %}
+                        <div class="caption">{{ recipe.name }}</div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
 
-        {{ include(':parts:pagination.html.twig', { 'route': 'barra_recipe_recipes'})}}
+        {{ include(':parts:pagination.html.twig', { 'route': 'barra_recipe_recipes_public'})}}
     </section>
 {% endblock %}

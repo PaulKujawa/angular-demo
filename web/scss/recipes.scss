@@ -1,0 +1,21 @@
+@import "common/common";
+
+#recipesPage {
+    div[class*='col-'] {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    a {
+        position: relative;
+
+        .caption {
+            position: absolute;
+            bottom: 0;
+            width: calc(100% - #{$thumbnail-padding}*2);
+            font-weight: bold;
+            color: $barra-white;
+            background-color: rgba($barra-black, 0.2);
+        }
+    }
+}
