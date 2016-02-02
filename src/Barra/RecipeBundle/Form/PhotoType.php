@@ -6,13 +6,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-/**
- * Class PhotoType
- * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RecipeBundle\Form
- */
 class PhotoType extends AbstractType
 {
+    /**
+     * @{@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -24,11 +22,13 @@ class PhotoType extends AbstractType
             ->getForm();
     }
 
+    /**
+     * @{@inheritdoc}
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
             'data_class'        => 'Barra\RecipeBundle\Entity\Photo',
-            'intention'         => 'recipeFile',
             'csrf_protection'   => false,
         ]);
     }
