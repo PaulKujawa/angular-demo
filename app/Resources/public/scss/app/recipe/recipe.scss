@@ -1,4 +1,4 @@
-@import "common/common";
+@import "../../import/variables";
 
 #recipePage {
   div[class*='col-'] {
@@ -14,7 +14,6 @@
       left: 50%;
       display: none;
       margin: -15px 0 0 -43px;
-      font-size: $barra-font-size-xxl;
     }
   }
 

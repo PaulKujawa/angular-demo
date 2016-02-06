@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        <h1 class="centeredTitle">{{ recipe.name }}</h1>
+        <h1 class="text-center">{{ recipe.name }}</h1>
         <ul id="productList" class="list-unstyled fontL"
             data-carbs="{{ macros.carbs }}" data-protein="{{ macros.protein }}" data-fat="{{ macros.fat }}">
             {% for ingredient in ingredients %}
@@ -43,7 +43,7 @@
             {% endfor %}
         </ul>
 
-        <ol id="cookingList" class="fontM">
+        <ol id="cookingList" class="font-size-h2">
             {% for cooking in cookings %}
                 <li>{{ cooking.description }}</li>
             {% endfor %}

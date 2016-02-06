@@ -1,0 +1,13 @@
+@import "../barra/variables";
+
+// bootstrap variable overrides
+$border-radius-base: 0;
+
+// background colors
+$state-success-bg: $barra-green;
+
+// text size
+$font-size-base: $barra-font-size-base;
+
+// text colors
+$alert-success-text: $barra-white;

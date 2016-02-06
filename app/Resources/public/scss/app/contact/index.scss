@@ -1,0 +1,39 @@
+@import "../../import/variables";
+
+#contactPage {
+  div[class*='col-'] {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  > div:first-child {
+    text-align: center;
+  }
+
+  form {
+    border-top: 1px solid $barra-grey-border;
+
+    #form_name {
+      margin-bottom: 20px;
+    }
+
+    #form_message {
+      min-height: calc(2 * #{$input-height-base} + 20px);
+
+      @media #{$media-query-max-xs} {
+        margin-top: -60px; // overlay col margin
+      }
+    }
+
+    #form_submit {
+      &:hover {
+        background-color: $barra-black;
+      }
+
+      float: right;
+      margin-top: 20px;
+      color: $barra-white;
+      background-color: $barra-grey-font-bright;
+    }
+  }
+}

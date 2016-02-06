@@ -2,16 +2,6 @@
 {% trans_default_domain "messages" %}
 {% block title %}Admino Login{% endblock %}
 
-
-{% block stylesheets %}
-    {{ parent() }}
-    {% stylesheets filter='cssrewrite'
-        'css/login.css'
-    %}
-        <link rel="stylesheet" href="{{ asset_url }}">
-    {% endstylesheets %}
-{% endblock %}
-
 {% block section %}
     <section class="container">
         {% for type, messages in app.session.flashbag.all() %}

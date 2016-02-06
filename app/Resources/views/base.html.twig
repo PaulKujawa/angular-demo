@@ -23,10 +23,7 @@
                     'vendor/jquery-ui/themes/smoothness/jquery-ui.min.css'
                     'vendor/angular-chart.js/dist/angular-chart.css'
                     'vendor/angular-ui-tree/dist/angular-ui-tree.min.css'
-                    'css/admin.css'
-                    'css/contact.css'
-                    'css/recipe.css'
-                    'css/recipes.css'
+                    'css/app.css'
                 %}
                     <link rel="stylesheet" href="{{ asset_url }}">
                 {% endstylesheets %}
@@ -98,7 +95,7 @@
         {% block section %}{% endblock %}
 
         {% block footer %}
-            <footer>
+            <footer class="text-center uppercase">
                 <span>Copyright © {{ "now"|date("Y") }} Paul Kujawa</span>
             </footer>
         {% endblock %}

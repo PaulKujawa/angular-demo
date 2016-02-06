@@ -1,0 +1,12 @@
+@import "../variables"; // TODO check if barra/variables would be enough
+
+.btn {
+  text-transform: uppercase;
+}
+
+.btn:hover,
+.btn:focus,
+.btn:active {
+  background-color: inherit;
+  border-color: transparent;
+}
