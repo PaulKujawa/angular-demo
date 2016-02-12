@@ -3,7 +3,7 @@ recipe:
     delete:             Delete
     frontend:           Frontend
     manage:             Manage
-    new:                New
+    new:                Create
     update:             Update
     send:               Send
 
@@ -66,6 +66,3 @@ recipe:
     protein:            Protein
     sugar:              Sugar
     vegan:              Vegan
-
-  recipe:
-    name:               Name

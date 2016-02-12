@@ -14,22 +14,8 @@
                 <META name="publisher"              content="Paul Kujawa">
             {% endblock %}
 
-            {# TODO how to minify my compiled and vendor CSS files #}
-            {# TODO still collecting css and js files this way after assetic is thrown out of project? #}
+            <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-            {# TODO handle admin.css and login.css via SASS #}
-            {% block stylesheets %}
-                {% stylesheets filter='cssrewrite'
-                    'vendor/jquery-ui/themes/smoothness/jquery-ui.min.css'
-                    'vendor/angular-chart.js/dist/angular-chart.css'
-                    'vendor/angular-ui-tree/dist/angular-ui-tree.min.css'
-                    'css/app.css'
-                %}
-                    <link rel="stylesheet" href="{{ asset_url }}">
-                {% endstylesheets %}
-            {% endblock %}
-
-            {# TODO check if angular-chart and angular-ui-tree can be removed #}
             {% block javascripts %}
                 {% javascripts
                     'vendor/jquery/dist/jquery.min.js'

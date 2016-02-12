@@ -20,13 +20,14 @@ class RecipeController extends BasicController
 
     /**
      * @param int $pageIndex
+     *
      * @return Response
      */
     public function recipesAdminAction($pageIndex)
     {
         $form = $this->createForm(new RecipeType(), new Recipe());
 
-        return $this->render(':recipe:recipes_admin.html.twig', [
+        return $this->render(':recipe/manage:recipes.html.twig', [
             'pageIndex' => $pageIndex,
             'pages'     => $this->getPaginationPages(),
             'form'      => $form->createView(),
@@ -35,6 +36,7 @@ class RecipeController extends BasicController
 
     /**
      * @param string $name
+     *
      * @return Response
      */
     public function recipeAdminAction($name)
@@ -53,7 +55,7 @@ class RecipeController extends BasicController
         $formCooking    = $this->createForm(new CookingType(), new Cooking());
         $formIngredient = $this->createForm(new IngredientType(), new Ingredient());
 
-        return $this->render(':recipe:recipe_admin.html.twig', [
+        return $this->render(':recipe/manage:recipe.html.twig', [
             'recipe'            => $recipe,
             'formPicture'       => $formPicture->createView(),
             'formIngredient'    => $formIngredient->createView(),
@@ -63,6 +65,7 @@ class RecipeController extends BasicController
 
     /**
      * @param int $pageIndex
+     *
      * @return Response
      */
     public function recipesPublicAction($pageIndex)
@@ -74,7 +77,7 @@ class RecipeController extends BasicController
         $pages      = $repo->count();
         $pages      = ceil($pages/self::LIMIT);
 
-        return $this->render(':recipe:recipes_public.html.twig', [
+        return $this->render(':recipe/view:recipes.html.twig', [
             'pageIndex' => $pageIndex,
             'pages'     => $pages,
             'recipes'   => $recipes,
@@ -83,6 +86,7 @@ class RecipeController extends BasicController
 
     /**
      * @param string $name
+     *
      * @return Response
      */
     public function recipePublicAction($name)
@@ -98,7 +102,7 @@ class RecipeController extends BasicController
         $ingredients = $em->getRepository('BarraRecipeBundle:Ingredient')->findByRecipe($recipe, ['position' => 'ASC']);
         $macros      = $this->calculateMacros($ingredients);
 
-        return $this->render(':recipe:recipe_public.html.twig', [
+        return $this->render(':recipe/view:recipe.html.twig', [
             'recipe'      => $recipe,
             'macros'      => $macros,
             'cookings'    => $cookings,
@@ -108,6 +112,7 @@ class RecipeController extends BasicController
 
     /**
      * @param array $ingredients
+     *
      * @return array
      */
     protected function calculateMacros(array $ingredients)
@@ -122,11 +127,9 @@ class RecipeController extends BasicController
         /** @var Ingredient $ingredient */
         foreach ($ingredients as $ingredient) {
             if (null !== $ingredient->getAmount()) {
-                if (0 != $ingredient->getMeasurement()->getGr()) { /* eg pieces or bags */
-                    $gr = $ingredient->getAmount();
-                } else {
-                    $gr = $ingredient->getProduct()->getGr();
-                }
+                $gr = 0 !== $ingredient->getMeasurement()->getGr()
+                    ? $ingredient->getAmount()
+                    : $ingredient->getProduct()->getGr();
 
                 $rel                 = $gr/100;
                 $product             = $ingredient->getProduct();

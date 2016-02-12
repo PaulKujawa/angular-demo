@@ -26,14 +26,14 @@
     }
 
     #form_submit {
-      &:hover {
-        background-color: $barra-black;
-      }
-
       float: right;
       margin-top: 20px;
       color: $barra-white;
       background-color: $barra-grey-font-bright;
+
+      &:hover {
+        background-color: $barra-black;
+      }
     }
   }
 }
