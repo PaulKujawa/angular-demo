@@ -2,7 +2,7 @@
 
 {% block pagination %}
     {% if pages > 1 %}
-        <nav class="paginationNav">
+        <nav class="paginationNav text-center">
             <ul class="pagination">
                 {% if 3 <= pageIndex and pages-2 >= pageIndex %} {# full 5 pages #}
                     {% set from = pageIndex-2 %}

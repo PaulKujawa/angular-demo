@@ -1,18 +1,9 @@
 @import "../../import/variables";
 
-.glyphicon {
-  color: $barra-grey-font-bright;
-  cursor: pointer;
-}
-
 .glyphicon-resize-vertical {
   cursor: move;
 }
 
 .glyphicon-trash:hover {
   color: $barra-red;
-}
-
-.inactiveLink .glyphicon-trash:hover {
-  color: $barra-grey-font-bright;
 }

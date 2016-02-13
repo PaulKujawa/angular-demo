@@ -1,9 +1,10 @@
 @import "../barra/variables";
 
-// bootstrap variable overrides
+// common
 $border-radius-base: 0;
 
-// background colors
+// colors
+$brand-danger: $barra-red;
 $state-success-bg: $barra-green;
 
 // font

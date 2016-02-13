@@ -1,7 +1,6 @@
 {% extends '::base.html.twig' %}
 {% form_theme form 'BarraRecipeBundle:Form:contactRow.html.twig' %}
 
-{% trans_default_domain "messages" %}
 {% block title %}{{ 'recipe.title.contact'|trans() }} | Kujawa{% endblock %}
 {% block metaData %}
     {{ parent() }}
@@ -11,21 +10,21 @@
 
 {% block section %}
     <section class="container" id="contactPage">
-        <div class="row flex flex-align-v">
+        <div class="row flex flex-align-v text-center">
             <div class="col-xs-12 col-sm-5">
                 <img class="img-circle center-block img-responsive"
                      src="{{ asset('images/kujawa.jpg') }}" alt="Paul Kujawa">
             </div>
             <div class="col-xs-12 col-sm-7">
-                <p class="fontL">{{ 'recipe.contact.description'|trans() }}</p>
+                <p>{{ 'recipe.contact.description'|trans() }}</p>
             </div>
         </div>
 
+        <hr>
+
         {% for flashMessage in app.session.flashbag.get('emailSent') %}
             <div class="row">
-                <div class="col-xs-12 col-sm-12 alert alert-success" role="alert">
-                    {{ flashMessage }}
-                </div>
+                <div class="col-xs-12 col-sm-12 alert alert-success" role="alert">{{ flashMessage }}</div>
             </div>
         {% endfor %}
 
@@ -43,8 +42,8 @@
                     <div class="form-group">
                         {{ form_row(form.message) }}
                     </div>
-                    <div class="form-group">
-                        {{ form_widget(form.submit, {'label': 'recipe.action.send', 'attr': {'class': 'btn'} }) }}
+                    <div class="form-group text-right">
+                        {{ form_widget(form.submit, {'label': 'recipe.action.send', 'attr': {'class': 'btn btn-primary'} }) }}
                     </div>
                 </div>
             </div>
