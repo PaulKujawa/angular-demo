@@ -1,17 +1,18 @@
 {% extends '::base.html.twig' %}
 {% form_theme form 'BarraRecipeBundle:Form:tableRow.html.twig' %}
-{% block title %}{{ 'recipe.title.manufacturers'|trans() }}{% endblock %}
+{% block title %}{{ 'recipe.title.recipes'|trans() }}{% endblock %}
 
 {% block section %}
-    <section class="container" ng-controller="ManufacturerCtrl">
+    <section class="container" ng-controller="RecipeCtrl">
         {{ include(':parts:form_validation.html.twig') }}
 
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-sm-offset-3">
                 <div class="list-group">
-                   <div class="list-group-item" ng-repeat="manufacturer in manufacturers | orderBy:'name'">
-                       [[manufacturer.name]]
-                   </div>
+                    <a href="[[urlRecipe]]/[[recipe.name.replace(' ', '_')]]" class="list-group-item"
+                       ng-repeat="recipe in recipes | orderBy:'name'">
+                        [[recipe.name]]
+                    </a>
                 </div>
             </div>
         </div>
@@ -29,6 +30,6 @@
             {{ form_end(form) }}
         </div>
 
-        {{ include(':parts:pagination.html.twig', { 'route': 'barra_recipe_manufacturers'})}}
+        {{ include(':parts:pagination.html.twig', { 'route': 'barra_recipe_recipes_admin'}) }}
     </section>
 {% endblock %}

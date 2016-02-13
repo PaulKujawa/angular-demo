@@ -1,0 +1,14 @@
+// load always all variables
+// -> overrides for every third party component + own variables
+@import "variables";
+
+/*
+  you can also load bootstrap partially, e.g.
+  @import "../../../../../../ vendor/bootstrap-sass-official/assets/stylesheets/bootstrap/buttons";
+
+  and overrides individual components, e.g.
+  @import "css/import/bootstrap/buttons";
+*/
+@import "bootstrap/buttons";
+
+@import "../../../../../web/vendor/bootstrap-sass-official/assets/stylesheets/bootstrap";

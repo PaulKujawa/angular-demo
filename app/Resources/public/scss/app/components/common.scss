@@ -1,0 +1,15 @@
+@import "../../import/variables";
+
+.flex {
+  @media #{$media-query-min-sm} {
+    display: flex;
+  }
+}
+
+.flex-align-v {
+  align-items: center; // align-self for overrides
+}
+
+.uppercase {
+  text-transform: uppercase;
+}

@@ -17,7 +17,7 @@
 
 {% block form_row %}{% spaceless %}
     {# formFieldErrors highlight relative form rows, regular formErrors not #}
-    <td ng-class="{'danger has-error': formFieldErrors && highlightInvalidFormFields('{{name}}')}">
+    <div class="form-group" ng-class="{'danger has-error': formFieldErrors && highlightInvalidFormFields('{{name}}')}">
         {{ form_label(form, null, {'label_attr': {'class': 'sr-only'}}) }}
         {{ form_errors(form) }}
 
@@ -27,7 +27,7 @@
         {% endif %}
 
         {{ form_widget(form, {'attr': {'class': 'form-control'}, 'angularFormName': angularFormName}) }}
-    </td>
+    </div>
 {% endspaceless %}{% endblock %}
 
 
@@ -46,13 +46,3 @@
         ng-model="{{ angularFormName }}['{{ name }}']"
     {% endif %}
 {% endspaceless %}{% endblock widget_attributes %}
-
-{# button labels will NOT be displayed! just this bootstrap plus icon instead. labels are set though #}
-{% block button_widget %}{% spaceless %}
-    <td>
-        {% if label is empty %}
-            {% set label = name|humanize %}
-        {% endif %}
-        <button type="{{ type|default('button') }}" {{ block('button_attributes') }}><i class="glyphicon glyphicon-plus"></i></button>
-    </td>
-{% endspaceless %}{% endblock %}

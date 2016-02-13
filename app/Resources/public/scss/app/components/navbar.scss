@@ -1,8 +1,6 @@
-@import "../common/variables";
+@import "../../import/variables";
 
 .navbar {
-  z-index: 9999;
-  position: fixed !important; // BT override
   margin-bottom: 0; // BT override
   width: 100%;
   border: none !important; // BT override

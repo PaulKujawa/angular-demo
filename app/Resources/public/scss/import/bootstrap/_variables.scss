@@ -1,0 +1,21 @@
+@import "../barra/variables";
+
+// bootstrap variable overrides
+$border-radius-base: 0;
+
+// background colors
+$state-success-bg: $barra-green;
+
+// font
+$font-size-base: $barra-font-size-base;
+$alert-success-text: $barra-white;
+
+// badges
+$badge-bg: inherit;
+
+// buttons
+$btn-primary-color: $barra-white;
+$btn-primary-bg: $barra-grey-font-bright;
+
+$icon-font-path: "../vendor/bootstrap-sass-official/assets/fonts/bootstrap/";
+@import "../../../../../../web/vendor/bootstrap-sass-official/assets/stylesheets/bootstrap/variables";

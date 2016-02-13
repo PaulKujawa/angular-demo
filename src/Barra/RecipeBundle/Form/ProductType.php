@@ -7,13 +7,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-/**
- * Class ProductType
- * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RecipeBundle\Form
- */
 class ProductType extends AbstractType
 {
+    /**
+     * @{@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -81,11 +79,13 @@ class ProductType extends AbstractType
             ->getForm();
     }
 
+    /**
+     * @{@inheritdoc}
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
             'data_class'        => 'Barra\RecipeBundle\Entity\Product',
-            'intention'         => 'product',
             'csrf_protection'   => false,
         ]);
     }

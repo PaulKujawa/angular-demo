@@ -7,13 +7,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-/**
- * Class IngredientType
- * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RecipeBundle\Form
- */
 class IngredientType extends AbstractType
 {
+    /**
+     * @{@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -52,11 +50,13 @@ class IngredientType extends AbstractType
             ->getForm();
     }
 
+    /**
+     * @{@inheritdoc}
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
             'data_class'            => 'Barra\RecipeBundle\Entity\Ingredient',
-            'intention'             => 'ingredient',
             'csrf_protection'       => false,
         ]);
     }

@@ -8,6 +8,9 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class RecipeType extends AbstractType
 {
+    /**
+     * @{@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -20,11 +23,13 @@ class RecipeType extends AbstractType
             ->getForm();
     }
 
+    /**
+     * @{@inheritdoc}
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
             'data_class'        => 'Barra\RecipeBundle\Entity\Recipe',
-            'intention'         => 'recipe',
             'csrf_protection'   => false,
         ]);
     }
