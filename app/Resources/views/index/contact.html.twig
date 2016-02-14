@@ -29,19 +29,13 @@
         {% endfor %}
 
         {{ form_start(form) }}
-            <div class="row"> {# class=clearfix #}
-                <div class="col-xs-12 col-sm-5"> {# id="contactFormLeft" #}
-                    <div class="form-group">
-                        {{ form_row(form.name) }}
-                    </div>
-                    <div class="form-group">
-                        {{ form_row(form.email) }}
-                    </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-5">
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.email) }}
                 </div>
                 <div class="col-xs-12 col-sm-7">
-                    <div class="form-group">
-                        {{ form_row(form.message) }}
-                    </div>
+                    {{ form_row(form.message) }}
                     <div class="form-group text-right">
                         {{ form_widget(form.submit, {'label': 'recipe.action.send', 'attr': {'class': 'btn btn-primary'} }) }}
                     </div>

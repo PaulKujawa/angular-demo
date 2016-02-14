@@ -1,17 +1,7 @@
-{# fieldType_part #}
-
 {% block form_row %}{% spaceless %}
-    {{ form_label(form, null, {'label_attr': {'class': 'sr-only'}}) }}
-    {{ form_errors(form) }}
-    {{ form_widget(form, {'attr': {'class': 'form-control'}}) }}
+    <div class="form-group">
+        {{ form_label(form, null, {'label_attr': {'class': 'sr-only'}}) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form, {'attr': {'class': 'form-control'}}) }}
+    </div>
 {% endspaceless %}{% endblock %}
-
-
-{# default template - necessary to override backend version of button_widget #}
-{% block button_widget %}{% spaceless %}
-    {% if label is empty %}
-        {% set label = name|humanize %}
-    {% endif %}
-    <button type="{{ type|default('button') }}" {{ block('button_attributes') }}>{{ label|trans() }}</button>
-{% endspaceless %}{% endblock %}
-
