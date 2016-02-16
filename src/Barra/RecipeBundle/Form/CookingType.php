@@ -2,16 +2,17 @@
 
 namespace Barra\RecipeBundle\Form;
 
+use Barra\RecipeBundle\Entity\Cooking;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CookingType extends AbstractType
 {
     /**
-     * @{@inheritdoc}
+     * @inheritdoc
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -30,18 +31,13 @@ class CookingType extends AbstractType
     }
 
     /**
-     * @{@inheritdoc}
+     * @inheritdoc
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class'        => 'Barra\RecipeBundle\Entity\Cooking',
+            'data_class'        => Cooking::class,
             'csrf_protection'   => false,
         ]);
-    }
-
-    public function getName()
-    {
-        return 'formCooking';
     }
 }

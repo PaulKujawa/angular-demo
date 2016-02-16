@@ -26,9 +26,6 @@ class RestController extends FOSRestController implements ClassResourceInterface
     /** @var string */
     protected $entityClass;
 
-    /** @var  AbstractType */
-    protected $formType;
-
     /** @var  mixed */
     protected $entity;
 
@@ -221,17 +218,11 @@ class RestController extends FOSRestController implements ClassResourceInterface
     }
 
     /**
-     * @return AbstractType
+     * @return string
      */
     protected function getFormType()
     {
-        if (null === $this->formType) {
-            $namespace      = '\Barra\RecipeBundle\Form\\';
-            $form           = $namespace.$this->getEntityClass().'Type';
-            $this->formType = new $form();
-        }
-
-        return $this->formType;
+        return '\Barra\RecipeBundle\Form\\' . $this->getEntityClass() . 'Type';
     }
 
     /**

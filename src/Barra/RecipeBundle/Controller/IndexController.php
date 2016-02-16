@@ -3,6 +3,10 @@
 namespace Barra\RecipeBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,22 +20,22 @@ class IndexController extends Controller
     public function contactAction(Request $request)
     {
         $form = $this->createFormBuilder()
-            ->add('name', 'text', [
+            ->add('name', TextType::class, [
                 'attr'  => [
                     'placeholder' => 'recipe.contact.name',
                 ],
             ])
-            ->add('email', 'email', [
+            ->add('email', EmailType::class, [
                 'attr' => [
                     'placeholder' => 'recipe.contact.email',
                 ],
             ])
-            ->add('message', 'textarea', [
+            ->add('message', TextareaType::class, [
                 'attr'  => [
                     'placeholder' => 'recipe.contact.message',
                 ],
             ])
-            ->add('submit', 'submit')
+            ->add('submit', SubmitType::class)
             ->getForm();
 
         $form->handleRequest($request);

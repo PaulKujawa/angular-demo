@@ -4,7 +4,6 @@ namespace Barra\RecipeBundle\Controller;
 
 use Barra\RecipeBundle\Entity\Cooking;
 use Barra\RecipeBundle\Entity\Ingredient;
-use Barra\RecipeBundle\Entity\Photo;
 use Barra\RecipeBundle\Entity\Repository\BasicRepository;
 use Barra\RecipeBundle\Form\CookingType;
 use Barra\RecipeBundle\Form\IngredientType;
@@ -25,7 +24,7 @@ class RecipeController extends BasicController
      */
     public function recipesAdminAction($pageIndex)
     {
-        $form = $this->createForm(new RecipeType(), new Recipe());
+        $form = $this->createForm(RecipeType::class);
 
         return $this->render(':recipe/manage:recipes.html.twig', [
             'pageIndex' => $pageIndex,
@@ -51,9 +50,9 @@ class RecipeController extends BasicController
             throw new NotFoundHttpException();
         }
 
-        $formPicture    = $this->createForm(new PhotoType(), new Photo());
-        $formCooking    = $this->createForm(new CookingType(), new Cooking());
-        $formIngredient = $this->createForm(new IngredientType(), new Ingredient());
+        $formPicture    = $this->createForm(PhotoType::class);
+        $formCooking    = $this->createForm(CookingType::class);
+        $formIngredient = $this->createForm(IngredientType::class);
 
         return $this->render(':recipe/manage:recipe.html.twig', [
             'recipe'            => $recipe,
