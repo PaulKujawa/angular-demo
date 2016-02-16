@@ -4,6 +4,11 @@ namespace Barra\RecipeBundle\Form;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -15,55 +20,55 @@ class ProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', [
+            ->add('name', TextType::class, [
                 'attr'      => [
                     'placeholder' => 'recipe.product.name',
                 ],
             ])
-            ->add('vegan', 'checkbox', [
+            ->add('vegan', CheckboxType::class, [
                 'required' => false,
             ])
-            ->add('gr', 'integer', [
+            ->add('gr', IntegerType::class, [
                 'attr'      => [
                     'placeholder' => 'recipe.product.gr',
                 ],
             ])
-            ->add('kcal', 'integer', [
+            ->add('kcal', IntegerType::class, [
                 'attr'      => [
                     'placeholder' => 'recipe.product.kcal',
                 ],
             ])
-            ->add('protein', 'number', [
+            ->add('protein', NumberType::class, [
                 'precision' => 2,
                 'attr'      => [
                     'placeholder' => 'recipe.product.protein',
                 ],
             ])
-            ->add('carbs', 'number', [
+            ->add('carbs', NumberType::class, [
                 'precision' => 2,
                 'attr'      => [
                     'placeholder' => 'recipe.product.carbs',
                 ],
             ])
-            ->add('sugar', 'number', [
+            ->add('sugar', NumberType::class, [
                 'precision' => 2,
                 'attr'      => [
                     'placeholder' => 'recipe.product.sugar',
                 ],
             ])
-            ->add('fat', 'number', [
+            ->add('fat', NumberType::class, [
                 'precision' => 2,
                 'attr'      => [
                     'placeholder' => 'recipe.product.fat',
                 ],
             ])
-            ->add('gfat', 'number', [
+            ->add('gfat', NumberType::class, [
                 'precision' => 2,
                 'attr'      => [
                     'placeholder' => 'recipe.product.gfat',
                 ],
             ])
-            ->add('manufacturer', 'entity', [
+            ->add('manufacturer', ManufacturerType::class, [
                 'class'     => 'BarraRecipeBundle:Manufacturer',
                 'property'  => 'name',
                 'attr'      => [
@@ -75,7 +80,7 @@ class ProductType extends AbstractType
                         ->orderBy('m.name', 'ASC');
                 },
             ])
-            ->add('submit', 'submit')
+            ->add('submit', SubmitType::class)
             ->getForm();
     }
 

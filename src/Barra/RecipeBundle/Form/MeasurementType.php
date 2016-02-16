@@ -3,6 +3,9 @@
 namespace Barra\RecipeBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -14,17 +17,17 @@ class MeasurementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', [
+            ->add('name', TextType::class, [
                 'attr' => [
                     'placeholder' => 'recipe.measurement.name',
                 ],
             ])
-            ->add('gr', 'integer', [
+            ->add('gr', IntegerType::class, [
                 'attr' => [
                     'placeholder' => 'recipe.measurement.gr',
                 ],
             ])
-            ->add('submit', 'submit')
+            ->add('submit', SubmitType::class)
             ->getForm();
     }
 

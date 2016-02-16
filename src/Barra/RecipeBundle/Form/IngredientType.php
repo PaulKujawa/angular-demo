@@ -4,6 +4,9 @@ namespace Barra\RecipeBundle\Form;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -15,14 +18,14 @@ class IngredientType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('amount', 'integer', [
+            ->add('amount', IntegerType::class, [
                 'required'  => false,
                 'attr'      => [
                     'placeholder' => 'recipe.ingredient.amount',
                 ],
             ])
 //            TODO add query builder to sort measurements when i can check the result
-            ->add('measurement', 'entity', [
+            ->add('measurement', MeasurementType::class, [
                 'class'     => 'BarraRecipeBundle:Measurement',
                 'property'  => 'name',
                 'required'  => false,
@@ -30,7 +33,7 @@ class IngredientType extends AbstractType
                     'placeholder' => 'recipe.measurement.name',
                 ],
             ])
-            ->add('product', 'entity', [
+            ->add('product', ProductType::class, [
                 'class'     => 'BarraRecipeBundle:Product',
                 'property'  => 'name',
                 'attr'      => [
@@ -42,11 +45,11 @@ class IngredientType extends AbstractType
                         ->orderBy('i.name', 'ASC');
                 },
             ])
-            ->add('recipe', 'hidden', [
+            ->add('recipe', HiddenType::class, [
                 'mapped'    => false,
                 'label'     => false,
             ])
-            ->add('submit', 'submit')
+            ->add('submit', SubmitType::class)
             ->getForm();
     }
 
