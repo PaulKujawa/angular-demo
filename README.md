@@ -3,7 +3,8 @@
 
 ### DEPLOY
 * php                       `composer install`
-* js                        `bower install`
+* jspm                      `jspm install`
+* bower                     `bower install`
 * clear cache               `app/console cache:clear --env=prod`
 * sass compile              `gulp sass`
 * compile assets            `app/console assetic:dump --env=prod --no-debug`

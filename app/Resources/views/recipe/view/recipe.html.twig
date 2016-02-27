@@ -7,12 +7,6 @@
     <meta name="keywords" content="{{ 'recipe.meta.recipeKeywords'|trans({'%recipe%':recipe.name}) }}" />
 {% endblock %}
 
-{% block javascripts %}
-    {% javascripts 'js/nutricionChart.js' %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-{% endblock %}
-
 {% block section %}
     <section class="container" id="recipePage">
         <div class="row">

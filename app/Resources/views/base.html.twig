@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html ng-app="angularApp">
+<html>
     <head>
         {% block head %}
             <title>{% block title %}Kujawa{% endblock %}</title>
-
             {% block metaData %}
                 <meta http-equiv="X-UA-Compatible" content="IE=edge">
                 <meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -13,25 +12,7 @@
                 <META name="copyright" content="Paul Kujawa">
                 <META name="publisher" content="Paul Kujawa">
             {% endblock %}
-
             <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
-            {% block javascripts %}
-                {% javascripts
-                    'vendor/jquery/dist/jquery.min.js'
-                    'vendor/jquery-ui/jquery-ui.min.js'
-                    'vendor/jquery-ui-touch-punch-improved/jquery.ui.touch-punch-improved.js'
-                    'vendor/chartjs/Chart.js'
-                    'vendor/bootstrap-sass-official/assets/javascripts/bootstrap.min.js'
-                    'bundles/fosjsrouting/js/router.js'
-                    'js/admin.js'
-                %}
-                    <script type="text/javascript" src="{{ asset_url }}"></script>
-                {% endjavascripts %}
-
-                {# include in assetic would require a manual dump every time a route changes #}
-                <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-            {% endblock %}
         {% endblock %}
     </head>
 
@@ -94,6 +75,12 @@
             <footer class="text-center text-uppercase">
                 <span>Copyright © {{ "now"|date("Y") }} Paul Kujawa</span>
             </footer>
+        {% endblock %}
+
+        {% block javascripts %}
+            <script src="{{ asset('jspm/packages/system.js') }}"></script>
+            <script src="{{ asset('jspm/config.js') }}"></script>
+            {#<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>#}
         {% endblock %}
     </body>
 </html>

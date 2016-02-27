@@ -1,3 +1,7 @@
+Name: Name
+Email: Email
+Message: Message
+
 app:
   message:
     errorCode: Leider gab der Server einen %code% zurück.

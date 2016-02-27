@@ -48,15 +48,7 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
 
-assetic:
-  debug:          "%kernel.debug%"
-  use_controller: false
-  bundles:        [ BarraRecipeBundle, FOSUserBundle, TwigBundle ] # User & Twig for overwritten templates
-  filters:
-      cssrewrite: ~
-
-
-swiftmailer:
+swiftmailer:                                                # email server configuration for 'mailer' service
     transport:  "%mailer_transport%"
     encryption: "%mailer_encryption%"
     auth_mode:  "%mailer_auth_mode%"

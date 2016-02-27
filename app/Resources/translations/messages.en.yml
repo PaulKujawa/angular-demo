@@ -4,6 +4,10 @@ app:
 
     word:
         startpage: Startpage
+Name: Name
+Email: Email
+Message: Message
+
 barra:
     contact:
         email_sent: Thank you for your inquiry. I will be in touch with you.

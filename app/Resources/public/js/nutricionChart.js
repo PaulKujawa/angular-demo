@@ -24,8 +24,6 @@ $(function() { /* http://www.chartjs.org/docs/#doughnut-pie-chart */
         }
     ];
 
-
-
     var macroChart = new Chart(ctx).Doughnut(data, {
         tooltipFillColor: "rgba(20,20,20,0.8)",
         tooltipTitleFontColor: "#777",
