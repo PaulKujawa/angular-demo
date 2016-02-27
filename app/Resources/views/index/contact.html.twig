@@ -21,13 +21,6 @@
         </div>
 
         <hr>
-
-        {% for flashMessage in app.session.flashbag.get('emailSent') %}
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 alert alert-success" role="alert">{{ flashMessage }}</div>
-            </div>
-        {% endfor %}
-
         {{ form_start(form) }}
             <div class="row">
                 <div class="col-xs-12 col-sm-5">

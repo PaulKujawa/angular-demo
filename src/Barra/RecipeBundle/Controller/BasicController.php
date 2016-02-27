@@ -8,9 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class BasicController extends Controller
 {
-    /** @var EntityManager */
-    protected $em;
-
     /** string */
     protected $entityClass;
 
@@ -21,10 +18,14 @@ class BasicController extends Controller
      */
     protected function getPaginationPages($range = 10)
     {
-        if (1 > $range) {
+        if ($range < 1) {
             throw new \InvalidArgumentException();
         }
-        $repo = $this->getRepo();
+
+        $repoTitle = 'BarraRecipeBundle:' . ucfirst($this->getEntityClass());
+
+        /** @var BasicRepository $repo */
+        $repo = $this->getDoctrine()->getManager()->getRepository($repoTitle);
 
         return ceil($repo->count() / $range);
     }
@@ -41,31 +42,5 @@ class BasicController extends Controller
         }
 
         return $this->entityClass;
-    }
-
-    /**
-     * @param string $entityClass
-     *
-     * @return BasicRepository
-     */
-    protected function getRepo($entityClass = null)
-    {
-        if (null === $entityClass) {
-            $entityClass = $this->getEntityClass();
-        }
-
-        return $this->getEM()->getRepository('BarraRecipeBundle:' . ucfirst($entityClass));
-    }
-
-    /**
-     * @return EntityManager
-     */
-    protected function getEM()
-    {
-        if (null === $this->em) {
-            $this->em = $this->getDoctrine()->getManager();
-        }
-
-        return $this->em;
     }
 }

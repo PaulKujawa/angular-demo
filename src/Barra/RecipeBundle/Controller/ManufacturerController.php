@@ -9,22 +9,22 @@ use Symfony\Component\HttpFoundation\Response;
 class ManufacturerController extends BasicController
 {
     /**
-     * @Route("/recipes/{pageIndex}", name="barra_recipe_manufacturers", defaults={"pageIndex" = 1}, requirements={
-     *      "pageIndex" = "\d+"
+     * @Route("/admino/recipes/{page}", name="barra_recipe_manufacturers", defaults={"page" = 1}, requirements={
+     *      "page" = "\d+"
      * })
      *
-     * @param int $pageIndex
+     * @param int $page
      *
      * @return Response
      */
-    public function indexAction($pageIndex)
+    public function indexAction($page)
     {
         $form = $this->createForm(ManufacturerType::class);
 
         return $this->render(':manufacturer:manufacturers.html.twig', [
-            'pageIndex' => $pageIndex,
-            'pages'     => $this->getPaginationPages(),
-            'form'      => $form->createView(),
+            'page' => $page,
+            'pages' => $this->getPaginationPages(),
+            'form' => $form->createView(),
         ]);
     }
 }

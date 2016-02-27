@@ -5,6 +5,13 @@ app:
   word:
     startpage: Startseite
 
+barra:
+    contact:
+        email_sent: Thank you for your inquiry. I will be in touch with you.
+
+    recipe:
+        not_found: Das gesuchte Gericht ist mir leider nicht bekannt. Darf es etwas anderes sein?
+
 recipe:
     action:
         delete: Löschen
@@ -15,7 +22,6 @@ recipe:
         send: Senden
 
     message:
-        emailSent: Danke für Ihre Anfrage. Ich werde mich bei Ihnen melden.
         insertError: Ungültiger Eintrag
 
     meta:

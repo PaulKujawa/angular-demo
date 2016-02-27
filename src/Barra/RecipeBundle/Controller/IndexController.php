@@ -46,7 +46,7 @@ class IndexController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->sendMail($form->getData());
-            $this->addFlash('emailSent', $this->get('translator')->trans('recipe.message.emailSent'));
+            $this->addFlash('success', $this->get('translator')->trans('barra.contact.email_sent'));
 
             return $this->redirectToRoute('barra_recipe_contact');
         }

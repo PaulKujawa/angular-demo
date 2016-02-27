@@ -9,22 +9,22 @@ use Symfony\Component\HttpFoundation\Response;
 class ProductController extends BasicController
 {
     /**
-     * @Route("/recipes/{pageIndex}", name="barra_recipe_products", defaults={"pageIndex" = 1}, requirements={
-     *      "pageIndex" = "\d+"
+     * @Route("/admino/recipes/{page}", name="barra_recipe_products", defaults={"page" = 1}, requirements={
+     *      "page" = "\d+"
      * })
      *
-     * @param int $pageIndex
+     * @param int $page
      *
      * @return Response
      */
-    public function indexAction($pageIndex)
+    public function indexAction($page)
     {
         $form = $this->createForm(ProductType::class);
 
         return $this->render(':product:products.html.twig', [
-            'pageIndex' => $pageIndex,
-            'pages'     => $this->getPaginationPages(),
-            'form'      => $form->createView(),
+            'page' => $page,
+            'pages' => $this->getPaginationPages(),
+            'form' => $form->createView(),
         ]);
     }
 }
