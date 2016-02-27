@@ -3,7 +3,6 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
-    - { resource: "@BarraRecipeBundle/Resources/config/services.yml" }
 
 framework:
     #esi:             ~

@@ -10,6 +10,7 @@ use Barra\RecipeBundle\Form\IngredientType;
 use Barra\RecipeBundle\Form\PhotoType;
 use Barra\RecipeBundle\Form\RecipeType;
 use Barra\RecipeBundle\Entity\Recipe;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -18,6 +19,9 @@ class RecipeController extends BasicController
     const LIMIT = 6;
 
     /**
+     * @Route("/recipes/{pageIndex}", name="barra_recipe_recipes_admin", defaults={"pageIndex" = 1}, requirements={
+     *      "pageIndex" = "\d+"
+     * })
      * @param int $pageIndex
      *
      * @return Response
@@ -34,6 +38,8 @@ class RecipeController extends BasicController
     }
 
     /**
+     * @Route("/recipes/{name}", name="barra_recipe_recipe_admin")
+
      * @param string $name
      *
      * @return Response
@@ -63,6 +69,10 @@ class RecipeController extends BasicController
     }
 
     /**
+     * @Route("/recipes/{pageIndex}", name="barra_recipe_recipes_public", defaults={"pageIndex" = 1}, requirements={
+     *      "pageIndex" = "\d+"
+     * })
+     *
      * @param int $pageIndex
      *
      * @return Response
@@ -84,6 +94,8 @@ class RecipeController extends BasicController
     }
 
     /**
+     * @Route("/recipes/{name}", name="barra_recipe_recipe_public")
+     *
      * @param string $name
      *
      * @return Response

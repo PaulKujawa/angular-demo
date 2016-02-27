@@ -6,11 +6,6 @@ use Barra\RecipeBundle\Entity\Repository\BasicRepository;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-/**
- * Class BasicController
- * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RecipeBundle\Controller
- */
 class BasicController extends Controller
 {
     /** @var EntityManager */
@@ -21,6 +16,7 @@ class BasicController extends Controller
 
     /**
      * @param int $range > 0
+     *
      * @return float
      */
     protected function getPaginationPages($range = 10)
@@ -34,7 +30,7 @@ class BasicController extends Controller
     }
 
     /**
-     * @return string upper cased semantic name of inheriting controller
+     * @return string
      */
     protected function getEntityClass()
     {
@@ -49,6 +45,7 @@ class BasicController extends Controller
 
     /**
      * @param string $entityClass
+     *
      * @return BasicRepository
      */
     protected function getRepo($entityClass = null)

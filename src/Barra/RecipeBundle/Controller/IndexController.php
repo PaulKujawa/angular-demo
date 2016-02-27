@@ -2,6 +2,7 @@
 
 namespace Barra\RecipeBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -14,7 +15,10 @@ use Symfony\Component\HttpFoundation\Response;
 class IndexController extends Controller
 {
     /**
+     * @Route("/", name="barra_recipe_contact")
+     *
      * @param Request $request
+     *
      * @return RedirectResponse|Response
      */
     public function contactAction(Request $request)
@@ -40,14 +44,11 @@ class IndexController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->sendMail($form->getData());
-            $request
-                ->getSession()
-                ->getFlashBag()
-                ->add('emailSent', $this->get('translator')->trans('recipe.message.emailSent'));
+            $this->addFlash('emailSent', $this->get('translator')->trans('recipe.message.emailSent'));
 
-            return $this->redirect($this->generateUrl('barra_recipe_contact'));
+            return $this->redirectToRoute('barra_recipe_contact');
         }
 
         return $this->render(':index:contact.html.twig', [
@@ -56,11 +57,13 @@ class IndexController extends Controller
     }
 
     /**
+     * @Route("/admino", name="barra_recipe_dashboard")
+     *
      * @return Response
      */
     public function dashboardAction()
     {
-        return $this->render(':index:dashboard.html.twig', []);
+        return $this->render(':index:dashboard.html.twig');
     }
 
     /**
@@ -69,8 +72,8 @@ class IndexController extends Controller
     protected function sendMail(array $enquiry)
     {
         $mailer = $this->get('mailer');
-        $mail   = $mailer->createMessage()
-            ->setSubject('Portfolio enquiry from '.$enquiry['name'])
+        $mail = $mailer->createMessage()
+            ->setSubject('Portfolio enquiry from ' . $enquiry['name'])
             ->setFrom($enquiry['email'])
             ->setTo('p.kujawa@gmx.net')
             ->setBody($enquiry['message']);
