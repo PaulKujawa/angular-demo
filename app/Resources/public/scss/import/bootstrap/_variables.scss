@@ -1,7 +1,7 @@
 @import "../barra/variables";
 
 // common
-$border-radius-base: 0;
+$border-radius-base: 1;
 
 // colors
 $brand-danger: $barra-red;
@@ -18,5 +18,5 @@ $badge-bg: inherit;
 $btn-primary-color: $barra-white;
 $btn-primary-bg: $barra-grey-font-bright;
 
-$icon-font-path: "../vendor/bootstrap-sass-official/assets/fonts/bootstrap/";
-@import "../../../../../../web/vendor/bootstrap-sass-official/assets/stylesheets/bootstrap/variables";
+$icon-font-path: "../jspm/packages/github/twbs/bootstrap-sass@3.3.6/assets/fonts/bootstrap/";
+@import "../../../../../../web/jspm/packages/github/twbs/bootstrap-sass@3.3.6/assets/stylesheets/bootstrap/variables";

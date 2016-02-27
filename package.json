@@ -1,0 +1,24 @@
+{
+  "private": true,
+  "homepage": "https://github.com/barraSargtlin/vpit",
+  "jspm": {
+    "directories": {
+      "baseURL": "web",
+      "packages": "web/jspm/packages"
+    },
+    "configFile": "web/jspm/config.js",
+    "dependencies": {
+      "bootstrap-sass": "github:twbs/bootstrap-sass@^3.3.6",
+      "jquery": "npm:jquery@^2.2.1"
+    },
+    "devDependencies": {}
+  },
+  "devDependencies": {
+    "gulp-clean-dest": "^0.1.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-if": "^2.0.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-sass": "^2.2.0",
+    "gulp-watch": "^4.3.5"
+  }
+}

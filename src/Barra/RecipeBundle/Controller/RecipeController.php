@@ -4,37 +4,41 @@ namespace Barra\RecipeBundle\Controller;
 
 use Barra\RecipeBundle\Entity\Cooking;
 use Barra\RecipeBundle\Entity\Ingredient;
-use Barra\RecipeBundle\Entity\Photo;
 use Barra\RecipeBundle\Entity\Repository\BasicRepository;
 use Barra\RecipeBundle\Form\CookingType;
 use Barra\RecipeBundle\Form\IngredientType;
 use Barra\RecipeBundle\Form\PhotoType;
 use Barra\RecipeBundle\Form\RecipeType;
 use Barra\RecipeBundle\Entity\Recipe;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class RecipeController extends BasicController
 {
     const LIMIT = 6;
 
     /**
-     * @param int $pageIndex
+     * @Route("/admino/recipes/{page}", name="barra_recipe_recipes_admin", defaults={"page" = 1}, requirements={
+     *      "page" = "\d+"
+     * })
+     * @param int $page
      *
      * @return Response
      */
-    public function recipesAdminAction($pageIndex)
+    public function recipesAdminAction($page)
     {
-        $form = $this->createForm(new RecipeType(), new Recipe());
+        $form = $this->createForm(RecipeType::class);
 
         return $this->render(':recipe/manage:recipes.html.twig', [
-            'pageIndex' => $pageIndex,
-            'pages'     => $this->getPaginationPages(),
-            'form'      => $form->createView(),
+            'page' => $page,
+            'pages' => $this->getPaginationPages(),
+            'form' => $form->createView(),
         ]);
     }
 
     /**
+     * @Route("/admino/recipes/{name}", name="barra_recipe_recipe_admin")
+
      * @param string $name
      *
      * @return Response
@@ -47,65 +51,74 @@ class RecipeController extends BasicController
             ->getRepository('BarraRecipeBundle:Recipe')
             ->findOneByName(str_replace('_', ' ', $name));
 
-        if (!$recipe instanceof Recipe) {
-            throw new NotFoundHttpException();
+        if (null === $recipe){
+            $this->addFlash('warning', $this->get('translator')->trans('barra.recipe.not_found'));
+
+            return $this->redirectToRoute('barra_recipe_recipes_admin');
         }
 
-        $formPicture    = $this->createForm(new PhotoType(), new Photo());
-        $formCooking    = $this->createForm(new CookingType(), new Cooking());
-        $formIngredient = $this->createForm(new IngredientType(), new Ingredient());
+        $formPicture = $this->createForm(PhotoType::class);
+        $formCooking = $this->createForm(CookingType::class);
+        $formIngredient = $this->createForm(IngredientType::class);
 
         return $this->render(':recipe/manage:recipe.html.twig', [
-            'recipe'            => $recipe,
-            'formPicture'       => $formPicture->createView(),
-            'formIngredient'    => $formIngredient->createView(),
-            'formCooking'       => $formCooking->createView(),
+            'recipe' => $recipe,
+            'formPicture' => $formPicture->createView(),
+            'formIngredient' => $formIngredient->createView(),
+            'formCooking' => $formCooking->createView(),
         ]);
     }
 
     /**
-     * @param int $pageIndex
+     * @Route("/recipes/{page}", name="barra_recipe_recipes_public", defaults={"page" = 1}, requirements={
+     *      "page" = "\d+"
+     * })
+     *
+     * @param int $page
      *
      * @return Response
      */
-    public function recipesPublicAction($pageIndex)
+    public function recipesPublicAction($page)
     {
         /** @var BasicRepository $repo */
-        $offset     = ($pageIndex-1)*self::LIMIT +1;
-        $repo       = $this->getDoctrine()->getManager()->getRepository('BarraRecipeBundle:Recipe');
-        $recipes    = $repo->getSome($offset, self::LIMIT, 'name');
-        $pages      = $repo->count();
-        $pages      = ceil($pages/self::LIMIT);
+        $offset = ($page-1)*self::LIMIT +1;
+        $repo = $this->getDoctrine()->getManager()->getRepository('BarraRecipeBundle:Recipe');
+        $recipes = $repo->getSome($offset, self::LIMIT, 'name');
+        $pages = $repo->count();
+        $pages = ceil($pages/self::LIMIT);
 
         return $this->render(':recipe/view:recipes.html.twig', [
-            'pageIndex' => $pageIndex,
-            'pages'     => $pages,
-            'recipes'   => $recipes,
+            'page' => $page,
+            'pages' => $pages,
+            'recipes' => $recipes,
         ]);
     }
 
     /**
+     * @Route("/recipes/{name}", name="barra_recipe_recipe_public")
+     *
      * @param string $name
      *
      * @return Response
      */
     public function recipePublicAction($name)
     {
-        $em     = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         $recipe = $em->getRepository('BarraRecipeBundle:Recipe')->findOneByName(str_replace('_', ' ', $name));
 
-        if (null === $recipe) {
-            throw $this->createNotFoundException();
+        if (null === $recipe){
+            $this->addFlash('warning', $this->get('translator')->trans('barra.recipe.not_found'));
+
+            return $this->redirectToRoute('barra_recipe_recipes_public');
         }
 
-        $cookings    = $em->getRepository('BarraRecipeBundle:Cooking')->findByRecipe($recipe, ['position' => 'ASC']);
+        $cookings = $em->getRepository('BarraRecipeBundle:Cooking')->findByRecipe($recipe, ['position' => 'ASC']);
         $ingredients = $em->getRepository('BarraRecipeBundle:Ingredient')->findByRecipe($recipe, ['position' => 'ASC']);
-        $macros      = $this->calculateMacros($ingredients);
 
         return $this->render(':recipe/view:recipe.html.twig', [
-            'recipe'      => $recipe,
-            'macros'      => $macros,
-            'cookings'    => $cookings,
+            'macros' => $this->calculateMacros($ingredients),
+            'recipe' => $recipe,
+            'cookings' => $cookings,
             'ingredients' => $ingredients,
         ]);
     }
@@ -117,27 +130,24 @@ class RecipeController extends BasicController
      */
     protected function calculateMacros(array $ingredients)
     {
-        $macros = [
-            'kcal'    => 0,
-            'carbs'   => 0,
-            'protein' => 0,
-            'fat'     => 0,
-        ];
+        $macros = ['kcal' => 0, 'carbs' => 0, 'protein' => 0, 'fat' => 0];
+
+        $ingredients = array_filter($ingredients, function($ingredient) {
+           return null !== $ingredient->getAmount();
+        });
 
         /** @var Ingredient $ingredient */
         foreach ($ingredients as $ingredient) {
-            if (null !== $ingredient->getAmount()) {
-                $gr = 0 !== $ingredient->getMeasurement()->getGr()
-                    ? $ingredient->getAmount()
-                    : $ingredient->getProduct()->getGr();
+            $gr = 0 !== $ingredient->getMeasurement()->getGr()
+                ? $ingredient->getAmount()
+                : $ingredient->getProduct()->getGr();
 
-                $rel                 = $gr/100;
-                $product             = $ingredient->getProduct();
-                $macros['kcal']     += $rel*$product->getKcal();
-                $macros['carbs']    += $rel*$product->getCarbs();
-                $macros['protein']  += $rel*$product->getProtein();
-                $macros['fat']      += $rel*$product->getFat();
-            }
+            $rel = $gr/100;
+            $product = $ingredient->getProduct();
+            $macros['kcal'] += $rel*$product->getKcal();
+            $macros['carbs'] += $rel*$product->getCarbs();
+            $macros['protein'] += $rel*$product->getProtein();
+            $macros['fat'] += $rel*$product->getFat();
         }
 
         return $macros;

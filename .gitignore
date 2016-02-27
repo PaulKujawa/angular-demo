@@ -15,7 +15,6 @@
 
 # Parameters
 /app/config/parameters.yml
-/app/config/parameters.ini
 
 # Managed by Composer
 /app/bootstrap.php.cache
@@ -26,12 +25,13 @@
 /vendor/
 /node_modules/
 
-# Assets and user uploads
+# Web
 /web/bundles/
 /web/css/
-/web/images/
 /web/js/
-/web/vendor/
+/web/images/
+/web/jspm/packages/
+!/web/images/kujawa.jpg
 
 # Build data
 /build/ccHTML/*

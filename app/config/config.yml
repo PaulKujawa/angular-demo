@@ -3,7 +3,6 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
-    - { resource: "@BarraRecipeBundle/Resources/config/services.yml" }
 
 framework:
     #esi:             ~
@@ -26,6 +25,9 @@ framework:
     translator: { fallbacks: en }                           # language(-file) if requested translation file is not found
     default_locale:  de                                     # for links, when no favorite given default %locale%
 
+services:
+    fos_user.doctrine_registry:
+        alias: doctrine                                     # github.com/FriendsOfSymfony/FOSUserBundle/issues/2048
 
 sensio_framework_extra:
     view: { annotations: false }                            # FOSRestBundle takes over the controller annotations handling for views
@@ -49,15 +51,7 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
 
-assetic:
-  debug:          "%kernel.debug%"
-  use_controller: false
-  bundles:        [ BarraRecipeBundle, FOSUserBundle, TwigBundle ] # User & Twig for overwritten templates
-  filters:
-      cssrewrite: ~
-
-
-swiftmailer:
+swiftmailer:                                                # email server configuration for 'mailer' service
     transport:  "%mailer_transport%"
     encryption: "%mailer_encryption%"
     auth_mode:  "%mailer_auth_mode%"

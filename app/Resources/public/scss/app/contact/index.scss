@@ -7,8 +7,8 @@
   }
 
   form {
-    #form_message {
-      min-height: calc(2 * #{$input-height-base} + 20px);
+    #contact_message {
+      min-height: calc(2 * #{$input-height-base} + #{$form-group-margin-bottom});
     }
   }
 }
