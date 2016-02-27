@@ -3,15 +3,18 @@
 
 ### DEPLOY
 * php                       `composer install`
-* js                        `bower install`
+* jspm                      `jspm install`
+* bower                     `bower install`
 * clear cache               `app/console cache:clear --env=prod`
 * sass compile              `gulp sass`
 * compile assets            `app/console assetic:dump --env=prod --no-debug`
 * db migration              `app/console doctrine:migrations:diff`
 
 
-### Dumping
+### Debug
+* dump twig possibilities   `app/console debug:twig`   
 * dump routes               `app/console debug:router`
+* dump config	            `app/console debug:config`
 * dump services	            `app/console debug:container`
 * dump default conf         `app/console config:dump-reference`
 

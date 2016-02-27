@@ -12,7 +12,6 @@ security:
             form_login:
                 require_previous_session: false                     # no session required for auth. request (funcTests)
                 provider:                 fos_userbundle
-                csrf_provider:            form.csrf_provider        # enable CSRF protection in general
                 login_path:               fos_user_security_login   # render login view and form
                 check_path:               fos_user_security_check   # checks credentials
                 default_target_path:      barra_back_user           # default redirect when user just targeted /login

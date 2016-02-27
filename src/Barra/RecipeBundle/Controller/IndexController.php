@@ -2,6 +2,8 @@
 
 namespace Barra\RecipeBundle\Controller;
 
+use Barra\RecipeBundle\Form\ContactType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,40 +12,22 @@ use Symfony\Component\HttpFoundation\Response;
 class IndexController extends Controller
 {
     /**
+     * @Route("/", name="barra_recipe_contact")
+     *
      * @param Request $request
+     *
      * @return RedirectResponse|Response
      */
     public function contactAction(Request $request)
     {
-        $form = $this->createFormBuilder()
-            ->add('name', 'text', [
-                'attr'  => [
-                    'placeholder' => 'recipe.contact.name',
-                ],
-            ])
-            ->add('email', 'email', [
-                'attr' => [
-                    'placeholder' => 'recipe.contact.email',
-                ],
-            ])
-            ->add('message', 'textarea', [
-                'attr'  => [
-                    'placeholder' => 'recipe.contact.message',
-                ],
-            ])
-            ->add('submit', 'submit')
-            ->getForm();
-
+        $form = $this->createForm(ContactType::class);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->sendMail($form->getData());
-            $request
-                ->getSession()
-                ->getFlashBag()
-                ->add('emailSent', $this->get('translator')->trans('recipe.message.emailSent'));
+            $this->addFlash('success', $this->get('translator')->trans('barra.contact.email_sent'));
 
-            return $this->redirect($this->generateUrl('barra_recipe_contact'));
+            return $this->redirectToRoute('barra_recipe_contact');
         }
 
         return $this->render(':index:contact.html.twig', [
@@ -52,11 +36,13 @@ class IndexController extends Controller
     }
 
     /**
+     * @Route("/admino", name="barra_recipe_dashboard")
+     *
      * @return Response
      */
     public function dashboardAction()
     {
-        return $this->render(':index:dashboard.html.twig', []);
+        return $this->render(':index:dashboard.html.twig');
     }
 
     /**
@@ -65,8 +51,8 @@ class IndexController extends Controller
     protected function sendMail(array $enquiry)
     {
         $mailer = $this->get('mailer');
-        $mail   = $mailer->createMessage()
-            ->setSubject('Portfolio enquiry from '.$enquiry['name'])
+        $mail = $mailer->createMessage()
+            ->setSubject('Portfolio enquiry from ' . $enquiry['name'])
             ->setFrom($enquiry['email'])
             ->setTo('p.kujawa@gmx.net')
             ->setBody($enquiry['message']);

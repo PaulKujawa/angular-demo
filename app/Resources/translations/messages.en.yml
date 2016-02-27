@@ -4,6 +4,16 @@ app:
 
     word:
         startpage: Startpage
+Name: Name
+Email: Email
+Message: Message
+
+barra:
+    contact:
+        email_sent: Thank you for your inquiry. I will be in touch with you.
+
+    recipe:
+        not_found: Das gesuchte Gericht ist mir leider nicht bekannt. Darf es etwas anderes sein? (TBD)
 
 recipe:
     action:
@@ -15,7 +25,6 @@ recipe:
         send: Send
 
     message:
-        emailSent: Thank you for your inquiry. I will be in touch with you.
         insertError: Invalid entry
 
     meta:

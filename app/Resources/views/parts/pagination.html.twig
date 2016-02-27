@@ -4,23 +4,23 @@
     {% if pages > 1 %}
         <nav class="paginationNav text-center">
             <ul class="pagination">
-                {% if 3 <= pageIndex and pages-2 >= pageIndex %} {# full 5 pages #}
-                    {% set from = pageIndex-2 %}
-                    {% set until = pageIndex+2 %}
+                {% if 3 <= page and pages-2 >= page %} {# full 5 pages #}
+                    {% set from = page-2 %}
+                    {% set until = page+2 %}
 
-                {% elseif 3 > pageIndex %}
+                {% elseif 3 > page %}
                     {% set from = 1 %}
                     {% set until = min(5, pages) %} {# up to 5 pages from begin #}
 
                 {% else %} {# active page is second last and over 3 #}
                     {% set from = max(1, pages-4) %} {# min 1 #}
-                    {% set until = min(pageIndex+2, pages) %} {# max +2 #}
+                    {% set until = min(page+2, pages) %} {# max +2 #}
                 {% endif %}
 
 
-                <li {% if 1 == pageIndex %}class="disabled"{% endif %}>
-                    <a {% if 1 == pageIndex %} class="disabled" href=""
-                    {% else %} href="{{ path(route, {'pageIndex': pageIndex-1}) }}" {% endif %}
+                <li {% if 1 == page %}class="disabled"{% endif %}>
+                    <a {% if 1 == page %} class="disabled" href=""
+                    {% else %} href="{{ path(route, {'page': page-1}) }}" {% endif %}
                     >
                         <span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span>
                     </a>
@@ -28,17 +28,17 @@
 
 
                 {% for i in range(from, until) %}
-                    <li {% if pageIndex == i %}class="active"{% endif %}>
-                        <a href="{{ path(route, {'pageIndex': i}) }}">
+                    <li {% if page == i %}class="active"{% endif %}>
+                        <a href="{{ path(route, {'page': i}) }}">
                             {{ i }} <span class="sr-only">(current)</span>
                         </a>
                     </li>
                 {% endfor %}
 
 
-                <li {% if pageIndex == pages %}class="disabled"{% endif %}>
-                    <a {% if pageIndex == pages %} class="disabled" href=""
-                    {% else %} href="{{ path(route, {'pageIndex': pageIndex+1}) }}" {% endif %}
+                <li {% if page == pages %}class="disabled"{% endif %}>
+                    <a {% if page == pages %} class="disabled" href=""
+                    {% else %} href="{{ path(route, {'page': page+1}) }}" {% endif %}
                     >
                         <span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span>
                     </a>
