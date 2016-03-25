@@ -7,15 +7,13 @@ use Liip\FunctionalTestBundle\Test\WebTestCase as WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-/**
- * Class PhotoControllerTest
- * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RestBundle\Tests\Controller
- */
 class PhotoControllerTest extends WebTestCase
 {
+    private $appType = ['CONTENT_TYPE' => 'application/json'];
+
     /** @var  Client */
     protected $client;
+
     /** @var  string */
     protected $uploadPath;
 
@@ -31,18 +29,15 @@ class PhotoControllerTest extends WebTestCase
         ]);
 
         $this->client = static::createClient();
-        $csrfToken    = $this->client
-            ->getContainer()
-            ->get('form.csrf_provider')
-            ->generateCsrfToken('authenticate');
+        $csrfToken = $this->client->getContainer()->get('form.csrf_provider')->generateCsrfToken('authenticate');
 
         $this->client->request(
             'POST',
             '/en/admino/login_check',
             [
-                '_username'     => 'demoSA',
-                '_password'     => 'testo',
-                '_csrf_token'   => $csrfToken,
+                '_username' => 'demoSA',
+                '_password' => 'testo',
+                '_csrf_token' => $csrfToken,
             ]
         );
 
@@ -50,8 +45,8 @@ class PhotoControllerTest extends WebTestCase
         $this->assertArrayHasKey('token', $response);
 
         $this->client = static::createClient(); // without (recent/any) session
-        $this->client->setServerParameter('HTTP_Authorization', 'Bearer '.$response['token']);
-        $this->uploadPath = $this->client->getContainer()->get('kernel')->getRootDir().'/../web/uploads/documents/';
+        $this->client->setServerParameter('HTTP_Authorization', 'Bearer ' . $response['token']);
+        $this->uploadPath = $this->client->getContainer()->get('kernel')->getRootDir() . '/../web/images/uploads/';
     }
 
     public function testNew()
@@ -67,7 +62,7 @@ class PhotoControllerTest extends WebTestCase
 
         $this->validateResponse(
             Codes::HTTP_OK,
-            '{"data":{"path":"uploads\/documents","id":1,"filename":"'.$matches[1].'","size":145263}}'
+            '{"data":{"path":"images\/uploads","id":1,"filename":"' . $matches[1] . '","size":145263}}'
         );
 
         $this->client->request('GET', '/en/api/photos/0');
@@ -84,9 +79,9 @@ class PhotoControllerTest extends WebTestCase
 
         $this->validateResponse(
             Codes::HTTP_OK,
-            '{"data":['.
-                '{"path":"uploads\/documents","id":1,"filename":"'.$matches[1].'","size":145263},'.
-                '{"path":"uploads\/documents","id":2,"filename":"'.$matches[2].'","size":145263}'.
+            '{"data":[' .
+                '{"path":"images\/uploads","id":1,"filename":"' . $matches[1] . '","size":145263},' .
+                '{"path":"images\/uploads","id":2,"filename":"' . $matches[2] . '","size":145263}' .
             ']}'
         );
 
@@ -109,98 +104,75 @@ class PhotoControllerTest extends WebTestCase
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
-    /**
-     * @depends testGet
-     */
     public function testPost()
     {
-        $file = $this->createFile();
         $this->client->request(
             'POST',
             '/en/api/photos',
             [
-                'formPhoto' => [
+                'photo' => [
                     'recipe' => 1,
-                    'file'   => $file,
                 ],
+            ],
+            [
+                'photo' => [
+                    'file' => $this->createFile(),
+                ]
             ]
         );
 
         $this->validateResponse(Codes::HTTP_CREATED);
         $this->assertStringEndsWith('/en/api/photos/4', $this->client->getResponse()->headers->get('Location'));
-        $filename = $this->getFilename(4);
-        $this->assertFileExists($this->uploadPath.$filename);
-        unlink($this->uploadPath.$filename);
+        $filename = $this->requestFile(4);
+        $this->assertFileExists($this->uploadPath . $filename);
+        unlink($this->uploadPath . $filename);
     }
 
     public function testPostInvalid()
     {
-        $this->client->request(
-            'POST',
-            '/en/api/photos',
-            [],
-            [],
-            ['CONTENT_TYPE' => 'application/json'],
-            '{}'
-        );
+        $this->client->request('POST', '/en/api/photos', [], [], $this->appType, '{}');
         $this->validateResponse(Codes::HTTP_BAD_REQUEST, '{"data":{"children":{"recipe":[],"file":[]}}}');
 
-        $this->client->request(
-            'POST',
-            '/en/api/photos',
-            [],
-            [],
-            ['CONTENT_TYPE' => 'application/json'],
-            '{"formPhoto":{"recipe":0}}'
-        );
+        $postBody = '{"photo":{"recipe":0}}';
+        $this->client->request('POST', '/en/api/photos', [], [], $this->appType, $postBody);
         $this->validateResponse(Codes::HTTP_BAD_REQUEST, '{"data":{"children":{"recipe":[],"file":[]}}}');
     }
 
-    /**
-     * @depends testGet
-     */
     public function testPut()
     {
         // test automatic overwrite of old file per setting new one
-        $oldFilename = $this->getFilename(1);
+        $oldFilename = $this->requestFile(1);
         $this->createFile($oldFilename);
 
-        $newFile = $this->createFile();
         $this->client->request(
             'PUT',
             '/en/api/photos/1',
             [
-                'formPhoto' => [
+                'photo' => [
                     'recipe' => 1,
-                    'file'   => $newFile,
                 ],
+            ],
+            [
+                'photo' => [
+                    'file' => $this->createFile(),
+                ]
             ]
         );
         $this->validateResponse(Codes::HTTP_NO_CONTENT);
         $this->assertStringEndsWith('/en/api/photos/1', $this->client->getResponse()->headers->get('Location'));
 
-        $this->assertFileNotExists($this->uploadPath.$oldFilename);
-        $newFilename = $this->getFilename(1);
-        $this->assertFileExists($this->uploadPath.$newFilename);
-        unlink($this->uploadPath.$newFilename);
+        $this->assertFileNotExists($this->uploadPath . $oldFilename);
+        $newFilename = $this->requestFile(1);
+        $this->assertFileExists($this->uploadPath . $newFilename);
+        unlink($this->uploadPath . $newFilename);
 
-        $this->client->request(
-            'PUT',
-            '/en/api/photos/0',
-            [],
-            [],
-            ['CONTENT_TYPE' => 'application/json'],
-            '{}'
-        );
+        $this->client->request('PUT', '/en/api/photos/0', [], [], $this->appType, '{}');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
-    /**
-     * @depends testGet
-     */
     public function testDelete()
     {
-        $this->createFile($this->getFilename(1));
+        $this->createFile($this->requestFile(1));
         $this->client->request('DELETE', '/en/api/photos/1');
         $this->validateResponse(Codes::HTTP_NO_CONTENT);
 
@@ -209,43 +181,35 @@ class PhotoControllerTest extends WebTestCase
     }
 
     /**
-     * Create file according to database entry (fixture)
+     * Create file according to database fixture
+     *
      * @param int $id
+     *
      * @return string
      */
-    protected function getFilename($id)
+    protected function requestFile($id)
     {
-        $this->client->request('GET', '/en/api/photos/'.$id);
-        $dbEntry  = json_decode($this->client->getResponse()->getContent(), true);
-        $filename = $dbEntry['data']['filename'];
+        $this->client->request('GET', '/en/api/photos/' . $id);
 
-        return $filename;
+        return json_decode($this->client->getResponse()->getContent(), true)['data']['filename'];
     }
 
     /**
      * @param string $filename
+     *
      * @return UploadedFile
      */
     protected function createFile($filename = 'functionalTest.jpg')
     {
-        $newFile = $this->uploadPath.$filename;
-        copy($this->uploadPath.'fixture.jpg', $newFile);
+        $newFile = $this->uploadPath . $filename;
+        copy($this->uploadPath . 'fixture.jpg', $newFile);
 
-        $photo = new UploadedFile(
-            $newFile,
-            $filename,
-            'image/jpeg',
-            filesize($newFile),
-            null,
-            true
-        );
-
-        return $photo;
+        return (new UploadedFile($newFile, $filename, 'image/jpeg', filesize($newFile), null, true));
     }
 
     /**
-     * @param int           $expectedStatusCode
-     * @param null|string   $expectedJSON
+     * @param int $expectedStatusCode
+     * @param null|string $expectedJSON
      */
     protected function validateResponse($expectedStatusCode, $expectedJSON = null)
     {

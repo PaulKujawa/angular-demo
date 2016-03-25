@@ -63,7 +63,7 @@ swiftmailer:                                                # email server confi
 
 
 fos_rest:
-    param_fetcher_listener: true                            # Enable request's query-body like ?foo=bar
+    param_fetcher_listener: force                           # force for automatically map request params as controller params
     format_listener: true                                   # Allow to request a format like api/foo/2.json
     body_listener:                                          # Allow different request formats like app/json
         decoders:

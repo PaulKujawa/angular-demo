@@ -6,13 +6,10 @@ use FOS\RestBundle\Util\Codes;
 use Liip\FunctionalTestBundle\Test\WebTestCase as WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
 
-/**
- * Class ManufacturerControllerTest
- * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RestBundle\Tests\Controller
- */
 class ManufacturerControllerTest extends WebTestCase
 {
+    private $appType = ['CONTENT_TYPE' => 'application/json'];
+
     /** @var  Client */
     protected $client;
 
@@ -27,18 +24,15 @@ class ManufacturerControllerTest extends WebTestCase
         ]);
 
         $this->client = static::createClient();
-        $csrfToken    = $this->client
-            ->getContainer()
-            ->get('form.csrf_provider')
-            ->generateCsrfToken('authenticate');
+        $csrfToken = $this->client->getContainer()->get('form.csrf_provider')->generateCsrfToken('authenticate');
 
         $this->client->request(
             'POST',
             '/en/admino/login_check',
             [
-                '_username'     => 'demoSA',
-                '_password'     => 'testo',
-                '_csrf_token'   => $csrfToken,
+                '_username' => 'demoSA',
+                '_password' => 'testo',
+                '_csrf_token' => $csrfToken,
             ]
         );
 
@@ -46,7 +40,7 @@ class ManufacturerControllerTest extends WebTestCase
         $this->assertArrayHasKey('token', $response);
 
         $this->client = static::createClient(); // without (recent/any) session
-        $this->client->setServerParameter('HTTP_Authorization', 'Bearer '.$response['token']);
+        $this->client->setServerParameter('HTTP_Authorization', 'Bearer ' . $response['token']);
     }
 
     public function testNew()
@@ -69,9 +63,9 @@ class ManufacturerControllerTest extends WebTestCase
         $this->client->request('GET', '/en/api/manufacturers?limit=2');
         $this->validateResponse(
             Codes::HTTP_OK,
-            '{"data":['.
-                '{"id":1,"name":"Manufacturer1"},'.
-                '{"id":2,"name":"Manufacturer2"}'.
+            '{"data":[' .
+                '{"id":1,"name":"Manufacturer1"},' .
+                '{"id":2,"name":"Manufacturer2"}' .
             ']}'
         );
 
@@ -98,20 +92,20 @@ class ManufacturerControllerTest extends WebTestCase
         $this->client->request('GET', '/en/api/manufacturers/1/products');
         $this->validateResponse(
             Codes::HTTP_OK,
-            '{"data":['.
-                '{'.
-                    '"vegan":false,"gr":1,"kcal":1,"protein":1,"carbs":1,'.
-                    '"sugar":1,"fat":1,"gfat":1,"id":1,"name":"Product1"'.
-                '},{'.
-                    '"vegan":true,"gr":1,"kcal":1,"protein":1,"carbs":1,'.
-                    '"sugar":1,"fat":1,"gfat":1,"id":2,"name":"Product2"'.
-                '},{'.
-                    '"vegan":true,"gr":1,"kcal":1,"protein":1,"carbs":1,'.
-                    '"sugar":1,"fat":1,"gfat":1,"id":3,"name":"Product3"'.
-                '},{'.
-                    '"vegan":true,"gr":1,"kcal":1,"protein":1,"carbs":1,'.
-                    '"sugar":1,"fat":1,"gfat":1,"id":4,"name":"Product4"'.
-                '}'.
+            '{"data":[' .
+                '{' .
+                    '"vegan":false,"gr":1,"kcal":1,"protein":1,"carbs":1,' .
+                    '"sugar":1,"fat":1,"gfat":1,"id":1,"name":"Product1"' .
+                '},{' .
+                    '"vegan":true,"gr":1,"kcal":1,"protein":1,"carbs":1,' .
+                    '"sugar":1,"fat":1,"gfat":1,"id":2,"name":"Product2"' .
+                '},{' .
+                    '"vegan":true,"gr":1,"kcal":1,"protein":1,"carbs":1,' .
+                    '"sugar":1,"fat":1,"gfat":1,"id":3,"name":"Product3"' .
+                '},{' .
+                    '"vegan":true,"gr":1,"kcal":1,"protein":1,"carbs":1,' .
+                    '"sugar":1,"fat":1,"gfat":1,"id":4,"name":"Product4"' .
+                '}' .
             ']}'
         );
 
@@ -121,14 +115,8 @@ class ManufacturerControllerTest extends WebTestCase
 
     public function testPost()
     {
-        $this->client->request(
-            'POST',
-            '/en/api/manufacturers',
-            [],
-            [],
-            ['CONTENT_TYPE' => 'application/json'],
-            '{"formManufacturer":{"name":"Manufacturer4"}}'
-        );
+        $requestBody = '{"manufacturer":{"name":"Manufacturer4"}}';
+        $this->client->request('POST', '/en/api/manufacturers', [], [], $this->appType, $requestBody);
 
         $this->validateResponse(Codes::HTTP_CREATED);
         $this->assertStringEndsWith('/en/api/manufacturers/4', $this->client->getResponse()->headers->get('Location'));
@@ -136,38 +124,18 @@ class ManufacturerControllerTest extends WebTestCase
 
     public function testPostInvalid()
     {
-        $this->client->request(
-            'POST',
-            '/en/api/manufacturers',
-            [],
-            [],
-            ['CONTENT_TYPE' => 'application/json'],
-            '{}'
-        );
+        $this->client->request('POST', '/en/api/manufacturers', [], [], $this->appType, '{}');
         $this->validateResponse(Codes::HTTP_BAD_REQUEST, '{"data":{"children":{"name":[]}}}');
     }
 
     public function testPut()
     {
-        $this->client->request(
-            'PUT',
-            '/en/api/manufacturers/1',
-            [],
-            [],
-            ['CONTENT_TYPE' => 'application/json'],
-            '{"formManufacturer":{"name":"updated"}}'
-        );
+        $requestBody = '{"manufacturer":{"name":"updated"}}';
+        $this->client->request('PUT', '/en/api/manufacturers/1', [], [], $this->appType, $requestBody);
         $this->validateResponse(Codes::HTTP_NO_CONTENT);
         $this->assertStringEndsWith('/en/api/manufacturers/1', $this->client->getResponse()->headers->get('Location'));
 
-        $this->client->request(
-            'PUT',
-            '/en/api/manufacturers/0',
-            [],
-            [],
-            ['CONTENT_TYPE' => 'application/json'],
-            '{}'
-        );
+        $this->client->request('PUT', '/en/api/manufacturers/0', [], [], $this->appType, '{}');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
@@ -193,8 +161,8 @@ class ManufacturerControllerTest extends WebTestCase
     }
 
     /**
-     * @param int           $expectedStatusCode
-     * @param null|string   $expectedJSON
+     * @param int $expectedStatusCode
+     * @param null|string $expectedJSON
      */
     protected function validateResponse($expectedStatusCode, $expectedJSON = null)
     {

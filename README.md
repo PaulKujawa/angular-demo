@@ -6,7 +6,7 @@
                             `openssl rsa -pubout -in app/var/jwt/private.pem -out app/var/jwt/public.pem`
 * db migration              `app/console doctrine:migrations:diff`
 * php                       `composer install`
-* clear cache               `app/console cache:clear --env=prod`
+* clear cache               `app/console cache:clear [--env=prod]`
 * jspm                      `jspm install`
 * gulp                      `npm install gulp && gulp sass`
 

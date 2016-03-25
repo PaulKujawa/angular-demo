@@ -4,6 +4,7 @@ namespace Barra\RecipeBundle\Form;
 
 use Barra\RecipeBundle\Entity\Product;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -69,7 +70,7 @@ class ProductType extends AbstractType
                     'placeholder' => 'recipe.product.gfat',
                 ],
             ])
-            ->add('manufacturer', ManufacturerType::class, [
+            ->add('manufacturer', EntityType::class, [
                 'class'     => 'BarraRecipeBundle:Manufacturer',
                 'property'  => 'name',
                 'attr'      => [

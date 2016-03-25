@@ -14,7 +14,7 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
 {
     const SELF_FQDN          = 'Barra\RecipeBundle\Entity\Photo';
     const RECIPE_FQDN        = 'Barra\RecipeBundle\Entity\Recipe';
-    const WEB_DIRECTORY      = 'uploads/documents';
+    const WEB_DIRECTORY      = 'images/uploads';
     const ID                 = 2;
 
     /** @var  Photo */

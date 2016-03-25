@@ -38,7 +38,7 @@ class MeasurementType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Measurement::class,
+            'data_class'      => Measurement::class,
             'csrf_protection' => false,
         ]);
     }

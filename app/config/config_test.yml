@@ -12,8 +12,9 @@ framework:                                                          # default se
     test: ~
     session:
         storage_id: session.storage.mock_file
-    profiler:
-        collect: false
+    profiler:                                                       # required for liip_functional_test.query.max_query_count
+        enabled: true
+        collect: true
 
 lexik_jwt_authentication:                                           # separate, commited SSH keys for func. tests
     private_key_path: %kernel.root_dir%/var/jwt/private-test.pem
