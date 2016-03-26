@@ -2,13 +2,13 @@
 ---
 
 ### DEPLOY
-* php                       `composer install`
-* jspm                      `jspm install`
-* bower                     `bower install`
-* clear cache               `app/console cache:clear --env=prod`
-* sass compile              `gulp sass`
-* compile assets            `app/console assetic:dump --env=prod --no-debug`
+* OpenSSL (JWT)             `openssl genrsa -out app/var/jwt/private.pem -aes256 4096`
+                            `openssl rsa -pubout -in app/var/jwt/private.pem -out app/var/jwt/public.pem`
 * db migration              `app/console doctrine:migrations:diff`
+* php                       `composer install`
+* clear cache               `app/console cache:clear [--env=prod]`
+* jspm                      `jspm install`
+* gulp                      `npm install gulp && gulp sass`
 
 
 ### Debug

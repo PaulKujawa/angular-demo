@@ -5,32 +5,43 @@ var concat = require('gulp-concat');
 var gulpif = require('gulp-if');
 var watch = require('gulp-watch');
 var plumber = require('gulp-plumber');
+var ts = require('gulp-typescript');
 
-var source = 'app/Resources/public/scss/';
-var output = 'web/css/';
+var source = 'app/Resources/public/';
 var prod = false;
 
-var sassOptions = {
-    errLogToConsole: true,
-    outputStyle: prod ? 'compressed' : 'nested'
-};
-
-var completeSource = [
-    source + 'app/**/*.scss',
+var sourceSass = [
+    source + 'scss/app/**/*.scss',
     '!**/import/**/*.scss',
     'web/vendor/angular-chart.js/dist/angular-chart.css',
     'web/vendor/angular-ui-tree/dist/angular-ui-tree.min.css'
 ];
 
 gulp.task('sass', function () {
-    return gulp.src(completeSource)
+    return gulp.src(sourceSass)
         .pipe(plumber())
-        .pipe(gulpif(/[.]scss$/, sass(sassOptions).on('error', sass.logError)))
-        .pipe(clean(output))
+        .pipe(gulpif(/[.]scss$/, sass({
+            errLogToConsole: true,
+            outputStyle: prod ? 'compressed' : 'nested'
+        }).on('error', sass.logError)))
+        .pipe(clean('web/css/'))
         .pipe(concat('app.css'))
-        .pipe(gulp.dest(output));
+        .pipe(gulp.dest('web/css/'));
 });
 
-gulp.task('default', function () {
-    return gulp.watch(source + '**/*.scss', ['sass']);
+// see https://github.com/ivogabe/gulp-typescript#options
+gulp.task('ts', function () {
+    return gulp.src(source + 'js/**/*.ts')
+        .pipe(ts({
+            target: 'ES5',
+            module: 'system',
+            moduleResolution: 'node',
+            emitDecoratorMetadata: true,
+            experimentalDecorators: true,
+            removeComments: false,
+            noImplicitAny: false,
+            out: 'app.js'
+        }))
+        .pipe(clean('web/ts/'))
+        .pipe(gulp.dest('web/js/'))
 });

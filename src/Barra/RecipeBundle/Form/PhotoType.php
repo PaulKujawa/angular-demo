@@ -19,7 +19,7 @@ class PhotoType extends AbstractType
         $builder
             ->add('recipe', HiddenType::class, [
                 'mapped' => false,
-                'label'  => false,
+                'label' => false,
             ])
             ->add('file', FileType::class)
             ->getForm();
@@ -31,8 +31,8 @@ class PhotoType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class'        => Photo::class,
-            'csrf_protection'   => false,
+            'data_class' => Photo::class,
+            'csrf_protection' => false,
         ]);
     }
 }

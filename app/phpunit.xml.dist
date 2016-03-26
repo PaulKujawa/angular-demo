@@ -18,7 +18,8 @@
     <!-- tests -->
     <testsuites>
         <testsuite name="Model Test Suite">
-            <directory>../src/Barra/*Bundle/Tests</directory>
+            <directory>../src/Barra/RecipeBundle/Tests</directory>
+            <!--<directory>../src/Barra/*Bundle/Tests</directory> owing to cache bug in LiipFunctionalTestBundle-->
         </testsuite>
     </testsuites>
 

@@ -6,13 +6,10 @@ use FOS\RestBundle\Util\Codes;
 use Liip\FunctionalTestBundle\Test\WebTestCase as WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
 
-/**
- * Class RecipeControllerTest
- * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RestBundle\Tests\Controller
- */
 class RecipeControllerTest extends WebTestCase
 {
+    private $appType = ['CONTENT_TYPE' => 'application/json'];
+
     /** @var  Client */
     protected $client;
 
@@ -27,18 +24,15 @@ class RecipeControllerTest extends WebTestCase
         ]);
 
         $this->client = static::createClient();
-        $csrfToken    = $this->client
-            ->getContainer()
-            ->get('form.csrf_provider')
-            ->generateCsrfToken('authenticate');
+        $csrfToken = $this->client->getContainer()->get('form.csrf_provider')->generateCsrfToken('authenticate');
 
         $this->client->request(
             'POST',
             '/en/admino/login_check',
             [
-                '_username'     => 'demoSA',
-                '_password'     => 'testo',
-                '_csrf_token'   => $csrfToken,
+                '_username' => 'demoSA',
+                '_password' => 'testo',
+                '_csrf_token' => $csrfToken,
             ]
         );
 
@@ -46,7 +40,7 @@ class RecipeControllerTest extends WebTestCase
         $this->assertArrayHasKey('token', $response);
 
         $this->client = static::createClient(); // without (recent/any) session
-        $this->client->setServerParameter('HTTP_Authorization', 'Bearer '.$response['token']);
+        $this->client->setServerParameter('HTTP_Authorization', 'Bearer ' . $response['token']);
     }
 
     public function testNew()
@@ -69,9 +63,9 @@ class RecipeControllerTest extends WebTestCase
         $this->client->request('GET', '/en/api/recipes?limit=2');
         $this->validateResponse(
             Codes::HTTP_OK,
-            '{"data":['.
-                '{"id":1,"name":"Recipe1"},'.
-                '{"id":2,"name":"Recipe2"}'.
+            '{"data":[' .
+                '{"id":1,"name":"Recipe1"},' .
+                '{"id":2,"name":"Recipe2"}' .
             ']}'
         );
 
@@ -99,9 +93,9 @@ class RecipeControllerTest extends WebTestCase
         $this->client->request('GET', '/en/api/recipes/1/ingredients');
         $this->validateResponse(
             Codes::HTTP_OK,
-            '{"data":['.
-                '{"id":11,"amount":1,"position":1},'.
-                '{"id":12,"amount":2,"position":2}'.
+            '{"data":[' .
+                '{"amount":1,"id":1,"position":1},' .
+                '{"amount":2,"id":2,"position":2}' .
             ']}'
         );
 
@@ -120,10 +114,10 @@ class RecipeControllerTest extends WebTestCase
         $this->client->request('GET', '/en/api/recipes/1/cookings');
         $this->validateResponse(
             Codes::HTTP_OK,
-            '{"data":['.
-                '{"id":11,"description":"1th step","position":1},'.
-                '{"id":12,"description":"2th step","position":2},'.
-                '{"id":13,"description":"3th step","position":3}'.
+            '{"data":[' .
+                '{"description":"1th step","id":1,"position":1},' .
+                '{"description":"2th step","id":2,"position":2},' .
+                '{"description":"3th step","id":3,"position":3}' .
             ']}'
         );
 
@@ -147,9 +141,9 @@ class RecipeControllerTest extends WebTestCase
 
         $this->validateResponse(
             Codes::HTTP_OK,
-            '{"data":['.
-                '{"path":"uploads\/documents","id":1,"filename":"'.$matches[1].'","size":145263},'.
-                '{"path":"uploads\/documents","id":2,"filename":"'.$matches[2].'","size":145263}'.
+            '{"data":[' .
+                '{"path":"images\/uploads","id":1,"filename":"' . $matches[1] . '","size":145263},' .
+                '{"path":"images\/uploads","id":2,"filename":"' . $matches[2] . '","size":145263}' .
             ']}'
         );
 
@@ -159,14 +153,7 @@ class RecipeControllerTest extends WebTestCase
 
     public function testPost()
     {
-        $this->client->request(
-            'POST',
-            '/en/api/recipes',
-            [],
-            [],
-            ['CONTENT_TYPE' => 'application/json'],
-            '{"formRecipe":{"name":"Recipe4"}}'
-        );
+        $this->client->request('POST', '/en/api/recipes', [], [], $this->appType, '{"recipe":{"name":"Recipe4"}}');
 
         $this->validateResponse(Codes::HTTP_CREATED);
         $this->assertStringEndsWith('/en/api/recipes/4', $this->client->getResponse()->headers->get('Location'));
@@ -174,38 +161,17 @@ class RecipeControllerTest extends WebTestCase
 
     public function testPostInvalid()
     {
-        $this->client->request(
-            'POST',
-            '/en/api/recipes',
-            [],
-            [],
-            ['CONTENT_TYPE' => 'application/json'],
-            '{}'
-        );
+        $this->client->request('POST', '/en/api/recipes', [], [], $this->appType, '{}');
         $this->validateResponse(Codes::HTTP_BAD_REQUEST, '{"data":{"children":{"name":[]}}}');
     }
 
     public function testPut()
     {
-        $this->client->request(
-            'PUT',
-            '/en/api/recipes/1',
-            [],
-            [],
-            ['CONTENT_TYPE' => 'application/json'],
-            '{"formRecipe":{"name":"updated"}}'
-        );
+        $this->client->request('PUT', '/en/api/recipes/1', [], [], $this->appType, '{"recipe":{"name":"updated"}}');
         $this->validateResponse(Codes::HTTP_NO_CONTENT);
         $this->assertStringEndsWith('/en/api/recipes/1', $this->client->getResponse()->headers->get('Location'));
 
-        $this->client->request(
-            'PUT',
-            '/en/api/recipes/0',
-            [],
-            [],
-            ['CONTENT_TYPE' => 'application/json'],
-            '{}'
-        );
+        $this->client->request('PUT', '/en/api/recipes/0', [], [], $this->appType, '{}');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
@@ -219,8 +185,8 @@ class RecipeControllerTest extends WebTestCase
     }
 
     /**
-     * @param int           $expectedStatusCode
-     * @param null|string   $expectedJSON
+     * @param int $expectedStatusCode
+     * @param null|string $expectedJSON
      */
     protected function validateResponse($expectedStatusCode, $expectedJSON = null)
     {

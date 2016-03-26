@@ -94,7 +94,7 @@ trait ImageTrait
      */
     public function getWebDirectory()
     {
-        return 'uploads/documents';
+        return 'images/uploads';
     }
 
     // ### LIFECYCLE FUNCTIONS --------------------------------------------------------------------
