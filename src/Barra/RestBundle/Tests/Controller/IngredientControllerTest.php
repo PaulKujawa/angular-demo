@@ -6,13 +6,10 @@ use FOS\RestBundle\Util\Codes;
 use Liip\FunctionalTestBundle\Test\WebTestCase as WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
 
-/**
- * Class IngredientControllerTest
- * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RestBundle\Tests\Controller
- */
 class IngredientControllerTest extends WebTestCase
 {
+    private $appType = ['CONTENT_TYPE' => 'application/json'];
+
     /** @var  Client */
     protected $client;
 
@@ -31,18 +28,15 @@ class IngredientControllerTest extends WebTestCase
         ]);
 
         $this->client = static::createClient();
-        $csrfToken    = $this->client
-            ->getContainer()
-            ->get('form.csrf_provider')
-            ->generateCsrfToken('authenticate');
+        $csrfToken = $this->client->getContainer()->get('form.csrf_provider')->generateCsrfToken('authenticate');
 
         $this->client->request(
             'POST',
             '/en/admino/login_check',
             [
-                '_username'     => 'demoSA',
-                '_password'     => 'testo',
-                '_csrf_token'   => $csrfToken,
+                '_username' => 'demoSA',
+                '_password' => 'testo',
+                '_csrf_token' => $csrfToken,
             ]
         );
 
@@ -50,7 +44,7 @@ class IngredientControllerTest extends WebTestCase
         $this->assertArrayHasKey('token', $response);
 
         $this->client = static::createClient(); // without (recent/any) session
-        $this->client->setServerParameter('HTTP_Authorization', 'Bearer '.$response['token']);
+        $this->client->setServerParameter('HTTP_Authorization', 'Bearer ' . $response['token']);
     }
 
     public function testNew()
@@ -64,8 +58,8 @@ class IngredientControllerTest extends WebTestCase
 
     public function testGet()
     {
-        $this->client->request('GET', '/en/api/ingredients/11');
-        $this->validateResponse(Codes::HTTP_OK, '{"data":{"id":11,"amount":1,"position":1}}');
+        $this->client->request('GET', '/en/api/ingredients/1');
+        $this->validateResponse(Codes::HTTP_OK, '{"data":{"amount":1,"id":1,"position":1}}');
 
         $this->client->request('GET', '/en/api/ingredients/0');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
@@ -76,9 +70,9 @@ class IngredientControllerTest extends WebTestCase
         $this->client->request('GET', '/en/api/ingredients?limit=2');
         $this->validateResponse(
             Codes::HTTP_OK,
-            '{"data":['.
-                '{"id":11,"amount":1,"position":1},'.
-                '{"id":12,"amount":2,"position":2}'.
+            '{"data":[' .
+                '{"amount":1,"id":1,"position":1},' .
+                '{"amount":2,"id":2,"position":2}' .
             ']}'
         );
 
@@ -94,12 +88,12 @@ class IngredientControllerTest extends WebTestCase
 
     public function testGetProduct()
     {
-        $this->client->request('GET', '/en/api/ingredients/11/product');
+        $this->client->request('GET', '/en/api/ingredients/1/product');
         $this->validateResponse(
             Codes::HTTP_OK,
-            '{"data":{'.
-                '"vegan":false,"gr":1,"kcal":1,"protein":1,"carbs":1,'.
-                '"sugar":1,"fat":1,"gfat":1,"id":1,"name":"Product1"'.
+            '{"data":{' .
+                '"vegan":false,"gr":1,"kcal":1,"protein":1,"carbs":1,' .
+                '"sugar":1,"fat":1,"gfat":1,"id":1,"name":"Product1"' .
             '}}'
         );
 
@@ -109,7 +103,7 @@ class IngredientControllerTest extends WebTestCase
 
     public function testGetMeasurement()
     {
-        $this->client->request('GET', '/en/api/ingredients/11/measurement');
+        $this->client->request('GET', '/en/api/ingredients/1/measurement');
         $this->validateResponse(Codes::HTTP_OK, '{"data":{"gr":1,"id":1,"name":"gr"}}');
 
         $this->client->request('GET', '/en/api/ingredients/0/measurement');
@@ -118,7 +112,7 @@ class IngredientControllerTest extends WebTestCase
 
     public function testGetRecipe()
     {
-        $this->client->request('GET', '/en/api/ingredients/11/recipe');
+        $this->client->request('GET', '/en/api/ingredients/1/recipe');
         $this->validateResponse(Codes::HTTP_OK, '{"data":{"id":1,"name":"Recipe1"}}');
 
         $this->client->request('GET', '/en/api/ingredients/0/recipe');
@@ -127,42 +121,22 @@ class IngredientControllerTest extends WebTestCase
 
     public function testPost()
     {
-        $this->client->request(
-            'POST',
-            '/en/api/ingredients',
-            [],
-            [],
-            ['CONTENT_TYPE' => 'application/json'],
-            '{"formIngredient":{"amount":1,"measurement":1,"product":4,"recipe":1}}'
-        );
+        $requestBody = '{"ingredient":{"amount":1,"measurement":1,"product":4,"recipe":1}}';
+        $this->client->request('POST', '/en/api/ingredients', [], [], $this->appType, $requestBody);
 
         $this->validateResponse(Codes::HTTP_CREATED);
-        $this->assertStringEndsWith('/en/api/ingredients/14', $this->client->getResponse()->headers->get('Location'));
+        $this->assertStringEndsWith('/en/api/ingredients/4', $this->client->getResponse()->headers->get('Location'));
     }
 
     public function testPostInvalid()
     {
-        $this->client->request(
-            'POST',
-            '/en/api/ingredients',
-            [],
-            [],
-            ['CONTENT_TYPE' => 'application/json'],
-            '{}'
-        );
+        $this->client->request('POST', '/en/api/ingredients', [], [], $this->appType, '{}');
         $this->validateResponse(
             Codes::HTTP_BAD_REQUEST,
             '{"data":{"children":{"amount":[],"measurement":[],"product":[],"recipe":[]}}}'
         );
 
-        $this->client->request(
-            'POST',
-            '/en/api/ingredients',
-            [],
-            [],
-            ['CONTENT_TYPE' => 'application/json'],
-            '{"formIngredient":{"recipe":0}}'
-        );
+        $this->client->request('POST', '/en/api/ingredients', [], [], $this->appType, '{"ingredient":{"recipe":0}}');
         $this->validateResponse(
             Codes::HTTP_BAD_REQUEST,
             '{"data":{"children":{"amount":[],"measurement":[],"product":[],"recipe":[]}}}'
@@ -171,31 +145,18 @@ class IngredientControllerTest extends WebTestCase
 
     public function testPut()
     {
-        $this->client->request(
-            'PUT',
-            '/en/api/ingredients/11',
-            [],
-            [],
-            ['CONTENT_TYPE' => 'application/json'],
-            '{"formIngredient":{"amount":1,"measurement":1,"product":4,"recipe":1}}'
-        );
+        $requestBody = '{"ingredient":{"amount":1,"measurement":1,"product":4,"recipe":1}}';
+        $this->client->request('PUT', '/en/api/ingredients/1', [], [], $this->appType, $requestBody);
         $this->validateResponse(Codes::HTTP_NO_CONTENT);
-        $this->assertStringEndsWith('/en/api/ingredients/14', $this->client->getResponse()->headers->get('Location'));
+        $this->assertStringEndsWith('/en/api/ingredients/1', $this->client->getResponse()->headers->get('Location'));
 
-        $this->client->request(
-            'PUT',
-            '/en/api/ingredients/0',
-            [],
-            [],
-            ['CONTENT_TYPE' => 'application/json'],
-            '{}'
-        );
+        $this->client->request('PUT', '/en/api/ingredients/0', [], [], $this->appType, '{}');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
     public function testDelete()
     {
-        $this->client->request('DELETE', '/en/api/ingredients/11');
+        $this->client->request('DELETE', '/en/api/ingredients/1');
         $this->validateResponse(Codes::HTTP_NO_CONTENT);
 
         $this->client->request('DELETE', '/en/api/ingredients/0');
@@ -203,8 +164,8 @@ class IngredientControllerTest extends WebTestCase
     }
 
     /**
-     * @param int           $expectedStatusCode
-     * @param null|string   $expectedJSON
+     * @param int $expectedStatusCode
+     * @param null|string $expectedJSON
      */
     protected function validateResponse($expectedStatusCode, $expectedJSON = null)
     {

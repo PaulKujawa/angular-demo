@@ -1,0 +1,14 @@
+language: php
+php:
+    - '5.6'
+    - hhvm
+    - nightly
+
+services: mysql
+
+before_script:
+    - mysql -e 'create database vpit_test;'
+    - composer install
+    - app/console doctrine:schema:create --env=test
+
+script: phpunit -c app/

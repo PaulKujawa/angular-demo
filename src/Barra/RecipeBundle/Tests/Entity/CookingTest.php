@@ -86,44 +86,6 @@ class CookingTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($self->getRecipe());
     }
 
-    /**
-     * @expectedException \RuntimeException
-     */
-    public function testCreateIdNegativeTest()
-    {
-        $this->model->createId();
-    }
-
-    /**
-     * @depends testSetPosition
-     * @depends testSetRecipe
-     * @return Cooking
-     */
-    public function testCreateId()
-    {
-        $mock = $this->getMock(self::RECIPE_FQDN);
-        $mock
-            ->expects($this->exactly(2))
-            ->method('getId')
-            ->will($this->returnValue(self::ID));
-
-        $this->model->setRecipe($mock);
-        $this->model->setPosition(self::POSITION);
-        $resource = $this->model->createId();
-        $this->assertInstanceOf(self::SELF_FQDN, $resource);
-
-        return $resource;
-    }
-
-    /**
-     * @depends testCreateId
-     * @param Cooking $self
-     */
-    public function testGetId(Cooking $self)
-    {
-        $this->assertEquals(self::ID.self::POSITION, $self->getId());
-    }
-
     public function testIsRemovable()
     {
         $this->assertTrue($this->model->isRemovable());

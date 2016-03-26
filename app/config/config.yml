@@ -25,6 +25,9 @@ framework:
     translator: { fallbacks: en }                           # language(-file) if requested translation file is not found
     default_locale:  de                                     # for links, when no favorite given default %locale%
 
+services:
+    fos_user.doctrine_registry:
+        alias: doctrine                                     # github.com/FriendsOfSymfony/FOSUserBundle/issues/2048
 
 sensio_framework_extra:
     view: { annotations: false }                            # FOSRestBundle takes over the controller annotations handling for views
@@ -60,7 +63,7 @@ swiftmailer:                                                # email server confi
 
 
 fos_rest:
-    param_fetcher_listener: true                            # Enable request's query-body like ?foo=bar
+    param_fetcher_listener: force                           # force for automatically map request params as controller params
     format_listener: true                                   # Allow to request a format like api/foo/2.json
     body_listener:                                          # Allow different request formats like app/json
         decoders:

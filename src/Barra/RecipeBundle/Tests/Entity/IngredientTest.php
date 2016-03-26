@@ -134,51 +134,6 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($self->getMeasurement());
     }
 
-    /**
-     * @expectedException \RuntimeException
-     */
-    public function testCreateIdNegativeTest()
-    {
-        $this->model->createId();
-    }
-
-    /**
-     * @depends testSetRecipe
-     * @return Ingredient
-     */
-    public function testCreateId()
-    {
-        $recipeMock = $this->getMock(self::RECIPE_FQDN);
-        $recipeMock
-            ->expects($this->exactly(2))
-            ->method('getId')
-            ->will($this->returnValue(self::ID));
-
-        $this->model->setRecipe($recipeMock);
-
-        $productMock = $this->getMock(self::PRODUCT_FQDN);
-        $productMock
-            ->expects($this->exactly(2))
-            ->method('getId')
-            ->will($this->returnValue(self::PRODUCT_ID));
-
-        $this->model->setProduct($productMock);
-
-        $resource = $this->model->createId();
-        $this->assertInstanceOf(self::SELF_FQDN, $resource);
-
-        return $resource;
-    }
-
-    /**
-     * @depends testCreateId
-     * @param Ingredient $self
-     */
-    public function testGetId(Ingredient $self)
-    {
-        $this->assertEquals(self::ID.self::PRODUCT_ID, $self->getId());
-    }
-
     public function testIsRemovable()
     {
         $this->assertTrue($this->model->isRemovable());

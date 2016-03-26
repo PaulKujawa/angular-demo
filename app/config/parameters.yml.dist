@@ -2,9 +2,9 @@ parameters:
     database_driver:        pdo_mysql
     database_host:          127.0.0.1
     database_port:          ~
-    database_name:          ~
-    database_user:          ~
-    database_password:      ~
+    database_name:          vpit_test
+    database_user:          travis
+    database_password:      ""
 
     mailer_transport:       smtp
     mailer_encryption:      tls
@@ -15,6 +15,6 @@ parameters:
     mailer_password:        ~
     locale:                 en
 
-    secret:                 ~
+    secret:                 notSoSecureSecret
     jwt_prod_ssh_key_pp:    ~
     jwt_test_ssh_key_pp:    passPhraseForFunctionalTests
