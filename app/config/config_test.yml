@@ -21,7 +21,7 @@ lexik_jwt_authentication:                                           # separate, 
     public_key_path: %kernel.root_dir%/var/jwt/public-test.pem
     pass_phrase: "%jwt_test_ssh_key_pp%"                            # this passphrase is commited as well
 
-doctrine:                                                           # separate, fresh SQLite DB for every test
+doctrine:                                                           # create SQLite DB before every test
     dbal:
         default_connection: default
         connections:
@@ -32,4 +32,4 @@ doctrine:                                                           # separate, 
 liip_functional_test:
     query:
         max_query_count: 50                                         # max DB queries per test
-    cache_sqlite_db: true                                           # caches database (scheme and fixture entries)
+    cache_sqlite_db: true                                           # creates backups/caches of every SQLite DB with fixtures
