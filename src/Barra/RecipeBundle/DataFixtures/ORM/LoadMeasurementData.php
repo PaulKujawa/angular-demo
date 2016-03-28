@@ -7,31 +7,30 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-/**
- * Class LoadMeasurementData
- * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RecipeBundle\DataFixtures\ORM
- */
 class LoadMeasurementData extends AbstractFixture implements OrderedFixtureInterface
 {
     static public $members = [];
 
+    /**
+     * {@inheritdoc}
+     */
     public function load(ObjectManager $em)
     {
         self::$members[] = $this->instantiate('gr', 1);
         self::$members[] = $this->instantiate('el', 15);
         self::$members[] = $this->instantiate('ml', 1);
 
-        foreach (self::$members as $i => $e) {
-            $this->addReference('refMeasurement'.($i+1), $e);
-            $em->persist($e);
-        }
+        array_walk(self::$members, function($member, $i) use ($em) {
+            $this->addReference('refMEasurement' . ($i + 1), $member);
+            $em->persist($member);
+        });
         $em->flush();
     }
 
     /**
-     * @param string    $name
-     * @param int       $gr
+     * @param string $name
+     * @param int $gr
+     *
      * @return Measurement
      */
     protected function instantiate($name, $gr)
@@ -44,6 +43,9 @@ class LoadMeasurementData extends AbstractFixture implements OrderedFixtureInter
         return $entity;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getOrder()
     {
         return 3;

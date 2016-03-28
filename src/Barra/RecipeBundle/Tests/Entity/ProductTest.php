@@ -5,27 +5,26 @@ namespace Barra\RecipeBundle\Tests\Entity;
 use Barra\RecipeBundle\Entity\Manufacturer;
 use Barra\RecipeBundle\Entity\Product;
 use Barra\RecipeBundle\Entity\Ingredient;
+use PHPUnit_Framework_Error;
 
-/**
- * Class ProductTest
- * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RecipeBundle\Tests\Entity
- */
 class ProductTest extends \PHPUnit_Framework_TestCase
 {
-    const SELF_FQDN          = 'Barra\RecipeBundle\Entity\Product';
-    const INGREDIENT_FQDN    = 'Barra\RecipeBundle\Entity\Ingredient';
-    const MANUFACTURER_FQDN  = 'Barra\RecipeBundle\Entity\Manufacturer';
-    const ID                 = 2;
-    const TITLE              = 'demoName';
-    const URL                = 'demoUrl';
-    const DEMO_INT           = 222;
-    const DEMO_DOUBLE        = 222.333;
-    const IS_VEGAN           = true;
+    const SELF_FQDN = 'Barra\RecipeBundle\Entity\Product';
+    const INGREDIENT_FQDN = 'Barra\RecipeBundle\Entity\Ingredient';
+    const MANUFACTURER_FQDN = 'Barra\RecipeBundle\Entity\Manufacturer';
+    const ID = 2;
+    const TITLE = 'demoName';
+    const URL = 'demoUrl';
+    const DEMO_INT = 222;
+    const DEMO_DOUBLE = 222.333;
+    const IS_VEGAN = true;
 
     /** @var  Product */
     protected $model;
 
+    /**
+     * {@inheritdoc}
+     */
     public function setUp()
     {
         $this->model = new Product();
@@ -37,7 +36,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase
     public function testGetId()
     {
         $reflected = new \ReflectionClass(self::SELF_FQDN);
-        $idField   = $reflected->getProperty('id');
+        $idField = $reflected->getProperty('id');
         $idField->setAccessible(true);
         $idField->setValue($this->model, self::ID);
 
@@ -50,7 +49,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddIngredient()
     {
-        $mock     = $this->getMock(self::INGREDIENT_FQDN);
+        $mock = $this->getMock(self::INGREDIENT_FQDN);
         $resource = $this->model->addIngredient($mock);
         $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
@@ -59,23 +58,25 @@ class ProductTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testAddIngredient
+     *
      * @param Product $self
+     *
      * @return Ingredient
      */
     public function testGetIngredients(Product $self)
     {
         $ingredients = $self->getIngredients();
         $this->assertCount(1, $ingredients);
-        $ingredient  = $ingredients[0];
 
-        return $ingredient;
+        return $ingredients[0];
     }
 
     /**
      * @depends testAddIngredient
      * @depends testGetIngredients
+     *
      * @param Product $self
-     * @param Ingredient  $ingredient
+     * @param Ingredient $ingredient
      */
     public function testRemoveIngredient(Product $self, Ingredient $ingredient)
     {
@@ -85,7 +86,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \PHPUnit_Framework_Error
+     * @expectedException PHPUnit_Framework_Error
      */
     public function testAddInvalidIngredient()
     {
@@ -93,7 +94,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \PHPUnit_Framework_Error
+     * @expectedException PHPUnit_Framework_Error
      */
     public function testRemoveInvalidIngredient()
     {
@@ -113,6 +114,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testSetKcal
+     *
      * @param Product $self
      */
     public function testGetKcal(Product $self)
@@ -133,6 +135,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testSetGr
+     *
      * @param Product $self
      */
     public function testGetGr(Product $self)
@@ -153,6 +156,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testSetProtein
+     *
      * @param Product $self
      */
     public function testGetProtein(Product $self)
@@ -173,6 +177,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testSetCarbs
+     *
      * @param Product $self
      */
     public function testGetCarbs(Product $self)
@@ -193,6 +198,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testSetSugar
+     *
      * @param Product $self
      */
     public function testGetSugar(Product $self)
@@ -213,6 +219,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testSetFat
+     *
      * @param Product $self
      */
     public function testGetFat(Product $self)
@@ -233,6 +240,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testSetGfat
+     *
      * @param Product $self
      */
     public function testGetGfat(Product $self)
@@ -253,6 +261,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testSetVegan
+     *
      * @param Product $self
      */
     public function testGetVegan(Product $self)
@@ -280,7 +289,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetManufacturer()
     {
-        $mock     = $this->getMock(self::MANUFACTURER_FQDN);
+        $mock = $this->getMock(self::MANUFACTURER_FQDN);
         $resource = $this->model->setManufacturer($mock);
         $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
@@ -289,6 +298,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testSetManufacturer
+     *
      * @param Product $self
      */
     public function testGetManufacturer(Product $self)
@@ -306,14 +316,15 @@ class ProductTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param string    $field
-     * @param mixed     $value
-     * @expectedException \PHPUnit_Framework_Error
+     * @expectedException PHPUnit_Framework_Error
      * @dataProvider providerSetInvalidComplexValues
+     *
+     * @param string $field
+     * @param mixed $value
      */
     public function testSetInvalidComplexValues($field, $value)
     {
-        $this->model->{'set'.ucfirst($field)}($value);
+        $this->model->{'set' . ucfirst($field)}($value);
     }
 
     /**

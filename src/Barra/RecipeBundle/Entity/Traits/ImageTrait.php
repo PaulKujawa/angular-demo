@@ -63,7 +63,7 @@ trait ImageTrait
             return null;
         }
 
-        return $this->getAbsolutePath().'/'.$this->filename;
+        return $this->getAbsolutePath() . '/' . $this->filename;
     }
 
     /**
@@ -71,7 +71,7 @@ trait ImageTrait
      */
     public function getAbsolutePath()
     {
-        return __DIR__.'/../../../../../web/'.$this->getWebDirectory();
+        return __DIR__ . '/../../../../../web/' . $this->getWebDirectory();
     }
 
     /**
@@ -83,13 +83,12 @@ trait ImageTrait
             return null;
         }
 
-        return $this->getWebDirectory().'/'.$this->filename;
+        return $this->getWebDirectory() . '/' . $this->filename;
     }
 
     /**
      * @VirtualProperty
      * @SerializedName("path")
-
      * @return string
      */
     public function getWebDirectory()
@@ -108,7 +107,7 @@ trait ImageTrait
     {
         if (null !== $this->file) {
             do {
-                $this->filename = sha1(uniqid(mt_rand(), true)).'.'.$this->getFile()->guessExtension();
+                $this->filename = sha1(uniqid(mt_rand(), true)) . '.' . $this->getFile()->guessExtension();
             } while (file_exists($this->getAbsolutePathWithFilename()));
         }
 
@@ -139,8 +138,8 @@ trait ImageTrait
     {
         $path = $this->getAbsolutePathWithFilename();
         if (null !== $path) {
-            $this->file     = null;
-            $this->size     = null;
+            $this->file = null;
+            $this->size = null;
             $this->filename = null;
             unlink($path);
         }
@@ -151,6 +150,7 @@ trait ImageTrait
     // ### GETTER AND SETTER --------------------------------------------------------------------
     /**
      * @param UploadedFile $file
+     *
      * @return $this
      */
     public function setFile(UploadedFile $file)
@@ -160,6 +160,7 @@ trait ImageTrait
         }
         $this->file = $file;
         $this->size = $file->getClientSize();
+
         // @here you could save the original filename via $file->getClientOriginalName()
 
         return $this;

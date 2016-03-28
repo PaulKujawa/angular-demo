@@ -3,23 +3,22 @@
 namespace Barra\RecipeBundle\Tests\Entity;
 
 use Barra\RecipeBundle\Entity\Cooking;
+use PHPUnit_Framework_Error;
 
-/**
- * Class CookingTest
- * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RecipeBundle\Tests\Entity
- */
 class CookingTest extends \PHPUnit_Framework_TestCase
 {
-    const SELF_FQDN     = 'Barra\RecipeBundle\Entity\Cooking';
-    const RECIPE_FQDN   = 'Barra\RecipeBundle\Entity\Recipe';
-    const ID            = 222;
-    const POSITION      = 22;
-    const DESCRIPTION   = 'demoDescription';
+    const SELF_FQDN = 'Barra\RecipeBundle\Entity\Cooking';
+    const RECIPE_FQDN = 'Barra\RecipeBundle\Entity\Recipe';
+    const ID = 222;
+    const POSITION = 22;
+    const DESCRIPTION = 'demoDescription';
 
     /** @var  Cooking */
     protected $model;
 
+    /**
+     * {@inheritdoc}
+     */
     public function setUp()
     {
         $this->model = new Cooking();
@@ -38,6 +37,7 @@ class CookingTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testSetDescriptionTest
+     *
      * @param Cooking $self
      */
     public function testGetDescriptionTest(Cooking $self)
@@ -58,6 +58,7 @@ class CookingTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testSetPosition
+     *
      * @param Cooking $self
      */
     public function testGetPosition(Cooking $self)
@@ -70,7 +71,7 @@ class CookingTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetRecipe()
     {
-        $mock     = $this->getMock(self::RECIPE_FQDN);
+        $mock = $this->getMock(self::RECIPE_FQDN);
         $resource = $this->model->setRecipe($mock);
         $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
@@ -79,6 +80,7 @@ class CookingTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testSetRecipe
+     *
      * @param Cooking $self
      */
     public function testGetRecipe(Cooking $self)
@@ -92,14 +94,15 @@ class CookingTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param string    $field
-     * @param mixed     $value
-     * @expectedException \PHPUnit_Framework_Error
+     * @expectedException PHPUnit_Framework_Error
      * @dataProvider providerSetInvalidComplexValues
+     *
+     * @param string $field
+     * @param mixed $value
      */
     public function testSetInvalidComplexValues($field, $value)
     {
-        $this->model->{'set'.ucfirst($field)}($value);
+        $this->model->{'set' . ucfirst($field)}($value);
     }
 
     /**

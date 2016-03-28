@@ -4,23 +4,22 @@ namespace Barra\RecipeBundle\Tests\Entity;
 
 use Barra\RecipeBundle\Entity\Measurement;
 use Barra\RecipeBundle\Entity\Ingredient;
+use PHPUnit_Framework_Error;
 
-/**
- * Class MeasurementTest
- * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RecipeBundle\Tests\Entity
- */
 class MeasurementTest extends \PHPUnit_Framework_TestCase
 {
-    const SELF_FQDN         = 'Barra\RecipeBundle\Entity\Measurement';
-    const INGREDIENT_FQDN   = 'Barra\RecipeBundle\Entity\Ingredient';
-    const ID                = 2;
-    const GR                = 22;
-    const NAME              = 'demoName';
+    const SELF_FQDN = 'Barra\RecipeBundle\Entity\Measurement';
+    const INGREDIENT_FQDN = 'Barra\RecipeBundle\Entity\Ingredient';
+    const ID = 2;
+    const GR = 22;
+    const NAME = 'demoName';
 
     /** @var  Measurement */
     protected $model;
 
+    /**
+     * {@inheritdoc}
+     */
     public function setUp()
     {
         $this->model = new Measurement();
@@ -32,7 +31,7 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
     public function testGetId()
     {
         $reflected = new \ReflectionClass(self::SELF_FQDN);
-        $idField   = $reflected->getProperty('id');
+        $idField = $reflected->getProperty('id');
         $idField->setAccessible(true);
         $idField->setValue($this->model, self::ID);
 
@@ -54,6 +53,7 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testSetGr
+     *
      * @param Measurement $self
      */
     public function testGetGr(Measurement $self)
@@ -74,6 +74,7 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testSetName
+     *
      * @param Measurement $self
      */
     public function testGetName(Measurement $self)
@@ -86,7 +87,7 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddIngredient()
     {
-        $mock     = $this->getMock(self::INGREDIENT_FQDN);
+        $mock = $this->getMock(self::INGREDIENT_FQDN);
         $resource = $this->model->addIngredient($mock);
         $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
@@ -95,23 +96,25 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testAddIngredient
+     *
      * @param Measurement $self
+     *
      * @return Ingredient
      */
     public function testGetIngredients(Measurement $self)
     {
         $ingredients = $self->getIngredients();
         $this->assertCount(1, $ingredients);
-        $ingredient  = $ingredients[0];
 
-        return $ingredient;
+        return $ingredients[0];
     }
 
     /**
      * @depends testAddIngredient
      * @depends testGetIngredients
-     * @param Measurement  $self
-     * @param Ingredient       $ingredient
+     *
+     * @param Measurement $self
+     * @param Ingredient $ingredient
      */
     public function testRemoveIngredient(Measurement $self, Ingredient $ingredient)
     {
@@ -121,7 +124,7 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \PHPUnit_Framework_Error
+     * @expectedException PHPUnit_Framework_Error
      */
     public function testAddInvalidIngredient()
     {
@@ -129,7 +132,7 @@ class MeasurementTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \PHPUnit_Framework_Error
+     * @expectedException PHPUnit_Framework_Error
      */
     public function testRemoveInvalidIngredient()
     {

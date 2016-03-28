@@ -9,32 +9,31 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use InvalidArgumentException;
 
-/**
- * Class LoadCookingData
- * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RecipeBundle\DataFixtures\ORM
- */
 class LoadCookingData extends AbstractFixture implements OrderedFixtureInterface
 {
     static public $members = [];
 
+    /**
+     * {@inheritdoc}
+     */
     public function load(ObjectManager $em)
     {
         self::$members[] = $this->instantiate(1, '1th step', 'refRecipe1');
         self::$members[] = $this->instantiate(2, '2th step', 'refRecipe1');
         self::$members[] = $this->instantiate(3, '3th step', 'refRecipe1');
 
-        foreach (self::$members as $i => $e) {
-            $this->addReference('refCooking'.($i+1), $e);
-            $em->persist($e);
-        }
+        array_walk(self::$members, function($member, $i) use ($em) {
+            $this->addReference('refCooking' . ($i + 1), $member);
+            $em->persist($member);
+        });
         $em->flush();
     }
 
     /**
-     * @param int       $position
-     * @param string    $description
-     * @param string    $refRecipe
+     * @param int $position
+     * @param string $description
+     * @param string $refRecipe
+     *
      * @return Cooking
      */
     protected function instantiate($position, $description, $refRecipe)
@@ -54,6 +53,9 @@ class LoadCookingData extends AbstractFixture implements OrderedFixtureInterface
         return $entity;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getOrder()
     {
         return 6;

@@ -3,23 +3,22 @@
 namespace Barra\RecipeBundle\Tests\Entity;
 
 use Barra\RecipeBundle\Entity\Photo;
+use PHPUnit_Framework_Error;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-/**
- * Class PhotoTest
- * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RecipeBundle\Tests\Entity
- */
 class PhotoTest extends \PHPUnit_Framework_TestCase
 {
-    const SELF_FQDN          = 'Barra\RecipeBundle\Entity\Photo';
-    const RECIPE_FQDN        = 'Barra\RecipeBundle\Entity\Recipe';
-    const WEB_DIRECTORY      = 'images/uploads';
-    const ID                 = 2;
+    const SELF_FQDN = 'Barra\RecipeBundle\Entity\Photo';
+    const RECIPE_FQDN = 'Barra\RecipeBundle\Entity\Recipe';
+    const WEB_DIRECTORY = 'images/uploads';
+    const ID = 2;
 
     /** @var  Photo */
     protected $model;
 
+    /**
+     * {@inheritdoc}
+     */
     public function setUp()
     {
         $this->model = new Photo();
@@ -31,7 +30,7 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
     public function testGetId()
     {
         $reflected = new \ReflectionClass(self::SELF_FQDN);
-        $idField   = $reflected->getProperty('id');
+        $idField = $reflected->getProperty('id');
         $idField->setAccessible(true);
         $idField->setValue($this->model, self::ID);
 
@@ -44,7 +43,7 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetRecipe()
     {
-        $mock     = $this->getMock(self::RECIPE_FQDN);
+        $mock = $this->getMock(self::RECIPE_FQDN);
         $resource = $this->model->setRecipe($mock);
         $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
@@ -53,6 +52,7 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testSetRecipe
+     *
      * @param Photo $self
      */
     public function testGetRecipe(Photo $self)
@@ -83,7 +83,7 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetFile()
     {
-        $photo    = $this->createPhotoFile();
+        $photo = $this->createPhotoFile();
         $resource = $this->model->setFile($photo);
         $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
@@ -94,6 +94,7 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testSetFile
+     *
      * @param Photo $self
      */
     public function testGetFile(Photo $self)
@@ -103,6 +104,7 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testSetFile
+     *
      * @param Photo $self
      */
     public function testGetSize(Photo $self)
@@ -112,7 +114,9 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testSetFile
+     *
      * @param Photo $self
+     *
      * @return Photo
      */
     public function testGenerateFilename(Photo $self)
@@ -127,7 +131,9 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testGenerateFilename
+     *
      * @param Photo $self
+     *
      * @return Photo
      */
     public function testGetFilename(Photo $self)
@@ -140,6 +146,7 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
     /**
      * @depends testGenerateFilename
      * @depends testGetWebDirectory
+     *
      * @param Photo $self
      */
     public function testGetWebDirectoryWithFilename(Photo $self)
@@ -147,13 +154,14 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($this->model->getWebDirectoryWithFilename());
         $this->assertEquals(
             $self->getWebDirectoryWithFilename(),
-            self::WEB_DIRECTORY.'/'.$self->getFilename()
+            self::WEB_DIRECTORY . '/' . $self->getFilename()
         );
     }
 
     /**
      * @depends testGenerateFilename
      * @depends testGetAbsolutePath
+     *
      * @param Photo $self
      */
     public function testGetAbsolutePathWithFilename(Photo $self)
@@ -161,13 +169,15 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($this->model->getAbsolutePathWithFilename());
         $this->assertEquals(
             $self->getAbsolutePathWithFilename(),
-            $self->getAbsolutePath().'/'.$self->getFilename()
+            $self->getAbsolutePath() . '/' . $self->getFilename()
         );
     }
 
     /**
      * @depends testGenerateFilename
+     *
      * @param Photo $self
+     *
      * @return Photo
      */
     public function testSaveFile(Photo $self)
@@ -183,6 +193,7 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testSaveFile
+     *
      * @param Photo $self
      */
     public function testRemoveFile(Photo $self)
@@ -194,6 +205,7 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testRemoveFile
+     *
      * @return Photo
      */
     public function testFileOverwrite()
@@ -211,20 +223,21 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
         $this->model->setFile($photo);
         $this->assertFileNotExists($path);
 
-        unlink($photo->getPath().'/'.$photo->getFilename());
+        unlink($photo->getPath() . '/' . $photo->getFilename());
     }
 
     // ----------------------------------------------------------------------------------------
 
     /**
-     * @param string    $field
-     * @param mixed     $value
-     * @expectedException \PHPUnit_Framework_Error
+     * @expectedException PHPUnit_Framework_Error
      * @dataProvider providerSetInvalidComplexValues
+
+     * @param string $field
+     * @param mixed $value
      */
     public function testSetInvalidComplexValues($field, $value)
     {
-        $this->model->{'set'.ucfirst($field)}($value);
+        $this->model->{'set' . ucfirst($field)}($value);
     }
 
     /**
@@ -245,27 +258,16 @@ class PhotoTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-
     /**
      * @return UploadedFile
      */
     protected function createPhotoFile()
     {
-        $path     = $this->model->getAbsolutePath().'/';
+        $path = $this->model->getAbsolutePath() . '/';
         $filename = 'unitTest.jpg';
-        $newFile  = $path.$filename;
+        $newFile = $path . $filename;
+        copy($path . 'fixture.jpg', $newFile);
 
-        copy($path.'fixture.jpg', $newFile);
-
-        $photo = new UploadedFile(
-            $newFile,
-            $filename,
-            'image/jpeg',
-            filesize($newFile),
-            null,
-            true
-        );
-
-        return $photo;
+        return new UploadedFile($newFile, $filename, 'image/jpeg', filesize($newFile), null, true);
     }
 }

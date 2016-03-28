@@ -11,41 +11,40 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use InvalidArgumentException;
 
-/**
- * Class LoadIngredientData
- * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RecipeBundle\DataFixtures\ORM
- */
 class LoadIngredientData extends AbstractFixture implements OrderedFixtureInterface
 {
     static public $members = [];
 
+    /**
+     * {@inheritdoc}
+     */
     public function load(ObjectManager $em)
     {
         self::$members[] = $this->instantiate(1, 1, 'refMeasurement1', 'refRecipe1', 'refProduct1');
         self::$members[] = $this->instantiate(2, 2, 'refMeasurement1', 'refRecipe1', 'refProduct2');
         self::$members[] = $this->instantiate(3, 3, 'refMeasurement1', 'refRecipe2', 'refProduct1');
 
-        foreach (self::$members as $i => $e) {
-            $this->addReference('refIngredient'.($i+1), $e);
-            $em->persist($e);
-        }
+        array_walk(self::$members, function($member, $i) use ($em) {
+            $this->addReference('refIngredient' . ($i + 1), $member);
+            $em->persist($member);
+        });
         $em->flush();
     }
 
     /**
-     * @param int       $position
-     * @param int       $amount
-     * @param string    $refMeasurement
-     * @param string    $refRecipe
-     * @param string    $refProduct
+     * @param int $position
+     * @param int $amount
+     * @param string $refMeasurement
+     * @param string $refRecipe
+     * @param string $refProduct
+     *
      * @return Ingredient
      */
     protected function instantiate($position, $amount, $refMeasurement, $refRecipe, $refProduct)
     {
         $measurement = $this->getReference($refMeasurement);
-        $recipe      = $this->getReference($refRecipe);
-        $product     = $this->getReference($refProduct);
+        $recipe = $this->getReference($refRecipe);
+        $product = $this->getReference($refProduct);
 
         if (!$measurement instanceof Measurement ||
             !$recipe instanceof Recipe ||
@@ -65,6 +64,9 @@ class LoadIngredientData extends AbstractFixture implements OrderedFixtureInterf
         return $entity;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getOrder()
     {
         return 8;
