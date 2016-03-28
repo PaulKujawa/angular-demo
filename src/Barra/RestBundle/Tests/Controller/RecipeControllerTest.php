@@ -2,6 +2,14 @@
 
 namespace Barra\RestBundle\Tests\Controller;
 
+use Barra\RecipeBundle\DataFixtures\ORM\LoadCookingData;
+use Barra\RecipeBundle\DataFixtures\ORM\LoadIngredientData;
+use Barra\RecipeBundle\DataFixtures\ORM\LoadManufacturerData;
+use Barra\RecipeBundle\DataFixtures\ORM\LoadMeasurementData;
+use Barra\RecipeBundle\DataFixtures\ORM\LoadPhotoData;
+use Barra\RecipeBundle\DataFixtures\ORM\LoadProductData;
+use Barra\RecipeBundle\DataFixtures\ORM\LoadRecipeData;
+use Barra\RecipeBundle\DataFixtures\ORM\LoadUserData;
 use FOS\RestBundle\Util\Codes;
 use Liip\FunctionalTestBundle\Test\WebTestCase as WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
@@ -18,11 +26,7 @@ class RecipeControllerTest extends WebTestCase
      */
     public function setUp()
     {
-        $this->loadFixtures([
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadUserData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadRecipeData',
-        ]);
-
+        $this->loadFixtures([LoadUserData::class, LoadRecipeData::class]);
         $this->client = static::createClient();
         $csrfToken = $this->client->getContainer()->get('form.csrf_provider')->generateCsrfToken('authenticate');
 
@@ -82,12 +86,12 @@ class RecipeControllerTest extends WebTestCase
     public function testGetIngredients()
     {
         $this->loadFixtures([
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadUserData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadManufacturerData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadMeasurementData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadRecipeData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadProductData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadIngredientData',
+            LoadUserData::class,
+            LoadManufacturerData::class,
+            LoadMeasurementData::class,
+            LoadRecipeData::class,
+            LoadProductData::class,
+            LoadIngredientData::class,
         ]);
 
         $this->client->request('GET', '/en/api/recipes/1/ingredients');
@@ -105,12 +109,7 @@ class RecipeControllerTest extends WebTestCase
 
     public function testGetCookings()
     {
-        $this->loadFixtures([
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadUserData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadRecipeData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadCookingData',
-        ]);
-
+        $this->loadFixtures([LoadUserData::class, LoadRecipeData::class, LoadCookingData::class]);
         $this->client->request('GET', '/en/api/recipes/1/cookings');
         $this->validateResponse(
             Codes::HTTP_OK,
@@ -127,12 +126,7 @@ class RecipeControllerTest extends WebTestCase
 
     public function testGetPhotos()
     {
-        $this->loadFixtures([
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadUserData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadRecipeData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadPhotoData',
-        ]);
-
+        $this->loadFixtures([LoadUserData::class, LoadRecipeData::class, LoadPhotoData::class]);
         $this->client->request('GET', '/en/api/recipes/1/photos');
         preg_match(
             "/.*\"filename\":\"(.*jpeg).*\"filename\":\"(.*jpeg)/",

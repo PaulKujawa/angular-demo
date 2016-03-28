@@ -2,7 +2,9 @@
 
 namespace Barra\RecipeBundle\Entity\Repository;
 
-class RecipeRelatedRepository extends BasicRepository
+use Doctrine\ORM\EntityRepository;
+
+class RecipeRelatedRepository extends EntityRepository
 {
     /**
      * @param int $recipeId

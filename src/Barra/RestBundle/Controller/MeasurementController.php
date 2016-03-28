@@ -3,8 +3,6 @@
 namespace Barra\RestBundle\Controller;
 
 use Barra\RecipeBundle\Entity\Measurement;
-use Barra\RecipeBundle\Entity\Repository\BasicRepository;
-use Barra\RecipeBundle\Entity\Repository\RecipeRelatedRepository;
 use Barra\RecipeBundle\Form\MeasurementType;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
@@ -38,24 +36,17 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
      */
     public function cgetAction($offset, $limit, $orderBy, $order)
     {
-        /** @var BasicRepository $repo */
-        $repo = $this->getDoctrine()->getManager()->getRepository(Measurement::class);
+        $measurements = $this->getDoctrine()->getManager()->getRepository(Measurement::class)->findBy(
+            [],
+            [$orderBy => $order],
+            $limit,
+            $offset
+        );
 
         // alternatively, 'limit' could be set as strict in it's annotation to set it mandatory.
         return (null === $limit || $limit < 1 || $offset < 0)
             ? $this->view(null, Codes::HTTP_BAD_REQUEST)
-            : $this->view(['data' => $repo->getSome($offset, $limit, $orderBy, $order)]);
-    }
-
-    /**
-     * @return View
-     */
-    public function countAction()
-    {
-        /** @var RecipeRelatedRepository $repo */
-        $repo = $this->getDoctrine()->getManager()->getRepository(Measurement::class);
-
-        return $this->view(['data' => $repo->count()]);
+            : $this->view(['data' => $measurements]);
     }
 
     /**

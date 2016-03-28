@@ -2,6 +2,9 @@
 
 namespace Barra\RestBundle\Tests\Controller;
 
+use Barra\RecipeBundle\DataFixtures\ORM\LoadCookingData;
+use Barra\RecipeBundle\DataFixtures\ORM\LoadRecipeData;
+use Barra\RecipeBundle\DataFixtures\ORM\LoadUserData;
 use FOS\RestBundle\Util\Codes;
 use Liip\FunctionalTestBundle\Test\WebTestCase as WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
@@ -18,12 +21,7 @@ class CookingControllerTest extends WebTestCase
      */
     public function setUp()
     {
-        $this->loadFixtures([
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadUserData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadRecipeData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadCookingData',
-        ]);
-
+        $this->loadFixtures([LoadUserData::class, LoadRecipeData::class, LoadCookingData::class]);
         $this->client = static::createClient();
         $csrfToken = $this->client->getContainer()->get('form.csrf_provider')->generateCsrfToken('authenticate');
 
@@ -46,84 +44,64 @@ class CookingControllerTest extends WebTestCase
 
     public function testNew()
     {
-        $this->client->request('GET', '/en/api/cookings/new');
-        $this->validateResponse(Codes::HTTP_OK, '{"data":{"children":{"description":[],"recipe":[]}}}');
+        $this->client->request('GET', '/en/api/recipes/1/cookings/new');
+        $this->validateResponse(Codes::HTTP_OK, '{"data":{"children":{"description":[]}}}');
     }
 
     public function testGet()
     {
-        $this->client->request('GET', '/en/api/cookings/1');
+        $this->client->request('GET', '/en/api/recipes/1/cookings/1');
         $this->validateResponse(Codes::HTTP_OK, '{"data":{"description":"1th step","id":1,"position":1}}');
 
-        $this->client->request('GET', '/en/api/cookings/0');
+        $this->client->request('GET', '/en/api/recipes/2/cookings/1');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
     public function testCget()
     {
-        $this->client->request('GET', '/en/api/cookings?limit=2');
+        $this->client->request('GET', '/en/api/recipes/1/cookings');
         $this->validateResponse(
             Codes::HTTP_OK,
             '{"data":[' .
                 '{"description":"1th step","id":1,"position":1},' .
-                '{"description":"2th step","id":2,"position":2}' .
+                '{"description":"2th step","id":2,"position":2},' .
+                '{"description":"3th step","id":3,"position":3}' .
             ']}'
         );
-
-        $this->client->request('GET', '/en/api/cookings');
-        $this->validateResponse(Codes::HTTP_BAD_REQUEST);
-    }
-
-    public function testCount()
-    {
-        $this->client->request('GET', '/en/api/cookings/count');
-        $this->validateResponse(Codes::HTTP_OK, '{"data":"3"}');
-    }
-
-    public function testGetRecipe()
-    {
-        $this->client->request('GET', '/en/api/cookings/1/recipe');
-        $this->validateResponse(Codes::HTTP_OK, '{"data":{"id":1,"name":"Recipe1"}}');
-
-        $this->client->request('GET', '/en/api/cookings/0/recipe');
-        $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
     public function testPost()
     {
-        $requestBody = '{"cooking":{"description":"new step","recipe":1}}';
-        $this->client->request('POST', '/en/api/cookings', [], [], $this->appType, $requestBody);
+        $requestBody = '{"cooking":{"description":"new step"}}';
+        $this->client->request('POST', '/en/api/recipes/1/cookings', [], [], $this->appType, $requestBody);
 
         $this->validateResponse(Codes::HTTP_CREATED);
-        $this->assertStringEndsWith('/en/api/cookings/4', $this->client->getResponse()->headers->get('Location'));
+        $this->assertStringEndsWith('/en/api/recipes/1/cookings/4', $this->client->getResponse()->headers->get('Location'));
     }
 
     public function testPostInvalid()
     {
-        $this->client->request('POST', '/en/api/cookings', [], [], $this->appType, '{}');
-        $this->validateResponse(Codes::HTTP_BAD_REQUEST, '{"data":{"children":{"description":[],"recipe":[]}}}');
-
-        $this->client->request('POST', '/en/api/cookings', [], [], $this->appType, '{"cooking":{"recipe":0}}');
-        $this->validateResponse(Codes::HTTP_BAD_REQUEST, '{"data":{"children":{"description":[],"recipe":[]}}}');
+        $this->client->request('POST', '/en/api/recipes/1/cookings', [], [], $this->appType, '{}');
+        $this->validateResponse(Codes::HTTP_BAD_REQUEST, '{"data":{"children":{"description":[]}}}');
     }
 
     public function testPut()
     {
-        $requestBody = '{"cooking":{"description":"updated step","recipe":1}}';
-        $this->client->request('PUT', '/en/api/cookings/1', [], [], $this->appType, $requestBody);
+        $requestBody = '{"cooking":{"description":"updated step"}}';
+        $this->client->request('PUT', '/en/api/recipes/1/cookings/1', [], [], $this->appType, $requestBody);
         $this->validateResponse(Codes::HTTP_NO_CONTENT);
-        $this->assertStringEndsWith('/en/api/cookings/1', $this->client->getResponse()->headers->get('Location'));
+        $this->assertStringEndsWith('/en/api/recipes/1/cookings/1', $this->client->getResponse()->headers->get('Location'));
 
-        $this->client->request('PUT', '/en/api/cookings/0', [], [], $this->appType, '{}');
+        $this->client->request('PUT', '/en/api/recipes/2/cookings/1', [], [], $this->appType, '{}');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
     public function testDelete()
     {
-        $this->client->request('DELETE', '/en/api/cookings/1');
+        $this->client->request('DELETE', '/en/api/recipes/1/cookings/1');
         $this->validateResponse(Codes::HTTP_NO_CONTENT);
 
-        $this->client->request('DELETE', '/en/api/cookings/0');
+        $this->client->request('DELETE', '/en/api/recipes/2/cookings/1');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 

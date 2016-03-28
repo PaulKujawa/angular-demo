@@ -5,16 +5,19 @@ barra_rest_recipes:
 
 barra_rest_photos:
   type: rest
+  parent: barra_rest_recipes
   resource: "BarraRestBundle:Photo"
   name_prefix: barra_api_
 
 barra_rest_ingredients:
   type: rest
+  parent: barra_rest_recipes
   resource: "BarraRestBundle:Ingredient"
   name_prefix: barra_api_
 
 barra_rest_cookings:
   type: rest
+  parent: barra_rest_recipes
   resource: "BarraRestBundle:Cooking"
   name_prefix: barra_api_
 
