@@ -2,6 +2,12 @@
 
 namespace Barra\RestBundle\Tests\Controller;
 
+use Barra\RecipeBundle\DataFixtures\ORM\LoadIngredientData;
+use Barra\RecipeBundle\DataFixtures\ORM\LoadManufacturerData;
+use Barra\RecipeBundle\DataFixtures\ORM\LoadMeasurementData;
+use Barra\RecipeBundle\DataFixtures\ORM\LoadProductData;
+use Barra\RecipeBundle\DataFixtures\ORM\LoadRecipeData;
+use Barra\RecipeBundle\DataFixtures\ORM\LoadUserData;
 use FOS\RestBundle\Util\Codes;
 use Liip\FunctionalTestBundle\Test\WebTestCase as WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
@@ -19,12 +25,12 @@ class IngredientControllerTest extends WebTestCase
     public function setUp()
     {
         $this->loadFixtures([
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadUserData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadManufacturerData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadMeasurementData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadRecipeData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadProductData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadIngredientData',
+            LoadUserData::class,
+            LoadManufacturerData::class,
+            LoadMeasurementData::class,
+            LoadRecipeData::class,
+            LoadProductData::class,
+            LoadIngredientData::class,
         ]);
 
         $this->client = static::createClient();
@@ -49,25 +55,22 @@ class IngredientControllerTest extends WebTestCase
 
     public function testNew()
     {
-        $this->client->request('GET', '/en/api/ingredients/new');
-        $this->validateResponse(
-            Codes::HTTP_OK,
-            '{"data":{"children":{"amount":[],"measurement":[],"product":[],"recipe":[]}}}'
-        );
+        $this->client->request('GET', '/en/api/recipes/1/ingredients/new');
+        $this->validateResponse(Codes::HTTP_OK, '{"data":{"children":{"amount":[],"measurement":[],"product":[]}}}');
     }
 
     public function testGet()
     {
-        $this->client->request('GET', '/en/api/ingredients/1');
+        $this->client->request('GET', '/en/api/recipes/1/ingredients/1');
         $this->validateResponse(Codes::HTTP_OK, '{"data":{"amount":1,"id":1,"position":1}}');
 
-        $this->client->request('GET', '/en/api/ingredients/0');
+        $this->client->request('GET', '/en/api/recipes/2/ingredients/1');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
     public function testCget()
     {
-        $this->client->request('GET', '/en/api/ingredients?limit=2');
+        $this->client->request('GET', '/en/api/recipes/1/ingredients');
         $this->validateResponse(
             Codes::HTTP_OK,
             '{"data":[' .
@@ -75,20 +78,11 @@ class IngredientControllerTest extends WebTestCase
                 '{"amount":2,"id":2,"position":2}' .
             ']}'
         );
-
-        $this->client->request('GET', '/en/api/ingredients');
-        $this->validateResponse(Codes::HTTP_BAD_REQUEST);
-    }
-
-    public function testCount()
-    {
-        $this->client->request('GET', '/en/api/ingredients/count');
-        $this->validateResponse(Codes::HTTP_OK, '{"data":"3"}');
     }
 
     public function testGetProduct()
     {
-        $this->client->request('GET', '/en/api/ingredients/1/product');
+        $this->client->request('GET', '/en/api/recipes/1/ingredients/1/product');
         $this->validateResponse(
             Codes::HTTP_OK,
             '{"data":{' .
@@ -97,69 +91,54 @@ class IngredientControllerTest extends WebTestCase
             '}}'
         );
 
-        $this->client->request('GET', '/en/api/ingredients/0/product');
+        $this->client->request('GET', '/en/api/recipes/2/ingredients/1/product');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
     public function testGetMeasurement()
     {
-        $this->client->request('GET', '/en/api/ingredients/1/measurement');
+        $this->client->request('GET', '/en/api/recipes/1/ingredients/1/measurement');
         $this->validateResponse(Codes::HTTP_OK, '{"data":{"gr":1,"id":1,"name":"gr"}}');
 
-        $this->client->request('GET', '/en/api/ingredients/0/measurement');
-        $this->validateResponse(Codes::HTTP_NOT_FOUND);
-    }
-
-    public function testGetRecipe()
-    {
-        $this->client->request('GET', '/en/api/ingredients/1/recipe');
-        $this->validateResponse(Codes::HTTP_OK, '{"data":{"id":1,"name":"Recipe1"}}');
-
-        $this->client->request('GET', '/en/api/ingredients/0/recipe');
+        $this->client->request('GET', '/en/api/recipes/2/ingredients/1/measurement');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
     public function testPost()
     {
-        $requestBody = '{"ingredient":{"amount":1,"measurement":1,"product":4,"recipe":1}}';
-        $this->client->request('POST', '/en/api/ingredients', [], [], $this->appType, $requestBody);
+        $requestBody = '{"ingredient":{"amount":1,"measurement":1,"product":4}}';
+        $this->client->request('POST', '/en/api/recipes/1/ingredients', [], [], $this->appType, $requestBody);
 
         $this->validateResponse(Codes::HTTP_CREATED);
-        $this->assertStringEndsWith('/en/api/ingredients/4', $this->client->getResponse()->headers->get('Location'));
+        $this->assertStringEndsWith('/en/api/recipes/1/ingredients/4', $this->client->getResponse()->headers->get('Location'));
     }
 
     public function testPostInvalid()
     {
-        $this->client->request('POST', '/en/api/ingredients', [], [], $this->appType, '{}');
+        $this->client->request('POST', '/en/api/recipes/1/ingredients', [], [], $this->appType, '{}');
         $this->validateResponse(
             Codes::HTTP_BAD_REQUEST,
-            '{"data":{"children":{"amount":[],"measurement":[],"product":[],"recipe":[]}}}'
-        );
-
-        $this->client->request('POST', '/en/api/ingredients', [], [], $this->appType, '{"ingredient":{"recipe":0}}');
-        $this->validateResponse(
-            Codes::HTTP_BAD_REQUEST,
-            '{"data":{"children":{"amount":[],"measurement":[],"product":[],"recipe":[]}}}'
+            '{"data":{"children":{"amount":[],"measurement":[],"product":[]}}}'
         );
     }
 
     public function testPut()
     {
-        $requestBody = '{"ingredient":{"amount":1,"measurement":1,"product":4,"recipe":1}}';
-        $this->client->request('PUT', '/en/api/ingredients/1', [], [], $this->appType, $requestBody);
+        $requestBody = '{"ingredient":{"amount":1,"measurement":1,"product":4}}';
+        $this->client->request('PUT', '/en/api/recipes/1/ingredients/1', [], [], $this->appType, $requestBody);
         $this->validateResponse(Codes::HTTP_NO_CONTENT);
-        $this->assertStringEndsWith('/en/api/ingredients/1', $this->client->getResponse()->headers->get('Location'));
+        $this->assertStringEndsWith('/en/api/recipes/1/ingredients/1', $this->client->getResponse()->headers->get('Location'));
 
-        $this->client->request('PUT', '/en/api/ingredients/0', [], [], $this->appType, '{}');
+        $this->client->request('PUT', '/en/api/recipes/2/ingredients/1', [], [], $this->appType, '{}');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
     public function testDelete()
     {
-        $this->client->request('DELETE', '/en/api/ingredients/1');
+        $this->client->request('DELETE', '/en/api/recipes/1/ingredients/1');
         $this->validateResponse(Codes::HTTP_NO_CONTENT);
 
-        $this->client->request('DELETE', '/en/api/ingredients/0');
+        $this->client->request('DELETE', '/en/api/recipes/2/ingredients/1');
         $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 

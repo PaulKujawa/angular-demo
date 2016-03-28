@@ -4,8 +4,6 @@ namespace Barra\RestBundle\Controller;
 
 use Barra\RecipeBundle\Entity\Cooking;
 use Barra\RecipeBundle\Entity\Recipe;
-use Barra\RecipeBundle\Entity\Repository\BasicRepository;
-use Barra\RecipeBundle\Entity\Repository\RecipeRelatedRepository;
 use Barra\RecipeBundle\Form\CookingType;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
@@ -17,132 +15,98 @@ use Symfony\Component\HttpFoundation\Request;
 class CookingController extends FOSRestController implements ClassResourceInterface
 {
     /**
+     * @param int $recipeId
+     *
      * @return View
      */
-    public function newAction()
+    public function newAction($recipeId)
     {
         return $this->view(['data' => $this->createForm(CookingType::class)]);
     }
 
     /**
-     * @QueryParam(name="offset", requirements="\d+", default="0")
-     * @QueryParam(name="limit", requirements="\d+")
-     * @QueryParam(name="orderBy", requirements="\w+", default="id")
-     * @QueryParam(name="order", requirements="(asc|desc)", default="asc")
+     * @param int $recipeId
      *
-     * @param string $offset
-     * @param string $limit
-     * @param string $orderBy
-     * @param string $order
-     *
-     * @return array
-     */
-    public function cgetAction($offset, $limit, $orderBy, $order)
-    {
-        /** @var BasicRepository $repo */
-        $repo = $this->getDoctrine()->getManager()->getRepository(Cooking::class);
-
-        // alternatively, 'limit' could be set as strict in it's annotation to set it mandatory.
-        return (null === $limit || $limit < 1 || $offset < 0)
-            ? $this->view(null, Codes::HTTP_BAD_REQUEST)
-            : $this->view(['data' => $repo->getSome($offset, $limit, $orderBy, $order)]);
-    }
-
-    /**
      * @return View
      */
-    public function countAction()
+    public function cgetAction($recipeId)
     {
-        /** @var RecipeRelatedRepository $repo */
-        $repo = $this->getDoctrine()->getManager()->getRepository(Cooking::class);
+        $cookings = $this->getDoctrine()->getManager()->getRepository(Cooking::class)->findBy(
+            ['recipe' => $recipeId],
+            ['position' => 'ASC']
+        );
 
-        return $this->view(['data' => $repo->count()]);
+        return $this->view(['data' => $cookings]);
     }
 
     /**
+     * @param int $recipeId
      * @param int $id
      *
      * @return View
      */
-    public function getAction($id)
+    public function getAction($recipeId, $id)
     {
-        $entity = $this->getDoctrine()->getManager()->getRepository(Cooking::class)->find($id);
+        $cooking = $this->getDoctrine()->getManager()->getRepository(Cooking::class)->find($id);
 
-        return null === $entity
+        return null === $cooking || (int) $recipeId !== $cooking->getRecipe()->getId()
             ? $this->view(null, Codes::HTTP_NOT_FOUND)
-            : $this->view(['data' => $entity]);
+            : $this->view(['data' => $cooking]);
     }
 
     /**
-     * @param int $id
-     *
-     * @return View
-     */
-    public function getRecipeAction($id)
-    {
-        $entity = $this->getDoctrine()->getManager()->getRepository(Cooking::class)->find($id);
-
-        return null === $entity
-            ? $this->view(null, Codes::HTTP_NOT_FOUND)
-            : $this->view(['data' => $entity->getRecipe()]);
-    }
-
-    /**
+     * @param int $recipeId
      * @param Request $request
      *
      * @return View
      */
-    public function postAction(Request $request)
+    public function postAction($recipeId, Request $request)
     {
-        $requestBody = array_values($request->request->all());
-        if (empty($requestBody)) {
-            return $this->view(['data' => $this->createForm(CookingType::class)], Codes::HTTP_BAD_REQUEST);
-        }
-
         $em = $this->getDoctrine()->getManager();
-        $recipe = $em->getRepository(Recipe::class)->find($requestBody[0]['recipe']);
+        $recipe = $em->getRepository(Recipe::class)->find($recipeId);
         if (!$recipe instanceof Recipe) {
             return $this->view(['data' => $this->createForm(CookingType::class)], Codes::HTTP_BAD_REQUEST);
         }
 
-        /** @var RecipeRelatedRepository $repo */
         $repo = $em->getRepository(Cooking::class);
-        $entity = new Cooking();
-        $entity->setPosition($repo->getNextPosition($recipe->getId()));
-        $entity->setRecipe($recipe);
+        $cooking = new Cooking();
+        $cooking->setPosition($repo->getNextPosition($recipe->getId()));
+        $cooking->setRecipe($recipe);
 
-        $form = $this->createForm(CookingType::class, $entity);
+        $form = $this->createForm(CookingType::class, $cooking);
         $form->handleRequest($request);
 
         if (!$form->isValid()) {
             return $this->view(['data' => $form], Codes::HTTP_BAD_REQUEST);
         }
 
-        $em->persist($entity);
+        $em->persist($cooking);
         $em->flush();
 
-        return $this->routeRedirectView('barra_api_get_cooking', [
-            'id' => $entity->getId(),
+        return $this->routeRedirectView('barra_api_get_recipe_cooking', [
+            'recipeId' => $recipeId,
+            'id' => $cooking->getId(),
             '_format' => $request->get('_format'),
         ]);
     }
 
     /**
-     * @param Request $request
+     * @param int $recipeId
      * @param int $id
+     * @param Request $request
      *
      * @return View
      */
-    public function putAction(Request $request, $id)
+    public function putAction($recipeId, $id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository(Cooking::class)->find($id);
+        $cooking = $em->getRepository(Cooking::class)->find($id);
 
-        if (!$entity instanceof Cooking) {
+        if (!$cooking instanceof Cooking || (int) $recipeId !== $cooking->getRecipe()->getId()) {
             return $this->view(null, Codes::HTTP_NOT_FOUND);
         }
 
-        $form = $this->createForm(CookingType::class, $entity, ['method' => $request->getMethod()]);
+        $form = $this->createForm(CookingType::class, $cooking, ['method' => $request->getMethod()]);
         $form->handleRequest($request);
 
         if (!$form->isValid()) {
@@ -151,9 +115,10 @@ class CookingController extends FOSRestController implements ClassResourceInterf
         $em->flush();
 
         return $this->routeRedirectView(
-            'barra_api_get_cooking',
+            'barra_api_get_recipe_cooking',
             [
-                'id' => $entity->getId(),
+                'recipeId' => $recipeId,
+                'id' => $id,
                 '_format' => $request->get('_format'),
             ],
             Codes::HTTP_NO_CONTENT
@@ -161,24 +126,25 @@ class CookingController extends FOSRestController implements ClassResourceInterf
     }
 
     /**
+     * @param int $recipeId
      * @param int $id
      *
      * @return View
      */
-    public function deleteAction($id)
+    public function deleteAction($recipeId, $id)
     {
-        $entity = $this->getDoctrine()->getManager()->getRepository(Cooking::class)->find($id);
+        $cooking = $this->getDoctrine()->getManager()->getRepository(Cooking::class)->find($id);
 
-        if (null === $entity) {
+        if (null === $cooking || (int) $recipeId !== $cooking->getRecipe()->getId()) {
             return $this->view(null, Codes::HTTP_NOT_FOUND);
         }
 
-        if (!$entity->isRemovable()) {
+        if (!$cooking->isRemovable()) {
             return $this->view(null, Codes::HTTP_CONFLICT);
         }
 
         $em = $this->getDoctrine()->getManager();
-        $em->remove($entity);
+        $em->remove($cooking);
         $em->flush();
 
         return $this->view(null, Codes::HTTP_NO_CONTENT);

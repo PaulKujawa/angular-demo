@@ -33,3 +33,6 @@
   * deploy
     * execute 1 migration   `app/console doctrine:migrations:execute version`
     * migrate to version    `app/console doctrine:migrations:migrate [version]`
+
+### Mix
+* access hidden form type   `$request->request->all()[0]['field']`

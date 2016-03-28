@@ -22,10 +22,6 @@ class CookingType extends AbstractType
                     'placeholder' => 'recipe.cooking.description',
                 ],
             ])
-            ->add('recipe', 'hidden', [
-                'mapped' => false,
-                'label'  => false,
-            ])
             ->add('submit', SubmitType::class)
             ->getForm();
     }

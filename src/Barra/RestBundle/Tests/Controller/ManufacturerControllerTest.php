@@ -2,6 +2,9 @@
 
 namespace Barra\RestBundle\Tests\Controller;
 
+use Barra\RecipeBundle\DataFixtures\ORM\LoadManufacturerData;
+use Barra\RecipeBundle\DataFixtures\ORM\LoadProductData;
+use Barra\RecipeBundle\DataFixtures\ORM\LoadUserData;
 use FOS\RestBundle\Util\Codes;
 use Liip\FunctionalTestBundle\Test\WebTestCase as WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
@@ -18,11 +21,7 @@ class ManufacturerControllerTest extends WebTestCase
      */
     public function setUp()
     {
-        $this->loadFixtures([
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadUserData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadManufacturerData',
-        ]);
-
+        $this->loadFixtures([LoadUserData::class, LoadManufacturerData::class]);
         $this->client = static::createClient();
         $csrfToken = $this->client->getContainer()->get('form.csrf_provider')->generateCsrfToken('authenticate');
 
@@ -81,13 +80,11 @@ class ManufacturerControllerTest extends WebTestCase
 
     public function testGetProducts()
     {
-        $this->loadFixtures(
-            [
-                'Barra\RecipeBundle\DataFixtures\ORM\LoadUserData',
-                'Barra\RecipeBundle\DataFixtures\ORM\LoadManufacturerData',
-                'Barra\RecipeBundle\DataFixtures\ORM\LoadProductData',
-            ]
-        );
+        $this->loadFixtures([
+            LoadUserData::class,
+            LoadManufacturerData::class,
+            LoadProductData::class,
+        ]);
 
         $this->client->request('GET', '/en/api/manufacturers/1/products');
         $this->validateResponse(
@@ -150,12 +147,7 @@ class ManufacturerControllerTest extends WebTestCase
 
     public function testDeleteInvalid()
     {
-        $this->loadFixtures([
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadUserData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadManufacturerData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadProductData',
-        ]);
-
+        $this->loadFixtures([LoadUserData::class, LoadManufacturerData::class, LoadProductData::class]);
         $this->client->request('DELETE', '/en/api/manufacturers/1');
         $this->validateResponse(Codes::HTTP_CONFLICT);
     }

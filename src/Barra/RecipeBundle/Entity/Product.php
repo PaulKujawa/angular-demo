@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @UniqueEntity("name")
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass = "Barra\RecipeBundle\Entity\Repository\BasicRepository")
+ * @ORM\Entity()
  */
 class Product
 {

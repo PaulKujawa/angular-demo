@@ -2,6 +2,12 @@
 
 namespace Barra\RestBundle\Tests\Controller;
 
+use Barra\RecipeBundle\DataFixtures\ORM\LoadIngredientData;
+use Barra\RecipeBundle\DataFixtures\ORM\LoadManufacturerData;
+use Barra\RecipeBundle\DataFixtures\ORM\LoadMeasurementData;
+use Barra\RecipeBundle\DataFixtures\ORM\LoadProductData;
+use Barra\RecipeBundle\DataFixtures\ORM\LoadRecipeData;
+use Barra\RecipeBundle\DataFixtures\ORM\LoadUserData;
 use FOS\RestBundle\Util\Codes;
 use Liip\FunctionalTestBundle\Test\WebTestCase as WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
@@ -18,12 +24,7 @@ class ProductControllerTest extends WebTestCase
      */
     public function setUp()
     {
-        $this->loadFixtures([
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadUserData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadManufacturerData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadProductData',
-        ]);
-
+        $this->loadFixtures([LoadUserData::class, LoadManufacturerData::class, LoadProductData::class]);
         $this->client = static::createClient();
         $csrfToken = $this->client->getContainer()->get('form.csrf_provider')->generateCsrfToken('authenticate');
 
@@ -107,12 +108,12 @@ class ProductControllerTest extends WebTestCase
     public function testGetIngredients()
     {
         $this->loadFixtures([
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadUserData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadManufacturerData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadMeasurementData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadRecipeData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadProductData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadIngredientData',
+            LoadUserData::class,
+            LoadManufacturerData::class,
+            LoadMeasurementData::class,
+            LoadRecipeData::class,
+            LoadProductData::class,
+            LoadIngredientData::class,
         ]);
 
         $this->client->request('GET', '/en/api/products/1/ingredients');
@@ -180,12 +181,12 @@ class ProductControllerTest extends WebTestCase
     public function testDeleteInvalid()
     {
         $this->loadFixtures([
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadUserData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadManufacturerData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadMeasurementData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadRecipeData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadProductData',
-            'Barra\RecipeBundle\DataFixtures\ORM\LoadIngredientData',
+            LoadUserData::class,
+            LoadManufacturerData::class,
+            LoadMeasurementData::class,
+            LoadRecipeData::class,
+            LoadProductData::class,
+            LoadIngredientData::class,
         ]);
 
         $this->client->request('DELETE', '/en/api/products/1');

@@ -3,8 +3,6 @@
 namespace Barra\RestBundle\Controller;
 
 use Barra\RecipeBundle\Entity\Manufacturer;
-use Barra\RecipeBundle\Entity\Repository\BasicRepository;
-use Barra\RecipeBundle\Entity\Repository\RecipeRelatedRepository;
 use Barra\RecipeBundle\Form\ManufacturerType;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
@@ -34,28 +32,21 @@ class ManufacturerController extends FOSRestController implements ClassResourceI
      * @param string $orderBy
      * @param string $order
      *
-     * @return array
+     * @return View
      */
     public function cgetAction($offset, $limit, $orderBy, $order)
     {
-        /** @var BasicRepository $repo */
-        $repo = $this->getDoctrine()->getManager()->getRepository(Manufacturer::class);
+        $manufacturers = $this->getDoctrine()->getManager()->getRepository(Manufacturer::class)->findBy(
+            [],
+            [$orderBy => $order],
+            $limit,
+            $offset
+        );
 
         // alternatively, 'limit' could be set as strict in it's annotation to set it mandatory.
         return (null === $limit || $limit < 1 || $offset < 0)
             ? $this->view(null, Codes::HTTP_BAD_REQUEST)
-            : $this->view(['data' => $repo->getSome($offset, $limit, $orderBy, $order)]);
-    }
-
-    /**
-     * @return View
-     */
-    public function countAction()
-    {
-        /** @var RecipeRelatedRepository $repo */
-        $repo = $this->getDoctrine()->getManager()->getRepository(Manufacturer::class);
-
-        return $this->view(['data' => $repo->count()]);
+            : $this->view(['data' => $manufacturers]);
     }
 
     /**

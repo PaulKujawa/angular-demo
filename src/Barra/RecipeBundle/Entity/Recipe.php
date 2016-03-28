@@ -16,7 +16,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity("name")
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass = "Barra\RecipeBundle\Entity\Repository\BasicRepository")
+ * @ORM\Entity()
  */
 class Recipe
 {

@@ -47,10 +47,6 @@ class IngredientType extends AbstractType
                         ->orderBy('i.name', 'ASC');
                 },
             ])
-            ->add('recipe', HiddenType::class, [
-                'mapped' => false,
-                'label' => false,
-            ])
             ->add('submit', SubmitType::class)
             ->getForm();
     }

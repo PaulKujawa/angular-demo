@@ -4,8 +4,6 @@ namespace Barra\RestBundle\Controller;
 
 use Barra\RecipeBundle\Entity\Ingredient;
 use Barra\RecipeBundle\Entity\Recipe;
-use Barra\RecipeBundle\Entity\Repository\BasicRepository;
-use Barra\RecipeBundle\Entity\Repository\RecipeRelatedRepository;
 use Barra\RecipeBundle\Form\IngredientType;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
@@ -17,160 +15,128 @@ use Symfony\Component\HttpFoundation\Request;
 class IngredientController extends FOSRestController implements ClassResourceInterface
 {
     /**
+     * @param int $recipeId
+     * @param int $id
+     *
      * @return View
      */
-    public function newAction()
+    public function getProductAction($recipeId, $id)
+    {
+        $product = $this->getDoctrine()->getManager()->getRepository(Ingredient::class)->find($id);
+
+        return null === $product || (int) $recipeId !== $product->getRecipe()->getId()
+            ? $this->view(null, Codes::HTTP_NOT_FOUND)
+            : $this->view(['data' => $product->getProduct()]);
+    }
+
+    /**
+     * @param int $recipeId
+     * @param int $id
+     *
+     * @return View
+     */
+    public function getMeasurementAction($recipeId, $id)
+    {
+        $ingredient = $this->getDoctrine()->getManager()->getRepository(Ingredient::class)->find($id);
+
+        return null === $ingredient || (int) $recipeId !== $ingredient->getRecipe()->getId()
+            ? $this->view(null, Codes::HTTP_NOT_FOUND)
+            : $this->view(['data' => $ingredient->getMeasurement()]);
+    }
+
+    /**
+     * @param int $recipeId
+     *
+     * @return View
+     */
+    public function newAction($recipeId)
     {
         return $this->view(['data' => $this->createForm(IngredientType::class)]);
     }
 
     /**
-     * @QueryParam(name="offset", requirements="\d+", default="0")
-     * @QueryParam(name="limit", requirements="\d+")
-     * @QueryParam(name="orderBy", requirements="\w+", default="id")
-     * @QueryParam(name="order", requirements="(asc|desc)", default="asc")
+     * @param int $recipeId
      *
-     * @param string $offset
-     * @param string $limit
-     * @param string $orderBy
-     * @param string $order
-     *
-     * @return array
-     */
-    public function cgetAction($offset, $limit, $orderBy, $order)
-    {
-        /** @var BasicRepository $repo */
-        $repo = $this->getDoctrine()->getManager()->getRepository(Ingredient::class);
-
-        // alternatively, 'limit' could be set as strict in it's annotation to set it mandatory.
-        return (null === $limit || $limit < 1 || $offset < 0)
-            ? $this->view(null, Codes::HTTP_BAD_REQUEST)
-            : $this->view(['data' => $repo->getSome($offset, $limit, $orderBy, $order)]);
-    }
-
-    /**
      * @return View
      */
-    public function countAction()
+    public function cgetAction($recipeId)
     {
-        /** @var RecipeRelatedRepository $repo */
-        $repo = $this->getDoctrine()->getManager()->getRepository(Ingredient::class);
+        $ingredients = $this->getDoctrine()->getManager()->getRepository(Ingredient::class)->findBy(
+            ['recipe' => $recipeId],
+            ['position' => 'ASC']
+        );
 
-        return $this->view(['data' => $repo->count()]);
+        return $this->view(['data' => $ingredients]);
     }
 
     /**
+     * @param int $recipeId
      * @param int $id
      *
      * @return View
      */
-    public function getProductAction($id)
+    public function getAction($recipeId, $id)
     {
-        $entity = $this->getDoctrine()->getManager()->getRepository(Ingredient::class)->find($id);
+        $ingredient = $this->getDoctrine()->getManager()->getRepository(Ingredient::class)->find($id);
 
-        return null === $entity
+        return null === $ingredient || (int) $recipeId !== $ingredient->getRecipe()->getId()
             ? $this->view(null, Codes::HTTP_NOT_FOUND)
-            : $this->view(['data' => $entity->getProduct()]);
+            : $this->view(['data' => $ingredient]);
     }
 
     /**
-     * @param int $id
-     *
-     * @return View
-     */
-    public function getMeasurementAction($id)
-    {
-        $entity = $this->getDoctrine()->getManager()->getRepository(Ingredient::class)->find($id);
-
-        return null === $entity
-            ? $this->view(null, Codes::HTTP_NOT_FOUND)
-            : $this->view(['data' => $entity->getMeasurement()]);
-    }
-
-    /**
-     * @param int $id
-     *
-     * @return View
-     */
-    public function getAction($id)
-    {
-        $entity = $this->getDoctrine()->getManager()->getRepository(Ingredient::class)->find($id);
-
-        return null === $entity
-            ? $this->view(null, Codes::HTTP_NOT_FOUND)
-            : $this->view(['data' => $entity]);
-    }
-
-    /**
-     * @param int $id
-     *
-     * @return View
-     */
-    public function getRecipeAction($id)
-    {
-        $entity = $this->getDoctrine()->getManager()->getRepository(Ingredient::class)->find($id);
-
-        return null === $entity
-            ? $this->view(null, Codes::HTTP_NOT_FOUND)
-            : $this->view(['data' => $entity->getRecipe()]);
-    }
-
-    /**
+     * @param int $recipeId
      * @param Request $request
      *
      * @return View
      */
-    public function postAction(Request $request)
+    public function postAction($recipeId, Request $request)
     {
-        $requestBody = array_values($request->request->all());
-        if (empty($requestBody)) {
-            return $this->view(['data' => $this->createForm(IngredientType::class)], Codes::HTTP_BAD_REQUEST);
-        }
-
         $em = $this->getDoctrine()->getManager();
-        $recipe = $em->getRepository(Recipe::class)->find($requestBody[0]['recipe']);
+        $recipe = $em->getRepository(Recipe::class)->find($recipeId);
         if (!$recipe instanceof Recipe) {
             return $this->view(['data' => $this->createForm(IngredientType::class)], Codes::HTTP_BAD_REQUEST);
         }
 
-        /** @var RecipeRelatedRepository $repo */
         $repo = $em->getRepository(Ingredient::class);
-        $entity = new Ingredient();
-        $entity->setPosition($repo->getNextPosition($recipe->getId()));
-        $entity->setRecipe($recipe);
+        $ingredient = new Ingredient();
+        $ingredient->setPosition($repo->getNextPosition($recipe->getId()));
+        $ingredient->setRecipe($recipe);
 
-        $form = $this->createForm(IngredientType::class, $entity);
+        $form = $this->createForm(IngredientType::class, $ingredient);
         $form->handleRequest($request);
 
         if (!$form->isValid()) {
             return $this->view(['data' => $form], Codes::HTTP_BAD_REQUEST);
         }
 
-        $em->persist($entity);
+        $em->persist($ingredient);
         $em->flush();
 
-        return $this->routeRedirectView('barra_api_get_ingredient', [
-            'id' => $entity->getId(),
+        return $this->routeRedirectView('barra_api_get_recipe_ingredient', [
+            'recipeId' => $recipeId,
+            'id' => $ingredient->getId(),
             '_format' => $request->get('_format'),
         ]);
     }
 
     /**
-     * @param Request $request
+     * @param int $recipeId
      * @param int $id
+     * @param Request $request
      *
      * @return View
      */
-    public function putAction(Request $request, $id)
+    public function putAction($recipeId, $id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository(Ingredient::class)->find($id);
+        $ingredient = $em->getRepository(Ingredient::class)->find($id);
 
-        if (!$entity instanceof Ingredient) {
+        if (!$ingredient instanceof Ingredient || (int) $recipeId !== $ingredient->getRecipe()->getId()) {
             return $this->view(null, Codes::HTTP_NOT_FOUND);
         }
 
-        $form = $this->createForm(IngredientType::class, $entity, ['method' => $request->getMethod()]);
+        $form = $this->createForm(IngredientType::class, $ingredient, ['method' => $request->getMethod()]);
         $form->handleRequest($request);
 
         if (!$form->isValid()) {
@@ -179,9 +145,10 @@ class IngredientController extends FOSRestController implements ClassResourceInt
         $em->flush();
 
         return $this->routeRedirectView(
-            'barra_api_get_ingredient',
+            'barra_api_get_recipe_ingredient',
             [
-                'id' => $entity->getId(),
+                'recipeId' => $recipeId,
+                'id' => $id,
                 '_format' => $request->get('_format'),
             ],
             Codes::HTTP_NO_CONTENT
@@ -189,24 +156,25 @@ class IngredientController extends FOSRestController implements ClassResourceInt
     }
 
     /**
+     * @param int $recipeId
      * @param int $id
      *
      * @return View
      */
-    public function deleteAction($id)
+    public function deleteAction($recipeId, $id)
     {
-        $entity = $this->getDoctrine()->getManager()->getRepository(Ingredient::class)->find($id);
+        $ingredient = $this->getDoctrine()->getManager()->getRepository(Ingredient::class)->find($id);
 
-        if (null === $entity) {
+        if (null === $ingredient || (int) $recipeId !== $ingredient->getRecipe()->getId()) {
             return $this->view(null, Codes::HTTP_NOT_FOUND);
         }
 
-        if (!$entity->isRemovable()) {
+        if (!$ingredient->isRemovable()) {
             return $this->view(null, Codes::HTTP_CONFLICT);
         }
 
         $em = $this->getDoctrine()->getManager();
-        $em->remove($entity);
+        $em->remove($ingredient);
         $em->flush();
 
         return $this->view(null, Codes::HTTP_NO_CONTENT);
