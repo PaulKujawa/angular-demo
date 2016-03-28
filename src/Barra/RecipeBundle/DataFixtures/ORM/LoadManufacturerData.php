@@ -7,30 +7,29 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-/**
- * Class LoadManufacturerData
- * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RecipeBundle\DataFixtures\ORM
- */
 class LoadManufacturerData extends AbstractFixture implements OrderedFixtureInterface
 {
     static public $members = [];
 
+    /**
+     * {@inheritdoc}
+     */
     public function load(ObjectManager $em)
     {
         self::$members[] = $this->instantiate('Manufacturer1');
         self::$members[] = $this->instantiate('Manufacturer2');
         self::$members[] = $this->instantiate('Manufacturer3');
 
-        foreach (self::$members as $i => $e) {
-            $this->addReference('refManufacturer'.($i+1), $e);
-            $em->persist($e);
-        }
+        array_walk(self::$members, function($member, $i) use ($em) {
+            $this->addReference('refManufacturer' . ($i + 1), $member);
+            $em->persist($member);
+        });
         $em->flush();
     }
 
     /**
      * @param string $name
+     *
      * @return Manufacturer
      */
     protected function instantiate($name)
@@ -41,6 +40,9 @@ class LoadManufacturerData extends AbstractFixture implements OrderedFixtureInte
         return $entity;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getOrder()
     {
         return 2;

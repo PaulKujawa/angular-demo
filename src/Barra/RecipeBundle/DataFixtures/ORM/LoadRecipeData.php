@@ -7,30 +7,29 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-/**
- * Class LoadRecipeData
- * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RecipeBundle\DataFixtures\ORM
- */
 class LoadRecipeData extends AbstractFixture implements OrderedFixtureInterface
 {
     static public $members = [];
 
+    /**
+     * {@inheritdoc}
+     */
     public function load(ObjectManager $em)
     {
         self::$members[] = $this->instantiate('Recipe1');
         self::$members[] = $this->instantiate('Recipe2');
         self::$members[] = $this->instantiate('Recipe3');
 
-        foreach (self::$members as $i => $e) {
-            $this->addReference('refRecipe'.($i+1), $e);
-            $em->persist($e);
-        }
+        array_walk(self::$members, function($member, $i) use ($em) {
+            $this->addReference('refRecipe' . ($i + 1), $member);
+            $em->persist($member);
+        });
         $em->flush();
     }
 
     /**
      * @param string $name
+     *
      * @return Recipe
      */
     protected function instantiate($name)
@@ -41,6 +40,9 @@ class LoadRecipeData extends AbstractFixture implements OrderedFixtureInterface
         return $entity;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getOrder()
     {
         return 4;

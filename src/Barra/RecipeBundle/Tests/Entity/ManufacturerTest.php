@@ -4,22 +4,21 @@ namespace Barra\RecipeBundle\Tests\Entity;
 
 use Barra\RecipeBundle\Entity\Manufacturer;
 use Barra\RecipeBundle\Entity\Product;
+use PHPUnit_Framework_Error;
 
-/**
- * Class ManufacturerTest
- * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RecipeBundle\Tests\Entity
- */
 class ManufacturerTest extends \PHPUnit_Framework_TestCase
 {
-    const SELF_FQDN         = 'Barra\RecipeBundle\Entity\Manufacturer';
-    const PRODUCT_FQDN      = 'Barra\RecipeBundle\Entity\Product';
-    const ID                = 2;
-    const NAME              = 'demoName';
+    const SELF_FQDN = 'Barra\RecipeBundle\Entity\Manufacturer';
+    const PRODUCT_FQDN = 'Barra\RecipeBundle\Entity\Product';
+    const ID = 2;
+    const NAME = 'demoName';
 
     /** @var  Manufacturer */
     protected $model;
 
+    /**
+     * {@inheritdoc}
+     */
     public function setUp()
     {
         $this->model = new Manufacturer();
@@ -31,7 +30,7 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
     public function testGetId()
     {
         $reflected = new \ReflectionClass(self::SELF_FQDN);
-        $idField   = $reflected->getProperty('id');
+        $idField = $reflected->getProperty('id');
         $idField->setAccessible(true);
         $idField->setValue($this->model, self::ID);
 
@@ -52,6 +51,7 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testSetName
+     *
      * @param Manufacturer $self
      */
     public function testGetName(Manufacturer $self)
@@ -64,7 +64,7 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddProduct()
     {
-        $mock     = $this->getMock(self::PRODUCT_FQDN);
+        $mock = $this->getMock(self::PRODUCT_FQDN);
         $resource = $this->model->addProduct($mock);
         $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
@@ -73,23 +73,25 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testAddProduct
+     *
      * @param Manufacturer $self
+     *
      * @return Product
      */
     public function testGetProducts(Manufacturer $self)
     {
-        $products  = $self->getProducts();
+        $products = $self->getProducts();
         $this->assertCount(1, $products);
-        $product   = $products[0];
 
-        return $product;
+        return $products[0];
     }
 
     /**
      * @depends testAddProduct
      * @depends testGetProducts
-     * @param Manufacturer  $self
-     * @param Product       $product
+     *
+     * @param Manufacturer $self
+     * @param Product $product
      */
     public function testRemoveProduct(Manufacturer $self, Product $product)
     {
@@ -108,7 +110,7 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \PHPUnit_Framework_Error
+     * @expectedException PHPUnit_Framework_Error
      */
     public function testAddInvalidProduct()
     {
@@ -116,7 +118,7 @@ class ManufacturerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \PHPUnit_Framework_Error
+     * @expectedException PHPUnit_Framework_Error
      */
     public function testRemoveInvalidProduct()
     {

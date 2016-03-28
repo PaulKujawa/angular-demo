@@ -26,6 +26,7 @@ trait NameTrait
 
     /**
      * @param string $name
+     *
      * @return $this
      */
     public function setName($name)

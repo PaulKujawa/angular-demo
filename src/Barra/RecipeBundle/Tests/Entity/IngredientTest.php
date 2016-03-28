@@ -6,26 +6,25 @@ use Barra\RecipeBundle\Entity\Ingredient;
 use Barra\RecipeBundle\Entity\Measurement;
 use Barra\RecipeBundle\Entity\Product;
 use Barra\RecipeBundle\Entity\Recipe;
+use PHPUnit_Framework_Error;
 
-/**
- * Class IngredientTest
- * @author Paul Kujawa <p.kujawa@gmx.net>
- * @package Barra\RecipeBundle\Tests\Entity
- */
 class IngredientTest extends \PHPUnit_Framework_TestCase
 {
-    const SELF_FQDN         = 'Barra\RecipeBundle\Entity\Ingredient';
-    const RECIPE_FQDN       = 'Barra\RecipeBundle\Entity\Recipe';
-    const PRODUCT_FQDN      = 'Barra\RecipeBundle\Entity\Product';
-    const MEASUREMENT_FQDN  = 'Barra\RecipeBundle\Entity\Measurement';
-    const ID                = 222;
-    const PRODUCT_ID        = 333;
-    const POSITION          = 22;
-    const AMOUNT            = 11;
+    const SELF_FQDN = 'Barra\RecipeBundle\Entity\Ingredient';
+    const RECIPE_FQDN = 'Barra\RecipeBundle\Entity\Recipe';
+    const PRODUCT_FQDN = 'Barra\RecipeBundle\Entity\Product';
+    const MEASUREMENT_FQDN = 'Barra\RecipeBundle\Entity\Measurement';
+    const ID = 222;
+    const PRODUCT_ID = 333;
+    const POSITION = 22;
+    const AMOUNT = 11;
 
     /** @var  Ingredient */
     protected $model;
 
+    /**
+     * {@inheritdoc}
+     */
     public function setUp()
     {
         $this->model = new Ingredient();
@@ -44,6 +43,7 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testSetPosition
+     *
      * @param Ingredient $self
      */
     public function testGetPosition(Ingredient $self)
@@ -64,6 +64,7 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testSetAmount
+     *
      * @param Ingredient $self
      */
     public function testGetAmount(Ingredient $self)
@@ -76,7 +77,7 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetRecipe()
     {
-        $mock     = $this->getMock(self::RECIPE_FQDN);
+        $mock = $this->getMock(self::RECIPE_FQDN);
         $resource = $this->model->setRecipe($mock);
         $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
@@ -85,6 +86,7 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testSetRecipe
+     *
      * @param Ingredient $self
      */
     public function testGetRecipe(Ingredient $self)
@@ -97,7 +99,7 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetProduct()
     {
-        $mock     = $this->getMock(self::PRODUCT_FQDN);
+        $mock = $this->getMock(self::PRODUCT_FQDN);
         $resource = $this->model->setProduct($mock);
         $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
@@ -106,6 +108,7 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testSetProduct
+     *
      * @param Ingredient $self
      */
     public function testGetProduct(Ingredient $self)
@@ -118,7 +121,7 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetMeasurement()
     {
-        $mock     = $this->getMock(self::MEASUREMENT_FQDN);
+        $mock = $this->getMock(self::MEASUREMENT_FQDN);
         $resource = $this->model->setMeasurement($mock);
         $this->assertInstanceOf(self::SELF_FQDN, $resource);
 
@@ -127,6 +130,7 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testSetMeasurement
+     *
      * @param Ingredient $self
      */
     public function testGetMeasurement(Ingredient $self)
@@ -140,14 +144,15 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param string    $field
-     * @param mixed     $value
-     * @expectedException \PHPUnit_Framework_Error
+     * @expectedException PHPUnit_Framework_Error
      * @dataProvider providerSetInvalidComplexValues
+     *
+     * @param string $field
+     * @param mixed $value
      */
     public function testSetInvalidComplexValues($field, $value)
     {
-        $this->model->{'set'.ucfirst($field)}($value);
+        $this->model->{'set' . ucfirst($field)}($value);
     }
 
     /**

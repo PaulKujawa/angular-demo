@@ -24,7 +24,7 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @return int
+     * {@inheritdoc}
      */
     public function getId()
     {
