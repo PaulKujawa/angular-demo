@@ -18,29 +18,6 @@ class BasicController extends Controller
      */
     protected function getPaginationPages($range = 10)
     {
-        if ($range < 1) {
-            throw new \InvalidArgumentException();
-        }
-
-        $repoTitle = 'BarraRecipeBundle:' . ucfirst($this->getEntityClass());
-
-        /** @var BasicRepository $repo */
-        $repo = $this->getDoctrine()->getManager()->getRepository($repoTitle);
-
-        return ceil($repo->count() / $range);
-    }
-
-    /**
-     * @return string
-     */
-    protected function getEntityClass()
-    {
-        if (null === $this->entityClass) {
-            $className = get_class($this);
-            $className = substr($className, strrpos($className, '\\') + 1, -10);
-            $this->entityClass = ucfirst($className);
-        }
-
-        return $this->entityClass;
+        return ceil(10 / $range); // TODO mocked pagination
     }
 }

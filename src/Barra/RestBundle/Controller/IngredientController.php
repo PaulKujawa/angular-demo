@@ -5,7 +5,6 @@ namespace Barra\RestBundle\Controller;
 use Barra\RecipeBundle\Entity\Ingredient;
 use Barra\RecipeBundle\Entity\Recipe;
 use Barra\RecipeBundle\Form\IngredientType;
-use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
