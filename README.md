@@ -1,5 +1,6 @@
-# Just my crib
+# Notes for my home project
 ---
+[![Build Status](https://travis-ci.com/barraSargtlin/vpit.svg?token=uX8iz9gHcJk5sGqwqgvR&branch=master)](https://travis-ci.com/barraSargtlin/vpit)
 
 ### DEPLOY
 * OpenSSL (JWT)             `openssl genrsa -out app/var/jwt/private.pem -aes256 4096`
