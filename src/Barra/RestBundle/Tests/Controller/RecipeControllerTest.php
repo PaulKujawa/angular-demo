@@ -27,23 +27,11 @@ class RecipeControllerTest extends WebTestCase
     public function setUp()
     {
         $this->loadFixtures([LoadUserData::class, LoadRecipeData::class]);
-        $this->client = static::createClient();
-        $csrfToken = $this->client->getContainer()->get('form.csrf_provider')->generateCsrfToken('authenticate');
 
-        $this->client->request(
-            'POST',
-            '/en/admino/login_check',
-            [
-                '_username' => 'demoSA',
-                '_password' => 'testo',
-                '_csrf_token' => $csrfToken,
-            ]
-        );
+        $this->client = static::createClient();
+        $this->client->request('POST', '/en/admino/login_check', ['_username' => 'demoSA', '_password' => 'testo']);
 
         $response = json_decode($this->client->getResponse()->getContent(), true);
-        $this->assertArrayHasKey('token', $response);
-
-        $this->client = static::createClient(); // without (recent/any) session
         $this->client->setServerParameter('HTTP_Authorization', 'Bearer ' . $response['token']);
     }
 
@@ -75,74 +63,6 @@ class RecipeControllerTest extends WebTestCase
 
         $this->client->request('GET', '/en/api/recipes');
         $this->validateResponse(Codes::HTTP_BAD_REQUEST);
-    }
-
-    public function testCount()
-    {
-        $this->client->request('GET', '/en/api/recipes/count');
-        $this->validateResponse(Codes::HTTP_OK, '{"data":"3"}');
-    }
-
-    public function testGetIngredients()
-    {
-        $this->loadFixtures([
-            LoadUserData::class,
-            LoadManufacturerData::class,
-            LoadMeasurementData::class,
-            LoadRecipeData::class,
-            LoadProductData::class,
-            LoadIngredientData::class,
-        ]);
-
-        $this->client->request('GET', '/en/api/recipes/1/ingredients');
-        $this->validateResponse(
-            Codes::HTTP_OK,
-            '{"data":[' .
-                '{"amount":1,"id":1,"position":1},' .
-                '{"amount":2,"id":2,"position":2}' .
-            ']}'
-        );
-
-        $this->client->request('GET', '/en/api/recipes/0/ingredients');
-        $this->validateResponse(Codes::HTTP_NOT_FOUND);
-    }
-
-    public function testGetCookings()
-    {
-        $this->loadFixtures([LoadUserData::class, LoadRecipeData::class, LoadCookingData::class]);
-        $this->client->request('GET', '/en/api/recipes/1/cookings');
-        $this->validateResponse(
-            Codes::HTTP_OK,
-            '{"data":[' .
-                '{"description":"1th step","id":1,"position":1},' .
-                '{"description":"2th step","id":2,"position":2},' .
-                '{"description":"3th step","id":3,"position":3}' .
-            ']}'
-        );
-
-        $this->client->request('GET', '/en/api/recipes/0/cookings');
-        $this->validateResponse(Codes::HTTP_NOT_FOUND);
-    }
-
-    public function testGetPhotos()
-    {
-        $this->loadFixtures([LoadUserData::class, LoadRecipeData::class, LoadPhotoData::class]);
-        $this->client->request('GET', '/en/api/recipes/1/photos');
-        preg_match(
-            "/.*\"filename\":\"(.*jpeg).*\"filename\":\"(.*jpeg)/",
-            $this->client->getResponse()->getContent(), $matches
-        );
-
-        $this->validateResponse(
-            Codes::HTTP_OK,
-            '{"data":[' .
-                '{"path":"images\/uploads","id":1,"filename":"' . $matches[1] . '","size":145263},' .
-                '{"path":"images\/uploads","id":2,"filename":"' . $matches[2] . '","size":145263}' .
-            ']}'
-        );
-
-        $this->client->request('GET', '/en/api/recipes/0/photos');
-        $this->validateResponse(Codes::HTTP_NOT_FOUND);
     }
 
     public function testPost()

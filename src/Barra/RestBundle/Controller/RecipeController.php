@@ -32,7 +32,7 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
      * @param string $orderBy
      * @param string $order
      *
-     * @return array
+     * @return View
      */
     public function cgetAction($offset, $limit, $orderBy, $order)
     {
@@ -54,48 +54,6 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
      *
      * @return View
      */
-    public function getIngredientsAction($id)
-    {
-        $entity = $this->getDoctrine()->getManager()->getRepository(Recipe::class)->find($id);
-
-        return null === $entity
-            ? $this->view(null, Codes::HTTP_NOT_FOUND)
-            : $this->view(['data' => $entity->getIngredients()]);
-    }
-
-    /**
-     * @param int $id
-     *
-     * @return View
-     */
-    public function getCookingsAction($id)
-    {
-        $entity = $this->getDoctrine()->getManager()->getRepository(Recipe::class)->find($id);
-
-        return null === $entity
-            ? $this->view(null, Codes::HTTP_NOT_FOUND)
-            : $this->view(['data' => $entity->getCookings()]);
-    }
-
-    /**
-     * @param int $id
-     *
-     * @return View
-     */
-    public function getPhotosAction($id)
-    {
-        $entity = $this->getDoctrine()->getManager()->getRepository(Recipe::class)->find($id);
-
-        return null === $entity
-            ? $this->view(null, Codes::HTTP_NOT_FOUND)
-            : $this->view(['data' => $entity->getPhotos()]);
-    }
-
-    /**
-     * @param int $id
-     *
-     * @return View
-     */
     public function getAction($id)
     {
         $entity = $this->getDoctrine()->getManager()->getRepository(Recipe::class)->find($id);
@@ -103,20 +61,6 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
         return null === $entity
             ? $this->view(null, Codes::HTTP_NOT_FOUND)
             : $this->view(['data' => $entity]);
-    }
-
-    /**
-     * @param int $id
-     *
-     * @return View
-     */
-    public function getRecipeAction($id)
-    {
-        $entity = $this->getDoctrine()->getManager()->getRepository(Recipe::class)->find($id);
-
-        return null === $entity
-            ? $this->view(null, Codes::HTTP_NOT_FOUND)
-            : $this->view(['data' => $entity->getRecipe()]);
     }
 
     /**

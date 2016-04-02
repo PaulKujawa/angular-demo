@@ -25,23 +25,11 @@ class ProductControllerTest extends WebTestCase
     public function setUp()
     {
         $this->loadFixtures([LoadUserData::class, LoadManufacturerData::class, LoadProductData::class]);
-        $this->client = static::createClient();
-        $csrfToken = $this->client->getContainer()->get('form.csrf_provider')->generateCsrfToken('authenticate');
 
-        $this->client->request(
-            'POST',
-            '/en/admino/login_check',
-            [
-                '_username' => 'demoSA',
-                '_password' => 'testo',
-                '_csrf_token' => $csrfToken,
-            ]
-        );
+        $this->client = static::createClient();
+        $this->client->request('POST', '/en/admino/login_check', ['_username' => 'demoSA', '_password' => 'testo']);
 
         $response = json_decode($this->client->getResponse()->getContent(), true);
-        $this->assertArrayHasKey('token', $response);
-
-        $this->client = static::createClient(); // without (recent/any) session
         $this->client->setServerParameter('HTTP_Authorization', 'Bearer ' . $response['token']);
     }
 
@@ -88,12 +76,6 @@ class ProductControllerTest extends WebTestCase
 
         $this->client->request('GET', '/en/api/products');
         $this->validateResponse(Codes::HTTP_BAD_REQUEST);
-    }
-
-    public function testCount()
-    {
-        $this->client->request('GET', '/en/api/products/count');
-        $this->validateResponse(Codes::HTTP_OK, '{"data":"4"}');
     }
 
     public function testGetRecipe()
