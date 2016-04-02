@@ -80,16 +80,13 @@ class RecipeController extends BasicController
      */
     public function recipesPublicAction($page)
     {
-        /** @var BasicRepository $repo */
         $offset = ($page-1)*self::LIMIT +1;
-        $repo = $this->getDoctrine()->getManager()->getRepository('BarraRecipeBundle:Recipe');
-        $recipes = $repo->getSome($offset, self::LIMIT, 'name');
-        $pages = $repo->count();
-        $pages = ceil($pages/self::LIMIT);
+        $recipes = $this->getDoctrine()->getManager()->getRepository(Recipe::class)
+            ->findBy([], ['name' => 'ASC'], self::LIMIT, $offset);
 
         return $this->render(':recipe/view:recipes.html.twig', [
             'page' => $page,
-            'pages' => $pages,
+            'pages' => 5, // TODO mocked
             'recipes' => $recipes,
         ]);
     }
@@ -124,18 +121,18 @@ class RecipeController extends BasicController
     }
 
     /**
-     * @param array $ingredients
+     * @param Ingredient[] $ingredients
      *
      * @return array
      */
     protected function calculateMacros(array $ingredients)
     {
-        $macros = ['kcal' => 0, 'carbs' => 0, 'protein' => 0, 'fat' => 0];
-
         $ingredients = array_filter($ingredients, function($ingredient) {
-           return null !== $ingredient->getAmount();
+            /** @var Ingredient $ingredient */
+            return null !== $ingredient->getAmount();
         });
 
+        $macros = ['kcal' => 0, 'carbs' => 0, 'protein' => 0, 'fat' => 0];
         /** @var Ingredient $ingredient */
         foreach ($ingredients as $ingredient) {
             $gr = 0 !== $ingredient->getMeasurement()->getGr()

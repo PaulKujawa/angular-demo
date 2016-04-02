@@ -23,7 +23,7 @@ class ProductType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'attr'      => [
+                'attr' => [
                     'placeholder' => 'recipe.product.name',
                 ],
             ])
@@ -31,49 +31,49 @@ class ProductType extends AbstractType
                 'required' => false,
             ])
             ->add('gr', IntegerType::class, [
-                'attr'      => [
+                'attr' => [
                     'placeholder' => 'recipe.product.gr',
                 ],
             ])
             ->add('kcal', IntegerType::class, [
-                'attr'      => [
+                'attr' => [
                     'placeholder' => 'recipe.product.kcal',
                 ],
             ])
             ->add('protein', NumberType::class, [
                 'precision' => 2,
-                'attr'      => [
+                'attr' => [
                     'placeholder' => 'recipe.product.protein',
                 ],
             ])
             ->add('carbs', NumberType::class, [
                 'precision' => 2,
-                'attr'      => [
+                'attr' => [
                     'placeholder' => 'recipe.product.carbs',
                 ],
             ])
             ->add('sugar', NumberType::class, [
                 'precision' => 2,
-                'attr'      => [
+                'attr' => [
                     'placeholder' => 'recipe.product.sugar',
                 ],
             ])
             ->add('fat', NumberType::class, [
                 'precision' => 2,
-                'attr'      => [
+                'attr' => [
                     'placeholder' => 'recipe.product.fat',
                 ],
             ])
             ->add('gfat', NumberType::class, [
                 'precision' => 2,
-                'attr'      => [
+                'attr' => [
                     'placeholder' => 'recipe.product.gfat',
                 ],
             ])
             ->add('manufacturer', EntityType::class, [
-                'class'     => 'BarraRecipeBundle:Manufacturer',
-                'property'  => 'name',
-                'attr'      => [
+                'class' => 'BarraRecipeBundle:Manufacturer',
+                'property' => 'name',
+                'attr' => [
                     'placeholder' => 'recipe.manufacturer.name',
                 ],
                 'query_builder' => function (EntityRepository $er) {
@@ -92,8 +92,8 @@ class ProductType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class'        => Product::class,
-            'csrf_protection'   => false,
+            'data_class' => Product::class,
+            'csrf_protection' => false,
         ]);
     }
 }
