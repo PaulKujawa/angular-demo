@@ -120,15 +120,19 @@ class RecipeController extends Controller
     protected function calculateMacros(array $ingredients)
     {
         $ingredients = array_filter($ingredients, function($ingredient) {
-            /** @var Ingredient $ingredient */
+            /**
+             * @var Ingredient $ingredient
+             */
             return null !== $ingredient->getAmount();
         });
 
         $macros = ['kcal' => 0, 'carbs' => 0, 'protein' => 0, 'fat' => 0];
-        /** @var Ingredient $ingredient */
+        /**
+         * @var Ingredient $ingredient
+         */
         foreach ($ingredients as $ingredient) {
             $gr = 0 !== $ingredient->getMeasurement()->getGr()
-                ? $ingredient->getAmount()
+                ? $ingredient->getAmount()/100
                 : $ingredient->getProduct()->getGr();
 
             $rel = $gr/100;
