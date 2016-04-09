@@ -4,19 +4,17 @@ namespace Barra\RecipeBundle\Controller;
 
 use Barra\RecipeBundle\Entity\Cooking;
 use Barra\RecipeBundle\Entity\Ingredient;
-use Barra\RecipeBundle\Entity\Repository\BasicRepository;
 use Barra\RecipeBundle\Form\CookingType;
 use Barra\RecipeBundle\Form\IngredientType;
 use Barra\RecipeBundle\Form\PhotoType;
 use Barra\RecipeBundle\Form\RecipeType;
 use Barra\RecipeBundle\Entity\Recipe;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
-class RecipeController extends BasicController
+class RecipeController extends Controller
 {
-    const LIMIT = 6;
-
     /**
      * @Route("/admino/recipes/{page}", name="barra_recipe_recipes_admin", defaults={"page" = 1}, requirements={
      *      "page" = "\d+"
@@ -30,8 +28,6 @@ class RecipeController extends BasicController
         $form = $this->createForm(RecipeType::class);
 
         return $this->render(':recipe/manage:recipes.html.twig', [
-            'page' => $page,
-            'pages' => $this->getPaginationPages(),
             'form' => $form->createView(),
         ]);
     }
@@ -80,13 +76,9 @@ class RecipeController extends BasicController
      */
     public function recipesPublicAction($page)
     {
-        $offset = ($page-1)*self::LIMIT +1;
-        $recipes = $this->getDoctrine()->getManager()->getRepository(Recipe::class)
-            ->findBy([], ['name' => 'ASC'], self::LIMIT, $offset);
+        $recipes = $this->getDoctrine()->getManager()->getRepository(Recipe::class)->findBy([], ['name' => 'ASC']);
 
         return $this->render(':recipe/view:recipes.html.twig', [
-            'page' => $page,
-            'pages' => 5, // TODO mocked
             'recipes' => $recipes,
         ]);
     }

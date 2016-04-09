@@ -4,9 +4,11 @@ namespace Barra\RecipeBundle\Controller;
 
 use Barra\RecipeBundle\Form\ManufacturerType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
-class ManufacturerController extends BasicController
+
+class ManufacturerController extends Controller
 {
     /**
      * @Route("/admino/recipes/{page}", name="barra_recipe_manufacturers", defaults={"page" = 1}, requirements={
@@ -22,8 +24,6 @@ class ManufacturerController extends BasicController
         $form = $this->createForm(ManufacturerType::class);
 
         return $this->render(':manufacturer:manufacturers.html.twig', [
-            'page' => $page,
-            'pages' => $this->getPaginationPages(),
             'form' => $form->createView(),
         ]);
     }

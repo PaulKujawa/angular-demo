@@ -2,6 +2,11 @@
 ---
 [![Build Status](https://travis-ci.com/barraSargtlin/vpit.svg?token=uX8iz9gHcJk5sGqwqgvR&branch=master)](https://travis-ci.com/barraSargtlin/vpit)
 
+### ToDo
+* pagination (KnpPaginationBundle?)
+* angular2 basic implementation
+* gulp tasks in typescript
+
 ### DEPLOY
 * OpenSSL (JWT)             `openssl genrsa -out app/var/jwt/private.pem -aes256 4096`
                             `openssl rsa -pubout -in app/var/jwt/private.pem -out app/var/jwt/public.pem`
