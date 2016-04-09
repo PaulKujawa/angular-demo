@@ -1,48 +1,37 @@
-# Cache and logs (Symfony2)
-/app/cache/*
-/app/logs/*
-/app/var/jwt/*
-!app/var/jwt/public-test.pem
-!app/var/jwt/private-test.pem
-!app/cache/.gitkeep
-!app/logs/.gitkeep
-
-# Cache and logs (Symfony3)
-/var/cache/*
-/var/logs/*
-!var/cache/.gitkeep
-!var/logs/.gitkeep
-
-# Parameters
 /app/config/parameters.yml
+/build/
+/phpunit.xml
+/var/*
+!/var/cache
+/var/cache/*
+!var/cache/.gitkeep
+!/var/logs
+/var/logs/*
+!var/logs/.gitkeep
+!/var/sessions
+/var/sessions/*
+!var/sessions/.gitkeep
+!var/SymfonyRequirements.php
+/vendor/
 
 # Managed by Composer
-/app/bootstrap.php.cache
-/var/bootstrap.php.cache
 /bin/*
 !bin/console
 !bin/symfony_requirements
-/vendor/
+
+# JWT
+/app/var/jwt/*
+!app/var/jwt/public-test.pem
+!app/var/jwt/private-test.pem
+
+# Frontend
+/web/images/*
+!/web/images/kujawa.jpg
+!/web/images/uploads/fixture.jpg
+/web/jspm/*
+!/web/jspm/config.js
 /node_modules/
 
-# Web
-/web/bundles/
-/web/css/
-/web/js/
-/web/images/
-/web/jspm/packages/
-!/web/images/kujawa.jpg
-
-# Build data
-/build/ccHTML/*
-/build/logs/*
-/build/pdepend/*
-!build/ccHTML/.gitkeep
-!build/logs/.gitkeep
-!build/pdepend/.gitkeep
-
-
 # Mix
-*~
 .idea/
 .htaccess
