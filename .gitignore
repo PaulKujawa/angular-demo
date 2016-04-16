@@ -1,36 +1,31 @@
+# app + bin
 /app/config/parameters.yml
-/build/
-/phpunit.xml
-/var/*
-!/var/cache
-/var/cache/*
-!var/cache/.gitkeep
-!/var/logs
-/var/logs/*
-!var/logs/.gitkeep
-!/var/sessions
-/var/sessions/*
-!var/sessions/.gitkeep
-!var/SymfonyRequirements.php
-/vendor/
-
-# Managed by Composer
 /bin/*
 !bin/console
 !bin/symfony_requirements
 
 # JWT
-/app/var/jwt/*
+/app/var/jwt
 !app/var/jwt/public-test.pem
 !app/var/jwt/private-test.pem
 
-# Frontend
+# var
+/var/*
+!var/SymfonyRequirements.php
+
+# vendors
+/vendor
+/node_modules
+/typings
+
+# web
+/web/bundles
 /web/images/*
 !/web/images/kujawa.jpg
+!web/images/uploads
 !/web/images/uploads/fixture.jpg
 /web/jspm/*
 !/web/jspm/config.js
-/node_modules/
 
 # Mix
 .idea/
