@@ -2,19 +2,26 @@
 ---
 [![Build Status](https://travis-ci.com/barraSargtlin/vpit.svg?token=uX8iz9gHcJk5sGqwqgvR&branch=master)](https://travis-ci.com/barraSargtlin/vpit)
 
-### ToDo
-* pagination (KnpPaginationBundle?)
-* angular2 basic implementation
-* gulp tasks in typescript
-
 ### DEPLOY
-* OpenSSL (JWT)             `openssl genrsa -out app/var/jwt/private.pem -aes256 4096`
+* build                     `bin/build <dev|prod> [-w]`
+* optional (JWT)            `openssl genrsa -out app/var/jwt/private.pem -aes256 4096`
                             `openssl rsa -pubout -in app/var/jwt/private.pem -out app/var/jwt/public.pem`
-* php vendors               `composer install`
-* db migration              `bin/console doctrine:migrations:diff`
-* clear cache               `bin/console cache:clear [--env=prod]`
-* js vendors                `jspm install`
-* gulp                      `npm install gulp && gulp sass`
+
+
+### JS DI structure
+* npm
+    * package.json = config
+    * node_modules = vendors
+* jspm
+    * package.json = config
+    * web/jspm/config.js = lock
+    * web/jspm/packages = vendors
+* typeScript
+    * tsconfig.json = config
+    * typings.json = lock
+    * typings = vendors
+* gulp
+    * gulpfile.js --> app/gulp
 
 
 ### Debug
@@ -38,6 +45,3 @@
   * deploy
     * execute 1 migration   `bin/console doctrine:migrations:execute version`
     * migrate to version    `bin/console doctrine:migrations:migrate [version]`
-
-### Mix
-* access hidden form type   `$request->request->all()[0]['field']`

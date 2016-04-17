@@ -22,6 +22,7 @@
 
 # web
 /web/bundles
+/web/css
 /web/images/*
 !/web/images/kujawa.jpg
 !web/images/uploads
