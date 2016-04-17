@@ -2,6 +2,7 @@
 /app/config/parameters.yml
 /bin/*
 !bin/console
+!bin/build
 !bin/symfony_requirements
 
 # JWT
@@ -10,8 +11,9 @@
 !app/var/jwt/private-test.pem
 
 # var
-/var/*
-!var/SymfonyRequirements.php
+/var/cache
+/var/sessions
+/var/logs
 
 # vendors
 /vendor
