@@ -7,21 +7,21 @@ security:
 
     firewalls:
         admino:
-            pattern:                      ^/[a-z][a-z]/admino/.*
+            pattern:                      ^/[a-z][a-z]/admino
             anonymous:                    true                      # to allow anonymous in access_control below
             form_login:
                 require_previous_session: false                     # no session required for auth. request (funcTests)
                 provider:                 fos_userbundle
-                login_path:               fos_user_security_login   # render login view and form
-                check_path:               fos_user_security_check   # checks credentials
-                default_target_path:      barra_back_user           # default redirect when user just targeted /login
-                success_handler:          lexik_jwt_authentication.handler.authentication_success   # returns JWT
-                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
+                login_path:               fos_user_security_login   # form renderer
+                check_path:               fos_user_security_check   # checks credentials (form's action)
+                default_target_path:      barra_recipe_dashboard    # default redirect when user just targeted /login
+#                success_handler:          lexik_jwt_authentication.handler.authentication_success   # returns JWT
+#                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
             logout:
                 path:                     fos_user_security_logout
-                target:                   barra_recipe_root
+                target:                   barra_recipe_contact
         api:
-            pattern:                      ^/[a-z][a-z]/api/.*
+            pattern:                      ^/[a-z][a-z]/api
             provider:                     fos_userbundle
             stateless:                    true                      # anonymous key not enabled
             methods:                      [POST, PUT, DELETE]       # GET keeps public

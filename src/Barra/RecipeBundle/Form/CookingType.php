@@ -18,6 +18,7 @@ class CookingType extends AbstractType
     {
         $builder
             ->add('description', TextType::class, [
+                'label' => false,
                 'attr' => [
                     'placeholder' => 'recipe.cooking.description',
                 ],

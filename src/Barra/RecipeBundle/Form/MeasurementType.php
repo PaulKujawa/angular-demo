@@ -19,11 +19,13 @@ class MeasurementType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
+                'label' => false,
                 'attr' => [
                     'placeholder' => 'recipe.measurement.name',
                 ],
             ])
             ->add('gr', IntegerType::class, [
+                'label' => false,
                 'attr' => [
                     'placeholder' => 'recipe.measurement.gr',
                 ],

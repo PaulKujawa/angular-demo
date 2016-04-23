@@ -51,9 +51,6 @@ class Measurement
      */
     private $ingredients;
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
@@ -61,6 +58,7 @@ class Measurement
 
     /**
      * @param int $gr
+     *
      * @return $this
      */
     public function setGr($gr)
@@ -80,6 +78,7 @@ class Measurement
 
     /**
      * @param Ingredient $ingredients
+     *
      * @return $this
      */
     public function addIngredient(Ingredient $ingredients)
@@ -91,6 +90,7 @@ class Measurement
 
     /**
      * @param Ingredient $ingredients
+     *
      * @return $this
      */
     public function removeIngredient(Ingredient $ingredients)

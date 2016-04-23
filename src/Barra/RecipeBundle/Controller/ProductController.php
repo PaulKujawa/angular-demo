@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 class ProductController extends Controller
 {
     /**
-     * @Route("/admino/recipes/{page}", name="barra_recipe_products", defaults={"page" = 1}, requirements={
+     * @Route("/admino/products/{page}", name="barra_recipe_products", defaults={"page" = 1}, requirements={
      *      "page" = "\d+"
      * })
      *

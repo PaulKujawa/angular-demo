@@ -33,6 +33,7 @@ framework:
     assets: ~
 
 twig:
+    form_themes: ['bootstrap_3_layout.html.twig']         # or bootstrap_3_horizontal_layout.html.twig
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
 

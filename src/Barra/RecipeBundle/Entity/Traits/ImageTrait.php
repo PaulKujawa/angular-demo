@@ -89,6 +89,7 @@ trait ImageTrait
     /**
      * @VirtualProperty
      * @SerializedName("path")
+     *
      * @return string
      */
     public function getWebDirectory()

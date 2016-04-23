@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 class ManufacturerController extends Controller
 {
     /**
-     * @Route("/admino/recipes/{page}", name="barra_recipe_manufacturers", defaults={"page" = 1}, requirements={
+     * @Route("/admino/manufacturers/{page}", name="barra_recipe_manufacturers", defaults={"page" = 1}, requirements={
      *      "page" = "\d+"
      * })
      *

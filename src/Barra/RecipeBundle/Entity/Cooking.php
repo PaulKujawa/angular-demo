@@ -52,6 +52,7 @@ class Cooking
 
     /**
      * @param Recipe $recipe
+     *
      * @return $this
      */
     public function setRecipe(Recipe $recipe)

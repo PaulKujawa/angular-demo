@@ -106,6 +106,7 @@ class Ingredient
 
     /**
      * @param Recipe $recipe
+     *
      * @return $this
      */
     public function setRecipe(Recipe $recipe)
@@ -125,6 +126,7 @@ class Ingredient
 
     /**
      * @param int $amount
+     *
      * @return $this
      */
     public function setAmount($amount)
@@ -144,6 +146,7 @@ class Ingredient
 
     /**
      * @param Product $product
+     *
      * @return $this
      */
     public function setProduct(Product $product)
@@ -163,6 +166,7 @@ class Ingredient
 
     /**
      * @param Measurement $measurement
+     *
      * @return $this
      */
     public function setMeasurement(Measurement $measurement)
