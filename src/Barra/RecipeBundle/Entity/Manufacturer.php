@@ -46,6 +46,7 @@ class Manufacturer
 
     /**
      * @param Product $products
+     *
      * @return $this
      */
     public function addProduct(Product $products)
@@ -57,6 +58,7 @@ class Manufacturer
 
     /**
      * @param Product $product
+     *
      * @return $this
      */
     public function removeProduct(Product $product)

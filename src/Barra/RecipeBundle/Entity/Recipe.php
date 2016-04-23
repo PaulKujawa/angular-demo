@@ -72,6 +72,7 @@ class Recipe
 
     /**
      * @param Ingredient $ingredients
+     *
      * @return $this
      */
     public function addIngredient(Ingredient $ingredients)
@@ -83,6 +84,7 @@ class Recipe
 
     /**
      * @param Ingredient $cooking
+     *
      * @return $this
      */
     public function removeIngredient(Ingredient $cooking)
@@ -102,6 +104,7 @@ class Recipe
 
     /**
      * @param Cooking $cookings
+     *
      * @return $this
      */
     public function addCooking(Cooking $cookings)
@@ -113,6 +116,7 @@ class Recipe
 
     /**
      * @param Cooking $cooking
+     *
      * @return $this
      */
     public function removeCooking(Cooking $cooking)
@@ -132,6 +136,7 @@ class Recipe
     
     /**
      * @param Photo $photos
+     *
      * @return $this
      */
     public function addPhoto(Photo $photos)
@@ -143,6 +148,7 @@ class Recipe
 
     /**
      * @param Photo $photos
+     *
      * @return $this
      */
     public function removePhoto(Photo $photos)

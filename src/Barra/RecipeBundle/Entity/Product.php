@@ -197,6 +197,7 @@ class Product
 
     /**
      * @param boolean $vegan
+     *
      * @return $this
      */
     public function setVegan($vegan)
@@ -217,6 +218,7 @@ class Product
 
     /**
      * @param int $kcal
+     *
      * @return $this
      */
     public function setKcal($kcal)
@@ -236,6 +238,7 @@ class Product
 
     /**
      * @param int $gr
+     *
      * @return $this
      */
     public function setGr($gr)
@@ -255,6 +258,7 @@ class Product
 
     /**
      * @param double $protein
+     *
      * @return $this
      */
     public function setProtein($protein)
@@ -274,6 +278,7 @@ class Product
 
     /**
      * @param double $carbs
+     *
      * @return $this
      */
     public function setCarbs($carbs)
@@ -312,6 +317,7 @@ class Product
 
     /**
      * @param double $fat
+     *
      * @return $this
      */
     public function setFat($fat)
@@ -331,6 +337,7 @@ class Product
 
     /**
      * @param double $gfat
+     *
      * @return $this
      */
     public function setGfat($gfat)
@@ -350,6 +357,7 @@ class Product
 
     /**
      * @param Manufacturer $manufacturer
+     *
      * @return $this
      */
     public function setManufacturer(Manufacturer $manufacturer)
@@ -369,6 +377,7 @@ class Product
 
     /**
      * @param Ingredient $ingredient
+     *
      * @return $this
      */
     public function addIngredient(Ingredient $ingredient)
@@ -380,6 +389,7 @@ class Product
 
     /**
      * @param Ingredient $ingredient
+     *
      * @return $this
      */
     public function removeIngredient(Ingredient $ingredient)
