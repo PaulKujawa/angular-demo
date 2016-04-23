@@ -80,7 +80,6 @@
         {% block javascripts %}
             <script src="{{ asset('jspm/packages/system.js') }}"></script>
             <script src="{{ asset('jspm/config.js') }}"></script>
-            {#<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>#}
             <script>
                 System.import('js/app.js')
             </script>

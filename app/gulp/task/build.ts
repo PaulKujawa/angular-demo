@@ -7,6 +7,7 @@ const tasks = sequence(
     ],
     [
         'sass:concat',
+        'symfony:routing',
     ]
 );
 

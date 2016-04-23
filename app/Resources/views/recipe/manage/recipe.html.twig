@@ -1,82 +1,53 @@
 {% extends '::base.html.twig' %}
-{% form_theme formIngredient 'BarraRecipeBundle:Form:tableRow.html.twig' %}
-{% form_theme formCooking 'BarraRecipeBundle:Form:tableRow.html.twig' %}
 {% block title %}{{ recipe.name }}{% endblock %}
 
 {% block section %}
-    <section class="container mobileTables">
-        <form ng-controller="PhotoCtrl"  ng-init="recipeId={{recipe.id}}"
-              name="formPicture" id="dropzoneId" class="dropzone" method="post"
-              enctype="multipart/form-data" action="{{ path('barra_api_post_photo') }}"
-        >
-            <input type="hidden" name="formPhoto[recipe]" id="formPicture_recipe" value="{{ recipe.id }}">
-            <div class="dz-default dz-message">
-                <span class="glyphicon glyphicon-upload"></span>
+    <section class="container">
+        {#<form name="formPicture" id="dropzoneId" class="dropzone" method="post"#}
+              {#enctype="multipart/form-data" action="{{ path('barra_api_post_photo') }}"#}
+        {#>#}
+            {#<input type="hidden" name="formPhoto[recipe]" id="formPicture_recipe" value="{{ recipe.id }}">#}
+            {#<div class="dz-default dz-message">#}
+                {#<span class="glyphicon glyphicon-upload"></span>#}
+            {#</div>#}
+        {#</form>#}
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+                <div class="list-group">
+                    <div class="list-group-item" {#ng-repeat="product in products | orderBy:'name'"#}>
+                        {#[[product.name]]#}
+                    </div>
+                </div>
             </div>
-        </form>
+        </div>
 
-        <div ng-controller="IngredientCtrl" ng-init="recipeId={{recipe.id}}">
-            {{ include(':parts:form_validation.html.twig') }}
-
+        <div class="row">
             {{ form_start(formIngredient) }}
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>{{ 'recipe.ingredient.amount'|trans() }}</th>
-                            <th>{{ 'recipe.measurement.name'|trans() }}</th>
-                            <th>{{ 'recipe.word.product'|trans() }}</th>
-                            <th>{{ 'recipe.action.delete'|trans() }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="ingredient in ingredients | orderBy:'position'">
-                            <td data-mobile-title={{ 'recipe.ingredient.amount'|trans() }}>[[ingredient.amount]]</td>
-                            <td data-mobile-title={{ 'recipe.measurement.type'|trans() }}>[[ingredient.measurement.type]]</td>
-                            <td data-mobile-title={{ 'recipe.product.name'|trans() }}>[[ingredient.product.name]]</td>
-                            <td data-mobile-title={{ 'recipe.action.delete'|trans() }}>
-                                <span class="glyphicon glyphicon-trash" ng-click="deleteEntry(ingredient)"></span>
-                                <span class="glyphicon glyphicon-resize-vertical"></span>
-                            </td>
-                        </tr>
-                        <tr class="formInRow">
-                            {{ form_row(formIngredient.amount) }}
-                            {{ form_row(formIngredient.measurement) }}
-                            {{ form_row(formIngredient.product) }}
-                            {{ form_widget(formIngredient.submit, {'label': 'recipe.action.new', 'attr': {
-                                'class': 'btn btn-default'} })
-                            }}
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="col-xs-12 col-sm-2 col-sm-offset-2">
+                    {{ form_row(formIngredient.amount) }}
+                </div>
+                <div class="col-xs-12 col-sm-2">
+                    {{ form_row(formIngredient.measurement) }}
+                </div>
+                <div class="col-xs-12 col-sm-2">
+                    {{ form_row(formIngredient.product) }}
+                </div>
+                <div class="col-xs-12 col-sm-2">
+                    {{ form_widget(form.submit, {'label': 'recipe.action.new', 'attr': {'class': 'btn btn-block'} }) }}
+                </div>
             {{ form_end(formIngredient) }}
         </div>
 
-        <div ng-controller="CookingCtrl" ng-init="recipeId={{recipe.id}}">
-            {{ include(':parts:form_validation.html.twig') }}
+        <div class="row">
             {{ form_start(formCooking) }}
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>{{ 'recipe.cooking.description'|trans() }}</th>
-                            <th>{{ 'recipe.action.delete'|trans() }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="cooking in cookings | orderBy:'position'">
-                            <td data-mobile-title={{ 'recipe.cooking.description'|trans() }}>[[cooking.description]]</td>
-                            <td data-mobile-title={{ 'recipe.action.delete'|trans() }}>
-                                <span class="glyphicon glyphicon-trash" ng-click="deleteEntry(cooking)"></span>
-                                <span class="glyphicon glyphicon-resize-vertical"></span>
-                            </td>
-                        </tr>
-                        <tr class="formInRow">
-                            {{ form_row(formCooking.description) }}
-                            {{ form_widget(formCooking.submit, {'label': 'recipe.action.new', 'attr': {'class': 'btn'} }) }}
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="col-xs-12 col-sm-6 col-sm-offset-2">
+                    {{ form_row(formCooking.description) }}
+                </div>
+                <div class="col-xs-12 col-sm-2">
+                    {{ form_widget(formCooking.submit, {'label': 'recipe.action.new', 'attr': {'class': 'btn'} }) }}
+                </div>
             {{ form_end(formCooking) }}
         </div>
-
     </section>
 {% endblock %}
