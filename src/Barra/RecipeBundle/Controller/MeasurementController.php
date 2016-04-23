@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 class MeasurementController extends Controller
 {
     /**
-     * @Route("/admino/recipes/{page}", name="barra_recipe_measurements", defaults={"page" = 1}, requirements={
+     * @Route("/admino/measurements/{page}", name="barra_recipe_measurements", defaults={"page" = 1}, requirements={
      *      "page" = "\d+"
      * })
      *
