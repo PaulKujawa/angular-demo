@@ -34,7 +34,7 @@
                     {{ form_row(formIngredient.product) }}
                 </div>
                 <div class="col-xs-12 col-sm-2">
-                    {{ form_widget(form.submit, {'label': 'recipe.action.new', 'attr': {'class': 'btn btn-block'} }) }}
+                    {{ form_widget(form.submit, {'attr': {'class': 'btn-block'} }) }}
                 </div>
             {{ form_end(formIngredient) }}
         </div>
@@ -45,7 +45,7 @@
                     {{ form_row(formCooking.description) }}
                 </div>
                 <div class="col-xs-12 col-sm-2">
-                    {{ form_widget(formCooking.submit, {'label': 'recipe.action.new', 'attr': {'class': 'btn'} }) }}
+                    {{ form_widget(formCooking.submit, {'attr': {'class': 'btn-block'} }) }}
                 </div>
             {{ form_end(formCooking) }}
         </div>

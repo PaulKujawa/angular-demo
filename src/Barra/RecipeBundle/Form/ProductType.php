@@ -2,6 +2,7 @@
 
 namespace Barra\RecipeBundle\Form;
 
+use Barra\RecipeBundle\Entity\Manufacturer;
 use Barra\RecipeBundle\Entity\Product;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -80,7 +81,7 @@ class ProductType extends AbstractType
             ])
             ->add('manufacturer', EntityType::class, [
                 'label' => false,
-                'class' => 'BarraRecipeBundle:Manufacturer',
+                'class' => Manufacturer::class,
                 'choice_label' => 'name',
                 'attr' => [
                     'placeholder' => 'recipe.manufacturer.name',

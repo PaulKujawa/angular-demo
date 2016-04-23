@@ -1,6 +1,7 @@
+Submit: Absenden
 Name: Name
 Email: Email
-Message: Message
+Message: Nachricht
 
 app:
   message:
@@ -23,7 +24,6 @@ recipe:
         manage: Bearbeiten
         new: Anlegen
         update: Aktualisieren
-        send: Senden
 
     message:
         insertError: Ungültiger Eintrag

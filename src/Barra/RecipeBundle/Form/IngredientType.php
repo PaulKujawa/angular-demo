@@ -3,6 +3,7 @@
 namespace Barra\RecipeBundle\Form;
 
 use Barra\RecipeBundle\Entity\Ingredient;
+use Barra\RecipeBundle\Entity\Product;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -39,7 +40,7 @@ class IngredientType extends AbstractType
             ])
             ->add('product', EntityType::class, [
                 'label' => false,
-                'class' => 'BarraRecipeBundle:Product',
+                'class' => Product::class,
                 'choice_label' => 'name',
                 'attr' => [
                     'placeholder' => 'recipe.product.name',

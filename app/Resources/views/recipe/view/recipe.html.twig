@@ -1,6 +1,6 @@
 {% extends '::base.html.twig' %}
-{% trans_default_domain "messages" %}
 {% block title %}{{ recipe.name }} | Kujawa{% endblock %}
+
 {% block metaData %}
     {{ parent() }}
     <meta name="description" content="Vegan {{ recipe.name }}"/>

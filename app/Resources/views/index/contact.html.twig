@@ -1,6 +1,6 @@
 {% extends '::base.html.twig' %}
-
 {% block title %}{{ 'recipe.title.contact'|trans() }} | Kujawa{% endblock %}
+
 {% block metaData %}
     {{ parent() }}
     <meta name="description" content="{{ 'recipe.meta.contactDescription'|trans() }}" />
@@ -27,13 +27,13 @@
                     {{ form_row(form.email) }}
                 </div>
                 <div class="col-xs-12 col-sm-7">
-                    {{ form_widget(form.message, {'attr': {'class': 'form-control'} }) }}
+                    {{ form_widget(form.message) }}
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-7 col-sm-offset-5">
                     <div class="pull-right">
-                        {{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary'} }) }}
+                        {{ form_widget(form.submit, {'attr': {'class': 'btn-primary'} }) }}
                     </div>
                 </div>
             </div>

@@ -39,9 +39,7 @@ class ContactType extends AbstractType
                     'placeholder' => 'recipe.contact.message',
                 ],
             ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'recipe.action.send',
-            ])
+            ->add('submit', SubmitType::class)
             ->getForm();
     }
 

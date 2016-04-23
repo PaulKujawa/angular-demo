@@ -22,9 +22,7 @@
                     {{ form_row(form.gr) }}
                 </div>
                 <div class="col-xs-12 col-sm-2">
-                    <div class="form-group">
-                        {{ form_widget(form.submit, {'label': 'recipe.action.new', 'attr': {'class': 'btn btn-block'} }) }}
-                    </div>
+                    {{ form_widget(form.submit, {'attr': {'class': 'btn-block'} }) }}
                 </div>
             {{ form_end(form) }}
         </div>
