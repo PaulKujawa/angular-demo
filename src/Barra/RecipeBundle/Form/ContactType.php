@@ -50,9 +50,12 @@ class ContactType extends AbstractType
         $resolver->setDefaults([
             'csrf_protection' => false,
             'constraints' => [
-                'name'      => [new NotBlank()],
-                'email'     => [new NotBlank(), new Email()],
-                'message'   => [new Blank()],
+                'name' => [new NotBlank()],
+                'email' => [
+                    new NotBlank(),
+                    new Email(),
+                ],
+                'message' => [new Blank()],
             ],
         ]);
     }

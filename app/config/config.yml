@@ -4,43 +4,41 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
 
+parameters:
+    locale: en
+
 framework:
     #esi:             ~
     secret:          "%secret%"
+    translator:     { fallbacks: ["%locale%"] }
+    secret:         "%%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: ~
     form:            ~
     csrf_protection: ~
     validation:      { enable_annotations: true }
+    #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        #assets_version: SomeVersionScheme
+    default_locale:  de
     trusted_hosts:   ~
     trusted_proxies: ~
     session:
-        handler_id:  ~                                      # handler_id set to null will use default session handler from php.ini
+        # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+        handler_id:  session.handler.native_file
+        save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
     fragments:       ~
     http_method_override: true
-    translator: { fallbacks: en }                           # language(-file) if requested translation file is not found
-    default_locale:  de                                     # for links, when no favorite given default %locale%
-
-services:
-    fos_user.doctrine_registry:
-        alias: doctrine                                     # github.com/FriendsOfSymfony/FOSUserBundle/issues/2048
-
-sensio_framework_extra:
-    view: { annotations: false }                            # FOSRestBundle takes over the controller annotations handling for views
-
+    assets: ~
 
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
 
-
 doctrine:
     dbal:
-        driver:   "%database_driver%"
+        driver:   pdo_mysql
         host:     "%database_host%"
         port:     "%database_port%"
         dbname:   "%database_name%"
@@ -49,6 +47,7 @@ doctrine:
         charset:  UTF8
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
+        naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
 
 swiftmailer:                                                # email server configuration for 'mailer' service
@@ -61,6 +60,12 @@ swiftmailer:                                                # email server confi
     password:   "%mailer_password%"
     spool:     { type: memory }                             # sends after request is completely processed (w/o exception or error)
 
+services:
+    fos_user.doctrine_registry:
+        alias: doctrine                                     # github.com/FriendsOfSymfony/FOSUserBundle/issues/2048
+
+sensio_framework_extra:
+    view: { annotations: false }                            # FOSRestBundle takes over the controller annotations handling for views
 
 fos_rest:
     param_fetcher_listener: force                           # force for automatically map request params as controller params
@@ -98,8 +103,6 @@ jms_serializer:                                             # JMS exlusion for 3
                 namespace_prefix: FOS\UserBundle
                 path: "%kernel.root_dir%/serializer/FOSUserBundle"
 
-
-
 lexik_jwt_authentication:
     # <VirtualHost *:80>
     #	RewriteEngine on
@@ -109,7 +112,7 @@ lexik_jwt_authentication:
     # </VirtualHost>
 
     # overridden in config_test.yml to use committed test ssh keys
-    private_key_path: %kernel.root_dir%/var/jwt/private.pem   # ssh private key path
-    public_key_path:  %kernel.root_dir%/var/jwt/public.pem    # ssh public key path
+    private_key_path: "%kernel.root_dir%/var/jwt/private.pem" # ssh private key path
+    public_key_path:  "%kernel.root_dir%/var/jwt/public.pem"  # ssh public key path
     pass_phrase:      "%jwt_prod_ssh_key_pp%"                 # ssh key pass phrase included from parameters.yml
     token_ttl:        86400                                   # token ttl - defaults to 86400

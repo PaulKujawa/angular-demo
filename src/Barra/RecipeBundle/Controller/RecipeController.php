@@ -4,19 +4,17 @@ namespace Barra\RecipeBundle\Controller;
 
 use Barra\RecipeBundle\Entity\Cooking;
 use Barra\RecipeBundle\Entity\Ingredient;
-use Barra\RecipeBundle\Entity\Repository\BasicRepository;
 use Barra\RecipeBundle\Form\CookingType;
 use Barra\RecipeBundle\Form\IngredientType;
 use Barra\RecipeBundle\Form\PhotoType;
 use Barra\RecipeBundle\Form\RecipeType;
 use Barra\RecipeBundle\Entity\Recipe;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
-class RecipeController extends BasicController
+class RecipeController extends Controller
 {
-    const LIMIT = 6;
-
     /**
      * @Route("/admino/recipes/{page}", name="barra_recipe_recipes_admin", defaults={"page" = 1}, requirements={
      *      "page" = "\d+"
@@ -30,8 +28,6 @@ class RecipeController extends BasicController
         $form = $this->createForm(RecipeType::class);
 
         return $this->render(':recipe/manage:recipes.html.twig', [
-            'page' => $page,
-            'pages' => $this->getPaginationPages(),
             'form' => $form->createView(),
         ]);
     }
@@ -80,16 +76,9 @@ class RecipeController extends BasicController
      */
     public function recipesPublicAction($page)
     {
-        /** @var BasicRepository $repo */
-        $offset = ($page-1)*self::LIMIT +1;
-        $repo = $this->getDoctrine()->getManager()->getRepository('BarraRecipeBundle:Recipe');
-        $recipes = $repo->getSome($offset, self::LIMIT, 'name');
-        $pages = $repo->count();
-        $pages = ceil($pages/self::LIMIT);
+        $recipes = $this->getDoctrine()->getManager()->getRepository(Recipe::class)->findBy([], ['name' => 'ASC']);
 
         return $this->render(':recipe/view:recipes.html.twig', [
-            'page' => $page,
-            'pages' => $pages,
             'recipes' => $recipes,
         ]);
     }
@@ -124,22 +113,26 @@ class RecipeController extends BasicController
     }
 
     /**
-     * @param array $ingredients
+     * @param Ingredient[] $ingredients
      *
      * @return array
      */
     protected function calculateMacros(array $ingredients)
     {
-        $macros = ['kcal' => 0, 'carbs' => 0, 'protein' => 0, 'fat' => 0];
-
         $ingredients = array_filter($ingredients, function($ingredient) {
-           return null !== $ingredient->getAmount();
+            /**
+             * @var Ingredient $ingredient
+             */
+            return null !== $ingredient->getAmount();
         });
 
-        /** @var Ingredient $ingredient */
+        $macros = ['kcal' => 0, 'carbs' => 0, 'protein' => 0, 'fat' => 0];
+        /**
+         * @var Ingredient $ingredient
+         */
         foreach ($ingredients as $ingredient) {
             $gr = 0 !== $ingredient->getMeasurement()->getGr()
-                ? $ingredient->getAmount()
+                ? $ingredient->getAmount()/100
                 : $ingredient->getProduct()->getGr();
 
             $rel = $gr/100;

@@ -23,18 +23,15 @@ class LoadPhotoData extends AbstractFixture implements OrderedFixtureInterface
         self::$members[] = $this->instantiate('refRecipe1');
         self::$members[] = $this->instantiate('refRecipe3');
 
-        array_walk(self::$members, function($member, $i) use ($em) {
-            $this->addReference('refPhoto' . ($i + 1), $member);
-            $em->persist($member);
+        array_walk(self::$members, function($photo, $i) use ($em) {
+            /**
+             * @var Photo $photo
+             */
+            unlink($photo->getAbsolutePathWithFilename());
+            $this->addReference('refPhoto' . ($i + 1), $photo);
+            $em->persist($photo);
         });
         $em->flush();
-
-        // file creation doesn't belong to fixtures but is necessary to set up these instances
-        // some functional tests however recreate a file themselves
-        /** @var Photo $e */
-        foreach (self::$members as $e) {
-            unlink($e->getAbsolutePathWithFilename());
-        }
     }
 
     /**
@@ -51,11 +48,9 @@ class LoadPhotoData extends AbstractFixture implements OrderedFixtureInterface
         }
 
         $entity = new Photo();
-        $file = $this->simulateUpload($entity);
-
         $entity
             ->setRecipe($recipe)
-            ->setFile($file);
+            ->setFile($this->simulateUpload($entity));
 
         return $entity;
     }
@@ -71,14 +66,7 @@ class LoadPhotoData extends AbstractFixture implements OrderedFixtureInterface
         $newFile = $entity->getAbsolutePath() . '/' . $filename;
         copy($entity->getAbsolutePath() . '/fixture.jpg', $newFile);
 
-        return new UploadedFile(
-            $newFile,
-            $filename,
-            'image/jpeg',
-            filesize($newFile),
-            null,
-            true
-        );
+        return new UploadedFile($newFile, $filename, 'image/jpeg', filesize($newFile), null, true);
     }
 
     /**

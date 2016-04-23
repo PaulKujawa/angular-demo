@@ -32,7 +32,7 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
      * @param string $orderBy
      * @param string $order
      *
-     * @return array
+     * @return View
      */
     public function cgetAction($offset, $limit, $orderBy, $order)
     {

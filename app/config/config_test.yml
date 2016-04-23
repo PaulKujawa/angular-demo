@@ -1,14 +1,7 @@
 imports:
     - { resource: config_dev.yml }
 
-web_profiler:                                                       # default settings as in v2.8
-    toolbar: false
-    intercept_redirects: false
-
-swiftmailer:                                                        # default settings as in v2.8
-    disable_delivery: true
-
-framework:                                                          # default settings as in v2.8
+framework:
     test: ~
     session:
         storage_id: session.storage.mock_file
@@ -16,9 +9,16 @@ framework:                                                          # default se
         enabled: true
         collect: true
 
+web_profiler:
+    toolbar: false
+    intercept_redirects: false
+
+swiftmailer:
+    disable_delivery: true
+
 lexik_jwt_authentication:                                           # separate, commited SSH keys for func. tests
-    private_key_path: %kernel.root_dir%/var/jwt/private-test.pem
-    public_key_path: %kernel.root_dir%/var/jwt/public-test.pem
+    private_key_path: "%kernel.root_dir%/var/jwt/private-test.pem"
+    public_key_path: "%kernel.root_dir%/var/jwt/public-test.pem"
     pass_phrase: "%jwt_test_ssh_key_pp%"                            # this passphrase is commited as well
 
 doctrine:                                                           # create SQLite DB before every test
@@ -27,7 +27,7 @@ doctrine:                                                           # create SQL
         connections:
             default:
                 driver: pdo_sqlite
-                path: %kernel.cache_dir%/test.db
+                path: "%kernel.cache_dir%/test.db"
 
 liip_functional_test:
     query:
