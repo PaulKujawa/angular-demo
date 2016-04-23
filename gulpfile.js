@@ -2,6 +2,7 @@ var tsNodeRegister = require('ts-node').register;
 var tasks = [
     'build',
     'sass',
+    'symfony',
     'watch'
 ];
 
