@@ -21,6 +21,7 @@ class IngredientType extends AbstractType
     {
         $builder
             ->add('amount', IntegerType::class, [
+                'label' => false,
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'recipe.ingredient.amount',
@@ -28,23 +29,23 @@ class IngredientType extends AbstractType
             ])
 //            TODO add query builder to sort measurements when i can check the result
             ->add('measurement', EntityType::class, [
+                'label' => false,
                 'class' => 'BarraRecipeBundle:Measurement',
-                'property' => 'name',
+                'choice_label' => 'name',
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'recipe.measurement.name',
                 ],
             ])
             ->add('product', EntityType::class, [
+                'label' => false,
                 'class' => 'BarraRecipeBundle:Product',
-                'property' => 'name',
+                'choice_label' => 'name',
                 'attr' => [
                     'placeholder' => 'recipe.product.name',
                 ],
                 'query_builder' => function (EntityRepository $er) {
-                    return $er
-                        ->createQueryBuilder('i')
-                        ->orderBy('i.name', 'ASC');
+                    return $er->createQueryBuilder('i')->orderBy('i.name', 'ASC');
                 },
             ])
             ->add('submit', SubmitType::class)

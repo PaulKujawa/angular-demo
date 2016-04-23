@@ -22,16 +22,19 @@ class ContactType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
+                'label' => false,
                 'attr' => [
                     'placeholder' => 'recipe.contact.name',
                 ],
             ])
             ->add('email', EmailType::class, [
+                'label' => false,
                 'attr' => [
                     'placeholder' => 'recipe.contact.email',
                 ],
             ])
             ->add('message', TextareaType::class, [
+                'label' => false,
                 'attr' => [
                     'placeholder' => 'recipe.contact.message',
                 ],

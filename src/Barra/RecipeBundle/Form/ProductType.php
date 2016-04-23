@@ -23,6 +23,7 @@ class ProductType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
+                'label' => false,
                 'attr' => [
                     'placeholder' => 'recipe.product.name',
                 ],
@@ -31,55 +32,61 @@ class ProductType extends AbstractType
                 'required' => false,
             ])
             ->add('gr', IntegerType::class, [
+                'label' => false,
                 'attr' => [
                     'placeholder' => 'recipe.product.gr',
                 ],
             ])
             ->add('kcal', IntegerType::class, [
+                'label' => false,
                 'attr' => [
                     'placeholder' => 'recipe.product.kcal',
                 ],
             ])
             ->add('protein', NumberType::class, [
-                'precision' => 2,
+                'label' => false,
+                'scale' => 2,
                 'attr' => [
                     'placeholder' => 'recipe.product.protein',
                 ],
             ])
             ->add('carbs', NumberType::class, [
-                'precision' => 2,
+                'label' => false,
+                'scale' => 2,
                 'attr' => [
                     'placeholder' => 'recipe.product.carbs',
                 ],
             ])
             ->add('sugar', NumberType::class, [
-                'precision' => 2,
+                'label' => false,
+                'scale' => 2,
                 'attr' => [
                     'placeholder' => 'recipe.product.sugar',
                 ],
             ])
             ->add('fat', NumberType::class, [
-                'precision' => 2,
+                'label' => false,
+                'scale' => 2,
                 'attr' => [
                     'placeholder' => 'recipe.product.fat',
                 ],
             ])
             ->add('gfat', NumberType::class, [
-                'precision' => 2,
+                'label' => false,
+                'scale' => 2,
                 'attr' => [
                     'placeholder' => 'recipe.product.gfat',
                 ],
             ])
             ->add('manufacturer', EntityType::class, [
+                'label' => false,
                 'class' => 'BarraRecipeBundle:Manufacturer',
-                'property' => 'name',
+                'choice_label' => 'name',
                 'attr' => [
                     'placeholder' => 'recipe.manufacturer.name',
                 ],
                 'query_builder' => function (EntityRepository $er) {
-                    return $er
-                        ->createQueryBuilder('m')
-                        ->orderBy('m.name', 'ASC');
+                    return $er->createQueryBuilder('m')->orderBy('m.name', 'ASC');
                 },
             ])
             ->add('submit', SubmitType::class)

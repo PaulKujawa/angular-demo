@@ -1,5 +1,4 @@
 {% extends '::base.html.twig' %}
-{% form_theme form 'BarraRecipeBundle:Form:contactRow.html.twig' %}
 
 {% block title %}{{ 'recipe.title.contact'|trans() }} | Kujawa{% endblock %}
 {% block metaData %}
@@ -33,7 +32,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-7 col-sm-offset-5">
-                    <div class="form-group pull-right">
+                    <div class="pull-right">
                         {{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary'} }) }}
                     </div>
                 </div>
