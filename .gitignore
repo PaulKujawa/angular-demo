@@ -14,6 +14,7 @@
 /var/cache
 /var/sessions
 /var/logs
+/var/bootstrap.php.cache
 
 # vendors
 /vendor

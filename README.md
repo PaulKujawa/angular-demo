@@ -1,8 +1,8 @@
-# Notes for my home project
+# Healthy recipes
 ---
 [![Build Status](https://travis-ci.com/barraSargtlin/vpit.svg?token=uX8iz9gHcJk5sGqwqgvR&branch=master)](https://travis-ci.com/barraSargtlin/vpit)
 
-### DEPLOY
+### Here you go
 * build                     `bin/build <dev|prod> [-w]`
 * optional (JWT)            `openssl genrsa -out app/var/jwt/private.pem -aes256 4096`
                             `openssl rsa -pubout -in app/var/jwt/private.pem -out app/var/jwt/public.pem`
@@ -24,15 +24,7 @@
     * gulpfile.js --> app/gulp
 
 
-### Debug
-* dump twig possibilities   `bin/console debug:twig`   
-* dump routes               `bin/console debug:router`
-* dump config	            `bin/console debug:config`
-* dump services	            `bin/console debug:container`
-* dump default conf         `bin/console config:dump-reference`
-
-
-### Doctrine
+### Doctrine commands
 * DEV
   * delete DB               `bin/console doctrine:database:drop --force`
   * create DB               `bin/console doctrine:database:create`
