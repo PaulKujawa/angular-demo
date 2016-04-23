@@ -1,16 +1,13 @@
 {% extends '::base.html.twig' %}
-{% form_theme form 'BarraRecipeBundle:Form:tableRow.html.twig' %}
 {% block title %}{{ 'recipe.title.measurements'|trans() }}{% endblock %}
 
 {% block section %}
-    <section class="container mobileTables" ng-controller="MeasurementCtrl">
-        {{ include(':parts:form_validation.html.twig') }}
-
+    <section class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-sm-offset-3">
                 <div class="list-group">
-                    <div class="list-group-item" ng-repeat="measurement in measurements | orderBy:'name'">
-                        [[measurement.name]]
+                    <div class="list-group-item" {#ng-repeat="measurement in measurements | orderBy:'name'"#}>
+                        {#[[measurement.name]]#}
                     </div>
                 </div>
             </div>
