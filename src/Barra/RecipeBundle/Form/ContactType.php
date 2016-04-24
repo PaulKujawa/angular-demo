@@ -24,24 +24,22 @@ class ContactType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'recipe.contact.name',
+                    'placeholder' => 'barra.contact.name',
                 ],
             ])
             ->add('email', EmailType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'recipe.contact.email',
+                    'placeholder' => 'barra.contact.email',
                 ],
             ])
             ->add('message', TextareaType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'recipe.contact.message',
+                    'placeholder' => 'barra.contact.message',
                 ],
             ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'recipe.action.send',
-            ])
+            ->add('submit', SubmitType::class)
             ->getForm();
     }
 

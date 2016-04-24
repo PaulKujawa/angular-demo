@@ -1,5 +1,5 @@
 {% extends '::base.html.twig' %}
-{% block title %}{{ 'recipe.title.products'|trans() }}{% endblock %}
+{% block title %}{{ 'barra.products.title'|trans() }}{% endblock %}
 
 {% block section %}
     <section class="container">
@@ -46,9 +46,7 @@
                     {{ form_row(form.manufacturer) }}
                 </div>
                 <div class="col-xs-12 col-sm-3">
-                    <div class="form-group">
-                        {{ form_widget(form.submit, {'label': 'recipe.action.new', 'attr': {'class': 'btn btn-block'} }) }}
-                    </div>
+                    {{ form_widget(form.submit, {'attr': {'class': 'btn-block'} }) }}
                 </div>
             {{ form_end(form) }}
         </div>

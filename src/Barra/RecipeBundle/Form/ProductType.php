@@ -2,6 +2,7 @@
 
 namespace Barra\RecipeBundle\Form;
 
+use Barra\RecipeBundle\Entity\Manufacturer;
 use Barra\RecipeBundle\Entity\Product;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -25,7 +26,7 @@ class ProductType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'recipe.product.name',
+                    'placeholder' => 'barra.product.name',
                 ],
             ])
             ->add('vegan', CheckboxType::class, [
@@ -34,56 +35,56 @@ class ProductType extends AbstractType
             ->add('gr', IntegerType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'recipe.product.gr',
+                    'placeholder' => 'barra.product.gr',
                 ],
             ])
             ->add('kcal', IntegerType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'recipe.product.kcal',
+                    'placeholder' => 'barra.product.kcal',
                 ],
             ])
             ->add('protein', NumberType::class, [
                 'label' => false,
                 'scale' => 2,
                 'attr' => [
-                    'placeholder' => 'recipe.product.protein',
+                    'placeholder' => 'barra.product.protein',
                 ],
             ])
             ->add('carbs', NumberType::class, [
                 'label' => false,
                 'scale' => 2,
                 'attr' => [
-                    'placeholder' => 'recipe.product.carbs',
+                    'placeholder' => 'barra.product.carbs',
                 ],
             ])
             ->add('sugar', NumberType::class, [
                 'label' => false,
                 'scale' => 2,
                 'attr' => [
-                    'placeholder' => 'recipe.product.sugar',
+                    'placeholder' => 'barra.product.sugar',
                 ],
             ])
             ->add('fat', NumberType::class, [
                 'label' => false,
                 'scale' => 2,
                 'attr' => [
-                    'placeholder' => 'recipe.product.fat',
+                    'placeholder' => 'barra.product.fat',
                 ],
             ])
             ->add('gfat', NumberType::class, [
                 'label' => false,
                 'scale' => 2,
                 'attr' => [
-                    'placeholder' => 'recipe.product.gfat',
+                    'placeholder' => 'barra.product.gfat',
                 ],
             ])
             ->add('manufacturer', EntityType::class, [
                 'label' => false,
-                'class' => 'BarraRecipeBundle:Manufacturer',
+                'class' => Manufacturer::class,
                 'choice_label' => 'name',
                 'attr' => [
-                    'placeholder' => 'recipe.manufacturer.name',
+                    'placeholder' => 'barra.manufacturer.name',
                 ],
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('m')->orderBy('m.name', 'ASC');

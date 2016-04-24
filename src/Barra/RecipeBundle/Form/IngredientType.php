@@ -3,6 +3,8 @@
 namespace Barra\RecipeBundle\Form;
 
 use Barra\RecipeBundle\Entity\Ingredient;
+use Barra\RecipeBundle\Entity\Measurement;
+use Barra\RecipeBundle\Entity\Product;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -24,25 +26,25 @@ class IngredientType extends AbstractType
                 'label' => false,
                 'required' => false,
                 'attr' => [
-                    'placeholder' => 'recipe.ingredient.amount',
+                    'placeholder' => 'barra.ingredient.amount',
                 ],
             ])
 //            TODO add query builder to sort measurements when i can check the result
             ->add('measurement', EntityType::class, [
                 'label' => false,
-                'class' => 'BarraRecipeBundle:Measurement',
+                'class' => Measurement::class,
                 'choice_label' => 'name',
                 'required' => false,
                 'attr' => [
-                    'placeholder' => 'recipe.measurement.name',
+                    'placeholder' => 'barra.measurement.name',
                 ],
             ])
             ->add('product', EntityType::class, [
                 'label' => false,
-                'class' => 'BarraRecipeBundle:Product',
+                'class' => Product::class,
                 'choice_label' => 'name',
                 'attr' => [
-                    'placeholder' => 'recipe.product.name',
+                    'placeholder' => 'barra.product.name',
                 ],
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('i')->orderBy('i.name', 'ASC');

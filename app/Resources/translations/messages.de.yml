@@ -1,83 +1,43 @@
-Name: Name
 Email: Email
-Message: Message
-
-app:
-  message:
-    errorCode: Leider gab der Server einen %code% zurück.
-
-  word:
-    startpage: Startseite
+Message: Nachricht
+Name: Name
+Submit: Absenden
 
 barra:
     contact:
-        email_sent: Thank you for your inquiry. I will be in touch with you.
-
-    recipe:
-        not_found: Das gesuchte Gericht ist mir leider nicht bekannt. Darf es etwas anderes sein?
-
-recipe:
-    action:
-        delete: Löschen
-        frontend: Frontend
-        manage: Bearbeiten
-        new: Anlegen
-        update: Aktualisieren
-        send: Senden
-
-    message:
-        insertError: Ungültiger Eintrag
-
-    meta:
-        contactDescription: PHP Symfony Entwickler aus Berlin - Paul Kujawa
-        contactKeywords: Paul Kujawa, Symfony, PHP, Berlin, Kontakt
-        recipeKeywords: %recipe%, vegan, vegetarisch, kaloreichreich, kaloreinhaltig, viel kalorien
-        referenceDescription: PHP Symfony Entwickler aus Berlin - Referenzen - Paul Kujawa
-        referenceKeywords: Paul Kujawa, Symfony, PHP, Berlin, Referenzen
-
-    title:
-        aboutMe: Über mich
-        contact: Kontakt
-        manufacturers: Hersteller
-        measurements: Messeinheiten
-        myAccomplishments: Meine Erfolge
-        myPerson: Wer bin ich
-        mySkills: Meine Fähigkeiten
-        pageAboutMe: Kujawa
-        products: Produkte
-        recipes: Rezepte
-        dashboard: Dashboard
-
-    word:
-        product: Produkt
-
-    contact:
-        email: Ihre E-Mail
         description: Ich trage den Namen Paul Kujawa, bin eifriger Symfony Entwickler und meine Freizeit fokussiert Fitness.
+        email: Ihre E-Mail
+        email_sent: Danke für deine Anfrage. Ich werde mich baligst mit dir in Verbindung setzen.
         message: Ihre Nachricht an mich
         name: Ihr Name
-
+        title: Kontakt
     cooking:
         description: Beschreibung
-
-    ingredient:
+    dashboard:
+        title: Adminbereich
+    error:
+        html_code: Leider gab der Server einen %code% zurück.
+    ingredients:
         amount: Menge
-
     manufacturer:
         name: Name
-
-    measurement:
+        title: Hersteller
+    measurements:
         gr: Gr
-        type: Typ
-
-    product:
-          carbs: Kohlenhydrate
-          fat: Fett
-          gfat: ges. Fett
-          gr: Gr
-          kcal: Kcal
-          manufacturer: Hersteller
-          name: Name
-          protein: Eiweiß
-          sugar: Zucker
-          vegan: Vegan
+        name: Typ
+        title: Messeinheiten
+    products:
+        carbs: Kohlenhydrate
+        fat: Fett
+        gfat: ges. Fett
+        gr: Gr
+        kcal: Kcal
+        manufacturer: Hersteller
+        name: Name
+        protein: Eiweiß
+        sugar: Zucker
+        title: Produkte
+        vegan: Vegan
+    recipes:
+        not_found: Dieses Rezept ist mir nicht bekannt. Werf doch einen Blick in meine Sammlung :)
+        title: Rezepte

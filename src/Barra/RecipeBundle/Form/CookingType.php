@@ -20,7 +20,7 @@ class CookingType extends AbstractType
             ->add('description', TextType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'recipe.cooking.description',
+                    'placeholder' => 'barra.cooking.description',
                 ],
             ])
             ->add('submit', SubmitType::class)
