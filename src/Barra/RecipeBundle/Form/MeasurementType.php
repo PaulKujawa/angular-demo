@@ -21,13 +21,13 @@ class MeasurementType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'recipe.measurement.name',
+                    'placeholder' => 'barra.measurement.name',
                 ],
             ])
             ->add('gr', IntegerType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'recipe.measurement.gr',
+                    'placeholder' => 'barra.measurement.gr',
                 ],
             ])
             ->add('submit', SubmitType::class)

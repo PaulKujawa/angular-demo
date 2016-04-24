@@ -1,86 +1,43 @@
-Submit: Absenden
-Name: Name
 Email: Email
 Message: Message
-
-app:
-    message:
-        errorCode: Sadly, the server return a %code%.
-
-    word:
-        startpage: Startpage
 Name: Name
-Email: Email
-Message: Message
+Submit: Submit
 
 barra:
     contact:
-        email_sent: Thank you for your inquiry. I will be in touch with you.
-
-    recipe:
-        not_found: Das gesuchte Gericht ist mir leider nicht bekannt. Darf es etwas anderes sein? (TBD)
-
-recipe:
-    action:
-        delete: Delete
-        frontend: Frontend
-        manage: Manage
-        new: Create
-        update: Update
-
-    message:
-        insertError: Invalid entry
-
-    meta:
-        contactDescription: PHP Symfony Developer from Berlin - Paul Kujawa
-        contactKeywords: Paul Kujawa, Symfony, PHP, Berlin, Contact
-        referenceKeywords: Paul Kujawa, Symfony, PHP, Berlin, References
-        referenceDescription: PHP Symfony Developer from Berlin - References - Paul Kujawa
-        recipeKeywords: %recipe%, vegan, vegetarian, caloric, high in caloric
-
-    title:
-        aboutMe: About Me
-        contact: Contact
-        manufacturers: Manufacturer
-        measurements: Measurements
-        myAccomplishments: My accomplishments
-        myPerson: Who am I
-        mySkills: My skills
-        pageAboutMe: Kujawa
-        products: Products
-        recipes: Recipes
-        dashboard: Dashboard
-
-    word:
-        product: Product
-
-    contact:
-        email: Your e-mail
         description: I am Paul Kujawa, eager Symfony developer and my freetime focuses fitness.
-        message: Your message to me
+        email: Your email address
+        email_sent: Thank you for your inquiry. I will be in touch with you.
+        message: Your message for me
         name: Your name
-
+        title: Contact
     cooking:
         description: Description
-
-    ingredient:
+    dashboard:
+        title: Dashboard
+    error:
+        html_code: Sadly, the server return a %code%.
+    ingredients:
         amount: Amount
-
     manufacturer:
         name: Name
-
-    measurement:
+        title: Manufacturer
+    measurements:
         gr: Gr
         name: Type
-
-    product:
+        title: Measurements
+    products:
         carbs: Carbs
         fat: Fat
-        gfat: sat. fat
+        gfat: ges. Fett
         gr: Gr
         kcal: Kcal
         manufacturer: Manufacturer
         name: Name
         protein: Protein
         sugar: Sugar
+        title: Products
         vegan: Vegan
+    recipes:
+        not_found: I'm not aware of this recipe. Why you not check out my library :)
+        title: Recipes

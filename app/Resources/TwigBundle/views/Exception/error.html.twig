@@ -1,5 +1,4 @@
 {% extends '::base.html.twig' %}
-{% trans_default_domain "messages" %}
 {% block title %}{{ status_code }}{% endblock %}
 
 {# keep empty nav container #}
@@ -8,7 +7,7 @@
 
 {% block section %}
     <section class="container errorPage">
-        <h1>{{ 'app.message.errorCode'|trans({'%code%':status_code}) }}</h1>
-        <a href="{{ path('barra_recipe_root') }}">{{ 'app.word.startpage'|trans() }}</a>
+        <h1>{{ 'rebuy.error.html_code'|trans({'%code%':status_code}) }}</h1>
+        <a href="{{ path('barra_recipe_contact') }}">{{ 'barra.contact.title'|trans() }}</a>
     </section>
 {% endblock %}
