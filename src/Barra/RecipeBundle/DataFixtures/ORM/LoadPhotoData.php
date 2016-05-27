@@ -23,10 +23,7 @@ class LoadPhotoData extends AbstractFixture implements OrderedFixtureInterface
         self::$members[] = $this->instantiate('refRecipe1');
         self::$members[] = $this->instantiate('refRecipe3');
 
-        array_walk(self::$members, function($photo, $i) use ($em) {
-            /**
-             * @var Photo $photo
-             */
+        array_walk(self::$members, function(Photo $photo, $i) use ($em) {
             unlink($photo->getAbsolutePathWithFilename());
             $this->addReference('refPhoto' . ($i + 1), $photo);
             $em->persist($photo);

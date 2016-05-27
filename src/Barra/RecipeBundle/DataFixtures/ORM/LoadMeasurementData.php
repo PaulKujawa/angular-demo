@@ -20,7 +20,7 @@ class LoadMeasurementData extends AbstractFixture implements OrderedFixtureInter
         self::$members[] = $this->instantiate('el', 15);
         self::$members[] = $this->instantiate('ml', 1);
 
-        array_walk(self::$members, function($member, $i) use ($em) {
+        array_walk(self::$members, function(Measurement $member, $i) use ($em) {
             $this->addReference('refMeasurement' . ($i + 1), $member);
             $em->persist($member);
         });
