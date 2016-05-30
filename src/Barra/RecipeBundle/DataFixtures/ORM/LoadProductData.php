@@ -33,7 +33,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         self::$members[] = $this->instantiate('Product3', true, $nutritions, 'refManufacturer1');
         self::$members[] = $this->instantiate('Product4', true, $nutritions, 'refManufacturer1');
 
-        array_walk(self::$members, function($member, $i) use ($em) {
+        array_walk(self::$members, function(Product $member, $i) use ($em) {
             $this->addReference('refProduct' . ($i + 1), $member);
             $em->persist($member);
         });

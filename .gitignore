@@ -1,5 +1,6 @@
 # app + bin
 /app/config/parameters.yml
+/app/Resources/public/node_modules
 /bin/*
 !bin/console
 !bin/build

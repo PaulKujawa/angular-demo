@@ -22,7 +22,7 @@ class LoadCookingData extends AbstractFixture implements OrderedFixtureInterface
         self::$members[] = $this->instantiate(2, '2th step', 'refRecipe1');
         self::$members[] = $this->instantiate(3, '3th step', 'refRecipe1');
 
-        array_walk(self::$members, function($member, $i) use ($em) {
+        array_walk(self::$members, function(Cooking $member, $i) use ($em) {
             $this->addReference('refCooking' . ($i + 1), $member);
             $em->persist($member);
         });

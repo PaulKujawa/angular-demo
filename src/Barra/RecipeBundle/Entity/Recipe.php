@@ -38,9 +38,7 @@ class Recipe
 
     /**
      * @var ArrayCollection
-
      * @Exclude
-
      * @ORM\OneToMany(
      *      targetEntity = "Cooking",
      *      mappedBy     = "recipe"
@@ -48,7 +46,7 @@ class Recipe
      * @ORM\OrderBy({"position" = "ASC"})
      */
     private $cookings;
-    
+
     /**
      * @var ArrayCollection
      *
@@ -65,8 +63,8 @@ class Recipe
 
     public function __construct()
     {
-        $this->photos      = new ArrayCollection();
-        $this->cookings    = new ArrayCollection();
+        $this->photos = new ArrayCollection();
+        $this->cookings = new ArrayCollection();
         $this->ingredients = new ArrayCollection();
     }
 
@@ -103,13 +101,13 @@ class Recipe
     }
 
     /**
-     * @param Cooking $cookings
+     * @param Cooking $cooking
      *
      * @return $this
      */
-    public function addCooking(Cooking $cookings)
+    public function addCooking(Cooking $cooking)
     {
-        $this->cookings[] = $cookings;
+        $this->cookings[] = $cooking;
 
         return $this;
     }
@@ -133,7 +131,7 @@ class Recipe
     {
         return $this->cookings;
     }
-    
+
     /**
      * @param Photo $photos
      *

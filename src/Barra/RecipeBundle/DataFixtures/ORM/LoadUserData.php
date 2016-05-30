@@ -18,7 +18,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
     {
         self::$members[] = $this->instantiate('demoSA', 'test@gmx.de', 'testo', 'ROLE_SUPER_ADMIN');
 
-        array_walk(self::$members, function($member, $i) use ($em) {
+        array_walk(self::$members, function(User $member, $i) use ($em) {
             $this->addReference('refUser' . ($i + 1), $member);
             $em->persist($member);
         });

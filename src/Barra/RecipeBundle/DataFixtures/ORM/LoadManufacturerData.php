@@ -20,7 +20,7 @@ class LoadManufacturerData extends AbstractFixture implements OrderedFixtureInte
         self::$members[] = $this->instantiate('Manufacturer2');
         self::$members[] = $this->instantiate('Manufacturer3');
 
-        array_walk(self::$members, function($member, $i) use ($em) {
+        array_walk(self::$members, function(Manufacturer $member, $i) use ($em) {
             $this->addReference('refManufacturer' . ($i + 1), $member);
             $em->persist($member);
         });
