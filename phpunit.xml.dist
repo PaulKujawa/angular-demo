@@ -15,7 +15,7 @@
     <!-- tests -->
     <testsuites>
         <testsuite name="Model Test Suite">
-            <!--<directory>../src/Barra/RestBundle/Tests</directory>-->
+            <directory>../src/AppBundle/Tests</directory>
         </testsuite>
     </testsuites>
 
@@ -24,12 +24,12 @@
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory>../src/**</directory>
             <exclude>
-                <directory>../src/Barra/*Bundle/Controller</directory>
-                <directory>../src/Barra/*Bundle/DataFixtures</directory>
-                <directory>../src/Barra/*Bundle/Entity</directory>
-                <directory>../src/Barra/*Bundle/Form</directory>
-                <directory>../src/Barra/*Bundle/Resources</directory>
-                <directory>../src/Barra/*Bundle/Tests</directory>
+                <directory>../src/AppBundle/Controller</directory>
+                <directory>../src/AppBundle/DataFixtures</directory>
+                <directory>../src/AppBundle/Entity</directory>
+                <directory>../src/AppBundle/Form</directory>
+                <directory>../src/AppBundle/Resources</directory>
+                <directory>../src/AppBundle/Tests</directory>
             </exclude>
         </whitelist>
     </filter>

@@ -1,0 +1,37 @@
+api_recipes:
+  type: rest
+  resource: "@AppBundle/Controller/Api/RecipeController.php"
+  name_prefix: api_
+
+api_photos:
+  type: rest
+  parent: api_recipes
+  resource: "@AppBundle/Controller/Api/PhotoController.php"
+  name_prefix: api_
+
+api_ingredients:
+  type: rest
+  parent: api_recipes
+  resource: "@AppBundle/Controller/Api/IngredientController.php"
+  name_prefix: api_
+
+api_cookings:
+  type: rest
+  parent: api_recipes
+  resource: "@AppBundle/Controller/Api/CookingController.php"
+  name_prefix: api_
+
+api_products:
+  type: rest
+  resource: "@AppBundle/Controller/Api/ProductController.php"
+  name_prefix: api_
+
+api_measurements:
+  type: rest
+  resource: "@AppBundle/Controller/Api/MeasurementController.php"
+  name_prefix: api_
+
+api_manufacturers:
+  type: rest
+  resource: "@AppBundle/Controller/Api/ManufacturerController.php"
+  name_prefix: api_
