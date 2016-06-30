@@ -8,8 +8,8 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
-use FOS\RestBundle\Util\Codes;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class MeasurementController extends FOSRestController implements ClassResourceInterface
 {
@@ -18,7 +18,7 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
      */
     public function newAction()
     {
-        return $this->view(['data' => $this->createForm(MeasurementType::class)]);
+        return $this->view($this->createForm(MeasurementType::class));
     }
 
     /**
@@ -45,8 +45,8 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
 
         // alternatively, 'limit' could be set as strict in it's annotation to set it mandatory.
         return (null === $limit || $limit < 1 || $offset < 0)
-            ? $this->view(null, Codes::HTTP_BAD_REQUEST)
-            : $this->view(['data' => $measurements]);
+            ? $this->view(null, Response::HTTP_BAD_REQUEST)
+            : $this->view($measurements);
     }
 
     /**
@@ -59,8 +59,8 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
         $entity = $this->getDoctrine()->getManager()->getRepository(Measurement::class)->find($id);
 
         return null === $entity
-            ? $this->view(null, Codes::HTTP_NOT_FOUND)
-            : $this->view(['data' => $entity->getIngredients()]);
+            ? $this->view(null, Response::HTTP_NOT_FOUND)
+            : $this->view($entity->getIngredients());
     }
 
     /**
@@ -73,8 +73,8 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
         $entity = $this->getDoctrine()->getManager()->getRepository(Measurement::class)->find($id);
 
         return null === $entity
-            ? $this->view(null, Codes::HTTP_NOT_FOUND)
-            : $this->view(['data' => $entity]);
+            ? $this->view(null, Response::HTTP_NOT_FOUND)
+            : $this->view($entity);
     }
 
     /**
@@ -87,8 +87,8 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
         $entity = $this->getDoctrine()->getManager()->getRepository(Measurement::class)->find($id);
 
         return null === $entity
-            ? $this->view(null, Codes::HTTP_NOT_FOUND)
-            : $this->view(['data' => $entity->getRecipe()]);
+            ? $this->view(null, Response::HTTP_NOT_FOUND)
+            : $this->view($entity->getRecipe());
     }
 
     /**
@@ -102,8 +102,8 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
         $form = $this->createForm(MeasurementType::class, $entity);
         $form->handleRequest($request);
 
-        if (!$form->isValid()) {
-            return $this->view(['data' => $form], Codes::HTTP_BAD_REQUEST);
+        if (!$form->isSubmitted() || !$form->isValid()) {
+            return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -127,15 +127,15 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository(Measurement::class)->find($id);
 
-        if (!$entity instanceof Measurement) {
-            return $this->view(null, Codes::HTTP_NOT_FOUND);
+        if (null === $entity) {
+            return $this->view(null, Response::HTTP_NOT_FOUND);
         }
 
         $form = $this->createForm(MeasurementType::class, $entity, ['method' => $request->getMethod()]);
         $form->handleRequest($request);
 
-        if (!$form->isValid()) {
-            return $this->view(['data' => $form], Codes::HTTP_BAD_REQUEST);
+        if (!$form->isSubmitted() || !$form->isValid()) {
+            return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
         $em->flush();
 
@@ -145,7 +145,7 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
                 'id' => $entity->getId(),
                 '_format' => $request->get('_format'),
             ],
-            Codes::HTTP_NO_CONTENT
+            Response::HTTP_NO_CONTENT
         );
     }
 
@@ -159,17 +159,17 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
         $entity = $this->getDoctrine()->getManager()->getRepository(Measurement::class)->find($id);
 
         if (null === $entity) {
-            return $this->view(null, Codes::HTTP_NOT_FOUND);
+            return $this->view(null, Response::HTTP_NOT_FOUND);
         }
 
         if (!$entity->isRemovable()) {
-            return $this->view(null, Codes::HTTP_CONFLICT);
+            return $this->view(null, Response::HTTP_CONFLICT);
         }
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($entity);
         $em->flush();
 
-        return $this->view(null, Codes::HTTP_NO_CONTENT);
+        return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 }

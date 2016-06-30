@@ -8,8 +8,8 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
-use FOS\RestBundle\Util\Codes;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ManufacturerController extends FOSRestController implements ClassResourceInterface
 {
@@ -18,7 +18,7 @@ class ManufacturerController extends FOSRestController implements ClassResourceI
      */
     public function newAction()
     {
-        return $this->view(['data' => $this->createForm(ManufacturerType::class)]);
+        return $this->view($this->createForm(ManufacturerType::class));
     }
 
     /**
@@ -45,8 +45,8 @@ class ManufacturerController extends FOSRestController implements ClassResourceI
 
         // alternatively, 'limit' could be set as strict in it's annotation to set it mandatory.
         return (null === $limit || $limit < 1 || $offset < 0)
-            ? $this->view(null, Codes::HTTP_BAD_REQUEST)
-            : $this->view(['data' => $manufacturers]);
+            ? $this->view(null, Response::HTTP_BAD_REQUEST)
+            : $this->view($manufacturers);
     }
 
     /**
@@ -59,8 +59,8 @@ class ManufacturerController extends FOSRestController implements ClassResourceI
         $entity = $this->getDoctrine()->getManager()->getRepository(Manufacturer::class)->find($id);
 
         return null === $entity
-            ? $this->view(null, Codes::HTTP_NOT_FOUND)
-            : $this->view(['data' => $entity->getProducts()]);
+            ? $this->view(null, Response::HTTP_NOT_FOUND)
+            : $this->view($entity->getProducts());
     }
 
     /**
@@ -73,22 +73,8 @@ class ManufacturerController extends FOSRestController implements ClassResourceI
         $entity = $this->getDoctrine()->getManager()->getRepository(Manufacturer::class)->find($id);
 
         return null === $entity
-            ? $this->view(null, Codes::HTTP_NOT_FOUND)
-            : $this->view(['data' => $entity]);
-    }
-
-    /**
-     * @param int $id
-     *
-     * @return View
-     */
-    public function getRecipeAction($id)
-    {
-        $entity = $this->getDoctrine()->getManager()->getRepository(Manufacturer::class)->find($id);
-
-        return null === $entity
-            ? $this->view(null, Codes::HTTP_NOT_FOUND)
-            : $this->view(['data' => $entity->getRecipe()]);
+            ? $this->view(null, Response::HTTP_NOT_FOUND)
+            : $this->view($entity);
     }
 
     /**
@@ -102,8 +88,8 @@ class ManufacturerController extends FOSRestController implements ClassResourceI
         $form = $this->createForm(ManufacturerType::class, $entity);
         $form->handleRequest($request);
 
-        if (!$form->isValid()) {
-            return $this->view(['data' => $form], Codes::HTTP_BAD_REQUEST);
+        if (!$form->isSubmitted() || !$form->isValid()) {
+            return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -127,15 +113,15 @@ class ManufacturerController extends FOSRestController implements ClassResourceI
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository(Manufacturer::class)->find($id);
 
-        if (!$entity instanceof Manufacturer) {
-            return $this->view(null, Codes::HTTP_NOT_FOUND);
+        if (null === $entity) {
+            return $this->view(null, Response::HTTP_NOT_FOUND);
         }
 
         $form = $this->createForm(ManufacturerType::class, $entity, ['method' => $request->getMethod()]);
         $form->handleRequest($request);
 
-        if (!$form->isValid()) {
-            return $this->view(['data' => $form], Codes::HTTP_BAD_REQUEST);
+        if (!$form->isSubmitted() || !$form->isValid()) {
+            return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
         $em->flush();
 
@@ -145,7 +131,7 @@ class ManufacturerController extends FOSRestController implements ClassResourceI
                 'id' => $entity->getId(),
                 '_format' => $request->get('_format'),
             ],
-            Codes::HTTP_NO_CONTENT
+            Response::HTTP_NO_CONTENT
         );
     }
 
@@ -159,17 +145,17 @@ class ManufacturerController extends FOSRestController implements ClassResourceI
         $entity = $this->getDoctrine()->getManager()->getRepository(Manufacturer::class)->find($id);
 
         if (null === $entity) {
-            return $this->view(null, Codes::HTTP_NOT_FOUND);
+            return $this->view(null, Response::HTTP_NOT_FOUND);
         }
 
         if (!$entity->isRemovable()) {
-            return $this->view(null, Codes::HTTP_CONFLICT);
+            return $this->view(null, Response::HTTP_CONFLICT);
         }
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($entity);
         $em->flush();
 
-        return $this->view(null, Codes::HTTP_NO_CONTENT);
+        return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 }

@@ -8,8 +8,8 @@ use Barra\RecipeBundle\Form\IngredientType;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
-use FOS\RestBundle\Util\Codes;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class IngredientController extends FOSRestController implements ClassResourceInterface
 {
@@ -21,11 +21,14 @@ class IngredientController extends FOSRestController implements ClassResourceInt
      */
     public function getProductAction($recipeId, $id)
     {
-        $product = $this->getDoctrine()->getManager()->getRepository(Ingredient::class)->find($id);
+        $ingredients = $this->getDoctrine()->getManager()->getRepository(Ingredient::class)->findBy([
+            'id' => $id,
+            'recipe' => $recipeId,
+        ]);
 
-        return null === $product || (int) $recipeId !== $product->getRecipe()->getId()
-            ? $this->view(null, Codes::HTTP_NOT_FOUND)
-            : $this->view(['data' => $product->getProduct()]);
+        return empty($ingredients)
+            ? $this->view(null, Response::HTTP_NOT_FOUND)
+            : $this->view($ingredients[0]->getProduct());
     }
 
     /**
@@ -39,8 +42,8 @@ class IngredientController extends FOSRestController implements ClassResourceInt
         $ingredient = $this->getDoctrine()->getManager()->getRepository(Ingredient::class)->find($id);
 
         return null === $ingredient || (int) $recipeId !== $ingredient->getRecipe()->getId()
-            ? $this->view(null, Codes::HTTP_NOT_FOUND)
-            : $this->view(['data' => $ingredient->getMeasurement()]);
+            ? $this->view(null, Response::HTTP_NOT_FOUND)
+            : $this->view($ingredient->getMeasurement());
     }
 
     /**
@@ -50,7 +53,7 @@ class IngredientController extends FOSRestController implements ClassResourceInt
      */
     public function newAction($recipeId)
     {
-        return $this->view(['data' => $this->createForm(IngredientType::class)]);
+        return $this->view($this->createForm(IngredientType::class));
     }
 
     /**
@@ -65,7 +68,7 @@ class IngredientController extends FOSRestController implements ClassResourceInt
             ['position' => 'ASC']
         );
 
-        return $this->view(['data' => $ingredients]);
+        return $this->view($ingredients);
     }
 
     /**
@@ -76,37 +79,40 @@ class IngredientController extends FOSRestController implements ClassResourceInt
      */
     public function getAction($recipeId, $id)
     {
-        $ingredient = $this->getDoctrine()->getManager()->getRepository(Ingredient::class)->find($id);
+        $ingredients = $this->getDoctrine()->getManager()->getRepository(Ingredient::class)->findBy([
+            'id' => $id,
+            'recipe' => $recipeId,
+        ]);
 
-        return null === $ingredient || (int) $recipeId !== $ingredient->getRecipe()->getId()
-            ? $this->view(null, Codes::HTTP_NOT_FOUND)
-            : $this->view(['data' => $ingredient]);
+        return empty($ingredients)
+            ? $this->view(null, Response::HTTP_NOT_FOUND)
+            : $this->view($ingredients[0]);
     }
 
     /**
-     * @param int $recipeId
      * @param Request $request
+     * @param int $recipeId
      *
      * @return View
      */
-    public function postAction($recipeId, Request $request)
+    public function postAction(Request $request, $recipeId)
     {
         $em = $this->getDoctrine()->getManager();
         $recipe = $em->getRepository(Recipe::class)->find($recipeId);
-        if (!$recipe instanceof Recipe) {
-            return $this->view(['data' => $this->createForm(IngredientType::class)], Codes::HTTP_BAD_REQUEST);
+        if (null === $recipe) {
+            return $this->view($this->createForm(IngredientType::class), Response::HTTP_BAD_REQUEST);
         }
 
         $repo = $em->getRepository(Ingredient::class);
         $ingredient = new Ingredient();
-        $ingredient->setPosition($repo->getNextPosition($recipe->getId()));
+        $ingredient->setPosition($repo->getNextPosition($recipeId));
         $ingredient->setRecipe($recipe);
 
         $form = $this->createForm(IngredientType::class, $ingredient);
         $form->handleRequest($request);
 
-        if (!$form->isValid()) {
-            return $this->view(['data' => $form], Codes::HTTP_BAD_REQUEST);
+        if (!$form->isSubmitted() || !$form->isValid()) {
+            return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
 
         $em->persist($ingredient);
@@ -129,17 +135,20 @@ class IngredientController extends FOSRestController implements ClassResourceInt
     public function putAction($recipeId, $id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $ingredient = $em->getRepository(Ingredient::class)->find($id);
+        $ingredients = $em->getRepository(Ingredient::class)->findBy([
+            'id' => $id,
+            'recipe' => $recipeId,
+        ]);
 
-        if (!$ingredient instanceof Ingredient || (int) $recipeId !== $ingredient->getRecipe()->getId()) {
-            return $this->view(null, Codes::HTTP_NOT_FOUND);
+        if (empty($ingredients)) {
+            return $this->view(null, Response::HTTP_NOT_FOUND);
         }
 
-        $form = $this->createForm(IngredientType::class, $ingredient, ['method' => $request->getMethod()]);
+        $form = $this->createForm(IngredientType::class, $ingredients[0], ['method' => $request->getMethod()]);
         $form->handleRequest($request);
 
-        if (!$form->isValid()) {
-            return $this->view(['data' => $form], Codes::HTTP_BAD_REQUEST);
+        if (!$form->isSubmitted() || !$form->isValid()) {
+            return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
         $em->flush();
 
@@ -150,7 +159,7 @@ class IngredientController extends FOSRestController implements ClassResourceInt
                 'id' => $id,
                 '_format' => $request->get('_format'),
             ],
-            Codes::HTTP_NO_CONTENT
+            Response::HTTP_NO_CONTENT
         );
     }
 
@@ -162,20 +171,23 @@ class IngredientController extends FOSRestController implements ClassResourceInt
      */
     public function deleteAction($recipeId, $id)
     {
-        $ingredient = $this->getDoctrine()->getManager()->getRepository(Ingredient::class)->find($id);
+        $ingredients = $this->getDoctrine()->getManager()->getRepository(Ingredient::class)->findBy([
+            'id' => $id,
+            'recipe' => $recipeId,
+        ]);
 
-        if (null === $ingredient || (int) $recipeId !== $ingredient->getRecipe()->getId()) {
-            return $this->view(null, Codes::HTTP_NOT_FOUND);
+        if (empty($ingredients)) {
+            return $this->view(null, Response::HTTP_NOT_FOUND);
         }
 
-        if (!$ingredient->isRemovable()) {
-            return $this->view(null, Codes::HTTP_CONFLICT);
+        if (!$ingredients[0]->isRemovable()) {
+            return $this->view(null, Response::HTTP_CONFLICT);
         }
 
         $em = $this->getDoctrine()->getManager();
-        $em->remove($ingredient);
+        $em->remove($ingredients[0]);
         $em->flush();
 
-        return $this->view(null, Codes::HTTP_NO_CONTENT);
+        return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 }

@@ -8,8 +8,8 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
-use FOS\RestBundle\Util\Codes;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends FOSRestController implements ClassResourceInterface
 {
@@ -18,7 +18,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
      */
     public function newAction()
     {
-        return $this->view(['data' => $this->createForm(ProductType::class)]);
+        return $this->view($this->createForm(ProductType::class));
     }
 
     /**
@@ -45,8 +45,8 @@ class ProductController extends FOSRestController implements ClassResourceInterf
 
         // alternatively, 'limit' could be set as strict in it's annotation to set it mandatory.
         return (null === $limit || $limit < 1 || $offset < 0)
-            ? $this->view(null, Codes::HTTP_BAD_REQUEST)
-            : $this->view(['data' => $products]);
+            ? $this->view(null, Response::HTTP_BAD_REQUEST)
+            : $this->view($products);
     }
 
     /**
@@ -59,8 +59,8 @@ class ProductController extends FOSRestController implements ClassResourceInterf
         $entity = $this->getDoctrine()->getManager()->getRepository(Product::class)->find($id);
 
         return null === $entity
-            ? $this->view(null, Codes::HTTP_NOT_FOUND)
-            : $this->view(['data' => $entity->getIngredients()]);
+            ? $this->view(null, Response::HTTP_NOT_FOUND)
+            : $this->view($entity->getIngredients());
     }
 
     /**
@@ -73,8 +73,8 @@ class ProductController extends FOSRestController implements ClassResourceInterf
         $entity = $this->getDoctrine()->getManager()->getRepository(Product::class)->find($id);
 
         return null === $entity
-            ? $this->view(null, Codes::HTTP_NOT_FOUND)
-            : $this->view(['data' => $entity->getManufacturer()]);
+            ? $this->view(null, Response::HTTP_NOT_FOUND)
+            : $this->view($entity->getManufacturer());
     }
 
     /**
@@ -87,22 +87,8 @@ class ProductController extends FOSRestController implements ClassResourceInterf
         $entity = $this->getDoctrine()->getManager()->getRepository(Product::class)->find($id);
 
         return null === $entity
-            ? $this->view(null, Codes::HTTP_NOT_FOUND)
-            : $this->view(['data' => $entity]);
-    }
-
-    /**
-     * @param int $id
-     *
-     * @return View
-     */
-    public function getRecipeAction($id)
-    {
-        $entity = $this->getDoctrine()->getManager()->getRepository(Product::class)->find($id);
-
-        return null === $entity
-            ? $this->view(null, Codes::HTTP_NOT_FOUND)
-            : $this->view(['data' => $entity->getRecipe()]);
+            ? $this->view(null, Response::HTTP_NOT_FOUND)
+            : $this->view($entity);
     }
 
     /**
@@ -116,8 +102,8 @@ class ProductController extends FOSRestController implements ClassResourceInterf
         $form = $this->createForm(ProductType::class, $entity);
         $form->handleRequest($request);
 
-        if (!$form->isValid()) {
-            return $this->view(['data' => $form], Codes::HTTP_BAD_REQUEST);
+        if (!$form->isSubmitted() || !$form->isValid()) {
+            return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -141,15 +127,15 @@ class ProductController extends FOSRestController implements ClassResourceInterf
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository(Product::class)->find($id);
 
-        if (!$entity instanceof Product) {
-            return $this->view(null, Codes::HTTP_NOT_FOUND);
+        if (null === $entity) {
+            return $this->view(null, Response::HTTP_NOT_FOUND);
         }
 
         $form = $this->createForm(ProductType::class, $entity, ['method' => $request->getMethod()]);
         $form->handleRequest($request);
 
-        if (!$form->isValid()) {
-            return $this->view(['data' => $form], Codes::HTTP_BAD_REQUEST);
+        if (!$form->isSubmitted() || !$form->isValid()) {
+            return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
         $em->flush();
 
@@ -159,7 +145,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
                 'id' => $entity->getId(),
                 '_format' => $request->get('_format'),
             ],
-            Codes::HTTP_NO_CONTENT
+            Response::HTTP_NO_CONTENT
         );
     }
 
@@ -173,17 +159,17 @@ class ProductController extends FOSRestController implements ClassResourceInterf
         $entity = $this->getDoctrine()->getManager()->getRepository(Product::class)->find($id);
 
         if (null === $entity) {
-            return $this->view(null, Codes::HTTP_NOT_FOUND);
+            return $this->view(null, Response::HTTP_NOT_FOUND);
         }
 
         if (!$entity->isRemovable()) {
-            return $this->view(null, Codes::HTTP_CONFLICT);
+            return $this->view(null, Response::HTTP_CONFLICT);
         }
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($entity);
         $em->flush();
 
-        return $this->view(null, Codes::HTTP_NO_CONTENT);
+        return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 }
