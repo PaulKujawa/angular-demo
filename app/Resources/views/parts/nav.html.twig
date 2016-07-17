@@ -7,22 +7,22 @@
           route ends with 'public'
     %}
         <li {% if route ends with 'root' or route ends with 'contact' %}class="active"{% endif %}>
-            <a href="{{ path('barra_recipe_contact') }}">{{ ('barra.contact.title')|trans }}</a>
+            <a href="{{ path('app_contact') }}">{{ ('barra.contact.title')|trans }}</a>
         </li>
         <li {% if route ends with 'public' %}class="active"{% endif %}>
-            <a href="{{ path('barra_recipe_recipes_public') }}">{{ ('barra.recipes.title')|trans }}</a>
+            <a href="{{ path('app_recipes_public') }}">{{ ('barra.recipes.title')|trans }}</a>
         </li>
 
     {# ADMIN #}
     {% else %}
         <li {% if route ends with 'dashboard' %}class="active"{% endif %}>
-            <a href="{{ path('barra_recipe_dashboard') }}">{{ ('barra.dashboard')|trans }}</a>
+            <a href="{{ path('app_dashboard') }}">{{ ('barra.dashboard')|trans }}</a>
         </li>
         <li {% if route ends with 'admin' %}class="active"{% endif %}>
-            <a href="{{ path('barra_recipe_recipes_admin') }}">{{ ('barra.recipes.title')|trans }}</a>
+            <a href="{{ path('app_recipes_admin') }}">{{ ('barra.recipes.title')|trans }}</a>
         </li>
         <li {% if route ends with 'measurements' %}class="active"{% endif %}>
-            <a href="{{ path('barra_recipe_measurements') }}">{{ ('barra.measurements')|trans }}</a>
+            <a href="{{ path('app_measurements') }}">{{ ('barra.measurements')|trans }}</a>
         </li>
         <li class="dropdown{% if route ends with 'products' or route ends with 'manufacturers' %} active{% endif %}">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -30,10 +30,10 @@
             </a>
             <ul class="dropdown-menu" role="menu">
                 <li {% if route ends with 'products' %}class="active"{% endif %}>
-                  <a href="{{ path('barra_recipe_products') }}">{{ ('barra.products.title')|trans }}</a>
+                  <a href="{{ path('app_products') }}">{{ ('barra.products.title')|trans }}</a>
                 </li>
                 <li {% if route ends with 'manufacturers' %}class="active"{% endif %}>
-                    <a href="{{ path('barra_recipe_manufacturers') }}">{{ ('barra.manufacturers.title')|trans }}</a>
+                    <a href="{{ path('app_manufacturers') }}">{{ ('barra.manufacturers.title')|trans }}</a>
                 </li>
             </ul>
         </li>

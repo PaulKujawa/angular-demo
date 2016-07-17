@@ -1,29 +1,29 @@
-barra_recipe_redirect:
+root:
     path: /
     defaults:
       _controller: FrameworkBundle:Redirect:redirect
-      route: barra_recipe_root
+      route: app_contact
       permanent: true
     options:
         expose: true
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
-    prefix:   /{_locale}/admino
+    prefix: /{_locale}/admino
     options:
         expose: true
 
-barra_rest:
-    type:     rest
-    resource: "@BarraRestBundle/Resources/config/routing.yml"
-    prefix:   /{_locale}/api
+api:
+    type: rest
+    resource: "@AppBundle/Resources/config/routing_api.yml"
+    prefix: /{_locale}/api
     options:
         expose: true
 
-barra_recipe:
-    resource: "@BarraRecipeBundle/Controller"
+app:
+    resource: "@AppBundle/Controller"
     type: annotation
-    prefix:   /{_locale}
+    prefix: /{_locale}
     options:
         expose: true
 

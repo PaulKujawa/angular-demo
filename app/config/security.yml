@@ -14,12 +14,12 @@ security:
                 provider:                 fos_userbundle
                 login_path:               fos_user_security_login   # form renderer
                 check_path:               fos_user_security_check   # checks credentials (form's action)
-                default_target_path:      barra_recipe_dashboard    # default redirect when user just targeted /login
+                default_target_path:      app_dashboard    # default redirect when user just targeted /login
 #                success_handler:          lexik_jwt_authentication.handler.authentication_success   # returns JWT
 #                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
             logout:
                 path:                     fos_user_security_logout
-                target:                   barra_recipe_contact
+                target:                   app_contact
         api:
             pattern:                      ^/[a-z][a-z]/api
             provider:                     fos_userbundle
@@ -37,8 +37,8 @@ security:
 
 
     access_control:
-        - { path: ^/[a-z][a-z]/api/,              role: ROLE_ADMIN }
-        - { path: ^/[a-z][a-z]/admino/login$,     role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "^/[a-z][a-z]/api/",              role: ROLE_ADMIN }
+        - { path: "^/[a-z][a-z]/admino/login$",     role: IS_AUTHENTICATED_ANONYMOUSLY }
       # - { path: ^/[a-z][a-z]/admino/register,   role: IS_AUTHENTICATED_ANONYMOUSLY }
       # - { path: ^/[a-z][a-z]/admino/resetting,  role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/[a-z][a-z]/admino,            role: ROLE_ADMIN }
+        - { path: "^/[a-z][a-z]/admino",            role: ROLE_ADMIN }

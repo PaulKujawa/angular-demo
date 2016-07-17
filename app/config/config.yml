@@ -3,6 +3,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: services.yml }
 
 parameters:
     locale: en
@@ -69,32 +70,26 @@ sensio_framework_extra:
     view: { annotations: false }                            # FOSRestBundle takes over the controller annotations handling for views
 
 fos_rest:
-    param_fetcher_listener: force                           # force for automatically map request params as controller params
-    format_listener: true                                   # Allow to request a format like api/foo/2.json
-    body_listener:                                          # Allow different request formats like app/json
-        decoders:
-          json: fos_rest.decoder.jsontoform
-          xml: fos_rest.decoder.xml
-
-    view:
-        view_response_listener: 'force'                     # Enable & force to return a view instance like @View()
-        formats:
-            xml: true
-            json : true
-        templating_formats:                                 # template for rendering via templating service
-            html: false                                     # false to don't have to support separate twig templates
-        force_redirects:
-            html: true                                      # default
-        failed_validation: HTTP_BAD_REQUEST
-        default_engine: twig
+    param_fetcher_listener: force                           # set configred parameter as request parameter
     routing_loader:
-        default_format: json                                # if none is set via URL
+        default_format: json
+    body_listener:                                          # Converts formats and populates request parameter bag
+        decoders:
+          json: fos_rest.decoder.json
+          xml: fos_rest.decoder.xml
+    view:
+        view_response_listener: 'force'                     # converts response View object into Response object
+        formats:                                            # formats rendered via JMS serializer
+            json : true
+        templating_formats:                                 # formats requiring a template for rendering (twig)
+            html: true
+        default_engine: twig
 
 
 fos_user:
     db_driver:      orm
     firewall_name:  admino
-    user_class:     Barra\RecipeBundle\Entity\User
+    user_class:     AppBundle\Entity\User
 
 
 jms_serializer:                                             # JMS exlusion for 3th party entites needs to be done via config file
