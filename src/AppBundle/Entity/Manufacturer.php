@@ -30,7 +30,7 @@ class Manufacturer
      *
      * @ORM\OneToMany(
      *      targetEntity = "Product",
-     *      mappedBy     = "manufacturer"
+     *      mappedBy = "manufacturer"
      * )
      * @ORM\OrderBy({"name" = "ASC"})
      */
@@ -74,13 +74,5 @@ class Manufacturer
     public function getProducts()
     {
         return $this->products;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isRemovable()
-    {
-        return $this->getProducts()->isEmpty();
     }
 }

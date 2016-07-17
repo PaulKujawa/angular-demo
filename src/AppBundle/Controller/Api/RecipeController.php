@@ -2,12 +2,12 @@
 
 namespace AppBundle\Controller\Api;
 
-use AppBundle\Entity\Recipe;
 use AppBundle\Form\RecipeType;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
-use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
+use FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -23,7 +23,7 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
 
     /**
      * @QueryParam(name="offset", requirements="\d+", default="0")
-     * @QueryParam(name="limit", requirements="\d+")
+     * @QueryParam(name="limit", requirements="[1-9]\d*", default="10")
      * @QueryParam(name="orderBy", requirements="\w+", default="id")
      * @QueryParam(name="order", requirements="(asc|desc)", default="asc")
      *
@@ -36,17 +36,9 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
      */
     public function cgetAction($offset, $limit, $orderBy, $order)
     {
-        $recipes = $this->getDoctrine()->getManager()->getRepository(Recipe::class)->findBy(
-            [],
-            [$orderBy => $order],
-            $limit,
-            $offset
-        );
+        $recipes = $this->get('app.recipe')->getRecipes($orderBy, $order, $limit, $offset);
 
-        // alternatively, 'limit' could be set as strict in it's annotation to set it mandatory.
-        return (null === $limit || $limit < 1 || $offset < 0)
-            ? $this->view(null, Response::HTTP_BAD_REQUEST)
-            : $this->view($recipes);
+        return $this->view($recipes);
     }
 
     /**
@@ -56,11 +48,11 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
      */
     public function getAction($id)
     {
-        $entity = $this->getDoctrine()->getManager()->getRepository(Recipe::class)->find($id);
+        $recipe = $this->get('app.recipe')->getRecipe($id);
 
-        return null === $entity
+        return null === $recipe
             ? $this->view(null, Response::HTTP_NOT_FOUND)
-            : $this->view($entity);
+            : $this->view($recipe);
     }
 
     /**
@@ -70,22 +62,16 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
      */
     public function postAction(Request $request)
     {
-        $entity = new Recipe();
-        $form = $this->createForm(RecipeType::class, $entity);
+        $form = $this->createForm(RecipeType::class);
         $form->handleRequest($request);
 
         if (!$form->isSubmitted() || !$form->isValid()) {
             return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($entity);
-        $em->flush();
+        $recipe = $this->get('app.recipe')->addRecipe($form->getData());
 
-        return $this->routeRedirectView('api_get_recipe', [
-            'id' => $entity->getId(),
-            '_format' => $request->get('_format'),
-        ]);
+        return $this->view()->createRouteRedirect('api_get_recipe', ['id' => $recipe->getId()], Response::HTTP_CREATED);
     }
 
     /**
@@ -96,29 +82,22 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
      */
     public function putAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository(Recipe::class)->find($id);
+        $recipe = $this->get('app.product')->getProduct($id);
 
-        if (null === $entity) {
+        if (null === $recipe) {
             return $this->view(null, Response::HTTP_NOT_FOUND);
         }
 
-        $form = $this->createForm(RecipeType::class, $entity, ['method' => $request->getMethod()]);
+        $form = $this->createForm(RecipeType::class, $recipe, ['method' => $request->getMethod()]);
         $form->handleRequest($request);
 
         if (!$form->isSubmitted() || !$form->isValid()) {
             return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
-        $em->flush();
 
-        return $this->routeRedirectView(
-            'api_get_recipe',
-            [
-                'id' => $entity->getId(),
-                '_format' => $request->get('_format'),
-            ],
-            Response::HTTP_NO_CONTENT
-        );
+        $this->get('app.recipe')->setRecipe($recipe);
+
+        return $this->view()->createRouteRedirect('api_get_recipe', ['id' => $id], Response::HTTP_NO_CONTENT);
     }
 
     /**
@@ -128,19 +107,17 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
      */
     public function deleteAction($id)
     {
-        $entity = $this->getDoctrine()->getManager()->getRepository(Recipe::class)->find($id);
+        $recipe = $this->get('app.recipe')->getRecipe($id);
 
-        if (null === $entity) {
+        if (null === $recipe) {
             return $this->view(null, Response::HTTP_NOT_FOUND);
         }
 
-        if (!$entity->isRemovable()) {
+        try {
+            $this->get('app.recipe')->deleteRecipe($recipe);
+        } catch (ForeignKeyConstraintViolationException $ex) {
             return $this->view(null, Response::HTTP_CONFLICT);
         }
-
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($entity);
-        $em->flush();
 
         return $this->view(null, Response::HTTP_NO_CONTENT);
     }

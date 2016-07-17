@@ -21,6 +21,9 @@ api_cookings:
   resource: "@AppBundle/Controller/Api/CookingController.php"
   name_prefix: api_
 
+
+
+
 api_products:
   type: rest
   resource: "@AppBundle/Controller/Api/ProductController.php"

@@ -25,6 +25,14 @@ class Photo
     use ImageTrait;
 
     /**
+     * @param int $recipeId
+     */
+    public function __construct($recipeId)
+    {
+        $this->recipe = $recipeId;
+    }
+
+    /**
      * @var Recipe
      *
      * @Exclude
@@ -33,13 +41,13 @@ class Photo
      *
      * @ORM\ManyToOne(
      *      targetEntity = "Recipe",
-     *      inversedBy   = "photos"
+     *      inversedBy = "photos"
      * )
      * @ORM\JoinColumn(
-     *      name                 = "recipe",
+     *      name = "recipe",
      *      referencedColumnName = "id",
-     *      nullable             = false,
-     *      onDelete             = "CASCADE"
+     *      nullable = false,
+     *      onDelete = "CASCADE"
      * )
      * @ORM\OrderBy({"name" = "ASC"})
      */
@@ -63,13 +71,5 @@ class Photo
     public function getRecipe()
     {
         return $this->recipe;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isRemovable()
-    {
-        return true;
     }
 }

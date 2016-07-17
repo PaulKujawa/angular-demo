@@ -16,9 +16,9 @@ trait DescriptionTrait
      * )
      *
      * @ORM\Column(
-     *      name    = "description",
-     *      type    = "string",
-     *      length  = 120,
+     *      name = "description",
+     *      type = "string",
+     *      length = 120,
      * )
      */
     private $description;

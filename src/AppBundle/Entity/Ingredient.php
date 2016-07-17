@@ -32,6 +32,16 @@ class Ingredient
     use PositionTrait;
 
     /**
+     * @param int $recipeId
+     * @param int $position
+     */
+    public function __construct($recipeId, $position)
+    {
+        $this->recipe = $recipeId;
+        $this->position = $position;
+    }
+
+    /**
      * @var Recipe
      *
      * @Assert\NotNull()
@@ -40,13 +50,13 @@ class Ingredient
      *
      * @ORM\ManyToOne(
      *      targetEntity = "Recipe",
-     *      inversedBy   = "ingredients"
+     *      inversedBy = "ingredients"
      * )
      * @ORM\JoinColumn(
-     *      name                 = "recipe",
+     *      name = "recipe",
      *      referencedColumnName = "id",
-     *      nullable             = false,
-     *      onDelete             = "CASCADE"
+     *      nullable = false,
+     *      onDelete = "CASCADE"
      * )
      * @ORM\OrderBy({"name" = "ASC"})
      */
@@ -61,10 +71,10 @@ class Ingredient
      *
      * @ORM\ManyToOne(
      *      targetEntity = "Product",
-     *      inversedBy   = "ingredients"
+     *      inversedBy = "ingredients"
      * )
      * @ORM\JoinColumn(
-     *      name                 = "product",
+     *      name = "product",
      *      referencedColumnName = "id"
      * )
      * @ORM\OrderBy({"name" = "ASC"})
@@ -79,8 +89,8 @@ class Ingredient
      * )
      *
      * @ORM\Column(
-     *      name     = "amount",
-     *      type     = "smallint",
+     *      name = "amount",
+     *      type = "smallint",
      *      nullable = true
      * )
      */
@@ -93,12 +103,12 @@ class Ingredient
      *
      * @ORM\ManyToOne(
      *      targetEntity = "Measurement",
-     *      inversedBy   = "ingredients"
+     *      inversedBy = "ingredients"
      * )
      * @ORM\JoinColumn(
-     *      name                 = "measurement",
+     *      name = "measurement",
      *      referencedColumnName = "id",
-     *      nullable             = true
+     *      nullable = true
      * )
      * @ORM\OrderBy({"name" = "ASC"})
      */
@@ -182,13 +192,5 @@ class Ingredient
     public function getMeasurement()
     {
         return $this->measurement;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isRemovable()
-    {
-        return true;
     }
 }

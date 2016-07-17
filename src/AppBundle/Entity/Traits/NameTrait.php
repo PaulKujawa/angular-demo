@@ -16,8 +16,8 @@ trait NameTrait
      * )
      *
      * @ORM\Column(
-     *      name   = "name",
-     *      type   = "string",
+     *      name = "name",
+     *      type = "string",
      *      length = 40,
      *      unique = true
      * )

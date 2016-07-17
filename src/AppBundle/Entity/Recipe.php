@@ -30,7 +30,7 @@ class Recipe
      *
      * @ORM\OneToMany(
      *      targetEntity = "Ingredient",
-     *      mappedBy     = "recipe"
+     *      mappedBy = "recipe"
      * )
      * @ORM\OrderBy({"position" = "ASC"})
      */
@@ -38,10 +38,11 @@ class Recipe
 
     /**
      * @var ArrayCollection
+     * 
      * @Exclude
      * @ORM\OneToMany(
      *      targetEntity = "Cooking",
-     *      mappedBy     = "recipe"
+     *      mappedBy = "recipe"
      * )
      * @ORM\OrderBy({"position" = "ASC"})
      */
@@ -54,8 +55,8 @@ class Recipe
      *
      * @ORM\OneToMany(
      *      targetEntity = "Photo",
-     *      mappedBy     = "recipe",
-     *      cascade      = {"remove"}
+     *      mappedBy = "recipe",
+     *      cascade = {"remove"}
      * )
      * @ORM\OrderBy({"id" = "ASC"})
      */
@@ -162,13 +163,5 @@ class Recipe
     public function getPhotos()
     {
         return $this->photos;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isRemovable()
-    {
-        return true;
     }
 }

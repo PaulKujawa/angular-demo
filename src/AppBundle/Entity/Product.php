@@ -5,7 +5,6 @@ namespace AppBundle\Entity;
 use AppBundle\Entity\Traits\IdAutoTrait;
 use AppBundle\Entity\Traits\NameTrait;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Exclude;
 use JMS\Serializer\Annotation\ExclusionPolicy;
@@ -41,9 +40,7 @@ class Product
      * @var int
      *
      * @Assert\NotNull()
-     * @Assert\GreaterThan(
-     *      value = 0
-     * )
+     * @Assert\GreaterThan(value = 0)
      *
      * @ORM\Column(
      *      name = "gr",
@@ -56,13 +53,11 @@ class Product
      * @var int
      *
      * @Assert\NotNull()
-     * @Assert\GreaterThan(
-     *      value = 0
-     * )
+     * @Assert\GreaterThan(value = 0)
      *
      * @ORM\Column(
-     *      name  = "kcal",
-     *      type  = "integer"
+     *      name = "kcal",
+     *      type = "integer"
      * )
      */
     private $kcal;
@@ -71,13 +66,11 @@ class Product
      * @var double
      *
      * @Assert\NotNull()
-     * @Assert\GreaterThan(
-     *      value = 0.0
-     * )
+     * @Assert\GreaterThanOrEqual(value = 0.0)
      *
      * @ORM\Column(
-     *      name  = "protein",
-     *      type  = "decimal",
+     *      name = "protein",
+     *      type = "decimal",
      *      scale = 1
      * )
      */
@@ -87,13 +80,11 @@ class Product
      * @var double
      *
      * @Assert\NotNull()
-     * @Assert\GreaterThan(
-     *      value = 0.0
-     * )
+     * @Assert\GreaterThanOrEqual(value = 0.0)
      *
      * @ORM\Column(
-     *      name  = "carbs",
-     *      type  = "decimal",
+     *      name = "carbs",
+     *      type = "decimal",
      *      scale = 1
      * )
      */
@@ -103,13 +94,11 @@ class Product
      * @var double
      *
      * @Assert\NotNull()
-     * @Assert\GreaterThan(
-     *      value = 0.0
-     * )
+     * @Assert\GreaterThanOrEqual(value = 0.0)
      *
      * @ORM\Column(
-     *      name  = "sugar",
-     *      type  = "decimal",
+     *      name = "sugar",
+     *      type = "decimal",
      *      scale = 1
      * )
      */
@@ -119,13 +108,11 @@ class Product
      * @var double
      *
      * @Assert\NotNull()
-     * @Assert\GreaterThan(
-     *      value = 0.0
-     * )
+     * @Assert\GreaterThanOrEqual(value = 0.0)
      *
      * @ORM\Column(
-     *      name  = "fat",
-     *      type  = "decimal",
+     *      name = "fat",
+     *      type = "decimal",
      *      scale = 1
      * )
      */
@@ -135,13 +122,11 @@ class Product
      * @var double
      *
      * @Assert\NotNull()
-     * @Assert\GreaterThan(
-     *      value = 0.0
-     * )
+     * @Assert\GreaterThanOrEqual(value = 0.0)
      *
      * @ORM\Column(
-     *      name  = "gfat",
-     *      type  = "decimal",
+     *      name = "gfat",
+     *      type = "decimal",
      *      scale = 1
      * )
      */
@@ -152,16 +137,15 @@ class Product
      *
      * @Assert\NotNull()
      *
-     * @Exclude
      *
      * @ORM\ManyToOne(
      *      targetEntity = "Manufacturer",
-     *      inversedBy   = "products"
+     *      inversedBy = "products"
      * )
      * @ORM\JoinColumn(
-     *      name                 = "manufacturer",
+     *      name = "manufacturer",
      *      referencedColumnName = "id",
-     *      nullable             = false
+     *      nullable = false
      * )
      * @ORM\OrderBy({"name" = "ASC"})
      */
@@ -174,7 +158,7 @@ class Product
      *
      * @ORM\OneToMany(
      *      targetEntity = "Ingredient",
-     *      mappedBy     = "product"
+     *      mappedBy = "product"
      * )
      */
     private $ingredients;
@@ -404,13 +388,5 @@ class Product
     public function getIngredients()
     {
         return $this->ingredients;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isRemovable()
-    {
-        return $this->getIngredients()->isEmpty();
     }
 }

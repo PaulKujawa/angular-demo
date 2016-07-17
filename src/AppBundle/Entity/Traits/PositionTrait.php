@@ -10,9 +10,7 @@ trait PositionTrait
      * @var int
      *
      * @Assert\NotNull()
-     * @Assert\GreaterThan(
-     *      value = 0
-     * )
+     * @Assert\GreaterThan(value = 0)
      *
      * @ORM\Column(
      *      name = "position",

@@ -30,6 +30,16 @@ class Cooking
     use PositionTrait;
 
     /**
+     * @param int $recipeId
+     * @param int $position
+     */
+    public function __construct($recipeId, $position)
+    {
+        $this->recipe = $recipeId;
+        $this->position = $position;
+    }
+
+    /**
      * @var Recipe
      *
      * @Assert\NotNull()
@@ -38,13 +48,13 @@ class Cooking
      *
      * @ORM\ManyToOne(
      *      targetEntity = "Recipe",
-     *      inversedBy   = "cookings"
+     *      inversedBy = "cookings"
      * )
      * @ORM\JoinColumn(
-     *      name                 = "recipe",
+     *      name = "recipe",
      *      referencedColumnName = "id",
-     *      nullable             = false,
-     *      onDelete             = "CASCADE"
+     *      nullable = false,
+     *      onDelete = "CASCADE"
      * )
      * @ORM\OrderBy({"name" = "ASC"})
      */
@@ -68,13 +78,5 @@ class Cooking
     public function getRecipe()
     {
         return $this->recipe;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isRemovable()
-    {
-        return true;
     }
 }

@@ -1,0 +1,28 @@
+services:
+    app.recipe:
+        class: AppBundle\Service\RecipeService
+        arguments: [ "@doctrine.orm.entity_manager" ]
+
+    app.product:
+        class: AppBundle\Service\ProductService
+        arguments: [ "@doctrine.orm.entity_manager" ]
+
+    app.photo:
+        class: AppBundle\Service\PhotoService
+        arguments: [ "@doctrine.orm.entity_manager" ]
+
+    app.ingredient:
+        class: AppBundle\Service\IngredientService
+        arguments: [ "@doctrine.orm.entity_manager" ]
+
+    app.cooking:
+        class: AppBundle\Service\CookingService
+        arguments: [ "@doctrine.orm.entity_manager" ]
+
+    app.measurement:
+        class: AppBundle\Service\MeasurementService
+        arguments: [ "@doctrine.orm.entity_manager" ]
+
+    app.manufacturer:
+        class: AppBundle\Service\ManufacturerService
+        arguments: [ "@doctrine.orm.entity_manager" ]

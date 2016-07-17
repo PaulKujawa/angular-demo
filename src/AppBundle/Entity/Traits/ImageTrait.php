@@ -14,11 +14,11 @@ trait ImageTrait
      * @var string
      *
      * @ORM\Column(
-     *      name        = "filename",
-     *      type        = "string",
-     *      length      = 255,
-     *      nullable    = true,
-     *      unique      = true
+     *      name = "filename",
+     *      type = "string",
+     *      length = 255,
+     *      nullable = true,
+     *      unique = true
      * )
      */
     private $filename;
@@ -26,14 +26,12 @@ trait ImageTrait
     /**
      * @var int
      *
-     * @Assert\GreaterThan(
-     *      value = 0
-     * )
+     * @Assert\GreaterThan(value = 0)
      *
      * @ORM\Column(
-     *      name        = "size",
-     *      type        = "integer",
-     *      nullable    = true
+     *      name  = "size",
+     *      type = "integer",
+     *      nullable = true
      * )
      */
     private $size;
@@ -43,12 +41,12 @@ trait ImageTrait
      * @var UploadedFile
      *
      * @Assert\Image(
-     *      mimeTypes   = "image/*",
-     *      maxSize     = "2M",
-     *      minWidth    = 200,
-     *      maxWidth    = 400,
-     *      minHeight   = 200,
-     *      maxHeight   = 400
+     *      mimeTypes = "image/*",
+     *      maxSize = "2M",
+     *      minWidth = 200,
+     *      maxWidth = 400,
+     *      minHeight = 200,
+     *      maxHeight = 400
      * )
      */
     private $file;
@@ -59,11 +57,9 @@ trait ImageTrait
      */
     public function getAbsolutePathWithFilename()
     {
-        if (null === $this->filename) {
-            return null;
-        }
-
-        return $this->getAbsolutePath() . '/' . $this->filename;
+        return null === $this->filename
+            ? null
+            : $this->getAbsolutePath() . '/' . $this->filename;
     }
 
     /**
@@ -79,11 +75,9 @@ trait ImageTrait
      */
     public function getWebDirectoryWithFilename()
     {
-        if (null === $this->filename) {
-            return null;
-        }
-
-        return $this->getWebDirectory() . '/' . $this->filename;
+        return null === $this->filename
+            ? null
+            : $this->getWebDirectory() . '/' . $this->filename;
     }
 
     /**

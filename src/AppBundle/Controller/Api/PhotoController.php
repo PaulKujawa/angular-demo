@@ -3,9 +3,9 @@
 namespace AppBundle\Controller\Api;
 
 use AppBundle\Entity\Photo;
-use AppBundle\Entity\Recipe;
 use AppBundle\Form\PhotoType;
-use FOS\RestBundle\Controller\Annotations\View;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
+use FOS\RestBundle\View\View;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,8 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
 class PhotoController extends FOSRestController implements ClassResourceInterface
 {
     /**
-     * @param int $recipeId
-     *
      * @return View
      */
     public function newAction($recipeId)
@@ -30,7 +28,7 @@ class PhotoController extends FOSRestController implements ClassResourceInterfac
      */
     public function cgetAction($recipeId)
     {
-        $photos = $this->getDoctrine()->getManager()->getRepository(Photo::class)->findBy(['recipe' => $recipeId]);
+        $photos = $this->get('app.photo')->getPhotos($recipeId);
 
         return $this->view($photos);
     }
@@ -43,14 +41,11 @@ class PhotoController extends FOSRestController implements ClassResourceInterfac
      */
     public function getAction($recipeId, $id)
     {
-        $photos = $this->getDoctrine()->getManager()->getRepository(Photo::class)->findBy([
-            'id' => $id,
-            'recipe' => $recipeId,
-        ]);
+        $product = $this->get('app.photo')->getPhoto($recipeId, $id);
 
-        return empty($photos)
+        return null === $product
             ? $this->view(null, Response::HTTP_NOT_FOUND)
-            : $this->view($photos[0]);
+            : $this->view($product);
     }
 
     /**
@@ -61,15 +56,12 @@ class PhotoController extends FOSRestController implements ClassResourceInterfac
      */
     public function postAction(Request $request, $recipeId)
     {
-        $em = $this->getDoctrine()->getManager();
-        $recipe = $em->getRepository(Recipe::class)->find($recipeId);
+        $recipe = $this->get('app.recipe')->getRecipe($recipeId);
         if (null === $recipe) {
-            return $this->view($this->createForm(PhotoType::class), Response::HTTP_BAD_REQUEST);
+            return $this->view(null, Response::HTTP_NOT_FOUND);
         }
 
-        $photo = new Photo();
-        $photo->setRecipe($recipe);
-
+        $photo = new Photo($recipeId);
         $form = $this->createForm(PhotoType::class, $photo);
         $form->handleRequest($request);
 
@@ -77,14 +69,13 @@ class PhotoController extends FOSRestController implements ClassResourceInterfac
             return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
 
-        $em->persist($photo);
-        $em->flush();
+        $photo = $this->get('app.photo')->addPhoto($photo);
 
-        return $this->routeRedirectView('api_get_recipe_photo', [
-            'recipeId' => $recipeId,
-            'id' => $photo->getId(),
-            '_format' => $request->get('_format'),
-        ]);
+        return $this->view()->createRouteRedirect(
+            'api_get_recipe_photo',
+            ['recipeId' => $recipeId, 'id' => $photo->getId()],
+            Response::HTTP_CREATED
+        );
     }
 
     /**
@@ -96,31 +87,24 @@ class PhotoController extends FOSRestController implements ClassResourceInterfac
      */
     public function putAction(Request $request, $recipeId, $id)
     {
-        $em = $this->getDoctrine()->getManager();
-        $photos = $em->getRepository(Photo::class)->findBy([
-            'id' => $id,
-            'recipe' => $recipeId,
-        ]);
+        $photo = $this->get('app.photo')->getPhoto($recipeId, $id);
 
-        if (empty($photos)) {
+        if (null === $photo) {
             return $this->view(null, Response::HTTP_NOT_FOUND);
         }
 
-        $form = $this->createForm(PhotoType::class, $photos[0], ['method' => $request->getMethod()]);
+        $form = $this->createForm(PhotoType::class, $photo, ['method' => $request->getMethod()]);
         $form->handleRequest($request);
 
         if (!$form->isSubmitted() || !$form->isValid()) {
             return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
-        $em->flush();
 
-        return $this->routeRedirectView(
+        $this->get('app.photo')->setPhoto($photo);
+
+        return $this->view()->createRouteRedirect(
             'api_get_recipe_photo',
-            [
-                'recipeId' => $recipeId,
-                'id' => $id,
-                '_format' => $request->get('_format'),
-            ],
+            ['recipeId' => $recipeId, 'id' => $id],
             Response::HTTP_NO_CONTENT
         );
     }
@@ -133,19 +117,17 @@ class PhotoController extends FOSRestController implements ClassResourceInterfac
      */
     public function deleteAction($recipeId, $id)
     {
-        $photo = $this->getDoctrine()->getManager()->getRepository(Photo::class)->find($id);
+        $photo = $this->get('app.photo')->getPhoto($recipeId, $id);
 
-        if (null === $photo || (int) $recipeId !== $photo->getRecipe()->getId()) {
+        if (null === $photo) {
             return $this->view(null, Response::HTTP_NOT_FOUND);
         }
 
-        if (!$photo->isRemovable()) {
+        try {
+            $this->get('app.photo')->deletePhoto($photo);
+        } catch (ForeignKeyConstraintViolationException $ex) {
             return $this->view(null, Response::HTTP_CONFLICT);
         }
-
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($photo);
-        $em->flush();
 
         return $this->view(null, Response::HTTP_NO_CONTENT);
     }

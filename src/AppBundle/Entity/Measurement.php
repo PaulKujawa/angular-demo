@@ -46,7 +46,7 @@ class Measurement
      *
      * @ORM\OneToMany(
      *      targetEntity = "Ingredient",
-     *      mappedBy     = "measurement"
+     *      mappedBy = "measurement"
      * )
      */
     private $ingredients;
@@ -106,13 +106,5 @@ class Measurement
     public function getIngredients()
     {
         return $this->ingredients;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isRemovable()
-    {
-        return $this->getIngredients()->isEmpty();
     }
 }
