@@ -1,6 +1,11 @@
 {
-  "ambientDependencies": {
-    "fs-extra": "registry:dt/fs-extra#0.0.0+20160319124112",
-    "node": "registry:dt/node#4.0.0+20160412142033"
+  "globalDependencies": {
+    "es6-shim": "registry:dt/es6-shim#0.31.2+20160602141504",
+    "node": "registry:env/node#6.0.0+20160723033700",
+    "q": "registry:dt/q#0.0.0+20160613154756"
+  },
+  "dependencies": {
+    "gulp": "registry:npm/gulp#4.0.0-alpha.2+20160723033700",
+    "orchestrator": "registry:npm/orchestrator#0.3.7+20160723033700"
   }
 }

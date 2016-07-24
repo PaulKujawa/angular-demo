@@ -18,5 +18,5 @@ $badge-bg: inherit;
 $btn-primary-color: $barra-white;
 $btn-primary-bg: $barra-grey-font-bright;
 
-$icon-font-path: "../jspm/packages/github/twbs/bootstrap-sass@3.3.6/assets/fonts/bootstrap/";
-@import "../../../../../../web/jspm/packages/github/twbs/bootstrap-sass@3.3.6/assets/stylesheets/bootstrap/variables";
+$icon-font-path: "bootstrap-sass/assets/fonts/bootstrap/";
+@import "bootstrap-sass/assets/stylesheets/bootstrap/variables";

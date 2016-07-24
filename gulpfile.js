@@ -9,7 +9,8 @@ var tasks = [
 ];
 
 tsNodeRegister({
-   disableWarnings: true
+    fast: true,
+    noProject: true
 });
 
 tasks.forEach(function(filename) {

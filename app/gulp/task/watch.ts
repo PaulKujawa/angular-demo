@@ -2,9 +2,12 @@ const gulp = require('gulp');
 const sequence = require('gulp-sequence');
 
 const watchTasks = sequence([
-    'sass:watch',
+    'build',
+], [
     'ts:watch',
+    'sass:watch',
     'jspm:watch',
+    'jspm:bundle-test'
 ]);
 
 gulp.task('watch', watchTasks);
