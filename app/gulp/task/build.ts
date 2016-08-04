@@ -1,11 +1,10 @@
 const gulp = require('gulp');
 const sequence = require('gulp-sequence');
 
-const tasks = sequence(['sass:clean'], [
-    'sass:concat',
-    'symfony:build',
-    'ts:build',
+const tasks = sequence([
+    'sass:build',
     'jspm:build',
+    'symfony:build',
 ]);
 
 gulp.task('build', tasks);

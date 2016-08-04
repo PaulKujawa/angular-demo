@@ -1,14 +1,5 @@
 #!/bin/bash
 
-# bug workaround, can be removed with jspm 0.17
-jspm_install() {
-    LOCK=web/jspm/config.js
-    BACKUP=${LOCK}~backup
-    cp ${LOCK} ${BACKUP}
-    node_modules/.bin/jspm install --log warn --yes
-    mv -f ${BACKUP} ${LOCK}
-}
-
 case "$2" in
     -w)
         TASK="watch"
@@ -21,18 +12,19 @@ esac
 
 case "$1" in
     dev)
-        rm -rf app/cache
+        rm -rf app/Resources/public/node_modules
+        rm -rf app/cache/dev
         composer install --no-interaction
         npm install
-        jspm_install
+        node_modules/.bin/jspm install --log warn --yes
         node_modules/.bin/gulp ${TASK} --env=dev
     ;;
 
     prod)
-        rm -rf app/cache
+        rm -rf app/cache/prod
         composer install
         npm install
-        jspm_install
+        node_modules/.bin/jspm install --log warn --yes
         node_modules/.bin/gulp ${TASK} --env=prod
     ;;
 

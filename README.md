@@ -10,16 +10,18 @@
 
 ### JS DI structure
 * npm
-    * package.json = config
-    * node_modules = vendors
+    * config            package.json (dependencies)
+    * vendors           node_modules
 * jspm
-    * package.json = config
-    * web/jspm/config.js = lock
-    * web/jspm/packages = vendors
-* typeScript
-    * tsconfig.json = config
-    * typings.json = lock
-    * typings = vendors
+    * dependencies      package.json (jspm)
+    * config/lock       web/jspm/config.js
+    * vendors           web/jspm/packages
+* ts
+    * default loader    typings/index.d.ts
+                        when missing every vendor is laoded
+                        can be overridden
+    * lock              typings.json
+    * vendors           typings
 * gulp
     * gulpfile.js --> app/gulp
 

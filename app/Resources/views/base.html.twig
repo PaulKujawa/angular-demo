@@ -80,11 +80,7 @@
         {% endblock %}
 
         {% block javascripts %}
-            <script src="{{ asset('jspm/packages/system.js') }}"></script>
-            <script src="{{ asset('jspm/config.js') }}"></script>
-            <script>
-                System.import('js/app.js')
-            </script>
+            <script src="{{ asset('js/build.js') }}"></script>
         {% endblock %}
     </body>
 </html>
