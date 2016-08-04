@@ -4,12 +4,6 @@ import {exec} from '../shell';
 
 const gulp = require('gulp');
 
-// update angular with:
-// npm i @angular/common @angular/compiler @angular/core @angular/http @angular/platform-browser @angular/platform-browser-dynamic @angular/router-deprecated rxjs@5.0.0-beta.6 zone.js --save
-
-// update jspm typescript with:
-// jspm install github:frankwallis/plugin-typescript
-
 const jspm = (source: string, destination: string, tests: boolean) => {
     const args = [
         tests ? 'bundle' : 'build --production',

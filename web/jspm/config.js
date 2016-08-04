@@ -26,6 +26,24 @@ SystemJS.config({
     "app": {
       "main": "bootstrap.ts",
       "defaultExtension": "ts"
+    },
+    "@angular/common": {
+      "main": "bundles/common.umd.js"
+    },
+    "@angular/compiler": {
+      "main": "bundles/compiler.umd.js"
+    },
+    "@angular/core": {
+      "main": "bundles/core.umd.js"
+    },
+    "@angular/http": {
+      "main": "bundles/http.umd.js"
+    },
+    "@angular/platform-browser": {
+      "main": "bundles/platform-browser.umd.js"
+    },
+    "@angular/platform-browser-dynamic": {
+      "main": "bundles/platform-browser-dynamic.umd.js"
     }
   }
 });
