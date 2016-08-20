@@ -24,7 +24,7 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
     /**
      * @QueryParam(name="offset", requirements="\d+", default="0")
      * @QueryParam(name="limit", requirements="[1-9]\d*", default="10")
-     * @QueryParam(name="orderBy", requirements="\w+", default="id")
+     * @QueryParam(name="orderBy", requirements="\w+", default="name")
      * @QueryParam(name="order", requirements="(asc|desc)", default="asc")
      *
      * @param string $offset

@@ -2,9 +2,9 @@
 
 namespace AppBundle\Entity\Traits;
 
+use JMS\Serializer\Annotation\Exclude;
 use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\VirtualProperty;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -40,6 +40,8 @@ trait ImageTrait
     /**
      * @var UploadedFile
      *
+     * @Exclude()
+     *
      * @Assert\Image(
      *      mimeTypes = "image/*",
      *      maxSize = "2M",
@@ -71,6 +73,9 @@ trait ImageTrait
     }
 
     /**
+     * @VirtualProperty
+     * @SerializedName("path")
+     *
      * @return null|string
      */
     public function getWebDirectoryWithFilename()
@@ -81,9 +86,6 @@ trait ImageTrait
     }
 
     /**
-     * @VirtualProperty
-     * @SerializedName("path")
-     *
      * @return string
      */
     public function getWebDirectory()

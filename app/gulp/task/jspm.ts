@@ -6,18 +6,26 @@ const gulp = require('gulp');
 
 const jspm = (source: string, destination: string, tests: boolean) => {
     const args = [
-        tests ? 'bundle' : 'build --production',
+        tests ? 'bundle' : 'build',
         source,
         destination,
         '--source-map-contents'
     ];
 
-    if (production) {
-        args.push('--minify');
+    if (!tests) {
+        args.push('--production');
     }
 
     if (watch) {
-        args.push('--skip-rollup --watch --log ok');
+        args.push(
+            '--skip-rollup',
+            '--watch',
+            '--log ok'
+        );
+    }
+
+    if (production) {
+        args.push('--minify');
     }
 
     return exec('jspm', args);

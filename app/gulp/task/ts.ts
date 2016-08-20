@@ -5,7 +5,11 @@ import {watch} from "../env";
 const gulp = require('gulp');
 
 gulp.task('ts:lint', () => {
-    const args = [config.project, '--noEmit --pretty --project'];
+    const args = [
+        '--noEmit',
+        '--pretty',
+        '--project ' + config.project
+    ];
 
     if (watch) {
         args.push('--watch');

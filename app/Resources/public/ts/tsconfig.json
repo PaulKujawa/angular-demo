@@ -1,0 +1,15 @@
+// http://www.typescriptlang.org/docs/handbook/compiler-options.html
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "rootDir": ".",
+//        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true
+    },
+    "files": [
+        "../../../../typings/index",
+        "app/app.module.ts"
+    ]
+}

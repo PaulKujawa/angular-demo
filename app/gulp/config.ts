@@ -31,7 +31,7 @@ export const jspm = {
     },
     tests: {
         source: 'app + [app-tests/**/*.ts] - [@angular/**/*.js]',
-        destination: `${output}js/build.js`
+        destination: `${output}js/bundle-tests.js`
     }
 };
 

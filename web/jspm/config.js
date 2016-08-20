@@ -20,30 +20,56 @@ SystemJS.config({
   },
   transpiler: "frankwallis/plugin-typescript",
   map: {
+    "bundles": "web/bundles",
+    "js": "web/js",
     "rxjs": "node_modules/rxjs"
   },
   packages: {
     "app": {
-      "main": "bootstrap.ts",
+      "main": "app.module.ts",
       "defaultExtension": "ts"
     },
     "@angular/common": {
-      "main": "bundles/common.umd.js"
+      "main": "index.js"
     },
     "@angular/compiler": {
-      "main": "bundles/compiler.umd.js"
+      "main": "index.js"
     },
     "@angular/core": {
-      "main": "bundles/core.umd.js"
+      "main": "index.js"
+    },
+    "@angular/forms": {
+      "main": "index.js"
     },
     "@angular/http": {
-      "main": "bundles/http.umd.js"
+      "main": "index.js"
     },
     "@angular/platform-browser": {
-      "main": "bundles/platform-browser.umd.js"
+      "main": "index.js"
     },
     "@angular/platform-browser-dynamic": {
-      "main": "bundles/platform-browser-dynamic.umd.js"
+      "main": "index.js"
+    },
+    "@angular/router": {
+      "main": "index.js"
+    },
+    "bundles": {
+      "defaultExtension": "js"
+    },
+    "js": {
+      "defaultExtension": "js"
+    },
+    "reflect-metadata": {
+      "jspmNodeConversion": false,
+      "map": {
+        "crypto": {
+          "node": "@node/crypto",
+          "default": "@empty"
+        }
+      }
+    },
+    "rxjs": {
+      "defaultExtension": "js"
     }
   }
 });
@@ -74,9 +100,6 @@ SystemJS.config({
     "vm": "github:jspm/nodelibs-vm@0.2.0-alpha"
   },
   packages: {
-    "rxjs": {
-      "defaultExtension": "js"
-    },
     "github:frankwallis/plugin-typescript@5.0.9": {
       "map": {
         "typescript": "npm:typescript@2.0.0"
