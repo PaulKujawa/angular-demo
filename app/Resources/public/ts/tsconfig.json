@@ -5,8 +5,13 @@
         "module": "commonjs",
         "moduleResolution": "node",
         "rootDir": ".",
-//        "emitDecoratorMetadata": true,
+        "emitDecoratorMetadata": true,
         "experimentalDecorators": true
+    },
+    "angularCompilerOptions": {
+        "debug": false,
+        "trace": true,
+        "skipMetadataEmit": false
     },
     "files": [
         "../../../../typings/index",

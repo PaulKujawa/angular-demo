@@ -1,13 +1,14 @@
 const gulp = require('gulp');
 const sequence = require('gulp-sequence');
 
-const watchTasks = sequence([
-    'build',
-], [
-    'ts:watch',
-    'sass:watch',
-    'jspm:watch',
-    'jspm:bundle-test'
-]);
-
-gulp.task('watch', watchTasks);
+gulp.task('watch', sequence(
+    [
+        'sass:build',
+        'symfony:build',
+    ], [
+        'ts:watch',
+        'sass:watch',
+        'jspm:build',
+        'jspm:test',
+    ]
+));

@@ -9,7 +9,7 @@ export const sass = {
         base: `${resources}scss`,
         compilerOptions: {
             includePaths: [resources, node_modules],
-            outputStyle: production ? 'compressed' : 'nested'
+            outputStyle: production ? 'compressed' : 'nested',
         },
         source: [
             `${resources}scss/app/**/*.scss`,
@@ -18,23 +18,28 @@ export const sass = {
         ],
         destination: `${output}css/app.css`,
     },
-    watch: `${resources}scss/**/*.scss`
+    watch: `${resources}scss/**/*.scss`,
 };
 
-/**
- * @see folder mapping via jspm's config file -> packages
- */
 export const jspm = {
     application: {
-        source: 'es6-shim + reflect-metadata + zone.js + ts-helpers + app',
+        source: 'app/bootstrap',
+        sourceAngularCompile: 'app/bootstrap-precompiled',
         destination: `${output}js/build.js`,
+        globalName: 'baBundleExportBuild',
     },
     tests: {
-        source: 'app + [app-tests/**/*.ts] - [@angular/**/*.js]',
-        destination: `${output}js/bundle-tests.js`
+        source: 'app/bootstrap + [app-tests/**/*.ts]',
+        destination: `${output}js/bundle-tests.js`,
+        globalName: 'baBundleExportTests',
+    },
+    vendor: {
+        source: 'vendor',
+        destination: `${output}js/vendor.js`,
+        globalName: 'baBundleExportVendor',
     }
 };
 
 export const ts = {
-    project: `${resources}ts`
+    project: `${resources}ts`,
 };

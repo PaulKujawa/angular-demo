@@ -1,5 +1,6 @@
 var tsNodeRegister = require('ts-node').register;
 var tasks = [
+   // 'angular-compile', TODO
     'build',
     'jspm',
     'sass',

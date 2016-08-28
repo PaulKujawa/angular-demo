@@ -1,31 +1,46 @@
 #!/bin/bash
 
-case "$2" in
-    -w)
-        TASK="watch"
-    ;;
+TASK="build"
+ANGULAR_COMPILE=""
+ENV=""
 
-    *)
-        TASK="build"
-    ;;
-esac
+for i in "$@"
+do
+    case "$i" in
+        -w) TASK="watch"
+        shift ;;
 
-case "$1" in
+        -aot) ANGULAR_COMPILE="--angular-compile"
+        shift ;;
+
+        dev) ENV="dev"
+        shift ;;
+
+        prod) ENV="prod"
+        shift ;;
+
+        *) ;;
+    esac
+done
+
+case "${ENV}" in
     dev)
         rm -rf app/Resources/public/node_modules
         rm -rf app/cache/dev
         composer install --no-interaction
         npm install
+        typings install
         node_modules/.bin/jspm install --log warn --yes
-        node_modules/.bin/gulp ${TASK} --env=dev
+        node_modules/.bin/gulp ${TASK} ${ANGULAR_COMPILE} --env=dev
     ;;
 
     prod)
         rm -rf app/cache/prod
         composer install
         npm install
+        typings install
         node_modules/.bin/jspm install --log warn --yes
-        node_modules/.bin/gulp ${TASK} --env=prod
+        node_modules/.bin/gulp ${TASK} ${ANGULAR_COMPILE} --env=prod
     ;;
 
     *)
