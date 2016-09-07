@@ -1,3 +1,4 @@
+// TODO resolve comments ASAP
 SystemJS.config({
   typescriptOptions: {
     "target": "es5",
@@ -6,26 +7,96 @@ SystemJS.config({
     "noEmitHelpers": true,
     "experimentalDecorators": true
   },
+  transpiler: "frankwallis/plugin-typescript",
   paths: {
     "github:": "web/jspm/packages/github/",
     "npm:": "web/jspm/packages/npm/",
     "@angular/": "node_modules/@angular/",
     "bootstrap-sass/": "node_modules/bootstrap-sass/",
-    "es6-shim": "node_modules/es6-shim/es6-shim.js",
-    "reflect-metadata": "node_modules/reflect-metadata/Reflect.js",
-    "ts-helpers": "node_modules/ts-helpers/index.js",
-    "zone.js": "node_modules/zone.js/dist/zone.js",
+    "zone/": "node_modules/zone.js/dist/",
+
+    "app/": "app/Resources/public/ts/app/",
     "app-tests/": "app/Resources/public/ts/tests/",
-    "app/": "app/Resources/public/ts/app/"
+    "vendor/": "app/Resources/public/ts/vendor/"
   },
-  transpiler: "frankwallis/plugin-typescript",
   map: {
-    "rxjs": "node_modules/rxjs"
+    "bundles": "web/bundles",
+    "es6-shim": "node_modules/es6-shim/es6-shim.js",
+    "js": "web/js",
+    "reflect-metadata": "node_modules/reflect-metadata/Reflect.js",
+    "rxjs": "node_modules/rxjs",
+    "ts-helpers": "node_modules/ts-helpers/index.js"
   },
   packages: {
     "app": {
       "main": "bootstrap.ts",
       "defaultExtension": "ts"
+    },
+    "@angular/common": {
+      "main": "index.js"
+    },
+    "@angular/compiler": {
+      "main": "index.js"
+    },
+    "@angular/core": {
+      "main": "index.js"
+    },
+    "@angular/forms": {
+      "main": "index.js"
+    },
+    "@angular/http": {
+      "main": "index.js"
+    },
+    "@angular/platform-browser": {
+      "main": "index.js"
+    },
+    "@angular/platform-browser-dynamic": {
+      "main": "index.js"
+    },
+    "@angular/router": {
+      "main": "index.js"
+    },
+    // "bundles": {
+    //   "defaultExtension": "js"
+    // },
+    // "js": {
+    //   "defaultExtension": "js"
+    // },
+    // "reflect-metadata": {
+    //   "jspmNodeConversion": false,
+    //   "map": {
+    //     "crypto": {
+    //       "node": "@node/crypto",
+    //       "default": "@empty"
+    //     }
+    //   }
+    // },
+    "rxjs": {
+      "defaultExtension": "js"
+    },
+    "vendor": {
+      "main": "vendor.ts",
+      "defaultExtension": "ts",
+      "meta": {
+        "*": {
+          "deps": [
+            "es6-shim",
+            "reflect-metadata",
+            "ts-helpers",
+            "zone/zone.js",
+            "zone/long-stack-trace-zone.js",
+//            "bundles/fosjsrouting/js/router.js",
+//            "js/fos_js_routes",
+            "jquery/dist/jquery.min.js",
+            "bootstrap-sass/assets/javascripts/bootstrap/collapse.js",
+            "bootstrap-sass/assets/javascripts/bootstrap/dropdown.js",
+            "bootstrap-sass/assets/javascripts/bootstrap/modal.js",
+            "bootstrap-sass/assets/javascripts/bootstrap/tooltip.js",
+            "bootstrap-sass/assets/javascripts/bootstrap/popover.js",
+            "bootstrap-sass/assets/javascripts/bootstrap/transition.js"
+          ]
+        }
+      }
     }
   }
 });
@@ -56,9 +127,6 @@ SystemJS.config({
     "vm": "github:jspm/nodelibs-vm@0.2.0-alpha"
   },
   packages: {
-    "rxjs": {
-      "defaultExtension": "js"
-    },
     "github:frankwallis/plugin-typescript@5.0.9": {
       "map": {
         "typescript": "npm:typescript@2.0.0"

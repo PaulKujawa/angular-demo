@@ -49,6 +49,17 @@ class Recipe
     private $cookings;
 
     /**
+     * @var Photo
+     *
+     * @ORM\OneToOne(targetEntity = "Photo")
+     * @ORM\JoinColumn(
+     *      name = "thumbnail",
+     *      referencedColumnName = "id"
+     * )
+     */
+    private $thumbnail;
+
+    /**
      * @var ArrayCollection
      *
      * @Exclude
@@ -163,5 +174,25 @@ class Recipe
     public function getPhotos()
     {
         return $this->photos;
+    }
+
+    /**
+     * @return Photo
+     */
+    public function getThumbnail()
+    {
+        return $this->thumbnail;
+    }
+
+    /**
+     * @param Photo $thumbnail
+     *
+     * @return $this
+     */
+    public function setThumbnail(Photo $thumbnail)
+    {
+        $this->thumbnail = $thumbnail;
+
+        return $this;
     }
 }
