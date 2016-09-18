@@ -2,9 +2,7 @@
 
 namespace AppBundle\Entity\Traits;
 
-use JMS\Serializer\Annotation\Exclude;
-use JMS\Serializer\Annotation\SerializedName;
-use JMS\Serializer\Annotation\VirtualProperty;
+use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -12,6 +10,8 @@ trait ImageTrait
 {
     /**
      * @var string
+     *
+     * @Serializer\Exclude()
      *
      * @ORM\Column(
      *      name = "filename",
@@ -36,19 +36,18 @@ trait ImageTrait
      */
     private $size;
 
-    // todo check correct image size
     /**
      * @var UploadedFile
      *
-     * @Exclude()
+     * @Serializer\Exclude()
      *
      * @Assert\Image(
      *      mimeTypes = "image/*",
-     *      maxSize = "2M",
-     *      minWidth = 200,
+     *      maxSize = "100K",
+     *      minWidth = 400,
      *      maxWidth = 400,
-     *      minHeight = 200,
-     *      maxHeight = 400
+     *      minHeight = 300,
+     *      maxHeight = 600
      * )
      */
     private $file;
@@ -73,8 +72,8 @@ trait ImageTrait
     }
 
     /**
-     * @VirtualProperty
-     * @SerializedName("path")
+     * @Serializer\VirtualProperty()
+     * @Serializer\SerializedName("path")
      *
      * @return null|string
      */
@@ -114,41 +113,34 @@ trait ImageTrait
     /**
      * @ORM\PostPersist()
      * @ORM\PostUpdate()
-     *
-     * @return $this
      */
     public function saveFile()
     {
         if (null !== $this->getFile()) {
             $this->getFile()->move($this->getAbsolutePath(), $this->filename);
         }
-
-        return $this;
     }
 
     /**
      * @ORM\PostRemove()
-     *
-     * @return $this
      */
     public function removeFile()
     {
         $path = $this->getAbsolutePathWithFilename();
-        if (null !== $path) {
-            $this->file = null;
-            $this->size = null;
-            $this->filename = null;
-            unlink($path);
+
+        if(null === $path) {
+            return;
         }
 
-        return $this;
+        $this->file = null;
+        $this->size = null;
+        $this->filename = null;
+        unlink($path);
     }
 
     // ### GETTER AND SETTER --------------------------------------------------------------------
     /**
      * @param UploadedFile $file
-     *
-     * @return $this
      */
     public function setFile(UploadedFile $file)
     {
@@ -159,8 +151,6 @@ trait ImageTrait
         $this->size = $file->getClientSize();
 
         // @here you could save the original filename via $file->getClientOriginalName()
-
-        return $this;
     }
 
     /**
@@ -180,7 +170,7 @@ trait ImageTrait
     }
 
     /**
-     * @return string
+     * @return int
      */
     public function getSize()
     {

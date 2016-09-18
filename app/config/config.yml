@@ -31,7 +31,7 @@ fos_rest:
             json : true
         templating_formats: # formats requiring a template for rendering (twig)
             html: true
-        view_response_listener: 'force' # converts response View object into Response object
+        view_response_listener: 'force' # api controller return View obj, which need to be resolved to Response obj
 
 fos_user:
     db_driver: orm

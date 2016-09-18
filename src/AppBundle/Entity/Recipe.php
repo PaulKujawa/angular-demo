@@ -6,13 +6,11 @@ use AppBundle\Entity\Traits\IdAutoTrait;
 use AppBundle\Entity\Traits\NameTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\Exclude;
-use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ExclusionPolicy("none")
- *
  * @UniqueEntity("name")
  *
  * @ORM\Table()
@@ -24,32 +22,11 @@ class Recipe
     use NameTrait;
 
     /**
-     * @var ArrayCollection
-     *
-     * @Exclude
-     *
-     * @ORM\OneToMany(
-     *      targetEntity = "Ingredient",
-     *      mappedBy = "recipe"
-     * )
-     * @ORM\OrderBy({"position" = "ASC"})
-     */
-    private $ingredients;
-
-    /**
-     * @var ArrayCollection
-     * 
-     * @Exclude
-     * @ORM\OneToMany(
-     *      targetEntity = "Cooking",
-     *      mappedBy = "recipe"
-     * )
-     * @ORM\OrderBy({"position" = "ASC"})
-     */
-    private $cookings;
-
-    /**
      * @var Photo
+     *
+     * @Assert\NotNull()
+     *
+     * @Serializer\Groups({"recipeList"})
      *
      * @ORM\OneToOne(targetEntity = "Photo")
      * @ORM\JoinColumn(
@@ -62,8 +39,34 @@ class Recipe
     /**
      * @var ArrayCollection
      *
-     * @Exclude
+     * @Serializer\Groups({"recipeDetail"})
      *
+     * @ORM\OneToMany(
+     *      targetEntity = "Ingredient",
+     *      mappedBy = "recipe"
+     * )
+     * @ORM\OrderBy({"position" = "ASC"})
+     */
+    private $ingredients;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @Serializer\Groups({"recipeDetail"})
+     *
+     * @ORM\OneToMany(
+     *      targetEntity = "Cooking",
+     *      mappedBy = "recipe"
+     * )
+     * @ORM\OrderBy({"position" = "ASC"})
+     */
+    private $cookings;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @Serializer\Groups({"recipeDetail"})
+
      * @ORM\OneToMany(
      *      targetEntity = "Photo",
      *      mappedBy = "recipe",
@@ -81,27 +84,53 @@ class Recipe
     }
 
     /**
-     * @param Ingredient $ingredients
+     * @Serializer\VirtualProperty()
+     * @Serializer\SerializedName("macros")
      *
-     * @return $this
+     * @return array
+     */
+    public function calculateMacros()
+    {
+        $macros = [
+            'kcal' => 0,
+            'carbs' => 0,
+            'protein' => 0,
+            'fat' => 0,
+        ];
+
+        $ingredients = $this->ingredients->filter(function(Ingredient $ingredient) {
+            return null !== $ingredient->getAmount();
+        });
+
+        /**
+         * @var Ingredient $ingredient
+         */
+        foreach ($ingredients as $ingredient) {
+            $rel = $this->getMeasurementRelation($ingredient);
+            $product = $ingredient->getProduct();
+            $macros['kcal'] += $rel*$product->getKcal();
+            $macros['carbs'] += $rel*$product->getCarbs();
+            $macros['protein'] += $rel*$product->getProtein();
+            $macros['fat'] += $rel*$product->getFat();
+        }
+
+        return array_map('intval', $macros);
+    }
+
+    /**
+     * @param Ingredient $ingredients
      */
     public function addIngredient(Ingredient $ingredients)
     {
         $this->ingredients[] = $ingredients;
-
-        return $this;
     }
 
     /**
      * @param Ingredient $cooking
-     *
-     * @return $this
      */
     public function removeIngredient(Ingredient $cooking)
     {
         $this->ingredients->removeElement($cooking);
-
-        return $this;
     }
 
     /**
@@ -114,26 +143,18 @@ class Recipe
 
     /**
      * @param Cooking $cooking
-     *
-     * @return $this
      */
     public function addCooking(Cooking $cooking)
     {
         $this->cookings[] = $cooking;
-
-        return $this;
     }
 
     /**
      * @param Cooking $cooking
-     *
-     * @return $this
      */
     public function removeCooking(Cooking $cooking)
     {
         $this->cookings->removeElement($cooking);
-
-        return $this;
     }
 
     /**
@@ -146,26 +167,18 @@ class Recipe
 
     /**
      * @param Photo $photos
-     *
-     * @return $this
      */
     public function addPhoto(Photo $photos)
     {
         $this->photos[] = $photos;
-
-        return $this;
     }
 
     /**
      * @param Photo $photos
-     *
-     * @return $this
      */
     public function removePhoto(Photo $photos)
     {
         $this->photos->removeElement($photos);
-
-        return $this;
     }
 
     /**
@@ -186,13 +199,21 @@ class Recipe
 
     /**
      * @param Photo $thumbnail
-     *
-     * @return $this
      */
     public function setThumbnail(Photo $thumbnail)
     {
         $this->thumbnail = $thumbnail;
+    }
 
-        return $this;
+    /**
+     * @param Ingredient $ingredient
+     * @return float
+     */
+    private function getMeasurementRelation(Ingredient $ingredient) {
+        $gr = $ingredient->getMeasurement()->getGr()
+            ? $ingredient->getAmount()/100
+            : $ingredient->getProduct()->getGr();
+
+        return $gr/100;
     }
 }

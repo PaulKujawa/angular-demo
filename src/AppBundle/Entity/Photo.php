@@ -5,14 +5,11 @@ namespace AppBundle\Entity;
 use AppBundle\Entity\Traits\IdAutoTrait;
 use AppBundle\Entity\Traits\ImageTrait;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\Exclude;
-use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ExclusionPolicy("none")
- *
  * @UniqueEntity("filename")
  *
  * @ORM\Table()
@@ -35,9 +32,9 @@ class Photo
     /**
      * @var Recipe
      *
-     * @Exclude
-     *
      * @Assert\NotNull()
+     *
+     * @Serializer\Exclude()
      *
      * @ORM\ManyToOne(
      *      targetEntity = "Recipe",
@@ -55,14 +52,10 @@ class Photo
 
     /**
      * @param Recipe $recipe
-     *
-     * @return $this
      */
     public function setRecipe(Recipe $recipe)
     {
         $this->recipe = $recipe;
-
-        return $this;
     }
 
     /**

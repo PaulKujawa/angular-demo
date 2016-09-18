@@ -4,16 +4,12 @@ namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\IdAutoTrait;
 use AppBundle\Entity\Traits\NameTrait;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\Exclude;
-use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ExclusionPolicy("none")
- *
  * @UniqueEntity("name")
  *
  * @ORM\Table()
@@ -137,6 +133,8 @@ class Product
      *
      * @Assert\NotNull()
      *
+     * @Serializer\Exclude()
+     *
      * @ORM\ManyToOne(
      *      targetEntity = "Manufacturer",
      *      inversedBy = "products"
@@ -151,42 +149,11 @@ class Product
     private $manufacturer;
 
     /**
-     * @var ArrayCollection
-     *
-     * @Exclude
-     *
-     * @ORM\OneToMany(
-     *      targetEntity = "Ingredient",
-     *      mappedBy = "product"
-     * )
-     */
-    private $ingredients;
-
-    public function __construct()
-    {
-        $this->ingredients = new ArrayCollection();
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getRecipes()
-    {
-        return $this->getIngredients()->map(function(Ingredient $ingredient) {
-            $ingredient->getRecipe();
-        });
-    }
-
-    /**
      * @param boolean $vegan
-     *
-     * @return $this
      */
     public function setVegan($vegan)
     {
         $this->vegan = $vegan;
-
-        return $this;
     }
 
     /**
@@ -200,14 +167,10 @@ class Product
 
     /**
      * @param int $kcal
-     *
-     * @return $this
      */
     public function setKcal($kcal)
     {
         $this->kcal = $kcal;
-
-        return $this;
     }
 
     /**
@@ -220,14 +183,10 @@ class Product
 
     /**
      * @param int $gr
-     *
-     * @return $this
      */
     public function setGr($gr)
     {
         $this->gr = $gr;
-
-        return $this;
     }
 
     /**
@@ -240,14 +199,10 @@ class Product
 
     /**
      * @param double $protein
-     *
-     * @return $this
      */
     public function setProtein($protein)
     {
         $this->protein = $protein;
-
-        return $this;
     }
 
     /**
@@ -260,14 +215,10 @@ class Product
 
     /**
      * @param double $carbs
-     *
-     * @return $this
      */
     public function setCarbs($carbs)
     {
         $this->carbs = $carbs;
-
-        return $this;
     }
 
     /**
@@ -280,13 +231,10 @@ class Product
 
     /**
      * @param double $sugar
-     * @return $this
      */
     public function setSugar($sugar)
     {
         $this->sugar = $sugar;
-
-        return $this;
     }
 
     /**
@@ -299,14 +247,10 @@ class Product
 
     /**
      * @param double $fat
-     *
-     * @return $this
      */
     public function setFat($fat)
     {
         $this->fat = $fat;
-
-        return $this;
     }
 
     /**
@@ -319,14 +263,10 @@ class Product
 
     /**
      * @param double $gfat
-     *
-     * @return $this
      */
     public function setGfat($gfat)
     {
         $this->gfat = $gfat;
-
-        return $this;
     }
 
     /**
@@ -339,14 +279,10 @@ class Product
 
     /**
      * @param Manufacturer $manufacturer
-     *
-     * @return $this
      */
     public function setManufacturer(Manufacturer $manufacturer)
     {
         $this->manufacturer = $manufacturer;
-
-        return $this;
     }
 
     /**
@@ -355,37 +291,5 @@ class Product
     public function getManufacturer()
     {
         return $this->manufacturer;
-    }
-
-    /**
-     * @param Ingredient $ingredient
-     *
-     * @return $this
-     */
-    public function addIngredient(Ingredient $ingredient)
-    {
-        $this->ingredients[] = $ingredient;
-
-        return $this;
-    }
-
-    /**
-     * @param Ingredient $ingredient
-     *
-     * @return $this
-     */
-    public function removeIngredient(Ingredient $ingredient)
-    {
-        $this->ingredients->removeElement($ingredient);
-
-        return $this;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getIngredients()
-    {
-        return $this->ingredients;
     }
 }

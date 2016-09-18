@@ -19,7 +19,7 @@ security:
 #                failure_handler: lexik_jwt_authentication.handler.authentication_failure
             logout:
                 path: fos_user_security_logout
-                target: app_contact
+                target: app_root_i18n
             pattern: ^/[a-z][a-z]/admino
             remember_me:
                 always_remember_me: true #set always cookie, alternatively to optional checkbox
@@ -30,6 +30,7 @@ security:
         api:
             pattern: ^/[a-z][a-z]/api(?!/inquiries)
             provider: fos_userbundle
+            methods: [POST, PUT, DELETE]
             stateless: true
             lexik_jwt:
                 authorization_header: #instead of query parameter

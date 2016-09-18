@@ -5,6 +5,7 @@ namespace AppBundle\Controller\Api;
 use AppBundle\Form\RecipeType;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
+use FOS\RestBundle\Controller\Annotations\View as AnnotationsView;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\View;
@@ -22,6 +23,8 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
     }
 
     /**
+     * @AnnotationsView(serializerGroups={"Default", "recipeList"})
+     *
      * @QueryParam(name="offset", requirements="\d+", default="0")
      * @QueryParam(name="limit", requirements="[1-9]\d*", default="10")
      * @QueryParam(name="orderBy", requirements="\w+", default="name")
@@ -36,12 +39,12 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
      */
     public function cgetAction($offset, $limit, $orderBy, $order)
     {
-        $recipes = $this->get('app.recipe')->getRecipes($orderBy, $order, $limit, $offset);
-
-        return $this->view($recipes);
+        return $this->get('app.recipe')->getRecipes($orderBy, $order, $limit, $offset);
     }
 
     /**
+     * @AnnotationsView(serializerGroups={"Default", "recipeDetail"})
+     *
      * @param int $id
      *
      * @return View
@@ -50,9 +53,7 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
     {
         $recipe = $this->get('app.recipe')->getRecipe($id);
 
-        return null === $recipe
-            ? $this->view(null, Response::HTTP_NOT_FOUND)
-            : $this->view($recipe);
+        return $recipe ?: $this->view(null, Response::HTTP_NOT_FOUND);
     }
 
     /**

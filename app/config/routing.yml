@@ -2,7 +2,7 @@ root:
     path: /
     defaults:
       _controller: FrameworkBundle:Redirect:redirect
-      route: app_contact
+      route: app_root_i18n
       permanent: true
     options:
         expose: true

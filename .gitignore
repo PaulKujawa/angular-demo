@@ -26,8 +26,8 @@
 /node_modules
 
 # Typescript Typings
-/typings/*
-!/typings/index.d.ts
+/typings/globals
+/typings/modules/gulp
 
 # web
 /web/bundles
