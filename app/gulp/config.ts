@@ -23,8 +23,12 @@ export const sass = {
 
 export const jspm = {
     application: {
+        angular: {
+            bootstrap: 'app/bootstrap-compiled',
+            source: `${resources}ts/tsconfig.json`,
+            watch: `${resources}ts/**/*.ts`,
+        },
         source: 'app/bootstrap',
-        sourceAngularCompile: 'app/bootstrap-precompiled',
         destination: `${output}js/build.js`,
         globalName: 'baBundleExportBuild',
     },

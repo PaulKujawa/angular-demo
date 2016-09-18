@@ -1,6 +1,8 @@
-# app + bin
+# app
 /app/config/parameters.yml
 /app/Resources/public/node_modules
+
+# bin
 /bin/*
 !bin/console
 !bin/build
@@ -20,7 +22,10 @@
 # vendors
 /vendor
 /node_modules
-/typings
+
+# Typescript Typings
+/typings/*
+!/typings/index.d.ts
 
 # web
 /web/bundles

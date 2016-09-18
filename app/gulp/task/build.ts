@@ -5,6 +5,5 @@ gulp.task('build', sequence(
     [
         'sass:build',
         'jspm:build',
-        'symfony:build',
     ]
 ));

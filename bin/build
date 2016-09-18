@@ -44,6 +44,6 @@ case "${ENV}" in
     ;;
 
     *)
-        echo -e "Usage: bin/build <dev|prod> [-w]";
+        echo -e "Usage: bin/build <dev|prod> [-aot] [-w]";
     ;;
 esac

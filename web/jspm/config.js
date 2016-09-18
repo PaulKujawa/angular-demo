@@ -1,105 +1,117 @@
 // TODO resolve comments ASAP
 SystemJS.config({
   typescriptOptions: {
-    "target": "es5",
-    "module": "es2015",
-    "emitDecoratorMetadata": true,
-    "noEmitHelpers": true,
-    "experimentalDecorators": true
+      "target": "es5",
+      "module": "es2015",
+      "emitDecoratorMetadata": true,
+      "noEmitHelpers": true,
+      "experimentalDecorators": true
   },
   transpiler: "frankwallis/plugin-typescript",
   paths: {
-    "github:": "web/jspm/packages/github/",
-    "npm:": "web/jspm/packages/npm/",
-    "@angular/": "node_modules/@angular/",
-    "bootstrap-sass/": "node_modules/bootstrap-sass/",
-    "zone/": "node_modules/zone.js/dist/",
+      "github:": "web/jspm/packages/github/",
+      "npm:": "web/jspm/packages/npm/",
+      "@angular/": "node_modules/@angular/",
+      "bootstrap-sass/": "node_modules/bootstrap-sass/",
+      "rxjs/": "node_modules/rxjs/",
 
-    "app/": "app/Resources/public/ts/app/",
-    "app-tests/": "app/Resources/public/ts/tests/",
-    "vendor/": "app/Resources/public/ts/vendor/"
+      "app/": "app/Resources/public/ts/app/",
+      "app-tests/": "app/Resources/public/ts/tests/",
+      "vendor/": "app/Resources/public/ts/vendor/"
   },
   map: {
-    "bundles": "web/bundles",
-    "es6-shim": "node_modules/es6-shim/es6-shim.js",
-    "js": "web/js",
-    "reflect-metadata": "node_modules/reflect-metadata/Reflect.js",
-    "rxjs": "node_modules/rxjs",
-    "ts-helpers": "node_modules/ts-helpers/index.js"
+      "bundles": "web/bundles",
+      "core-js": "node_modules/core-js/client",
+      "js": "web/js",
+      "reflect-metadata": "node_modules/reflect-metadata",
+      "ts-helpers": "node_modules/ts-helpers/index.js",
+      "zone.js": "node_modules/zone.js/dist"
   },
   packages: {
-    "app": {
-      "main": "bootstrap.ts",
-      "defaultExtension": "ts"
-    },
-    "@angular/common": {
-      "main": "index.js"
-    },
-    "@angular/compiler": {
-      "main": "index.js"
-    },
-    "@angular/core": {
-      "main": "index.js"
-    },
-    "@angular/forms": {
-      "main": "index.js"
-    },
-    "@angular/http": {
-      "main": "index.js"
-    },
-    "@angular/platform-browser": {
-      "main": "index.js"
-    },
-    "@angular/platform-browser-dynamic": {
-      "main": "index.js"
-    },
-    "@angular/router": {
-      "main": "index.js"
-    },
-    // "bundles": {
-    //   "defaultExtension": "js"
-    // },
-    // "js": {
-    //   "defaultExtension": "js"
-    // },
-    // "reflect-metadata": {
-    //   "jspmNodeConversion": false,
-    //   "map": {
-    //     "crypto": {
-    //       "node": "@node/crypto",
-    //       "default": "@empty"
-    //     }
-    //   }
-    // },
-    "rxjs": {
-      "defaultExtension": "js"
-    },
-    "vendor": {
-      "main": "vendor.ts",
-      "defaultExtension": "ts",
-      "meta": {
-        "*": {
-          "deps": [
-            "es6-shim",
-            "reflect-metadata",
-            "ts-helpers",
-            "zone/zone.js",
-            "zone/long-stack-trace-zone.js",
+      "app": {
+          "main": "bootstrap.ts",
+          "defaultExtension": "ts"
+      },
+      // "bundles": {
+      //   "defaultExtension": "js"
+      // },
+      // "js": {
+      //   "defaultExtension": "js"
+      // },
+      // "reflect-metadata": {
+      //   "jspmNodeConversion": false,
+      //   "map": {
+      //     "crypto": {
+      //       "node": "@node/crypto",
+      //       "default": "@empty"
+      //     }
+      //   }
+      // },
+      "rxjs": {
+          "defaultExtension": "js"
+      },
+      "vendor": {
+          "main": "vendor.ts",
+          "defaultExtension": "ts",
+          "meta": {
+              "*": {
+                  "deps": [
+                      "core-js/shim.js",
+                      "reflect-metadata/Reflect.js",
+                      "ts-helpers",
+                      "zone.js/zone.js",
 //            "bundles/fosjsrouting/js/router.js",
 //            "js/fos_js_routes",
-            "jquery/dist/jquery.min.js",
-            "bootstrap-sass/assets/javascripts/bootstrap/collapse.js",
-            "bootstrap-sass/assets/javascripts/bootstrap/dropdown.js",
-            "bootstrap-sass/assets/javascripts/bootstrap/modal.js",
-            "bootstrap-sass/assets/javascripts/bootstrap/tooltip.js",
-            "bootstrap-sass/assets/javascripts/bootstrap/popover.js",
-            "bootstrap-sass/assets/javascripts/bootstrap/transition.js"
-          ]
-        }
+                      "jquery/dist/jquery.min.js",
+                      "bootstrap-sass/assets/javascripts/bootstrap/collapse.js",
+                      "bootstrap-sass/assets/javascripts/bootstrap/dropdown.js",
+                      "bootstrap-sass/assets/javascripts/bootstrap/modal.js",
+                      "bootstrap-sass/assets/javascripts/bootstrap/tooltip.js",
+                      "bootstrap-sass/assets/javascripts/bootstrap/popover.js",
+                      "bootstrap-sass/assets/javascripts/bootstrap/transition.js"
+                  ]
+              }
+          }
       }
-    }
   }
 });
+
+if (typeof process !== 'undefined' && process.env.ANGULAR_PRE_COMPILE) {
+    // build is 12 times slower with source files, thus only provide them when necessary (pre-compiling)
+    var modules = [
+        'core',
+        'common',
+        "compiler",
+        "platform-browser",
+        "platform-browser-dynamic",
+        "http",
+        "router",
+        "forms"
+    ];
+
+    var packages = modules.reduce(function (packages, name) {
+        packages['@angular/' + name] = {"main": "index.js", "defaultExtension": "js"};
+
+        return packages;
+    }, {});
+
+    SystemJS.config({
+        packages: packages
+    })
+} else {
+    SystemJS.config({
+        map: {
+            "@angular/core": "@angular/core/bundles/core.umd.js",
+            "@angular/common": "@angular/common/bundles/common.umd.js",
+            "@angular/compiler": "@angular/compiler/bundles/compiler.umd.js",
+            "@angular/platform-browser": "@angular/platform-browser/bundles/platform-browser.umd.js",
+            "@angular/platform-browser-dynamic": "@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js",
+            "@angular/http": "@angular/http/bundles/http.umd.js",
+            "@angular/router": "@angular/router/bundles/router.umd.js",
+            "@angular/forms": "@angular/forms/bundles/forms.umd.js"
+        }
+    });
+}
 
 SystemJS.config({
   packageConfigPaths: [

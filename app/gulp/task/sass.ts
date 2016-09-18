@@ -23,7 +23,7 @@ gulp.task('sass:build', () => {
         .pipe(gulp.dest(dirname(destination)));
 });
 
-gulp.task('sass:watch', () => {
+gulp.task('sass:watch', ['sass:build'], () => {
     return watch(config.watch, {debounce: 10}, () => {
         gulp.start('sass:build');
     })
