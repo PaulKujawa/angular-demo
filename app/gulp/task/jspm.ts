@@ -1,4 +1,4 @@
-import {production, watch, angularCompile} from '../env';
+import {production, watch} from '../env';
 import {jspm as config} from '../config';
 import {exec} from '../shell';
 
@@ -36,7 +36,7 @@ const jspm = (source: string, destination: string, globalName:string, build: boo
 
 // build for dev & prod, resolves modules
 let appBuildDeps = ['symfony:build'];
-if (angularCompile) {
+if (production) {
     process.env.ANGULAR_PRE_COMPILE = 'true';
     appBuildDeps.push('angular:build');
 }
@@ -44,7 +44,7 @@ if (angularCompile) {
 gulp.task('jspm:build:app', appBuildDeps, () => {
     let {source, destination, globalName} = config.application;
 
-    if (angularCompile) {
+    if (production) {
         source = config.application.angular.bootstrap;
     }
 

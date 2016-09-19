@@ -1,16 +1,12 @@
 #!/bin/bash
 
 TASK="build"
-ANGULAR_COMPILE=""
 ENV=""
 
 for i in "$@"
 do
     case "$i" in
         -w) TASK="watch"
-        shift ;;
-
-        -aot) ANGULAR_COMPILE="--angular-compile"
         shift ;;
 
         dev) ENV="dev"
@@ -31,7 +27,7 @@ case "${ENV}" in
         npm install
         typings install
         node_modules/.bin/jspm install --log warn --yes
-        node_modules/.bin/gulp ${TASK} ${ANGULAR_COMPILE} --env=dev
+        node_modules/.bin/gulp ${TASK} --env=dev
     ;;
 
     prod)
@@ -40,10 +36,10 @@ case "${ENV}" in
         npm install
         typings install
         node_modules/.bin/jspm install --log warn --yes
-        node_modules/.bin/gulp ${TASK} ${ANGULAR_COMPILE} --env=prod
+        node_modules/.bin/gulp ${TASK} --env=prod
     ;;
 
     *)
-        echo -e "Usage: bin/build <dev|prod> [-aot] [-w]";
+        echo -e "Usage: bin/build <dev|prod> [-w]";
     ;;
 esac
