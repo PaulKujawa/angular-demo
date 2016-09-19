@@ -1,4 +1,4 @@
-import {production, watch, angularCompile} from '../env';
+import {production, watch} from '../env';
 import {jspm as config} from '../config';
 import {exec} from '../shell';
 
@@ -10,7 +10,6 @@ const jspm = (source: string, destination: string, globalName:string, build: boo
         source,
         destination,
         '--global-name ' + globalName,
-        '--source-map-contents'
     ];
 
     if (build) {
@@ -26,12 +25,10 @@ const jspm = (source: string, destination: string, globalName:string, build: boo
     }
 
     if (production) {
-        args.push('--minify');
-
-        // TODO since mangle is broken in rc5 (remove in rc6)
-        if (!angularCompile) {
-            args.push('--no-mangle')
-        }
+        args.push(
+            '--minify',
+            '--skip-source-maps'
+        );
     }
 
     return exec('jspm', args);
@@ -39,19 +36,23 @@ const jspm = (source: string, destination: string, globalName:string, build: boo
 
 // build for dev & prod, resolves modules
 let appBuildDeps = ['symfony:build'];
-if (angularCompile) {appBuildDeps.push('angular-compile:build');}
+if (production) {
+    process.env.ANGULAR_PRE_COMPILE = 'true';
+    appBuildDeps.push('angular:build');
+}
+
 gulp.task('jspm:build:app', appBuildDeps, () => {
     let {source, destination, globalName} = config.application;
 
-    if (angularCompile) {
-        source = config.application.sourceAngularCompile;
+    if (production) {
+        source = config.application.angular.bootstrap;
     }
 
     return jspm(source, destination, globalName);
 });
 
-gulp.task('jspm:build:vendor', () => {
-    let {source, destination, globalName} = config.vendor;
+gulp.task('jspm:build:vendor', ['symfony:build'], () => {
+    const {source, destination, globalName} = config.vendor;
 
     return jspm(source, destination, globalName);
 });
