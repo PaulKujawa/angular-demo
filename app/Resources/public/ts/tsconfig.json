@@ -13,6 +13,6 @@
     "angularCompilerOptions": {
         "debug": false,
         "trace": true,
-        "skipMetadataEmit": false
+        "skipMetadataEmit": true
     }
 }

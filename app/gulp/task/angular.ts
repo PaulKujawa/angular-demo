@@ -15,7 +15,7 @@ gulp.task('angular:build', build);
 
 gulp.task('angular:watch', () => {
     const source = config.application.angular.watch;
-    const compileHelperFile = ((filename: string): boolean => /\.(metadata\.json|ngfactory\.ts|js)$/.test(filename));
+    const compileHelperFile = ((filename: string): boolean => /\.(ngfactory\.ts|js)$/.test(filename));
 
     return watch(source, {debounce: 200, verbose: false}, (filename) => {
         if (!compileHelperFile(filename)) {
@@ -29,7 +29,6 @@ gulp.task('angular:clear', () => {
     const {source} = config.application.angular;
 
     rimraf.sync(`${source}/app/**/*.js`);
-    rimraf.sync(`${source}/app/**/*.metadata.json`);
     rimraf.sync(`${source}/app/**/*.ngfactory.ts`);
     rimraf.sync(`${source}/node_modules`);
 });
