@@ -1,9 +1,5 @@
 {
     "compilerOptions": {
-        "target": "es5",
-        "module": "commonjs",
-        "moduleResolution": "node",
-        "rootDir": ".",
         "experimentalDecorators": true
     },
     "files": [
@@ -13,6 +9,6 @@
     "angularCompilerOptions": {
         "debug": false,
         "trace": true,
-        "skipMetadataEmit": false
+        "skipMetadataEmit": true
     }
 }
