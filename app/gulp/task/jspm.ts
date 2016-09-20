@@ -34,13 +34,8 @@ const jspm = (source: string, destination: string, globalName:string, build: boo
     return exec('jspm', args);
 };
 
-// build for dev & prod, resolves modules
 let appBuildDeps = ['symfony:build'];
-if (production) {
-    process.env.ANGULAR_PRE_COMPILE = 'true';
-    appBuildDeps.push('angular:build');
-}
-
+if (production) {appBuildDeps.push('angular:build')}
 gulp.task('jspm:build:app', appBuildDeps, () => {
     let {source, destination, globalName} = config.application;
 

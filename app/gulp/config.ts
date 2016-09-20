@@ -26,7 +26,7 @@ export const jspm = {
         angular: {
             bootstrap: 'app/bootstrap-compiled',
             source: `${resources}ts`,
-            watch: `${resources}ts/**/*.ts`,
+            watchSource: `${resources}ts/**/*.ts`,
         },
         source: 'app/bootstrap',
         destination: `${output}js/build.js`,
