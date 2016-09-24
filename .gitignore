@@ -1,6 +1,8 @@
 # app
 /app/config/parameters.yml
-/app/Resources/public/node_modules
+
+# angular pre compile generated
+/app/Resources/public/ts/app-compiled
 
 # bin
 /bin/*
