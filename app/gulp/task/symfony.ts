@@ -3,11 +3,11 @@ import {production} from '../env';
 const gulp = require('gulp');
 const sequence = require('gulp-sequence');
 const shell = require('gulp-shell');
-const params = production ? ' --no-debug --quiet --env=prod' : ' --no-debug --quiet';
+const symfonyArgs = production ? ' --env=prod' : '';
 
 
 gulp.task('symfony:routing', shell.task([
-    'bin/console fos:js-routing:dump' + params,
+    'bin/console fos:js-routing:dump --no-debug' + symfonyArgs
 ]));
 
 gulp.task('symfony:build', (gulp) => {
