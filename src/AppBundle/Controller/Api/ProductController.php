@@ -8,6 +8,7 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\View;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -84,6 +85,8 @@ class ProductController extends FOSRestController implements ClassResourceInterf
     }
 
     /**
+     * @Security("is_authenticated()")
+     *
      * @param Request $request
      *
      * @return View

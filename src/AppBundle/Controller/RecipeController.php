@@ -10,12 +10,15 @@ use AppBundle\Form\PhotoType;
 use AppBundle\Form\RecipeType;
 use AppBundle\Entity\Recipe;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 class RecipeController extends Controller
 {
     /**
+     * @Security("is_authenticated()")
+     *
      * @Route("/admino/recipes/{page}", name="app_recipes_admin", defaults={"page" = 1}, requirements={
      *      "page" = "\d+"
      * })
@@ -33,6 +36,8 @@ class RecipeController extends Controller
     }
 
     /**
+     * @Security("is_authenticated()")
+     *
      * @Route("/admino/recipes/{name}", name="app_recipe_admin")
 
      * @param string $name

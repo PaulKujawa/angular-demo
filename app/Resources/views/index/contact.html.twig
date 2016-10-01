@@ -2,35 +2,40 @@
 {% block title %}{{ 'barra.contact.title'|trans() }} | Kujawa{% endblock %}
 
 {% block section %}
-    <section class="container" id="contactPage">
-        <div class="row flex flex-align-v text-center">
-            <div class="col-xs-12 col-sm-5">
-                <img class="img-circle center-block img-responsive"
-                     src="{{ asset('images/kujawa.jpg') }}" alt="Paul Kujawa">
-            </div>
-            <div class="col-xs-12 col-sm-7">
-                <p>{{ 'barra.contact.description'|trans() }}</p>
-            </div>
-        </div>
+    {% if app.request.get('angular') == 'true' %} {# TODO #}
+        <spa></spa>
+    {% else %}
 
-        <hr>
-        {{ form_start(form) }}
-            <div class="row flex">
+        <section class="container" id="contactPage">
+            <div class="row flex flex-align-v text-center">
                 <div class="col-xs-12 col-sm-5">
-                    {{ form_row(form.name) }}
-                    {{ form_row(form.email) }}
+                    <img class="img-circle center-block img-responsive"
+                         src="{{ asset('images/kujawa.jpg') }}" alt="Paul Kujawa">
                 </div>
                 <div class="col-xs-12 col-sm-7">
-                    {{ form_widget(form.message) }}
+                    <p>{{ 'barra.contact.description'|trans() }}</p>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-7 col-sm-offset-5">
-                    <div class="pull-right">
-                        {{ form_widget(form.submit, {'attr': {'class': 'btn-primary'} }) }}
+
+            <hr>
+            {{ form_start(form) }}
+                <div class="row flex">
+                    <div class="col-xs-12 col-sm-5">
+                        {{ form_row(form.name) }}
+                        {{ form_row(form.email) }}
+                    </div>
+                    <div class="col-xs-12 col-sm-7">
+                        {{ form_widget(form.message) }}
                     </div>
                 </div>
-            </div>
-        {{ form_end(form) }}
-    </section>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-7 col-sm-offset-5">
+                        <div class="pull-right">
+                            {{ form_widget(form.submit, {'attr': {'class': 'btn-primary'} }) }}
+                        </div>
+                    </div>
+                </div>
+            {{ form_end(form) }}
+        </section>
+    {% endif %}
 {% endblock %}

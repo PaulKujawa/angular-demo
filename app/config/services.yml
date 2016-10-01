@@ -1,4 +1,8 @@
 services:
+    app.inquiry:
+        class: AppBundle\Service\InquiryService
+        arguments: [ "@mailer" ]
+
     app.recipe:
         class: AppBundle\Service\RecipeService
         arguments: [ "@doctrine.orm.entity_manager" ]
