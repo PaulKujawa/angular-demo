@@ -1,32 +1,35 @@
+imports:
+    - { resource: services_request_decorator.yml }
+
 services:
-    app.inquiry:
+    app.repository.inquiry:
         class: AppBundle\Service\InquiryService
         arguments: [ "@mailer" ]
 
-    app.recipe:
+    app.repository.recipe:
         class: AppBundle\Service\RecipeService
         arguments: [ "@doctrine.orm.entity_manager" ]
 
-    app.product:
+    app.repository.product:
         class: AppBundle\Service\ProductService
         arguments: [ "@doctrine.orm.entity_manager" ]
 
-    app.photo:
+    app.repository.photo:
         class: AppBundle\Service\PhotoService
         arguments: [ "@doctrine.orm.entity_manager" ]
 
-    app.ingredient:
+    app.repository.ingredient:
         class: AppBundle\Service\IngredientService
         arguments: [ "@doctrine.orm.entity_manager" ]
 
-    app.cooking:
+    app.repository.cooking:
         class: AppBundle\Service\CookingService
         arguments: [ "@doctrine.orm.entity_manager" ]
 
-    app.measurement:
+    app.repository.measurement:
         class: AppBundle\Service\MeasurementService
         arguments: [ "@doctrine.orm.entity_manager" ]
 
-    app.manufacturer:
+    app.repository.manufacturer:
         class: AppBundle\Service\ManufacturerService
         arguments: [ "@doctrine.orm.entity_manager" ]

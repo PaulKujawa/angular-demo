@@ -11,6 +11,7 @@ use FOS\RestBundle\View\View;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints\GreaterThan;
 
 class ProductController extends FOSRestController implements ClassResourceInterface
 {
@@ -29,7 +30,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
      */
     public function getManufacturerAction($id)
     {
-        $product = $this->get('app.product')->getProduct($id);
+        $product = $this->get('app.repository.product')->getProduct($id);
 
         return null === $product
             ? $this->view(null, Response::HTTP_NOT_FOUND)
@@ -43,7 +44,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
      */
     public function getIngredientsAction($id)
     {
-        $product = $this->get('app.product')->getProduct($id);
+        $product = $this->get('app.repository.product')->getProduct($id);
 
         return null === $product
             ? $this->view(null, Response::HTTP_NOT_FOUND)
@@ -51,23 +52,15 @@ class ProductController extends FOSRestController implements ClassResourceInterf
     }
 
     /**
-     * @QueryParam(name="offset", requirements="\d+", default="0")
-     * @QueryParam(name="limit", requirements="[1-9]\d*", default="10")
-     * @QueryParam(name="orderBy", requirements="\w+", default="id")
-     * @QueryParam(name="order", requirements="(asc|desc)", default="asc")
+     * @QueryParam(name="page", requirements=@GreaterThan(value=0), default="1")
      *
-     * @param string $offset
-     * @param string $limit
-     * @param string $orderBy
-     * @param string $order
+     * @param int $page
      *
      * @return View
      */
-    public function cgetAction($offset, $limit, $orderBy, $order)
+    public function cgetAction($page)
     {
-        $products = $this->get('app.product')->getProducts($orderBy, $order, $limit, $offset);
-
-        return $this->view($products);
+        return $this->get('app.repository.product')->getProducts($page);
     }
 
     /**
@@ -77,7 +70,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
      */
     public function getAction($id)
     {
-        $product = $this->get('app.product')->getProduct($id);
+        $product = $this->get('app.repository.product')->getProduct($id);
 
         return null === $product
             ? $this->view(null, Response::HTTP_NOT_FOUND)
@@ -100,7 +93,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
             return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
 
-        $product = $this->get('app.product')->addProduct($form->getData());
+        $product = $this->get('app.repository.product')->addProduct($form->getData());
 
         return $this->view()->createRouteRedirect(
             'api_get_product',
@@ -117,7 +110,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
      */
     public function putAction(Request $request, $id)
     {
-        $product = $this->get('app.product')->getProduct($id);
+        $product = $this->get('app.repository.product')->getProduct($id);
 
         if (null === $product) {
             return $this->view(null, Response::HTTP_NOT_FOUND);
@@ -130,9 +123,13 @@ class ProductController extends FOSRestController implements ClassResourceInterf
             return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
 
-        $this->get('app.product')->setProduct($product);
+        $this->get('app.repository.product')->setProduct($product);
 
-        return $this->view()->createRouteRedirect('api_get_product', ['id' => $id], Response::HTTP_NO_CONTENT);
+        return $this->view()->createRouteRedirect(
+            'api_get_product',
+            ['id' => $id],
+            Response::HTTP_NO_CONTENT
+        );
     }
 
     /**
@@ -142,14 +139,14 @@ class ProductController extends FOSRestController implements ClassResourceInterf
      */
     public function deleteAction($id)
     {
-        $product = $this->get('app.product')->getProduct($id);
+        $product = $this->get('app.repository.product')->getProduct($id);
 
         if (null === $product) {
             return $this->view(null, Response::HTTP_NOT_FOUND);
         }
 
         try {
-            $this->get('app.product')->deleteProduct($product);
+            $this->get('app.repository.product')->deleteProduct($product);
         } catch (ForeignKeyConstraintViolationException $ex) {
             return $this->view(null, Response::HTTP_CONFLICT);
         }

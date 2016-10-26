@@ -3,10 +3,15 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Manufacturer;
+use AppBundle\RequestDecorator\Decorator\QueryDecorator;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\ORMException;
 
 class ManufacturerService
 {
+    const PAGE_LIMIT = 5;
+
     /**
      * @var EntityManager
      */
@@ -21,21 +26,30 @@ class ManufacturerService
     }
 
     /**
-     * @param string $orderBy
-     * @param string $order
-     * @param int $limit
-     * @param int $offset
+     * @param int $page
+     * @param QueryDecorator $queryDecorator
      *
-     * @return Manufacturer[]|array
+     * @return Manufacturer[]
      */
-    public function getManufacturers($orderBy, $order, $limit, $offset)
+    public function getManufacturers($page, QueryDecorator $queryDecorator = null)
     {
-        return $this->entityManager->getRepository(Manufacturer::class)->findBy(
-            [],
-            [$orderBy => $order],
-            $limit,
-            $offset
-        );
+        $firstResult = ($page - 1) * self::PAGE_LIMIT;
+
+        $criteria = Criteria::create()
+            ->setFirstResult($firstResult)
+            ->setMaxResults(self::PAGE_LIMIT);
+
+        if ($queryDecorator) {
+            $queryDecorator->decorate($criteria);
+        }
+
+        $repository = $this->entityManager->getRepository(Manufacturer::class);
+
+        try {
+            return $repository->matching($criteria)->toArray();
+        } catch (ORMException $exception) {
+            return [];
+        }
     }
 
     /**

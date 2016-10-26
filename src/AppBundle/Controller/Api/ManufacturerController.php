@@ -10,6 +10,7 @@ use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints\GreaterThan;
 
 class ManufacturerController extends FOSRestController implements ClassResourceInterface
 {
@@ -28,7 +29,7 @@ class ManufacturerController extends FOSRestController implements ClassResourceI
      */
     public function getProductsAction($id)
     {
-        $manufacturer = $this->get('app.manufacturer')->getManufacturer($id);
+        $manufacturer = $this->get('app.repository.manufacturer')->getManufacturer($id);
 
         return null === $manufacturer
             ? $this->view(null, Response::HTTP_NOT_FOUND)
@@ -36,23 +37,15 @@ class ManufacturerController extends FOSRestController implements ClassResourceI
     }
 
     /**
-     * @QueryParam(name="offset", requirements="\d+", default="0")
-     * @QueryParam(name="limit", requirements="[1-9]\d*", default="10")
-     * @QueryParam(name="orderBy", requirements="\w+", default="id")
-     * @QueryParam(name="order", requirements="(asc|desc)", default="asc")
+     * @QueryParam(name="page", requirements=@GreaterThan(value=0), default="1")
      *
-     * @param string $offset
-     * @param string $limit
-     * @param string $orderBy
-     * @param string $order
+     * @param int $page
      *
      * @return View
      */
-    public function cgetAction($offset, $limit, $orderBy, $order)
+    public function cgetAction($page)
     {
-        $manufacturers = $this->get('app.manufacturer')->getManufacturers($orderBy, $order, $limit, $offset);
-
-        return $this->view($manufacturers);
+        return $this->get('app.repository.manufacturer')->getManufacturers($page);
     }
 
     /**
@@ -62,7 +55,7 @@ class ManufacturerController extends FOSRestController implements ClassResourceI
      */
     public function getAction($id)
     {
-        $manufacturer = $this->get('app.manufacturer')->getManufacturer($id);
+        $manufacturer = $this->get('app.repository.manufacturer')->getManufacturer($id);
 
         return null === $manufacturer
             ? $this->view(null, Response::HTTP_NOT_FOUND)
@@ -83,7 +76,7 @@ class ManufacturerController extends FOSRestController implements ClassResourceI
             return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
 
-        $manufacturer = $this->get('app.manufacturer')->addManufacturer($form->getData());
+        $manufacturer = $this->get('app.repository.manufacturer')->addManufacturer($form->getData());
 
         return $this->routeRedirectView(
             'api_get_manufacturer',
@@ -100,7 +93,7 @@ class ManufacturerController extends FOSRestController implements ClassResourceI
      */
     public function putAction(Request $request, $id)
     {
-        $manufacturer = $this->get('app.manufacturer')->getManufacturer($id);
+        $manufacturer = $this->get('app.repository.manufacturer')->getManufacturer($id);
 
         if (null === $manufacturer) {
             return $this->view(null, Response::HTTP_NOT_FOUND);
@@ -113,7 +106,7 @@ class ManufacturerController extends FOSRestController implements ClassResourceI
             return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
 
-        $this->get('app.manufacturer')->setManufacturer($manufacturer);
+        $this->get('app.repository.manufacturer')->setManufacturer($manufacturer);
 
         return $this->routeRedirectView(
             'api_get_manufacturer',
@@ -129,14 +122,14 @@ class ManufacturerController extends FOSRestController implements ClassResourceI
      */
     public function deleteAction($id)
     {
-        $manufacturer = $this->get('app.manufacturer')->getManufacturer($id);
+        $manufacturer = $this->get('app.repository.manufacturer')->getManufacturer($id);
 
         if (null === $manufacturer) {
             return $this->view(null, Response::HTTP_NOT_FOUND);
         }
 
         try {
-            $this->get('app.manufacturer')->deleteManufacturer($manufacturer);
+            $this->get('app.repository.manufacturer')->deleteManufacturer($manufacturer);
         } catch (ForeignKeyConstraintViolationException $ex) {
             return $this->view(null, Response::HTTP_CONFLICT);
         }

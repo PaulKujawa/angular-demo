@@ -1,0 +1,21 @@
+services:
+    app.request_decorator.recipe_composite_decorator:
+        class: AppBundle\RequestDecorator\Factory\CompositeRequestDecoratorFactory
+        calls:
+          - [addFactory, ['@app.request_decorator.name_decorator_factory']]
+          - [addFactory, ['@app.request_decorator.sort_name_decorator_factory']]
+
+    app.request_decorator.recipe_composite_decorator:
+        class: AppBundle\RequestDecorator\Factory\CompositeRequestDecoratorFactory
+        calls:
+          - [addFactory, ['@app.request_decorator.name_decorator_factory']]
+          - [addFactory, ['@app.request_decorator.sort_name_decorator_factory']]
+
+    app.request_decorator.vegan_decorator_factory:
+        class: AppBundle\RequestDecorator\Factory\VeganRequestDecoratorFactory
+
+    app.request_decorator.sort_name_decorator_factory:
+        class: AppBundle\RequestDecorator\Factory\SortNameRequestDecoratorFactory
+
+    app.request_decorator.name_decorator_factory:
+        class: AppBundle\RequestDecorator\Factory\NameRequestDecoratorFactory

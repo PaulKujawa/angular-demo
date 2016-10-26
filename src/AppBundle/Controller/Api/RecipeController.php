@@ -11,9 +11,13 @@ use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\GreaterThan;
 
 class RecipeController extends FOSRestController implements ClassResourceInterface
 {
+    const PAGE_LIMIT = 5;
+
     /**
      * @return View
      */
@@ -25,21 +29,19 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
     /**
      * @AnnotationsView(serializerGroups={"Default", "recipeList"})
      *
-     * @QueryParam(name="offset", requirements="\d+", default="0")
-     * @QueryParam(name="limit", requirements="[1-9]\d*", default="10")
-     * @QueryParam(name="orderBy", requirements="\w+", default="name")
-     * @QueryParam(name="order", requirements="(asc|desc)", default="asc")
+     * @QueryParam(name="page", requirements=@GreaterThan(value=0), default="1")
      *
-     * @param string $offset
-     * @param string $limit
-     * @param string $orderBy
-     * @param string $order
+     * @param Request $request
+     * @param int $page
      *
      * @return View
      */
-    public function cgetAction($offset, $limit, $orderBy, $order)
+    public function cgetAction(Request $request, $page)
     {
-        return $this->get('app.recipe')->getRecipes($orderBy, $order, $limit, $offset);
+        $queryDecorators = $this->get('app.request_decorator.recipe_composite_decorator')
+            ->createQueryDecorator($request);
+
+        return $this->get('app.repository.recipe')->getRecipes($page, $queryDecorators);
     }
 
     /**
@@ -51,7 +53,7 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
      */
     public function getAction($id)
     {
-        $recipe = $this->get('app.recipe')->getRecipe($id);
+        $recipe = $this->get('app.repository.recipe')->getRecipe($id);
 
         return $recipe ?: $this->view(null, Response::HTTP_NOT_FOUND);
     }
@@ -70,9 +72,13 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
             return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
 
-        $recipe = $this->get('app.recipe')->addRecipe($form->getData());
+        $recipe = $this->get('app.repository.recipe')->addRecipe($form->getData());
 
-        return $this->view()->createRouteRedirect('api_get_recipe', ['id' => $recipe->getId()], Response::HTTP_CREATED);
+        return $this->view()->createRouteRedirect(
+            'api_get_recipe',
+            ['id' => $recipe->getId()],
+            Response::HTTP_CREATED
+        );
     }
 
     /**
@@ -83,7 +89,7 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
      */
     public function putAction(Request $request, $id)
     {
-        $recipe = $this->get('app.product')->getProduct($id);
+        $recipe = $this->get('app.repository.product')->getProduct($id);
 
         if (null === $recipe) {
             return $this->view(null, Response::HTTP_NOT_FOUND);
@@ -96,9 +102,13 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
             return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
 
-        $this->get('app.recipe')->setRecipe($recipe);
+        $this->get('app.repository.recipe')->setRecipe($recipe);
 
-        return $this->view()->createRouteRedirect('api_get_recipe', ['id' => $id], Response::HTTP_NO_CONTENT);
+        return $this->view()->createRouteRedirect(
+            'api_get_recipe',
+            ['id' => $id],
+            Response::HTTP_NO_CONTENT
+        );
     }
 
     /**
@@ -108,14 +118,14 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
      */
     public function deleteAction($id)
     {
-        $recipe = $this->get('app.recipe')->getRecipe($id);
+        $recipe = $this->get('app.repository.recipe')->getRecipe($id);
 
         if (null === $recipe) {
             return $this->view(null, Response::HTTP_NOT_FOUND);
         }
 
         try {
-            $this->get('app.recipe')->deleteRecipe($recipe);
+            $this->get('app.repository.recipe')->deleteRecipe($recipe);
         } catch (ForeignKeyConstraintViolationException $ex) {
             return $this->view(null, Response::HTTP_CONFLICT);
         }

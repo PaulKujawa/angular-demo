@@ -10,10 +10,7 @@ trait NameTrait
      * @var string
      *
      * @Assert\NotBlank()
-     * @Assert\Length(
-     *      min = 1,
-     *      max = 40
-     * )
+     * @Assert\Length(min = 3, max = 40)
      *
      * @ORM\Column(
      *      name = "name",

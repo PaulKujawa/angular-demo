@@ -30,7 +30,7 @@ class CookingController extends FOSRestController implements ClassResourceInterf
      */
     public function cgetAction($recipeId)
     {
-        $cookings = $this->get('app.cooking')->getCookings($recipeId);
+        $cookings = $this->get('app.repository.cooking')->getCookings($recipeId);
 
         return $this->view($cookings);
     }
@@ -43,7 +43,7 @@ class CookingController extends FOSRestController implements ClassResourceInterf
      */
     public function getAction($recipeId, $id)
     {
-        $cooking = $this->get('app.cooking')->getCooking($recipeId, $id);
+        $cooking = $this->get('app.repository.cooking')->getCooking($recipeId, $id);
 
         return null === $cooking
             ? $this->view(null, Response::HTTP_NOT_FOUND)
@@ -58,12 +58,12 @@ class CookingController extends FOSRestController implements ClassResourceInterf
      */
     public function postAction(Request $request, $recipeId)
     {
-        $recipe = $this->get('app.recipe')->getRecipe($recipeId);
+        $recipe = $this->get('app.repository.recipe')->getRecipe($recipeId);
         if (null === $recipe) {
             return $this->view(null, Response::HTTP_NOT_FOUND);
         }
 
-        $position = $this->get('app.cooking')->getPosition($recipeId);
+        $position = $this->get('app.repository.cooking')->getPosition($recipeId);
         $cooking = new Cooking($recipeId, $position);
         $form = $this->createForm(CookingType::class, $cooking);
         $form->handleRequest($request);
@@ -72,7 +72,7 @@ class CookingController extends FOSRestController implements ClassResourceInterf
             return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
 
-        $cooking = $this->get('app.cooking')->addCooking($cooking);
+        $cooking = $this->get('app.repository.cooking')->addCooking($cooking);
 
         return $this->routeRedirectView('api_get_recipe_cooking', [
             'recipeId' => $recipeId,
@@ -89,7 +89,7 @@ class CookingController extends FOSRestController implements ClassResourceInterf
      */
     public function putAction($recipeId, $id, Request $request)
     {
-        $cooking = $this->get('app.cooking')->getCooking($recipeId, $id);
+        $cooking = $this->get('app.repository.cooking')->getCooking($recipeId, $id);
 
         if (null === $cooking) {
             return $this->view(null, Response::HTTP_NOT_FOUND);
@@ -102,7 +102,7 @@ class CookingController extends FOSRestController implements ClassResourceInterf
             return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
 
-        $this->get('app.cooking')->setCooking($cooking);
+        $this->get('app.repository.cooking')->setCooking($cooking);
 
         return $this->routeRedirectView(
             'api_get_recipe_cooking',
@@ -119,14 +119,14 @@ class CookingController extends FOSRestController implements ClassResourceInterf
      */
     public function deleteAction($recipeId, $id)
     {
-        $cooking = $this->get('app.cooking')->getCooking($recipeId, $id);
+        $cooking = $this->get('app.repository.cooking')->getCooking($recipeId, $id);
 
         if (null === $cooking) {
             return $this->view(null, Response::HTTP_NOT_FOUND);
         }
 
         try {
-            $this->get('app.cooking')->deleteCooking($cooking);
+            $this->get('app.repository.cooking')->deleteCooking($cooking);
         } catch (ForeignKeyConstraintViolationException $ex) {
             return $this->view(null, Response::HTTP_CONFLICT);
         }
