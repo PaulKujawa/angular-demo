@@ -40,7 +40,6 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
     {
         $queryDecorators = $this->get('app.request_decorator.recipe_composite_decorator')
             ->createQueryDecorator($request);
-
         return $this->get('app.repository.recipe')->getRecipes($page, $queryDecorators);
     }
 

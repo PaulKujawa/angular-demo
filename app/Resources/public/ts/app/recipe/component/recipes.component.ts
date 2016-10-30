@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
+import {Observable} from 'rxjs/Observable';
+import {Subject} from "rxjs/Subject";
 import {RecipeRepository} from "../repository/recipe.repository";
 import {Recipe} from "../model/recipe";
-import {Router} from "@angular/router";
 import {FlashMessageService} from "../../core/service/flash-message.service";
 import {FlashMessage} from "../../core/model/flash-message";
 
@@ -11,7 +13,7 @@ import {FlashMessage} from "../../core/model/flash-message";
         <div class="row">
             <div class="col-xs-12 col-sm-3">
                 <div style="height: 400px">
-                    <!-- todo filter with toggle for mobile -->
+                    <input placeholder="Search..." #search (keyup)="searchRecipe(search.value)"/>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-9">
@@ -28,22 +30,28 @@ import {FlashMessage} from "../../core/model/flash-message";
     `
 })
 export class RecipesComponent implements OnInit {
-    recipes: Recipe[] = [];
+    recipes: Recipe[];
+    private searchStream = new Subject<string>();
 
     constructor(private recipeRepository: RecipeRepository,
                 private router: Router,
                 private flashMsgService: FlashMessageService) {}
 
     ngOnInit(): void {
-        this.getRecipes();
+        const searchStream = this.searchStream
+            .debounceTime(300)
+            .distinctUntilChanged();
+
+        Observable.merge(Observable.of(''), searchStream)
+            .switchMap((name: string) => this.recipeRepository.getRecipes({name: name}))
+            .subscribe(
+                (recipes: Recipe[]) => this.recipes = recipes,
+                (error: string) => this.flashMsgService.push(new FlashMessage('danger', error))
+            );
     }
 
-    getRecipes(): void {
-        this.recipeRepository.getRecipes()
-            .subscribe(
-                recipes => this.recipes = recipes,
-                error => this.flashMsgService.push(new FlashMessage('danger', error))
-            );
+    searchRecipe(name: string): void {
+        this.searchStream.next(name);
     }
 
     onSelect(recipe: Recipe): void {

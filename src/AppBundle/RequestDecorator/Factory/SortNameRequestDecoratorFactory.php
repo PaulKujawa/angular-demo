@@ -12,10 +12,10 @@ class SortNameRequestDecoratorFactory implements RequestDecoratorFactory
      */
     public function createQueryDecorator(Request $request)
     {
-        $direction = $request->query->get('sortName');
+        $direction = strtolower($request->query->get('sortName'));
 
-        return in_array($direction, ['asc', 'desc'])
+        return $direction === 'asc' || $direction === 'desc'
             ? new SortNameQueryDecorator($direction)
-            : null;
+            : new SortNameQueryDecorator();
     }
 }

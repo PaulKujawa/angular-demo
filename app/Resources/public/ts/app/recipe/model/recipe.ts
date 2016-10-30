@@ -6,6 +6,7 @@ import {Macros} from "./macros";
 export class Recipe {
     constructor(public id: number,
                 public name: string,
+                public isVegan: boolean,
                 public macros: Macros,
                 public thumbnail?: Photo,
                 public photos?: Photo,

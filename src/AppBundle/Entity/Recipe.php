@@ -85,6 +85,22 @@ class Recipe
 
     /**
      * @Serializer\VirtualProperty()
+     * @Serializer\SerializedName("isVegan")
+     *
+     * @return bool
+     */
+    public function isVegan()
+    {
+        // TODO add as native db table column instead for better performance
+        $notVeganProducts = $this->ingredients->filter(function(Ingredient $ingredient) {
+            return !$ingredient->getProduct()->getVegan();
+        });
+
+        return $notVeganProducts->count() === 0;
+    }
+
+    /**
+     * @Serializer\VirtualProperty()
      * @Serializer\SerializedName("macros")
      *
      * @return array

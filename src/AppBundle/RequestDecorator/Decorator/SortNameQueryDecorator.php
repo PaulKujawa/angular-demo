@@ -14,7 +14,7 @@ class SortNameQueryDecorator implements QueryDecorator
     /**
      * @param string $direction
      */
-    public function __construct($direction)
+    public function __construct($direction = Criteria::ASC)
     {
         $this->direction = $direction;
     }

@@ -10,7 +10,7 @@ use Doctrine\ORM\ORMException;
 
 class RecipeService
 {
-    const PAGE_LIMIT = 5;
+    const PAGE_LIMIT = 4;
 
     /**
      * @var EntityManager
