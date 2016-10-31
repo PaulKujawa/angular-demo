@@ -13,17 +13,17 @@ import {Component} from '@angular/core';
                         <span class="icon-bar"></span>
                     </button>
                 </div>
-                <div class="collapse navbar-collapse" id="ba-navbar__collapse">
+                <div id="ba-navbar__collapse" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav text-capitalize">
                         <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                            <a [routerLink]="['/']">inquiry</a>
+                            <a [routerLink]="['/']">{{'app.inquiry.inquiry'|trans}}</a>
                         </li>
                         <li routerLinkActive="active">
-                            <a [routerLink]="['/recipes']">recipes</a>
+                            <a [routerLink]="['/recipes']">{{'app.recipe.recipes'|trans}}</a>
                         </li>
                     </ul>
                      <ul class="nav navbar-nav navbar-right">
-                        <li><a class="text-capitalize">de</a></li>
+                        <!--<li><a class="text-capitalize">de</a></li>-->
                     </ul>
                 </div>
             </div>

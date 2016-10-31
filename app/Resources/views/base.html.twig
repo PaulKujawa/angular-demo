@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+{% set locale = app.request.locale %}
+<html lang="{{ locale }}">
     <head>
         {% block head %}
             <title>{% block title %}Kujawa{% endblock %}</title>
@@ -7,7 +8,7 @@
                 <meta http-equiv="X-UA-Compatible" content="IE=edge">
                 <meta http-equiv="content-type" content="text/html; charset=utf-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1">
-                <meta name="language" content="{{ app.request.locale }}">
+                <meta name="language" content="{{ locale }}">
                 <meta name="author" content="Paul Kujawa">
                 <meta name="copyright" content="Paul Kujawa">
                 <meta name="publisher" content="Paul Kujawa">
@@ -21,14 +22,15 @@
 
     <body>
         <spa></spa>
+        {# TODO try accessing <base href> instead #}
         <script>
             window.baInject = {
-//                TODO try accessing <base href> instead
                 baseUrl: {{ app.request.baseUrl|json_encode|raw }},
-                requestLocale: {{ app.request.locale|split('_')[0]|json_encode|raw }}
+                requestLocale: {{ locale|json_encode|raw }}
             };
         </script>
         <script src="{{ asset('js/vendor.js') }}"></script>
+        <script src="{{ asset('js/translations.' ~ locale ~ '.js') }}"></script>
         <script src="{{ asset('js/build.js') }}"></script>
     </body>
 </html>

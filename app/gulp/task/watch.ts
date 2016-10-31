@@ -5,7 +5,8 @@ gulp.task('watch', sequence(
     [
         'sass:watch',
         'jspm:build',
-        'jspm:test',
+        // 'jspm:test',
         'ts:watch',
+        'symfony:translation:watch'
     ]
 ));

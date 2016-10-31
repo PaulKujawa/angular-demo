@@ -61,8 +61,8 @@ export class RecipeComponent implements OnInit {
     getRecipe(id: number): void {
         this.recipeRepository.getRecipe(id)
             .subscribe(
-                recipe => this.recipe = recipe,
-                error => this.flashMsgService.push(new FlashMessage('danger', error))
+                (recipe: Recipe) => this.recipe = recipe,
+                (error: string) => this.flashMsgService.push(new FlashMessage('danger', error))
             );
     }
 

@@ -3,6 +3,11 @@ interface BaInject {
     requestLocale: string;
 }
 
+interface BazingaJsTranslationBundle {
+    trans(id: string, parameters?: {}, domain?: string, locale?: string): string;
+    transChoice(id: string, number: number, parameters?: {}, domain?: string, locale?: string): string;
+}
+
 interface FosJsRouting {
     generate(route: string, params: {}): string;
     setBaseUrl(url: string): void
@@ -11,6 +16,7 @@ interface FosJsRouting {
 interface Window {
     baInject: BaInject;
     Routing: FosJsRouting;
+    Translator: BazingaJsTranslationBundle;
 }
 
 declare module "window" {

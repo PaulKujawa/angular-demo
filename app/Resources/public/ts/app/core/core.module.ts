@@ -3,6 +3,7 @@ import {NgModule} from '@angular/core';
 import {FlashMessageComponent} from "./component/flash-message.component";
 import {RoutingService} from "./service/routing.service";
 import {FlashMessageService} from "./service/flash-message.service";
+import {TranslationService} from "./service/translation.service";
 
 @NgModule({
     imports: [
@@ -17,6 +18,7 @@ import {FlashMessageService} from "./service/flash-message.service";
     providers: [
         FlashMessageService,
         RoutingService,
+        TranslationService,
     ]
 })
 export class CoreModule {}

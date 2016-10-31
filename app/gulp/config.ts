@@ -44,6 +44,19 @@ export const jspm = {
     }
 };
 
+export const symfony = {
+    translations: {
+        locales: ['en', 'de'],
+        source: (locale: string): Array<string> => [
+            `${output}bundles/bazingajstranslation/js/translator.min.js`,
+            `${output}js/translations/config.js`,
+            `${output}js/translations/**/${locale}.json`
+        ],
+        destination: (locale: string): string => `${output}js/translations.${locale}.js`,
+        watch: 'app/Resources/translations/*.yml'
+    }
+};
+
 export const ts = {
     project: `${resources}ts`,
 };

@@ -8,7 +8,7 @@ import {Component} from '@angular/core';
                 <img class="img-circle center-block img-responsive" src="../../images/kujawa.jpg">
             </div>
             <div class="col-xs-12 col-sm-7">
-                <p>Heimprojekt mit ein paar Rezepten.</p>
+                <p>{{'app.inquiry.description'|trans}}</p>
             </div>
         </div>
         <hr>

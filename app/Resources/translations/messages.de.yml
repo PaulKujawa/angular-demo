@@ -3,41 +3,16 @@ Message: Nachricht
 Name: Name
 Submit: Absenden
 
-barra:
-    contact:
-        description: Ich trage den Namen Paul Kujawa, bin eifriger Symfony Entwickler und meine Freizeit fokussiert Fitness.
-        email: Ihre E-Mail
-        email_sent: Danke für deine Anfrage. Ich werde mich baligst mit dir in Verbindung setzen.
-        message: Ihre Nachricht an mich
-        name: Ihr Name
-        title: Kontakt
-    cooking:
-        description: Beschreibung
-    dashboard:
-        title: Adminbereich
-    error:
-        html_code: Leider gab der Server einen %code% zurück.
-    ingredients:
-        amount: Menge
-    manufacturer:
-        name: Name
-        title: Hersteller
-    measurements:
-        gr: Gr
-        name: Typ
-        title: Messeinheiten
-    products:
-        carbs: Kohlenhydrate
-        fat: Fett
-        gfat: ges. Fett
-        gr: Gr
-        kcal: Kcal
-        manufacturer: Hersteller
-        name: Name
-        protein: Eiweiß
-        sugar: Zucker
-        title: Produkte
-        vegan: Vegan
-    recipes:
-        not_found: Dieses Rezept ist mir nicht bekannt. Werf doch einen Blick in meine Sammlung :)
-        title: Rezepte
+app:
+  common:
+    submit: Absenden
+  inquiry:
+    description: Heimprojekt mit ein paar Rezepten.
+    form:
+      name: Ihr Name
+      email_address: Ihre E-Mail
+      message: Ihre Nachricht an mich
+    inquiry: Anfrage
+    inquiry_sent: Ich habe Ihre Mitteilung erfolgreich erhalten.
+  recipe:
+    recipes: Rezepte
