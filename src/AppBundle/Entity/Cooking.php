@@ -6,14 +6,11 @@ use AppBundle\Entity\Traits\DescriptionTrait;
 use AppBundle\Entity\Traits\IdAutoTrait;
 use AppBundle\Entity\Traits\PositionTrait;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\Exclude;
-use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ExclusionPolicy("none")
- *
  * @UniqueEntity({
  *      "recipe",
  *      "position"
@@ -44,7 +41,7 @@ class Cooking
      *
      * @Assert\NotNull()
      *
-     * @Exclude
+     * @Serializer\Exclude()
      *
      * @ORM\ManyToOne(
      *      targetEntity = "Recipe",
@@ -62,14 +59,10 @@ class Cooking
 
     /**
      * @param Recipe $recipe
-     *
-     * @return $this
      */
     public function setRecipe(Recipe $recipe)
     {
         $this->recipe = $recipe;
-
-        return $this;
     }
 
     /**

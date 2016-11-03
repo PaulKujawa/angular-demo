@@ -1,14 +1,16 @@
 {
-    "compilerOptions": {
-        "experimentalDecorators": true
-    },
     "files": [
         "../../../../typings/index.d.ts",
         "app/bootstrap.ts"
     ],
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "outDir": "app-compiled/src"
+    },
     "angularCompilerOptions": {
+        "genDir": "app-compiled",
+        "skipMetadataEmit": true,
         "debug": false,
-        "trace": true,
-        "skipMetadataEmit": true
+        "trace": true
     }
 }

@@ -13,7 +13,7 @@ imports:
 #        result_cache_driver: apc
 #        query_cache_driver: apc
 
-monolog:                                                                    # default settings as in v2.8
+monolog: # default settings as in v2.8
     handlers:
         main:
             type:         fingers_crossed

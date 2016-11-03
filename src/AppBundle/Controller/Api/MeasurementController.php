@@ -10,6 +10,7 @@ use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints\GreaterThan;
 
 class MeasurementController extends FOSRestController implements ClassResourceInterface
 {
@@ -22,37 +23,15 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
     }
 
     /**
-     * @param int $id
+     * @QueryParam(name="page", requirements=@GreaterThan(value=0), default="1")
+     *
+     * @param int $page
      *
      * @return View
      */
-    public function getIngredientsAction($id)
+    public function cgetAction($page)
     {
-        $measurement = $this->get('app.measurement')->getMeasurement($id);
-
-        return null === $measurement
-            ? $this->view(null, Response::HTTP_NOT_FOUND)
-            : $this->view($measurement->getIngredients());
-    }
-
-    /**
-     * @QueryParam(name="offset", requirements="\d+", default="0")
-     * @QueryParam(name="limit", requirements="[1-9]\d*", default="10")
-     * @QueryParam(name="orderBy", requirements="\w+", default="id")
-     * @QueryParam(name="order", requirements="(asc|desc)", default="asc")
-     *
-     * @param string $offset
-     * @param string $limit
-     * @param string $orderBy
-     * @param string $order
-     *
-     * @return View
-     */
-    public function cgetAction($offset, $limit, $orderBy, $order)
-    {
-        $measurements = $this->get('app.measurement')->getMeasurements($orderBy, $order, $limit, $offset);
-
-        return $this->view($measurements);
+        return $this->get('app.repository.measurement')->getMeasurements($page);
     }
 
     /**
@@ -62,7 +41,7 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
      */
     public function getAction($id)
     {
-        $measurement = $this->get('app.measurement')->getMeasurement($id);
+        $measurement = $this->get('app.repository.measurement')->getMeasurement($id);
 
         return null === $measurement
             ? $this->view(null, Response::HTTP_NOT_FOUND)
@@ -83,9 +62,13 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
             return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
 
-        $measurement = $this->get('app.measurement')->addMeasurement($form->getData());
+        $measurement = $this->get('app.repository.measurement')->addMeasurement($form->getData());
         
-        return $this->routeRedirectView('api_get_measurement', ['id' => $measurement->getId()], Response::HTTP_CREATED);
+        return $this->routeRedirectView(
+            'api_get_measurement',
+            ['id' => $measurement->getId()],
+            Response::HTTP_CREATED
+        );
     }
 
     /**
@@ -96,7 +79,7 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
      */
     public function putAction(Request $request, $id)
     {
-        $measurement = $this->get('app.measurement')->getMeasurement($id);
+        $measurement = $this->get('app.repository.measurement')->getMeasurement($id);
 
         if (null === $measurement) {
             return $this->view(null, Response::HTTP_NOT_FOUND);
@@ -109,9 +92,13 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
             return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
 
-        $this->get('app.measurement')->setMeasurement($measurement);
+        $this->get('app.repository.measurement')->setMeasurement($measurement);
 
-        return $this->routeRedirectView('api_get_measurement', ['id' => $id], Response::HTTP_NO_CONTENT);
+        return $this->routeRedirectView(
+            'api_get_measurement',
+            ['id' => $id],
+            Response::HTTP_NO_CONTENT
+        );
     }
 
     /**
@@ -121,14 +108,14 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
      */
     public function deleteAction($id)
     {
-        $measurement = $this->get('app.measurement')->getMeasurement($id);
+        $measurement = $this->get('app.repository.measurement')->getMeasurement($id);
 
         if (null === $measurement) {
             return $this->view(null, Response::HTTP_NOT_FOUND);
         }
 
         try {
-            $this->get('app.measurement')->deleteMeasurement($measurement);
+            $this->get('app.repository.measurement')->deleteMeasurement($measurement);
         } catch (ForeignKeyConstraintViolationException $ex) {
             return $this->view(null, Response::HTTP_CONFLICT);
         }

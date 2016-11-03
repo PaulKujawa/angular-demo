@@ -1,98 +1,69 @@
-# liip_functional_test added in .config_test.yml
-
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
 
-parameters:
-    locale: en
-
-framework:
-    #esi:             ~
-    secret:          "%secret%"
-    translator:     { fallbacks: ["%locale%"] }
-    secret:         "%%secret%"
-    router:
-        resource: "%kernel.root_dir%/config/routing.yml"
-        strict_requirements: ~
-    form:            ~
-    csrf_protection: ~
-    validation:      { enable_annotations: true }
-    #serializer:      { enable_annotations: true }
-    templating:
-        engines: ['twig']
-    default_locale:  de
-    trusted_hosts:   ~
-    trusted_proxies: ~
-    session:
-        # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
-        handler_id:  session.handler.native_file
-        save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
-    fragments:       ~
-    http_method_override: true
-    assets: ~
-
-twig:
-    form_themes: ['bootstrap_3_layout.html.twig']         # or bootstrap_3_horizontal_layout.html.twig
-    debug:            "%kernel.debug%"
-    strict_variables: "%kernel.debug%"
-
 doctrine:
     dbal:
-        driver:   pdo_mysql
-        host:     "%database_host%"
-        port:     "%database_port%"
-        dbname:   "%database_name%"
-        user:     "%database_user%"
+        charset: UTF8
+        dbname: "%database_name%"
+        driver: pdo_mysql
+        host: "%database_host%"
         password: "%database_password%"
-        charset:  UTF8
+        port: "%database_port%"
+        user: "%database_user%"
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
-        naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
-
-swiftmailer:                                                # email server configuration for 'mailer' service
-    transport:  "%mailer_transport%"
-    encryption: "%mailer_encryption%"
-    auth_mode:  "%mailer_auth_mode%"
-    port:       "%mailer_port%"
-    host:       "%mailer_host%"
-    username:   "%mailer_user%"
-    password:   "%mailer_password%"
-    spool:     { type: memory }                             # sends after request is completely processed (w/o exception or error)
-
-services:
-    fos_user.doctrine_registry:
-        alias: doctrine                                     # github.com/FriendsOfSymfony/FOSUserBundle/issues/2048
-
-sensio_framework_extra:
-    view: { annotations: false }                            # FOSRestBundle takes over the controller annotations handling for views
+        naming_strategy: doctrine.orm.naming_strategy.underscore
 
 fos_rest:
-    param_fetcher_listener: force                           # set configred parameter as request parameter
-    routing_loader:
-        default_format: json
-    body_listener:                                          # Converts formats and populates request parameter bag
+    body_listener: # Converts formats and populates request parameter bag
         decoders:
           json: fos_rest.decoder.json
           xml: fos_rest.decoder.xml
+    param_fetcher_listener: force # set configred parameter as request parameter
+    routing_loader:
+        default_format: json
     view:
-        view_response_listener: 'force'                     # converts response View object into Response object
-        formats:                                            # formats rendered via JMS serializer
-            json : true
-        templating_formats:                                 # formats requiring a template for rendering (twig)
-            html: true
         default_engine: twig
-
+        formats: # formats rendered via JMS serializer
+            json : true
+        templating_formats: # formats requiring a template for rendering (twig)
+            html: true
+        view_response_listener: 'force' # api controller return View obj, which need to be resolved to Response obj
 
 fos_user:
-    db_driver:      orm
-    firewall_name:  admino
-    user_class:     AppBundle\Entity\User
+    db_driver: orm
+    firewall_name: admino
+    user_class: AppBundle\Entity\User
 
+framework:
+    assets: ~
+    csrf_protection: ~
+    default_locale: de
+#    esi: ~
+    form: ~
+    fragments: ~
+    http_method_override: true
+#    php_errors:
+#        log: true
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    secret: "%secret%"
+#    serializer: { enable_annotations: true }
+    session:
+        handler_id: session.handler.native_file
+        save_path: "%kernel.root_dir%/../var/sessions/%kernel.environment%"
+    templating:
+        engines: ['twig']
+    translator: { fallbacks: ["%locale%"] }
+    trusted_hosts: ~
+    trusted_proxies: ~
+    validation: { enable_annotations: true }
 
-jms_serializer:                                             # JMS exlusion for 3th party entites needs to be done via config file
+jms_serializer: # JMS exlusion for 3th party entites needs to be done via config file
     metadata:
         directories:
             FOSUserBundle:
@@ -112,3 +83,29 @@ lexik_jwt_authentication:
     public_key_path:  "%kernel.root_dir%/var/jwt/public.pem"  # ssh public key path
     pass_phrase:      "%jwt_prod_ssh_key_pp%"                 # ssh key pass phrase included from parameters.yml
     token_ttl:        86400                                   # token ttl - defaults to 86400
+
+parameters:
+    locale: en
+
+services:
+    fos_user.doctrine_registry:
+        alias: doctrine # github.com/FriendsOfSymfony/FOSUserBundle/issues/2048
+
+sensio_framework_extra:
+    view: { annotations: false } # FOSRestBundle takes over the controller annotations handling for views
+
+swiftmailer:
+    auth_mode: "%mailer_auth_mode%"
+    delivery_address: "%mailer_user%"
+    encryption: "%mailer_encryption%"
+    host: "%mailer_host%"
+    password: "%mailer_password%"
+    port: "%mailer_port%"
+    spool: { type: memory } # sends after request is completely processed (w/o exception or error)
+    transport: "%mailer_transport%"
+    username: "%mailer_user%"
+
+twig:
+    form_themes: ['bootstrap_3_layout.html.twig'] # or bootstrap_3_horizontal_layout.html.twig
+    debug: "%kernel.debug%"
+    strict_variables: "%kernel.debug%"

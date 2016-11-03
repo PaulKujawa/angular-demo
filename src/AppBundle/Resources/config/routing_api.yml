@@ -1,3 +1,9 @@
+api_inquiry:
+  type: rest
+  resource: "@AppBundle/Controller/Api/InquiryController.php"
+  name_prefix: api_
+
+
 api_recipes:
   type: rest
   resource: "@AppBundle/Controller/Api/RecipeController.php"

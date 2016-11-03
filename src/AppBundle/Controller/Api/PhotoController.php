@@ -28,7 +28,7 @@ class PhotoController extends FOSRestController implements ClassResourceInterfac
      */
     public function cgetAction($recipeId)
     {
-        $photos = $this->get('app.photo')->getPhotos($recipeId);
+        $photos = $this->get('app.repository.photo')->getPhotos($recipeId);
 
         return $this->view($photos);
     }
@@ -41,7 +41,7 @@ class PhotoController extends FOSRestController implements ClassResourceInterfac
      */
     public function getAction($recipeId, $id)
     {
-        $product = $this->get('app.photo')->getPhoto($recipeId, $id);
+        $product = $this->get('app.repository.photo')->getPhoto($recipeId, $id);
 
         return null === $product
             ? $this->view(null, Response::HTTP_NOT_FOUND)
@@ -56,7 +56,7 @@ class PhotoController extends FOSRestController implements ClassResourceInterfac
      */
     public function postAction(Request $request, $recipeId)
     {
-        $recipe = $this->get('app.recipe')->getRecipe($recipeId);
+        $recipe = $this->get('app.repository.recipe')->getRecipe($recipeId);
         if (null === $recipe) {
             return $this->view(null, Response::HTTP_NOT_FOUND);
         }
@@ -69,7 +69,7 @@ class PhotoController extends FOSRestController implements ClassResourceInterfac
             return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
 
-        $photo = $this->get('app.photo')->addPhoto($photo);
+        $photo = $this->get('app.repository.photo')->addPhoto($photo);
 
         return $this->view()->createRouteRedirect(
             'api_get_recipe_photo',
@@ -87,7 +87,7 @@ class PhotoController extends FOSRestController implements ClassResourceInterfac
      */
     public function putAction(Request $request, $recipeId, $id)
     {
-        $photo = $this->get('app.photo')->getPhoto($recipeId, $id);
+        $photo = $this->get('app.repository.photo')->getPhoto($recipeId, $id);
 
         if (null === $photo) {
             return $this->view(null, Response::HTTP_NOT_FOUND);
@@ -100,7 +100,7 @@ class PhotoController extends FOSRestController implements ClassResourceInterfac
             return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
 
-        $this->get('app.photo')->setPhoto($photo);
+        $this->get('app.repository.photo')->setPhoto($photo);
 
         return $this->view()->createRouteRedirect(
             'api_get_recipe_photo',
@@ -117,14 +117,14 @@ class PhotoController extends FOSRestController implements ClassResourceInterfac
      */
     public function deleteAction($recipeId, $id)
     {
-        $photo = $this->get('app.photo')->getPhoto($recipeId, $id);
+        $photo = $this->get('app.repository.photo')->getPhoto($recipeId, $id);
 
         if (null === $photo) {
             return $this->view(null, Response::HTTP_NOT_FOUND);
         }
 
         try {
-            $this->get('app.photo')->deletePhoto($photo);
+            $this->get('app.repository.photo')->deletePhoto($photo);
         } catch (ForeignKeyConstraintViolationException $ex) {
             return $this->view(null, Response::HTTP_CONFLICT);
         }

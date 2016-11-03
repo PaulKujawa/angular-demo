@@ -1,35 +1,35 @@
 imports:
     - { resource: config_dev.yml }
 
-framework:
-    test: ~
-    session:
-        storage_id: session.storage.mock_file
-    profiler:                                                       # required for liip_functional_test.query.max_query_count
-        enabled: true
-        collect: true
-
-web_profiler:
-    toolbar: false
-    intercept_redirects: false
-
-swiftmailer:
-    disable_delivery: true
-
-lexik_jwt_authentication:                                           # separate, commited SSH keys for func. tests
-    private_key_path: "%kernel.root_dir%/var/jwt/private-test.pem"
-    public_key_path: "%kernel.root_dir%/var/jwt/public-test.pem"
-    pass_phrase: "%jwt_test_ssh_key_pp%"                            # this passphrase is commited as well
-
-doctrine:                                                           # create SQLite DB before every test
+doctrine: # create SQLite DB before every test
     dbal:
-        default_connection: default
         connections:
             default:
                 driver: pdo_sqlite
                 path: "%kernel.cache_dir%/test.db"
+        default_connection: default
+
+framework:
+    profiler: # required for liip_functional_test.query.max_query_count
+        collect: true
+        enabled: true
+    session:
+        storage_id: session.storage.mock_file
+    test: ~
+
+lexik_jwt_authentication: # separate, commited SSH keys for func. tests
+    pass_phrase: "%jwt_test_ssh_key_pp%" # this passphrase is commited as well
+    private_key_path: "%kernel.root_dir%/var/jwt/private-test.pem"
+    public_key_path: "%kernel.root_dir%/var/jwt/public-test.pem"
 
 liip_functional_test:
+    cache_sqlite_db: true # creates backups/caches of every SQLite DB with fixtures
     query:
-        max_query_count: 50                                         # max DB queries per test
-    cache_sqlite_db: true                                           # creates backups/caches of every SQLite DB with fixtures
+        max_query_count: 50 # max DB queries per test
+
+swiftmailer:
+    disable_delivery: true
+
+web_profiler:
+    intercept_redirects: false
+    toolbar: false

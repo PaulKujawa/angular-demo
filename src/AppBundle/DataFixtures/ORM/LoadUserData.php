@@ -16,7 +16,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function load(ObjectManager $em)
     {
-        self::$members[] = $this->instantiate('demoSA', 'test@gmx.de', 'testo', 'ROLE_SUPER_ADMIN');
+        self::$members[] = $this->instantiate('demoSA', 'test@gmx.de', 'testo');
 
         array_walk(self::$members, function(User $member, $i) use ($em) {
             $this->addReference('refUser' . ($i + 1), $member);
@@ -29,21 +29,19 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
      * @param string $name
      * @param string $email
      * @param string $plainPsw
-     * @param string $role
      *
      * @return User
      */
-    protected function instantiate($name, $email, $plainPsw, $role)
+    protected function instantiate($name, $email, $plainPsw)
     {
-        $entity = new User();
-        $entity
+        $user = new User();
+        $user
             ->setUsername($name)
             ->setEmail($email)
             ->setPlainPassword($plainPsw)
-            ->addRole($role)
             ->setEnabled(true);
 
-        return $entity;
+        return $user;
     }
 
     /**

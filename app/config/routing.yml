@@ -2,7 +2,7 @@ root:
     path: /
     defaults:
       _controller: FrameworkBundle:Redirect:redirect
-      route: app_contact
+      route: app_root_i18n
       permanent: true
     options:
         expose: true
@@ -29,3 +29,6 @@ app:
 
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+_bazinga_jstranslation:
+    resource: "@BazingaJsTranslationBundle/Resources/config/routing/routing.yml"

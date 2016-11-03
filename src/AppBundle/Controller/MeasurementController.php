@@ -4,9 +4,13 @@ namespace AppBundle\Controller;
 
 use AppBundle\Form\MeasurementType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @Security("is_authenticated()")
+ */
 class MeasurementController extends Controller
 {
     /**

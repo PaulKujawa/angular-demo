@@ -3,10 +3,15 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Measurement;
+use AppBundle\RequestDecorator\Decorator\QueryDecorator;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\ORMException;
 
 class MeasurementService
 {
+    const PAGE_LIMIT = 5;
+
     /**
      * @var EntityManager
      */
@@ -21,21 +26,30 @@ class MeasurementService
     }
 
     /**
-     * @param string $orderBy
-     * @param string $order
-     * @param int $limit
-     * @param int $offset
+     * @param int $page
+     * @param QueryDecorator $queryDecorator
      *
-     * @return Measurement[]|array
+     * @return Measurement[]
      */
-    public function getMeasurements($orderBy, $order, $limit, $offset)
+    public function getMeasurements($page, QueryDecorator $queryDecorator = null)
     {
-        return $this->entityManager->getRepository(Measurement::class)->findBy(
-            [],
-            [$orderBy => $order],
-            $limit,
-            $offset
-        );
+        $firstResult = ($page - 1) * self::PAGE_LIMIT;
+
+        $criteria = Criteria::create()
+            ->setFirstResult($firstResult)
+            ->setMaxResults(self::PAGE_LIMIT);
+
+        if ($queryDecorator) {
+            $queryDecorator->decorate($criteria);
+        }
+
+        $repository = $this->entityManager->getRepository(Measurement::class);
+
+        try {
+            return $repository->matching($criteria)->toArray();
+        } catch (ORMException $exception) {
+            return [];
+        }
     }
 
     /**

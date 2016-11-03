@@ -1,4 +1,3 @@
-// TODO resolve comments ASAP
 SystemJS.config({
   typescriptOptions: {
       "target": "es5",
@@ -32,21 +31,6 @@ SystemJS.config({
           "main": "bootstrap.ts",
           "defaultExtension": "ts"
       },
-      // "bundles": {
-      //   "defaultExtension": "js"
-      // },
-      // "js": {
-      //   "defaultExtension": "js"
-      // },
-      // "reflect-metadata": {
-      //   "jspmNodeConversion": false,
-      //   "map": {
-      //     "crypto": {
-      //       "node": "@node/crypto",
-      //       "default": "@empty"
-      //     }
-      //   }
-      // },
       "rxjs": {
           "defaultExtension": "js"
       },
@@ -60,8 +44,8 @@ SystemJS.config({
                       "reflect-metadata/Reflect.js",
                       "ts-helpers",
                       "zone.js/zone.js",
-//            "bundles/fosjsrouting/js/router.js",
-//            "js/fos_js_routes",
+                      "bundles/fosjsrouting/js/router.js",
+                      "js/fos_js_routes.js",
                       "jquery/dist/jquery.min.js",
                       "bootstrap-sass/assets/javascripts/bootstrap/collapse.js",
                       "bootstrap-sass/assets/javascripts/bootstrap/dropdown.js",

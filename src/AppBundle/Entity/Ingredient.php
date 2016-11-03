@@ -6,13 +6,10 @@ use AppBundle\Entity\Traits\IdAutoTrait;
 use AppBundle\Entity\Traits\PositionTrait;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Exclude;
-use JMS\Serializer\Annotation\ExclusionPolicy;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ExclusionPolicy("none")
- *
  * @UniqueEntity({
  *      "recipe",
  *      "product"
@@ -67,8 +64,6 @@ class Ingredient
      *
      * @Assert\NotNull()
      *
-     * @Exclude
-     *
      * @ORM\ManyToOne(
      *      targetEntity = "Product",
      *      inversedBy = "ingredients"
@@ -84,9 +79,7 @@ class Ingredient
     /**
      * @var int
      *
-     * @Assert\GreaterThan(
-     *      value = 0
-     * )
+     * @Assert\GreaterThan(value = 0)
      *
      * @ORM\Column(
      *      name = "amount",
@@ -98,8 +91,6 @@ class Ingredient
 
     /**
      * @var Measurement
-     *
-     * @Exclude
      *
      * @ORM\ManyToOne(
      *      targetEntity = "Measurement",
@@ -116,14 +107,10 @@ class Ingredient
 
     /**
      * @param Recipe $recipe
-     *
-     * @return $this
      */
     public function setRecipe(Recipe $recipe)
     {
         $this->recipe = $recipe;
-
-        return $this;
     }
 
     /**
@@ -136,14 +123,10 @@ class Ingredient
 
     /**
      * @param int $amount
-     *
-     * @return $this
      */
     public function setAmount($amount)
     {
         $this->amount = $amount;
-
-        return $this;
     }
 
     /**
@@ -156,14 +139,10 @@ class Ingredient
 
     /**
      * @param Product $product
-     *
-     * @return $this
      */
     public function setProduct(Product $product)
     {
         $this->product = $product;
-
-        return $this;
     }
 
     /**
@@ -176,14 +155,10 @@ class Ingredient
 
     /**
      * @param Measurement $measurement
-     *
-     * @return $this
      */
     public function setMeasurement(Measurement $measurement)
     {
         $this->measurement = $measurement;
-
-        return $this;
     }
 
     /**

@@ -27,11 +27,8 @@ gulp.task('angular:build', () => {
     return build();
 });
 
-// not called automatically as it's no part of the build process
-gulp.task('angular:clear', () => {
+// no part of project's build process
+gulp.task('angular:clear', (done) => {
     const {source} = config.application.angular;
-
-    rimraf.sync(`${source}/app/**/*.js`);
-    rimraf.sync(`${source}/app/**/*.ngfactory.ts`);
-    rimraf.sync(`${source}/node_modules`);
+    rimraf(`${source}/app-compiled`, done);
 });

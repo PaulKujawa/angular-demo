@@ -1,44 +1,38 @@
 security:
-    providers:
-        fos_userbundle:
-            id: fos_user.user_provider.username
     encoders:
         FOS\UserBundle\Model\UserInterface: bcrypt
 
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username
+
     firewalls:
         admino:
-            pattern:                      ^/[a-z][a-z]/admino
-            anonymous:                    true                      # to allow anonymous in access_control below
+            anonymous: ~ #would enable setting IS_AUTHENTICATED_ANONYMOUSLY in security.access_control
             form_login:
-                require_previous_session: false                     # no session required for auth. request (funcTests)
-                provider:                 fos_userbundle
-                login_path:               fos_user_security_login   # form renderer
-                check_path:               fos_user_security_check   # checks credentials (form's action)
-                default_target_path:      app_dashboard    # default redirect when user just targeted /login
-#                success_handler:          lexik_jwt_authentication.handler.authentication_success   # returns JWT
-#                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
+                login_path: fos_user_security_login
+                check_path: fos_user_security_check
+                default_target_path: app_dashboard
+                provider: fos_userbundle
+                require_previous_session: false #no session required for auth. request (funcTests)
+#                success_handler: lexik_jwt_authentication.handler.authentication_success # returns JWT
+#                failure_handler: lexik_jwt_authentication.handler.authentication_failure
             logout:
-                path:                     fos_user_security_logout
-                target:                   app_contact
+                path: fos_user_security_logout
+                target: app_root_i18n
+            pattern: ^/[a-z][a-z]/admino
+            remember_me:
+                always_remember_me: true #set always cookie, alternatively to optional checkbox
+                name: vpitAuth
+                path: /
+                secret: "%secret%"
+
         api:
-            pattern:                      ^/[a-z][a-z]/api
-            provider:                     fos_userbundle
-            stateless:                    true                      # anonymous key not enabled
-            methods:                      [POST, PUT, DELETE]       # GET keeps public
+            pattern: ^/[a-z][a-z]/api(?!/inquiries)
+            provider: fos_userbundle
+            methods: [POST, PUT, DELETE]
+            stateless: true
             lexik_jwt:
-                authorization_header:
-                    enabled:              true
-                    prefix:               Bearer
-
-
-    role_hierarchy: #Admin >= User
-        ROLE_ADMIN:                       ROLE_USER
-        ROLE_SUPER_ADMIN:                 ROLE_ADMIN
-
-
-    access_control:
-        - { path: "^/[a-z][a-z]/api/",              role: ROLE_ADMIN }
-        - { path: "^/[a-z][a-z]/admino/login$",     role: IS_AUTHENTICATED_ANONYMOUSLY }
-      # - { path: ^/[a-z][a-z]/admino/register,   role: IS_AUTHENTICATED_ANONYMOUSLY }
-      # - { path: ^/[a-z][a-z]/admino/resetting,  role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: "^/[a-z][a-z]/admino",            role: ROLE_ADMIN }
+                authorization_header: #instead of query parameter
+                    enabled: true
+                    prefix: Bearer #format "Authorization: Bearer {receivedtToken}"

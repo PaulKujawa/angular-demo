@@ -3,41 +3,16 @@ Message: Message
 Name: Name
 Submit: Submit
 
-barra:
-    contact:
-        description: I am Paul Kujawa, eager Symfony developer and my freetime focuses fitness.
-        email: Your email address
-        email_sent: Thank you for your inquiry. I will be in touch with you.
-        message: Your message for me
-        name: Your name
-        title: Contact
-    cooking:
-        description: Description
-    dashboard:
-        title: Dashboard
-    error:
-        html_code: Sadly, the server return a %code%.
-    ingredients:
-        amount: Amount
-    manufacturer:
-        name: Name
-        title: Manufacturer
-    measurements:
-        gr: Gr
-        name: Type
-        title: Measurements
-    products:
-        carbs: Carbs
-        fat: Fat
-        gfat: ges. Fett
-        gr: Gr
-        kcal: Kcal
-        manufacturer: Manufacturer
-        name: Name
-        protein: Protein
-        sugar: Sugar
-        title: Products
-        vegan: Vegan
-    recipes:
-        not_found: I'm not aware of this recipe. Why you not check out my library :)
-        title: Recipes
+app:
+  common:
+    submit: Submit
+  inquiry:
+    description: Home project about recipes.
+    form:
+      name: Your name
+      email_address: Your email address
+      message: Your message
+    inquiry: Inquiry
+    inquiry_sent: I sucessfully received your inquiry.
+  recipe:
+      recipes: Recipes
