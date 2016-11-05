@@ -13,3 +13,12 @@
 #### optional (JWT)
 * `openssl genrsa -out app/var/jwt/private.pem -aes256 4096`
 * `openssl rsa -pubout -in app/var/jwt/private.pem -out app/var/jwt/public.pem`
+
+### How to: add new js dependency
+* `npm i <package> --save`
+* `jspm install <package>`
+* `typings install <package> --save --global`
+
+### How to: migrate database
+* `bin/build doctrine:migrations:diff`
+* `bin/build doctrine:migrations:migrate`

@@ -4,6 +4,7 @@ import {RecipeRepository} from "./repository/recipe.repository";
 import {RecipesComponent} from "./component/recipes.component";
 import {RecipeComponent} from "./component/recipe.component";
 import {SharedModule} from "../shared/shared.module";
+import {FilterComponent} from "./component/filter.component";
 
 @NgModule({
     imports: [
@@ -11,6 +12,7 @@ import {SharedModule} from "../shared/shared.module";
         SharedModule,
     ],
     declarations: [
+        FilterComponent,
         RecipesComponent,
         RecipeComponent,
     ],

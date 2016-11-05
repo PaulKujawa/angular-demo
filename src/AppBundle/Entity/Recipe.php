@@ -22,6 +22,18 @@ class Recipe
     use NameTrait;
 
     /**
+     * @var bool
+     *
+     * @Assert\NotNull()
+     *
+     * @ORM\Column(
+     *     name = "isVegan",
+     *     type = "boolean"
+     * )
+     */
+    private $isVegan;
+
+    /**
      * @var Photo
      *
      * @Assert\NotNull()
@@ -84,22 +96,21 @@ class Recipe
     }
 
     /**
-     * @Serializer\VirtualProperty()
-     * @Serializer\SerializedName("isVegan")
-     *
-     * @return bool
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
      */
-    public function isVegan()
+    public function generateIsVegan()
     {
-        // TODO add as native db table column instead for better performance
         $notVeganProducts = $this->ingredients->filter(function(Ingredient $ingredient) {
             return !$ingredient->getProduct()->getVegan();
         });
 
-        return $notVeganProducts->count() === 0;
+        $this->isVegan = $notVeganProducts->count() === 0;
     }
 
     /**
+     * TODO should be done as db-entity property
+     *
      * @Serializer\VirtualProperty()
      * @Serializer\SerializedName("macros")
      *
@@ -131,6 +142,22 @@ class Recipe
         }
 
         return array_map('intval', $macros);
+    }
+
+    /**
+     * @param bool $isVegan
+     */
+    public function setIsVegan($isVegan)
+    {
+        $this->isVegan = $isVegan;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsVegan()
+    {
+        return $this->isVegan;
     }
 
     /**
