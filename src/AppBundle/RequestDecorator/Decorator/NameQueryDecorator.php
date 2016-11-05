@@ -24,7 +24,7 @@ class NameQueryDecorator implements QueryDecorator
      */
     public function decorate(Criteria $criteria)
     {
-        $criteria->where(
+        $criteria->andWhere(
             Criteria::expr()->contains('name', $this->name)
         );
     }

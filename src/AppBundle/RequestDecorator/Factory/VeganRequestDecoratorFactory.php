@@ -12,10 +12,10 @@ class VeganRequestDecoratorFactory implements RequestDecoratorFactory
      */
     public function createQueryDecorator(Request $request)
     {
-        $vegan = $request->query->getBoolean('vegan');
+        $isVegan = $request->query->getBoolean('vegan');
 
-        return $vegan
-            ? new VeganQueryDecorator()
+        return $isVegan
+            ? new VeganQueryDecorator($isVegan)
             : null;
     }
 }

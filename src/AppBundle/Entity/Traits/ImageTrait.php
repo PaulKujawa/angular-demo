@@ -96,18 +96,16 @@ trait ImageTrait
     /**
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
-     *
-     * @return $this
      */
     public function generateFilename()
     {
-        if (null !== $this->file) {
-            do {
-                $this->filename = sha1(uniqid(mt_rand(), true)) . '.' . $this->getFile()->guessExtension();
-            } while (file_exists($this->getAbsolutePathWithFilename()));
+        if (null === $this->file) {
+            return;
         }
 
-        return $this;
+        do {
+            $this->filename = sha1(uniqid(mt_rand(), true)) . '.' . $this->getFile()->guessExtension();
+        } while (file_exists($this->getAbsolutePathWithFilename()));
     }
 
     /**
