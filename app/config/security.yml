@@ -7,32 +7,31 @@ security:
             id: fos_user.user_provider.username
 
     firewalls:
-        admino:
-            anonymous: ~ #would enable setting IS_AUTHENTICATED_ANONYMOUSLY in security.access_control
+        api:
+            pattern: ^/[a-z][a-z]/api(?!/inquiries)
+            lexik_jwt:
+                authorization_header: # format "Authorization: Bearer {JWT}"
+            methods: [POST, PUT, DELETE]
+            provider: fos_userbundle
+            stateless: true
+
+        app:
+            pattern: ^/[a-z][a-z]
+            anonymous: ~ # would enable setting IS_AUTHENTICATED_ANONYMOUSLY in security.access_control
             form_login:
-                login_path: fos_user_security_login
-                check_path: fos_user_security_check
-                default_target_path: app_dashboard
                 provider: fos_userbundle
-                require_previous_session: false #no session required for auth. request (funcTests)
-#                success_handler: lexik_jwt_authentication.handler.authentication_success # returns JWT
-#                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+                login_path: fos_user_security_login # redirect to for authentication page & session cookie
+                check_path: fos_user_security_check # endpoint for authentication requests
+                # check_path requires session cookie to be set/ login_path visited before (require_previous_session)
+
+                # return JWT instead of a redirect (requested|default_target_path)
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
             logout:
                 path: fos_user_security_logout
                 target: app_root_i18n
-            pattern: ^/[a-z][a-z]/admino
-            remember_me:
-                always_remember_me: true #set always cookie, alternatively to optional checkbox
-                name: vpitAuth
-                path: /
-                secret: "%secret%"
-
-        api:
-            pattern: ^/[a-z][a-z]/api(?!/inquiries)
-            provider: fos_userbundle
-            methods: [POST, PUT, DELETE]
-            stateless: true
-            lexik_jwt:
-                authorization_header: #instead of query parameter
-                    enabled: true
-                    prefix: Bearer #format "Authorization: Bearer {receivedtToken}"
+#            remember_me:
+#                always_remember_me: true
+#                name: remember_me
+#                path: /
+#                secret: "%secret%"

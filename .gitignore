@@ -10,13 +10,9 @@
 !bin/build
 !bin/symfony_requirements
 
-# JWT
-/app/var/jwt
-!app/var/jwt/public-test.pem
-!app/var/jwt/private-test.pem
-
 # var
 /var/cache
+/var/jwt
 /var/sessions
 /var/logs
 /var/bootstrap.php.cache

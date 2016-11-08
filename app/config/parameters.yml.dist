@@ -14,5 +14,4 @@ parameters:
     mailer_password: ~
 
     secret: notSoSecureSecret
-    jwt_prod_ssh_key_pp: ~
-    jwt_test_ssh_key_pp: passPhraseForFunctionalTests
+    jwt_key_pass_phrase: ~

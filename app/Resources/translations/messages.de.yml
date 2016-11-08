@@ -4,6 +4,8 @@ Name: Name
 Submit: Absenden
 
 app:
+  auth:
+    signed_in: Erfolgreich angemeldet.
   common:
     submit: Absenden
   inquiry:

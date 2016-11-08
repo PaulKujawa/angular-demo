@@ -7,12 +7,6 @@ root:
     options:
         expose: true
 
-fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
-    prefix: /{_locale}/admino
-    options:
-        expose: true
-
 api:
     type: rest
     resource: "@AppBundle/Resources/config/routing_api.yml"
@@ -23,6 +17,12 @@ api:
 app:
     resource: "@AppBundle/Controller"
     type: annotation
+    prefix: /{_locale}
+    options:
+        expose: true
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
     prefix: /{_locale}
     options:
         expose: true

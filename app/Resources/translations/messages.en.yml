@@ -4,6 +4,8 @@ Name: Name
 Submit: Submit
 
 app:
+  auth:
+    signed_in: Successfully signed in.
   common:
     submit: Submit
   inquiry:
