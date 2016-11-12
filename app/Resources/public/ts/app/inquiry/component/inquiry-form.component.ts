@@ -13,19 +13,19 @@ import {TranslationService} from "../../core/service/translation.service";
             <div class="row flex">
                 <div class="col-xs-12 col-sm-5">
                     <div class="form-group">
-                        <input class="form-control" type="text" 
+                        <input type="text" class="form-control"
                         placeholder="{{'app.inquiry.form.name'|trans}}" 
                         name="name" [(ngModel)]="inquiry.name">
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="email" required 
+                        <input type="email" required class="form-control" 
                         placeholder="{{'app.inquiry.form.email_address'|trans}}"
                         name="email" [(ngModel)]="inquiry.email">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-7">
                     <div class="form-group">
-                        <textarea class="form-control ba-inquiry__message" required
+                        <textarea required class="form-control ba-inquiry__message"
                         placeholder="{{'app.inquiry.form.message'|trans}}"
                         #message="ngModel"
                         name="message" [(ngModel)]="inquiry.message"></textarea>
@@ -35,7 +35,7 @@ import {TranslationService} from "../../core/service/translation.service";
             <div class="row">
                 <div class="col-xs-12 col-sm-7 col-sm-offset-5">
                     <div class="pull-right">
-                        <button type="submit" class="btn btn-primary" [disabled]="!inquiryForm.form.valid">
+                        <button type="submit" [disabled]="!inquiryForm.form.valid" class="btn btn-primary">
                             {{'app.common.submit'|trans}}
                         </button>
                     </div>

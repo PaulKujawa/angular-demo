@@ -17,11 +17,6 @@ framework:
         storage_id: session.storage.mock_file
     test: ~
 
-lexik_jwt_authentication: # separate, commited SSH keys for func. tests
-    pass_phrase: "%jwt_test_ssh_key_pp%" # this passphrase is commited as well
-    private_key_path: "%kernel.root_dir%/var/jwt/private-test.pem"
-    public_key_path: "%kernel.root_dir%/var/jwt/public-test.pem"
-
 liip_functional_test:
     cache_sqlite_db: true # creates backups/caches of every SQLite DB with fixtures
     query:
