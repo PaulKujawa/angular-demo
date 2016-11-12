@@ -25,10 +25,7 @@ class Product
      *
      * @Assert\NotNull()
      *
-     * @ORM\Column(
-     *      name = "vegan",
-     *      type = "boolean"
-     * )
+     * @ORM\Column(type = "boolean")
      */
     private $vegan;
 
@@ -38,10 +35,7 @@ class Product
      * @Assert\NotNull()
      * @Assert\GreaterThan(value = 0)
      *
-     * @ORM\Column(
-     *      name = "gr",
-     *      type = "smallint"
-     * )
+     * @ORM\Column(type = "smallint")
      */
     private $gr;
 
@@ -51,10 +45,7 @@ class Product
      * @Assert\NotNull()
      * @Assert\GreaterThan(value = 0)
      *
-     * @ORM\Column(
-     *      name = "kcal",
-     *      type = "integer"
-     * )
+     * @ORM\Column(type = "integer")
      */
     private $kcal;
 
@@ -65,7 +56,6 @@ class Product
      * @Assert\GreaterThanOrEqual(value = 0.0)
      *
      * @ORM\Column(
-     *      name = "protein",
      *      type = "decimal",
      *      scale = 1
      * )
@@ -79,7 +69,6 @@ class Product
      * @Assert\GreaterThanOrEqual(value = 0.0)
      *
      * @ORM\Column(
-     *      name = "carbs",
      *      type = "decimal",
      *      scale = 1
      * )
@@ -93,7 +82,6 @@ class Product
      * @Assert\GreaterThanOrEqual(value = 0.0)
      *
      * @ORM\Column(
-     *      name = "sugar",
      *      type = "decimal",
      *      scale = 1
      * )
@@ -107,7 +95,6 @@ class Product
      * @Assert\GreaterThanOrEqual(value = 0.0)
      *
      * @ORM\Column(
-     *      name = "fat",
      *      type = "decimal",
      *      scale = 1
      * )
@@ -121,7 +108,6 @@ class Product
      * @Assert\GreaterThanOrEqual(value = 0.0)
      *
      * @ORM\Column(
-     *      name = "gfat",
      *      type = "decimal",
      *      scale = 1
      * )
@@ -129,22 +115,14 @@ class Product
     private $gfat;
 
     /**
-     * @var Manufacturer
+     * @var string
      *
-     * @Assert\NotNull()
+     * @Assert\Length(max = 40)
      *
-     * @Serializer\Exclude()
-     *
-     * @ORM\ManyToOne(
-     *      targetEntity = "Manufacturer",
-     *      inversedBy = "products"
+     * @ORM\Column(
+     *     type = "string",
+     *     length = 40
      * )
-     * @ORM\JoinColumn(
-     *      name = "manufacturer",
-     *      referencedColumnName = "id",
-     *      nullable = false
-     * )
-     * @ORM\OrderBy({"name" = "ASC"})
      */
     private $manufacturer;
 
@@ -278,15 +256,15 @@ class Product
     }
 
     /**
-     * @param Manufacturer $manufacturer
+     * @param string $manufacturer
      */
-    public function setManufacturer(Manufacturer $manufacturer)
+    public function setManufacturer($manufacturer)
     {
         $this->manufacturer = $manufacturer;
     }
 
     /**
-     * @return Manufacturer
+     * @return string
      */
     public function getManufacturer()
     {

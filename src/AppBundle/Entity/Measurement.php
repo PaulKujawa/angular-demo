@@ -25,10 +25,7 @@ class Measurement
      * @Assert\NotNull()
      * @Assert\GreaterThan(value = 0)
      *
-     * @ORM\Column(
-     *      name = "gr",
-     *      type = "smallint"
-     * )
+     * @ORM\Column(type = "smallint")
      */
     private $gr;
 

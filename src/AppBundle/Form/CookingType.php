@@ -17,12 +17,7 @@ class CookingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('description', TextType::class, [
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'barra.cooking.description',
-                ],
-            ])
+            ->add('description', TextType::class)
             ->add('submit', SubmitType::class)
             ->getForm();
     }

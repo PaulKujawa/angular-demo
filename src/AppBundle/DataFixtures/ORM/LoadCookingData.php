@@ -36,7 +36,7 @@ class LoadCookingData extends AbstractFixture implements OrderedFixtureInterface
      *
      * @return Cooking
      */
-    protected function instantiate($position, $description, $refRecipe)
+    private function instantiate($position, $description, $refRecipe)
     {
         $recipe = $this->getReference($refRecipe);
 
@@ -44,13 +44,10 @@ class LoadCookingData extends AbstractFixture implements OrderedFixtureInterface
             throw new InvalidArgumentException();
         }
 
-        $entity = new Cooking();
-        $entity
-            ->setPosition($position)
-            ->setDescription($description)
-            ->setRecipe($recipe);
+        $cooking = new Cooking($recipe->getId(), $position);
+        $cooking->setDescription($description);
 
-        return $entity;
+        return $cooking;
     }
 
     /**

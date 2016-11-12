@@ -13,7 +13,6 @@ trait NameTrait
      * @Assert\Length(min = 3, max = 40)
      *
      * @ORM\Column(
-     *      name = "name",
      *      type = "string",
      *      length = 40,
      *      unique = true
@@ -23,14 +22,10 @@ trait NameTrait
 
     /**
      * @param string $name
-     *
-     * @return $this
      */
     public function setName($name)
     {
         $this->name = $name;
-
-        return $this;
     }
 
     /**

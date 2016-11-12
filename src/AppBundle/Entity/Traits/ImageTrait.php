@@ -14,7 +14,6 @@ trait ImageTrait
      * @Serializer\Exclude()
      *
      * @ORM\Column(
-     *      name = "filename",
      *      type = "string",
      *      length = 255,
      *      nullable = true,
@@ -29,7 +28,6 @@ trait ImageTrait
      * @Assert\GreaterThan(value = 0)
      *
      * @ORM\Column(
-     *      name  = "size",
      *      type = "integer",
      *      nullable = true
      * )

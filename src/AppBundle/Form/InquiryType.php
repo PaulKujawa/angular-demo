@@ -20,29 +20,16 @@ class InquiryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, [
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'barra.contact.name',
-                ],
-            ])
+            ->add('name', TextType::class)
             ->add('email', EmailType::class, [
                 'constraints' => [
                     new NotBlank(),
                     new Email(),
                 ],
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'barra.contact.email',
-                ],
             ])
             ->add('message', TextareaType::class, [
                 'constraints' => [
                     new NotBlank(),
-                ],
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'barra.contact.message',
                 ],
             ])
             ->add('submit', SubmitType::class)

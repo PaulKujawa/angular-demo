@@ -36,7 +36,7 @@ class LoadPhotoData extends AbstractFixture implements OrderedFixtureInterface
      *
      * @return Photo
      */
-    protected function instantiate($refRecipe)
+    private function instantiate($refRecipe)
     {
         $recipe = $this->getReference($refRecipe);
 
@@ -44,12 +44,11 @@ class LoadPhotoData extends AbstractFixture implements OrderedFixtureInterface
             throw new InvalidArgumentException();
         }
 
-        $entity = new Photo();
-        $entity
-            ->setRecipe($recipe)
-            ->setFile($this->simulateUpload($entity));
+        $photo = new Photo($recipe->getId());
+        $file = $this->simulateUpload($photo);
+        $photo->setFile($file);
 
-        return $entity;
+        return $photo;
     }
 
     /**
@@ -57,7 +56,7 @@ class LoadPhotoData extends AbstractFixture implements OrderedFixtureInterface
      *
      * @return UploadedFile
      */
-    protected function simulateUpload(Photo $entity)
+    private function simulateUpload(Photo $entity)
     {
         $filename = uniqid('tempFile') . '.jpg';
         $newFile = $entity->getAbsolutePath() . '/' . $filename;

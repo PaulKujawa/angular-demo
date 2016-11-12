@@ -39,8 +39,3 @@ api_measurements:
   type: rest
   resource: "@AppBundle/Controller/Api/MeasurementController.php"
   name_prefix: api_
-
-api_manufacturers:
-  type: rest
-  resource: "@AppBundle/Controller/Api/ManufacturerController.php"
-  name_prefix: api_
