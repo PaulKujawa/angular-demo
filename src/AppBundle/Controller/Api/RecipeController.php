@@ -9,6 +9,7 @@ use FOS\RestBundle\Controller\Annotations\View as AnnotationsView;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\View;
+use JMS\Serializer\SerializationContext;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -27,8 +28,6 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
     }
 
     /**
-     * @AnnotationsView(serializerGroups={"Default", "recipeList"})
-     *
      * @QueryParam(name="page", requirements=@GreaterThan(value=0), default="1")
      *
      * @param Request $request
@@ -38,9 +37,16 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
      */
     public function cgetAction(Request $request, $page)
     {
-        $queryDecorators = $this->get('app.request_decorator.recipe_composite_decorator')
-            ->createQueryDecorator($request);
-        return $this->get('app.repository.recipe')->getRecipes($page, $queryDecorators);
+        $repository = $this->get('app.repository.recipe');
+        $decorator = $this->get('app.request_decorator.recipe_composite_decorator')->createQueryDecorator($request);
+
+        $view = $this->view([
+            'pagination' => $repository->getPagination((int) $page),
+            'docs' => $repository->getRecipes($page, $decorator),
+        ]);
+        $view->setSerializationContext(SerializationContext::create()->setGroups(['Default', 'recipeList']));
+
+        return $view;
     }
 
     /**

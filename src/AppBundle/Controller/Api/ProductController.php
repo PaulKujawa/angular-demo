@@ -38,20 +38,6 @@ class ProductController extends FOSRestController implements ClassResourceInterf
     }
 
     /**
-     * @param int $id
-     *
-     * @return View
-     */
-    public function getIngredientsAction($id)
-    {
-        $product = $this->get('app.repository.product')->getProduct($id);
-
-        return null === $product
-            ? $this->view(null, Response::HTTP_NOT_FOUND)
-            : $this->view($product->getIngredients());
-    }
-
-    /**
      * @QueryParam(name="page", requirements=@GreaterThan(value=0), default="1")
      *
      * @param int $page
@@ -60,7 +46,12 @@ class ProductController extends FOSRestController implements ClassResourceInterf
      */
     public function cgetAction($page)
     {
-        return $this->get('app.repository.product')->getProducts($page);
+        $repository = $this->get('app.repository.product');
+
+        return $this->view([
+            'pagination' => $repository->getPagination((int) $page),
+            'docs' => $repository->getProducts($page)
+        ]);
     }
 
     /**
