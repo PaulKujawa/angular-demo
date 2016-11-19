@@ -33,10 +33,7 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
     {
         $repository = $this->get('app.repository.measurement');
 
-        return $this->view([
-            'pagination' => $repository->getPagination((int) $page),
-            'docs' => $repository->getMeasurements($page)]
-        );
+        return $this->view($repository->getMeasurements((int) $page));
     }
 
     /**

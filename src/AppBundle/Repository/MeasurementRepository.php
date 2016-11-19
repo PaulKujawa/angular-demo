@@ -1,15 +1,16 @@
 <?php
 
-namespace AppBundle\Service;
+namespace AppBundle\Repository;
 
 use AppBundle\Entity\Measurement;
-use AppBundle\Model\Pagination;
+use AppBundle\Model\PaginationResponse;
 use AppBundle\RequestDecorator\Decorator\QueryDecorator;
+use AppBundle\Service\PaginationResponseFactory;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMException;
 
-class MeasurementService
+class MeasurementRepository
 {
     const PAGE_LIMIT = 5;
 
@@ -19,58 +20,55 @@ class MeasurementService
     private $entityManager;
 
     /**
-     * @param EntityManager $entityManager
+     * @var PaginationResponseFactory
      */
-    public function __construct(EntityManager $entityManager)
-    {
-        $this->entityManager= $entityManager;
-    }
+    private $paginationResponseFactory;
 
     /**
-     * @param int $page
-     *
-     * @return Pagination
+     * @param EntityManager $entityManager
+     * @param PaginationResponseFactory $paginationResponseFactory
      */
-    public function getPagination($page)
-    {
-        $count = $this->entityManager->createQueryBuilder()
-            ->select('count(m.id)')
-            ->from(Measurement::class, 'm')
-            ->getQuery()
-            ->getSingleScalarResult();
-
-        $pagination = new Pagination();
-        $pagination->page = $page;
-        $pagination->pages = ceil($count / self::PAGE_LIMIT);
-
-        return $pagination;
+    public function __construct(
+        EntityManager $entityManager,
+        PaginationResponseFactory $paginationResponseFactory
+    ) {
+        $this->entityManager= $entityManager;
+        $this->paginationResponseFactory = $paginationResponseFactory;
     }
 
     /**
      * @param int $page
      * @param QueryDecorator $queryDecorator
      *
-     * @return Measurement[]
+     * @return PaginationResponse
      */
     public function getMeasurements($page, QueryDecorator $queryDecorator = null)
     {
+        $repository = $this->entityManager->getRepository(Measurement::class);
         $firstResult = ($page - 1) * self::PAGE_LIMIT;
-
-        $criteria = Criteria::create()
-            ->setFirstResult($firstResult)
-            ->setMaxResults(self::PAGE_LIMIT);
+        $criteria = Criteria::create();
 
         if ($queryDecorator) {
             $queryDecorator->decorate($criteria);
         }
 
-        $repository = $this->entityManager->getRepository(Measurement::class);
-
         try {
-            return $repository->matching($criteria)->toArray();
+            $measurements = $repository->matching($criteria);
         } catch (ORMException $exception) {
-            return [];
+            $measurements = [];
         }
+
+        // TODO workaround with shitty performance! Criteria misses support for count yet!
+        $docs = array_values($measurements->slice($firstResult, self::PAGE_LIMIT));
+
+        $paginationResponse = $this->paginationResponseFactory->createPaginationResponse(
+            $docs,
+            $measurements->count(),
+            self::PAGE_LIMIT,
+            $page
+        );
+
+        return $paginationResponse;
     }
 
     /**

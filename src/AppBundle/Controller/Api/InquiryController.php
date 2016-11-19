@@ -34,7 +34,7 @@ class InquiryController extends FOSRestController implements ClassResourceInterf
         }
 
         $inquire = $form->getData();
-        $this->get('app.repository.inquiry')->sendEmail($inquire);
+        $this->get('app.service.inquiry')->sendEmail($inquire);
 
         return $this->view(null, Response::HTTP_CREATED);
     }

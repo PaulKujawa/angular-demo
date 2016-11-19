@@ -1,11 +1,11 @@
 <?php
 
-namespace AppBundle\Service;
+namespace AppBundle\Repository;
 
 use AppBundle\Entity\Cooking;
 use Doctrine\ORM\EntityManager;
 
-class CookingService
+class CookingRepository
 {
     /**
      * @var EntityManager

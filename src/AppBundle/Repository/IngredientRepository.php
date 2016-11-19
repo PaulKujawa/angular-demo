@@ -1,11 +1,11 @@
 <?php
 
-namespace AppBundle\Service;
+namespace AppBundle\Repository;
 
 use AppBundle\Entity\Ingredient;
 use Doctrine\ORM\EntityManager;
 
-class IngredientService
+class IngredientRepository
 {
     /**
      * @var EntityManager

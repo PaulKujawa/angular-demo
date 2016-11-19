@@ -1,11 +1,11 @@
 <?php
 
-namespace AppBundle\Service;
+namespace AppBundle\Repository;
 
 use AppBundle\Entity\Photo;
 use Doctrine\ORM\EntityManager;
 
-class PhotoService
+class PhotoRepository
 {
     /**
      * @var EntityManager

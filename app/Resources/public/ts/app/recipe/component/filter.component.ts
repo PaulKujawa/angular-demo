@@ -35,6 +35,7 @@ export class FilterComponent implements OnInit {
 
     setVeganOnly(checked: boolean): void {
         checked ? this.filterMap.set('vegan', 'true') : this.filterMap.delete('vegan');
+        this.filterMap.set('page', '1');
         this.eventEmitter.emit(this.filterMap);
     }
 
@@ -52,6 +53,7 @@ export class FilterComponent implements OnInit {
         Observable.merge(preLoad, searchStream)
             .subscribe((search: string) => {
                 search ? this.filterMap.set('name', search) : this.filterMap.delete('name');
+                this.filterMap.set('page', '1');
                 this.eventEmitter.emit(this.filterMap);
             });
     }
