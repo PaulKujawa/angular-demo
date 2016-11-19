@@ -1,17 +1,18 @@
 <?php
 
-namespace AppBundle\Service;
+namespace AppBundle\Repository;
 
-use AppBundle\Entity\Product;
+use AppBundle\Entity\Recipe;
 use AppBundle\Model\PaginationResponse;
 use AppBundle\RequestDecorator\Decorator\QueryDecorator;
+use AppBundle\Service\PaginationResponseFactory;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMException;
 
-class ProductService
+class RecipeRepository
 {
-    const PAGE_LIMIT = 5;
+    const PAGE_LIMIT = 4;
 
     /**
      * @var EntityManager
@@ -41,9 +42,9 @@ class ProductService
      *
      * @return PaginationResponse
      */
-    public function getProducts($page, QueryDecorator $queryDecorator = null)
+    public function getRecipes($page, QueryDecorator $queryDecorator = null)
     {
-        $repository = $this->entityManager->getRepository(Product::class);
+        $repository = $this->entityManager->getRepository(Recipe::class);
         $firstResult = ($page - 1) * self::PAGE_LIMIT;
         $criteria = Criteria::create();
 
@@ -52,17 +53,17 @@ class ProductService
         }
 
         try {
-            $products = $repository->matching($criteria);
+            $recipes = $repository->matching($criteria);
         } catch (ORMException $exception) {
-            $products = [];
+            $recipes = [];
         }
 
         // TODO workaround with shitty performance! Criteria misses support for count yet!
-        $docs = array_values($products->slice($firstResult, self::PAGE_LIMIT));
+        $docs = array_values($recipes->slice($firstResult, self::PAGE_LIMIT));
 
         $paginationResponse = $this->paginationResponseFactory->createPaginationResponse(
             $docs,
-            $products->count(),
+            $recipes->count(),
             self::PAGE_LIMIT,
             $page
         );
@@ -73,40 +74,40 @@ class ProductService
     /**
      * @param int $id
      *
-     * @return Product|null
+     * @return Recipe|null
      */
-    public function getProduct($id)
+    public function getRecipe($id)
     {
-        return $this->entityManager->getRepository(Product::class)->find($id);
+        return $this->entityManager->getRepository(Recipe::class)->find($id);
     }
 
     /**
-     * @param Product $product
+     * @param Recipe $recipe
      *
-     * @return Product
+     * @return Recipe
      */
-    public function addProduct(Product $product)
+    public function addRecipe(Recipe $recipe)
     {
-        $this->entityManager->persist($product);
-        $this->entityManager->flush($product);
+        $this->entityManager->persist($recipe);
+        $this->entityManager->flush($recipe);
 
-        return $product;
+        return $recipe;
     }
 
     /**
-     * @param Product $product
+     * @param Recipe $recipe
      */
-    public function setProduct(Product $product)
+    public function setRecipe(Recipe $recipe)
     {
-        $this->entityManager->flush($product);
+        $this->entityManager->flush($recipe);
     }
 
     /**
-     * @param Product $product
+     * @param Recipe $recipe
      */
-    public function deleteProduct(Product $product)
+    public function deleteRecipe(Recipe $recipe)
     {
-        $this->entityManager->remove($product);
-        $this->entityManager->flush($product);
+        $this->entityManager->remove($recipe);
+        $this->entityManager->flush($recipe);
     }
 }

@@ -1,0 +1,24 @@
+services:
+    app.repository.product:
+        class: AppBundle\Repository\ProductRepository
+        arguments: [ "@doctrine.orm.entity_manager", "@app.service.pagination_response_factory" ]
+
+    app.repository.measurement:
+        class: AppBundle\Repository\MeasurementRepository
+        arguments: [ "@doctrine.orm.entity_manager", "@app.service.pagination_response_factory" ]
+
+    app.repository.recipe:
+        class: AppBundle\Repository\RecipeRepository
+        arguments: [ "@doctrine.orm.entity_manager", "@app.service.pagination_response_factory" ]
+
+    app.repository.photo:
+        class: AppBundle\Repository\PhotoRepository
+        arguments: [ "@doctrine.orm.entity_manager" ]
+
+    app.repository.ingredient:
+        class: AppBundle\Repository\IngredientRepository
+        arguments: [ "@doctrine.orm.entity_manager" ]
+
+    app.repository.cooking:
+        class: AppBundle\Repository\CookingRepository
+        arguments: [ "@doctrine.orm.entity_manager" ]

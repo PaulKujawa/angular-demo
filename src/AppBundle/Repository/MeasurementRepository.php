@@ -1,17 +1,18 @@
 <?php
 
-namespace AppBundle\Service;
+namespace AppBundle\Repository;
 
-use AppBundle\Entity\Recipe;
+use AppBundle\Entity\Measurement;
 use AppBundle\Model\PaginationResponse;
 use AppBundle\RequestDecorator\Decorator\QueryDecorator;
+use AppBundle\Service\PaginationResponseFactory;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMException;
 
-class RecipeService
+class MeasurementRepository
 {
-    const PAGE_LIMIT = 4;
+    const PAGE_LIMIT = 5;
 
     /**
      * @var EntityManager
@@ -41,9 +42,9 @@ class RecipeService
      *
      * @return PaginationResponse
      */
-    public function getRecipes($page, QueryDecorator $queryDecorator = null)
+    public function getMeasurements($page, QueryDecorator $queryDecorator = null)
     {
-        $repository = $this->entityManager->getRepository(Recipe::class);
+        $repository = $this->entityManager->getRepository(Measurement::class);
         $firstResult = ($page - 1) * self::PAGE_LIMIT;
         $criteria = Criteria::create();
 
@@ -52,17 +53,17 @@ class RecipeService
         }
 
         try {
-            $recipes = $repository->matching($criteria);
+            $measurements = $repository->matching($criteria);
         } catch (ORMException $exception) {
-            $recipes = [];
+            $measurements = [];
         }
 
         // TODO workaround with shitty performance! Criteria misses support for count yet!
-        $docs = array_values($recipes->slice($firstResult, self::PAGE_LIMIT));
+        $docs = array_values($measurements->slice($firstResult, self::PAGE_LIMIT));
 
         $paginationResponse = $this->paginationResponseFactory->createPaginationResponse(
             $docs,
-            $recipes->count(),
+            $measurements->count(),
             self::PAGE_LIMIT,
             $page
         );
@@ -73,40 +74,40 @@ class RecipeService
     /**
      * @param int $id
      *
-     * @return Recipe|null
+     * @return Measurement|null
      */
-    public function getRecipe($id)
+    public function getMeasurement($id)
     {
-        return $this->entityManager->getRepository(Recipe::class)->find($id);
+        return $this->entityManager->getRepository(Measurement::class)->find($id);
     }
 
     /**
-     * @param Recipe $recipe
+     * @param Measurement $measurement
      *
-     * @return Recipe
+     * @return Measurement
      */
-    public function addRecipe(Recipe $recipe)
+    public function addMeasurement(Measurement $measurement)
     {
-        $this->entityManager->persist($recipe);
-        $this->entityManager->flush($recipe);
+        $this->entityManager->persist($measurement);
+        $this->entityManager->flush($measurement);
 
-        return $recipe;
+        return $measurement;
     }
 
     /**
-     * @param Recipe $recipe
+     * @param Measurement $measurement
      */
-    public function setRecipe(Recipe $recipe)
+    public function setMeasurement(Measurement $measurement)
     {
-        $this->entityManager->flush($recipe);
+        $this->entityManager->flush($measurement);
     }
 
     /**
-     * @param Recipe $recipe
+     * @param Measurement $measurement
      */
-    public function deleteRecipe(Recipe $recipe)
+    public function deleteMeasurement(Measurement $measurement)
     {
-        $this->entityManager->remove($recipe);
-        $this->entityManager->flush($recipe);
+        $this->entityManager->remove($measurement);
+        $this->entityManager->flush($measurement);
     }
 }

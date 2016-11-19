@@ -1,15 +1,16 @@
 <?php
 
-namespace AppBundle\Service;
+namespace AppBundle\Repository;
 
-use AppBundle\Entity\Measurement;
+use AppBundle\Entity\Product;
 use AppBundle\Model\PaginationResponse;
 use AppBundle\RequestDecorator\Decorator\QueryDecorator;
+use AppBundle\Service\PaginationResponseFactory;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMException;
 
-class MeasurementService
+class ProductRepository
 {
     const PAGE_LIMIT = 5;
 
@@ -41,9 +42,9 @@ class MeasurementService
      *
      * @return PaginationResponse
      */
-    public function getMeasurements($page, QueryDecorator $queryDecorator = null)
+    public function getProducts($page, QueryDecorator $queryDecorator = null)
     {
-        $repository = $this->entityManager->getRepository(Measurement::class);
+        $repository = $this->entityManager->getRepository(Product::class);
         $firstResult = ($page - 1) * self::PAGE_LIMIT;
         $criteria = Criteria::create();
 
@@ -52,17 +53,17 @@ class MeasurementService
         }
 
         try {
-            $measurements = $repository->matching($criteria);
+            $products = $repository->matching($criteria);
         } catch (ORMException $exception) {
-            $measurements = [];
+            $products = [];
         }
 
         // TODO workaround with shitty performance! Criteria misses support for count yet!
-        $docs = array_values($measurements->slice($firstResult, self::PAGE_LIMIT));
+        $docs = array_values($products->slice($firstResult, self::PAGE_LIMIT));
 
         $paginationResponse = $this->paginationResponseFactory->createPaginationResponse(
             $docs,
-            $measurements->count(),
+            $products->count(),
             self::PAGE_LIMIT,
             $page
         );
@@ -73,40 +74,40 @@ class MeasurementService
     /**
      * @param int $id
      *
-     * @return Measurement|null
+     * @return Product|null
      */
-    public function getMeasurement($id)
+    public function getProduct($id)
     {
-        return $this->entityManager->getRepository(Measurement::class)->find($id);
+        return $this->entityManager->getRepository(Product::class)->find($id);
     }
 
     /**
-     * @param Measurement $measurement
+     * @param Product $product
      *
-     * @return Measurement
+     * @return Product
      */
-    public function addMeasurement(Measurement $measurement)
+    public function addProduct(Product $product)
     {
-        $this->entityManager->persist($measurement);
-        $this->entityManager->flush($measurement);
+        $this->entityManager->persist($product);
+        $this->entityManager->flush($product);
 
-        return $measurement;
+        return $product;
     }
 
     /**
-     * @param Measurement $measurement
+     * @param Product $product
      */
-    public function setMeasurement(Measurement $measurement)
+    public function setProduct(Product $product)
     {
-        $this->entityManager->flush($measurement);
+        $this->entityManager->flush($product);
     }
 
     /**
-     * @param Measurement $measurement
+     * @param Product $product
      */
-    public function deleteMeasurement(Measurement $measurement)
+    public function deleteProduct(Product $product)
     {
-        $this->entityManager->remove($measurement);
-        $this->entityManager->flush($measurement);
+        $this->entityManager->remove($product);
+        $this->entityManager->flush($product);
     }
 }

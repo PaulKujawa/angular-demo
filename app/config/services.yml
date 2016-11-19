@@ -1,34 +1,11 @@
 imports:
     - { resource: services_request_decorator.yml }
+    - { resource: services_repositories.yml }
 
 services:
-    app.service.pagination_response_factory:
-        class: AppBundle\Service\PaginationResponseFactory
-
-    app.repository.inquiry:
+    app.service.inquiry:
         class: AppBundle\Service\InquiryService
         arguments: [ "@mailer" ]
 
-    app.repository.recipe:
-        class: AppBundle\Service\RecipeService
-        arguments: [ "@doctrine.orm.entity_manager", "@app.service.pagination_response_factory" ]
-
-    app.repository.product:
-        class: AppBundle\Service\ProductService
-        arguments: [ "@doctrine.orm.entity_manager", "@app.service.pagination_response_factory" ]
-
-    app.repository.measurement:
-        class: AppBundle\Service\MeasurementService
-        arguments: [ "@doctrine.orm.entity_manager", "@app.service.pagination_response_factory" ]
-
-    app.repository.photo:
-        class: AppBundle\Service\PhotoService
-        arguments: [ "@doctrine.orm.entity_manager" ]
-
-    app.repository.ingredient:
-        class: AppBundle\Service\IngredientService
-        arguments: [ "@doctrine.orm.entity_manager" ]
-
-    app.repository.cooking:
-        class: AppBundle\Service\CookingService
-        arguments: [ "@doctrine.orm.entity_manager" ]
+    app.service.pagination_response_factory:
+        class: AppBundle\Service\PaginationResponseFactory
