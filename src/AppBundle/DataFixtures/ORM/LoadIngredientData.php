@@ -40,7 +40,7 @@ class LoadIngredientData extends AbstractFixture implements OrderedFixtureInterf
      *
      * @return Ingredient
      */
-    protected function instantiate($position, $amount, $refMeasurement, $refRecipe, $refProduct)
+    private function instantiate($position, $amount, $refMeasurement, $refRecipe, $refProduct)
     {
         $measurement = $this->getReference($refMeasurement);
         $recipe = $this->getReference($refRecipe);
@@ -53,15 +53,12 @@ class LoadIngredientData extends AbstractFixture implements OrderedFixtureInterf
             throw new InvalidArgumentException();
         }
 
-        $entity = new Ingredient();
-        $entity
-            ->setPosition($position)
-            ->setAmount($amount)
-            ->setMeasurement($measurement)
-            ->setRecipe($recipe)
-            ->setProduct($product);
+        $ingredient = new Ingredient($recipe->getId(), $position);
+        $ingredient->setAmount($amount);
+        $ingredient->setMeasurement($measurement);
+        $ingredient->setProduct($product);
 
-        return $entity;
+        return $ingredient;
     }
 
     /**

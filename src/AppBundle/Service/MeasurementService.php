@@ -3,6 +3,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Measurement;
+use AppBundle\Model\Pagination;
 use AppBundle\RequestDecorator\Decorator\QueryDecorator;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManager;
@@ -23,6 +24,26 @@ class MeasurementService
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager= $entityManager;
+    }
+
+    /**
+     * @param int $page
+     *
+     * @return Pagination
+     */
+    public function getPagination($page)
+    {
+        $count = $this->entityManager->createQueryBuilder()
+            ->select('count(m.id)')
+            ->from(Measurement::class, 'm')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        $pagination = new Pagination();
+        $pagination->page = $page;
+        $pagination->pages = ceil($count / self::PAGE_LIMIT);
+
+        return $pagination;
     }
 
     /**

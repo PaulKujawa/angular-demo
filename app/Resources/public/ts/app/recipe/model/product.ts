@@ -7,5 +7,6 @@ export class Product {
                 public carbs: number,
                 public sugar: number,
                 public fat: number,
-                public gfat: number) {}
+                public gfat: number,
+                public manufacturer?: string) {}
 }

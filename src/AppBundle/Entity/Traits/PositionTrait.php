@@ -12,23 +12,16 @@ trait PositionTrait
      * @Assert\NotNull()
      * @Assert\GreaterThan(value = 0)
      *
-     * @ORM\Column(
-     *      name = "position",
-     *      type = "smallint"
-     * )
+     * @ORM\Column(type = "smallint")
      */
     private $position;
 
     /**
      * @param int $position
-     *
-     * @return $this
      */
     public function setPosition($position)
     {
         $this->position = $position;
-
-        return $this;
     }
 
     /**

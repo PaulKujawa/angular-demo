@@ -17,7 +17,9 @@ app:
     inquiry: Anfrage
     inquiry_sent: Ich habe Ihre Mitteilung erfolgreich erhalten.
   recipe:
-    recipes: Rezepte
+    cooking: Zubereitung
     filter:
       search: Suche...
       vegan_only: ausschließlich vegan
+    ingredients: Zutaten
+    recipes: Rezepte

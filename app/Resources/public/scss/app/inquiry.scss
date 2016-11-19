@@ -1,10 +1,5 @@
 @import "scss/import/variables";
 
-.ba-inquiry__image {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-.ba-inquiry__message {
+.app-inquiry__message {
   min-height: calc(2 * #{$input-height-base} + #{$form-group-margin-bottom} );
 }

@@ -25,7 +25,7 @@ import {TranslationService} from "../../core/service/translation.service";
                 </div>
                 <div class="col-xs-12 col-sm-7">
                     <div class="form-group">
-                        <textarea required class="form-control ba-inquiry__message"
+                        <textarea required class="form-control app-inquiry__message"
                         placeholder="{{'app.inquiry.form.message'|trans}}"
                         #message="ngModel"
                         name="message" [(ngModel)]="inquiry.message"></textarea>

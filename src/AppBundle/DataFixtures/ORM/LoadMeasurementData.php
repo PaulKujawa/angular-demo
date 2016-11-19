@@ -33,14 +33,13 @@ class LoadMeasurementData extends AbstractFixture implements OrderedFixtureInter
      *
      * @return Measurement
      */
-    protected function instantiate($name, $gr)
+    private function instantiate($name, $gr)
     {
-        $entity = new Measurement();
-        $entity
-            ->setName($name)
-            ->setGr($gr);
+        $measurement = new Measurement();
+        $measurement->setName($name);
+        $measurement->setGr($gr);
 
-        return $entity;
+        return $measurement;
     }
 
     /**

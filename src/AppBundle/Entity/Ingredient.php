@@ -82,7 +82,6 @@ class Ingredient
      * @Assert\GreaterThan(value = 0)
      *
      * @ORM\Column(
-     *      name = "amount",
      *      type = "smallint",
      *      nullable = true
      * )

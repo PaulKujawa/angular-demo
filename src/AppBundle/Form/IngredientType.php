@@ -22,28 +22,16 @@ class IngredientType extends AbstractType
     {
         $builder
             ->add('amount', IntegerType::class, [
-                'label' => false,
                 'required' => false,
-                'attr' => [
-                    'placeholder' => 'barra.ingredient.amount',
-                ],
             ])
             ->add('measurement', EntityType::class, [
-                'label' => false,
                 'class' => Measurement::class,
                 'choice_label' => 'name',
                 'required' => false,
-                'attr' => [
-                    'placeholder' => 'barra.measurement.name',
-                ],
             ])
             ->add('product', EntityType::class, [
-                'label' => false,
                 'class' => Product::class,
                 'choice_label' => 'name',
-                'attr' => [
-                    'placeholder' => 'barra.product.name',
-                ],
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('i')->orderBy('i.name', 'ASC');
                 },

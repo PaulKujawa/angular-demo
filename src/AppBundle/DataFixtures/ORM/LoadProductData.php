@@ -18,20 +18,10 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function load(ObjectManager $em)
     {
-        $nutritions = [
-            'gr' => 1,
-            'kcal' => 1,
-            'carbs' => 1.0,
-            'sugar' => 1.0,
-            'protein' => 1.0,
-            'fat' => 1.0,
-            'gfat' => 1.0,
-        ];
-
-        self::$members[] = $this->instantiate('Product1', false, $nutritions, 'refManufacturer1');
-        self::$members[] = $this->instantiate('Product2', true, $nutritions, 'refManufacturer1');
-        self::$members[] = $this->instantiate('Product3', true, $nutritions, 'refManufacturer1');
-        self::$members[] = $this->instantiate('Product4', true, $nutritions, 'refManufacturer1');
+        self::$members[] = $this->instantiate('Product1', 'Rinatura', false);
+        self::$members[] = $this->instantiate('Product2', 'Soja so lecker');
+        self::$members[] = $this->instantiate('Product3', 'Vitam');
+        self::$members[] = $this->instantiate('Product4');
 
         array_walk(self::$members, function(Product $member, $i) use ($em) {
             $this->addReference('refProduct' . ($i + 1), $member);
@@ -42,32 +32,34 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
 
     /**
      * @param string $name
+     * @param string $manufacturer
      * @param bool $isVegan
-     * @param array $nutritions
-     * @param string $refManufacturer
      *
      * @return Product
      */
-    protected function instantiate($name, $isVegan, array $nutritions, $refManufacturer)
+    private function instantiate($name, $manufacturer = null, $isVegan = true)
     {
-        $manufacturer = $this->getReference($refManufacturer);
-
-        if (!$manufacturer instanceof Manufacturer) {
-            throw new InvalidArgumentException();
-        }
+        $macros = [
+            'gr' => 1,
+            'kcal' => 1,
+            'carbs' => 1.0,
+            'sugar' => 1.0,
+            'protein' => 1.0,
+            'fat' => 1.0,
+            'gfat' => 1.0,
+        ];
 
         $entity = new Product();
-        $entity
-            ->setName($name)
-            ->setVegan($isVegan)
-            ->setGr($nutritions['gr'])
-            ->setKcal($nutritions['kcal'])
-            ->setCarbs($nutritions['carbs'])
-            ->setSugar($nutritions['sugar'])
-            ->setProtein($nutritions['protein'])
-            ->setFat($nutritions['fat'])
-            ->setGfat($nutritions['gfat'])
-            ->setManufacturer($manufacturer);
+        $entity->setName($name);
+        $entity->setVegan($isVegan);
+        $entity->setGr($macros['gr']);
+        $entity->setKcal($macros['kcal']);
+        $entity->setCarbs($macros['carbs']);
+        $entity->setSugar($macros['sugar']);
+        $entity->setProtein($macros['protein']);
+        $entity->setFat($macros['fat']);
+        $entity->setGfat($macros['gfat']);
+        $entity->setManufacturer($manufacturer);
 
         return $entity;
     }

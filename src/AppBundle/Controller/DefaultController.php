@@ -24,12 +24,13 @@ class DefaultController extends Controller
     /**
      * @Security("is_authenticated()")
      *
-     * @Route("/admino", name="app_dashboard")
+     * @Route("/measurements", name="app_measurements")
+     * @Route("/products", name="app_products")
      *
      * @return Response
      */
-    public function dashboardAction()
+    public function adminAction()
     {
-        return $this->render(':index:dashboard.html.twig');
+        return $this->render('::base.html.twig');
     }
 }

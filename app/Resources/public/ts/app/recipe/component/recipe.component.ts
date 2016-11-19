@@ -9,32 +9,37 @@ import {Ingredient} from "../model/ingredient";
 // TODO use e.g. ng2-charts for macros
 
 @Component({
-    selector: 'recipe',
+    selector: 'recipe-detail',
     template: `
+        <h1 class="text-center">{{ recipe?.name }}</h1>
+        
         <div class="row">
             <div class="col-xs-12 col-md-6">
                 <img class="img-circle center-block img-responsive" [src]="getImageUrl()">
             </div>
+        </div>
 
-            <div id="macros" class="col-xs-12 col-md-6">
-                {{ recipe?.macros|json }}
-                <!--<canvas class="center-block" width="301px" height="301px"></canvas>-->
-                <!--<span class="badge" title="Kcal">macros.kcal</span>-->
+        <div class="row">
+            <div class="col-xs-12 col-sm-5">
+                <h2>{{ 'app.recipe.ingredients'|trans }}</h2>
+                <table class="table">
+                    <tbody>
+                        <tr *ngFor="let ingredient of recipe?.ingredients">
+                            <th scope="row">{{ getMeasurement(ingredient) }}</th>                
+                            <td>{{ ingredient.product.name }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-xs-12 col-sm-7 col-md-6 col-md-offset-1">
+                <h2>{{ 'app.recipe.cooking'|trans }}</h2>
+                <ul class="list-group">
+                    <li class="list-group-item" *ngFor="let cooking of recipe?.cookings">
+                        {{ cooking.description }}
+                    </li>
+                </ul>
             </div>
         </div>
-        
-        <h1 class="text-center">{{ recipe?.name }}</h1>
-        <ul id="productList" class="list-unstyled text-center">
-            <li *ngFor="let ingredient of recipe?.ingredients">
-                {{ getMeasuredIngredient(ingredient) }}
-            </li>
-        </ul>
-        
-         <ol id="cookingList" class="text-center">
-            <li *ngFor="let cooking of recipe?.cookings">
-                {{ cooking.description }}
-            </li>
-        </ol>
     `
 })
 export class RecipeComponent implements OnInit {
@@ -52,10 +57,10 @@ export class RecipeComponent implements OnInit {
 
     }
 
-    getMeasuredIngredient(ingredient: Ingredient): string {
+    getMeasurement(ingredient: Ingredient): string {
         return ingredient.amount
-            ? this.formatMeasuredIngredient(ingredient)
-            : ingredient.product.name;
+            ? [ingredient.amount, ingredient.measurement.name].join(' ')
+            : null;
     }
 
     getRecipe(id: number): void {
@@ -70,9 +75,5 @@ export class RecipeComponent implements OnInit {
         return this.recipe && this.recipe.thumbnail
             ? this.recipe.thumbnail.path
             : 'http://placehold.it/400x400';
-    }
-
-    private formatMeasuredIngredient(ingredient: Ingredient): string {
-        return ingredient.product.name + ' (' + ingredient.amount + ingredient.measurement.name + ')';
     }
 }

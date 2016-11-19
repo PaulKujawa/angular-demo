@@ -18,18 +18,8 @@ class MeasurementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, [
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'barra.measurement.name',
-                ],
-            ])
-            ->add('gr', IntegerType::class, [
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'barra.measurement.gr',
-                ],
-            ])
+            ->add('name', TextType::class)
+            ->add('gr', IntegerType::class)
             ->add('submit', SubmitType::class)
             ->getForm();
     }

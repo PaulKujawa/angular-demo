@@ -31,7 +31,12 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
      */
     public function cgetAction($page)
     {
-        return $this->get('app.repository.measurement')->getMeasurements($page);
+        $repository = $this->get('app.repository.measurement');
+
+        return $this->view([
+            'pagination' => $repository->getPagination((int) $page),
+            'docs' => $repository->getMeasurements($page)]
+        );
     }
 
     /**

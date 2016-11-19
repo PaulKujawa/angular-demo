@@ -5,7 +5,7 @@ import {Component} from '@angular/core';
     template: `
         <nav-bar></nav-bar>
 
-        <section class="container" id="recipePage">
+        <section class="container">
             <flash-messages></flash-messages>
             <router-outlet></router-outlet>
         </section>

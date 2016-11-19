@@ -17,7 +17,9 @@ app:
     inquiry: Inquiry
     inquiry_sent: I sucessfully received your inquiry.
   recipe:
-      recipes: Recipes
-      filter:
-            search: Search...
-            vegan_only: solely vegan
+    cooking: Cooking
+    filter:
+      search: Search...
+      vegan_only: solely vegan
+    ingredients: Ingredients
+    recipes: Recipes
