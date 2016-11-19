@@ -40,10 +40,7 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
         $repository = $this->get('app.repository.recipe');
         $decorator = $this->get('app.request_decorator.recipe_composite_decorator')->createQueryDecorator($request);
 
-        $view = $this->view([
-            'pagination' => $repository->getPagination((int) $page),
-            'docs' => $repository->getRecipes($page, $decorator),
-        ]);
+        $view = $this->view($repository->getRecipes((int) $page, $decorator));
         $view->setSerializationContext(SerializationContext::create()->setGroups(['Default', 'recipeList']));
 
         return $view;

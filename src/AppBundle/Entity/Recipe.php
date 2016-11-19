@@ -109,7 +109,7 @@ class Recipe
     }
 
     /**
-     * TODO should be done as db-entity property
+     * docs: Array<Recipe>TODO should be done as db-entity property
      *
      * @Serializer\VirtualProperty()
      * @Serializer\SerializedName("macros")

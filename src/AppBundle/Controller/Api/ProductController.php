@@ -48,10 +48,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
     {
         $repository = $this->get('app.repository.product');
 
-        return $this->view([
-            'pagination' => $repository->getPagination((int) $page),
-            'docs' => $repository->getProducts($page)
-        ]);
+        return $this->view($repository->getProducts((int) $page));
     }
 
     /**
