@@ -6,6 +6,7 @@ import {RecipeComponent} from "./component/recipe.component";
 import {SharedModule} from "../shared/shared.module";
 import {FilterComponent} from "./component/filter.component";
 import {RecipeRoutingModule} from "./recipe-routing.module";
+import {MacroChartComponent} from "./component/macro-chart.component";
 
 @NgModule({
     imports: [
@@ -15,6 +16,7 @@ import {RecipeRoutingModule} from "./recipe-routing.module";
     ],
     declarations: [
         FilterComponent,
+        MacroChartComponent,
         RecipesComponent,
         RecipeComponent,
     ],

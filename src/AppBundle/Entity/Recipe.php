@@ -250,13 +250,14 @@ class Recipe
 
     /**
      * @param Ingredient $ingredient
+     *
      * @return float
      */
     private function getMeasurementRelation(Ingredient $ingredient) {
         $gr = $ingredient->getMeasurement()->getGr()
-            ? $ingredient->getAmount()/100
+            ? $ingredient->getMeasurement()->getGr()
             : $ingredient->getProduct()->getGr();
 
-        return $gr/100;
+        return $ingredient->getAmount() * $gr / 100;
     }
 }

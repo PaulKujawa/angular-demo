@@ -16,6 +16,10 @@ app:
       message: Your message
     inquiry: Inquiry
     inquiry_sent: I sucessfully received your inquiry.
+  macros:
+      carbs: Carbs
+      protein: Protein
+      fat: Fat
   recipe:
     cooking: Cooking
     filter:

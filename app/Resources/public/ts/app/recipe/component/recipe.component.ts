@@ -6,8 +6,6 @@ import {FlashMessageService} from "../../core/service/flash-message.service";
 import {FlashMessage} from "../../core/model/flash-message";
 import {Ingredient} from "../model/ingredient";
 
-// TODO use e.g. ng2-charts for macros
-
 @Component({
     selector: 'recipe-detail',
     template: `
