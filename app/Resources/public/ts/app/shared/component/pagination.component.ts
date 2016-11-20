@@ -4,8 +4,8 @@ import {Pagination} from "../model/pagination";
 @Component({
     selector: 'pagination',
     template: `
-        <nav *ngIf="pagination?.pages > 1">
-            <ul class="pagination">
+        <nav class="app-filter__nav" *ngIf="pagination?.pages > 1">
+            <ul class="pagination app-filter__pagination">
                 <li [class.disabled]="isFirstPage()">
                     <a class="btn" [class.disabled]="isFirstPage()" (click)="onClick(pagination.page - 1)">
                     <span>&laquo;</span></a>
