@@ -30,17 +30,12 @@ export const jspm = {
         },
         source: 'app/bootstrap',
         destination: `${output}js/build.js`,
-        globalName: 'baBundleExportBuild',
-    },
-    tests: {
-        source: 'app/bootstrap + [app-tests/**/*.ts]',
-        destination: `${output}js/bundle-tests.js`,
-        globalName: 'baBundleExportTests',
+        globalName: 'appBundleExportBuild',
     },
     vendor: {
         source: 'vendor',
         destination: `${output}js/vendor.js`,
-        globalName: 'baBundleExportVendor',
+        globalName: 'appBundleExportVendor',
     }
 };
 

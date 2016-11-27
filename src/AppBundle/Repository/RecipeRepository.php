@@ -12,7 +12,7 @@ use Doctrine\ORM\ORMException;
 
 class RecipeRepository
 {
-    const PAGE_LIMIT = 10;
+    const PAGE_LIMIT = 20;
 
     /**
      * @var EntityManager

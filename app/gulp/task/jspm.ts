@@ -4,17 +4,14 @@ import {exec} from '../shell';
 
 const gulp = require('gulp');
 
-const jspm = (source: string, destination: string, globalName:string, build: boolean = true) => {
+const jspm = (source: string, destination: string, globalName:string) => {
     const args = [
-        build ? 'build' : 'bundle',
+        'build',
         source,
         destination,
         '--global-name ' + globalName,
+        '--production',
     ];
-
-    if (build) {
-        args.push('--production');
-    }
 
     if (watch) {
         args.push(
@@ -25,10 +22,9 @@ const jspm = (source: string, destination: string, globalName:string, build: boo
     }
 
     if (production) {
-        args.push(
-            '--minify',
-            '--skip-source-maps'
-        );
+        args.push('--minify', '--skip-source-maps');
+    } else {
+        args.push('--source-map-contents')
     }
 
     return exec('jspm', args);
@@ -53,10 +49,3 @@ gulp.task('jspm:build:vendor', ['symfony:build'], () => {
 });
 
 gulp.task('jspm:build', ['jspm:build:app', 'jspm:build:vendor']);
-
-// for unit tests and still with module loader
-gulp.task('jspm:test', ['symfony:build'], () => {
-    const {source, destination, globalName} = config.tests;
-
-    return jspm(source, destination, globalName, false);
-});
