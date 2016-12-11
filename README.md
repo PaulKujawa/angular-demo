@@ -5,7 +5,7 @@
 ## Initial setup
 
 * Dependencies:
-* `npm install -g jspm typings gulp; gem install sass`
+* `npm i -g jspm typings gulp; gem install sass`
 * `composer install`
 * `bin/console assets:install --symlink web`
 * Database:
@@ -19,7 +19,7 @@
 * `bin/build <dev|prod> [-w]`
 
 ### How to: add new js dependency
-* `npm i <package> --save`
+* `npm i <package> --save[-dev]`
 * `jspm install <package>`
 * `typings install <package> --save --global`
 

@@ -6,14 +6,20 @@ import {Pagination} from "../../shared/model/pagination";
 @Component({
     selector: 'recipe-filter',
     template: `
-        <div>
-            <input class="form-control" type="text" placeholder="{{'app.recipe.filter.search'|trans}}" 
-            #search (keyup)="searchNext(search.value)"/>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" #veganOnly (change)="setVeganOnly(veganOnly.checked)">
-                    {{'app.recipe.filter.vegan_only'|trans}}
-                </label>
+        <div class="row app-filter">
+            <div class="col-xs-12 col-sm-4">            
+                <input class="form-control" type="text" placeholder="{{'app.recipe.filter.search'|trans}}" 
+                #search (keyup)="searchNext(search.value)"/>
+            </div>
+            <div class="col-xs-12 col-sm-3">            
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" #veganOnly (change)="setVeganOnly(veganOnly.checked)">
+                        {{'app.recipe.filter.vegan_only'|trans}}
+                    </label>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-5">
                 <pagination [pagination]="pagination" (clicked)="setPage($event)"></pagination>
             </div>
         </div>

@@ -1,16 +1,24 @@
 {
-    "files": [
-        "../../../../typings/index.d.ts",
-        "app/bootstrap.ts"
+    "exclude": [
+        "app-compiled",
+        "app/bootstrap-compiled.ts",
+        "node_modules"
     ],
     "compilerOptions": {
         "experimentalDecorators": true,
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "noEmit": true,
         "outDir": "app-compiled/src"
     },
     "angularCompilerOptions": {
         "genDir": "app-compiled",
-        "skipMetadataEmit": true,
         "debug": false,
+        "skipMetadataEmit": true,
         "trace": true
     }
 }

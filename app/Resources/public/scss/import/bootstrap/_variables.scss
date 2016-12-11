@@ -1,3 +1,6 @@
+// override bootstrap variables
+// -----------------------------
+
 @import "../barra/variables";
 
 // common
@@ -17,18 +20,6 @@ $badge-bg: inherit;
 // buttons
 $btn-primary-color: $barra-white;
 $btn-primary-bg: $barra-grey-font-bright;
-
-// navbar
-$navbar-default-border: none;
-$navbar-default-bg: $barra-black;
-
-// navbar links
-$navbar-default-color: $barra-grey-font-bright;
-$navbar-default-link-hover-color: $barra-white;
-
-// navbar active links
-$navbar-default-link-active-color: $barra-white;
-$navbar-default-link-active-bg: $barra-black;
 
 $icon-font-path: "bootstrap-sass/assets/fonts/bootstrap/";
 @import "bootstrap-sass/assets/stylesheets/bootstrap/variables";

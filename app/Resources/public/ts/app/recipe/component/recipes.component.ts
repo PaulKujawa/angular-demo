@@ -11,16 +11,19 @@ import {Recipes} from "../model/pageable/recipes";
     selector: 'recipes',
     template: `
         <div class="row">
-            <div class="col-xs-12 col-md-4 col-lg-3">
+            <div class="col-xs-12">
                 <recipe-filter [pagination]="recipes?.pagination" (filter)="onFilter($event)"></recipe-filter>
             </div>
-            <div class="col-xs-12 col-md-8 col-lg-9">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6" *ngFor="let recipe of recipes?.docs">
-                        <a class="thumbnail" (click)="onSelectRecipe(recipe)">
-                            <img [src]="getImageUrl(recipe)"> 
-                            <div class="caption">{{ recipe.name }}</div>
-                        </a>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="media app-recipes__item" (click)="onSelectRecipe(recipe)" *ngFor="let recipe of recipes?.docs">
+                    <div class="media-left app-recipes-item__left">
+                        <img class="media-object app-recipes-item__object" [src]="getImageUrl(recipe)"> 
+                    </div>
+                    <div class="media-body">
+                        <h2 class="media-heading">{{ recipe.name }}</h2>
+                        <macro-chart [macros]="recipe.macros"></macro-chart>
                     </div>
                 </div>
             </div>
@@ -33,7 +36,7 @@ export class RecipesComponent implements OnInit {
 
     constructor(private router: Router,
                 private flashMsgService: FlashMessageService,
-                private recipeRepository: RecipeRepository) {}
+                private recipeRepository: RecipeRepository) {debugger; }
 
     ngOnInit(): void {
         this.filterStream

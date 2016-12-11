@@ -16,6 +16,10 @@ app:
       message: Ihre Nachricht an mich
     inquiry: Anfrage
     inquiry_sent: Ich habe Ihre Mitteilung erfolgreich erhalten.
+  macros:
+    carbs: Kohlenhydrate
+    protein: Eiweiß
+    fat: Fett
   recipe:
     cooking: Zubereitung
     filter:

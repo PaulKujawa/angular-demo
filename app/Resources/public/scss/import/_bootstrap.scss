@@ -1,10 +1,10 @@
-// load always all variables
-// -> overrides for every third party component + own variables
+// override bootstrap variables
+// -----------------------------
+
+
+// loads all variables from app and third party
 @import "scss/import/variables";
 
-/*
-  and overrides individual components, e.g.
-  @import "css/import/bootstrap/buttons";
-*/
-@import "scss/import/bootstrap/buttons";
+// override bootstrap components
 @import "bootstrap-sass/assets/stylesheets/bootstrap";
+@import "scss/import/bootstrap/buttons";
