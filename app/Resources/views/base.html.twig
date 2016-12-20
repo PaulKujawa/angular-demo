@@ -24,7 +24,7 @@
         <spa></spa>
         {# TODO try accessing <base href> instead #}
         <script>
-            window.baInject = {
+            window.appInject = {
                 baseUrl: {{ app.request.baseUrl|json_encode|raw }},
                 requestLocale: {{ locale|json_encode|raw }}
             };

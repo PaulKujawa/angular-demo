@@ -8,4 +8,5 @@ export class TranslationService {
 
     transChoice(id: string, number: number, parameters?: {}, domain?: string): string {
         return window.Translator.transChoice(id, number, parameters, domain);
-    }}
+    }
+}

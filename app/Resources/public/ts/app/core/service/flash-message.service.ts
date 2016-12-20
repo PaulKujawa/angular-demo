@@ -12,8 +12,4 @@ export class FlashMessageService {
     push(flashMessage: FlashMessage): void {
         this.alerts.push(flashMessage);
     }
-
-    clear(): void {
-        this.alerts = [];
-    }
 }
