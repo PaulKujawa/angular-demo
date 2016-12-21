@@ -25,7 +25,6 @@ case "${ENV}" in
         rm -rf app/cache/dev
         composer install --no-interaction
         npm install
-        typings install
         node_modules/.bin/jspm install --log warn --yes
         node_modules/.bin/gulp ${TASK} --env=dev
     ;;
@@ -34,7 +33,6 @@ case "${ENV}" in
         rm -rf app/cache/prod
         composer install
         npm install
-        typings install
         node_modules/.bin/jspm install --log warn --yes
         node_modules/.bin/gulp ${TASK} --env=prod
     ;;

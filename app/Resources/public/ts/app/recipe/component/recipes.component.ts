@@ -36,7 +36,7 @@ export class RecipesComponent implements OnInit {
 
     constructor(private router: Router,
                 private flashMsgService: FlashMessageService,
-                private recipeRepository: RecipeRepository) {debugger; }
+                private recipeRepository: RecipeRepository) {}
 
     ngOnInit(): void {
         this.filterStream
