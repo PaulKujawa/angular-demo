@@ -5,7 +5,7 @@ import {InquiryComponent} from "./inquiry/component/inquiry.component";
 @NgModule({
     imports: [
         RouterModule.forRoot([
-            {path: '', component: InquiryComponent},
+            {path: '', component: InquiryComponent, pathMatch: 'full'},
         ])
     ],
     exports: [RouterModule]

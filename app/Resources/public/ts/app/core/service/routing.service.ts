@@ -7,8 +7,8 @@ export class RoutingService {
 
     constructor() {
         this.routing = window.Routing;
-        this.requestLocale = window.baInject.requestLocale;
-        this.routing.setBaseUrl(window.baInject.baseUrl);
+        this.requestLocale = window.appInject.requestLocale;
+        this.routing.setBaseUrl(window.appInject.baseUrl);
     }
 
     generate(route: string, params = {}): string {

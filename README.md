@@ -20,8 +20,7 @@
 
 ### How to: add new js dependency
 * `npm i <package> --save[-dev]`
-* `jspm install <package>`
-* `typings install <package> --save --global`
+* `node_modules/.bin/jspm install <package>`
 
 ### How to: migrate database
 * `bin/build doctrine:migrations:diff`

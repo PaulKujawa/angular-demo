@@ -1,24 +1,23 @@
 {
-    "exclude": [
-        "app-compiled",
-        "app/bootstrap-compiled.ts",
-        "node_modules"
+  "exclude": [
+    "app-compiled",
+    "app/bootstrap-compiled.ts",
+    "node_modules"
+  ],
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "lib": [
+      "es6",
+      "dom"
     ],
-    "compilerOptions": {
-        "experimentalDecorators": true,
-        "lib": [
-            "es6",
-            "dom"
-        ],
-        "module": "commonjs",
-        "moduleResolution": "node",
-        "noEmit": true,
-        "outDir": "app-compiled/src"
-    },
-    "angularCompilerOptions": {
-        "genDir": "app-compiled",
-        "debug": false,
-        "skipMetadataEmit": true,
-        "trace": true
-    }
+    "moduleResolution": "node",
+    "noEmit": true,
+    "target": "es5"
+  },
+  "angularCompilerOptions": {
+    "genDir": "app-compiled",
+    "debug": false,
+    "skipMetadataEmit": true,
+    "trace": true
+  }
 }

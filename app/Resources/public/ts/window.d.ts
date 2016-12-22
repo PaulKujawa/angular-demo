@@ -1,4 +1,4 @@
-interface BaInject {
+interface AppInject {
     baseUrl: string;
     requestLocale: string;
 }
@@ -14,7 +14,7 @@ interface FosJsRouting {
 }
 
 interface Window {
-    baInject: BaInject;
+    appInject: AppInject;
     Routing: FosJsRouting;
     Translator: BazingaJsTranslationBundle;
 }
