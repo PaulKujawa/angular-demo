@@ -4,7 +4,7 @@ namespace AppBundle\RequestDecorator\Decorator;
 
 use Doctrine\Common\Collections\Criteria;
 
-class SortNameQueryDecorator implements QueryDecorator
+class SortUpdatedQueryDecorator implements QueryDecorator
 {
     /**
      * @var string
@@ -26,7 +26,7 @@ class SortNameQueryDecorator implements QueryDecorator
     {
         $orderBy = array_merge(
             $criteria->getOrderings(),
-            ['name' => $this->direction]
+            ['updated' => $this->direction]
         );
 
         $criteria->orderBy($orderBy);

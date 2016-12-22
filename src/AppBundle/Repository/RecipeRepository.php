@@ -42,7 +42,7 @@ class RecipeRepository
      *
      * @return PaginationResponse
      */
-    public function getRecipes($page, QueryDecorator $queryDecorator = null)
+    public function getRecipes(int $page, QueryDecorator $queryDecorator = null): PaginationResponse
     {
         $repository = $this->entityManager->getRepository(Recipe::class);
         $firstResult = ($page - 1) * self::PAGE_LIMIT;
@@ -76,7 +76,7 @@ class RecipeRepository
      *
      * @return Recipe|null
      */
-    public function getRecipe($id)
+    public function getRecipe(int $id)
     {
         return $this->entityManager->getRepository(Recipe::class)->find($id);
     }

@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use AppBundle\Entity\Traits\DescriptionTrait;
 use AppBundle\Entity\Traits\IdAutoTrait;
 use AppBundle\Entity\Traits\PositionTrait;
+use AppBundle\Entity\Traits\TimestampTrait;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -25,12 +26,13 @@ class Cooking
     use DescriptionTrait;
     use IdAutoTrait;
     use PositionTrait;
+    use TimestampTrait;
 
     /**
      * @param int $recipeId
      * @param int $position
      */
-    public function __construct($recipeId, $position)
+    public function __construct($recipeId, int $position)
     {
         $this->recipe = $recipeId;
         $this->position = $position;
@@ -68,7 +70,7 @@ class Cooking
     /**
      * @return Recipe
      */
-    public function getRecipe()
+    public function getRecipe(): Recipe
     {
         return $this->recipe;
     }

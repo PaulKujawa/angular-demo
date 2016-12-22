@@ -15,7 +15,7 @@
 * `openssl genrsa -out var/jwt/private.pem -aes256 4096`
 * `openssl rsa -pubout -in var/jwt/private.pem -out var/jwt/public.pem`
 
-### How to: build changes
+### How to: contribute
 * `bin/build <dev|prod> [-w]`
 
 ### How to: add new js dependency
@@ -23,5 +23,5 @@
 * `node_modules/.bin/jspm install <package>`
 
 ### How to: migrate database
-* `bin/build doctrine:migrations:diff`
-* `bin/build doctrine:migrations:migrate`
+* `bin/console doctrine:migrations:diff`
+* `bin/console doctrine:migrations:execute <version>`

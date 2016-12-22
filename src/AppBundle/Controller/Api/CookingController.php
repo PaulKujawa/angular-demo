@@ -18,7 +18,7 @@ class CookingController extends FOSRestController implements ClassResourceInterf
      *
      * @return View
      */
-    public function newAction($recipeId)
+    public function newAction(int $recipeId): View
     {
         return $this->view($this->createForm(CookingType::class));
     }
@@ -28,7 +28,7 @@ class CookingController extends FOSRestController implements ClassResourceInterf
      *
      * @return View
      */
-    public function cgetAction($recipeId)
+    public function cgetAction(int $recipeId): View
     {
         $cookings = $this->get('app.repository.cooking')->getCookings($recipeId);
 
@@ -41,7 +41,7 @@ class CookingController extends FOSRestController implements ClassResourceInterf
      *
      * @return View
      */
-    public function getAction($recipeId, $id)
+    public function getAction(int $recipeId, int $id): View
     {
         $cooking = $this->get('app.repository.cooking')->getCooking($recipeId, $id);
 
@@ -56,7 +56,7 @@ class CookingController extends FOSRestController implements ClassResourceInterf
      *
      * @return View
      */
-    public function postAction(Request $request, $recipeId)
+    public function postAction(Request $request, int $recipeId): View
     {
         $recipe = $this->get('app.repository.recipe')->getRecipe($recipeId);
         if (null === $recipe) {
@@ -81,13 +81,13 @@ class CookingController extends FOSRestController implements ClassResourceInterf
     }
 
     /**
+     * @param Request $request
      * @param int $recipeId
      * @param int $id
-     * @param Request $request
      *
      * @return View
      */
-    public function putAction($recipeId, $id, Request $request)
+    public function putAction(Request $request, int $recipeId, $id): View
     {
         $cooking = $this->get('app.repository.cooking')->getCooking($recipeId, $id);
 
@@ -117,7 +117,7 @@ class CookingController extends FOSRestController implements ClassResourceInterf
      *
      * @return View
      */
-    public function deleteAction($recipeId, $id)
+    public function deleteAction(int $recipeId, int $id): View
     {
         $cooking = $this->get('app.repository.cooking')->getCooking($recipeId, $id);
 

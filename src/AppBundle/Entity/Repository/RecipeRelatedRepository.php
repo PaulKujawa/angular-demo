@@ -11,7 +11,7 @@ class RecipeRelatedRepository extends EntityRepository
      *
      * @return int
      */
-    public function getNextPosition($recipeId)
+    public function getNextPosition(int $recipeId): int
     {
         return $this
             ->createQueryBuilder('c')

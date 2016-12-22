@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\IdAutoTrait;
 use AppBundle\Entity\Traits\ImageTrait;
+use AppBundle\Entity\Traits\TimestampTrait;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -20,11 +21,12 @@ class Photo
 {
     use IdAutoTrait;
     use ImageTrait;
+    use TimestampTrait;
 
     /**
      * @param int $recipeId
      */
-    public function __construct($recipeId)
+    public function __construct(int $recipeId)
     {
         $this->recipe = $recipeId;
     }
@@ -61,7 +63,7 @@ class Photo
     /**
      * @return Recipe
      */
-    public function getRecipe()
+    public function getRecipe(): Recipe
     {
         return $this->recipe;
     }

@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\IdAutoTrait;
 use AppBundle\Entity\Traits\NameTrait;
+use AppBundle\Entity\Traits\TimestampTrait;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -19,6 +20,7 @@ class Product
 {
     use IdAutoTrait;
     use NameTrait;
+    use TimestampTrait;
 
     /**
      * @var bool
@@ -50,7 +52,7 @@ class Product
     private $kcal;
 
     /**
-     * @var double
+     * @var float
      *
      * @Assert\NotNull()
      * @Assert\GreaterThanOrEqual(value = 0.0)
@@ -63,7 +65,7 @@ class Product
     private $protein;
 
     /**
-     * @var double
+     * @var float
      *
      * @Assert\NotNull()
      * @Assert\GreaterThanOrEqual(value = 0.0)
@@ -76,7 +78,7 @@ class Product
     private $carbs;
 
     /**
-     * @var double
+     * @var float
      *
      * @Assert\NotNull()
      * @Assert\GreaterThanOrEqual(value = 0.0)
@@ -89,7 +91,7 @@ class Product
     private $sugar;
 
     /**
-     * @var double
+     * @var float
      *
      * @Assert\NotNull()
      * @Assert\GreaterThanOrEqual(value = 0.0)
@@ -102,7 +104,7 @@ class Product
     private $fat;
 
     /**
-     * @var double
+     * @var float
      *
      * @Assert\NotNull()
      * @Assert\GreaterThanOrEqual(value = 0.0)
@@ -129,7 +131,7 @@ class Product
     /**
      * @param boolean $vegan
      */
-    public function setVegan($vegan)
+    public function setVegan(bool $vegan)
     {
         $this->vegan = $vegan;
     }
@@ -137,7 +139,7 @@ class Product
     /**
      * @return boolean
      */
-    public function getVegan()
+    public function getVegan(): bool
     {
         return $this->vegan;
     }
@@ -146,15 +148,15 @@ class Product
     /**
      * @param int $kcal
      */
-    public function setKcal($kcal)
+    public function setKcal(int $kcal)
     {
         $this->kcal = $kcal;
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getKcal()
+    public function getKcal(): int
     {
         return $this->kcal;
     }
@@ -162,7 +164,7 @@ class Product
     /**
      * @param int $gr
      */
-    public function setGr($gr)
+    public function setGr(int $gr)
     {
         $this->gr = $gr;
     }
@@ -170,87 +172,87 @@ class Product
     /**
      * @return int
      */
-    public function getGr()
+    public function getGr(): int
     {
         return $this->gr;
     }
 
     /**
-     * @param double $protein
+     * @param float $protein
      */
-    public function setProtein($protein)
+    public function setProtein(float $protein)
     {
         $this->protein = $protein;
     }
 
     /**
-     * @return double
+     * @return float
      */
-    public function getProtein()
+    public function getProtein(): float
     {
         return $this->protein;
     }
 
     /**
-     * @param double $carbs
+     * @param float $carbs
      */
-    public function setCarbs($carbs)
+    public function setCarbs(float $carbs)
     {
         $this->carbs = $carbs;
     }
 
     /**
-     * @return double
+     * @return float
      */
-    public function getCarbs()
+    public function getCarbs(): float
     {
         return $this->carbs;
     }
 
     /**
-     * @param double $sugar
+     * @param float $sugar
      */
-    public function setSugar($sugar)
+    public function setSugar(float $sugar)
     {
         $this->sugar = $sugar;
     }
 
     /**
-     * @return string
+     * @return float
      */
-    public function getSugar()
+    public function getSugar(): float
     {
         return $this->sugar;
     }
 
     /**
-     * @param double $fat
+     * @param float $fat
      */
-    public function setFat($fat)
+    public function setFat(float $fat)
     {
         $this->fat = $fat;
     }
 
     /**
-     * @return double
+     * @return float
      */
-    public function getFat()
+    public function getFat(): float
     {
         return $this->fat;
     }
 
     /**
-     * @param double $gfat
+     * @param float $gfat
      */
-    public function setGfat($gfat)
+    public function setGfat(float $gfat)
     {
         $this->gfat = $gfat;
     }
 
     /**
-     * @return double
+     * @return float
      */
-    public function getGfat()
+    public function getGfat(): float
     {
         return $this->gfat;
     }
@@ -258,7 +260,7 @@ class Product
     /**
      * @param string $manufacturer
      */
-    public function setManufacturer($manufacturer)
+    public function setManufacturer(string $manufacturer)
     {
         $this->manufacturer = $manufacturer;
     }
@@ -266,7 +268,7 @@ class Product
     /**
      * @return string
      */
-    public function getManufacturer()
+    public function getManufacturer(): string
     {
         return $this->manufacturer;
     }

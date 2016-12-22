@@ -1,7 +1,7 @@
 import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {Subject} from "rxjs/Subject";
-import {Pagination} from "../../shared/model/pagination";
+import {Subject} from 'rxjs/Subject';
+import {Pagination} from '../../shared/model/pagination';
 
 @Component({
     selector: 'recipe-filter',
@@ -32,6 +32,7 @@ export class FilterComponent implements OnInit {
     private searchStream = new Subject<string>();
 
     ngOnInit(): void {
+        this.filterMap.set('sortUpdated', 'desc');
         this.initializeSearchStream();
     }
 

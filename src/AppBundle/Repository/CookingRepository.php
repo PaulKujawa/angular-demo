@@ -25,7 +25,7 @@ class CookingRepository
      *
      * @return int
      */
-    public function getPosition($recipeId) {
+    public function getPosition($recipeId): int {
         return $this->entityManager->getRepository(Cooking::class)->getNextPosition($recipeId);
     }
 
@@ -34,7 +34,7 @@ class CookingRepository
      *
      * @return Cooking[]|array
      */
-    public function getCookings($recipeId)
+    public function getCookings(int $recipeId): array
     {
         return $this->entityManager->getRepository(Cooking::class)->findBy(
             ['recipe' => $recipeId],
@@ -48,7 +48,7 @@ class CookingRepository
      *
      * @return Cooking|null
      */
-    public function getCooking($recipeId, $id)
+    public function getCooking($recipeId, int $id)
     {
         return $this->entityManager->getRepository(Cooking::class)->findOneBy(['id' => $id, 'recipe' => $recipeId]);
     }

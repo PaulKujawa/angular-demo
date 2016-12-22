@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\IdAutoTrait;
 use AppBundle\Entity\Traits\NameTrait;
+use AppBundle\Entity\Traits\TimestampTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
@@ -20,6 +21,7 @@ class Recipe
 {
     use IdAutoTrait;
     use NameTrait;
+    use TimestampTrait;
 
     /**
      * @var bool
@@ -116,7 +118,7 @@ class Recipe
      *
      * @return array
      */
-    public function calculateMacros()
+    public function calculateMacros(): array
     {
         $macros = [
             'kcal' => 0,
@@ -147,7 +149,7 @@ class Recipe
     /**
      * @param bool $isVegan
      */
-    public function setIsVegan($isVegan)
+    public function setIsVegan(bool $isVegan)
     {
         $this->isVegan = $isVegan;
     }
@@ -155,7 +157,7 @@ class Recipe
     /**
      * @return bool
      */
-    public function getIsVegan()
+    public function getIsVegan(): bool
     {
         return $this->isVegan;
     }
@@ -179,7 +181,7 @@ class Recipe
     /**
      * @return ArrayCollection
      */
-    public function getIngredients()
+    public function getIngredients(): ArrayCollection
     {
         return $this->ingredients;
     }
@@ -203,7 +205,7 @@ class Recipe
     /**
      * @return ArrayCollection
      */
-    public function getCookings()
+    public function getCookings(): ArrayCollection
     {
         return $this->cookings;
     }
@@ -235,7 +237,7 @@ class Recipe
     /**
      * @return Photo
      */
-    public function getThumbnail()
+    public function getThumbnail(): Photo
     {
         return $this->thumbnail;
     }
@@ -253,10 +255,8 @@ class Recipe
      *
      * @return float
      */
-    private function getMeasurementRelation(Ingredient $ingredient) {
-        $gr = $ingredient->getMeasurement()->getGr()
-            ? $ingredient->getMeasurement()->getGr()
-            : $ingredient->getProduct()->getGr();
+    private function getMeasurementRelation(Ingredient $ingredient): float {
+        $gr = $ingredient->getMeasurement()->getGr() ?: $ingredient->getProduct()->getGr();
 
         return $ingredient->getAmount() * $gr / 100;
     }

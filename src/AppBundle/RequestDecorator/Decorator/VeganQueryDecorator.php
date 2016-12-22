@@ -14,7 +14,7 @@ class VeganQueryDecorator implements QueryDecorator
     /**
      * @param bool $isVegan
      */
-    public function __construct($isVegan)
+    public function __construct(bool $isVegan)
     {
         $this->isVegan = $isVegan;
     }

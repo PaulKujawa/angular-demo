@@ -18,7 +18,7 @@ class IngredientController extends FOSRestController implements ClassResourceInt
      *
      * @return View
      */
-    public function newAction($recipeId)
+    public function newAction(int $recipeId): View
     {
         return $this->view($this->createForm(IngredientType::class));
     }
@@ -29,7 +29,7 @@ class IngredientController extends FOSRestController implements ClassResourceInt
      *
      * @return View
      */
-    public function getProductAction($recipeId, $id)
+    public function getProductAction(int $recipeId, int $id): View
     {
         $ingredient = $this->get('app.repository.ingredient')->getIngredient($recipeId, $id);
 
@@ -44,7 +44,7 @@ class IngredientController extends FOSRestController implements ClassResourceInt
      *
      * @return View
      */
-    public function getMeasurementAction($recipeId, $id)
+    public function getMeasurementAction(int $recipeId, int $id): View
     {
         $ingredient = $this->get('app.repository.ingredient')->getIngredient($recipeId, $id);
 
@@ -58,7 +58,7 @@ class IngredientController extends FOSRestController implements ClassResourceInt
      *
      * @return View
      */
-    public function cgetAction($recipeId)
+    public function cgetAction(int $recipeId): View
     {
         $ingredients = $this->get('app.repository.ingredient')->getIngredients($recipeId);
 
@@ -71,7 +71,7 @@ class IngredientController extends FOSRestController implements ClassResourceInt
      *
      * @return View
      */
-    public function getAction($recipeId, $id)
+    public function getAction(int $recipeId, int $id): View
     {
         $ingredient = $this->get('app.repository.ingredient')->getIngredient($recipeId, $id);
 
@@ -86,7 +86,7 @@ class IngredientController extends FOSRestController implements ClassResourceInt
      *
      * @return View
      */
-    public function postAction(Request $request, $recipeId)
+    public function postAction(Request $request, int $recipeId): View
     {
         $recipe = $this->get('app.repository.recipe')->getRecipe($recipeId);
         if (null === $recipe) {
@@ -111,13 +111,13 @@ class IngredientController extends FOSRestController implements ClassResourceInt
     }
 
     /**
+     * @param Request $request
      * @param int $recipeId
      * @param int $id
-     * @param Request $request
      *
      * @return View
      */
-    public function putAction($recipeId, $id, Request $request)
+    public function putAction(Request $request, int $recipeId, int $id): View
     {
         $ingredient = $this->get('app.repository.ingredient')->getIngredient($recipeId, $id);
 
@@ -147,7 +147,7 @@ class IngredientController extends FOSRestController implements ClassResourceInt
      *
      * @return View
      */
-    public function deleteAction($recipeId, $id)
+    public function deleteAction(int $recipeId, int $id): View
     {
         $ingredient = $this->get('app.repository.ingredient')->getIngredient($recipeId, $id);
 

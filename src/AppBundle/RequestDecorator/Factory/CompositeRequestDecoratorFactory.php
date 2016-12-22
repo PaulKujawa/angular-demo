@@ -16,7 +16,7 @@ class CompositeRequestDecoratorFactory implements RequestDecoratorFactory
      * @param RequestDecoratorFactory $decoratorFactory
      * @param int $priority
      */
-    public function addFactory(RequestDecoratorFactory $decoratorFactory, $priority = 0)
+    public function addFactory(RequestDecoratorFactory $decoratorFactory, int $priority = 0)
     {
         $this->factories[] = [
             'factory' => $decoratorFactory,
@@ -27,7 +27,7 @@ class CompositeRequestDecoratorFactory implements RequestDecoratorFactory
     /**
      * {@inheritdoc}
      */
-    public function createQueryDecorator(Request $request)
+    public function createQueryDecorator(Request $request): CompositeQueryDecorator
     {
         $queryDecorators = array_map(function(RequestDecoratorFactory $factory) use ($request) {
             return $factory->createQueryDecorator($request);
@@ -41,7 +41,7 @@ class CompositeRequestDecoratorFactory implements RequestDecoratorFactory
     /**
      * @return RequestDecoratorFactory[]
      */
-    public function getDecoratorFactories()
+    public function getDecoratorFactories(): array
     {
         $this->sortFactories();
 

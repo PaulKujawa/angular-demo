@@ -6,5 +6,7 @@ export class Ingredient {
                 public position: number,
                 public amount: number,
                 public product: Product,
-                public measurement: Measurement) {}
+                public measurement: Measurement,
+                public created: Date,
+                public updated: Date) {}
 }

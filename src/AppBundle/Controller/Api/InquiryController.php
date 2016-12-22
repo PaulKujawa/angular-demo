@@ -14,7 +14,7 @@ class InquiryController extends FOSRestController implements ClassResourceInterf
     /**
      * @return View
      */
-    public function newAction()
+    public function newAction(): View
     {
         return $this->view($this->createForm(InquiryType::class));
     }
@@ -24,7 +24,7 @@ class InquiryController extends FOSRestController implements ClassResourceInterf
      *
      * @return View
      */
-    public function postAction(Request $request)
+    public function postAction(Request $request): View
     {
         $form = $this->createForm(InquiryType::class);
         $form->handleRequest($request);

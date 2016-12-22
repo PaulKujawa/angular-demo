@@ -5,12 +5,16 @@ services:
           - [addFactory, ['@app.request_decorator.vegan_decorator_factory']]
           - [addFactory, ['@app.request_decorator.name_decorator_factory']]
           - [addFactory, ['@app.request_decorator.sort_name_decorator_factory']]
+          - [addFactory, ['@app.request_decorator.sort_updated_decorator_factory']]
 
     app.request_decorator.vegan_decorator_factory:
         class: AppBundle\RequestDecorator\Factory\VeganRequestDecoratorFactory
 
     app.request_decorator.sort_name_decorator_factory:
         class: AppBundle\RequestDecorator\Factory\SortNameRequestDecoratorFactory
+
+    app.request_decorator.sort_updated_decorator_factory:
+        class: AppBundle\RequestDecorator\Factory\SortUpdatedRequestDecoratorFactory
 
     app.request_decorator.name_decorator_factory:
         class: AppBundle\RequestDecorator\Factory\NameRequestDecoratorFactory

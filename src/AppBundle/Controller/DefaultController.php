@@ -16,7 +16,7 @@ class DefaultController extends Controller
      *
      * @return Response
      */
-    public function indexAction()
+    public function indexAction(): Response
     {
         return $this->render('::base.html.twig');
     }
@@ -29,7 +29,7 @@ class DefaultController extends Controller
      *
      * @return Response
      */
-    public function adminAction()
+    public function adminAction(): Response
     {
         return $this->render('::base.html.twig');
     }

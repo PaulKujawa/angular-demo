@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import {Subject} from "rxjs/Subject";
-import {RecipeRepository} from "../repository/recipe.repository";
-import {Recipe} from "../model/recipe";
-import {FlashMessageService} from "../../core/service/flash-message.service";
-import {FlashMessage} from "../../core/model/flash-message";
-import {Recipes} from "../model/pageable/recipes";
+import {Router} from '@angular/router';
+import {Subject} from 'rxjs/Subject';
+import {RecipeRepository} from '../repository/recipe.repository';
+import {Recipe} from '../model/recipe';
+import {FlashMessageService} from '../../core/service/flash-message.service';
+import {FlashMessage} from '../../core/model/flash-message';
+import {Recipes} from '../model/recipes';
 
 @Component({
     selector: 'recipes',
@@ -24,6 +24,7 @@ import {Recipes} from "../model/pageable/recipes";
                     <div class="media-body">
                         <h2 class="media-heading">{{ recipe.name }}</h2>
                         <macro-chart [macros]="recipe.macros"></macro-chart>
+                        <span><i>{{ recipe.updated|date }}</i></span>
                     </div>
                 </div>
             </div>

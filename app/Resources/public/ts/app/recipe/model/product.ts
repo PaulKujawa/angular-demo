@@ -8,5 +8,7 @@ export class Product {
                 public sugar: number,
                 public fat: number,
                 public gfat: number,
+                public created: Date,
+                public updated: Date,
                 public manufacturer?: string) {}
 }

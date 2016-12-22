@@ -64,7 +64,7 @@ trait ImageTrait
     /**
      * @return string
      */
-    public function getAbsolutePath()
+    public function getAbsolutePath(): string
     {
         return __DIR__ . '/../../../../../web/' . $this->getWebDirectory();
     }
@@ -85,7 +85,7 @@ trait ImageTrait
     /**
      * @return string
      */
-    public function getWebDirectory()
+    public function getWebDirectory(): string
     {
         return 'images/uploads';
     }
@@ -152,7 +152,7 @@ trait ImageTrait
     /**
      * @return UploadedFile
      */
-    public function getFile()
+    public function getFile(): UploadedFile
     {
         return $this->file;
     }
@@ -160,7 +160,7 @@ trait ImageTrait
     /**
      * @return string
      */
-    public function getFilename()
+    public function getFilename(): string
     {
         return $this->filename;
     }
@@ -168,7 +168,7 @@ trait ImageTrait
     /**
      * @return int
      */
-    public function getSize()
+    public function getSize(): int
     {
         return $this->size;
     }
