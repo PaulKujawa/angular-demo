@@ -3,7 +3,6 @@
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -22,15 +21,14 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Security("is_authenticated()")
-     *
-     * @Route("/measurements", name="app_measurements")
-     * @Route("/products", name="app_products")
+     * @Route("/products/{page}", name="app_products", defaults={"page" = 1}, requirements={"page" = "\d+"})
+     * @Route("/products/{id}/{name}", name="app_product", requirements={"id" = "\d+"})
      *
      * @return Response
      */
     public function adminAction(): Response
     {
+        // authentication is handled in angular
         return $this->render('::base.html.twig');
     }
 }

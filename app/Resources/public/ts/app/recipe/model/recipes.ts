@@ -1,7 +1,7 @@
+import {PageableDto} from "../../core/model/dto/pageable.dto";
 import {Pagination} from '../../shared/model/pagination';
 import {RecipeDto} from './dto/recipe.dto';
 import {Recipe} from './recipe';
-import {PageableDto} from "./dto/pageable.dto";
 
 export class Recipes {
     pagination: Pagination;

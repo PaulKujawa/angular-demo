@@ -17,7 +17,7 @@ security:
 
         app:
             pattern: ^/[a-z][a-z]
-            anonymous: ~ # would enable setting IS_AUTHENTICATED_ANONYMOUSLY in security.access_control
+            anonymous: true
             form_login:
                 provider: fos_userbundle
                 login_path: fos_user_security_login # redirect to for authentication page & session cookie

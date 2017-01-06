@@ -1,12 +1,12 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from "@angular/common";
-import {RecipeRepository} from "./repository/recipe.repository";
-import {RecipesComponent} from "./component/recipes.component";
-import {RecipeComponent} from "./component/recipe.component";
-import {SharedModule} from "../shared/shared.module";
-import {FilterComponent} from "./component/filter.component";
-import {RecipeRoutingModule} from "./recipe-routing.module";
-import {MacroChartComponent} from "./component/macro-chart.component";
+import {CommonModule} from '@angular/common';
+import {RecipeRepository} from './repository/recipe.repository';
+import {RecipesComponent} from './component/recipes.component';
+import {RecipeComponent} from './component/recipe.component';
+import {SharedModule} from '../shared/shared.module';
+import {RecipeFilterComponent} from './component/recipe-filter.component';
+import {RecipeRoutingModule} from './recipe-routing.module';
+import {MacroChartComponent} from './component/macro-chart.component';
 
 @NgModule({
     imports: [
@@ -15,7 +15,7 @@ import {MacroChartComponent} from "./component/macro-chart.component";
         RecipeRoutingModule,
     ],
     declarations: [
-        FilterComponent,
+        RecipeFilterComponent,
         MacroChartComponent,
         RecipesComponent,
         RecipeComponent,

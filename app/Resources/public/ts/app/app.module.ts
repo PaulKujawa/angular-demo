@@ -7,6 +7,7 @@ import {RecipeModule} from "./recipe/recipe.module";
 import {AppRoutingModule} from "./app-routing.module";
 import {SharedModule} from "./shared/shared.module";
 import {AuthModule} from "./auth/auth.module";
+import {ProductModule} from "./product/product.module";
 
 @NgModule({
     imports: [
@@ -16,6 +17,7 @@ import {AuthModule} from "./auth/auth.module";
         CoreModule,
         SharedModule,
         InquiryModule,
+        ProductModule,
         RecipeModule,
     ],
     declarations: [AppComponent],

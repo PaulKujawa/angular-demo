@@ -8,7 +8,7 @@ import {Pagination} from '../../shared/model/pagination';
     template: `
         <div class="row app-filter">
             <div class="col-xs-12 col-sm-4">            
-                <input class="form-control" type="text" placeholder="{{'app.recipe.filter.search'|trans}}" 
+                <input class="form-control" type="text" placeholder="{{'app.common.filter.search'|trans}}" 
                 #search (keyup)="searchNext(search.value)"/>
             </div>
             <div class="col-xs-12 col-sm-3">            
@@ -25,7 +25,7 @@ import {Pagination} from '../../shared/model/pagination';
         </div>
     `
 })
-export class FilterComponent implements OnInit {
+export class RecipeFilterComponent implements OnInit {
     @Input() pagination: Pagination;
     @Output('filter') eventEmitter: EventEmitter<Map<string, string>> = new EventEmitter();
     private filterMap = new Map<string, string>();

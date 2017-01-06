@@ -1,5 +1,5 @@
-import {Measurement} from "./measurement";
-import {Product} from "./product";
+import {Product} from '../../product/model/product';
+import {Measurement} from './measurement';
 
 export class Ingredient {
     constructor(public id: number,

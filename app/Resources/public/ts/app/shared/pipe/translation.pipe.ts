@@ -8,7 +8,7 @@ import {TranslationService} from "../../core/service/translation.service";
  * Usage
  *  value|trans:params:domain
  * Example
- *  {{ 'app.common.submit'|trans:params:messages }}
+ *  {{'app.common.submit'|trans:params:messages}}
  */
 
 @Pipe({

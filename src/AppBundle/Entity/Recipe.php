@@ -147,14 +147,6 @@ class Recipe
     }
 
     /**
-     * @param bool $isVegan
-     */
-    public function setIsVegan(bool $isVegan)
-    {
-        $this->isVegan = $isVegan;
-    }
-
-    /**
      * @return bool
      */
     public function getIsVegan(): bool

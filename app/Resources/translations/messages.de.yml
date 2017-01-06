@@ -7,6 +7,9 @@ app:
   auth:
     signed_in: Erfolgreich angemeldet.
   common:
+    delete: Löschen
+    filter:
+      search: Suche...
     submit: Absenden
   inquiry:
     description: Heimprojekt mit ein paar Rezepten.
@@ -20,10 +23,20 @@ app:
     carbs: Kohlenhydrate
     protein: Eiweiß
     fat: Fett
+  product:
+    form:
+      carbs: Kohlenhydrate
+      fat: Fett
+      gfat: ges. Fett
+      gr: Gr
+      manufacturer: Hersteller
+      name: Name
+      protein: Eiweiß
+      sugar: Zucker
+      vegan: Vegan
   recipe:
     cooking: Zubereitung
     filter:
-      search: Suche...
       vegan_only: ausschließlich vegan
     ingredients: Zutaten
     recipes: Rezepte

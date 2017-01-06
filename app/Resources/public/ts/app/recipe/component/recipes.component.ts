@@ -22,9 +22,9 @@ import {Recipes} from '../model/recipes';
                         <img class="media-object app-recipes-item__object" [src]="getImageUrl(recipe)"> 
                     </div>
                     <div class="media-body">
-                        <h2 class="media-heading">{{ recipe.name }}</h2>
+                        <h2 class="media-heading">{{recipe.name}}</h2>
                         <macro-chart [macros]="recipe.macros"></macro-chart>
-                        <span><i>{{ recipe.updated|date }}</i></span>
+                        <span><i>{{recipe.updated|date}}</i></span>
                     </div>
                 </div>
             </div>

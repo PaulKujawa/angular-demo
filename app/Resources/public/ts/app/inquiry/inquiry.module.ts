@@ -1,10 +1,11 @@
-import {CommonModule} from "@angular/common";
-import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {HttpModule} from "@angular/http";
-import {InquiryComponent} from "./component/inquiry.component";
-import {InquiryFormComponent} from "./component/inquiry-form.component";
-import {SharedModule} from "../shared/shared.module";
+import {CommonModule} from '@angular/common';
+import {NgModule} from "@angular/core";
+import {FormsModule} from "@angular/forms";
+import {HttpModule} from '@angular/http';
+import {InquiryComponent} from './component/inquiry.component';
+import {InquiryFormComponent} from './component/inquiry-form.component';
+import {SharedModule} from '../shared/shared.module';
+import {InquiryRepository} from './repository/inquiry.repository';
 
 @NgModule({
     imports: [
@@ -18,6 +19,8 @@ import {SharedModule} from "../shared/shared.module";
         InquiryFormComponent,
     ],
     exports: [],
-    providers: []
+    providers: [
+        InquiryRepository,
+    ]
 })
 export class InquiryModule {}

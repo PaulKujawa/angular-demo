@@ -12,7 +12,7 @@ use Doctrine\ORM\ORMException;
 
 class ProductRepository
 {
-    const PAGE_LIMIT = 5;
+    const PAGE_LIMIT = 10;
 
     /**
      * @var EntityManager

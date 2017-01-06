@@ -8,6 +8,7 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\View;
+use JMS\Serializer\SerializationContext;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,15 +41,17 @@ class ProductController extends FOSRestController implements ClassResourceInterf
     /**
      * @QueryParam(name="page", requirements=@GreaterThan(value=0), default="1")
      *
+     * @param Request $request
      * @param int $page
      *
      * @return View
      */
-    public function cgetAction(int $page): View
+    public function cgetAction(Request $request, int $page): View
     {
         $repository = $this->get('app.repository.product');
+        $decorator = $this->get('app.request_decorator.product_composite_decorator')->createQueryDecorator($request);
 
-        return $this->view($repository->getProducts($page));
+        return $this->view($repository->getProducts($page, $decorator));
     }
 
     /**
