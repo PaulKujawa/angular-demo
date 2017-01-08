@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from "@angular/router";
-import {RecipeRepository} from "../repository/recipe.repository";
-import {Recipe} from "../model/recipe";
-import {FlashMessageService} from "../../core/service/flash-message.service";
-import {FlashMessage} from "../../core/model/flash-message";
-import {Ingredient} from "../model/ingredient";
+import {ActivatedRoute, Params} from '@angular/router';
+import {RecipeRepository} from '../repository/recipe.repository';
+import {Recipe} from '../model/recipe';
+import {FlashMessageService} from '../../core/service/flash-message.service';
+import {FlashMessage} from '../../core/model/flash-message';
+import {Ingredient} from '../model/ingredient';
 
 @Component({
     selector: 'recipe-detail',
@@ -47,26 +47,19 @@ export class RecipeComponent implements OnInit {
                 private activatedRoute: ActivatedRoute,
                 private flashMsgService: FlashMessageService) {}
 
-
     ngOnInit(): void {
-        this.activatedRoute.params.forEach((params: Params) => {
-            this.getRecipe(+params['id']);
-        });
-
+        this.activatedRoute.params
+            .switchMap((params: Params) => this.recipeRepository.getRecipe(+params['id']))
+            .subscribe(
+                (recipe: Recipe) => this.recipe = recipe,
+                (error: string) => this.flashMsgService.push(new FlashMessage('danger', error))
+            );
     }
 
     getMeasurement(ingredient: Ingredient): string {
         return ingredient.amount
             ? [ingredient.amount, ingredient.measurement.name].join(' ')
             : null;
-    }
-
-    getRecipe(id: number): void {
-        this.recipeRepository.getRecipe(id)
-            .subscribe(
-                (recipe: Recipe) => this.recipe = recipe,
-                (error: string) => this.flashMsgService.push(new FlashMessage('danger', error))
-            );
     }
 
     getImageUrl(): string {

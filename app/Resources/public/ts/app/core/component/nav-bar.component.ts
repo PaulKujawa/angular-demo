@@ -16,10 +16,10 @@ import {Component} from '@angular/core';
                 <div id="ba-navbar__collapse" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav text-capitalize">
                         <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                            <a [routerLink]="['/']">{{'app.inquiry.inquiry'|trans}}</a>
+                            <a routerLink="/">{{'app.inquiry.inquiry'|trans}}</a>
                         </li>
                         <li routerLinkActive="active">
-                            <a [routerLink]="['/recipes']">{{'app.recipe.recipes'|trans}}</a>
+                            <a routerLink="/recipes">{{'app.recipe.recipes'|trans}}</a>
                         </li>
                     </ul>
                      <ul class="nav navbar-nav navbar-right">

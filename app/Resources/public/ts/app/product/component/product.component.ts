@@ -77,16 +77,9 @@ export class ProductComponent implements OnInit {
                 private activatedRoute: ActivatedRoute,
                 private flashMsgService: FlashMessageService) {}
 
-
     ngOnInit(): void {
-        this.activatedRoute.params.forEach((params: Params) => {
-            this.getProduct(+params['id']);
-        });
-
-    }
-
-    getProduct(id: number): void {
-        this.productRepository.getProduct(id)
+        this.activatedRoute.params
+            .switchMap((params: Params) => this.productRepository.getProduct(+params['id']))
             .subscribe(
                 (product: Product) => this.product = product,
                 (error: string) => this.flashMsgService.push(new FlashMessage('danger', error))
