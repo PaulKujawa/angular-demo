@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
-import {Inquiry} from "../model/inquiry";
-import {FlashMessage} from "../../core/model/flash-message";
-import {FlashMessageService} from "../../core/service/flash-message.service";
-import {TranslationService} from "../../core/service/translation.service";
-import {InquiryRepository} from "../repository/inquiry.repository";
+import {FlashMessage} from '../../core/model/flash-message';
+import {FlashMessageService} from '../../core/service/flash-message.service';
+import {TranslationService} from '../../core/service/translation.service';
+import {InquiryRepository} from '../repository/inquiry.repository';
+import {Inquiry} from '../model/inquiry';
 
 @Component({
     selector: 'inquiry-form',

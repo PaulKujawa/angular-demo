@@ -5,4 +5,6 @@ import {Component} from '@angular/core';
         <router-outlet></router-outlet>
     `
 })
-export class ProductComponent {}
+export class DashboardComponent {
+    // TODO fix image path
+}

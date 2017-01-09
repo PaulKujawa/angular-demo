@@ -4,9 +4,10 @@ import {FormsModule} from '@angular/forms';
 import {SharedModule} from '../shared/shared.module';
 import {ProductRepository} from './repository/product.repository';
 import {ProductRoutingModule} from './product-routing.module';
-import {ProductsComponent} from './component/products.component';
+import {ProductFilterComponent} from './component/product-filter.component';
+import {ProductDetailComponent} from './component/product-detail.component';
+import {ProductListComponent} from './component/product-list.component';
 import {ProductComponent} from './component/product.component';
-import {ProductFilterComponent} from "./component/product-filter.component";
 
 @NgModule({
     imports: [
@@ -16,9 +17,10 @@ import {ProductFilterComponent} from "./component/product-filter.component";
         ProductRoutingModule,
     ],
     declarations: [
-        ProductsComponent,
         ProductComponent,
+        ProductDetailComponent,
         ProductFilterComponent,
+        ProductListComponent,
     ],
     exports: [],
     providers: [

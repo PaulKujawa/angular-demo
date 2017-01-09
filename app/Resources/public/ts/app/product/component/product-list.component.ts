@@ -8,7 +8,6 @@ import {FlashMessage} from '../../core/model/flash-message';
 import {Products} from '../model/products';
 
 @Component({
-    selector: 'products',
     template: `
         <div class="row">
             <div class="col-xs-12">
@@ -23,7 +22,7 @@ import {Products} from '../model/products';
         </ul>
     `
 })
-export class ProductsComponent implements OnInit {
+export class ProductListComponent implements OnInit {
     products: Products;
     private filterStream = new Subject<Map<string, string>>();
 

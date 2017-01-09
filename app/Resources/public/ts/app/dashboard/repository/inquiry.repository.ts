@@ -1,8 +1,8 @@
-import {Injectable} from "@angular/core";
-import {Observable} from "rxjs/Observable";
-import {Inquiry} from "../model/inquiry";
-import {Http, RequestOptions, Headers} from "@angular/http";
-import {RoutingService} from "../../core/service/routing.service";
+import {Http, RequestOptions, Headers} from '@angular/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {RoutingService} from '../../core/service/routing.service';
+import {Inquiry} from '../model/inquiry';
 
 @Injectable()
 export class InquiryRepository {

@@ -1,9 +1,8 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {InquiryComponent} from './inquiry/component/inquiry.component';
+import {InquiryComponent} from './dashboard/component/inquiry.component';
 
 const appRoutes: Routes = [
-    {path: '', component: InquiryComponent, pathMatch: 'full'},
 ];
 
 @NgModule({

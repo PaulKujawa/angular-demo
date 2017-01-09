@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 
 @Component({
-    selector: 'inquiry',
     template: `
         <div class="row flex flex-align-v text-center">
             <div class="col-xs-12 col-sm-5">
