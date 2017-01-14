@@ -8,6 +8,7 @@ import {ProductFilterComponent} from './component/product-filter.component';
 import {ProductDetailComponent} from './component/product-detail.component';
 import {ProductListComponent} from './component/product-list.component';
 import {ProductComponent} from './component/product.component';
+import {ProductFormComponent} from './component/product-form.component';
 
 @NgModule({
     imports: [
@@ -20,6 +21,7 @@ import {ProductComponent} from './component/product.component';
         ProductComponent,
         ProductDetailComponent,
         ProductFilterComponent,
+        ProductFormComponent,
         ProductListComponent,
     ],
     exports: [],

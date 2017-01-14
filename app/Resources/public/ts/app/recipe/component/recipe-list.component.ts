@@ -52,7 +52,8 @@ export class RecipeListComponent implements OnInit {
     }
 
     onSelectRecipe(recipe: Recipe): void {
-        this.router.navigate(['/recipes', recipe.id, recipe.name]); // TODO escape spaces in name
+        const recipeName = recipe.name.replace(' ', '-');
+        this.router.navigate(['/recipes', recipe.id, recipeName]);
     }
 
     getImageUrl(recipe: Recipe): string {

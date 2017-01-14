@@ -7,11 +7,11 @@ import {Pagination} from '../../shared/model/pagination';
     selector: 'product-filter',
     template: `
         <div class="row app-filter">
-            <div class="col-xs-12 col-sm-6">            
+            <div class="col-xs-12 col-sm-3">            
                 <input class="form-control" type="text" placeholder="{{'app.common.filter.search'|trans}}" 
                 #search (keyup)="searchNext(search.value)"/>
             </div>
-            <div class="col-xs-12 col-sm-6">
+            <div class="col-xs-12 col-sm-3">
                 <pagination [pagination]="pagination" (clicked)="setPage($event)"></pagination>
             </div>
         </div>

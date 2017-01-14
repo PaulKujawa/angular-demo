@@ -19,7 +19,18 @@ import {Component} from '@angular/core';
                             <a routerLink="/">{{'app.inquiry.inquiry'|trans}}</a>
                         </li>
                         <li routerLinkActive="active">
-                            <a routerLink="/recipes">{{'app.recipe.recipes'|trans}}</a>
+                            <a routerLink="/recipes">{{'app.common.recipes'|trans}}</a>
+                        </li>
+                        
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                {{'app.common.cms'|trans}}<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li routerLinkActive="active">
+                                    <a routerLink="/products">{{'app.common.products'|trans}}</a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                      <ul class="nav navbar-nav navbar-right">

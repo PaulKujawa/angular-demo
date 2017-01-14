@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
-import {RecipeRepository} from '../repository/recipe.repository';
-import {Recipe} from '../model/recipe';
 import {FlashMessageService} from '../../core/service/flash-message.service';
 import {FlashMessage} from '../../core/model/flash-message';
+import {RecipeRepository} from '../repository/recipe.repository';
+import {Recipe} from '../model/recipe';
 import {Ingredient} from '../model/ingredient';
 
 @Component({
