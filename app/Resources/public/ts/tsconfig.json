@@ -5,6 +5,7 @@
     "node_modules"
   ],
   "compilerOptions": {
+    "noImplicitAny": true,
     "experimentalDecorators": true,
     "lib": [
       "es6",

@@ -1,7 +1,6 @@
-import {ProductResponseDto} from './dto/product-response.dto';
+import {Product} from '../product';
 
-export class Product {
-    id: number;
+export class ProductRequestDto {
     name: string;
     vegan: boolean;
     gr: number;
@@ -11,12 +10,9 @@ export class Product {
     sugar: number;
     fat: number;
     gfat: number;
-    created: Date;
-    updated: Date;
     manufacturer?: string;
 
-    constructor(dto: ProductResponseDto) {
-        this.id = dto.id;
+    constructor(dto: Product) {
         this.name = dto.name;
         this.vegan = dto.vegan;
         this.gr = dto.gr;
@@ -26,8 +22,6 @@ export class Product {
         this.sugar = dto.sugar;
         this.fat = dto.fat;
         this.gfat = dto.gfat;
-        this.created = new Date(dto.created);
-        this.updated = new Date(dto.updated);
         this.manufacturer = dto.manufacturer;
     }
 }

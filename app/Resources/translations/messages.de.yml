@@ -27,11 +27,14 @@ app:
     protein: Eiweiß
     fat: Fett
   product:
+    action:
+      update_success: Das Produkt wurde erfolgreich aktualisiert.
     form:
       carbs: Kohlenhydrate
       fat: Fett
       gfat: ges. Fett
       gr: Gr
+      kcal: Kcal
       manufacturer: Hersteller
       name: Name
       protein: Eiweiß

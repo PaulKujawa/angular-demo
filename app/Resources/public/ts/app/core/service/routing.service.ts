@@ -12,7 +12,7 @@ export class RoutingService {
     }
 
     generate(route: string, params = {}): string {
-        params['_locale'] = this.requestLocale;
+        (params as any)['_locale'] = this.requestLocale;
 
         return this.routing.generate(route, params);
     }

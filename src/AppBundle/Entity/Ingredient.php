@@ -99,8 +99,7 @@ class Ingredient
      * )
      * @ORM\JoinColumn(
      *      name = "measurement",
-     *      referencedColumnName = "id",
-     *      nullable = true
+     *      referencedColumnName = "id"
      * )
      * @ORM\OrderBy({"name" = "ASC"})
      */

@@ -2,7 +2,7 @@ import {Ingredient} from './ingredient';
 import {Photo} from './photo';
 import {Cooking} from './cooking';
 import {Macros} from './macros';
-import {RecipeDto} from "./dto/recipe.dto";
+import {RecipeResponseDto} from "./dto/recipe-response.dto";
 
 export class Recipe {
     id: number;
@@ -16,7 +16,7 @@ export class Recipe {
     ingredients?: Ingredient[];
     cookings?: Cooking[];
 
-    constructor(dto: RecipeDto) {
+    constructor(dto: RecipeResponseDto) {
         this.id = dto.id;
         this.name = dto.name;
         this.isVegan = dto.isVegan;

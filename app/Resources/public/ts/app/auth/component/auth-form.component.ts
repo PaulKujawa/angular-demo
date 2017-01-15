@@ -49,10 +49,7 @@ export class AuthFormComponent {
             .subscribe(
                 (jwt: Jwt) => {
                     this.authService.setJwt(jwt);
-                    const message = new FlashMessage(
-                        'success',
-                        this.translationService.trans('app.auth.signed_in')
-                    );
+                    const message = new FlashMessage('success', this.translationService.trans('app.auth.signed_in'));
                     this.flashMsgService.push(message);
                 },
                 (error: string) => this.flashMsgService.push(new FlashMessage('danger', error))

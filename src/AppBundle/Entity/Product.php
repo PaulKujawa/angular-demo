@@ -35,7 +35,7 @@ class Product
      * @var int
      *
      * @Assert\NotNull()
-     * @Assert\GreaterThan(value = 0)
+     * @Assert\GreaterThanOrEqual(value = 0)
      *
      * @ORM\Column(type = "smallint")
      */
@@ -45,7 +45,7 @@ class Product
      * @var int
      *
      * @Assert\NotNull()
-     * @Assert\GreaterThan(value = 0)
+     * @Assert\GreaterThanOrEqual(value = 0)
      *
      * @ORM\Column(type = "integer")
      */
@@ -123,7 +123,8 @@ class Product
      *
      * @ORM\Column(
      *     type = "string",
-     *     length = 40
+     *     length = 40,
+     *     nullable = true
      * )
      */
     private $manufacturer;
@@ -266,9 +267,9 @@ class Product
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getManufacturer(): string
+    public function getManufacturer()
     {
         return $this->manufacturer;
     }

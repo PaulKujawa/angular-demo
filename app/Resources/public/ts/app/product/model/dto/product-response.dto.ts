@@ -1,8 +1,9 @@
-export class ProductDto {
+export class ProductResponseDto {
     id: number;
     name: string;
     vegan: boolean;
     gr: number;
+    kcal: number;
     protein: number;
     carbs: number;
     sugar: number;

@@ -3,7 +3,7 @@ import {Photo} from '../photo';
 import {Cooking} from '../cooking';
 import {Macros} from '../macros';
 
-export class RecipeDto {
+export class RecipeResponseDto {
     public id: number;
     public name: string;
     public isVegan: boolean;

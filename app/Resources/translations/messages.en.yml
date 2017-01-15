@@ -27,11 +27,14 @@ app:
       protein: Protein
       fat: Fat
   product:
+    action:
+      update_success: The product were updated successfully.
     form:
       carbs: Carbs
       fat: Fat
       gfat: sat. Fett
       gr: Gr
+      kcal: Kcal
       manufacturer: Manufacturer
       name: Name
       protein: Protein
