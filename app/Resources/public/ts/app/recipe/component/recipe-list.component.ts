@@ -1,14 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import {Subject} from "rxjs/Subject";
-import {RecipeRepository} from "../repository/recipe.repository";
-import {Recipe} from "../model/recipe";
-import {FlashMessageService} from "../../core/service/flash-message.service";
-import {FlashMessage} from "../../core/model/flash-message";
-import {Recipes} from "../model/pageable/recipes";
+import {Router} from '@angular/router';
+import {Subject} from 'rxjs/Subject';
+import {RecipeRepository} from '../repository/recipe.repository';
+import {Recipe} from '../model/recipe';
+import {FlashMessageService} from '../../core/service/flash-message.service';
+import {FlashMessage} from '../../core/model/flash-message';
+import {Recipes} from '../model/recipes';
 
 @Component({
-    selector: 'recipes',
     template: `
         <div class="row">
             <div class="col-xs-12">
@@ -22,15 +21,16 @@ import {Recipes} from "../model/pageable/recipes";
                         <img class="media-object app-recipes-item__object" [src]="getImageUrl(recipe)"> 
                     </div>
                     <div class="media-body">
-                        <h2 class="media-heading">{{ recipe.name }}</h2>
+                        <h2 class="media-heading">{{recipe.name}}</h2>
                         <macro-chart [macros]="recipe.macros"></macro-chart>
+                        <span><i>{{recipe.updated|date}}</i></span>
                     </div>
                 </div>
             </div>
         </div>
     `
 })
-export class RecipesComponent implements OnInit {
+export class RecipeListComponent implements OnInit {
     recipes: Recipes;
     private filterStream = new Subject<Map<string, string>>();
 
@@ -52,7 +52,8 @@ export class RecipesComponent implements OnInit {
     }
 
     onSelectRecipe(recipe: Recipe): void {
-        this.router.navigate(['/recipes', recipe.id, recipe.name]); // TODO escape spaces in name
+        const recipeName = recipe.name.replace(' ', '-');
+        this.router.navigate(['/recipes', recipe.id, recipeName]);
     }
 
     getImageUrl(recipe: Recipe): string {

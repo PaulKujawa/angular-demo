@@ -24,20 +24,16 @@ trait DescriptionTrait
 
     /**
      * @param string $description
-     *
-     * @return $this
      */
-    public function setDescription($description)
+    public function setDescription(string $description)
     {
         $this->description = $description;
-
-        return $this;
     }
 
     /**
      * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }

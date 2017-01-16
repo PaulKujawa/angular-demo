@@ -7,6 +7,12 @@ app:
   auth:
     signed_in: Successfully signed in.
   common:
+    cms: CMS
+    delete: Delete
+    filter:
+      search: Suche...
+    products: Products
+    recipes: Recipes
     submit: Submit
   inquiry:
     description: Home project about recipes.
@@ -20,10 +26,22 @@ app:
       carbs: Carbs
       protein: Protein
       fat: Fat
+  product:
+    action:
+      update_success: The product were updated successfully.
+    form:
+      carbs: Carbs
+      fat: Fat
+      gfat: sat. Fett
+      gr: Gr
+      kcal: Kcal
+      manufacturer: Manufacturer
+      name: Name
+      protein: Protein
+      sugar: Sugar
+      vegan: Vegan
   recipe:
     cooking: Cooking
     filter:
-      search: Search...
       vegan_only: solely vegan
     ingredients: Ingredients
-    recipes: Recipes

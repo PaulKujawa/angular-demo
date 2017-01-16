@@ -8,6 +8,7 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\View;
+use JMS\Serializer\SerializationContext;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +19,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
     /**
      * @return View
      */
-    public function newAction()
+    public function newAction(): View
     {
         return $this->view($this->createForm(ProductType::class));
     }
@@ -28,7 +29,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
      *
      * @return View
      */
-    public function getManufacturerAction($id)
+    public function getManufacturerAction(int $id): View
     {
         $product = $this->get('app.repository.product')->getProduct($id);
 
@@ -40,15 +41,17 @@ class ProductController extends FOSRestController implements ClassResourceInterf
     /**
      * @QueryParam(name="page", requirements=@GreaterThan(value=0), default="1")
      *
+     * @param Request $request
      * @param int $page
      *
      * @return View
      */
-    public function cgetAction($page)
+    public function cgetAction(Request $request, int $page): View
     {
         $repository = $this->get('app.repository.product');
+        $decorator = $this->get('app.request_decorator.product_composite_decorator')->createQueryDecorator($request);
 
-        return $this->view($repository->getProducts((int) $page));
+        return $this->view($repository->getProducts($page, $decorator));
     }
 
     /**
@@ -56,7 +59,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
      *
      * @return View
      */
-    public function getAction($id)
+    public function getAction(int $id): View
     {
         $product = $this->get('app.repository.product')->getProduct($id);
 
@@ -72,7 +75,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
      *
      * @return View
      */
-    public function postAction(Request $request)
+    public function postAction(Request $request): View
     {
         $form = $this->createForm(ProductType::class);
         $form->handleRequest($request);
@@ -96,7 +99,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
      *
      * @return View
      */
-    public function putAction(Request $request, $id)
+    public function putAction(Request $request, int $id): View
     {
         $product = $this->get('app.repository.product')->getProduct($id);
 
@@ -125,7 +128,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
      *
      * @return View
      */
-    public function deleteAction($id)
+    public function deleteAction(int $id): View
     {
         $product = $this->get('app.repository.product')->getProduct($id);
 

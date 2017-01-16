@@ -11,6 +11,9 @@ class CompositeQueryDecorator implements QueryDecorator
      */
     private $queryDecorators;
 
+    /**
+     * @param array $queryDecorators
+     */
     public function __construct(array $queryDecorators)
     {
         $this->queryDecorators = $queryDecorators;

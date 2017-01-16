@@ -14,9 +14,11 @@ use Symfony\Component\HttpFoundation\Response;
 class PhotoController extends FOSRestController implements ClassResourceInterface
 {
     /**
+     * @param int $recipeId
+     *
      * @return View
      */
-    public function newAction($recipeId)
+    public function newAction(int $recipeId): View
     {
         return $this->view($this->createForm(PhotoType::class));
     }
@@ -26,7 +28,7 @@ class PhotoController extends FOSRestController implements ClassResourceInterfac
      *
      * @return View
      */
-    public function cgetAction($recipeId)
+    public function cgetAction(int $recipeId): View
     {
         $photos = $this->get('app.repository.photo')->getPhotos($recipeId);
 
@@ -39,7 +41,7 @@ class PhotoController extends FOSRestController implements ClassResourceInterfac
      *
      * @return View
      */
-    public function getAction($recipeId, $id)
+    public function getAction(int $recipeId, int $id): View
     {
         $product = $this->get('app.repository.photo')->getPhoto($recipeId, $id);
 
@@ -54,7 +56,7 @@ class PhotoController extends FOSRestController implements ClassResourceInterfac
      *
      * @return View
      */
-    public function postAction(Request $request, $recipeId)
+    public function postAction(Request $request, int $recipeId): View
     {
         $recipe = $this->get('app.repository.recipe')->getRecipe($recipeId);
         if (null === $recipe) {
@@ -85,7 +87,7 @@ class PhotoController extends FOSRestController implements ClassResourceInterfac
      *
      * @return View
      */
-    public function putAction(Request $request, $recipeId, $id)
+    public function putAction(Request $request, int $recipeId, int $id): View
     {
         $photo = $this->get('app.repository.photo')->getPhoto($recipeId, $id);
 
@@ -115,7 +117,7 @@ class PhotoController extends FOSRestController implements ClassResourceInterfac
      *
      * @return View
      */
-    public function deleteAction($recipeId, $id)
+    public function deleteAction(int $recipeId, int $id): View
     {
         $photo = $this->get('app.repository.photo')->getPhoto($recipeId, $id);
 

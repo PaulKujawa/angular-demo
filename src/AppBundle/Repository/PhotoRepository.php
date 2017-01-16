@@ -25,7 +25,7 @@ class PhotoRepository
      *
      * @return Photo[]|array
      */
-    public function getPhotos($recipeId)
+    public function getPhotos(int $recipeId): array
     {
         return $this->entityManager->getRepository(Photo::class)->findBy(['recipe' => $recipeId]);
     }
@@ -36,7 +36,7 @@ class PhotoRepository
      *
      * @return Photo|null
      */
-    public function getPhoto($recipeId, $id)
+    public function getPhoto(int $recipeId, int $id)
     {
         return $this->entityManager->getRepository(Photo::class)->findOneBy(['recipe' => $recipeId, 'id' => $id]);
     }

@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\IdAutoTrait;
 use AppBundle\Entity\Traits\PositionTrait;
+use AppBundle\Entity\Traits\TimestampTrait;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Exclude;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -27,12 +28,13 @@ class Ingredient
 {
     use IdAutoTrait;
     use PositionTrait;
+    use TimestampTrait;
 
     /**
      * @param int $recipeId
      * @param int $position
      */
-    public function __construct($recipeId, $position)
+    public function __construct(int $recipeId, int $position)
     {
         $this->recipe = $recipeId;
         $this->position = $position;
@@ -97,8 +99,7 @@ class Ingredient
      * )
      * @ORM\JoinColumn(
      *      name = "measurement",
-     *      referencedColumnName = "id",
-     *      nullable = true
+     *      referencedColumnName = "id"
      * )
      * @ORM\OrderBy({"name" = "ASC"})
      */
@@ -115,7 +116,7 @@ class Ingredient
     /**
      * @return Recipe
      */
-    public function getRecipe()
+    public function getRecipe(): Recipe
     {
         return $this->recipe;
     }
@@ -123,13 +124,13 @@ class Ingredient
     /**
      * @param int $amount
      */
-    public function setAmount($amount)
+    public function setAmount(int $amount)
     {
         $this->amount = $amount;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
     public function getAmount()
     {
@@ -147,7 +148,7 @@ class Ingredient
     /**
      * @return Product
      */
-    public function getProduct()
+    public function getProduct(): Product
     {
         return $this->product;
     }
@@ -163,7 +164,7 @@ class Ingredient
     /**
      * @return Measurement
      */
-    public function getMeasurement()
+    public function getMeasurement(): Measurement
     {
         return $this->measurement;
     }

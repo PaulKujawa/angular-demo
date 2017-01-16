@@ -1,24 +1,3 @@
-var loadAngularModules = function(forPreCompile) {
-    var map = {},
-        packages = {},
-        modules = ['core', 'common', 'compiler', 'platform-browser', 'platform-browser-dynamic', 'http', 'router', 'forms'];
-
-    if (forPreCompile) {
-        modules.forEach(function (name) {
-            packages['@angular/' + name] = {"main": "index.js", "defaultExtension": "js"};
-        });
-    } else {
-        modules.forEach(function(name) {
-            map['@angular/' + name] = '@angular/' + name + '/bundles/' + name + '.umd.js';
-        });
-    }
-
-    SystemJS.config({
-        packages: packages,
-        map: map
-    });
-};
-
 SystemJS.config({
   typescriptOptions: {
     'target': 'es5',
@@ -35,7 +14,6 @@ SystemJS.config({
     'bootstrap-sass/': 'node_modules/bootstrap-sass/',
     'rxjs/': 'node_modules/rxjs/',
     'ts-helpers': 'node_modules/ts-helpers/index.js',
-
     'app/': 'app/Resources/public/ts/app/',
     'app-compiled/': 'app/Resources/public/ts/app-compiled/',
     'vendor/': 'app/Resources/public/ts/vendor/'
@@ -45,7 +23,15 @@ SystemJS.config({
     'core-js': 'node_modules/core-js/client',
     'js': 'web/js',
     'ts-helpers': 'node_modules/ts-helpers/index.js',
-    'zone.js': 'node_modules/zone.js/dist'
+    'zone.js': 'node_modules/zone.js/dist',
+    '@angular/core': '@angular/core/bundles/core.umd.js',
+    '@angular/common': '@angular/common/bundles/common.umd.js',
+    '@angular/compiler': '@angular/compiler/bundles/compiler.umd.js',
+    '@angular/platform-browser': '@angular/platform-browser/bundles/platform-browser.umd.js',
+    '@angular/platform-browser-dynamic': '@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
+    '@angular/http': '@angular/http/bundles/http.umd.js',
+    '@angular/router': '@angular/router/bundles/router.umd.js',
+    '@angular/forms': '@angular/forms/bundles/forms.umd.js'
   },
   packages: {
     'app': {
@@ -83,8 +69,6 @@ SystemJS.config({
   }
 });
 
-loadAngularModules(typeof process !== 'undefined' && process.env.ANGULAR_PRE_COMPILE);
-
 SystemJS.config({
   packageConfigPaths: [
     'npm:@*/*.json',
@@ -103,7 +87,7 @@ SystemJS.config({
     'path': 'npm:jspm-nodelibs-path@0.2.0',
     'jquery': 'npm:jquery@2.2.4',
     'os': 'npm:jspm-nodelibs-os@0.2.0',
-    'process': 'github:jspm/nodelibs-process@0.2.0-alpha',
+    'process': 'npm:jspm-nodelibs-process@0.2.0',
     'stream': 'npm:jspm-nodelibs-stream@0.2.0',
     'string_decoder': 'npm:jspm-nodelibs-string_decoder@0.2.0',
     'sync-p': 'npm:sync-p@1.1.0',

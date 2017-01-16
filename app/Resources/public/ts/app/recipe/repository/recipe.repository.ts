@@ -3,7 +3,7 @@ import {Observable} from "rxjs/Observable";
 import {Http, URLSearchParams} from "@angular/http";
 import {Recipe} from "../model/recipe";
 import {RoutingService} from "../../core/service/routing.service";
-import {Recipes} from "../model/pageable/recipes";
+import {Recipes} from "../model/recipes";
 
 @Injectable()
 export class RecipeRepository {
@@ -25,7 +25,7 @@ export class RecipeRepository {
         const url = this.routingService.generate('api_get_recipe', {'id': id});
 
         return this.http.get(url)
-            .map(recipe => recipe.json() || {} )
+            .map(recipe => new Recipe(recipe.json()))
             .catch(error => Observable.throw(error.message || error.statusText));
     }
 }

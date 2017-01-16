@@ -5,7 +5,6 @@ namespace AppBundle\Controller\Api;
 use AppBundle\Form\RecipeType;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
-use FOS\RestBundle\Controller\Annotations\View as AnnotationsView;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\View;
@@ -35,29 +34,34 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
      *
      * @return View
      */
-    public function cgetAction(Request $request, $page)
+    public function cgetAction(Request $request, int $page): View
     {
         $repository = $this->get('app.repository.recipe');
         $decorator = $this->get('app.request_decorator.recipe_composite_decorator')->createQueryDecorator($request);
 
-        $view = $this->view($repository->getRecipes((int) $page, $decorator));
+        $view = $this->view($repository->getRecipes($page, $decorator));
         $view->setSerializationContext(SerializationContext::create()->setGroups(['Default', 'recipeList']));
 
         return $view;
     }
 
     /**
-     * @AnnotationsView(serializerGroups={"Default", "recipeDetail"})
-     *
      * @param int $id
      *
      * @return View
      */
-    public function getAction($id)
+    public function getAction(int $id): View
     {
         $recipe = $this->get('app.repository.recipe')->getRecipe($id);
 
-        return $recipe ?: $this->view(null, Response::HTTP_NOT_FOUND);
+        if (null === $recipe) {
+            return $this->view(null, Response::HTTP_NOT_FOUND);
+        }
+
+        $view = $this->view($recipe);
+        $view->setSerializationContext(SerializationContext::create()->setGroups(['Default', 'recipeDetail']));
+
+        return $view;
     }
 
     /**
@@ -65,7 +69,7 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
      *
      * @return View
      */
-    public function postAction(Request $request)
+    public function postAction(Request $request): View
     {
         $form = $this->createForm(RecipeType::class);
         $form->handleRequest($request);
@@ -89,7 +93,7 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
      *
      * @return View
      */
-    public function putAction(Request $request, $id)
+    public function putAction(Request $request, int $id): View
     {
         $recipe = $this->get('app.repository.product')->getProduct($id);
 
@@ -118,7 +122,7 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
      *
      * @return View
      */
-    public function deleteAction($id)
+    public function deleteAction(int $id): View
     {
         $recipe = $this->get('app.repository.recipe')->getRecipe($id);
 

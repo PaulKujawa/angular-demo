@@ -12,7 +12,7 @@ use Doctrine\ORM\ORMException;
 
 class ProductRepository
 {
-    const PAGE_LIMIT = 5;
+    const PAGE_LIMIT = 10;
 
     /**
      * @var EntityManager
@@ -42,7 +42,7 @@ class ProductRepository
      *
      * @return PaginationResponse
      */
-    public function getProducts($page, QueryDecorator $queryDecorator = null)
+    public function getProducts(int $page, QueryDecorator $queryDecorator = null): PaginationResponse
     {
         $repository = $this->entityManager->getRepository(Product::class);
         $firstResult = ($page - 1) * self::PAGE_LIMIT;
@@ -76,7 +76,7 @@ class ProductRepository
      *
      * @return Product|null
      */
-    public function getProduct($id)
+    public function getProduct(int $id)
     {
         return $this->entityManager->getRepository(Product::class)->find($id);
     }

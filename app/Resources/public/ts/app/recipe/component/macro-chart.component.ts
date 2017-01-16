@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges} from '@angular/core';
-import {Macros} from "../model/macros";
+import {Macros} from '../model/macros';
 
 @Component({
     selector: 'macro-chart',

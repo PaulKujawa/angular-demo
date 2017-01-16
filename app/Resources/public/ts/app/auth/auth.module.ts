@@ -6,6 +6,7 @@ import {AuthComponent} from "./component/auth.component";
 import {FormsModule} from "@angular/forms";
 import {AuthRepository} from "./repository/auth.repository";
 import {AuthService} from "./service/auth.service";
+import {AuthFormComponent} from './component/auth-form.component';
 
 @NgModule({
     imports: [
@@ -16,6 +17,7 @@ import {AuthService} from "./service/auth.service";
     ],
     declarations: [
         AuthComponent,
+        AuthFormComponent,
     ],
     exports: [],
     providers: [

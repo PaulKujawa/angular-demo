@@ -17,7 +17,7 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
     /**
      * @return View
      */
-    public function newAction()
+    public function newAction(): View
     {
         return $this->view($this->createForm(MeasurementType::class));
     }
@@ -29,11 +29,11 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
      *
      * @return View
      */
-    public function cgetAction($page)
+    public function cgetAction(int $page): View
     {
         $repository = $this->get('app.repository.measurement');
 
-        return $this->view($repository->getMeasurements((int) $page));
+        return $this->view($repository->getMeasurements($page));
     }
 
     /**
@@ -41,7 +41,7 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
      *
      * @return View
      */
-    public function getAction($id)
+    public function getAction(int $id): View
     {
         $measurement = $this->get('app.repository.measurement')->getMeasurement($id);
 
@@ -55,7 +55,7 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
      *
      * @return View
      */
-    public function postAction(Request $request)
+    public function postAction(Request $request): View
     {
         $form = $this->createForm(MeasurementType::class);
         $form->handleRequest($request);
@@ -79,7 +79,7 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
      *
      * @return View
      */
-    public function putAction(Request $request, $id)
+    public function putAction(Request $request, int $id): View
     {
         $measurement = $this->get('app.repository.measurement')->getMeasurement($id);
 
@@ -108,7 +108,7 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
      *
      * @return View
      */
-    public function deleteAction($id)
+    public function deleteAction(int $id): View
     {
         $measurement = $this->get('app.repository.measurement')->getMeasurement($id);
 

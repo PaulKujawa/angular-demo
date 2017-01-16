@@ -11,13 +11,13 @@ security:
             pattern: ^/[a-z][a-z]/api(?!/inquiries)
             lexik_jwt:
                 authorization_header: # format "Authorization: Bearer {JWT}"
-            methods: [POST, PUT, DELETE]
+            methods: [POST, DELETE] # TODO secure PUT again
             provider: fos_userbundle
             stateless: true
 
         app:
             pattern: ^/[a-z][a-z]
-            anonymous: ~ # would enable setting IS_AUTHENTICATED_ANONYMOUSLY in security.access_control
+            anonymous: true
             form_login:
                 provider: fos_userbundle
                 login_path: fos_user_security_login # redirect to for authentication page & session cookie

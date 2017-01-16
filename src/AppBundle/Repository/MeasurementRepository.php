@@ -42,7 +42,7 @@ class MeasurementRepository
      *
      * @return PaginationResponse
      */
-    public function getMeasurements($page, QueryDecorator $queryDecorator = null)
+    public function getMeasurements(int $page, QueryDecorator $queryDecorator = null): PaginationResponse
     {
         $repository = $this->entityManager->getRepository(Measurement::class);
         $firstResult = ($page - 1) * self::PAGE_LIMIT;
@@ -76,7 +76,7 @@ class MeasurementRepository
      *
      * @return Measurement|null
      */
-    public function getMeasurement($id)
+    public function getMeasurement(int $id)
     {
         return $this->entityManager->getRepository(Measurement::class)->find($id);
     }

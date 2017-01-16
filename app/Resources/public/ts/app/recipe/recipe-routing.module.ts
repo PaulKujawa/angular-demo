@@ -1,14 +1,29 @@
-import {NgModule} from "@angular/core";
-import {RouterModule} from "@angular/router";
-import {RecipeComponent} from "./component/recipe.component";
-import {RecipesComponent} from "./component/recipes.component";
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {RecipeComponent} from './component/recipe.component';
+import {RecipeListComponent} from './component/recipe-list.component';
+import {RecipeDetailComponent} from './component/recipe-detail.component';
+
+const recipeRoutes: Routes = [
+    {
+        path: 'recipes',
+        component: RecipeComponent,
+        children: [
+            {
+                path: ':id/:name',
+                component: RecipeDetailComponent
+            },
+            {
+                path: '',
+                component: RecipeListComponent
+            },
+        ]
+    },
+];
 
 @NgModule({
     imports: [
-        RouterModule.forChild([
-            {path: 'recipes', component: RecipesComponent},
-            {path: 'recipes/:id/:name', component: RecipeComponent},
-        ])
+        RouterModule.forChild(recipeRoutes),
     ],
     exports: [RouterModule]
 })
