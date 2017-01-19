@@ -6,6 +6,7 @@ import {FlashMessage} from '../../core/model/flash-message';
 import {ProductRepository} from '../repository/product.repository';
 import {Product} from '../model/product';
 import {Products} from '../model/products';
+import {Observable} from 'rxjs';
 
 @Component({
     template: `
@@ -35,7 +36,9 @@ export class ProductListComponent implements OnInit {
 
     ngOnInit(): void {
         this.filterStream
-            .switchMap((queryParams: Map<string, string>) => this.productRepository.getProducts(queryParams))
+            .subscribe((queryParams: Map<string, string>) => this.productRepository.reloadProducts(queryParams));
+
+        this.productRepository.products
             .subscribe(
                 (products: Products) => this.products = products,
                 (error: string) => this.flashMsgService.push(new FlashMessage('danger', error))

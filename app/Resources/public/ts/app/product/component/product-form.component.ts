@@ -31,7 +31,8 @@ import {Product} from '../model/product';
                 </div>
                 <div class="col-xs-12 col-sm-4 form-group">
                     <label>{{'app.product.form.carbs'|trans}}</label>
-                    <input type="number" required step="0.1" class="form-control" name="carbs" [(ngModel)]="product.carbs">
+                    <input type="number" required step="0.1" class="form-control" name="carbs" 
+                    [(ngModel)]="product.carbs">
                 </div>
                 <div class="col-xs-12 col-sm-4 form-group">
                     <label>{{'app.product.form.fat'|trans}}</label>
@@ -41,15 +42,18 @@ import {Product} from '../model/product';
             <div class="row">
                 <div class="col-xs-12 col-sm-4 form-group">
                     <label>{{'app.product.form.protein'|trans}}</label>
-                    <input type="number" required step="0.1" class="form-control" name="protein" [(ngModel)]="product.protein">
+                    <input type="number" required step="0.1" class="form-control" name="protein" 
+                    [(ngModel)]="product.protein">
                 </div>
                 <div class="col-xs-12 col-sm-4 form-group">
                     <label>{{'app.product.form.sugar'|trans}}</label>
-                    <input type="number" required step="0.1" class="form-control" name="sugar" [(ngModel)]="product.sugar">
+                    <input type="number" required step="0.1" class="form-control" name="sugar" 
+                    [(ngModel)]="product.sugar">
                 </div>
                 <div class="col-xs-12 col-sm-4 form-group">
                     <label>{{'app.product.form.gfat'|trans}}</label>
-                    <input type="number" required step="0.1" class="form-control" name="gfat" [(ngModel)]="product.gfat">
+                    <input type="number" required step="0.1" class="form-control" name="gfat" 
+                    [(ngModel)]="product.gfat">
                 </div>
             </div>
             <div class="row">
@@ -62,7 +66,7 @@ import {Product} from '../model/product';
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <button type="button" class="btn btn-danger">
+                    <button type="button" class="btn btn-danger" (click)="onDelete()">
                         {{'app.common.delete'|trans}}
                     </button>
                     <button type="submit" class="btn btn-primary" [disabled]="!productForm.form.valid">
@@ -85,14 +89,22 @@ export class ProductFormComponent {
         this.productRepository.putProduct(this.product)
             .subscribe(
                 () => {
-                    const message = new FlashMessage(
-                        'success',
-                        this.translationService.trans('app.product.action.update_success')
-                    );
-                    this.flashMsgService.push(message);
+                    const text = this.translationService.trans('app.product.action.update_success');
+                    this.flashMsgService.push(new FlashMessage('success', text));
                     this.router.navigate(['products']);
                 },
                 (error: string) => this.flashMsgService.push(new FlashMessage('danger', error))
             );
+    }
+
+    onDelete(): void {
+        this.productRepository.deleteProduct(this.product.id)
+            .subscribe(
+                () => {
+                    this.flashMsgService.push(new FlashMessage('success', 'yo, it\'s removed'));
+                    this.router.navigate(['products']);
+                },
+                (error: string) => this.flashMsgService.push(new FlashMessage('danger', error))
+            )
     }
 }

@@ -58,7 +58,7 @@ export class RecipeDetailComponent implements OnInit {
     getMeasurement(ingredient: Ingredient): string {
         return ingredient.amount
             ? [ingredient.amount, ingredient.measurement.name].join(' ')
-            : null;
+            : '';
     }
 
     getImageUrl(): string {
