@@ -27,6 +27,8 @@ fos_rest:
         default_format: json
     view:
         default_engine: twig
+        force_redirects: # redirect via View::createRouteRedirect()
+          json: true
         formats: # formats rendered via JMS serializer
             json : true
         templating_formats: # formats requiring a template for rendering (twig)

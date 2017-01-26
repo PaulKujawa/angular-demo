@@ -5,7 +5,6 @@
     "node_modules"
   ],
   "compilerOptions": {
-    "noImplicitAny": true,
     "experimentalDecorators": true,
     "lib": [
       "es6",
@@ -13,6 +12,9 @@
     ],
     "moduleResolution": "node",
     "noEmit": true,
+    "noImplicitAny": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
     "target": "es5"
   },
   "angularCompilerOptions": {

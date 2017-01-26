@@ -2,14 +2,13 @@
 
 namespace AppBundle\Controller\Api;
 
+use AppBundle\Entity\Product;
 use AppBundle\Form\ProductType;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\View;
-use JMS\Serializer\SerializationContext;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints\GreaterThan;
@@ -22,20 +21,6 @@ class ProductController extends FOSRestController implements ClassResourceInterf
     public function newAction(): View
     {
         return $this->view($this->createForm(ProductType::class));
-    }
-
-    /**
-     * @param int $id
-     *
-     * @return View
-     */
-    public function getManufacturerAction(int $id): View
-    {
-        $product = $this->get('app.repository.product')->getProduct($id);
-
-        return null === $product
-            ? $this->view(null, Response::HTTP_NOT_FOUND)
-            : $this->view($product->getManufacturer());
     }
 
     /**
@@ -69,8 +54,6 @@ class ProductController extends FOSRestController implements ClassResourceInterf
     }
 
     /**
-     * @Security("is_authenticated()")
-     *
      * @param Request $request
      *
      * @return View
@@ -86,11 +69,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
 
         $product = $this->get('app.repository.product')->addProduct($form->getData());
 
-        return $this->view()->createRouteRedirect(
-            'api_get_product',
-            ['id' => $product->getId()],
-            Response::HTTP_CREATED
-        );
+        return $this->view()->createRouteRedirect('api_get_product', ['id' => $product->id], Response::HTTP_CREATED);
     }
 
     /**
@@ -116,11 +95,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
 
         $this->get('app.repository.product')->setProduct($product);
 
-        return $this->view()->createRouteRedirect(
-            'api_get_product',
-            ['id' => $id],
-            Response::HTTP_NO_CONTENT
-        );
+        return $this->view()->createRouteRedirect('api_get_product', ['id' => $id], Response::HTTP_NO_CONTENT);
     }
 
     /**

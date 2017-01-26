@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * })
  *
  * @ORM\Table()
- * @ORM\HasLifecycleCallbacks
+ * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity(repositoryClass = "AppBundle\Entity\Repository\RecipeRelatedRepository")
  */
 class Ingredient
@@ -59,7 +59,7 @@ class Ingredient
      * )
      * @ORM\OrderBy({"name" = "ASC"})
      */
-    private $recipe;
+    public $recipe;
 
     /**
      * @var Product
@@ -76,7 +76,7 @@ class Ingredient
      * )
      * @ORM\OrderBy({"name" = "ASC"})
      */
-    private $product;
+    public $product;
 
     /**
      * @var int
@@ -88,7 +88,7 @@ class Ingredient
      *      nullable = true
      * )
      */
-    private $amount;
+    public $amount;
 
     /**
      * @var Measurement
@@ -103,69 +103,5 @@ class Ingredient
      * )
      * @ORM\OrderBy({"name" = "ASC"})
      */
-    private $measurement;
-
-    /**
-     * @param Recipe $recipe
-     */
-    public function setRecipe(Recipe $recipe)
-    {
-        $this->recipe = $recipe;
-    }
-
-    /**
-     * @return Recipe
-     */
-    public function getRecipe(): Recipe
-    {
-        return $this->recipe;
-    }
-
-    /**
-     * @param int $amount
-     */
-    public function setAmount(int $amount)
-    {
-        $this->amount = $amount;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getAmount()
-    {
-        return $this->amount;
-    }
-
-    /**
-     * @param Product $product
-     */
-    public function setProduct(Product $product)
-    {
-        $this->product = $product;
-    }
-
-    /**
-     * @return Product
-     */
-    public function getProduct(): Product
-    {
-        return $this->product;
-    }
-
-    /**
-     * @param Measurement $measurement
-     */
-    public function setMeasurement(Measurement $measurement)
-    {
-        $this->measurement = $measurement;
-    }
-
-    /**
-     * @return Measurement
-     */
-    public function getMeasurement(): Measurement
-    {
-        return $this->measurement;
-    }
+    public $measurement;
 }
