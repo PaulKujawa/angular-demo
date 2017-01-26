@@ -58,7 +58,7 @@ class IngredientRepository
      *
      * @return Ingredient
      */
-    public function addIngredient(Ingredient $ingredient)
+    public function addIngredient(Ingredient $ingredient): Ingredient
     {
         $this->entityManager->persist($ingredient);
         $this->entityManager->flush($ingredient);

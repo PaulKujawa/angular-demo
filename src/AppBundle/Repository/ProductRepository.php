@@ -86,7 +86,7 @@ class ProductRepository
      *
      * @return Product
      */
-    public function addProduct(Product $product)
+    public function addProduct(Product $product): Product
     {
         $this->entityManager->persist($product);
         $this->entityManager->flush($product);

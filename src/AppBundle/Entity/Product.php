@@ -15,6 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table()
  * @ORM\Entity()
+ * @ORM\HasLifecycleCallbacks()
  */
 class Product
 {
@@ -29,7 +30,7 @@ class Product
      *
      * @ORM\Column(type = "boolean")
      */
-    private $vegan;
+    public $vegan;
 
     /**
      * @var int
@@ -39,7 +40,7 @@ class Product
      *
      * @ORM\Column(type = "smallint")
      */
-    private $gr;
+    public $gr;
 
     /**
      * @var int
@@ -49,7 +50,7 @@ class Product
      *
      * @ORM\Column(type = "integer")
      */
-    private $kcal;
+    public $kcal;
 
     /**
      * @var float
@@ -62,7 +63,7 @@ class Product
      *      scale = 1
      * )
      */
-    private $protein;
+    public $protein;
 
     /**
      * @var float
@@ -75,7 +76,7 @@ class Product
      *      scale = 1
      * )
      */
-    private $carbs;
+    public $carbs;
 
     /**
      * @var float
@@ -88,7 +89,7 @@ class Product
      *      scale = 1
      * )
      */
-    private $sugar;
+    public $sugar;
 
     /**
      * @var float
@@ -101,7 +102,7 @@ class Product
      *      scale = 1
      * )
      */
-    private $fat;
+    public $fat;
 
     /**
      * @var float
@@ -114,7 +115,7 @@ class Product
      *      scale = 1
      * )
      */
-    private $gfat;
+    public $gfat;
 
     /**
      * @var string
@@ -127,150 +128,5 @@ class Product
      *     nullable = true
      * )
      */
-    private $manufacturer;
-
-    /**
-     * @param boolean $vegan
-     */
-    public function setVegan(bool $vegan)
-    {
-        $this->vegan = $vegan;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getVegan(): bool
-    {
-        return $this->vegan;
-    }
-
-
-    /**
-     * @param int $kcal
-     */
-    public function setKcal(int $kcal)
-    {
-        $this->kcal = $kcal;
-    }
-
-    /**
-     * @return int
-     */
-    public function getKcal(): int
-    {
-        return $this->kcal;
-    }
-
-    /**
-     * @param int $gr
-     */
-    public function setGr(int $gr)
-    {
-        $this->gr = $gr;
-    }
-
-    /**
-     * @return int
-     */
-    public function getGr(): int
-    {
-        return $this->gr;
-    }
-
-    /**
-     * @param float $protein
-     */
-    public function setProtein(float $protein)
-    {
-        $this->protein = $protein;
-    }
-
-    /**
-     * @return float
-     */
-    public function getProtein(): float
-    {
-        return $this->protein;
-    }
-
-    /**
-     * @param float $carbs
-     */
-    public function setCarbs(float $carbs)
-    {
-        $this->carbs = $carbs;
-    }
-
-    /**
-     * @return float
-     */
-    public function getCarbs(): float
-    {
-        return $this->carbs;
-    }
-
-    /**
-     * @param float $sugar
-     */
-    public function setSugar(float $sugar)
-    {
-        $this->sugar = $sugar;
-    }
-
-    /**
-     * @return float
-     */
-    public function getSugar(): float
-    {
-        return $this->sugar;
-    }
-
-    /**
-     * @param float $fat
-     */
-    public function setFat(float $fat)
-    {
-        $this->fat = $fat;
-    }
-
-    /**
-     * @return float
-     */
-    public function getFat(): float
-    {
-        return $this->fat;
-    }
-
-    /**
-     * @param float $gfat
-     */
-    public function setGfat(float $gfat)
-    {
-        $this->gfat = $gfat;
-    }
-
-    /**
-     * @return float
-     */
-    public function getGfat(): float
-    {
-        return $this->gfat;
-    }
-
-    /**
-     * @param string $manufacturer
-     */
-    public function setManufacturer(string $manufacturer)
-    {
-        $this->manufacturer = $manufacturer;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getManufacturer()
-    {
-        return $this->manufacturer;
-    }
+    public $manufacturer;
 }

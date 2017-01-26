@@ -11,7 +11,7 @@ security:
             pattern: ^/[a-z][a-z]/api(?!/inquiries)
             lexik_jwt:
                 authorization_header: # format "Authorization: Bearer {JWT}"
-            methods: [POST] # TODO secure PUT & DELETE again
+            methods: [DELETE, POST, PUT]
             provider: fos_userbundle
             stateless: true
 

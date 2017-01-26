@@ -4,6 +4,10 @@ Name: Name
 Submit: Absenden
 
 app:
+  api:
+    update_success: Erfolgreich aktualisiert.
+    post_success: Erfolgreich hinzugefügt.
+    delete_success: Erfolgreich gelöscht.
   auth:
     signed_in: Erfolgreich angemeldet.
   common:
@@ -11,6 +15,7 @@ app:
     delete: Löschen
     filter:
       search: Suche...
+    new: Neu
     products: Produkte
     recipes: Rezepte
     submit: Absenden
@@ -27,8 +32,6 @@ app:
     protein: Eiweiß
     fat: Fett
   product:
-    action:
-      update_success: Das Produkt wurde erfolgreich aktualisiert.
     form:
       carbs: Kohlenhydrate
       fat: Fett

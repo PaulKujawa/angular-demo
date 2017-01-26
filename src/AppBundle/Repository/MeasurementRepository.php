@@ -86,7 +86,7 @@ class MeasurementRepository
      *
      * @return Measurement
      */
-    public function addMeasurement(Measurement $measurement)
+    public function addMeasurement(Measurement $measurement): Measurement
     {
         $this->entityManager->persist($measurement);
         $this->entityManager->flush($measurement);

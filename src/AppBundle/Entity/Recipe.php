@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table()
  * @ORM\Entity()
+ * @ORM\HasLifecycleCallbacks()
  */
 class Recipe
 {
@@ -33,7 +34,7 @@ class Recipe
      *     type = "boolean"
      * )
      */
-    private $isVegan;
+    public $isVegan;
 
     /**
      * @var Photo
@@ -48,7 +49,7 @@ class Recipe
      *      referencedColumnName = "id"
      * )
      */
-    private $thumbnail;
+    public $thumbnail;
 
     /**
      * @var ArrayCollection
@@ -61,7 +62,7 @@ class Recipe
      * )
      * @ORM\OrderBy({"position" = "ASC"})
      */
-    private $ingredients;
+    public $ingredients;
 
     /**
      * @var ArrayCollection
@@ -74,7 +75,7 @@ class Recipe
      * )
      * @ORM\OrderBy({"position" = "ASC"})
      */
-    private $cookings;
+    public $cookings;
 
     /**
      * @var ArrayCollection
@@ -88,7 +89,7 @@ class Recipe
      * )
      * @ORM\OrderBy({"id" = "ASC"})
      */
-    private $photos;
+    public $photos;
 
     public function __construct()
     {
@@ -104,7 +105,7 @@ class Recipe
     public function generateIsVegan()
     {
         $notVeganProducts = $this->ingredients->filter(function(Ingredient $ingredient) {
-            return !$ingredient->getProduct()->getVegan();
+            return !$ingredient->product->vegan;
         });
 
         $this->isVegan = $notVeganProducts->count() === 0;
@@ -128,7 +129,7 @@ class Recipe
         ];
 
         $ingredients = $this->ingredients->filter(function(Ingredient $ingredient) {
-            return null !== $ingredient->getAmount();
+            return null !== $ingredient->amount;
         });
 
         /**
@@ -136,110 +137,14 @@ class Recipe
          */
         foreach ($ingredients as $ingredient) {
             $rel = $this->getMeasurementRelation($ingredient);
-            $product = $ingredient->getProduct();
-            $macros['kcal'] += $rel*$product->getKcal();
-            $macros['carbs'] += $rel*$product->getCarbs();
-            $macros['protein'] += $rel*$product->getProtein();
-            $macros['fat'] += $rel*$product->getFat();
+            $product = $ingredient->product;
+            $macros['kcal'] += $rel*$product->kcal;
+            $macros['carbs'] += $rel*$product->carbs;
+            $macros['protein'] += $rel*$product->protein;
+            $macros['fat'] += $rel*$product->fat;
         }
 
         return array_map('intval', $macros);
-    }
-
-    /**
-     * @return bool
-     */
-    public function getIsVegan(): bool
-    {
-        return $this->isVegan;
-    }
-
-    /**
-     * @param Ingredient $ingredients
-     */
-    public function addIngredient(Ingredient $ingredients)
-    {
-        $this->ingredients[] = $ingredients;
-    }
-
-    /**
-     * @param Ingredient $cooking
-     */
-    public function removeIngredient(Ingredient $cooking)
-    {
-        $this->ingredients->removeElement($cooking);
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getIngredients(): ArrayCollection
-    {
-        return $this->ingredients;
-    }
-
-    /**
-     * @param Cooking $cooking
-     */
-    public function addCooking(Cooking $cooking)
-    {
-        $this->cookings[] = $cooking;
-    }
-
-    /**
-     * @param Cooking $cooking
-     */
-    public function removeCooking(Cooking $cooking)
-    {
-        $this->cookings->removeElement($cooking);
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getCookings(): ArrayCollection
-    {
-        return $this->cookings;
-    }
-
-    /**
-     * @param Photo $photos
-     */
-    public function addPhoto(Photo $photos)
-    {
-        $this->photos[] = $photos;
-    }
-
-    /**
-     * @param Photo $photos
-     */
-    public function removePhoto(Photo $photos)
-    {
-        $this->photos->removeElement($photos);
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getPhotos()
-    {
-        return $this->photos;
-    }
-
-    /**
-     * @return Photo
-     */
-    public function getThumbnail(): Photo
-    {
-        return $this->thumbnail;
-    }
-
-    /**
-     * @param Photo $thumbnail
-     */
-    public function setThumbnail(Photo $thumbnail)
-    {
-        $this->thumbnail = $thumbnail;
     }
 
     /**
@@ -248,8 +153,8 @@ class Recipe
      * @return float
      */
     private function getMeasurementRelation(Ingredient $ingredient): float {
-        $gr = $ingredient->getMeasurement()->getGr() ?: $ingredient->getProduct()->getGr();
+        $gr = $ingredient->measurement->gr ?: $ingredient->product->gr;
 
-        return $ingredient->getAmount() * $gr / 100;
+        return $ingredient->amount * $gr / 100;
     }
 }

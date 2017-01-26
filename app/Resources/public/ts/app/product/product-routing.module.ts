@@ -17,6 +17,10 @@ const productRoutes: Routes = [
                         path: ':id/:name',
                         component: ProductDetailComponent
                     },
+                    {
+                        path: 'new',
+                        component: ProductDetailComponent
+                    },
                 ]
             },
         ]

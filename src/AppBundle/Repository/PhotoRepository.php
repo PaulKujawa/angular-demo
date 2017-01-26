@@ -46,7 +46,7 @@ class PhotoRepository
      *
      * @return Photo
      */
-    public function addPhoto(Photo $photo)
+    public function addPhoto(Photo $photo): Photo
     {
         $this->entityManager->persist($photo);
         $this->entityManager->flush($photo);

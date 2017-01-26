@@ -4,6 +4,10 @@ Name: Name
 Submit: Submit
 
 app:
+  api:
+    update_success: Erfolgreich aktualisiert.
+    post_success: Erfolgreich hinzugefügt.
+    delete_success: Erfolgreich gelöscht.
   auth:
     signed_in: Successfully signed in.
   common:
@@ -12,6 +16,7 @@ app:
     filter:
       search: Suche...
     products: Products
+    new: New
     recipes: Recipes
     submit: Submit
   inquiry:
@@ -27,8 +32,6 @@ app:
       protein: Protein
       fat: Fat
   product:
-    action:
-      update_success: The product were updated successfully.
     form:
       carbs: Carbs
       fat: Fat

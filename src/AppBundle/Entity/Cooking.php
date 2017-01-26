@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * })
  *
  * @ORM\Table()
- * @ORM\HasLifecycleCallbacks
+ * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity(repositoryClass = "AppBundle\Entity\Repository\RecipeRelatedRepository")
  */
 class Cooking
@@ -32,7 +32,7 @@ class Cooking
      * @param int $recipeId
      * @param int $position
      */
-    public function __construct($recipeId, int $position)
+    public function __construct(int $recipeId, int $position)
     {
         $this->recipe = $recipeId;
         $this->position = $position;
@@ -57,21 +57,5 @@ class Cooking
      * )
      * @ORM\OrderBy({"name" = "ASC"})
      */
-    private $recipe;
-
-    /**
-     * @param Recipe $recipe
-     */
-    public function setRecipe(Recipe $recipe)
-    {
-        $this->recipe = $recipe;
-    }
-
-    /**
-     * @return Recipe
-     */
-    public function getRecipe(): Recipe
-    {
-        return $this->recipe;
-    }
+    public $recipe;
 }

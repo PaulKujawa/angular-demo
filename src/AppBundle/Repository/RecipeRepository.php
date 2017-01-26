@@ -86,7 +86,7 @@ class RecipeRepository
      *
      * @return Recipe
      */
-    public function addRecipe(Recipe $recipe)
+    public function addRecipe(Recipe $recipe): Recipe
     {
         $this->entityManager->persist($recipe);
         $this->entityManager->flush($recipe);

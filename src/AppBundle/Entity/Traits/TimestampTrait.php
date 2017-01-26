@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity\Traits;
 
+use Doctrine\ORM\Mapping as ORM;
 use DateTime;
 
 trait TimestampTrait
@@ -29,8 +30,8 @@ trait TimestampTrait
     }
 
     /**
-     * @Orm\PrePersist()
-     * @Orm\PreUpdate()
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
      */
     public function setUpdated()
     {

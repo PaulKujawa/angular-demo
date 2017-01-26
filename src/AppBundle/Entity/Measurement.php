@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table()
  * @ORM\Entity()
+ * @ORM\HasLifecycleCallbacks()
  */
 class Measurement
 {
@@ -29,21 +30,5 @@ class Measurement
      *
      * @ORM\Column(type = "smallint")
      */
-    private $gr;
-
-    /**
-     * @param int $gr
-     */
-    public function setGr(int $gr)
-    {
-        $this->gr = $gr;
-    }
-
-    /**
-     * @return int
-     */
-    public function getGr(): int
-    {
-        return $this->gr;
-    }
+    public $gr;
 }

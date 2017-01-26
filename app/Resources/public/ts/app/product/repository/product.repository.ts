@@ -1,11 +1,11 @@
 import {Http, URLSearchParams, Response, Headers, RequestOptions} from '@angular/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
+import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {RoutingService} from '../../core/service/routing.service';
 import {Product} from '../model/product';
 import {Products} from '../model/products';
 import {ProductRequestDto} from '../model/dto/product-request.dto';
-import {ReplaySubject} from 'rxjs/ReplaySubject';
 
 @Injectable()
 export class ProductRepository {
@@ -29,7 +29,19 @@ export class ProductRepository {
         const url = this.routingService.generate('api_get_product', {'id': id});
 
         return this.http.get(url)
-            .map(product => new Product(product.json()))
+            .map(productDto => new Product(productDto.json()))
+            .catch(error => Observable.throw(error.message || error.statusText));
+    }
+
+    postProduct(product: Product): Observable<Product> {
+        const url = this.routingService.generate('api_post_product');
+        const headers = new Headers({'Content-Type': 'application/json'}); // TODO set as general header
+        const options = new RequestOptions({headers: headers});
+        const productDto = new ProductRequestDto(product);
+
+        return this.http.post(url, {product: productDto}, options)
+            .map(productDto => new Product(productDto.json()))
+            .do(product => this.addProduct(product))
             .catch(error => Observable.throw(error.message || error.statusText));
     }
 
@@ -61,12 +73,19 @@ export class ProductRepository {
             });
     }
 
+    private addProduct(product: Product): void {
+        this.products.take(1)
+            .subscribe((products: Products) => {
+                products.docs.push(product);
+                this.products.next(products);
+            });
+    }
+
     private removeProduct(id: number): void {
         this.products.take(1)
             .subscribe((products: Products) => {
                 const i = products.docs.findIndex((p: Product) => p.id === id);
                 products.docs.splice(i, i === -1 ? 0 : 1);
-                products.pagination.pages--;
                 this.products.next(products);
             });
     }

@@ -19,6 +19,9 @@ import {Observable} from 'rxjs';
                         {{product.name}}
                     </li>
                 </ul>
+                <button type="button" class="btn btn-primary" (click)="onAddProduct()">
+                    {{'app.common.new'|trans}}
+                </button>
             </div>
             <div class="col-xs-12 col-sm-6">
                 <router-outlet></router-outlet>
@@ -43,6 +46,10 @@ export class ProductListComponent implements OnInit {
                 (products: Products) => this.products = products,
                 (error: string) => this.flashMsgService.push(new FlashMessage('danger', error))
             );
+    }
+
+    onAddProduct(): void {
+        this.router.navigate(['products/new']);
     }
 
     onFilter(filterMap: Map<string, string>): void {
