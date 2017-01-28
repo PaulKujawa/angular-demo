@@ -12,7 +12,6 @@
 
 # var
 /var/cache
-/var/jwt
 /var/sessions
 /var/logs
 /var/bootstrap.php.cache

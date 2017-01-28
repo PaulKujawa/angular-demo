@@ -9,6 +9,7 @@ use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\View;
 use JMS\Serializer\SerializationContext;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -65,6 +66,8 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
     }
 
     /**
+     * @Security("is_authenticated()")
+     *
      * @param Request $request
      *
      * @return View
@@ -88,6 +91,8 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
     }
 
     /**
+     * @Security("is_authenticated()")
+     *
      * @param Request $request
      * @param int $id
      *
@@ -118,6 +123,8 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
     }
 
     /**
+     * @Security("is_authenticated()")
+     *
      * @param int $id
      *
      * @return View

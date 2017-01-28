@@ -7,31 +7,19 @@ security:
             id: fos_user.user_provider.username
 
     firewalls:
-        api:
-            pattern: ^/[a-z][a-z]/api(?!/inquiries)
-            lexik_jwt:
-                authorization_header: # format "Authorization: Bearer {JWT}"
-            methods: [DELETE, POST, PUT]
-            provider: fos_userbundle
-            stateless: true
-
         app:
-            pattern: ^/[a-z][a-z]
             anonymous: true
             form_login:
                 provider: fos_userbundle
-                login_path: fos_user_security_login # redirect to for authentication page & session cookie
-                check_path: fos_user_security_check # endpoint for authentication requests
-                # check_path requires session cookie to be set/ login_path visited before (require_previous_session)
-
-                # return JWT instead of a redirect (requested|default_target_path)
-                success_handler: lexik_jwt_authentication.handler.authentication_success
-                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+                login_path: fos_user_security_login # url for rendering login template & setting PHP_SESSION cookie
+                check_path: fos_user_security_check # endpoint for POST with credentials (checks for PHP_SESSION as well)
             logout:
                 path: fos_user_security_logout
                 target: app_root_i18n
-#            remember_me:
-#                always_remember_me: true
-#                name: remember_me
-#                path: /
-#                secret: "%secret%"
+            pattern: ^/
+            remember_me:
+                always_remember_me: true
+                name: appAuth
+                path: /
+                secret: "%secret%"
+#            stateless: true

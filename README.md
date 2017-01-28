@@ -11,9 +11,6 @@
 * Database:
 * `bin/console doctrine:database:create`
 * `bin/console doctrine:migrations:migrate`
-* Generate ssh keys:
-* `openssl genrsa -out var/jwt/private.pem -aes256 4096`
-* `openssl rsa -pubout -in var/jwt/private.pem -out var/jwt/public.pem`
 
 ### How to: contribute
 * `bin/build <dev|prod> [-w]`
