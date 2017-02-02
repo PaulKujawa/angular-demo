@@ -9,3 +9,15 @@ services:
 
     app.service.pagination_response_factory:
         class: AppBundle\Service\PaginationResponseFactory
+
+    security.authentication.success_handler:
+        class:  AppBundle\Service\AuthenticationSuccessHandler
+        arguments:  [ "@security.http_utils", {} ]
+        tags:
+            - { name: 'monolog.logger', channel: 'security' }
+
+    security.authentication.failure_handler:
+        class:  AppBundle\Service\AuthenticationFailureHandler
+        arguments:  [ "@http_kernel", "@security.http_utils", {}, "@logger" ]
+        tags:
+            - { name: 'monolog.logger', channel: 'security' }

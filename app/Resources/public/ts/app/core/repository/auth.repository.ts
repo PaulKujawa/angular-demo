@@ -1,15 +1,19 @@
-import {Injectable} from "@angular/core";
-import {Http} from "@angular/http";
-import {Observable} from "rxjs/Observable";
-import {RoutingService} from "../../core/service/routing.service";
-import {Jwt} from "../model/jwt";
+import {Injectable} from '@angular/core';
+import {Http, Response} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
+import {RoutingService} from '../service/routing.service';
+
+export type Credentials = {
+    username: string;
+    password: string;
+}
 
 @Injectable()
 export class AuthRepository {
     constructor(private http: Http,
                 private routingService: RoutingService) {}
 
-    authenticate(credentials: {username: string, password: string}): Observable<Jwt> {
+    authenticate(credentials: Credentials): Observable<Response> {
         const url = this.routingService.generate('fos_user_security_check');
         const body = {
             _username: credentials.username,
@@ -17,7 +21,6 @@ export class AuthRepository {
         };
 
         return this.http.post(url, body)
-            .map(recipes => recipes.json() || {} )
             .catch(error => {
                 const body: {message: string, code: number} = error.json();
                 return Observable.throw(body.message || error.message)

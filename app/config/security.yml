@@ -11,8 +11,14 @@ security:
             anonymous: true
             form_login:
                 provider: fos_userbundle
-                login_path: fos_user_security_login # url for rendering login template & setting PHP_SESSION cookie
-                check_path: fos_user_security_check # endpoint for POST with credentials (checks for PHP_SESSION as well)
+                # starts PHP_SESSION
+                # renders template with login form
+                login_path: fos_user_security_login
+
+                # sets remember_me cookie
+                # see AppBundle\Service\Authentication*Handler for overridden response
+                require_previous_session: false
+                check_path: fos_user_security_check
             logout:
                 path: fos_user_security_logout
                 target: app_root_i18n
@@ -22,4 +28,4 @@ security:
                 name: appAuth
                 path: /
                 secret: "%secret%"
-#            stateless: true
+            stateless: true
