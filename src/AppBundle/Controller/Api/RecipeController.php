@@ -4,6 +4,7 @@ namespace AppBundle\Controller\Api;
 
 use AppBundle\Form\RecipeType;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
+use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
@@ -40,8 +41,11 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
         $repository = $this->get('app.repository.recipe');
         $decorator = $this->get('app.request_decorator.recipe_composite_decorator')->createQueryDecorator($request);
 
+        $context = new Context();
+        $context->setGroups(['Default', 'recipeList']);
+
         $view = $this->view($repository->getRecipes($page, $decorator));
-        $view->setSerializationContext(SerializationContext::create()->setGroups(['Default', 'recipeList']));
+        $view->setContext($context);
 
         return $view;
     }
@@ -59,8 +63,11 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
             return $this->view(null, Response::HTTP_NOT_FOUND);
         }
 
+        $context = new Context();
+        $context->setGroups(['Default', 'recipeDetail']);
+
         $view = $this->view($recipe);
-        $view->setSerializationContext(SerializationContext::create()->setGroups(['Default', 'recipeDetail']));
+        $view->setContext($context);
 
         return $view;
     }

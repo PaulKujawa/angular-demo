@@ -3,6 +3,12 @@ imports:
     - { resource: services_repositories.yml }
 
 services:
+    app.event_listener.access_denied_listener:
+        class: AppBundle\EventListener\AccessDeniedListener
+        arguments: [ '', '', '', '@logger' ]
+        tags:
+          - { name: 'kernel.event_subscriber'}
+
     app.service.inquiry:
         class: AppBundle\Service\InquiryService
         arguments: [ "@mailer" ]

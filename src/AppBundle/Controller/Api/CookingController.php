@@ -78,9 +78,9 @@ class CookingController extends FOSRestController implements ClassResourceInterf
 
         $cooking = $this->get('app.repository.cooking')->addCooking($cooking);
 
-        return $this->routeRedirectView('api_get_recipe_cooking', [
+        return View::createRouteRedirect('api_get_recipe_cooking', [
             'recipeId' => $recipeId,
-            'id' => $cooking->getId(),
+            'id' => $cooking->id,
         ]);
     }
 
@@ -108,7 +108,7 @@ class CookingController extends FOSRestController implements ClassResourceInterf
 
         $this->get('app.repository.cooking')->setCooking($cooking);
 
-        return $this->routeRedirectView(
+        return View::createRouteRedirect(
             'api_get_recipe_cooking',
             ['recipeId' => $recipeId, 'id' => $id],
             Response::HTTP_NO_CONTENT

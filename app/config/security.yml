@@ -28,4 +28,4 @@ security:
                 name: appAuth
                 path: /
                 secret: "%secret%"
-            stateless: true
+            stateless: true # don't store user in session

@@ -2,24 +2,26 @@ import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
+import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {AuthRepository, Credentials} from '../repository/auth.repository';
 
 @Injectable()
 export class AuthService {
-    private isLoggedIn = false;
+    isAuthenticated = new ReplaySubject<boolean>(1);
     private targetUrl: string;
 
     constructor(private router: Router, private authRepository: AuthRepository) {
-        // TODO check if cookie exists, if so set isLoggedIn to true
+        this.authRepository.getUser()
+            .subscribe(
+                () => this.isAuthenticated.next(true),
+                () => this.isAuthenticated.next(false),
+            );
     }
 
     authenticate(credentials: Credentials): Observable<Response> {
+        // on failure: authentication did not change
         return this.authRepository.authenticate(credentials)
-            .do(() => this.isLoggedIn = true, () => this.isLoggedIn = false);
-    }
-
-    isAuthenticated(): boolean {
-        return this.isLoggedIn;
+            .do(() => this.isAuthenticated.next(true));
     }
 
     setTargetUrl(url: string): void {
@@ -28,10 +30,7 @@ export class AuthService {
 
     navigate(): void {
         const url = this.targetUrl || '';
-
-        if (this.targetUrl) {
-            this.targetUrl = '';
-        }
+        this.targetUrl = '';
 
         this.router.navigate([url]);
     }

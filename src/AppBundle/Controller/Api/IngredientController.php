@@ -39,7 +39,7 @@ class IngredientController extends FOSRestController implements ClassResourceInt
 
         return null === $ingredient
             ? $this->view(null, Response::HTTP_NOT_FOUND)
-            : $this->view($ingredient->getProduct());
+            : $this->view($ingredient->product);
     }
 
     /**
@@ -54,7 +54,7 @@ class IngredientController extends FOSRestController implements ClassResourceInt
 
         return null === $ingredient
             ? $this->view(null, Response::HTTP_NOT_FOUND)
-            : $this->view($ingredient->getMeasurement());
+            : $this->view($ingredient->measurement);
     }
 
     /**
@@ -108,9 +108,9 @@ class IngredientController extends FOSRestController implements ClassResourceInt
 
         $ingredient = $this->get('app.repository.ingredient')->addIngredient($ingredient);
 
-        return $this->routeRedirectView('api_get_recipe_ingredient', [
+        return View::createRouteRedirect('api_get_recipe_ingredient', [
             'recipeId' => $recipeId,
-            'id' => $ingredient->getId(),
+            'id' => $ingredient->id,
         ]);
     }
 
@@ -138,7 +138,7 @@ class IngredientController extends FOSRestController implements ClassResourceInt
 
         $this->get('app.repository.ingredient')->setIngredient($ingredient);
 
-        return $this->routeRedirectView(
+        return View::createRouteRedirect(
             'api_get_recipe_ingredient',
             ['recipeId' => $recipeId, 'id' => $id],
             Response::HTTP_NO_CONTENT
