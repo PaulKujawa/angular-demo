@@ -1,8 +1,12 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {InquiryComponent} from './dashboard/component/inquiry.component';
+import {AuthComponent} from './core/component/auth.component';
 
 const appRoutes: Routes = [
+    {
+        path: 'login',
+        component: AuthComponent,
+    }
 ];
 
 @NgModule({

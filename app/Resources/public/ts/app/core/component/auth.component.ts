@@ -1,10 +1,9 @@
 import {Component} from '@angular/core';
-import {AuthRepository} from '../repository/auth.repository';
-import {Jwt} from '../model/jwt';
+import {FlashMessage} from '../model/flash-message';
+import {FlashMessageService} from '../service/flash-message.service';
+import {TranslationService} from '../service/translation.service';
 import {AuthService} from '../service/auth.service';
-import {FlashMessage} from '../../core/model/flash-message';
-import {FlashMessageService} from '../../core/service/flash-message.service';
-import {TranslationService} from '../../core/service/translation.service';
+import {Credentials} from '../repository/auth.repository';
 
 @Component({
     template: `
@@ -36,21 +35,20 @@ import {TranslationService} from '../../core/service/translation.service';
         </div>
     `
 })
-export class AuthFormComponent {
-    credentials = {username: '', password: ''};
+export class AuthComponent {
+    credentials: Credentials = {username: '', password: ''};
 
-    constructor(private authRepository: AuthRepository,
-                private authService: AuthService,
+    constructor(private authService: AuthService,
                 private flashMsgService: FlashMessageService,
                 private translationService: TranslationService) {}
 
     onSubmit(): void {
-        this.authRepository.authenticate(this.credentials)
+        this.authService.authenticate(this.credentials)
             .subscribe(
-                (jwt: Jwt) => {
-                    this.authService.setJwt(jwt);
+                () => {
                     const message = new FlashMessage('success', this.translationService.trans('app.auth.signed_in'));
                     this.flashMsgService.push(message);
+                    this.authService.navigate();
                 },
                 (error: string) => this.flashMsgService.push(new FlashMessage('danger', error))
             );

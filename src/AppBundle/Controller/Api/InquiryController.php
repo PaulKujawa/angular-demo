@@ -6,9 +6,13 @@ use AppBundle\Form\InquiryType;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @Security("is_authenticated()")
+ */
 class InquiryController extends FOSRestController implements ClassResourceInterface
 {
     /**

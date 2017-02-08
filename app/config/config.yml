@@ -18,17 +18,23 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
 
 fos_rest:
+    access_denied_listener:
+        json: true
+    allowed_methods_listener: true
     body_listener: # Converts formats and populates request parameter bag
+        default_format: 'json'
         decoders:
           json: fos_rest.decoder.json
-          xml: fos_rest.decoder.xml
-    param_fetcher_listener: force # set configred parameter as request parameter
+    exception: true # Activates the FOSRestBundle exception controller
+    param_fetcher_listener: force # set configured parameter as request parameter
     routing_loader:
         default_format: json
+    unauthorized_challenge: 'Basic realm="Restricted Area"' # sent as challenge header
     view:
         default_engine: twig
+        failed_validation: 'HTTP_BAD_REQUEST'
         force_redirects: # redirect via View::createRouteRedirect()
-          json: true
+            json: true
         formats: # formats rendered via JMS serializer
             json : true
         templating_formats: # formats requiring a template for rendering (twig)
@@ -72,12 +78,6 @@ jms_serializer: # JMS exlusion for 3th party entites needs to be done via config
                 namespace_prefix: FOS\UserBundle
                 path: "%kernel.root_dir%/serializer/FOSUserBundle"
 
-lexik_jwt_authentication: # SSH key config
-    pass_phrase: "%jwt_key_pass_phrase%"
-    private_key_path: "%kernel.root_dir%/../var/jwt/private.pem"
-    public_key_path: "%kernel.root_dir%/../var/jwt/public.pem"
-    token_ttl: 86400
-
 parameters:
     locale: en
 
@@ -86,7 +86,8 @@ services:
         alias: doctrine # github.com/FriendsOfSymfony/FOSUserBundle/issues/2048
 
 sensio_framework_extra:
-    view: { annotations: false } # FOSRestBundle takes over the controller annotations handling for views
+    view:
+      annotations: true # FOSRestBundle takes over the controller annotations handling for views
 
 swiftmailer:
     auth_mode: "%mailer_auth_mode%"

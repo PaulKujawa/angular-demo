@@ -3,9 +3,27 @@ imports:
     - { resource: services_repositories.yml }
 
 services:
+    app.event_listener.access_denied_listener:
+        class: AppBundle\EventListener\AccessDeniedListener
+        arguments: [ '', '', '', '@logger' ]
+        tags:
+          - { name: 'kernel.event_subscriber'}
+
     app.service.inquiry:
         class: AppBundle\Service\InquiryService
         arguments: [ "@mailer" ]
 
     app.service.pagination_response_factory:
         class: AppBundle\Service\PaginationResponseFactory
+
+    security.authentication.success_handler:
+        class:  AppBundle\Service\AuthenticationSuccessHandler
+        arguments:  [ "@security.http_utils", {} ]
+        tags:
+            - { name: 'monolog.logger', channel: 'security' }
+
+    security.authentication.failure_handler:
+        class:  AppBundle\Service\AuthenticationFailureHandler
+        arguments:  [ "@http_kernel", "@security.http_utils", {}, "@logger" ]
+        tags:
+            - { name: 'monolog.logger', channel: 'security' }
