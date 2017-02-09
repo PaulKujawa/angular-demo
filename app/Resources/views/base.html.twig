@@ -26,7 +26,8 @@
         <script>
             window.appInject = {
                 baseUrl: {{ app.request.baseUrl|json_encode|raw }},
-                requestLocale: {{ locale|json_encode|raw }}
+                requestLocale: {{ locale|json_encode|raw }},
+                authenticated: {{ app.user ? 1 : 0 }}
             };
         </script>
         <script src="{{ asset('js/vendor.js') }}"></script>

@@ -1,6 +1,7 @@
 interface AppInject {
     baseUrl: string;
     requestLocale: string;
+    authenticated: boolean;
 }
 
 interface BazingaJsTranslationBundle {
