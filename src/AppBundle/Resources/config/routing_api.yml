@@ -3,11 +3,6 @@ api_inquiry:
   resource: "@AppBundle/Controller/Api/InquiryController.php"
   name_prefix: api_
 
-api_user:
-  type: rest
-  resource: "@AppBundle/Controller/Api/UserController.php"
-  name_prefix: api_
-
 
 api_recipes:
   type: rest
@@ -31,8 +26,6 @@ api_cookings:
   parent: api_recipes
   resource: "@AppBundle/Controller/Api/CookingController.php"
   name_prefix: api_
-
-
 
 
 api_products:
