@@ -13,16 +13,6 @@ export class AuthRepository {
     constructor(private http: Http,
                 private routingService: RoutingService) {}
 
-    getUser(): Observable<void> {
-        const url = this.routingService.generate('api_get_user');
-
-        return this.http.get(url)
-            .catch(error => {
-                const body: {message: string, code: number} = error.json();
-                return Observable.throw(body.message || error.message)
-            });
-    }
-
     authenticate(credentials: Credentials): Observable<Response> {
         const url = this.routingService.generate('fos_user_security_check');
         const body = {

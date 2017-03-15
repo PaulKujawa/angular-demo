@@ -10,7 +10,6 @@
       "es6",
       "dom"
     ],
-    "moduleResolution": "node",
     "noEmit": true,
     "noImplicitAny": true,
     "skipLibCheck": true,

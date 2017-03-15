@@ -9,7 +9,7 @@ import {FlashMessageService} from './service/flash-message.service';
 import {TranslationService} from './service/translation.service';
 import {NavBarComponent} from './component/nav-bar.component';
 import {AuthenticationGuard} from './service/auth-guard.service';
-import {AuthService} from './service/auth.service';
+import {AuthenticationService} from './service/authentication.service';
 import {AuthComponent} from './component/auth.component';
 import {AuthRepository} from './repository/auth.repository';
 
@@ -31,7 +31,7 @@ import {AuthRepository} from './repository/auth.repository';
     ],
     providers: [
         AuthenticationGuard,
-        AuthService,
+        AuthenticationService,
         AuthRepository,
         FlashMessageService,
         RoutingService,

@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {FlashMessage} from '../model/flash-message';
 import {FlashMessageService} from '../service/flash-message.service';
 import {TranslationService} from '../service/translation.service';
-import {AuthService} from '../service/auth.service';
+import {AuthenticationService} from '../service/authentication.service';
 import {Credentials} from '../repository/auth.repository';
 
 @Component({
@@ -38,17 +38,17 @@ import {Credentials} from '../repository/auth.repository';
 export class AuthComponent {
     credentials: Credentials = {username: '', password: ''};
 
-    constructor(private authService: AuthService,
+    constructor(private authenticationService: AuthenticationService,
                 private flashMsgService: FlashMessageService,
                 private translationService: TranslationService) {}
 
     onSubmit(): void {
-        this.authService.authenticate(this.credentials)
+        this.authenticationService.authenticate(this.credentials)
             .subscribe(
                 () => {
                     const message = new FlashMessage('success', this.translationService.trans('app.auth.signed_in'));
                     this.flashMsgService.push(message);
-                    this.authService.navigate();
+                    this.authenticationService.navigate();
                 },
                 (error: string) => this.flashMsgService.push(new FlashMessage('danger', error))
             );

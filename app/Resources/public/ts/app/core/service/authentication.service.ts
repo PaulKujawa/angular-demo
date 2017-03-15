@@ -6,16 +6,12 @@ import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {AuthRepository, Credentials} from '../repository/auth.repository';
 
 @Injectable()
-export class AuthService {
+export class AuthenticationService {
     isAuthenticated = new ReplaySubject<boolean>(1);
     private targetUrl: string;
 
     constructor(private router: Router, private authRepository: AuthRepository) {
-        this.authRepository.getUser()
-            .subscribe(
-                () => this.isAuthenticated.next(true),
-                () => this.isAuthenticated.next(false),
-            );
+        this.isAuthenticated.next(window.appInject.authenticated);
     }
 
     authenticate(credentials: Credentials): Observable<Response> {
