@@ -1,13 +1,9 @@
 # app
 /app/config/parameters.yml
 
-# angular pre compile generated
-/app/Resources/public/ts/app-compiled
-
 # bin
 /bin/*
 !bin/console
-!bin/build
 !bin/symfony_requirements
 
 # var
@@ -20,10 +16,6 @@
 /vendor
 /node_modules
 
-# Typescript Typings
-/typings/globals
-/typings/modules/gulp
-
 # web
 /web/bundles
 /web/css
@@ -32,8 +24,6 @@
 !web/images/uploads
 !/web/images/uploads/fixture.jpg
 /web/js
-/web/jspm/*
-!/web/jspm/config.js
 
 # Mix
 .idea/

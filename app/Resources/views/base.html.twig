@@ -16,7 +16,10 @@
                 <meta name="keywords" content="vegan, vegetarian, recipe, calories">
                 <base href="{{ path('app_root_i18n') }}">
             {% endblock %}
-            <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+            {% if app.environment != 'test' %}
+                <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+            {% endif %}
         {% endblock %}
     </head>
 
@@ -31,7 +34,6 @@
             };
         </script>
         <script src="{{ asset('js/vendor.js') }}"></script>
-        <script src="{{ asset('js/translations.' ~ locale ~ '.js') }}"></script>
-        <script src="{{ asset('js/build.js') }}"></script>
+        <script src="{{ asset('js/main.js') }}"></script>
     </body>
 </html>
