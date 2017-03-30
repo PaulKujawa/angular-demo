@@ -1,3 +1,5 @@
+// TODO karma won't worken
+
 module.exports = function(config) {
     config.set({
         basePath: '',

@@ -1,0 +1,26 @@
+{
+  "angularCompilerOptions": {
+    "debug": false,
+    "skipMetadataEmit": true,
+    "trace": true
+  },
+  "compilerOptions": {
+    "baseUrl": ".",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": ["es6", "dom"],
+    "module": "es6",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "paths": {
+      "web/*": ["./web/*"]
+    },
+    "removeComments": true,
+    "skipLibCheck": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "strictNullChecks": true,
+    "target": "es5",
+    "types": ["jasmine", "jquery", "webpack-env"]
+  },
+  "exclude": ["./app/Resources/webpack", "node_modules", "vendor"]
+}

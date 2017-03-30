@@ -1,0 +1,16 @@
+@import "../import/variables";
+
+textarea {
+  resize: vertical;
+}
+
+form.ng-dirty {
+  .ng-invalid:not(form)  {
+    border-left: 5px solid $barra-red;
+  }
+
+  .ng-valid[required],
+  .ng-valid.required  {
+    border-left: 5px solid $barra-green;
+  }
+}

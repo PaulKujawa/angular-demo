@@ -1,0 +1,15 @@
+@import "../import/variables";
+
+.app-filter {
+  margin-bottom: 10px;
+}
+
+.app-filter__nav {
+  @media #{$media-query-min-sm} {
+    float: right;
+  }
+}
+
+.app-filter__pagination {
+  margin: 0;
+}

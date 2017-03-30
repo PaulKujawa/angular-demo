@@ -1,0 +1,26 @@
+@import "../import/variables";
+
+.app-recipes__item {
+  cursor: pointer;
+  padding: 4px;
+  margin-bottom: 20px;
+  border: 1px solid $barra-grey-border;
+}
+
+.app-recipes-item__left {
+  display: block;
+  padding-right: 0;
+
+  @media #{$media-query-min-sm} {
+    display: table-cell;
+    padding-right: 10px;
+  }
+}
+
+.app-recipes-item__object {
+  max-width: 100%;
+
+  @media #{$media-query-min-sm} {
+    max-width: inherit;
+  }
+}
