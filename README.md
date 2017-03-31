@@ -2,10 +2,11 @@
 ---
 [![Build Status](https://travis-ci.com/PaulKujawa/vpit.svg?token=uX8iz9gHcJk5sGqwqgvR&branch=master)](https://travis-ci.com/PaulKujawa/vpit)
 
-**Initial database setup**
+**Initial setup**
 * `composer install`
 * `bin/console doctrine:database:create`
 * `bin/console doctrine:migrations:migrate`
+* `yarn install`
 
 **Build project**
 * `npm run build:prod`

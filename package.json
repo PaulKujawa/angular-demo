@@ -54,6 +54,9 @@
     "webpack-dev-server": "2.3.0",
     "webpack-merge": "3.0.0"
   },
+  "peerDependencies": {
+    "@angular/tsc-wrapped": "^4.0.1"
+  },
   "scripts": {
     "build:dev": "npm run webpack:dev",
     "build:prod": "npm run clean-web && npm run backend && npm run webpack:prod",
