@@ -13,8 +13,8 @@
 
 **TODO**
 * css (https://github.com/webpack-contrib/sass-loader#source-maps)
+* changelogs of zoneJs & typescript
 * split components and templates
 * HMR
   * package.json ("build:dev": "NODE_ENV=dev webpack-dev-server -w --hot --progress")
   * see TODOs
-    

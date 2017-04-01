@@ -68,7 +68,7 @@
     "composer": "composer install",
     "routes": "bin/console fos:js-routing:dump --no-debug --env=prod",
     "translations": "bin/console bazinga:js-translation:dump --format=js --merge-domains --no-debug --env=prod",
-    "webpack:dev": "NODE_ENV=dev webpack",
+    "webpack:dev": "NODE_ENV=dev webpack -w",
     "webpack:prod": "NODE_ENV=prod webpack --bail"
   }
 }

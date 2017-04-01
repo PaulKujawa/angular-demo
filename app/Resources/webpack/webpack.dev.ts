@@ -30,7 +30,7 @@ export function webpackConfig(args: Object) {
         },
         plugins: [
             // live chunk replacement via webpack's dev-server
-            new webpack.HotModuleReplacementPlugin(),
+        //    new webpack.HotModuleReplacementPlugin(), TODO HMR
 
             // generate separate css file to load see to do above
             new ExtractTextPlugin('web/css/main.css'),
