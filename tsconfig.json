@@ -9,6 +9,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "lib": ["es6", "dom"],
+    "importHelpers": true,
     "module": "es6",
     "moduleResolution": "node",
     "noImplicitAny": true,
