@@ -9,14 +9,14 @@ declare var process: Process;
 
 type Env = 'dev'|'test'|'prod';
 type Process = {
-    env: {
+    readonly env: {
         ENV: Env;
         NODE_ENV: Env;
     };
 }
 
 interface AppInject {
-    baseUrl: string;
-    requestLocale: string;
-    authenticated: boolean;
+    readonly baseUrl: string;
+    readonly requestLocale: string;
+    readonly authenticated: boolean;
 }

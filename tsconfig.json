@@ -17,7 +17,6 @@
     },
     "removeComments": true,
     "skipLibCheck": true,
-    "suppressImplicitAnyIndexErrors": true,
     "strictNullChecks": true,
     "target": "es5",
     "types": ["jasmine", "jquery", "webpack-env"]

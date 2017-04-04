@@ -30,8 +30,8 @@ export class ProductDetailComponent implements OnInit {
                 this.product = new Product(new ProductResponseDto());
                 this.isEditMode = false;
             })
-            .filter((params: Params) => !isNaN(+params['id']))
-            .switchMap((params: Params) => this.productRepository.getProduct(+params['id']))
+            .filter((params: Params) => !isNaN(params.id))
+            .switchMap((params: Params) => this.productRepository.getProduct(params.id))
             .subscribe(
                 (product: Product) => {
                     this.product = product;

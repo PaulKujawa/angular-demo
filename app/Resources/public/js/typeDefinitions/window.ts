@@ -3,8 +3,8 @@
  */
 
 interface Window {
-    appInject: AppInject;
-    Routing: FosJsRouting;
+    readonly appInject: AppInject;
+    readonly Routing: FosJsRouting;
 }
 
 declare module "window" {
