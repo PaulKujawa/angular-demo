@@ -18,8 +18,14 @@ export function webpackConfig(args: Object) {
                     // write templates inline and transpile ts to js TODO more precise description
                     test: /\.ts$/, loader: '@ngtools/webpack'
                 }, {
-                    test: /\.scss$/, // transpile sass to css and load it as extra file separately
-                    loader: ExtractTextPlugin.extract({use: [{loader: 'css-loader'}, {loader: 'sass-loader'}]})
+                    // transpile sass to css and load it as extra file separately
+                    test: /\.scss$/,
+                    loader: ExtractTextPlugin.extract({
+                        use: [
+                            {loader: 'css-loader', options: {sourceMap: true}},
+                            {loader: 'sass-loader', options: {sourceMap: true}}
+                        ]
+                    })
                 },
             ]
         },

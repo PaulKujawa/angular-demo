@@ -1,7 +1,7 @@
 root:
     path: /
     defaults:
-      _controller: FrameworkBundle:Redirect:navigate
+      _controller: FrameworkBundle:Redirect:redirect
       route: app_root_i18n
       permanent: true
     options:

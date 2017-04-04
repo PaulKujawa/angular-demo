@@ -12,9 +12,8 @@
 * `npm run build:prod`
 
 **TODO**
-* css (https://github.com/webpack-contrib/sass-loader#source-maps)
 * changelogs of zoneJs & typescript
-* split components and templates
+* lazy loading
 * HMR
   * package.json ("build:dev": "NODE_ENV=dev webpack-dev-server -w --hot --progress")
   * see TODOs

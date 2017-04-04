@@ -14,7 +14,7 @@ export function webpackConfig(args: Object) {
                 poll: 1000
             }
         },
-        devtool: 'cheap-module-eval-source-map',
+        devtool: 'source-map',
         module: {
             rules: [
                 {
@@ -23,14 +23,19 @@ export function webpackConfig(args: Object) {
                 }, {
                     // transpile sass to css and load it inline
                     test: /\.scss$/,
-                    loader: ExtractTextPlugin.extract({use: [{loader: 'css-loader'}, {loader: 'sass-loader'}]})
-                    //loader: ['style-loader', 'css-loader', 'sass-loader'] TODO use this instead for HRM
+                    loader: ExtractTextPlugin.extract({ // TODO remove this line for HMR
+                        use: [
+                            //{loader: "style-loader"}, TODO add this line for HMR
+                            {loader: 'css-loader', options: {sourceMap: true }},
+                            {loader: 'sass-loader', options: {sourceMap: true }}
+                        ]
+                    })
                 },
             ]
         },
         plugins: [
             // live chunk replacement via webpack's dev-server
-        //    new webpack.HotModuleReplacementPlugin(), TODO HMR
+            //  new webpack.HotModuleReplacementPlugin(), TODO HMR
 
             // generate separate css file to load see to do above
             new ExtractTextPlugin('web/css/main.css'),
