@@ -1,6 +1,4 @@
-import {Product} from '../product';
-
-export class ProductRequestDto {
+export interface ProductRequestDto {
     name: string;
     vegan: boolean;
     gr: number;
@@ -11,17 +9,4 @@ export class ProductRequestDto {
     fat: number;
     gfat: number;
     manufacturer?: string;
-
-    constructor(dto: Product) {
-        this.name = dto.name;
-        this.vegan = dto.vegan;
-        this.gr = dto.gr;
-        this.kcal = dto.kcal;
-        this.protein = dto.protein;
-        this.carbs = dto.carbs;
-        this.sugar = dto.sugar;
-        this.fat = dto.fat;
-        this.gfat = dto.gfat;
-        this.manufacturer = dto.manufacturer;
-    }
 }

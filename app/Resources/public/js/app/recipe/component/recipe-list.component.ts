@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs/Subject';
 import {RecipeRepository} from '../repository/recipe.repository';
-import {Recipe} from '../model/recipe';
 import {FlashMessageService} from '../../core/service/flash-message.service';
 import {FlashMessage} from '../../core/model/flash-message';
 import {Recipes} from '../model/recipes';
+import {Recipe} from '../model/recipe';
 
 @Component({
     template: `

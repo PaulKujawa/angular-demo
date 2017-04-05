@@ -18,7 +18,7 @@ import {RoutingService} from '../../core/service/routing.service';
 export class RoutePipe implements PipeTransform {
     constructor(private routingService: RoutingService) {}
 
-    transform(value: string, parameters?: {}): string {
+    transform(value: string, parameters?: object): string {
         return this.routingService.generate(value, parameters);
     }
 }

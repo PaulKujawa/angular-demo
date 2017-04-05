@@ -1,5 +1,5 @@
 import {PageableDto} from '../../core/model/dto/pageable.dto';
-import {Pagination} from '../../shared/model/pagination';
+import {Pagination} from '../../core/model/pagination';
 import {ProductResponseDto} from './dto/product-response.dto';
 import {Product} from './product';
 

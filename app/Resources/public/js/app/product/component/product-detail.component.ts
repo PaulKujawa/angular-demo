@@ -27,7 +27,7 @@ export class ProductDetailComponent implements OnInit {
     ngOnInit(): void {
         this.route.params
             .do(nil => {
-                this.product = new Product(new ProductResponseDto());
+                this.product = new Product({} as ProductResponseDto);
                 this.isEditMode = false;
             })
             .filter((params: Params) => !isNaN(params.id))

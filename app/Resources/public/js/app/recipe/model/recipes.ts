@@ -1,6 +1,6 @@
-import {PageableDto} from "../../core/model/dto/pageable.dto";
-import {Pagination} from '../../shared/model/pagination';
-import {RecipeResponseDto} from './dto/recipe-response.dto';
+import {PageableDto} from '../../core/model/dto/pageable.dto';
+import {Pagination} from '../../core/model/pagination';
+import {RecipeResponseDto} from './dto/recipe-list-response.dto';
 import {Recipe} from './recipe';
 
 export class Recipes {

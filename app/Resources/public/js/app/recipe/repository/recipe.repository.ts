@@ -4,6 +4,7 @@ import {Http, URLSearchParams} from "@angular/http";
 import {Recipe} from "../model/recipe";
 import {RoutingService} from "../../core/service/routing.service";
 import {Recipes} from "../model/recipes";
+import {RecipeDetail} from '../model/recipe-detail';
 
 @Injectable()
 export class RecipeRepository {
@@ -21,7 +22,7 @@ export class RecipeRepository {
             .catch(error => Observable.throw(error.message || error.statusText));
     }
 
-    getRecipe(id: number): Observable<Recipe> {
+    getRecipe(id: number): Observable<RecipeDetail> {
         const url = this.routingService.generate('api_get_recipe', {'id': id});
 
         return this.http.get(url)

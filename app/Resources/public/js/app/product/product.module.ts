@@ -9,6 +9,7 @@ import {ProductDetailComponent} from './component/product-detail.component';
 import {ProductListComponent} from './component/product-list.component';
 import {ProductComponent} from './component/product.component';
 import {ProductFormComponent} from './component/product-form.component';
+import {ProductMapper} from './mapper/product.mapper';
 
 @NgModule({
     imports: [
@@ -27,6 +28,7 @@ import {ProductFormComponent} from './component/product-form.component';
     exports: [],
     providers: [
         ProductRepository,
+        ProductMapper,
     ]
 })
 export class ProductModule {}

@@ -1,5 +1,5 @@
 interface FosJsRouting {
-    generate(route: string, params: {}): string;
+    generate(route: string, params: object): string;
     setBaseUrl(url: string): void;
     getBaseUrl(): string;
     getRoutes(): string[];

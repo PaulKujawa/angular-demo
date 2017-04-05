@@ -6,13 +6,15 @@ import {RoutingService} from '../../core/service/routing.service';
 import {Product} from '../model/product';
 import {Products} from '../model/products';
 import {ProductRequestDto} from '../model/dto/product-request.dto';
+import {ProductMapper} from '../mapper/product.mapper';
 
 @Injectable()
 export class ProductRepository {
     products = new ReplaySubject<Products>(1);
 
     constructor(private http: Http,
-                private routingService: RoutingService) {}
+                private routingService: RoutingService,
+                private productMapper: ProductMapper) {}
 
     reloadProducts(filter: Map<string, string>): void {
         const url = this.routingService.generate('api_get_products');
@@ -37,7 +39,7 @@ export class ProductRepository {
         const url = this.routingService.generate('api_post_product');
         const headers = new Headers({'Content-Type': 'application/json'}); // TODO set as general header
         const options = new RequestOptions({headers: headers});
-        const productDto = new ProductRequestDto(product);
+        const productDto = this.productMapper.mapRequestDto(product);
 
         return this.http.post(url, {product: productDto}, options)
             .map(productDto => new Product(productDto.json()))
@@ -49,7 +51,7 @@ export class ProductRepository {
         const url = this.routingService.generate('api_put_product', {'id': product.id});
         const headers = new Headers({'Content-Type': 'application/json'}); // TODO set as general header
         const options = new RequestOptions({headers: headers});
-        const productDto = new ProductRequestDto(product);
+        const productDto = this.productMapper.mapRequestDto(product);
 
         return this.http.put(url, {product: productDto}, options)
             .do(nil => this.replaceProduct(product))

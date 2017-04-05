@@ -1,6 +1,6 @@
-import {Pagination} from '../../../shared/model/pagination';
+import {PaginationDto} from './pagination.dto';
 
-export class PageableDto<T> {
+export interface PageableDto<T> {
     docs: T[];
-    pagination: Pagination;
+    pagination: PaginationDto;
 }
