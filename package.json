@@ -48,7 +48,6 @@
     "loader-utils": "0.2.16",
     "node-sass": "4.5.0",
     "null-loader": "0.1.1",
-    "rimraf": "2.5.4",
     "sass-loader": "6.0.1",
     "style-loader": "0.13.1",
     "ts-node": "1.2.2",
@@ -60,15 +59,14 @@
     "@angular/tsc-wrapped": "^4.0.1"
   },
   "scripts": {
-    "build:dev": "npm run webpack:dev",
-    "build:prod": "npm run clean-web && npm run backend && npm run webpack:prod",
-    "backend": "npm run composer && npm run backend-assets && npm run routes && npm run translations",
-    "backend-assets": "bin/console assets:install --symlink web",
-    "clean-web": "rimraf web/css web/js web/bundles",
-    "composer": "composer install",
-    "routes": "bin/console fos:js-routing:dump --no-debug --env=prod",
-    "translations": "bin/console bazinga:js-translation:dump --format=js --merge-domains --no-debug --env=prod",
-    "webpack:dev": "NODE_ENV=dev webpack -w",
-    "webpack:prod": "NODE_ENV=prod webpack --bail"
+    "build:dev": "npm run prepare-assets && npm run webpack:dev",
+    "build:prod": "npm run prepare-assets && npm run webpack:prod",
+    "prepare-assets": "composer install && yarn install && npm run symfony-exposure",
+    "symfony-exposure": "npm run symfony-link && npm run symfony-routes && npm run symfony-trans",
+    "symfony:link": "bin/console assets:install --symlink",
+    "symfony:routes": "bin/console fos:js-routing:dump --no-debug --env=prod",
+    "symfony:trans": "bin/console bazinga:js-translation:dump --format=js --merge-domains --no-debug --env=prod",
+    "webpack:dev": "NODE_ENV=dev webpack -w --progress",
+    "webpack:prod": "NODE_ENV=prod webpack --bail --progress"
   }
 }
