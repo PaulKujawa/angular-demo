@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs/Subject';
-import {RecipeRepository} from '../repository/recipe.repository';
-import {Recipe} from '../model/recipe';
 import {FlashMessageService} from '../../core/service/flash-message.service';
 import {FlashMessage} from '../../core/model/flash-message';
-import {Recipes} from '../model/recipes';
+import {Pageable} from '../../core/model/pageable';
+import {RecipeRepository} from '../repository/recipe.repository';
+import {Recipe} from '../model/recipe';
 
 @Component({
     template: `
@@ -16,7 +16,7 @@ import {Recipes} from '../model/recipes';
         </div>
         <div class="row">
             <div class="col-xs-12">
-                <div class="media app-recipes__item" (click)="onSelectRecipe(recipe)" *ngFor="let recipe of recipes?.docs">
+                <div class="media app-recipes__item" (click)="onSelectRecipe(recipe)" *ngFor="let recipe of pageable?.docs">
                     <div class="media-left app-recipes-item__left">
                         <img class="media-object app-recipes-item__object" [src]="getImageUrl(recipe)"> 
                     </div>
@@ -31,7 +31,7 @@ import {Recipes} from '../model/recipes';
     `
 })
 export class RecipeListComponent implements OnInit {
-    recipes: Recipes;
+    pageable: Pageable<Recipe>;
     private filterStream = new Subject<Map<string, string>>();
 
     constructor(private router: Router,
@@ -42,7 +42,7 @@ export class RecipeListComponent implements OnInit {
         this.filterStream
             .switchMap((queryParams: Map<string, string>) => this.recipeRepository.getRecipes(queryParams))
             .subscribe(
-                (recipes: Recipes) => this.recipes = recipes,
+                (pageable: Pageable<Recipe>) => this.pageable = pageable,
                 (error: string) => this.flashMsgService.push(new FlashMessage('danger', error))
             );
     }

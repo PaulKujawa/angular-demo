@@ -6,7 +6,7 @@ import {RecipeDetailComponent} from './component/recipe-detail.component';
 
 const recipeRoutes: Routes = [
     {
-        path: 'recipes',
+        path: 'pageable',
         component: RecipeComponent,
         children: [
             {

@@ -1,6 +1,6 @@
 interface BazingaJsTranslationBundle {
-    trans(id: string, parameters?: {}, domain?: string, locale?: string): string;
-    transChoice(id: string, number: number, parameters?: {}, domain?: string, locale?: string): string;
+    trans(id: string, parameters?: object, domain?: string, locale?: string): string;
+    transChoice(id: string, number: number, parameters?: object, domain?: string, locale?: string): string;
 }
 
 /*

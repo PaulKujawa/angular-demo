@@ -18,7 +18,7 @@ import {TranslationService} from "../../core/service/translation.service";
 export class TranslationPipe implements PipeTransform {
     constructor(private translationService: TranslationService) {}
 
-    transform(value: string, parameters?: {}, domain?: string): string {
+    transform(value: string, parameters?: object, domain?: string): string {
         return this.translationService.trans(value, parameters, domain);
     }
 }

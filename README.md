@@ -12,8 +12,9 @@
 * `npm run build:prod`
 
 **TODO**
-* changelogs of zoneJs & typescript
+* changelogs of zoneJs
 * lazy loading
+* loading icon (http://angularjs.blogspot.de/2017/03/angular-400-now-available.html)
 * HMR
   * package.json ("build:dev": "NODE_ENV=dev webpack-dev-server -w --hot --progress")
   * see TODOs

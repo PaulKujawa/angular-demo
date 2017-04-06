@@ -13,9 +13,7 @@ export class RoutingService {
     }
 
     generate(route: string, params = {}): string {
-        (params as any)['_locale'] = this.requestLocale;
-
-        return this.routing.generate(route, params);
+        return this.routing.generate(route, {_locale: this.requestLocale, ...params});
     }
 
     trimBaseUrl(route: string): string {

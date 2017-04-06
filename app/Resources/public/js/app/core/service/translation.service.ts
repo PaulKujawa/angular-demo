@@ -6,11 +6,11 @@ import 'web/js/translations/en.js';
 
 @Injectable()
 export class TranslationService {
-    trans(id: string, parameters?: {}, domain?: string): string {
+    trans(id: string, parameters?: object, domain?: string): string {
         return Translator.trans(id, parameters, domain);
     }
 
-    transChoice(id: string, number: number, parameters?: {}, domain?: string): string {
+    transChoice(id: string, number: number, parameters?: object, domain?: string): string {
         return Translator.transChoice(id, number, parameters, domain);
     }
 }

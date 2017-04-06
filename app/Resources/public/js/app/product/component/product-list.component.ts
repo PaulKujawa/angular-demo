@@ -3,10 +3,9 @@ import {Router} from '@angular/router';
 import {Subject} from 'rxjs/Subject';
 import {FlashMessageService} from '../../core/service/flash-message.service';
 import {FlashMessage} from '../../core/model/flash-message';
+import {Pageable} from '../../core/model/pageable';
 import {ProductRepository} from '../repository/product.repository';
 import {Product} from '../model/product';
-import {Products} from '../model/products';
-import {Observable} from 'rxjs';
 
 @Component({
     template: `
@@ -15,7 +14,7 @@ import {Observable} from 'rxjs';
         <div class="row">
             <div class="col-xs-12 col-sm-6">
                 <ul class="list-group">
-                    <li class="list-group-item app-products__item" (click)="onSelectProduct(product)" *ngFor="let product of products?.docs">
+                    <li class="list-group-item app-products__item" (click)="onSelectProduct(product)" *ngFor="let product of pageable?.docs">
                         {{product.name}}
                     </li>
                 </ul>
@@ -30,7 +29,7 @@ import {Observable} from 'rxjs';
     `
 })
 export class ProductListComponent implements OnInit {
-    products: Products;
+    pageable: Pageable<Product>;
     private filterStream = new Subject<Map<string, string>>();
 
     constructor(private router: Router,
@@ -41,9 +40,9 @@ export class ProductListComponent implements OnInit {
         this.filterStream
             .subscribe((queryParams: Map<string, string>) => this.productRepository.reloadProducts(queryParams));
 
-        this.productRepository.products
+        this.productRepository.pageable
             .subscribe(
-                (products: Products) => this.products = products,
+                (pageable: Pageable<Product>) => this.pageable = pageable,
                 (error: string) => this.flashMsgService.push(new FlashMessage('danger', error))
             );
     }

@@ -12,6 +12,7 @@ import {AuthenticationGuard} from './service/auth-guard.service';
 import {AuthenticationService} from './service/authentication.service';
 import {AuthComponent} from './component/auth.component';
 import {AuthRepository} from './repository/auth.repository';
+import {PageableFactory} from './factory/pageable.factory';
 
 @NgModule({
     imports: [
@@ -34,6 +35,7 @@ import {AuthRepository} from './repository/auth.repository';
         AuthenticationService,
         AuthRepository,
         FlashMessageService,
+        PageableFactory,
         RoutingService,
         TranslationService,
     ]

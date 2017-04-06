@@ -3,8 +3,8 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {FlashMessageService} from '../../core/service/flash-message.service';
 import {FlashMessage} from '../../core/model/flash-message';
 import {RecipeRepository} from '../repository/recipe.repository';
-import {Recipe} from '../model/recipe';
 import {Ingredient} from '../model/ingredient';
+import {RecipeDetail} from '../model/recipe-detail';
 
 @Component({
     template: `
@@ -40,7 +40,7 @@ import {Ingredient} from '../model/ingredient';
     `
 })
 export class RecipeDetailComponent implements OnInit {
-    recipe: Recipe;
+    recipe: RecipeDetail;
 
     constructor(private recipeRepository: RecipeRepository,
                 private activatedRoute: ActivatedRoute,
@@ -50,7 +50,7 @@ export class RecipeDetailComponent implements OnInit {
         this.activatedRoute.params
             .switchMap((params: Params) => this.recipeRepository.getRecipe(+params['id']))
             .subscribe(
-                (recipe: Recipe) => this.recipe = recipe,
+                (recipe: RecipeDetail) => this.recipe = recipe,
                 (error: string) => this.flashMsgService.push(new FlashMessage('danger', error))
             );
     }
