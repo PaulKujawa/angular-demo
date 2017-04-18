@@ -2,8 +2,8 @@ import {Component} from '@angular/core';
 import {FlashMessage} from '../../core/model/flash-message';
 import {FlashMessageService} from '../../core/service/flash-message.service';
 import {TranslationService} from '../../core/service/translation.service';
-import {InquiryRepository} from '../repository/inquiry.repository';
 import {Inquiry} from '../model/inquiry';
+import {InquiryRepository} from '../repository/inquiry.repository';
 
 @Component({
     selector: 'inquiry-form',
@@ -13,11 +13,11 @@ import {Inquiry} from '../model/inquiry';
                 <div class="col-xs-12 col-sm-5">
                     <div class="form-group">
                         <input type="text" class="form-control"
-                        placeholder="{{'app.inquiry.form.name'|trans}}" 
+                        placeholder="{{'app.inquiry.form.name'|trans}}"
                         name="name" [(ngModel)]="inquiry.name">
                     </div>
                     <div class="form-group">
-                        <input type="email" required class="form-control" 
+                        <input type="email" required class="form-control"
                         placeholder="{{'app.inquiry.form.email_address'|trans}}"
                         name="email" [(ngModel)]="inquiry.email">
                     </div>
@@ -41,23 +41,24 @@ import {Inquiry} from '../model/inquiry';
                 </div>
             </div>
         </form>
-    `
+    `,
 })
 export class InquiryFormComponent {
-    inquiry: Inquiry = new Inquiry('', '');
+    public inquiry: Inquiry = new Inquiry('', '');
 
     constructor(private inquiryRepository: InquiryRepository,
                 private flashMsgService: FlashMessageService,
-                private translationService: TranslationService) {}
+                private translationService: TranslationService) {
+    }
 
-    onSubmit() {
+    public onSubmit() {
         this.inquiryRepository.addInquiry(this.inquiry)
             .subscribe(() => {
                 const message = new FlashMessage('success', this.translationService.trans('app.inquiry.inquiry_sent'));
                 this.flashMsgService.push(message);
             }, (error: string) => {
-                this.flashMsgService.push(new FlashMessage('danger', error))
-            }
+                this.flashMsgService.push(new FlashMessage('danger', error));
+            },
         );
     }
 }

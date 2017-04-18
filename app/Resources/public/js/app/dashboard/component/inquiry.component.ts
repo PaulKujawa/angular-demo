@@ -12,7 +12,7 @@ import {Component} from '@angular/core';
         </div>
         <hr>
         <inquiry-form></inquiry-form>
-    `
+    `,
 })
 export class InquiryComponent {
     // TODO fix image path

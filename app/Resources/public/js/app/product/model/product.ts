@@ -1,19 +1,19 @@
 import {ProductResponseDto} from './dto/product-response.dto';
 
 export class Product {
-    id: number;
-    name: string;
-    vegan: boolean;
-    gr: number;
-    kcal: number;
-    protein: number;
-    carbs: number;
-    sugar: number;
-    fat: number;
-    gfat: number;
-    created: Date;
-    updated: Date;
-    manufacturer?: string;
+    public id: number;
+    public name: string;
+    public vegan: boolean;
+    public gr: number;
+    public kcal: number;
+    public protein: number;
+    public carbs: number;
+    public sugar: number;
+    public fat: number;
+    public gfat: number;
+    public created: Date;
+    public updated: Date;
+    public manufacturer?: string;
 
     constructor(dto: ProductResponseDto) {
         this.id = dto.id;

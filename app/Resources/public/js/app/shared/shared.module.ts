@@ -1,8 +1,8 @@
-import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {TranslationPipe} from './pipe/translation.pipe';
+import {NgModule} from '@angular/core';
 import {PaginationComponent} from './component/pagination.component';
 import {RoutePipe} from './pipe/route.pipe';
+import {TranslationPipe} from './pipe/translation.pipe';
 import {TrimBaseUrlPipe} from './pipe/trimBaseUrl.pipe';
 
 const directives = [
@@ -18,6 +18,7 @@ const directives = [
     ],
     declarations: directives,
     exports: directives,
-    providers: []
+    providers: [],
 })
-export class SharedModule {}
+export class SharedModule {
+}

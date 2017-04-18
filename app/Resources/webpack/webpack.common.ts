@@ -10,31 +10,31 @@ export function commonConfig(args: WebpackArguments) {
         context: path.join(__dirname, '../public/js'),
         entry: {
             main: './main.ts',
-            vendor: './vendor.ts'
+            vendor: './vendor.ts',
         },
         module: {
             rules: [
                 {
-                    test: /\.html$/, loader: 'html-loader'
+                    test: /\.html$/, loader: 'html-loader',
                 },
             ]
         },
         output: {
             path: rootPath,
-            filename: 'web/js/[name].js'
+            filename: 'web/js/[name].js',
         },
         plugins: [
             // when two chunks (= entries) hold the same dependency, drop it to the more steady chunk.
             new webpack.optimize.CommonsChunkPlugin({
-                name: ['main', 'vendor']
+                name: ['main', 'vendor'],
             }),
 
             // set global variables
             new webpack.DefinePlugin({
                 'process.env': {
-                    'ENV': JSON.stringify(args.env),
-                    'NODE_ENV': JSON.stringify(args.env)
-                }
+                    ENV: JSON.stringify(args.env),
+                    NODE_ENV: JSON.stringify(args.env),
+                },
             }),
 
             // alternative to global variables. Imports the module JIT when the variable is used
@@ -43,13 +43,13 @@ export function commonConfig(args: WebpackArguments) {
                 jQuery: 'jquery',
 
                 // since Bazinga's dumped translation files require Translator in global namespace
-                Translator: 'web/bundles/bazingajstranslation/js/translator.min.js'
+                Translator: 'web/bundles/bazingajstranslation/js/translator.min.js',
             }),
 
             // see https://github.com/angular/angular/issues/11580
             new webpack.ContextReplacementPlugin(
                 /angular(\\|\/)core(\\|\/)@angular/,
-                path.resolve(__dirname, 'doesnotexist/')
+                path.resolve(__dirname, 'doesnotexist/'),
             ),
         ],
         resolve: {
@@ -57,7 +57,7 @@ export function commonConfig(args: WebpackArguments) {
             plugins: [
                 // provide support for 'paths' and 'baseUrl' settings in tsconfig.json
                 new TsConfigPathsPlugin(),
-            ]
-        }
-    }
+            ],
+        },
+    };
 }

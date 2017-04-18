@@ -5,14 +5,14 @@ import {FlashMessageService} from '../service/flash-message.service';
 @Component({
     selector: 'flash-messages',
     template: `
-        <div class="alert alert-dismissible alert-{{alert.type}}" role="alert" 
+        <div class="alert alert-dismissible alert-{{alert.type}}" role="alert"
         *ngFor="let alert of alerts; let i=index">
             {{alert.message}}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="onClick(i)">
                 <span aria-hidden="true">×</span>
             </button>
         </div>
-    `
+    `,
 })
 export class FlashMessageComponent {
     public alerts: FlashMessage[];
@@ -21,7 +21,7 @@ export class FlashMessageComponent {
         this.alerts = flashMessageService.getAll();
     }
 
-    onClick(index: number): void {
+    public onClick(index: number): void {
         this.alerts.splice(index, 1);
     }
 }

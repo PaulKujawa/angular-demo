@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Pagination} from '../../core/model/pagination';
 
 @Component({
@@ -14,14 +14,16 @@ import {Pagination} from '../../core/model/pagination';
                     <a class="btn" [class.disabled]="isFirstPage()" (click)="onClick(1)">1</a>
                 </li>
                 <li class="disabled"><a class="btn disabled">..</a></li>
-                
+
                 <li class="active">
                     <a>{{pagination.page}}</a>
                 </li>
-                
+
                 <li class="disabled"><a class="btn disabled">..</a></li>
                 <li [class.disabled]="isLastPage()">
-                    <a class="btn" [class.disabled]="isLastPage()" (click)="onClick(pagination.pages)">{{pagination.pages}}</a>
+                    <a class="btn" [class.disabled]="isLastPage()" (click)="onClick(pagination.pages)">
+                        {{pagination.pages}}
+                    </a>
                 </li>
                 <li [class.disabled]="isLastPage()">
                     <a  class="btn" [class.disabled]="isLastPage()" (click)="onClick(pagination.page + 1)">
@@ -30,21 +32,21 @@ import {Pagination} from '../../core/model/pagination';
                 </li>
             </ul>
         </nav>
-    `
+    `,
 })
 export class PaginationComponent {
-    @Input() pagination: Pagination;
-    @Output('clicked') eventEmitter: EventEmitter<number> = new EventEmitter();
+    @Input() public pagination: Pagination;
+    @Output('clicked') public eventEmitter: EventEmitter<number> = new EventEmitter();
 
-    onClick(page: number): void {
+    public onClick(page: number): void {
         this.eventEmitter.emit(page);
     }
 
-    isFirstPage(): boolean {
+    public isFirstPage(): boolean {
         return this.pagination && this.pagination.page === 1;
     }
 
-    isLastPage(): boolean {
+    public isLastPage(): boolean {
         return this.pagination && this.pagination.page === this.pagination.pages;
     }
 }

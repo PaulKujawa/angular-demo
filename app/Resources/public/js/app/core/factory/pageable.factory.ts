@@ -10,7 +10,7 @@ import {Pageable} from '../model/pageable';
 
 @Injectable()
 export class PageableFactory {
-    getPageable<D, M>(dto: PageableDto<D>, M: {new(dto: D): M}): Pageable<M> {
+    public getPageable<D, M>(dto: PageableDto<D>, M: {new(dto: D): M}): Pageable<M> {
         const pagination = dto.pagination;
         const docs = dto.docs.map((doc: D) => new M(doc));
 

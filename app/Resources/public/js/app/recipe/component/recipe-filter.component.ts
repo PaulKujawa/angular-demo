@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
 import {Pagination} from '../../core/model/pagination';
@@ -7,11 +7,11 @@ import {Pagination} from '../../core/model/pagination';
     selector: 'recipe-filter',
     template: `
         <div class="row app-filter">
-            <div class="col-xs-12 col-sm-4">            
-                <input class="form-control" type="text" placeholder="{{'app.common.filter.search'|trans}}" 
+            <div class="col-xs-12 col-sm-4">
+                <input class="form-control" type="text" placeholder="{{'app.common.filter.search'|trans}}"
                 #search (keyup)="searchNext(search.value)"/>
             </div>
-            <div class="col-xs-12 col-sm-3">            
+            <div class="col-xs-12 col-sm-3">
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" #veganOnly (change)="setVeganOnly(veganOnly.checked)">
@@ -23,30 +23,30 @@ import {Pagination} from '../../core/model/pagination';
                 <pagination [pagination]="pagination" (clicked)="setPage($event)"></pagination>
             </div>
         </div>
-    `
+    `,
 })
 export class RecipeFilterComponent implements OnInit {
-    @Input() pagination: Pagination;
-    @Output('filter') eventEmitter: EventEmitter<Map<string, string>> = new EventEmitter();
+    @Input() public pagination: Pagination;
+    @Output('filter') public eventEmitter: EventEmitter<Map<string, string>> = new EventEmitter();
     private filterMap = new Map<string, string>();
     private searchStream = new Subject<string>();
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.filterMap.set('sortUpdated', 'desc');
         this.initializeSearchStream();
     }
 
-    searchNext(name: string): void {
+    public searchNext(name: string): void {
         this.searchStream.next(name);
     }
 
-    setVeganOnly(checked: boolean): void {
+    public setVeganOnly(checked: boolean): void {
         checked ? this.filterMap.set('vegan', 'true') : this.filterMap.delete('vegan');
         this.filterMap.set('page', '1');
         this.eventEmitter.emit(this.filterMap);
     }
 
-    setPage(page: number): void {
+    public setPage(page: number): void {
         this.filterMap.set('page', '' + page);
         this.eventEmitter.emit(this.filterMap);
     }

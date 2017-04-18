@@ -1,15 +1,15 @@
 import {Component, Input} from '@angular/core';
 import {Router} from '@angular/router';
-import {FlashMessageService} from '../../core/service/flash-message.service';
 import {FlashMessage} from '../../core/model/flash-message';
+import {FlashMessageService} from '../../core/service/flash-message.service';
 import {TranslationService} from '../../core/service/translation.service';
-import {ProductRepository} from '../repository/product.repository';
 import {Product} from '../model/product';
+import {ProductRepository} from '../repository/product.repository';
 
 @Component({
     selector: 'product-form',
     template: `
-        <form #productForm="ngForm" (ngSubmit)="onSubmit()" *ngIf="product">        
+        <form #productForm="ngForm" (ngSubmit)="onSubmit()" *ngIf="product">
             <div class="row">
                 <div class="col-xs-12 col-sm-5 form-group">
                     <label>{{'app.product.form.name'|trans}}</label>
@@ -31,7 +31,7 @@ import {Product} from '../model/product';
                 </div>
                 <div class="col-xs-12 col-sm-4 form-group">
                     <label>{{'app.product.form.carbs'|trans}}</label>
-                    <input type="number" required step="0.1" class="form-control" name="carbs" 
+                    <input type="number" required step="0.1" class="form-control" name="carbs"
                     [(ngModel)]="product.carbs">
                 </div>
                 <div class="col-xs-12 col-sm-4 form-group">
@@ -42,17 +42,17 @@ import {Product} from '../model/product';
             <div class="row">
                 <div class="col-xs-12 col-sm-4 form-group">
                     <label>{{'app.product.form.protein'|trans}}</label>
-                    <input type="number" required step="0.1" class="form-control" name="protein" 
+                    <input type="number" required step="0.1" class="form-control" name="protein"
                     [(ngModel)]="product.protein">
                 </div>
                 <div class="col-xs-12 col-sm-4 form-group">
                     <label>{{'app.product.form.sugar'|trans}}</label>
-                    <input type="number" required step="0.1" class="form-control" name="sugar" 
+                    <input type="number" required step="0.1" class="form-control" name="sugar"
                     [(ngModel)]="product.sugar">
                 </div>
                 <div class="col-xs-12 col-sm-4 form-group">
                     <label>{{'app.product.form.gfat'|trans}}</label>
-                    <input type="number" required step="0.1" class="form-control" name="gfat" 
+                    <input type="number" required step="0.1" class="form-control" name="gfat"
                     [(ngModel)]="product.gfat">
                 </div>
             </div>
@@ -75,24 +75,25 @@ import {Product} from '../model/product';
                 </div>
             </div>
         </form>
-    `
+    `,
 })
 export class ProductFormComponent {
-    @Input() product: Product;
-    @Input() isEditMode: boolean;
+    @Input() public product: Product;
+    @Input() public isEditMode: boolean;
 
     constructor(private router: Router,
                 private productRepository: ProductRepository,
                 private flashMsgService: FlashMessageService,
-                private translationService: TranslationService) {}
+                private translationService: TranslationService) {
+    }
 
-    onSubmit(): void {
+    public onSubmit(): void {
         this.isEditMode
             ? this.putProduct()
             : this.postProduct();
     }
 
-    onDelete(): void {
+    public onDelete(): void {
         this.productRepository.deleteProduct(this.product.id)
             .subscribe(
                 () => {
@@ -100,8 +101,8 @@ export class ProductFormComponent {
                     this.flashMsgService.push(new FlashMessage('success', text));
                     this.router.navigate(['products']);
                 },
-                (error: string) => this.flashMsgService.push(new FlashMessage('danger', error))
-            )
+                (error: string) => this.flashMsgService.push(new FlashMessage('danger', error)),
+            );
     }
 
     private postProduct(): void {
@@ -112,7 +113,7 @@ export class ProductFormComponent {
                     this.flashMsgService.push(new FlashMessage('success', text));
                     this.router.navigate(['products']);
                 },
-                (error: string) => this.flashMsgService.push(new FlashMessage('danger', error))
+                (error: string) => this.flashMsgService.push(new FlashMessage('danger', error)),
             );
     }
 
@@ -124,7 +125,7 @@ export class ProductFormComponent {
                     this.flashMsgService.push(new FlashMessage('success', text));
                     this.router.navigate(['products']);
                 },
-                (error: string) => this.flashMsgService.push(new FlashMessage('danger', error))
+                (error: string) => this.flashMsgService.push(new FlashMessage('danger', error)),
             );
     }
 }

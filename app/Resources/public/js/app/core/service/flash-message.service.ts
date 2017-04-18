@@ -1,15 +1,15 @@
-import {Injectable} from "@angular/core";
-import {FlashMessage} from "../model/flash-message";
+import {Injectable} from '@angular/core';
+import {FlashMessage} from '../model/flash-message';
 
 @Injectable()
 export class FlashMessageService {
     private alerts: FlashMessage[] = [];
 
-    getAll(): FlashMessage[] {
+    public getAll(): FlashMessage[] {
         return this.alerts;
     }
 
-    push(flashMessage: FlashMessage): void {
+    public push(flashMessage: FlashMessage): void {
         this.alerts.push(flashMessage);
     }
 }

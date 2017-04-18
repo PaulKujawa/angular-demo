@@ -1,0 +1,14 @@
+{
+    "extends": "tslint:recommended",
+    "rules": {
+        "array-type": [true, "array"],
+        "interface-name": [true, "never-prefix"],
+        "no-unused-expression": [true, "allow-fast-null-checks"],
+        "no-var-keyword": false,
+        "no-var-requires": false,
+        "object-literal-shorthand": false,
+        "object-literal-sort-keys": false,
+        "quotemark": [true, "single", "avoid-escape"],
+        "variable-name": [true, "ban-keywords"]
+    }
+}

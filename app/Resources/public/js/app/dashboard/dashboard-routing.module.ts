@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {InquiryComponent} from './component/inquiry.component';
 import {DashboardComponent} from './component/dashboard.component';
+import {InquiryComponent} from './component/inquiry.component';
 
 const recipeRoutes: Routes = [
     {
@@ -11,9 +11,9 @@ const recipeRoutes: Routes = [
         children: [
             {
                 path: '',
-                component: InquiryComponent
+                component: InquiryComponent,
             },
-        ]
+        ],
     },
 ];
 
@@ -21,6 +21,7 @@ const recipeRoutes: Routes = [
     imports: [
         RouterModule.forChild(recipeRoutes),
     ],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
-export class DashboardRoutingModule {}
+export class DashboardRoutingModule {
+}

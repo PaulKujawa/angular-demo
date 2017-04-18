@@ -6,13 +6,11 @@
 * `composer install`
 * `bin/console doctrine:database:create`
 * `bin/console doctrine:migrations:migrate`
-* `yarn install`
 
 **Build project**
 * `npm run build:prod`
 
 **TODO**
-* changelogs of zoneJs
 * lazy loading
 * loading icon (http://angularjs.blogspot.de/2017/03/angular-400-now-available.html)
 * HMR

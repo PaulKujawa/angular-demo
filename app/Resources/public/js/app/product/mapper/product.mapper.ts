@@ -4,7 +4,7 @@ import {Product} from '../model/product';
 
 @Injectable()
 export class ProductMapper {
-    mapRequestDto(product: Product): ProductRequestDto {
+    public mapRequestDto(product: Product): ProductRequestDto {
         return {
             name: product.name,
             vegan: product.vegan,
@@ -15,7 +15,7 @@ export class ProductMapper {
             sugar: product.sugar,
             fat: product.fat,
             gfat: product.gfat,
-            manufacturer: product.manufacturer
-        }
+            manufacturer: product.manufacturer,
+        };
     }
 }
