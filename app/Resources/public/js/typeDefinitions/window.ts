@@ -7,6 +7,6 @@ interface Window {
     readonly Routing: FosJsRouting;
 }
 
-declare module "window" {
+declare module 'window' {
     export = Window;
 }

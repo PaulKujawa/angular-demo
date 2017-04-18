@@ -25,6 +25,6 @@ import {RecipeComponent} from './component/recipe.component';
     exports: [],
     providers: [
         RecipeRepository,
-    ]
+    ],
 })
 export class RecipeModule {}

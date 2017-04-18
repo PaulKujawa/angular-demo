@@ -19,18 +19,18 @@ import {Macros} from '../model/macros';
                 {{macros.fat}} gr
             </div>
         </div>
-    `
+    `,
 })
 export class MacroChartComponent implements OnChanges {
-    @Input() macros: Macros;
-    @Input() type: 'danger'|'info'|'warning'|'success';
-    totalGr: number;
+    @Input() public macros: Macros;
+    @Input() public type: 'danger'|'info'|'warning'|'success';
+    public totalGr: number;
 
-    ngOnChanges(): void {
+    public ngOnChanges(): void {
         this.totalGr = this.macros.carbs + this.macros.protein + this.macros.fat;
     }
 
-    getPercentage(macro: number): string {
+    public getPercentage(macro: number): string {
         return (100 * macro / this.totalGr) + '%';
     }
 }

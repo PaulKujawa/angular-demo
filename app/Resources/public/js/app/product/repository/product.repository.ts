@@ -11,63 +11,64 @@ import {ProductRequestDto} from '../model/dto/product-request.dto';
 
 @Injectable()
 export class ProductRepository {
-    pageable = new ReplaySubject<Pageable<Product>>(1);
+    public pageable = new ReplaySubject<Pageable<Product>>(1);
 
     constructor(private http: Http,
                 private routingService: RoutingService,
                 private productMapper: ProductMapper,
-                private pageableFactory: PageableFactory) {}
+                private pageableFactory: PageableFactory) {
+    }
 
-    reloadProducts(filter: Map<string, string>): void {
+    public reloadProducts(filter: Map<string, string>): void {
         const url = this.routingService.generate('api_get_products');
         const queryParameter = new URLSearchParams();
         filter.forEach((value: string, key: string) => queryParameter.set(key, value));
 
         this.http.get(url, {search: queryParameter})
-            .map(pageableDto => {
-                return this.pageableFactory.getPageable<ProductRequestDto, Product>(pageableDto.json(), Product)
+            .map((pageableDto) => {
+                return this.pageableFactory.getPageable<ProductRequestDto, Product>(pageableDto.json(), Product);
             })
-            .catch(error => Observable.throw(error.message || error.statusText))
-            .subscribe(pageable => this.pageable.next(pageable));
+            .catch((error) => Observable.throw(error.message || error.statusText))
+            .subscribe((pageable) => this.pageable.next(pageable));
     }
 
-    getProduct(id: number): Observable<Product> {
+    public getProduct(id: number): Observable<Product> {
         const url = this.routingService.generate('api_get_product', {'id': id});
 
         return this.http.get(url)
-            .map(productDto => new Product(productDto.json()))
-            .catch(error => Observable.throw(error.message || error.statusText));
+            .map((productDto) => new Product(productDto.json()))
+            .catch((error) => Observable.throw(error.message || error.statusText));
     }
 
-    postProduct(product: Product): Observable<Product> {
+    public postProduct(requestProduct: Product): Observable<Product> {
         const url = this.routingService.generate('api_post_product');
         const headers = new Headers({'Content-Type': 'application/json'}); // TODO set as general header
         const options = new RequestOptions({headers: headers});
-        const productDto = this.productMapper.mapRequestDto(product);
+        const productRequestDto = this.productMapper.mapRequestDto(requestProduct);
 
-        return this.http.post(url, {product: productDto}, options)
-            .map(productDto => new Product(productDto.json()))
-            .do(product => this.addProduct(product))
-            .catch(error => Observable.throw(error.message || error.statusText));
+        return this.http.post(url, {product: productRequestDto}, options)
+            .map((productDto) => new Product(productDto.json()))
+            .do((product) => this.addProduct(product))
+            .catch((error) => Observable.throw(error.message || error.statusText));
     }
 
-    putProduct(product: Product): Observable<Response> {
+    public putProduct(product: Product): Observable<Response> {
         const url = this.routingService.generate('api_put_product', {'id': product.id});
         const headers = new Headers({'Content-Type': 'application/json'}); // TODO set as general header
         const options = new RequestOptions({headers: headers});
         const productDto = this.productMapper.mapRequestDto(product);
 
         return this.http.put(url, {product: productDto}, options)
-            .do(nil => this.replaceProduct(product))
-            .catch(error => Observable.throw(error.message || error.statusText));
+            .do((nil) => this.replaceProduct(product))
+            .catch((error) => Observable.throw(error.message || error.statusText));
     }
 
-    deleteProduct(id: number): Observable<Response> {
+    public deleteProduct(id: number): Observable<Response> {
         const url = this.routingService.generate('api_delete_product', {'id': id});
 
         return this.http.delete(url)
-            .do(nil => this.removeProduct(id))
-            .catch(error => Observable.throw(error.message || error.statusText));
+            .do((nil) => this.removeProduct(id))
+            .catch((error) => Observable.throw(error.message || error.statusText));
     }
 
     private replaceProduct(product: Product): void {

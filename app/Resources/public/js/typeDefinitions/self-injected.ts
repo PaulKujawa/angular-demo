@@ -8,8 +8,8 @@
 declare var process: Process;
 
 type Env = 'dev'|'test'|'prod';
-type Process = {
-    readonly env: {
+interface Process {
+    env: {
         ENV: Env;
         NODE_ENV: Env;
     };

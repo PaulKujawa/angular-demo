@@ -11,22 +11,23 @@ import {ProductResponseDto} from '../model/dto/product-response.dto';
     animations: [slideInDownAnimation],
     template: `
         <product-form [product]="product" [isEditMode]="isEditMode"></product-form>
-    `
+    `,
 })
 export class ProductDetailComponent implements OnInit {
-    @HostBinding('@routeAnimation') routeAnimation = true;
-    @HostBinding('style.display') display = 'block';
-    @HostBinding('style.position') position = 'absolute';
-    product: Product;
-    isEditMode = false;
+    @HostBinding('@routeAnimation') public routeAnimation = true;
+    @HostBinding('style.display') public display = 'block';
+    @HostBinding('style.position') public position = 'absolute';
+    public product: Product;
+    public isEditMode = false;
 
     constructor(private productRepository: ProductRepository,
                 private route: ActivatedRoute,
-                private flashMsgService: FlashMessageService) {}
+                private flashMsgService: FlashMessageService) {
+    }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.route.params
-            .do(nil => {
+            .do((nil) => {
                 this.product = new Product({} as ProductResponseDto);
                 this.isEditMode = false;
             })
@@ -37,7 +38,7 @@ export class ProductDetailComponent implements OnInit {
                     this.product = product;
                     this.isEditMode = true;
                 },
-                (error: string) => this.flashMsgService.push(new FlashMessage('danger', error))
+                (error: string) => this.flashMsgService.push(new FlashMessage('danger', error)),
             );
     }
 }

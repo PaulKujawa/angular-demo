@@ -18,15 +18,15 @@ const productRoutes: Routes = [
                 children: [
                     {
                         path: ':id/:name',
-                        component: ProductDetailComponent
+                        component: ProductDetailComponent,
                     },
                     {
                         path: 'new',
-                        component: ProductDetailComponent
+                        component: ProductDetailComponent,
                     },
-                ]
+                ],
             },
-        ]
+        ],
     },
 ];
 
@@ -34,6 +34,7 @@ const productRoutes: Routes = [
     imports: [
         RouterModule.forChild(productRoutes),
     ],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
-export class ProductRoutingModule {}
+export class ProductRoutingModule {
+}

@@ -29,6 +29,7 @@ import {ProductMapper} from './mapper/product.mapper';
     providers: [
         ProductRepository,
         ProductMapper,
-    ]
+    ],
 })
-export class ProductModule {}
+export class ProductModule {
+}

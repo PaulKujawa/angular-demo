@@ -25,6 +25,7 @@ import {DashboardRoutingModule} from './dashboard-routing.module';
     exports: [],
     providers: [
         InquiryRepository,
-    ]
+    ],
 })
-export class DashboardModule {}
+export class DashboardModule {
+}

@@ -17,12 +17,12 @@ import {RoutingService} from '../../core/service/routing.service';
  */
 
 @Pipe({
-    name: 'trimBaseUrl'
+    name: 'trimBaseUrl',
 })
 export class TrimBaseUrlPipe implements PipeTransform {
     constructor(private routingService: RoutingService) {}
 
-    transform(value: string): string {
+    public transform(value: string): string {
         return this.routingService.trimBaseUrl(value);
     }
 }

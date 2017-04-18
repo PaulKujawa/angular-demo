@@ -12,11 +12,11 @@ export class RoutingService {
         this.baseUrl = window.appInject.baseUrl;
     }
 
-    generate(route: string, params = {}): string {
+    public generate(route: string, params = {}): string {
         return this.routing.generate(route, {_locale: this.requestLocale, ...params});
     }
 
-    trimBaseUrl(route: string): string {
+    public trimBaseUrl(route: string): string {
         return route.slice(this.baseUrl.length);
     }
 }

@@ -10,11 +10,13 @@ import {Product} from '../model/product';
 @Component({
     template: `
         <product-filter [pagination]="products?.pagination" (filter)="onFilter($event)"></product-filter>
-                        
+
         <div class="row">
             <div class="col-xs-12 col-sm-6">
                 <ul class="list-group">
-                    <li class="list-group-item app-products__item" (click)="onSelectProduct(product)" *ngFor="let product of pageable?.docs">
+                    <li class="list-group-item app-products__item"
+                        (click)="onSelectProduct(product)"
+                        *ngFor="let product of pageable?.docs">
                         {{product.name}}
                     </li>
                 </ul>
@@ -26,36 +28,37 @@ import {Product} from '../model/product';
                 <router-outlet></router-outlet>
             </div>
         </div>
-    `
+    `,
 })
 export class ProductListComponent implements OnInit {
-    pageable: Pageable<Product>;
+    public pageable: Pageable<Product>;
     private filterStream = new Subject<Map<string, string>>();
 
     constructor(private router: Router,
                 private flashMsgService: FlashMessageService,
-                private productRepository: ProductRepository) {}
+                private productRepository: ProductRepository) {
+    }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.filterStream
             .subscribe((queryParams: Map<string, string>) => this.productRepository.reloadProducts(queryParams));
 
         this.productRepository.pageable
             .subscribe(
                 (pageable: Pageable<Product>) => this.pageable = pageable,
-                (error: string) => this.flashMsgService.push(new FlashMessage('danger', error))
+                (error: string) => this.flashMsgService.push(new FlashMessage('danger', error)),
             );
     }
 
-    onAddProduct(): void {
+    public onAddProduct(): void {
         this.router.navigate(['products/new']);
     }
 
-    onFilter(filterMap: Map<string, string>): void {
+    public onFilter(filterMap: Map<string, string>): void {
         this.filterStream.next(filterMap);
     }
 
-    onSelectProduct(product: Product): void {
+    public onSelectProduct(product: Product): void {
         const productName = product.name.replace(' ', '-');
         this.router.navigate(['products', product.id, productName]);
     }

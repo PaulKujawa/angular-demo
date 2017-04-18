@@ -9,6 +9,6 @@ import {Component} from '@angular/core';
             <flash-messages></flash-messages>
             <router-outlet></router-outlet>
         </section>
-    `
+    `,
 })
 export class AppComponent {}

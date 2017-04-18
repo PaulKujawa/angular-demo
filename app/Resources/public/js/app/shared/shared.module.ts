@@ -18,6 +18,7 @@ const directives = [
     ],
     declarations: directives,
     exports: directives,
-    providers: []
+    providers: [],
 })
-export class SharedModule {}
+export class SharedModule {
+}

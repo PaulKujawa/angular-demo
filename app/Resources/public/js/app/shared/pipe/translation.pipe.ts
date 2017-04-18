@@ -1,6 +1,6 @@
-import {Pipe} from "@angular/core";
-import {PipeTransform} from "@angular/core";
-import {TranslationService} from "../../core/service/translation.service";
+import {Pipe} from '@angular/core';
+import {PipeTransform} from '@angular/core';
+import {TranslationService} from '../../core/service/translation.service';
 
 /*
  * Translate message
@@ -13,12 +13,13 @@ import {TranslationService} from "../../core/service/translation.service";
  */
 
 @Pipe({
-    name: 'trans'
+    name: 'trans',
 })
 export class TranslationPipe implements PipeTransform {
-    constructor(private translationService: TranslationService) {}
+    constructor(private translationService: TranslationService) {
+    }
 
-    transform(value: string, parameters?: object, domain?: string): string {
+    public transform(value: string, parameters?: object, domain?: string): string {
         return this.translationService.trans(value, parameters, domain);
     }
 }

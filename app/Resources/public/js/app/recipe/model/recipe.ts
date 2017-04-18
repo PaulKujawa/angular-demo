@@ -3,13 +3,13 @@ import {Macros} from './macros';
 import {Photo} from './photo';
 
 export class Recipe {
-    id: number;
-    name: string;
-    isVegan: boolean;
-    macros: Macros;
-    thumbnail?: Photo;
-    created: Date;
-    updated: Date;
+    public id: number;
+    public name: string;
+    public isVegan: boolean;
+    public macros: Macros;
+    public thumbnail?: Photo;
+    public created: Date;
+    public updated: Date;
 
     constructor(dto: RecipeResponseDto) {
         this.id = dto.id;

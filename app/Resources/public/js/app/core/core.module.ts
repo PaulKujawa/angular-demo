@@ -38,6 +38,6 @@ import {PageableFactory} from './factory/pageable.factory';
         PageableFactory,
         RoutingService,
         TranslationService,
-    ]
+    ],
 })
 export class CoreModule {}

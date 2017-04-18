@@ -11,13 +11,13 @@ const recipeRoutes: Routes = [
         children: [
             {
                 path: ':id/:name',
-                component: RecipeDetailComponent
+                component: RecipeDetailComponent,
             },
             {
                 path: '',
-                component: RecipeListComponent
+                component: RecipeListComponent,
             },
-        ]
+        ],
     },
 ];
 
@@ -25,6 +25,6 @@ const recipeRoutes: Routes = [
     imports: [
         RouterModule.forChild(recipeRoutes),
     ],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class RecipeRoutingModule {}

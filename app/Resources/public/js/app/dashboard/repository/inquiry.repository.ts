@@ -10,14 +10,14 @@ export class InquiryRepository {
                 private routingService: RoutingService) {
     }
 
-    addInquiry(inquiry: Inquiry): Observable<void> {
+    public addInquiry(inquiry: Inquiry): Observable<void> {
         const url = this.routingService.generate('api_post_inquiry');
         const body = JSON.stringify({'inquiry': inquiry});
         const headers = new Headers({'Content-Type': 'application/json'});
         const options = new RequestOptions({headers: headers});
 
         return this.http.post(url, body, options)
-            .map(response => null)
-            .catch(error => Observable.throw(error.message || error.statusText));
+            .map((response) => null)
+            .catch((error) => Observable.throw(error.message || error.statusText));
     }
 }

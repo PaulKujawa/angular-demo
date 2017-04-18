@@ -6,7 +6,7 @@ import {Component} from '@angular/core';
          <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" 
+                    <button type="button" class="navbar-toggle collapsed"
                     data-toggle="collapse" data-target="#ba-navbar__collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -25,7 +25,7 @@ import {Component} from '@angular/core';
                                 {{'app.common.recipes'|trans}}
                             </a>
                         </li>
-                        
+
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 {{'app.common.cms'|trans}}<span class="caret"></span>
@@ -45,6 +45,6 @@ import {Component} from '@angular/core';
                 </div>
             </div>
         </nav>
-    `
+    `,
 })
 export class NavBarComponent {}

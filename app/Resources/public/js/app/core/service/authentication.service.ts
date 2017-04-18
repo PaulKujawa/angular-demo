@@ -7,24 +7,24 @@ import {AuthRepository, Credentials} from '../repository/auth.repository';
 
 @Injectable()
 export class AuthenticationService {
-    isAuthenticated = new ReplaySubject<boolean>(1);
+    public isAuthenticated = new ReplaySubject<boolean>(1);
     private targetUrl: string;
 
     constructor(private router: Router, private authRepository: AuthRepository) {
         this.isAuthenticated.next(window.appInject.authenticated);
     }
 
-    authenticate(credentials: Credentials): Observable<Response> {
+    public authenticate(credentials: Credentials): Observable<Response> {
         // on failure: authentication did not change
         return this.authRepository.authenticate(credentials)
             .do(() => this.isAuthenticated.next(true));
     }
 
-    setTargetUrl(url: string): void {
+    public setTargetUrl(url: string): void {
         this.targetUrl = url;
     }
 
-    navigate(): void {
+    public navigate(): void {
         const url = this.targetUrl || '';
         this.targetUrl = '';
 
