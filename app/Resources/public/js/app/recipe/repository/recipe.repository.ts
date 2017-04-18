@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Http, URLSearchParams} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
-import {RoutingService} from '../../core/service/routing.service';
+import {PageableFactory} from '../../core/factory/pageable.factory';
 import {Pageable} from '../../core/model/pageable';
+import {RoutingService} from '../../core/service/routing.service';
+import {RecipeResponseDto} from '../model/dto/recipe-list-response.dto';
 import {Recipe} from '../model/recipe';
 import {RecipeDetail} from '../model/recipe-detail';
-import {RecipeResponseDto} from '../model/dto/recipe-list-response.dto';
-import {PageableFactory} from '../../core/factory/pageable.factory';
 
 @Injectable()
 export class RecipeRepository {
@@ -29,7 +29,7 @@ export class RecipeRepository {
     }
 
     public getRecipe(id: number): Observable<RecipeDetail> {
-        const url = this.routingService.generate('api_get_recipe', {'id': id});
+        const url = this.routingService.generate('api_get_recipe', {id: id});
 
         return this.http.get(url)
             .map((recipeDto) => new Recipe(recipeDto.json()))

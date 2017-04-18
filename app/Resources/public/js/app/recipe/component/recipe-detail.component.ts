@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
-import {FlashMessageService} from '../../core/service/flash-message.service';
 import {FlashMessage} from '../../core/model/flash-message';
-import {RecipeRepository} from '../repository/recipe.repository';
+import {FlashMessageService} from '../../core/service/flash-message.service';
 import {Ingredient} from '../model/ingredient';
 import {RecipeDetail} from '../model/recipe-detail';
+import {RecipeRepository} from '../repository/recipe.repository';
 
 @Component({
     template: `

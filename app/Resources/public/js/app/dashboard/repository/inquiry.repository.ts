@@ -1,5 +1,5 @@
-import {Http, RequestOptions, Headers} from '@angular/http';
 import {Injectable} from '@angular/core';
+import {Headers, Http, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {RoutingService} from '../../core/service/routing.service';
 import {Inquiry} from '../model/inquiry';
@@ -12,7 +12,7 @@ export class InquiryRepository {
 
     public addInquiry(inquiry: Inquiry): Observable<void> {
         const url = this.routingService.generate('api_post_inquiry');
-        const body = JSON.stringify({'inquiry': inquiry});
+        const body = JSON.stringify({inquiry: inquiry});
         const headers = new Headers({'Content-Type': 'application/json'});
         const options = new RequestOptions({headers: headers});
 

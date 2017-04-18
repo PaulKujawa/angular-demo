@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
 import {Pagination} from '../../core/model/pagination';

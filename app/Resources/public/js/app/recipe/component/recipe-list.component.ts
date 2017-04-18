@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs/Subject';
-import {FlashMessageService} from '../../core/service/flash-message.service';
 import {FlashMessage} from '../../core/model/flash-message';
 import {Pageable} from '../../core/model/pageable';
-import {RecipeRepository} from '../repository/recipe.repository';
+import {FlashMessageService} from '../../core/service/flash-message.service';
 import {Recipe} from '../model/recipe';
+import {RecipeRepository} from '../repository/recipe.repository';
 
 @Component({
     template: `

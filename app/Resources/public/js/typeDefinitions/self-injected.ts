@@ -9,7 +9,7 @@ declare var process: Process;
 
 type Env = 'dev'|'test'|'prod';
 interface Process {
-    env: {
+    readonly env: {
         ENV: Env;
         NODE_ENV: Env;
     };

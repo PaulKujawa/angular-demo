@@ -5,7 +5,7 @@ const path = require('path');
 const {AotPlugin} = require('@ngtools/webpack');
 import {commonConfig} from './webpack.common';
 
-export function webpackConfig(args: Object) {
+export function webpackConfig(args: object) {
     const rootPath = path.join(__dirname, '../../..');
     const jsPath = path.join(rootPath, 'app/Resources/public/js');
     const env = process.env.ENV = process.env.NODE_ENV;
@@ -16,18 +16,18 @@ export function webpackConfig(args: Object) {
             rules: [
                 {
                     // write templates inline and transpile ts to js TODO more precise description
-                    test: /\.ts$/, loader: '@ngtools/webpack'
+                    test: /\.ts$/, loader: '@ngtools/webpack',
                 }, {
                     // transpile sass to css and load it as extra file separately
                     test: /\.scss$/,
                     loader: ExtractTextPlugin.extract({
                         use: [
                             {loader: 'css-loader', options: {sourceMap: true}},
-                            {loader: 'sass-loader', options: {sourceMap: true}}
-                        ]
-                    })
+                            {loader: 'sass-loader', options: {sourceMap: true}},
+                        ],
+                    }),
                 },
-            ]
+            ],
         },
         plugins: [
             new AotPlugin({
@@ -43,6 +43,6 @@ export function webpackConfig(args: Object) {
 
             // minimizer
             new webpack.optimize.UglifyJsPlugin(),
-        ]
-    })
+        ],
+    });
 }

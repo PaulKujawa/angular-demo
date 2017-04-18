@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
 import {Response} from '@angular/http';
+import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {AuthRepository, Credentials} from '../repository/auth.repository';

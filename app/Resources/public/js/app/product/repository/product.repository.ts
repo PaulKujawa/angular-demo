@@ -1,13 +1,13 @@
-import {Http, URLSearchParams, Response, Headers, RequestOptions} from '@angular/http';
 import {Injectable} from '@angular/core';
+import {Headers, Http, RequestOptions, Response, URLSearchParams} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
-import {RoutingService} from '../../core/service/routing.service';
-import {Pageable} from '../../core/model/pageable';
 import {PageableFactory} from '../../core/factory/pageable.factory';
-import {Product} from '../model/product';
+import {Pageable} from '../../core/model/pageable';
+import {RoutingService} from '../../core/service/routing.service';
 import {ProductMapper} from '../mapper/product.mapper';
 import {ProductRequestDto} from '../model/dto/product-request.dto';
+import {Product} from '../model/product';
 
 @Injectable()
 export class ProductRepository {
@@ -33,7 +33,7 @@ export class ProductRepository {
     }
 
     public getProduct(id: number): Observable<Product> {
-        const url = this.routingService.generate('api_get_product', {'id': id});
+        const url = this.routingService.generate('api_get_product', {id: id});
 
         return this.http.get(url)
             .map((productDto) => new Product(productDto.json()))
@@ -53,7 +53,7 @@ export class ProductRepository {
     }
 
     public putProduct(product: Product): Observable<Response> {
-        const url = this.routingService.generate('api_put_product', {'id': product.id});
+        const url = this.routingService.generate('api_put_product', {id: product.id});
         const headers = new Headers({'Content-Type': 'application/json'}); // TODO set as general header
         const options = new RequestOptions({headers: headers});
         const productDto = this.productMapper.mapRequestDto(product);
@@ -64,7 +64,7 @@ export class ProductRepository {
     }
 
     public deleteProduct(id: number): Observable<Response> {
-        const url = this.routingService.generate('api_delete_product', {'id': id});
+        const url = this.routingService.generate('api_delete_product', {id: id});
 
         return this.http.delete(url)
             .do((nil) => this.removeProduct(id))

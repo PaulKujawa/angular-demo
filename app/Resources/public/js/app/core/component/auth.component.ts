@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 import {FlashMessage} from '../model/flash-message';
+import {Credentials} from '../repository/auth.repository';
+import {AuthenticationService} from '../service/authentication.service';
 import {FlashMessageService} from '../service/flash-message.service';
 import {TranslationService} from '../service/translation.service';
-import {AuthenticationService} from '../service/authentication.service';
-import {Credentials} from '../repository/auth.repository';
 
 @Component({
     template: `

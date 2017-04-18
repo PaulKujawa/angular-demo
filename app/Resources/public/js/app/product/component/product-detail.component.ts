@@ -1,11 +1,11 @@
-import {Component, OnInit, HostBinding} from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
-import {FlashMessageService} from '../../core/service/flash-message.service';
-import {FlashMessage} from '../../core/model/flash-message';
 import {slideInDownAnimation} from '../../core/animations';
-import {ProductRepository} from '../repository/product.repository';
-import {Product} from '../model/product';
+import {FlashMessage} from '../../core/model/flash-message';
+import {FlashMessageService} from '../../core/service/flash-message.service';
 import {ProductResponseDto} from '../model/dto/product-response.dto';
+import {Product} from '../model/product';
+import {ProductRepository} from '../repository/product.repository';
 
 @Component({
     animations: [slideInDownAnimation],

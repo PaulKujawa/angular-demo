@@ -1,10 +1,10 @@
 import {Component, Input} from '@angular/core';
 import {Router} from '@angular/router';
-import {FlashMessageService} from '../../core/service/flash-message.service';
 import {FlashMessage} from '../../core/model/flash-message';
+import {FlashMessageService} from '../../core/service/flash-message.service';
 import {TranslationService} from '../../core/service/translation.service';
-import {ProductRepository} from '../repository/product.repository';
 import {Product} from '../model/product';
+import {ProductRepository} from '../repository/product.repository';
 
 @Component({
     selector: 'product-form',

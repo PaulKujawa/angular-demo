@@ -5,12 +5,16 @@ import {Macros} from '../model/macros';
     selector: 'macro-chart',
     template: `
         <div class="progress">
-            <div class="progress-bar progress-bar-warning" role="progressbar" [style.width]="getPercentage(macros.carbs)">
+            <div class="progress-bar progress-bar-warning"
+                 role="progressbar"
+                 [style.width]="getPercentage(macros.carbs)">
                 {{macros.carbs}} gr
             </div>
         </div>
         <div class="progress">
-            <div class="progress-bar progress-bar-info" role="progressbar" [style.width]="getPercentage(macros.protein)">
+            <div class="progress-bar progress-bar-info"
+                 role="progressbar"
+                 [style.width]="getPercentage(macros.protein)">
                 {{macros.protein}} gr
             </div>
         </div>

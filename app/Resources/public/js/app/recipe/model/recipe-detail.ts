@@ -1,8 +1,8 @@
+import {Cooking} from './cooking';
+import {RecipeDetailResponseDto} from './dto/recipe-detail-response.dto';
 import {Ingredient} from './ingredient';
 import {Photo} from './photo';
-import {Cooking} from './cooking';
 import {Recipe} from './recipe';
-import {RecipeDetailResponseDto} from './dto/recipe-detail-response.dto';
 
 export class RecipeDetail extends Recipe {
     public ingredients: Ingredient[];

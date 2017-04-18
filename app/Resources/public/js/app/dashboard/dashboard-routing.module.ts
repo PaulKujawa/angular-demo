@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {InquiryComponent} from './component/inquiry.component';
 import {DashboardComponent} from './component/dashboard.component';
+import {InquiryComponent} from './component/inquiry.component';
 
 const recipeRoutes: Routes = [
     {
