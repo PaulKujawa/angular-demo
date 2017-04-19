@@ -1,16 +1,16 @@
+import {WebpackArgs} from './webpack-args';
+import {commonConfig} from './webpack.common';
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 const {AotPlugin} = require('@ngtools/webpack');
-import {commonConfig} from './webpack.common';
 
-export function webpackConfig(args: object) {
+export function webpackConfig(args: WebpackArgs) {
     const rootPath = path.join(__dirname, '../../..');
     const jsPath = path.join(rootPath, 'app/Resources/public/js');
-    const env = process.env.ENV = process.env.NODE_ENV;
 
-    return merge(commonConfig({env: env}), {
+    return merge(commonConfig(args), {
         devtool: 'source-map',
         module: {
             rules: [

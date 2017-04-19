@@ -1,10 +1,9 @@
-const merge = require('webpack-merge');
+import {WebpackArgs} from './webpack-args';
 import {commonConfig} from './webpack.common';
+const merge = require('webpack-merge');
 
-export function webpackConfig(args: object) {
-    const env = process.env.ENV = process.env.NODE_ENV;
-
-    return merge(commonConfig({env: env}), {
+export function webpackConfig(args: WebpackArgs) {
+    return merge(commonConfig(args), {
         devtool: 'inline-source-map',
         module: {
             rules: [

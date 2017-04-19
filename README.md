@@ -11,7 +11,10 @@
 * `npm run build:prod`
 
 **TODO**
+* angular doc: `Override default request headers (and other request options)`
 * lazy loading
+* try to remove npm package "@angular/platform-server"
+* symfony to 3.2 (require doctrine/annotations)
 * loading icon (http://angularjs.blogspot.de/2017/03/angular-400-now-available.html)
 * HMR
   * package.json ("build:dev": "NODE_ENV=dev webpack-dev-server -w --hot --progress")

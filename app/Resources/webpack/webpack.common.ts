@@ -1,12 +1,13 @@
+import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer';
+import {WebpackArgs} from './webpack-args';
 const webpack = require('webpack');
 const path = require('path');
 const {TsConfigPathsPlugin} = require('awesome-typescript-loader');
-import WebpackArguments from './webpack-arguments';
 
-export function commonConfig(args: WebpackArguments) {
+export function commonConfig(args: WebpackArgs) {
     const rootPath = path.join(__dirname, '../../../');
 
-    return {
+    const config = {
         context: path.join(__dirname, '../public/js'),
         entry: {
             main: './main.ts',
@@ -17,23 +18,24 @@ export function commonConfig(args: WebpackArguments) {
                 {
                     test: /\.html$/, loader: 'html-loader',
                 },
-            ]
+            ],
         },
         output: {
             path: rootPath,
             filename: 'web/js/[name].js',
         },
         plugins: [
-            // when two chunks (= entries) hold the same dependency, drop it to the more steady chunk.
+            // Moves shared imports of source chunk 'main' and its children into common chunk 'vendor'
             new webpack.optimize.CommonsChunkPlugin({
-                name: ['main', 'vendor'],
+                name: 'vendor',
+                chunks: ['main'],
+                children: true,
             }),
 
             // set global variables
             new webpack.DefinePlugin({
                 'process.env': {
                     ENV: JSON.stringify(args.env),
-                    NODE_ENV: JSON.stringify(args.env),
                 },
             }),
 
@@ -60,4 +62,11 @@ export function commonConfig(args: WebpackArguments) {
             ],
         },
     };
+
+    if (args.analyze) {
+        // chunk analyzation
+        config.plugins.push(new BundleAnalyzerPlugin());
+    }
+
+    return config;
 }

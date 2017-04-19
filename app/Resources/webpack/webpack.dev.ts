@@ -1,12 +1,11 @@
+import {WebpackArgs} from './webpack-args';
+import {commonConfig} from './webpack.common';
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-import {commonConfig} from './webpack.common';
 
-export function webpackConfig(args: object) {
-    const env = process.env.ENV = process.env.NODE_ENV;
-
-    return merge(commonConfig({env: env}), {
+export function webpackConfig(args: WebpackArgs) {
+    return merge(commonConfig(args), {
         devServer: {
             historyApiFallback: true,
             watchOptions: {

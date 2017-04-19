@@ -1,5 +1,7 @@
 /**
- * polyfills and vendors bundled separately as vendor.js
+ * Central module imports, that aren't imported in main entry (app).
+ * Avoid these imports to take advantage of tree shaking.
+ * These imports will be bundles in the chunck 'vendor'.
  */
 
 // polyfills
@@ -39,14 +41,7 @@ import 'rxjs/add/operator/merge';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/take';
 
-// jQuery based libraries
-import 'bootstrap-sass/assets/javascripts/bootstrap';
+// see webpack ProvidePlugin
 import 'jquery';
-
-// angular
-import '@angular/common';
-import '@angular/core';
-import '@angular/http';
-import '@angular/platform-browser';
-import '@angular/platform-browser-dynamic';
-import '@angular/router';
+// tslint:disable-next-line:ordered-imports
+import 'bootstrap-sass/assets/javascripts/bootstrap';

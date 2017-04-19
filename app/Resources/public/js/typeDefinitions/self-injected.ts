@@ -1,20 +1,11 @@
-/**
- * injected either via
- * - webpack plugin 'DefinePlugin'
- * - webpack plugin 'ProvidePlugin'
- * - backend template 'base.html.twig'
- */
-
-declare var process: Process;
-
-type Env = 'dev'|'test'|'prod';
-interface Process {
+// see webpack DefinePlugin
+declare var process: {
     readonly env: {
-        ENV: Env;
-        NODE_ENV: Env;
-    };
-}
+        readonly ENV: 'dev'|'test'|'prod',
+    },
+};
 
+// backend template 'base.html.twig'
 interface AppInject {
     readonly baseUrl: string;
     readonly requestLocale: string;
