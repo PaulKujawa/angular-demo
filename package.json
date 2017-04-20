@@ -54,6 +54,7 @@
     "style-loader": "0.13.1",
     "ts-node": "1.2.2",
     "webpack": "2.2.1",
+    "webpack-bundle-analyzer": "^2.4.0",
     "webpack-dev-server": "2.3.0",
     "webpack-merge": "3.0.0"
   },
@@ -68,7 +69,7 @@
     "symfony:link": "bin/console assets:install --symlink",
     "symfony:routes": "bin/console fos:js-routing:dump --no-debug --env=prod",
     "symfony:trans": "bin/console bazinga:js-translation:dump --format=js --merge-domains --no-debug --env=prod",
-    "webpack:dev": "NODE_ENV=dev webpack -w --progress",
-    "webpack:prod": "NODE_ENV=prod webpack --bail --progress"
+    "webpack:dev": "webpack -w --progress --env.env=dev --env.analyze=true",
+    "webpack:prod": "webpack --bail --progress --env.env=prod"
   }
 }

@@ -27,4 +27,5 @@ import {RecipeRepository} from './repository/recipe.repository';
         RecipeRepository,
     ],
 })
-export class RecipeModule {}
+export class RecipeModule {
+}
