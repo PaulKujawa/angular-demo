@@ -11,4 +11,5 @@ import {Component} from '@angular/core';
         </section>
     `,
 })
-export class AppComponent {}
+export class AppComponent {
+}

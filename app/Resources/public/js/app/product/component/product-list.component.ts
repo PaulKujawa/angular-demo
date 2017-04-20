@@ -9,7 +9,7 @@ import {ProductRepository} from '../repository/product.repository';
 
 @Component({
     template: `
-        <product-filter [pagination]="products?.pagination" (filter)="onFilter($event)"></product-filter>
+        <product-filter [pagination]="pageable?.pagination" (filter)="onFilter($event)"></product-filter>
 
         <div class="row">
             <div class="col-xs-12 col-sm-6">
