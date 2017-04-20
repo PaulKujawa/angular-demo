@@ -27,9 +27,10 @@ export function commonConfig(args: WebpackArgs) {
         plugins: [
             // Moves shared imports of source chunk 'main' and its children into common chunk 'vendor'
             new webpack.optimize.CommonsChunkPlugin({
-                name: 'vendor',
-                chunks: ['main'],
-                children: true,
+                names: ['main', 'vendor'],
+                // name: 'vendor', TODO as soon as multiple chunks are generated, this can be exchanged/enabled
+                // chunks: ['main'],
+                // children: true,
             }),
 
             // set global variables

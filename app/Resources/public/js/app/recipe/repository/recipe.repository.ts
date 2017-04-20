@@ -23,7 +23,7 @@ export class RecipeRepository {
 
         return this.http.get(url, {search: queryParameter})
             .map((pageableDto) => {
-                this.pageableFactory.getPageable<RecipeResponseDto, Recipe>(pageableDto.json(), Recipe);
+                return this.pageableFactory.getPageable<RecipeResponseDto, Recipe>(pageableDto.json(), Recipe);
             })
             .catch((error) => Observable.throw(error.message || error.statusText));
     }
@@ -32,7 +32,7 @@ export class RecipeRepository {
         const url = this.routingService.generate('api_get_recipe', {id: id});
 
         return this.http.get(url)
-            .map((recipeDto) => new Recipe(recipeDto.json()))
+            .map((recipeDto) => new RecipeDetail(recipeDto.json()))
             .catch((error) => Observable.throw(error.message || error.statusText));
     }
 }
