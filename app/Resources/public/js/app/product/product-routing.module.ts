@@ -7,7 +7,7 @@ import {ProductComponent} from './component/product.component';
 
 const productRoutes: Routes = [
     {
-        path: 'products',
+        path: '',
         component: ProductComponent,
         canActivate: [AuthenticationGuard],
         children: [
