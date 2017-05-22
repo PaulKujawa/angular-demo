@@ -35,8 +35,8 @@ export function webpackConfig(args: WebpackArgs) {
                 entryModule: path.join(jsPath, 'app/app.module#AppModule'),
             }),
 
-            // generate separate css file to load
-            new ExtractTextPlugin('web/css/main.css'),
+            // generate separate css file to load, based on output.path
+            new ExtractTextPlugin('css/main.css'),
 
             // stop the build if there is an error
             new webpack.NoEmitOnErrorsPlugin(),

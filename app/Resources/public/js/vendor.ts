@@ -3,6 +3,9 @@
  * These modules are obviously loaded enitely and therefore not optimized by tree shaking.
  */
 
+// override lazy loading baseUrl at runtime to expunge locale in base url
+__webpack_public_path__ = '/';
+
 // polyfills
 // TODO use DLLs instead
 import 'core-js/es6/array';

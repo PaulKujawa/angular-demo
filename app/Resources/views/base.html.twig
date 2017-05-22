@@ -14,7 +14,7 @@
                 <meta name="publisher" content="Paul Kujawa">
                 <meta name="description" content="vegan recipes with high calories">
                 <meta name="keywords" content="vegan, vegetarian, recipe, calories">
-                <base href="{{ path('app_root_i18n') }}"> {# see TrimBaseUrlPipe #}
+                <base href="{{ path('app_root_i18n') }}">
             {% endblock %}
 
             {% if app.environment != 'test' %}
@@ -27,7 +27,7 @@
         <spa></spa>
         <script>
             window.appInject = {
-                baseUrl: {{ path('app_root_i18n')|json_encode|raw }}, {# see RoutingService #}
+                baseUrl: {{ path('app_root_i18n')|json_encode|raw }},
                 requestLocale: {{ locale|json_encode|raw }},
                 authenticated: {{ app.user ? 1 : 0 }}
             };

@@ -46,8 +46,8 @@ export function webpackConfig(args: WebpackArgs) {
             // live chunk replacement via webpack's dev-server
             //  new webpack.HotModuleReplacementPlugin(), TODO HMR
 
-            // generate separate css file to load see to do above
-            new ExtractTextPlugin('web/css/main.css'),
+            // generate separate css file to load see to do above, based on output.path
+            new ExtractTextPlugin('css/main.css'),
         ],
     });
 }

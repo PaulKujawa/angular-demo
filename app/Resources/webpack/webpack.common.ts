@@ -21,9 +21,9 @@ export function commonConfig(args: WebpackArgs) {
             ],
         },
         output: {
-            path: rootPath,
-            filename: 'web/js/bundle/[name].js',
-            chunkFilename: 'web/js/chunk/[name].js',
+            path: rootPath + 'web/', // is used for both bundles and chunks
+            filename: 'js/bundle/[name].js',
+            chunkFilename: 'js/chunk/[name].js',
         },
         plugins: [
             /**

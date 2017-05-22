@@ -3,7 +3,7 @@ import {PipeTransform} from '@angular/core';
 import {RoutingService} from '../../core/service/routing.service';
 
 /*
- * Generates a route
+ * Generates a route, based on the base url
  *
  * Usage
  *  value|route:params
@@ -20,6 +20,8 @@ export class RoutePipe implements PipeTransform {
     }
 
     public transform(value: string, parameters?: object): string {
-        return this.routingService.generate(value, parameters);
+        const url = this.routingService.generate(value, parameters);
+
+        return this.routingService.trimBaseUrl(url);
     }
 }
