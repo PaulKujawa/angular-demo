@@ -23,7 +23,12 @@ export function webpackConfig(args: WebpackArgs) {
                 },
                 {
                     // write templates inline and transpile ts to js
-                    test: /\.ts$/, loaders: ['awesome-typescript-loader', 'angular2-template-loader']
+                    test: /\.ts$/,
+                    loaders: [
+                        'awesome-typescript-loader',
+                        'angular2-template-loader',
+                        'angular-router-loader',
+                    ],
                 }, {
                     // transpile sass to css and load it inline
                     test: /\.scss$/,
@@ -41,8 +46,8 @@ export function webpackConfig(args: WebpackArgs) {
             // live chunk replacement via webpack's dev-server
             //  new webpack.HotModuleReplacementPlugin(), TODO HMR
 
-            // generate separate css file to load see to do above
-            new ExtractTextPlugin('web/css/main.css'),
+            // generate separate css file to load see to do above, based on output.path
+            new ExtractTextPlugin('css/main.css'),
         ],
     });
 }

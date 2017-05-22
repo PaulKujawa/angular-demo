@@ -7,6 +7,10 @@ const appRoutes: Routes = [
         path: 'login',
         component: AuthComponent,
     },
+    {
+        path: 'products',
+        loadChildren: './product/product.module#ProductModule',
+    },
 ];
 
 @NgModule({
@@ -15,4 +19,5 @@ const appRoutes: Routes = [
     ],
     exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

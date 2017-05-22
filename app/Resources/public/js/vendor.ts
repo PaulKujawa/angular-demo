@@ -1,8 +1,10 @@
 /**
- * Central module imports, that aren't imported in main entry (app).
- * Avoid these imports to take advantage of tree shaking.
- * These imports will be bundles in the chunck 'vendor'.
+ * Used as an webpack entry point, that loads modules, that aren't loaded in the main entry point (app).
+ * These modules are obviously loaded enitely and therefore not optimized by tree shaking.
  */
+
+// override lazy loading baseUrl at runtime to expunge locale in base url
+__webpack_public_path__ = '/';
 
 // polyfills
 // TODO use DLLs instead

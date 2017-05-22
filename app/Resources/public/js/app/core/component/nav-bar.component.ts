@@ -16,12 +16,12 @@ import {Component} from '@angular/core';
                 <div id="ba-navbar__collapse" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav text-capitalize">
                         <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                            <a [routerLink]="'app_root_i18n'|route|trimBaseUrl">
+                            <a [routerLink]="'app_root_i18n'|route">
                                 {{'app.inquiry.inquiry'|trans}}
                             </a>
                         </li>
                         <li routerLinkActive="active">
-                            <a [routerLink]="'app_recipes'|route|trimBaseUrl">
+                            <a [routerLink]="'app_recipes'|route">
                                 {{'app.common.recipes'|trans}}
                             </a>
                         </li>
@@ -32,7 +32,7 @@ import {Component} from '@angular/core';
                             </a>
                             <ul class="dropdown-menu">
                                 <li routerLinkActive="active">
-                                    <a [routerLink]="'app_products'|route|trimBaseUrl">
+                                    <a [routerLink]="'app_products'|route">
                                         {{'app.common.products'|trans}}
                                     </a>
                                 </li>

@@ -21,16 +21,23 @@ export function commonConfig(args: WebpackArgs) {
             ],
         },
         output: {
-            path: rootPath,
-            filename: 'web/js/[name].js',
+            path: rootPath + 'web/', // is used for both bundles and chunks
+            filename: 'js/bundle/[name].js',
+            chunkFilename: 'js/chunk/[name].js',
         },
         plugins: [
-            // Moves shared imports of source chunk 'main' and its children into common chunk 'vendor'
+            /**
+             * Creates bundles and chunks.
+             *
+             * A bundle emerges from an entry point, containing all its files
+             * A chunk is used:
+             *  - by angular for lazy loaded ng-modules
+             *  - by webpack for modules, that are shared among entry points (e.g. vendors)
+             */
             new webpack.optimize.CommonsChunkPlugin({
-                names: ['main', 'vendor'],
-                // name: 'vendor', TODO as soon as multiple chunks are generated, this can be exchanged/enabled
-                // chunks: ['main'],
-                // children: true,
+                name: 'vendor', // common chunk, where shared modules get imported
+                chunks: ['main'], // source chunks, child of common chunk
+                minChunks: (module) => /(node_modules|web\/js|web\/)\//.test(module.resource),
             }),
 
             // set global variables
@@ -48,12 +55,6 @@ export function commonConfig(args: WebpackArgs) {
                 // since Bazinga's dumped translation files require Translator in global namespace
                 Translator: 'web/bundles/bazingajstranslation/js/translator.min.js',
             }),
-
-            // see https://github.com/angular/angular/issues/11580
-            new webpack.ContextReplacementPlugin(
-                /angular(\\|\/)core(\\|\/)@angular/,
-                path.resolve(__dirname, 'doesnotexist/'),
-            ),
         ],
         resolve: {
             extensions: ['.ts', '.js', '.scss'],
@@ -64,10 +65,10 @@ export function commonConfig(args: WebpackArgs) {
         },
     };
 
-    if (args.analyze) {
-        // chunk analyzation
-        config.plugins.push(new BundleAnalyzerPlugin());
-    }
+    // if (args.analyze) {
+    // chunk analyzation
+    config.plugins.push(new BundleAnalyzerPlugin());
+    // }
 
     return config;
 }
