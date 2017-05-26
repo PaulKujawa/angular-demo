@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthComponent} from './core/component/auth.component';
+import {AuthenticationGuard} from './core/service/auth-guard.service';
 
 const appRoutes: Routes = [
     {
@@ -10,6 +11,7 @@ const appRoutes: Routes = [
     {
         path: 'products',
         loadChildren: './product/product.module#ProductModule',
+        canLoad: [AuthenticationGuard]
     },
 ];
 

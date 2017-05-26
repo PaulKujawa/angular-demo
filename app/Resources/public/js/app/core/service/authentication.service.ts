@@ -24,7 +24,7 @@ export class AuthenticationService {
         this.targetUrl = url;
     }
 
-    public navigate(): void {
+    public navigateToTargetUrl(): void {
         const url = this.targetUrl || '';
         this.targetUrl = '';
 

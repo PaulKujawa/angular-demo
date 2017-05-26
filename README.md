@@ -11,7 +11,6 @@
 * `npm run build:prod`
 
 **TODO**
-* B: fix session storage for vagrant
 * R: `Override default request headers (and other request options)`
 * F: use routingGuard to load chunk after login
 * F: symfony to 3.2 (require doctrine/annotations)
