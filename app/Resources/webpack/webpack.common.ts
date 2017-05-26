@@ -65,10 +65,10 @@ export function commonConfig(args: WebpackArgs) {
         },
     };
 
-    // if (args.analyze) {
-    // chunk analyzation
-    config.plugins.push(new BundleAnalyzerPlugin());
-    // }
+    if (args.analyze) {
+        // chunk analyzation
+        config.plugins.push(new BundleAnalyzerPlugin());
+    }
 
     return config;
 }
