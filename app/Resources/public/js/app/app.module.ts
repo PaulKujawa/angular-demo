@@ -5,7 +5,6 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {CoreModule} from './core/core.module';
 import {DashboardModule} from './dashboard/dashboard.module';
-import {RecipeModule} from './recipe/recipe.module';
 import {SharedModule} from './shared/shared.module';
 
 @NgModule({
@@ -17,7 +16,6 @@ import {SharedModule} from './shared/shared.module';
         CoreModule,
         DashboardModule,
         SharedModule,
-        RecipeModule,
     ],
     declarations: [AppComponent],
     exports: [AppComponent],

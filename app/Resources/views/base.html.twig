@@ -29,7 +29,7 @@
             window.appInject = {
                 baseUrl: {{ path('app_root_i18n')|json_encode|raw }},
                 requestLocale: {{ locale|json_encode|raw }},
-                authenticated: {{ app.user ? 1 : 0 }}
+                authenticated: {{ app.user ? 'true' : 'false' }}
             };
         </script>
         <script src="{{ asset('js/bundle/vendor.js') }}"></script>

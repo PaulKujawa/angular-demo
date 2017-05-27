@@ -48,7 +48,7 @@ export class AuthComponent {
                 () => {
                     const message = new FlashMessage('success', this.translationService.trans('app.auth.signed_in'));
                     this.flashMsgService.push(message);
-                    this.authenticationService.navigate();
+                    this.authenticationService.navigateToTargetUrl();
                 },
                 (error: string) => this.flashMsgService.push(new FlashMessage('danger', error)),
             );

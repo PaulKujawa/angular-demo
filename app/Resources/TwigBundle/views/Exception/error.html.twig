@@ -7,7 +7,6 @@
 
 {% block section %}
     <section class="container errorPage">
-        <h1>{{ 'rebuy.error.html_code'|trans({'%code%':status_code}) }}</h1>
-        <a href="{{ path('app_root_i18n') }}">{{ 'barra.contact.title'|trans() }}</a>
+        <h1>{{ status_code }}</h1>
     </section>
 {% endblock %}

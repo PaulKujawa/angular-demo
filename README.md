@@ -11,10 +11,10 @@
 * `npm run build:prod`
 
 **TODO**
-* angular doc: `Override default request headers (and other request options)`
-* try to remove npm package "@angular/platform-server"
-* symfony to 3.2 (require doctrine/annotations)
-* loading icon (http://angularjs.blogspot.de/2017/03/angular-400-now-available.html)
-* HMR
+* R: `Override default request headers (and other request options)`
+* F: use routingGuard to load chunk after login
+* F: symfony to 3.2 (require doctrine/annotations)
+* F: loading icon (http://angularjs.blogspot.de/2017/03/angular-400-now-available.html)
+* F: HMR
   * package.json ("build:dev": "NODE_ENV=dev webpack-dev-server -w --hot --progress")
   * see TODOs
