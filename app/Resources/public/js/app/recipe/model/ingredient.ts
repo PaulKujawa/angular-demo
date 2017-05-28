@@ -4,7 +4,6 @@ import {Measurement} from './measurement';
 
 export class Ingredient {
     public id: number;
-    public position: number;
     public amount?: number;
     public product: Product;
     public measurement?: Measurement;
@@ -14,7 +13,6 @@ export class Ingredient {
 
     constructor(dto: IngredientDto) {
         this.id = dto.id;
-        this.position = dto.position;
         this.amount = dto.amount;
         this.product = new Product(dto.product);
         this.kcal = dto.kcal;

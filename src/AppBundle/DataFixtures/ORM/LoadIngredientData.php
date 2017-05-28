@@ -20,9 +20,9 @@ class LoadIngredientData extends AbstractFixture implements OrderedFixtureInterf
      */
     public function load(ObjectManager $em)
     {
-        self::$members[] = $this->instantiate(1, 1, 'refMeasurement1', 'refRecipe1', 'refProduct1');
-        self::$members[] = $this->instantiate(2, 2, 'refMeasurement1', 'refRecipe1', 'refProduct2');
-        self::$members[] = $this->instantiate(3, 3, 'refMeasurement1', 'refRecipe2', 'refProduct1');
+        self::$members[] = $this->instantiate(1, 'refMeasurement1', 'refRecipe1', 'refProduct1');
+        self::$members[] = $this->instantiate(2, 'refMeasurement1', 'refRecipe1', 'refProduct2');
+        self::$members[] = $this->instantiate(3, 'refMeasurement1', 'refRecipe2', 'refProduct1');
 
         array_walk(self::$members, function(Ingredient $member, $i) use ($em) {
             $this->addReference('refIngredient' . ($i + 1), $member);
@@ -32,7 +32,6 @@ class LoadIngredientData extends AbstractFixture implements OrderedFixtureInterf
     }
 
     /**
-     * @param int $position
      * @param int $amount
      * @param string $refMeasurement
      * @param string $refRecipe
@@ -40,7 +39,7 @@ class LoadIngredientData extends AbstractFixture implements OrderedFixtureInterf
      *
      * @return Ingredient
      */
-    private function instantiate($position, $amount, $refMeasurement, $refRecipe, $refProduct)
+    private function instantiate($amount, $refMeasurement, $refRecipe, $refProduct)
     {
         $measurement = $this->getReference($refMeasurement);
         $recipe = $this->getReference($refRecipe);
@@ -53,7 +52,7 @@ class LoadIngredientData extends AbstractFixture implements OrderedFixtureInterf
             throw new InvalidArgumentException();
         }
 
-        $ingredient = new Ingredient($recipe->getId(), $position);
+        $ingredient = new Ingredient($recipe->getId());
         $ingredient->setAmount($amount);
         $ingredient->setMeasurement($measurement);
         $ingredient->setProduct($product);

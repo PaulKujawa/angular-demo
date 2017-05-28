@@ -5,15 +5,15 @@
 **Initial setup**
 * `composer install`
 * `bin/console doctrine:database:create`
-* `bin/console doctrine:migrations:migrate`
+* `bin/console doctrine:migrations:migrate` or `bin/console doctrine:schema:update --force`
 
 **Build project**
 * `npm run build:prod`
 
 **TODO**
-* R: `Override default request headers (and other request options)`
-* F: use routingGuard to load chunk after login
+* R: Override default request headers (and other request options)
 * F: symfony to 3.2 (require doctrine/annotations)
+* F: add vegan label, servings and cook time
 * F: loading icon (http://angularjs.blogspot.de/2017/03/angular-400-now-available.html)
 * F: HMR
   * package.json ("build:dev": "NODE_ENV=dev webpack-dev-server -w --hot --progress")

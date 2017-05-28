@@ -3,7 +3,6 @@ import {MeasurementDto} from './measurement.dto';
 
 export interface IngredientDto {
     id: number;
-    position: number;
     amount?: number;
     product: ProductResponseDto;
     measurement?: MeasurementDto;

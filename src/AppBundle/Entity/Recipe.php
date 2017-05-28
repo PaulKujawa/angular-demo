@@ -60,7 +60,6 @@ class Recipe
      *      targetEntity = "Ingredient",
      *      mappedBy = "recipe"
      * )
-     * @ORM\OrderBy({"position" = "ASC"})
      */
     public $ingredients;
 

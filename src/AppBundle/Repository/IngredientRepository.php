@@ -23,23 +23,11 @@ class IngredientRepository
     /**
      * @param int $recipeId
      *
-     * @return int
-     */
-    public function getPosition(int $recipeId): int {
-        return $this->entityManager->getRepository(Ingredient::class)->getNextPosition($recipeId);
-    }
-
-    /**
-     * @param int $recipeId
-     *
      * @return Ingredient[]|array
      */
     public function getIngredients(int $recipeId): array
     {
-        return $this->entityManager->getRepository(Ingredient::class)->findBy(
-            ['recipe' => $recipeId],
-            ['position' => 'ASC']
-        );
+        return $this->entityManager->getRepository(Ingredient::class)->findBy(['recipe' => $recipeId]);
     }
 
     /**

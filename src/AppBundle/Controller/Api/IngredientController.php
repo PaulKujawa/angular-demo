@@ -97,8 +97,7 @@ class IngredientController extends FOSRestController implements ClassResourceInt
             return $this->view(null, Response::HTTP_NOT_FOUND);
         }
 
-        $position = $this->get('app.repository.ingredient')->getPosition($recipeId);
-        $ingredient = new Ingredient($recipeId, $position);
+        $ingredient = new Ingredient($recipeId);
         $form = $this->createForm(IngredientType::class, $ingredient);
         $form->handleRequest($request);
 

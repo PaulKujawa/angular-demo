@@ -4,7 +4,7 @@ namespace AppBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
-class RecipeRelatedRepository extends EntityRepository
+class CookingRepository extends EntityRepository
 {
     /**
      * @param int $recipeId
