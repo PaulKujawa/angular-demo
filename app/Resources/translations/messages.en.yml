@@ -48,3 +48,4 @@ app:
     filter:
       vegan_only: solely vegan
     ingredients: Ingredients
+    ingredient_sorting: Sorted by kcal.

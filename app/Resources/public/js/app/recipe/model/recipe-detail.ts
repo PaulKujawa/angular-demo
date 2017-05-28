@@ -7,13 +7,13 @@ import {Recipe} from './recipe';
 export class RecipeDetail extends Recipe {
     public ingredients: Ingredient[];
     public cookings: Cooking[];
-    public photos?: Photo;
+    public photos?: Photo[];
 
     constructor(dto: RecipeDetailResponseDto) {
         super(dto);
 
-        this.ingredients = dto.ingredients;
-        this.cookings = dto.cookings;
-        this.photos = dto.photos;
+        this.ingredients = dto.ingredients.map((ingredientDto) => new Ingredient(ingredientDto));
+        this.cookings = dto.cookings.map((cookingDto) => new Cooking(cookingDto));
+        this.photos = dto.photos.map((photoDto) => new Photo(photoDto));
     }
 }

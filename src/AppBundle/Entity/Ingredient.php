@@ -6,7 +6,7 @@ use AppBundle\Entity\Traits\IdAutoTrait;
 use AppBundle\Entity\Traits\PositionTrait;
 use AppBundle\Entity\Traits\TimestampTrait;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\Exclude;
+use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -45,7 +45,7 @@ class Ingredient
      *
      * @Assert\NotNull()
      *
-     * @Exclude
+     * @Serializer\Exclude()
      *
      * @ORM\ManyToOne(
      *      targetEntity = "Recipe",
@@ -104,4 +104,30 @@ class Ingredient
      * @ORM\OrderBy({"name" = "ASC"})
      */
     public $measurement;
+
+    /**
+     * @Serializer\VirtualProperty()
+     * @Serializer\SerializedName("kcal")
+     *
+     * @return int
+     */
+    public function calculateKcal(): int
+    {
+        if (null === $this->amount) {
+            return 0;
+        }
+
+        $kcal = $this->getRelation() * $this->product->kcal;
+
+        return (int)($kcal);
+    }
+
+    /**
+     * @return float
+     */
+    private function getRelation(): float {
+        $gr = $this->measurement->gr ?: $this->product->gr;
+
+        return $this->amount * $gr / 100;
+    }
 }

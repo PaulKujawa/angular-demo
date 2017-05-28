@@ -18,12 +18,15 @@ import {RecipeRepository} from '../repository/recipe.repository';
 
         <div class="row">
             <div class="col-xs-12 col-sm-5">
-                <h2>{{'app.recipe.ingredients'|trans}}</h2>
+                <h2>{{'app.recipe.ingredients'|trans}}*</h2>
                 <table class="table">
                     <tbody>
                         <tr *ngFor="let ingredient of recipe?.ingredients">
                             <th scope="row">{{getMeasurement(ingredient)}}</th>
                             <td>{{ingredient.product.name}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">*{{'app.recipe.ingredient_sorting'|trans}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -52,13 +55,16 @@ export class RecipeDetailComponent implements OnInit {
         this.activatedRoute.params
             .switchMap((params: Params) => this.recipeRepository.getRecipe(+params[this.idQuery]))
             .subscribe(
-                (recipe: RecipeDetail) => this.recipe = recipe,
+                (recipe: RecipeDetail) => {
+                    recipe.ingredients.sort((a, b) => b.kcal - a.kcal);
+                    this.recipe = recipe;
+                },
                 (error: string) => this.flashMsgService.push(new FlashMessage('danger', error)),
             );
     }
 
     public getMeasurement(ingredient: Ingredient): string {
-        return ingredient.amount
+        return ingredient.amount && ingredient.measurement
             ? [ingredient.amount, ingredient.measurement.name].join(' ')
             : '';
     }
