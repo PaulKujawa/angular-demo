@@ -90,11 +90,7 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
 
         $recipe = $this->get('app.repository.recipe')->addRecipe($form->getData());
 
-        return $this->view()->createRouteRedirect(
-            'api_get_recipe',
-            ['id' => $recipe->getId()],
-            Response::HTTP_CREATED
-        );
+        return $this->routeRedirectView('api_get_recipe', ['id' => $recipe->id], Response::HTTP_CREATED);
     }
 
     /**
@@ -122,11 +118,7 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
 
         $this->get('app.repository.recipe')->setRecipe($recipe);
 
-        return $this->view()->createRouteRedirect(
-            'api_get_recipe',
-            ['id' => $id],
-            Response::HTTP_NO_CONTENT
-        );
+        return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 
     /**

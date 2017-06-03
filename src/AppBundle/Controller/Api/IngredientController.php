@@ -107,7 +107,7 @@ class IngredientController extends FOSRestController implements ClassResourceInt
 
         $ingredient = $this->get('app.repository.ingredient')->addIngredient($ingredient);
 
-        return View::createRouteRedirect('api_get_recipe_ingredient', [
+        return $this->routeRedirectView('api_get_recipe_ingredient', [
             'recipeId' => $recipeId,
             'id' => $ingredient->id,
         ]);
@@ -137,11 +137,7 @@ class IngredientController extends FOSRestController implements ClassResourceInt
 
         $this->get('app.repository.ingredient')->setIngredient($ingredient);
 
-        return View::createRouteRedirect(
-            'api_get_recipe_ingredient',
-            ['recipeId' => $recipeId, 'id' => $id],
-            Response::HTTP_NO_CONTENT
-        );
+        return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 
     /**

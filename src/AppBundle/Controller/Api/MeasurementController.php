@@ -69,8 +69,8 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
         }
 
         $measurement = $this->get('app.repository.measurement')->addMeasurement($form->getData());
-        
-        return View::createRouteRedirect('api_get_measurement', ['id' => $measurement->id], Response::HTTP_CREATED);
+
+        return $this->routeRedirectView('api_get_measurement', ['id' => $measurement->id], Response::HTTP_CREATED);
     }
 
     /**
@@ -96,7 +96,7 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
 
         $this->get('app.repository.measurement')->setMeasurement($measurement);
 
-        return View::createRouteRedirect('api_get_measurement', ['id' => $id], Response::HTTP_NO_CONTENT);
+        return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 
     /**
