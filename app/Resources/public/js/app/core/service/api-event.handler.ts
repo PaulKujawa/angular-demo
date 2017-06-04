@@ -5,7 +5,7 @@ import {FlashMessageService} from './flash-message.service';
 import {TranslationService} from './translation.service';
 
 @Injectable()
-export class ApiEventHandlerService {
+export class ApiEventHandler {
     constructor(private flashMsgService: FlashMessageService,
                 private translationService: TranslationService) {
     }

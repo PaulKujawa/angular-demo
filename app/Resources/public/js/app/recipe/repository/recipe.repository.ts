@@ -3,7 +3,7 @@ import {Http, URLSearchParams} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {PageableFactory} from '../../core/factory/pageable.factory';
 import {Pageable} from '../../core/model/pageable';
-import {ApiEventHandlerService} from '../../core/service/api-event-handling.service';
+import {ApiEventHandler} from '../../core/service/api-event.handler';
 import {RoutingService} from '../../core/service/routing.service';
 import {RecipeResponseDto} from '../model/dto/recipe-list-response.dto';
 import {Recipe} from '../model/recipe';
@@ -13,7 +13,7 @@ import {RecipeDetail} from '../model/recipe-detail';
 export class RecipeRepository {
     constructor(private http: Http,
                 private routingService: RoutingService,
-                private apiEventHandlerService: ApiEventHandlerService,
+                private apiEventHandlerService: ApiEventHandler,
                 private pageableFactory: PageableFactory) {
     }
 
