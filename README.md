@@ -11,7 +11,6 @@
 * `npm run build:prod`
 
 **TODO**
-* R: Override default request headers (and other request options)
 * F: symfony to 3.2 (require doctrine/annotations)
 * F: add vegan label, servings and cook time
 * F: loading icon (http://angularjs.blogspot.de/2017/03/angular-400-now-available.html)
