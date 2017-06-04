@@ -4,6 +4,7 @@ import {Subject} from 'rxjs/Subject';
 import {Pageable} from '../../core/model/pageable';
 import {Product} from '../model/product';
 import {ProductRepository} from '../repository/product.repository';
+import {ProductState} from '../service/product.state';
 
 @Component({
     template: `
@@ -32,14 +33,16 @@ export class ProductListComponent implements OnInit {
     public pageable: Pageable<Product>;
     private filterStream = new Subject<Map<string, string>>();
 
-    constructor(private router: Router, private productRepository: ProductRepository) {
+    constructor(private router: Router,
+                private productRepository: ProductRepository,
+                private productState: ProductState) {
     }
 
     public ngOnInit(): void {
         this.filterStream.subscribe((queryParams: Map<string, string>) => {
             this.productRepository.getProducts(queryParams);
         });
-        this.productRepository.pageable.subscribe((pageable: Pageable<Product>) => this.pageable = pageable);
+        this.productState.pageable.subscribe((pageable: Pageable<Product>) => this.pageable = pageable);
     }
 
     public onAddProduct(): void {
