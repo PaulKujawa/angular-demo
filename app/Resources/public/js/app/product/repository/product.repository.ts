@@ -1,25 +1,26 @@
 import {Injectable} from '@angular/core';
-import {Headers, Http, RequestOptions, Response, URLSearchParams} from '@angular/http';
+import {Http, Response, URLSearchParams} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
-import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {PageableFactory} from '../../core/factory/pageable.factory';
 import {Pageable} from '../../core/model/pageable';
+import {ApiEventHandler} from '../../core/service/api-event.handler';
 import {RoutingService} from '../../core/service/routing.service';
 import {ProductMapper} from '../mapper/product.mapper';
 import {ProductRequestDto} from '../model/dto/product-request.dto';
 import {Product} from '../model/product';
+import {ProductState} from '../service/product.state';
 
 @Injectable()
 export class ProductRepository {
-    public pageable = new ReplaySubject<Pageable<Product>>(1);
-
     constructor(private http: Http,
+                private apiEventHandler: ApiEventHandler,
                 private routingService: RoutingService,
                 private productMapper: ProductMapper,
+                private productState: ProductState,
                 private pageableFactory: PageableFactory) {
     }
 
-    public reloadProducts(filter: Map<string, string>): void {
+    public getProducts(filter: Map<string, string>): void {
         const url = this.routingService.generate('api_get_products');
         const queryParameter = new URLSearchParams();
         filter.forEach((value: string, key: string) => queryParameter.set(key, value));
@@ -28,8 +29,8 @@ export class ProductRepository {
             .map((pageableDto) => {
                 return this.pageableFactory.getPageable<ProductRequestDto, Product>(pageableDto.json(), Product);
             })
-            .catch((error) => Observable.throw(error.message || error.statusText))
-            .subscribe((pageable) => this.pageable.next(pageable));
+            .catch((error) => this.apiEventHandler.catchError(error))
+            .subscribe((pageable: Pageable<Product>) => this.productState.pageable.next(pageable));
     }
 
     public getProduct(id: number): Observable<Product> {
@@ -37,7 +38,7 @@ export class ProductRepository {
 
         return this.http.get(url)
             .map((productDto) => new Product(productDto.json()))
-            .catch((error) => Observable.throw(error.message || error.statusText));
+            .catch((error) => this.apiEventHandler.catchError(error));
     }
 
     public postProduct(requestProduct: Product): Observable<Product> {
@@ -46,8 +47,11 @@ export class ProductRepository {
 
         return this.http.post(url, {product: productRequestDto})
             .map((productDto) => new Product(productDto.json()))
-            .do((product) => this.addProduct(product))
-            .catch((error) => Observable.throw(error.message || error.statusText));
+            .do((product) => {
+                this.productState.addProduct(product);
+                this.apiEventHandler.postSuccessMessage('app.api.post_success');
+            })
+            .catch((error) => this.apiEventHandler.catchError(error));
     }
 
     public putProduct(product: Product): Observable<Response> {
@@ -55,41 +59,21 @@ export class ProductRepository {
         const productDto = this.productMapper.mapRequestDto(product);
 
         return this.http.put(url, {product: productDto})
-            .do((nil) => this.replaceProduct(product))
-            .catch((error) => Observable.throw(error.message || error.statusText));
+            .do((nil) => {
+                this.productState.replaceProduct(product);
+                this.apiEventHandler.postSuccessMessage('app.api.update_success');
+            })
+            .catch((error) => this.apiEventHandler.catchError(error));
     }
 
     public deleteProduct(id: number): Observable<Response> {
         const url = this.routingService.generate('api_delete_product', {id: id});
 
         return this.http.delete(url)
-            .do((nil) => this.removeProduct(id))
-            .catch((error) => Observable.throw(error.message || error.statusText));
-    }
-
-    private replaceProduct(product: Product): void {
-        this.pageable.take(1)
-            .subscribe((pageable: Pageable<Product>) => {
-                const i = pageable.docs.findIndex((p: Product) => p.id === product.id);
-                pageable.docs.splice(i, i === -1 ? 0 : 1, product);
-                this.pageable.next(pageable);
-            });
-    }
-
-    private addProduct(product: Product): void {
-        this.pageable.take(1)
-            .subscribe((pageable: Pageable<Product>) => {
-                pageable.docs.push(product);
-                this.pageable.next(pageable);
-            });
-    }
-
-    private removeProduct(id: number): void {
-        this.pageable.take(1)
-            .subscribe((pageable: Pageable<Product>) => {
-                const i = pageable.docs.findIndex((p: Product) => p.id === id);
-                pageable.docs.splice(i, i === -1 ? 0 : 1);
-                this.pageable.next(pageable);
-            });
+            .do((nil) => {
+                this.productState.removeProduct(id);
+                this.apiEventHandler.postSuccessMessage('app.api.delete_success');
+            })
+            .catch((error) => this.apiEventHandler.catchError(error));
     }
 }

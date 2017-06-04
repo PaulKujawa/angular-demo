@@ -1,8 +1,5 @@
 import {Component, Input} from '@angular/core';
 import {Router} from '@angular/router';
-import {FlashMessage} from '../../core/model/flash-message';
-import {FlashMessageService} from '../../core/service/flash-message.service';
-import {TranslationService} from '../../core/service/translation.service';
 import {Product} from '../model/product';
 import {ProductRepository} from '../repository/product.repository';
 
@@ -81,10 +78,7 @@ export class ProductFormComponent {
     @Input() public product: Product;
     @Input() public isEditMode: boolean;
 
-    constructor(private router: Router,
-                private productRepository: ProductRepository,
-                private flashMsgService: FlashMessageService,
-                private translationService: TranslationService) {
+    constructor(private router: Router, private productRepository: ProductRepository) {
     }
 
     public onSubmit(): void {
@@ -95,37 +89,16 @@ export class ProductFormComponent {
 
     public onDelete(): void {
         this.productRepository.deleteProduct(this.product.id)
-            .subscribe(
-                () => {
-                    const text = this.translationService.trans('app.api.delete_success');
-                    this.flashMsgService.push(new FlashMessage('success', text));
-                    this.router.navigate(['products']);
-                },
-                (error: string) => this.flashMsgService.push(new FlashMessage('danger', error)),
-            );
+            .subscribe(() => this.router.navigate(['products']));
     }
 
     private postProduct(): void {
         this.productRepository.postProduct(this.product)
-            .subscribe(
-                () => {
-                    const text = this.translationService.trans('app.api.post_success');
-                    this.flashMsgService.push(new FlashMessage('success', text));
-                    this.router.navigate(['products']);
-                },
-                (error: string) => this.flashMsgService.push(new FlashMessage('danger', error)),
-            );
+            .subscribe(() => this.router.navigate(['products']));
     }
 
     private putProduct(): void {
         this.productRepository.putProduct(this.product)
-            .subscribe(
-                () => {
-                    const text = this.translationService.trans('app.api.update_success');
-                    this.flashMsgService.push(new FlashMessage('success', text));
-                    this.router.navigate(['products']);
-                },
-                (error: string) => this.flashMsgService.push(new FlashMessage('danger', error)),
-            );
+            .subscribe(() => this.router.navigate(['products']));
     }
 }

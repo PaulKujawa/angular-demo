@@ -9,6 +9,7 @@ import {FlashMessageComponent} from './component/flash-message.component';
 import {NavBarComponent} from './component/nav-bar.component';
 import {PageableFactory} from './factory/pageable.factory';
 import {AuthRepository} from './repository/auth.repository';
+import {ApiEventHandler} from './service/api-event.handler';
 import {AuthenticationGuard} from './service/auth-guard.service';
 import {AuthenticationService} from './service/authentication.service';
 import {DefaultRequestOptions} from './service/default-request-options.service';
@@ -33,6 +34,7 @@ import {TranslationService} from './service/translation.service';
         NavBarComponent,
     ],
     providers: [
+        ApiEventHandler,
         AuthenticationGuard,
         AuthenticationService,
         AuthRepository,

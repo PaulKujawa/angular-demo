@@ -29,6 +29,7 @@ import 'core-js/es7/reflect';
 import 'zone.js/dist/zone';
 
 // RxJS
+import 'rxjs/add/observable/empty';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
