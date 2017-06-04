@@ -11,7 +11,7 @@ const appRoutes: Routes = [
     {
         path: 'products',
         loadChildren: './product/product.module#ProductModule',
-        canLoad: [AuthenticationGuard]
+        canLoad: [AuthenticationGuard],
     },
     {
         path: 'recipes',

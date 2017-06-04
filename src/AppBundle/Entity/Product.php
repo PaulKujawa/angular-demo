@@ -6,7 +6,6 @@ use AppBundle\Entity\Traits\IdAutoTrait;
 use AppBundle\Entity\Traits\NameTrait;
 use AppBundle\Entity\Traits\TimestampTrait;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 

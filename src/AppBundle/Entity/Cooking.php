@@ -4,7 +4,6 @@ namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\DescriptionTrait;
 use AppBundle\Entity\Traits\IdAutoTrait;
-use AppBundle\Entity\Traits\PositionTrait;
 use AppBundle\Entity\Traits\TimestampTrait;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
@@ -19,13 +18,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table()
  * @ORM\HasLifecycleCallbacks()
- * @ORM\Entity(repositoryClass = "AppBundle\Entity\Repository\RecipeRelatedRepository")
+ * @ORM\Entity(repositoryClass = "AppBundle\Entity\Repository\CookingRepository")
  */
 class Cooking
 {
     use DescriptionTrait;
     use IdAutoTrait;
-    use PositionTrait;
     use TimestampTrait;
 
     /**
@@ -37,6 +35,16 @@ class Cooking
         $this->recipe = $recipeId;
         $this->position = $position;
     }
+
+    /**
+     * @var int
+     *
+     * @Assert\NotNull()
+     * @Assert\GreaterThan(value = 0)
+     *
+     * @ORM\Column(type = "smallint")
+     */
+    public $position;
 
     /**
      * @var Recipe

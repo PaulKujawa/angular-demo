@@ -3,10 +3,9 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\IdAutoTrait;
-use AppBundle\Entity\Traits\PositionTrait;
 use AppBundle\Entity\Traits\TimestampTrait;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\Exclude;
+use JMS\Serializer\Annotation as Serializer;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -15,29 +14,22 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      "recipe",
  *      "product"
  * })
- * @UniqueEntity({
- *      "recipe",
- *      "position"
- * })
  *
  * @ORM\Table()
  * @ORM\HasLifecycleCallbacks()
- * @ORM\Entity(repositoryClass = "AppBundle\Entity\Repository\RecipeRelatedRepository")
+ * @ORM\Entity()
  */
 class Ingredient
 {
     use IdAutoTrait;
-    use PositionTrait;
     use TimestampTrait;
 
     /**
      * @param int $recipeId
-     * @param int $position
      */
-    public function __construct(int $recipeId, int $position)
+    public function __construct(int $recipeId)
     {
         $this->recipe = $recipeId;
-        $this->position = $position;
     }
 
     /**
@@ -45,7 +37,7 @@ class Ingredient
      *
      * @Assert\NotNull()
      *
-     * @Exclude
+     * @Serializer\Exclude()
      *
      * @ORM\ManyToOne(
      *      targetEntity = "Recipe",
@@ -104,4 +96,30 @@ class Ingredient
      * @ORM\OrderBy({"name" = "ASC"})
      */
     public $measurement;
+
+    /**
+     * @Serializer\VirtualProperty()
+     * @Serializer\SerializedName("kcal")
+     *
+     * @return int
+     */
+    public function calculateKcal(): int
+    {
+        if (null === $this->amount) {
+            return 0;
+        }
+
+        $kcal = $this->getRelation() * $this->product->kcal;
+
+        return (int)($kcal);
+    }
+
+    /**
+     * @return float
+     */
+    private function getRelation(): float {
+        $gr = $this->measurement->gr ?: $this->product->gr;
+
+        return $this->amount * $gr / 100;
+    }
 }

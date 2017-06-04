@@ -60,7 +60,6 @@ class Recipe
      *      targetEntity = "Ingredient",
      *      mappedBy = "recipe"
      * )
-     * @ORM\OrderBy({"position" = "ASC"})
      */
     public $ingredients;
 
@@ -112,8 +111,6 @@ class Recipe
     }
 
     /**
-     * docs: Array<Recipe>TODO should be done as db-entity property
-     *
      * @Serializer\VirtualProperty()
      * @Serializer\SerializedName("macros")
      *
@@ -136,12 +133,12 @@ class Recipe
          * @var Ingredient $ingredient
          */
         foreach ($ingredients as $ingredient) {
-            $rel = $this->getMeasurementRelation($ingredient);
+            $rel = $this->getRelation($ingredient);
             $product = $ingredient->product;
-            $macros['kcal'] += $rel*$product->kcal;
-            $macros['carbs'] += $rel*$product->carbs;
-            $macros['protein'] += $rel*$product->protein;
-            $macros['fat'] += $rel*$product->fat;
+            $macros['kcal'] += $rel * $product->kcal;
+            $macros['carbs'] += $rel * $product->carbs;
+            $macros['protein'] += $rel * $product->protein;
+            $macros['fat'] += $rel * $product->fat;
         }
 
         return array_map('intval', $macros);
@@ -152,7 +149,7 @@ class Recipe
      *
      * @return float
      */
-    private function getMeasurementRelation(Ingredient $ingredient): float {
+    private function getRelation(Ingredient $ingredient): float {
         $gr = $ingredient->measurement->gr ?: $ingredient->product->gr;
 
         return $ingredient->amount * $gr / 100;
