@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs/Subject';
-import {FlashMessage} from '../../core/model/flash-message';
 import {Pageable} from '../../core/model/pageable';
-import {FlashMessageService} from '../../core/service/flash-message.service';
 import {Recipe} from '../model/recipe';
 import {RecipeRepository} from '../repository/recipe.repository';
 
@@ -36,18 +34,13 @@ export class RecipeListComponent implements OnInit {
     public pageable: Pageable<Recipe>;
     private filterStream = new Subject<Map<string, string>>();
 
-    constructor(private router: Router,
-                private flashMsgService: FlashMessageService,
-                private recipeRepository: RecipeRepository) {
+    constructor(private router: Router, private recipeRepository: RecipeRepository) {
     }
 
     public ngOnInit(): void {
         this.filterStream
             .switchMap((queryParams: Map<string, string>) => this.recipeRepository.getRecipes(queryParams))
-            .subscribe(
-                (pageable: Pageable<Recipe>) => this.pageable = pageable,
-                (error: string) => this.flashMsgService.push(new FlashMessage('danger', error)),
-            );
+            .subscribe((pageable: Pageable<Recipe>) => this.pageable = pageable);
     }
 
     public onFilter(filterMap: Map<string, string>): void {

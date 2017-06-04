@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs/Subject';
-import {FlashMessage} from '../../core/model/flash-message';
 import {Pageable} from '../../core/model/pageable';
-import {FlashMessageService} from '../../core/service/flash-message.service';
 import {Product} from '../model/product';
 import {ProductRepository} from '../repository/product.repository';
 
@@ -34,20 +32,14 @@ export class ProductListComponent implements OnInit {
     public pageable: Pageable<Product>;
     private filterStream = new Subject<Map<string, string>>();
 
-    constructor(private router: Router,
-                private flashMsgService: FlashMessageService,
-                private productRepository: ProductRepository) {
+    constructor(private router: Router, private productRepository: ProductRepository) {
     }
 
     public ngOnInit(): void {
-        this.filterStream
-            .subscribe((queryParams: Map<string, string>) => this.productRepository.reloadProducts(queryParams));
-
-        this.productRepository.pageable
-            .subscribe(
-                (pageable: Pageable<Product>) => this.pageable = pageable,
-                (error: string) => this.flashMsgService.push(new FlashMessage('danger', error)),
-            );
+        this.filterStream.subscribe((queryParams: Map<string, string>) => {
+            this.productRepository.getProducts(queryParams);
+        });
+        this.productRepository.pageable.subscribe((pageable: Pageable<Product>) => this.pageable = pageable);
     }
 
     public onAddProduct(): void {
