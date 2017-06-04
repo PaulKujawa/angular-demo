@@ -16,6 +16,6 @@ class SortUpdatedRequestDecoratorFactory implements RequestDecoratorFactory
 
         return $direction === 'asc' || $direction === 'desc'
             ? new SortUpdatedQueryDecorator($direction)
-            : new SortUpdatedQueryDecorator();
+            : null;
     }
 }
