@@ -77,9 +77,9 @@ class PhotoController extends FOSRestController implements ClassResourceInterfac
 
         $photo = $this->get('app.repository.photo')->addPhoto($photo);
 
-        return $this->view()->createRouteRedirect(
+        return $this->routeRedirectView(
             'api_get_recipe_photo',
-            ['recipeId' => $recipeId, 'id' => $photo->getId()],
+            ['recipeId' => $recipeId, 'id' => $photo->id],
             Response::HTTP_CREATED
         );
     }
@@ -108,11 +108,7 @@ class PhotoController extends FOSRestController implements ClassResourceInterfac
 
         $this->get('app.repository.photo')->setPhoto($photo);
 
-        return $this->view()->createRouteRedirect(
-            'api_get_recipe_photo',
-            ['recipeId' => $recipeId, 'id' => $id],
-            Response::HTTP_NO_CONTENT
-        );
+        return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 
     /**

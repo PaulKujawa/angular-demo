@@ -44,13 +44,15 @@ class MeasurementRepository
      */
     public function getMeasurements(int $page, QueryDecorator $queryDecorator = null): PaginationResponse
     {
-        $repository = $this->entityManager->getRepository(Measurement::class);
-        $firstResult = ($page - 1) * self::PAGE_LIMIT;
         $criteria = Criteria::create();
+        $criteria->setFirstResult(self::PAGE_LIMIT * ($page - 1));
+        $criteria->setMaxResults(self::PAGE_LIMIT);
 
         if ($queryDecorator) {
             $queryDecorator->decorate($criteria);
         }
+
+        $repository = $this->entityManager->getRepository(Measurement::class);
 
         try {
             $measurements = $repository->matching($criteria);
@@ -58,13 +60,9 @@ class MeasurementRepository
             $measurements = [];
         }
 
-        // TODO workaround with shitty performance! Criteria misses support for count yet!
-        $docs = array_values($measurements->slice($firstResult, self::PAGE_LIMIT));
-
         $paginationResponse = $this->paginationResponseFactory->createPaginationResponse(
-            $docs,
-            $measurements->count(),
-            self::PAGE_LIMIT,
+            $measurements->toArray(),
+            1, // todo mocked
             $page
         );
 

@@ -38,19 +38,21 @@ class ProductRepository
 
     /**
      * @param int $page
-     * @param QueryDecorator $queryDecorator
+     * @param QueryDecorator|null $queryDecorator
      *
      * @return PaginationResponse
      */
     public function getProducts(int $page, QueryDecorator $queryDecorator = null): PaginationResponse
     {
-        $repository = $this->entityManager->getRepository(Product::class);
-        $firstResult = ($page - 1) * self::PAGE_LIMIT;
         $criteria = Criteria::create();
+        $criteria->setFirstResult(self::PAGE_LIMIT * ($page - 1));
+        $criteria->setMaxResults(self::PAGE_LIMIT);
 
         if ($queryDecorator) {
             $queryDecorator->decorate($criteria);
         }
+
+        $repository = $this->entityManager->getRepository(Product::class);
 
         try {
             $products = $repository->matching($criteria);
@@ -58,13 +60,9 @@ class ProductRepository
             $products = [];
         }
 
-        // TODO workaround with shitty performance! Criteria misses support for count yet!
-        $docs = array_values($products->slice($firstResult, self::PAGE_LIMIT));
-
         $paginationResponse = $this->paginationResponseFactory->createPaginationResponse(
-            $docs,
-            $products->count(),
-            self::PAGE_LIMIT,
+            $products->toArray(),
+            7, // TODO request and cache this value
             $page
         );
 

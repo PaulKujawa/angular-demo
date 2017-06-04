@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints\GreaterThan;
 
 /**
- * @Security("is_authenticated()")
  */
 class ProductController extends FOSRestController implements ClassResourceInterface
 {
@@ -72,7 +71,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
 
         $product = $this->get('app.repository.product')->addProduct($form->getData());
 
-        return $this->view()->createRouteRedirect('api_get_product', ['id' => $product->id], Response::HTTP_CREATED);
+        return $this->routeRedirectView('api_get_product', ['id' => $product->id], Response::HTTP_CREATED);
     }
 
     /**
@@ -98,7 +97,7 @@ class ProductController extends FOSRestController implements ClassResourceInterf
 
         $this->get('app.repository.product')->setProduct($product);
 
-        return $this->view()->createRouteRedirect('api_get_product', ['id' => $id], Response::HTTP_NO_CONTENT);
+        return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 
     /**
