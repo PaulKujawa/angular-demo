@@ -42,11 +42,9 @@ export class ProductRepository {
 
     public postProduct(requestProduct: Product): Observable<Product> {
         const url = this.routingService.generate('api_post_product');
-        const headers = new Headers({'Content-Type': 'application/json'}); // TODO set as general header
-        const options = new RequestOptions({headers: headers});
         const productRequestDto = this.productMapper.mapRequestDto(requestProduct);
 
-        return this.http.post(url, {product: productRequestDto}, options)
+        return this.http.post(url, {product: productRequestDto})
             .map((productDto) => new Product(productDto.json()))
             .do((product) => this.addProduct(product))
             .catch((error) => Observable.throw(error.message || error.statusText));
@@ -54,11 +52,9 @@ export class ProductRepository {
 
     public putProduct(product: Product): Observable<Response> {
         const url = this.routingService.generate('api_put_product', {id: product.id});
-        const headers = new Headers({'Content-Type': 'application/json'}); // TODO set as general header
-        const options = new RequestOptions({headers: headers});
         const productDto = this.productMapper.mapRequestDto(product);
 
-        return this.http.put(url, {product: productDto}, options)
+        return this.http.put(url, {product: productDto})
             .do((nil) => this.replaceProduct(product))
             .catch((error) => Observable.throw(error.message || error.statusText));
     }
