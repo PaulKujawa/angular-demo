@@ -44,13 +44,15 @@ class RecipeRepository
      */
     public function getRecipes(int $page, QueryDecorator $queryDecorator = null): PaginationResponse
     {
-        $repository = $this->entityManager->getRepository(Recipe::class);
-        $firstResult = ($page - 1) * self::PAGE_LIMIT;
         $criteria = Criteria::create();
+        $criteria->setFirstResult(self::PAGE_LIMIT * ($page - 1));
+        $criteria->setMaxResults(self::PAGE_LIMIT);
 
         if ($queryDecorator) {
             $queryDecorator->decorate($criteria);
         }
+
+        $repository = $this->entityManager->getRepository(Recipe::class);
 
         try {
             $recipes = $repository->matching($criteria);
@@ -58,13 +60,9 @@ class RecipeRepository
             $recipes = [];
         }
 
-        // TODO workaround with shitty performance! Criteria misses support for count yet!
-        $docs = array_values($recipes->slice($firstResult, self::PAGE_LIMIT));
-
         $paginationResponse = $this->paginationResponseFactory->createPaginationResponse(
-            $docs,
-            $recipes->count(),
-            self::PAGE_LIMIT,
+            $recipes->toArray(),
+            1, // todo mocked
             $page
         );
 
