@@ -11,10 +11,14 @@
 * `npm run build:prod`
 
 **TODO**
-* B: fix webpack watcher
-* T: loading icon (http://angularjs.blogspot.de/2017/03/angular-400-now-available.html)
-* PO: add vegan label, servings and cook time
-* T: add custom ErrorHandler with sentry
-* T: HMR
+* B: webpack - fix watcher in dev mode
+* F: add DeviceDetectService
+* F: add inViewPort directive with isVisible service
+* F: webpack - use DLLs for faster builds
+* F: prefetch recipes (https://angular.io/docs/ts/latest/guide/router.html#!#resolve-guard)
+* F: loading icon (http://angularjs.blogspot.de/2017/03/angular-400-now-available.html)
+* F: add vegan label, servings and cook time
+* F: add custom ErrorHandler with sentry
+* F: HMR
   * package.json ("build:dev": "NODE_ENV=dev webpack-dev-server -w --hot --progress")
   * see TODOs
