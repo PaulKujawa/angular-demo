@@ -70,7 +70,7 @@
     "symfony:link": "bin/console assets:install --symlink",
     "symfony:routes": "bin/console fos:js-routing:dump --no-debug --env=prod",
     "symfony:trans": "bin/console bazinga:js-translation:dump --format=js --merge-domains --no-debug --env=prod",
-    "webpack:dev": "webpack -w --progress --env.env=dev --env.analyze=true",
-    "webpack:prod": "webpack --bail --progress --env.env=prod"
+    "webpack:dev": "webpack -w --progress --env.env=dev",
+    "webpack:prod": "webpack --bail --progress --env.env=prod --env.analyze=true"
   }
 }

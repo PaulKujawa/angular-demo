@@ -11,7 +11,6 @@
 * `npm run build:prod`
 
 **TODO**
-* B: webpack - fix watcher in dev mode
 * F: add DeviceDetectService
 * F: add inViewPort directive with isVisible service
 * F: webpack - use DLLs for faster builds
