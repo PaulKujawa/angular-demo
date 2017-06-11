@@ -2,7 +2,7 @@
 ---
 [![Build Status](https://travis-ci.com/PaulKujawa/vpit.svg?token=uX8iz9gHcJk5sGqwqgvR&branch=master)](https://travis-ci.com/PaulKujawa/vpit)
 
-**Initial setup**
+**Database setup**
 * `composer install`
 * `bin/console doctrine:database:create`
 * `bin/console doctrine:migrations:migrate` or `bin/console doctrine:schema:update --force`
@@ -11,8 +11,6 @@
 * `npm run build:prod`
 
 **TODO**
-* F: add DeviceDetectService
-* F: add inViewPort directive with isVisible service
 * F: webpack - use DLLs for faster builds
 * F: prefetch recipes (https://angular.io/docs/ts/latest/guide/router.html#!#resolve-guard)
 * F: loading icon (http://angularjs.blogspot.de/2017/03/angular-400-now-available.html)
