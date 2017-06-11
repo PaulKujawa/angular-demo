@@ -18,6 +18,7 @@
     "angular-router-loader": "^0.6.0",
     "bootstrap-sass": "3.3.7",
     "core-js": "2.4.1",
+    "ismobilejs": "^0.4.1",
     "rxjs": "5.0.1",
     "tslib": "^1.6.0",
     "tslint": "^5.3.2",
