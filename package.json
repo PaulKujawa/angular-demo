@@ -18,6 +18,7 @@
     "angular-router-loader": "^0.6.0",
     "bootstrap-sass": "3.3.7",
     "core-js": "2.4.1",
+    "ismobilejs": "^0.4.1",
     "rxjs": "5.0.1",
     "tslib": "^1.6.0",
     "tslint": "^5.3.2",
@@ -65,12 +66,12 @@
   "scripts": {
     "build:dev": "npm run prepare-assets && npm run webpack:dev",
     "build:prod": "npm run prepare-assets && npm run webpack:prod",
-    "prepare-assets": "composer install && yarn install && npm run symfony:exposure",
+    "prepare-assets": "composer install && npm install && npm run symfony:exposure",
     "symfony:exposure": "npm run symfony:link && npm run symfony:routes && npm run symfony:trans",
     "symfony:link": "bin/console assets:install --symlink",
     "symfony:routes": "bin/console fos:js-routing:dump --no-debug --env=prod",
     "symfony:trans": "bin/console bazinga:js-translation:dump --format=js --merge-domains --no-debug --env=prod",
-    "webpack:dev": "webpack -w --progress --env.env=dev --env.analyze=true",
-    "webpack:prod": "webpack --bail --progress --env.env=prod"
+    "webpack:dev": "webpack -w --progress --env.env=dev",
+    "webpack:prod": "webpack --bail --progress --env.env=prod --env.analyze=true"
   }
 }

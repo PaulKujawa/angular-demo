@@ -12,14 +12,12 @@
     "importHelpers": true,
     "module": "es6",
     "moduleResolution": "node",
-    "noImplicitAny": true,
-    "noImplicitThis": true,
     "paths": {
       "web/*": ["./web/*"]
     },
     "removeComments": true,
     "skipLibCheck": true,
-    "strictNullChecks": true,
+    "strict": true,
     "target": "es5",
     "types": ["jasmine", "jquery", "webpack-env"]
   },
