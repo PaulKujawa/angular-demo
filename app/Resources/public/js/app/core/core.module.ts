@@ -14,6 +14,7 @@ import {AuthenticationGuard} from './service/auth-guard.service';
 import {AuthenticationService} from './service/authentication.service';
 import {DefaultRequestOptions} from './service/default-request-options.service';
 import {DeviceDetectService} from './service/device-detection.service';
+import {InViewportService} from './service/in-viewport.service';
 import {FlashMessageService} from './service/flash-message.service';
 import {RoutingService} from './service/routing.service';
 import {TranslationService} from './service/translation.service';
@@ -40,11 +41,18 @@ import {TranslationService} from './service/translation.service';
         AuthenticationService,
         AuthRepository,
         DeviceDetectService,
+        InViewportService,
         FlashMessageService,
         PageableFactory,
         RoutingService,
         TranslationService,
         {provide: RequestOptions, useClass: DefaultRequestOptions},
+        {provide: 'windowObject', useFactory: WindowFactory},
     ],
 })
-export class CoreModule {}
+export class CoreModule {
+}
+
+export function WindowFactory(): Window {
+    return window;
+}
