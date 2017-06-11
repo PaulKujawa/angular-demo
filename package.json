@@ -65,7 +65,7 @@
   "scripts": {
     "build:dev": "npm run prepare-assets && npm run webpack:dev",
     "build:prod": "npm run prepare-assets && npm run webpack:prod",
-    "prepare-assets": "composer install && yarn install && npm run symfony:exposure",
+    "prepare-assets": "composer install && npm install && npm run symfony:exposure",
     "symfony:exposure": "npm run symfony:link && npm run symfony:routes && npm run symfony:trans",
     "symfony:link": "bin/console assets:install --symlink",
     "symfony:routes": "bin/console fos:js-routing:dump --no-debug --env=prod",
