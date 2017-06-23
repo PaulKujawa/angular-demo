@@ -20,8 +20,8 @@ export class InViewportDirective implements OnInit, OnChanges, OnDestroy {
     .auditTime(100)
     .share();
 
-    @Input('in-viewport') public config: InViewportConfig;
-    @Input() public customEvent: Observable<any>;
+    @Input('in-viewport') public config?: InViewportConfig;
+    @Input() public customEvent?: Observable<any>;
     @Output() public visible = new EventEmitter<boolean>();
     private readonly defaultConfig: InViewportConfig = {percentage: 100};
     private subscription: Subscription;
@@ -55,7 +55,7 @@ export class InViewportDirective implements OnInit, OnChanges, OnDestroy {
     }
 
     private check(): void {
-        if (!this.inViewportService.isVisible(this.el, this.config.percentage)) {
+        if (!this.inViewportService.isVisible(this.el, this.config!.percentage)) {
             return;
         }
 
