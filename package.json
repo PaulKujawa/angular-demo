@@ -36,6 +36,7 @@
     "angular2-template-loader": "0.6.2",
     "awesome-typescript-loader": "3.0.7",
     "bazinga-translator": "^2.6.4",
+    "cache-loader": "^1.0.3",
     "css-loader": "0.26.1",
     "extract-text-webpack-plugin": "2.0.0-rc.3",
     "html-loader": "0.4.4",

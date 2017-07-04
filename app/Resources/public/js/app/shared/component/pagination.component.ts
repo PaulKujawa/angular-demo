@@ -35,7 +35,7 @@ import {Pagination} from '../../core/model/pagination';
     `,
 })
 export class PaginationComponent {
-    @Input() public pagination: Pagination;
+    @Input() public pagination?: Pagination;
     @Output('clicked') public eventEmitter: EventEmitter<number> = new EventEmitter();
 
     public onClick(page: number): void {
@@ -43,10 +43,10 @@ export class PaginationComponent {
     }
 
     public isFirstPage(): boolean {
-        return this.pagination && this.pagination.page === 1;
+        return !!this.pagination && this.pagination.page === 1;
     }
 
     public isLastPage(): boolean {
-        return this.pagination && this.pagination.page === this.pagination.pages;
+        return !!this.pagination && this.pagination.page === this.pagination.pages;
     }
 }

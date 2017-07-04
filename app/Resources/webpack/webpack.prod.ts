@@ -9,6 +9,7 @@ const {AotPlugin} = require('@ngtools/webpack');
 export function webpackConfig(args: WebpackArgs) {
     const rootPath = path.join(__dirname, '../../..');
     const jsPath = path.join(rootPath, 'app/Resources/public/js');
+    const cachePath = path.join(rootPath, 'var/cache/prod/webpack');
 
     return merge(commonConfig(args), {
         devtool: 'source-map',
@@ -16,12 +17,17 @@ export function webpackConfig(args: WebpackArgs) {
             rules: [
                 {
                     // write templates inline and transpile ts to js TODO more precise description
-                    test: /\.ts$/, loader: '@ngtools/webpack',
+                    test: /\.ts$/,
+                    use: [
+                        {loader: 'cache-loader', options: {cacheDirectory: cachePath + '/js'}},
+                        '@ngtools/webpack',
+                    ],
                 }, {
                     // transpile sass to css and load it as extra file separately
                     test: /\.scss$/,
                     loader: ExtractTextPlugin.extract({
                         use: [
+                            {loader: 'cache-loader', options: {cacheDirectory: cachePath + '/css'}},
                             {loader: 'css-loader', options: {sourceMap: true}},
                             {loader: 'sass-loader', options: {sourceMap: true}},
                         ],
