@@ -1,10 +1,14 @@
 import {WebpackArgs} from './webpack-args';
 import {commonConfig} from './webpack.common';
+const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 export function webpackConfig(args: WebpackArgs) {
+    const rootPath = path.join(__dirname, '../../../');
+    const cachePath = path.join(rootPath, 'var/cache/dev/webpack');
+
     return merge(commonConfig(args), {
         devServer: {
             historyApiFallback: true,
@@ -20,11 +24,11 @@ export function webpackConfig(args: WebpackArgs) {
                     test: /\/public\/js\/.+\.ts$/,
                     enforce: 'pre',
                     use: 'tslint-loader',
-                },
-                {
+                }, {
                     // write templates inline and transpile ts to js
                     test: /\.ts$/,
-                    loaders: [
+                    use: [
+                        {loader: 'cache-loader', options: {cacheDirectory: cachePath + '/js'}},
                         'awesome-typescript-loader',
                         'angular2-template-loader',
                         'angular-router-loader',
@@ -34,9 +38,10 @@ export function webpackConfig(args: WebpackArgs) {
                     test: /\.scss$/,
                     loader: ExtractTextPlugin.extract({ // TODO remove this line for HMR
                         use: [
+                            {loader: 'cache-loader', options: {cacheDirectory: cachePath + '/css'}},
                             // {loader: "style-loader"}, TODO add this line for HMR
-                            {loader: 'css-loader', options: {sourceMap: true }},
-                            {loader: 'sass-loader', options: {sourceMap: true }},
+                            {loader: 'css-loader', options: {sourceMap: true}},
+                            {loader: 'sass-loader', options: {sourceMap: true}},
                         ],
                     }),
                 },
