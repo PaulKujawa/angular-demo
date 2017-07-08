@@ -8,7 +8,7 @@ import {ProductRepository} from '../repository/product.repository';
 @Component({
     animations: [slideInDownAnimation],
     template: `
-        <product-form [product]="product" [isEditMode]="isEditMode"></product-form>
+        <product-form [product]="product"></product-form>
     `,
 })
 export class ProductDetailComponent implements OnInit {
@@ -16,22 +16,18 @@ export class ProductDetailComponent implements OnInit {
     @HostBinding('style.display') public display = 'block';
     @HostBinding('style.position') public position = 'absolute';
     public product: Product;
-    public isEditMode = false;
 
-    constructor(private productRepository: ProductRepository, private route: ActivatedRoute) {
+    constructor(private productRepository: ProductRepository,
+                private route: ActivatedRoute) {
     }
 
     public ngOnInit(): void {
         this.route.params
-            .do((nil) => {
+            .do(() => {
                 this.product = new Product({} as ProductResponseDto);
-                this.isEditMode = false;
             })
             .filter((params: Params) => !isNaN(params.id))
             .switchMap((params: Params) => this.productRepository.getProduct(params.id))
-            .subscribe((product: Product) => {
-                this.product = product;
-                this.isEditMode = true;
-            });
+            .subscribe((product: Product) => this.product = product);
     }
 }
