@@ -1,4 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Subscription} from 'rxjs/Subscription';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Product} from '../model/product';
 import {ProductRepository} from '../repository/product.repository';
@@ -74,9 +75,10 @@ import {ProductRepository} from '../repository/product.repository';
         </form>
     `,
 })
-export class ProductFormComponent implements OnInit {
+export class ProductFormComponent implements OnInit, OnDestroy {
     @Input() public product: Product;
     public isEditMode: boolean;
+    private subscription: Subscription = new Subscription;
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
@@ -87,13 +89,16 @@ export class ProductFormComponent implements OnInit {
         this.route.params.subscribe((params) => this.isEditMode === params.hasOwnProperty('id'));
     }
 
-    public onSubmit(): void {
-        if (this.isEditMode) {
-            this.productRepository.putProduct(this.product).subscribe(() => this.router.navigate(['products']));
-            return;
-        }
+    public ngOnDestroy(): void {
+        this.subscription.unsubscribe();
+    }
 
-        this.productRepository.postProduct(this.product).subscribe(() => this.router.navigate(['products']));
+    public onSubmit(): void {
+        const subscription = this.isEditMode
+            ? this.productRepository.putProduct(this.product).subscribe(() => this.router.navigate(['products']))
+            : this.productRepository.postProduct(this.product).subscribe(() => this.router.navigate(['products']));
+
+        this.subscription.add(subscription);
     }
 
     public onDelete(): void {

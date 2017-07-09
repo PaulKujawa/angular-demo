@@ -59,7 +59,7 @@ export class ProductRepository {
         const productDto = this.productMapper.mapRequestDto(product);
 
         return this.http.put(url, {product: productDto})
-            .do((nil) => {
+            .do(() => {
                 this.productState.replaceProduct(product);
                 this.apiEventHandler.postSuccessMessage('app.api.update_success');
             })
@@ -70,7 +70,7 @@ export class ProductRepository {
         const url = this.routingService.generate('api_delete_product', {id: id});
 
         return this.http.delete(url)
-            .do((nil) => {
+            .do(() => {
                 this.productState.removeProduct(id);
                 this.apiEventHandler.postSuccessMessage('app.api.delete_success');
             })

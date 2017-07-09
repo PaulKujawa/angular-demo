@@ -1,9 +1,7 @@
-import {Component} from '@angular/core';
-import {FlashMessage} from '../../core/model/flash-message';
-import {FlashMessageService} from '../../core/service/flash-message.service';
-import {TranslationService} from '../../core/service/translation.service';
+import {Component, OnDestroy} from '@angular/core';
 import {Inquiry} from '../model/inquiry';
 import {InquiryRepository} from '../repository/inquiry.repository';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
     selector: 'inquiry-form',
@@ -43,22 +41,18 @@ import {InquiryRepository} from '../repository/inquiry.repository';
         </form>
     `,
 })
-export class InquiryFormComponent {
+export class InquiryFormComponent implements OnDestroy {
     public inquiry: Inquiry = new Inquiry('', '');
+    private subscription: Subscription;
 
-    constructor(private inquiryRepository: InquiryRepository,
-                private flashMsgService: FlashMessageService,
-                private translationService: TranslationService) {
+    constructor(private inquiryRepository: InquiryRepository) {
     }
 
-    public onSubmit() {
-        this.inquiryRepository.addInquiry(this.inquiry)
-            .subscribe(() => {
-                const message = new FlashMessage('success', this.translationService.trans('app.inquiry.inquiry_sent'));
-                this.flashMsgService.push(message);
-            }, (error: string) => {
-                this.flashMsgService.push(new FlashMessage('danger', error));
-            },
-        );
+    public ngOnDestroy(): void {
+        this.subscription && this.subscription.unsubscribe();
+    }
+
+    public onSubmit(): void {
+        this.subscription = this.inquiryRepository.postInquiry(this.inquiry).subscribe();
     }
 }

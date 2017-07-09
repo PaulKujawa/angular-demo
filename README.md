@@ -11,9 +11,6 @@
 * `npm run build:prod`
 
 **TODO**
-* T: use async pipe
-* T: unsubscribe from observables in components
-
 * F: prefetch recipes (https://angular.io/docs/ts/latest/guide/router.html#!#resolve-guard)
 * F: loading icon (http://angularjs.blogspot.de/2017/03/angular-400-now-available.html)
 * F: add vegan label, servings and cook time
