@@ -1,7 +1,7 @@
 import {Component, OnDestroy} from '@angular/core';
+import {Subscription} from 'rxjs/Subscription';
 import {Inquiry} from '../model/inquiry';
 import {InquiryRepository} from '../repository/inquiry.repository';
-import {Subscription} from 'rxjs/Subscription';
 
 @Component({
     selector: 'inquiry-form',
@@ -11,21 +11,21 @@ import {Subscription} from 'rxjs/Subscription';
                 <div class="col-xs-12 col-sm-5">
                     <div class="form-group">
                         <input type="text" class="form-control"
-                        placeholder="{{'app.inquiry.form.name'|trans}}"
-                        name="name" [(ngModel)]="inquiry.name">
+                               placeholder="{{'app.inquiry.form.name'|trans}}"
+                               name="name" [(ngModel)]="inquiry.name">
                     </div>
                     <div class="form-group">
                         <input type="email" required class="form-control"
-                        placeholder="{{'app.inquiry.form.email_address'|trans}}"
-                        name="email" [(ngModel)]="inquiry.email">
+                               placeholder="{{'app.inquiry.form.email_address'|trans}}"
+                               name="email" [(ngModel)]="inquiry.email">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-7">
                     <div class="form-group">
                         <textarea required class="form-control app-inquiry__message"
-                        placeholder="{{'app.inquiry.form.message'|trans}}"
-                        #message="ngModel"
-                        name="message" [(ngModel)]="inquiry.message"></textarea>
+                                  placeholder="{{'app.inquiry.form.message'|trans}}"
+                                  #message="ngModel"
+                                  name="message" [(ngModel)]="inquiry.message"></textarea>
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@ import {Subscription} from 'rxjs/Subscription';
                 <div class="col-xs-12 col-sm-7 col-sm-offset-5">
                     <div class="pull-right">
                         <button type="submit" class="btn btn-primary" [disabled]="!inquiryForm.form.valid">
-                            {{'app.common.submit'|trans}}
+                            {{'app.common.submit' | trans}}
                         </button>
                     </div>
                 </div>
