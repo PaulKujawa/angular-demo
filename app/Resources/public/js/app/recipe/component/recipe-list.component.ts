@@ -23,7 +23,7 @@ import {RecipeRepository} from '../repository/recipe.repository';
                     <div class="media-body">
                         <h2 class="media-heading">{{recipe.name}}</h2>
                         <macro-chart [macros]="recipe.macros"></macro-chart>
-                        <span><i>{{recipe.updated|date}}</i></span>
+                        <span><i>{{recipe.updated | date}}</i></span>
                     </div>
                 </div>
             </div>
@@ -34,7 +34,8 @@ export class RecipeListComponent implements OnInit {
     public pageable: Pageable<Recipe>;
     private filterStream = new Subject<Map<string, string>>();
 
-    constructor(private router: Router, private recipeRepository: RecipeRepository) {
+    constructor(private router: Router,
+                private recipeRepository: RecipeRepository) {
     }
 
     public ngOnInit(): void {
