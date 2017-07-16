@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Response, URLSearchParams} from '@angular/http';
+import {Http, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {PageableFactory} from '../../core/factory/pageable.factory';
 import {Pageable} from '../../core/model/pageable';
@@ -20,12 +20,10 @@ export class ProductRepository {
                 private pageableFactory: PageableFactory) {
     }
 
-    public getProducts(filter: Map<string, string>): void {
+    public getProducts(filter: {[key: string]: string}): void {
         const url = this.routingService.generate('api_get_products');
-        const queryParameter = new URLSearchParams();
-        filter.forEach((value: string, key: string) => queryParameter.set(key, value));
 
-        this.http.get(url, {search: queryParameter})
+        this.http.get(url, {search: filter})
             .map((pageableDto) => {
                 return this.pageableFactory.getPageable<ProductRequestDto, Product>(pageableDto.json(), Product);
             })
@@ -37,8 +35,8 @@ export class ProductRepository {
         const url = this.routingService.generate('api_get_product', {id: id});
 
         return this.http.get(url)
-            .map((productDto) => new Product(productDto.json()))
-            .catch((error) => this.apiEventHandler.catchError(error));
+                   .map((productDto) => new Product(productDto.json()))
+                   .catch((error) => this.apiEventHandler.catchError(error));
     }
 
     public postProduct(requestProduct: Product): Observable<Product> {
@@ -46,12 +44,12 @@ export class ProductRepository {
         const productRequestDto = this.productMapper.mapRequestDto(requestProduct);
 
         return this.http.post(url, {product: productRequestDto})
-            .map((productDto) => new Product(productDto.json()))
-            .do((product) => {
-                this.productState.addProduct(product);
-                this.apiEventHandler.postSuccessMessage('app.api.post_success');
-            })
-            .catch((error) => this.apiEventHandler.catchError(error));
+                   .map((productDto) => new Product(productDto.json()))
+                   .do((product) => {
+                       this.productState.addProduct(product);
+                       this.apiEventHandler.postSuccessMessage('app.api.post_success');
+                   })
+                   .catch((error) => this.apiEventHandler.catchError(error));
     }
 
     public putProduct(product: Product): Observable<Response> {
@@ -59,21 +57,21 @@ export class ProductRepository {
         const productDto = this.productMapper.mapRequestDto(product);
 
         return this.http.put(url, {product: productDto})
-            .do(() => {
-                this.productState.replaceProduct(product);
-                this.apiEventHandler.postSuccessMessage('app.api.update_success');
-            })
-            .catch((error) => this.apiEventHandler.catchError(error));
+                   .do(() => {
+                       this.productState.replaceProductById(product);
+                       this.apiEventHandler.postSuccessMessage('app.api.update_success');
+                   })
+                   .catch((error) => this.apiEventHandler.catchError(error));
     }
 
     public deleteProduct(id: number): Observable<Response> {
         const url = this.routingService.generate('api_delete_product', {id: id});
 
         return this.http.delete(url)
-            .do(() => {
-                this.productState.removeProduct(id);
-                this.apiEventHandler.postSuccessMessage('app.api.delete_success');
-            })
-            .catch((error) => this.apiEventHandler.catchError(error));
+                   .do(() => {
+                       this.productState.removeProduct(id);
+                       this.apiEventHandler.postSuccessMessage('app.api.delete_success');
+                   })
+                   .catch((error) => this.apiEventHandler.catchError(error));
     }
 }
