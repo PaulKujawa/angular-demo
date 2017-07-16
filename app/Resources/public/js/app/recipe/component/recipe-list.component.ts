@@ -9,14 +9,16 @@ import {RecipeRepository} from '../repository/recipe.repository';
     template: `
         <div class="row">
             <div class="col-xs-12">
-                <recipe-filter [pagination]="pageable?.pagination" (filter)="onFilter($event)"></recipe-filter>
+                <recipe-filter [pagination]="pageable?.pagination"
+                               (filter)="onFilter($event)">
+                </recipe-filter>
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-xs-12 col-sm-6"
+                 *ngFor="let recipe of pageable?.docs">
                 <div class="media app-recipes__item"
-                     (click)="onSelectRecipe(recipe)"
-                     *ngFor="let recipe of pageable?.docs">
+                     (click)="onSelectRecipe(recipe)">
                     <div class="media-left app-recipes-item__left">
                         <img class="media-object app-recipes-item__object" [src]="getImageUrl(recipe)">
                     </div>

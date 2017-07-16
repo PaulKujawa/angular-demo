@@ -7,34 +7,34 @@ import {Macros} from '../model/macros';
         <div class="progress">
             <div class="progress-bar progress-bar-warning"
                  role="progressbar"
-                 [style.width]="getPercentage(macros.carbs)">
-                {{macros.carbs}} gr
+                 [style.min-width]="'2em'"
+                 [style.width]="getProportion(macros.carbs) + '%'">
+                {{ getProportion(macros.carbs) | number:'1.0-0' }}
             </div>
-        </div>
-        <div class="progress">
             <div class="progress-bar progress-bar-info"
                  role="progressbar"
-                 [style.width]="getPercentage(macros.protein)">
-                {{macros.protein}} gr
+                 [style.min-width]="'2em'"
+                 [style.width]="getProportion(macros.protein) + '%'">
+                {{ getProportion(macros.protein) | number:'1.0-0' }}
             </div>
-        </div>
-        <div class="progress">
-            <div class="progress-bar progress-bar-danger" role="progressbar" [style.width]="getPercentage(macros.fat)">
-                {{macros.fat}} gr
+            <div class="progress-bar progress-bar-danger"
+                 role="progressbar"
+                 [style.min-width]="'2em'"
+                 [style.width]="getProportion(macros.fat) + '%'">
+                {{ getProportion(macros.fat) | number:'1.0-0' }}
             </div>
         </div>
     `,
 })
 export class MacroChartComponent implements OnChanges {
     @Input() public macros: Macros;
-    @Input() public type: 'danger'|'info'|'warning'|'success';
     public totalGr: number;
 
     public ngOnChanges(): void {
         this.totalGr = this.macros.carbs + this.macros.protein + this.macros.fat;
     }
 
-    public getPercentage(macro: number): string {
-        return (100 * macro / this.totalGr) + '%';
+    public getProportion(macro: number): number {
+        return (100 * macro / this.totalGr);
     }
 }
