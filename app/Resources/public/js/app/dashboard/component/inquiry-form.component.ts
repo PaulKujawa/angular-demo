@@ -43,7 +43,7 @@ import {InquiryRepository} from '../repository/inquiry.repository';
 })
 export class InquiryFormComponent implements OnDestroy {
     public inquiry: Inquiry = new Inquiry('', '');
-    private subscription: Subscription;
+    private subscription?: Subscription;
 
     constructor(private inquiryRepository: InquiryRepository) {
     }

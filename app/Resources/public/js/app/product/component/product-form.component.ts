@@ -78,7 +78,7 @@ import {ProductRepository} from '../repository/product.repository';
 export class ProductFormComponent implements OnInit, OnDestroy {
     @Input() public product: Product;
     public isEditMode: boolean;
-    private subscription: Subscription = new Subscription;
+    private subscription?: Subscription;
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
@@ -86,19 +86,17 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit(): void {
-        this.route.params.subscribe((params) => this.isEditMode === params.hasOwnProperty('id'));
+        this.route.params.subscribe((params) => this.isEditMode = params.hasOwnProperty('id'));
     }
 
     public ngOnDestroy(): void {
-        this.subscription.unsubscribe();
+        this.subscription && this.subscription.unsubscribe();
     }
 
     public onSubmit(): void {
-        const subscription = this.isEditMode
+        this.subscription = this.isEditMode
             ? this.productRepository.putProduct(this.product).subscribe(() => this.router.navigate(['products']))
             : this.productRepository.postProduct(this.product).subscribe(() => this.router.navigate(['products']));
-
-        this.subscription.add(subscription);
     }
 
     public onDelete(): void {
