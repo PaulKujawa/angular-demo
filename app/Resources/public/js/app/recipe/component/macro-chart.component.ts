@@ -7,19 +7,16 @@ import {Macros} from '../model/macros';
         <div class="progress">
             <div class="progress-bar progress-bar-warning"
                  role="progressbar"
-                 [style.min-width]="'2em'"
                  [style.width]="getProportion(macros.carbs) + '%'">
                 {{ getProportion(macros.carbs) | number:'1.0-0' }}
             </div>
             <div class="progress-bar progress-bar-info"
                  role="progressbar"
-                 [style.min-width]="'2em'"
                  [style.width]="getProportion(macros.protein) + '%'">
                 {{ getProportion(macros.protein) | number:'1.0-0' }}
             </div>
             <div class="progress-bar progress-bar-danger"
                  role="progressbar"
-                 [style.min-width]="'2em'"
                  [style.width]="getProportion(macros.fat) + '%'">
                 {{ getProportion(macros.fat) | number:'1.0-0' }}
             </div>

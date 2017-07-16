@@ -15,17 +15,18 @@ import {RecipeRepository} from '../repository/recipe.repository';
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-12 col-sm-6"
+            <div class="col-xs-12 col-sm-6 col-md-4"
                  *ngFor="let recipe of pageable?.docs">
-                <div class="media app-recipes__item"
+                <div class="thumbnail"
+                     [style.cursor]="'pointer'"
                      (click)="onSelectRecipe(recipe)">
-                    <div class="media-left app-recipes-item__left">
-                        <img class="media-object app-recipes-item__object" [src]="getImageUrl(recipe)">
-                    </div>
-                    <div class="media-body">
-                        <h2 class="media-heading">{{recipe.name}}</h2>
-                        <macro-chart [macros]="recipe.macros"></macro-chart>
-                        <span><i>{{recipe.updated | date}}</i></span>
+                    <h2 class="media-heading">{{recipe.name}}</h2>
+                    <img [src]="getImageUrl(recipe)">
+                    <macro-chart [macros]="recipe.macros"></macro-chart>
+                    <div class="caption">
+                        <span>
+                            <i>{{recipe.updated | date}}</i>
+                        </span>
                     </div>
                 </div>
             </div>
