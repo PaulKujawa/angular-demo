@@ -10,6 +10,7 @@ import {ProductComponent} from './component/product.component';
 import {ProductMapper} from './mapper/product.mapper';
 import {ProductRoutingModule} from './product-routing.module';
 import {ProductRepository} from './repository/product.repository';
+import {ProductState} from './service/product.state';
 
 @NgModule({
     imports: [
@@ -29,6 +30,7 @@ import {ProductRepository} from './repository/product.repository';
     providers: [
         ProductRepository,
         ProductMapper,
+        ProductState,
     ],
 })
 export class ProductModule {

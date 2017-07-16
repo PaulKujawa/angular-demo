@@ -1,6 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
+import {Subscription} from 'rxjs/Subscription';
 import {Pageable} from '../../core/model/pageable';
 import {Product} from '../model/product';
 import {ProductRepository} from '../repository/product.repository';
@@ -8,18 +10,22 @@ import {ProductState} from '../service/product.state';
 
 @Component({
     template: `
-        <product-filter [pagination]="pageable?.pagination" (filter)="onFilter($event)"></product-filter>
+        <product-filter [pagination]="(pageable|async)?.pagination"
+                        (filter)="onFilter($event)">
+        </product-filter>
 
         <div class="row">
             <div class="col-xs-12 col-sm-6">
                 <ul class="list-group">
                     <li class="list-group-item app-products__item"
                         (click)="onSelectProduct(product)"
-                        *ngFor="let product of pageable?.docs">
+                        *ngFor="let product of (pageable|async)?.docs">
                         {{product.name}}
                     </li>
                 </ul>
-                <button type="button" class="btn btn-primary" (click)="onAddProduct()">
+                <button type="button"
+                        class="btn btn-primary"
+                        (click)="onAddProduct()">
                     {{'app.common.new'|trans}}
                 </button>
             </div>
@@ -29,9 +35,10 @@ import {ProductState} from '../service/product.state';
         </div>
     `,
 })
-export class ProductListComponent implements OnInit {
-    public pageable: Pageable<Product>;
+export class ProductListComponent implements OnInit, OnDestroy {
+    public pageable: Observable<Pageable<Product>>;
     private filterStream = new Subject<Map<string, string>>();
+    private subscription: Subscription;
 
     constructor(private router: Router,
                 private productRepository: ProductRepository,
@@ -39,10 +46,15 @@ export class ProductListComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        this.filterStream.subscribe((queryParams: Map<string, string>) => {
+        this.pageable = this.productState.pageable;
+
+        this.subscription = this.filterStream.subscribe((queryParams: Map<string, string>) => {
             this.productRepository.getProducts(queryParams);
         });
-        this.productState.pageable.subscribe((pageable: Pageable<Product>) => this.pageable = pageable);
+    }
+
+    public ngOnDestroy(): void {
+        this.subscription.unsubscribe();
     }
 
     public onAddProduct(): void {

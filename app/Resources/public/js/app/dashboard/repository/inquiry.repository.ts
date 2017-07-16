@@ -1,23 +1,23 @@
 import {Injectable} from '@angular/core';
-import {Headers, Http, RequestOptions} from '@angular/http';
+import {Http} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {RoutingService} from '../../core/service/routing.service';
+import {ApiEventHandler} from '../../core/service/api-event.handler';
 import {Inquiry} from '../model/inquiry';
 
 @Injectable()
 export class InquiryRepository {
     constructor(private http: Http,
+                private apiEventHandler: ApiEventHandler,
                 private routingService: RoutingService) {
     }
 
-    public addInquiry(inquiry: Inquiry): Observable<void> {
+    public postInquiry(inquiry: Inquiry): Observable<void> {
         const url = this.routingService.generate('api_post_inquiry');
-        const body = JSON.stringify({inquiry: inquiry});
-        const headers = new Headers({'Content-Type': 'application/json'});
-        const options = new RequestOptions({headers: headers});
 
-        return this.http.post(url, body, options)
-            .map((response) => null)
-            .catch((error) => Observable.throw(error.message || error.statusText));
+        return this.http.post(url, {inquiry: inquiry})
+            .do(() => this.apiEventHandler.postSuccessMessage('app.api.inquiry_success'))
+            .map((response) => undefined)
+            .catch((error) => this.apiEventHandler.catchError(error));
     }
 }

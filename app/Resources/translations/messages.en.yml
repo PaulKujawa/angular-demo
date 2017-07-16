@@ -8,6 +8,7 @@ app:
     update_success: Erfolgreich aktualisiert.
     post_success: Erfolgreich hinzugefügt.
     delete_success: Erfolgreich gelöscht.
+    inquiry_success: I sucessfully received your inquiry.
   auth:
     signed_in: Successfully signed in.
   common:
@@ -26,7 +27,6 @@ app:
       email_address: Your email address
       message: Your message
     inquiry: Inquiry
-    inquiry_sent: I sucessfully received your inquiry.
   macros:
       carbs: Carbs
       protein: Protein
