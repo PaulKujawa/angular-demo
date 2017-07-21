@@ -1,15 +1,16 @@
+import {Configuration} from 'webpack';
 import {WebpackArgs} from './webpack-args';
-import {commonConfig} from './webpack.common';
+import {getCommonConfig} from './webpack.common';
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-export function webpackConfig(args: WebpackArgs) {
+export function webpackConfig(args: WebpackArgs): Configuration {
     const rootPath = path.join(__dirname, '../../../');
     const cachePath = path.join(rootPath, 'var/cache/dev/webpack');
 
-    return merge(commonConfig(args), {
+    const devConfig: Configuration = {
         devServer: {
             historyApiFallback: true,
             watchOptions: {
@@ -54,5 +55,7 @@ export function webpackConfig(args: WebpackArgs) {
             // generate separate css file to load see to do above, based on output.path
             new ExtractTextPlugin('css/main.css'),
         ],
-    });
+    };
+
+    return merge(getCommonConfig(args), devConfig);
 }
