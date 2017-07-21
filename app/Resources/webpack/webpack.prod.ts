@@ -1,17 +1,18 @@
+import {Configuration} from 'webpack';
 import {WebpackArgs} from './webpack-args';
-import {commonConfig} from './webpack.common';
+import {getCommonConfig} from './webpack.common';
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 const {AotPlugin} = require('@ngtools/webpack');
 
-export function webpackConfig(args: WebpackArgs) {
+export function webpackConfig(args: WebpackArgs): Configuration {
     const rootPath = path.join(__dirname, '../../..');
     const jsPath = path.join(rootPath, 'app/Resources/public/js');
     const cachePath = path.join(rootPath, 'var/cache/prod/webpack');
 
-    return merge(commonConfig(args), {
+    const prodConfig: Configuration = {
         devtool: 'source-map',
         module: {
             rules: [
@@ -50,5 +51,7 @@ export function webpackConfig(args: WebpackArgs) {
             // minimizer
             new webpack.optimize.UglifyJsPlugin(),
         ],
-    });
+    };
+
+    return merge(getCommonConfig(args), prodConfig);
 }

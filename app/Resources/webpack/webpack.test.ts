@@ -1,9 +1,10 @@
+import {Configuration} from 'webpack';
 import {WebpackArgs} from './webpack-args';
-import {commonConfig} from './webpack.common';
+import {getCommonConfig} from './webpack.common';
 const merge = require('webpack-merge');
 
-export function webpackConfig(args: WebpackArgs) {
-    return merge(commonConfig(args), {
+export function webpackConfig(args: WebpackArgs): Configuration {
+    const testConfig: Configuration = {
         devtool: 'inline-source-map',
         module: {
             rules: [
@@ -23,5 +24,7 @@ export function webpackConfig(args: WebpackArgs) {
         resolve: {
             extensions: ['.ts', '.js'], // no .scss
         },
-    });
+    };
+
+    return merge(getCommonConfig(args), testConfig);
 }

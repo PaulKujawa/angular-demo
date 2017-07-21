@@ -1,13 +1,14 @@
+import {Configuration} from 'webpack';
 import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer';
 import {WebpackArgs} from './webpack-args';
 const webpack = require('webpack');
 const path = require('path');
 const {TsConfigPathsPlugin} = require('awesome-typescript-loader');
 
-export function commonConfig(args: WebpackArgs) {
+export function getCommonConfig(args: WebpackArgs): Configuration {
     const rootPath = path.join(__dirname, '../../../');
 
-    const config = {
+    const commonConfig: Configuration = {
         context: path.join(__dirname, '../public/js'),
         entry: {
             main: './main.ts',
@@ -67,8 +68,8 @@ export function commonConfig(args: WebpackArgs) {
 
     if (args.analyze) {
         // chunk analyzation
-        config.plugins.push(new BundleAnalyzerPlugin());
+        commonConfig.plugins.push(new BundleAnalyzerPlugin());
     }
 
-    return config;
+    return commonConfig;
 }
