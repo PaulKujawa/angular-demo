@@ -36,7 +36,7 @@ export class InViewportDirective implements OnInit, OnChanges, OnDestroy {
             ? Observable.merge(InViewportDirective.sharedSource, this.customEvent)
             : InViewportDirective.sharedSource;
 
-        this.subscription = source.subscribe((nil) => this.check());
+        this.subscription = source.subscribe(() => this.check());
         this.zone.runOutsideAngular(() => {
             setTimeout(() => this.check(), 1);
         });
