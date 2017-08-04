@@ -1,67 +1,66 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {Subject} from 'rxjs/Subject';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Subscription} from 'rxjs/Subscription';
 import {Pagination} from '../../core/model/pagination';
+import {FilterParameter, FilterService} from '../../shared/service/filter.service';
 
 @Component({
     selector: 'recipe-filter',
+    providers: [FilterService],
     template: `
         <div class="row app-filter">
             <div class="col-xs-12 col-sm-4">
-                <input class="form-control" type="text" placeholder="{{'app.common.filter.search'|trans}}"
-                #search (keyup)="searchNext(search.value)"/>
+                <input class="form-control"
+                       type="text"
+                       placeholder="{{'app.common.filter.search'|trans}}"
+                       #search
+                       (keyup)="setName(search.value)"/>
             </div>
             <div class="col-xs-12 col-sm-3">
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" #veganOnly (change)="setVeganOnly(veganOnly.checked)">
-                        {{'app.recipe.filter.vegan_only'|trans}}
+                        <input type="checkbox"
+                               #veganOnly
+                               (change)="setVegan(veganOnly.checked)">
+                        {{'app.recipe.filter.vegan_only' | trans}}
                     </label>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-5">
-                <pagination [pagination]="pagination" (clicked)="setPage($event)"></pagination>
+                <pagination [pagination]="pagination"
+                            (clicked)="setPage($event)"></pagination>
             </div>
         </div>
     `,
 })
-export class RecipeFilterComponent implements OnInit {
+export class RecipeFilterComponent implements OnInit, OnDestroy {
     @Input() public pagination: Pagination;
-    @Output('filter') public eventEmitter: EventEmitter<Map<string, string>> = new EventEmitter();
-    private filterMap = new Map<string, string>();
-    private searchStream = new Subject<string>();
+    @Output('filter') public eventEmitter = new EventEmitter<FilterParameter>();
+    private subscription: Subscription;
+
+    public constructor(public filterService: FilterService) {
+    }
 
     public ngOnInit(): void {
-        this.filterMap.set('sortUpdated', 'desc');
-        this.initializeSearchStream();
+        this.subscription = this.filterService.filter.subscribe(this.eventEmitter);
     }
 
-    public searchNext(name: string): void {
-        this.searchStream.next(name);
+    public ngOnDestroy(): void {
+        this.subscription.unsubscribe();
     }
 
-    public setVeganOnly(checked: boolean): void {
-        checked ? this.filterMap.set('vegan', 'true') : this.filterMap.delete('vegan');
-        this.filterMap.set('page', '1');
-        this.eventEmitter.emit(this.filterMap);
+    public setName(name: string): void {
+        const subscription = this.filterService.setDebounced('name', name);
+
+        if (subscription) {
+            this.subscription.add(subscription);
+        }
+    }
+
+    public setVegan(checked: boolean): void {
+        this.filterService.set('vegan', checked ? 'true' : '');
     }
 
     public setPage(page: number): void {
-        this.filterMap.set('page', '' + page);
-        this.eventEmitter.emit(this.filterMap);
-    }
-
-    private initializeSearchStream(): void {
-        const preLoad = Observable.of('');
-        const searchStream = this.searchStream
-            .debounceTime(300)
-            .distinctUntilChanged();
-
-        Observable.merge(preLoad, searchStream)
-            .subscribe((search: string) => {
-                search ? this.filterMap.set('name', search) : this.filterMap.delete('name');
-                this.filterMap.set('page', '1');
-                this.eventEmitter.emit(this.filterMap);
-            });
+        this.filterService.set('page', String(page));
     }
 }

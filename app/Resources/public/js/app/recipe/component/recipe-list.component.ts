@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs/Subject';
 import {Pageable} from '../../core/model/pageable';
+import {FilterParameter} from '../../shared/service/filter.service';
 import {Recipe} from '../model/recipe';
 import {RecipeRepository} from '../repository/recipe.repository';
 
@@ -35,7 +36,7 @@ import {RecipeRepository} from '../repository/recipe.repository';
 })
 export class RecipeListComponent implements OnInit {
     public pageable: Pageable<Recipe>;
-    private filterStream = new Subject<Map<string, string>>();
+    private filterStream = new Subject<FilterParameter>();
 
     constructor(private router: Router,
                 private recipeRepository: RecipeRepository) {
@@ -43,11 +44,11 @@ export class RecipeListComponent implements OnInit {
 
     public ngOnInit(): void {
         this.filterStream
-            .switchMap((queryParams: Map<string, string>) => this.recipeRepository.getRecipes(queryParams))
+            .switchMap((queryParams) => this.recipeRepository.getRecipes(queryParams))
             .subscribe((pageable: Pageable<Recipe>) => this.pageable = pageable);
     }
 
-    public onFilter(filterMap: Map<string, string>): void {
+    public onFilter(filterMap: FilterParameter): void {
         this.filterStream.next(filterMap);
     }
 
