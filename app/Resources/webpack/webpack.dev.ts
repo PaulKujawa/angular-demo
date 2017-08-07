@@ -54,6 +54,12 @@ export function webpackConfig(args: WebpackArgs): Configuration {
 
             // generate separate css file to load see to do above, based on output.path
             new ExtractTextPlugin('css/main.css'),
+
+            // @see https://github.com/angular/angular/issues/11580
+            new webpack.ContextReplacementPlugin(
+                /angular(\\|\/)core(\\|\/)@angular/,
+                path.resolve(__dirname, '../src'),
+            ),
         ],
     };
 
