@@ -1,8 +1,6 @@
-import {Injectable} from '@angular/core';
 import {ProductRequestDto} from '../model/dto/product-request.dto';
 import {Product} from '../model/product';
 
-@Injectable()
 export class ProductMapper {
     public mapRequestDto(product: Product): ProductRequestDto {
         return {

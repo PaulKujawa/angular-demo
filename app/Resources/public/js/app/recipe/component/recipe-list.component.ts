@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs/Subject';
 import {Pageable} from '../../core/model/pageable';
-import {FilterParameter} from '../../shared/service/filter.service';
+import {FilterParameter} from '../../shared/service/filter.state';
 import {Recipe} from '../model/recipe';
 import {RecipeRepository} from '../repository/recipe.repository';
 

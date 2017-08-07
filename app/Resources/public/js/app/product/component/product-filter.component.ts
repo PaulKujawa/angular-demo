@@ -1,12 +1,13 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
 import {Subscription} from 'rxjs/Subscription';
-import {Pagination} from '../../core/model/pagination';
-import {FilterService} from '../../shared/service/filter.service';
-import {ProductRepository} from '../repository/product.repository';
+import {Pageable} from '../../core/model/pageable';
+import {FilterState} from '../../shared/service/filter.state';
+import {Product} from '../model/product';
+import {ProductState} from '../service/product.state';
 
 @Component({
     selector: 'product-filter',
-    providers: [FilterService],
     template: `
         <div class="row app-filter">
             <div class="col-xs-12 col-sm-3">
@@ -17,37 +18,34 @@ import {ProductRepository} from '../repository/product.repository';
                        (keyup)="setName(search.value)"/>
             </div>
             <div class="col-xs-12 col-sm-3">
-                <pagination [pagination]="pagination"
-                            (clicked)="setPage($event)"></pagination>
+                <pagination [pagination]="(pageable|async)?.pagination"
+                            (clicked)="setPage($event)">
+                </pagination>
             </div>
         </div>
     `,
 })
 export class ProductFilterComponent implements OnInit, OnDestroy {
-    @Input() public pagination: Pagination;
-    private subscription: Subscription;
+    public pageable: Observable<Pageable<Product>>;
+    private subscription?: Subscription;
 
-    public constructor(private productRepository: ProductRepository,
-                       private filterService: FilterService) {
+    public constructor(private productState: ProductState,
+                       private filterState: FilterState) {
     }
 
     public ngOnInit(): void {
-        this.subscription = this.filterService.filter.subscribe((filter) => this.productRepository.getProducts(filter));
+        this.pageable = this.productState.getProducts();
     }
 
     public ngOnDestroy(): void {
-        this.subscription.unsubscribe();
+        this.subscription && this.subscription.unsubscribe();
     }
 
     public setName(name: string): void {
-        const subscription = this.filterService.setDebounced('name', name);
-
-        if (subscription) {
-            this.subscription.add(subscription);
-        }
+        this.subscription = this.filterState.setDebouncedProperty('name', name);
     }
 
     public setPage(page: number): void {
-        this.filterService.set('page', String(page));
+        this.filterState.setProperty('page', String(page));
     }
 }
