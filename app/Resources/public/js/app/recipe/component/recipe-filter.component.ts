@@ -1,11 +1,11 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Subscription} from 'rxjs/Subscription';
 import {Pagination} from '../../core/model/pagination';
-import {FilterParameter, FilterService} from '../../shared/service/filter.service';
+import {FilterParameter, FilterState} from '../../shared/service/filter.state';
 
 @Component({
     selector: 'recipe-filter',
-    providers: [FilterService],
+    providers: [FilterState],
     template: `
         <div class="row app-filter">
             <div class="col-xs-12 col-sm-4">
@@ -37,11 +37,11 @@ export class RecipeFilterComponent implements OnInit, OnDestroy {
     @Output('filter') public eventEmitter = new EventEmitter<FilterParameter>();
     private subscription: Subscription;
 
-    public constructor(public filterService: FilterService) {
+    public constructor(private filterState: FilterState) {
     }
 
     public ngOnInit(): void {
-        this.subscription = this.filterService.filter.subscribe(this.eventEmitter);
+        this.subscription = this.filterState.getFilter().subscribe(this.eventEmitter);
     }
 
     public ngOnDestroy(): void {
@@ -49,7 +49,7 @@ export class RecipeFilterComponent implements OnInit, OnDestroy {
     }
 
     public setName(name: string): void {
-        const subscription = this.filterService.setDebounced('name', name);
+        const subscription = this.filterState.setDebouncedProperty('name', name);
 
         if (subscription) {
             this.subscription.add(subscription);
@@ -57,10 +57,10 @@ export class RecipeFilterComponent implements OnInit, OnDestroy {
     }
 
     public setVegan(checked: boolean): void {
-        this.filterService.set('vegan', checked ? 'true' : '');
+        this.filterState.setProperty('vegan', checked ? 'true' : '');
     }
 
     public setPage(page: number): void {
-        this.filterService.set('page', String(page));
+        this.filterState.setProperty('page', String(page));
     }
 }

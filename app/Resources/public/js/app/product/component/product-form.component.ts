@@ -1,8 +1,8 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Subscription} from 'rxjs/Subscription';
+import {Observable} from 'rxjs/Observable';
 import {Product} from '../model/product';
-import {ProductRepository} from '../repository/product.repository';
+import {ProductState} from '../service/product.state';
 
 @Component({
     selector: 'product-form',
@@ -75,32 +75,30 @@ import {ProductRepository} from '../repository/product.repository';
         </form>
     `,
 })
-export class ProductFormComponent implements OnInit, OnDestroy {
+export class ProductFormComponent implements OnInit {
     @Input() public product: Product;
     public isEditMode: boolean;
-    private subscription?: Subscription;
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
-                private productRepository: ProductRepository) {
+                private productState: ProductState) {
     }
 
     public ngOnInit(): void {
         this.route.params.subscribe((params) => this.isEditMode = params.hasOwnProperty('id'));
     }
 
-    public ngOnDestroy(): void {
-        this.subscription && this.subscription.unsubscribe();
-    }
-
     public onSubmit(): void {
-        this.subscription = this.isEditMode
-            ? this.productRepository.putProduct(this.product).subscribe(() => this.router.navigate(['products']))
-            : this.productRepository.postProduct(this.product).subscribe(() => this.router.navigate(['products']));
+        const observable: Observable<any> = this.isEditMode
+            ? this.productState.updateProduct(this.product)
+            : this.productState.addProduct(this.product);
+
+        observable.subscribe(() => this.router.navigate(['products']));
     }
 
     public onDelete(): void {
-        this.productRepository.deleteProduct(this.product.id)
+        this.productState
+            .removeProduct(this.product.id)
             .subscribe(() => this.router.navigate(['products']));
     }
 }

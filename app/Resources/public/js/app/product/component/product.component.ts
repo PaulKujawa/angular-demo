@@ -1,6 +1,9 @@
 import {Component} from '@angular/core';
+import {FilterState} from '../../shared/service/filter.state';
+import {ProductState} from '../service/product.state';
 
 @Component({
+    providers: [FilterState, ProductState],
     template: `
         <router-outlet></router-outlet>
     `,

@@ -1,20 +1,18 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Router} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
-import {Pageable} from '../../core/model/pageable';
 import {Product} from '../model/product';
 import {ProductState} from '../service/product.state';
 
 @Component({
     template: `
-        <product-filter [pagination]="(pageable|async)?.pagination"></product-filter>
+        <product-filter></product-filter>
 
         <div class="row">
             <div class="col-xs-12 col-sm-6">
                 <ul class="list-group">
                     <li class="list-group-item app-products__item"
                         (click)="onSelectProduct(product)"
-                        *ngFor="let product of (pageable|async)?.docs">
+                        *ngFor="let product of (productState.getProducts()|async)?.docs">
                         {{product.name}}
                     </li>
                 </ul>
@@ -30,15 +28,9 @@ import {ProductState} from '../service/product.state';
         </div>
     `,
 })
-export class ProductListComponent implements OnInit {
-    public pageable: Observable<Pageable<Product>>;
-
-    constructor(private router: Router,
-                private productState: ProductState) {
-    }
-
-    public ngOnInit(): void {
-        this.pageable = this.productState.pageable;
+export class ProductListComponent {
+    constructor(public productState: ProductState,
+                private router: Router) {
     }
 
     public onAddProduct(): void {
