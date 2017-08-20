@@ -24,10 +24,6 @@ class MeasurementRepository
      */
     private $paginationResponseFactory;
 
-    /**
-     * @param EntityManager $entityManager
-     * @param PaginationResponseFactory $paginationResponseFactory
-     */
     public function __construct(
         EntityManager $entityManager,
         PaginationResponseFactory $paginationResponseFactory
@@ -36,12 +32,6 @@ class MeasurementRepository
         $this->paginationResponseFactory = $paginationResponseFactory;
     }
 
-    /**
-     * @param int $page
-     * @param QueryDecorator $queryDecorator
-     *
-     * @return PaginationResponse
-     */
     public function getMeasurements(int $page, QueryDecorator $queryDecorator = null): PaginationResponse
     {
         $criteria = Criteria::create();
@@ -69,21 +59,11 @@ class MeasurementRepository
         return $paginationResponse;
     }
 
-    /**
-     * @param int $id
-     *
-     * @return Measurement|null
-     */
-    public function getMeasurement(int $id)
+    public function getMeasurement(int $id): ?Measurement
     {
         return $this->entityManager->getRepository(Measurement::class)->find($id);
     }
 
-    /**
-     * @param Measurement $measurement
-     *
-     * @return Measurement
-     */
     public function addMeasurement(Measurement $measurement): Measurement
     {
         $this->entityManager->persist($measurement);
@@ -92,18 +72,12 @@ class MeasurementRepository
         return $measurement;
     }
 
-    /**
-     * @param Measurement $measurement
-     */
-    public function setMeasurement(Measurement $measurement)
+    public function setMeasurement(Measurement $measurement): void
     {
         $this->entityManager->flush($measurement);
     }
 
-    /**
-     * @param Measurement $measurement
-     */
-    public function deleteMeasurement(Measurement $measurement)
+    public function deleteMeasurement(Measurement $measurement): void
     {
         $this->entityManager->remove($measurement);
         $this->entityManager->flush($measurement);

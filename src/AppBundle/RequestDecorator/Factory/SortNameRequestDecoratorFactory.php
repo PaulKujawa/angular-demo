@@ -2,15 +2,13 @@
 
 namespace AppBundle\RequestDecorator\Factory;
 
+use AppBundle\RequestDecorator\Decorator\QueryDecorator;
 use AppBundle\RequestDecorator\Decorator\SortNameQueryDecorator;
 use Symfony\Component\HttpFoundation\Request;
 
 class SortNameRequestDecoratorFactory implements RequestDecoratorFactory
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function createQueryDecorator(Request $request)
+    public function createQueryDecorator(Request $request): ?QueryDecorator
     {
         $direction = strtolower($request->query->get('sortName'));
 

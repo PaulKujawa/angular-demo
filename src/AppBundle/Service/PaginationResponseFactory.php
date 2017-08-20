@@ -7,13 +7,6 @@ use AppBundle\Model\PaginationResponse;
 
 class PaginationResponseFactory
 {
-    /**
-     * @param array $docs
-     * @param int $pages
-     * @param int $page
-     *
-     * @return PaginationResponse
-     */
     public function createPaginationResponse(array $docs, int $pages, int $page): PaginationResponse {
         $pagination = new Pagination();
         $pagination->page = $page;

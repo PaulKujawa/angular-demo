@@ -24,10 +24,6 @@ class ProductRepository
      */
     private $paginationResponseFactory;
 
-    /**
-     * @param EntityManager $entityManager
-     * @param PaginationResponseFactory $paginationResponseFactory
-     */
     public function __construct(
         EntityManager $entityManager,
         PaginationResponseFactory $paginationResponseFactory
@@ -36,12 +32,6 @@ class ProductRepository
         $this->paginationResponseFactory = $paginationResponseFactory;
     }
 
-    /**
-     * @param int $page
-     * @param QueryDecorator|null $queryDecorator
-     *
-     * @return PaginationResponse
-     */
     public function getProducts(int $page, QueryDecorator $queryDecorator = null): PaginationResponse
     {
         $criteria = Criteria::create();
@@ -69,21 +59,11 @@ class ProductRepository
         return $paginationResponse;
     }
 
-    /**
-     * @param int $id
-     *
-     * @return Product|null
-     */
-    public function getProduct(int $id)
+    public function getProduct(int $id): ?Product
     {
         return $this->entityManager->getRepository(Product::class)->find($id);
     }
 
-    /**
-     * @param Product $product
-     *
-     * @return Product
-     */
     public function addProduct(Product $product): Product
     {
         $this->entityManager->persist($product);
@@ -92,18 +72,12 @@ class ProductRepository
         return $product;
     }
 
-    /**
-     * @param Product $product
-     */
-    public function setProduct(Product $product)
+    public function setProduct(Product $product): void
     {
         $this->entityManager->flush($product);
     }
 
-    /**
-     * @param Product $product
-     */
-    public function deleteProduct(Product $product)
+    public function deleteProduct(Product $product): void
     {
         $this->entityManager->remove($product);
         $this->entityManager->flush($product);

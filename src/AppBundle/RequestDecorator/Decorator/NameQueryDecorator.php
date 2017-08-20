@@ -11,18 +11,12 @@ class NameQueryDecorator implements QueryDecorator
      */
     private $name;
 
-    /**
-     * @param string $name
-     */
     public function __construct(string $name)
     {
         $this->name = $name;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function decorate(Criteria $criteria)
+    public function decorate(Criteria $criteria): void
     {
         $criteria->andWhere(
             Criteria::expr()->contains('name', $this->name)

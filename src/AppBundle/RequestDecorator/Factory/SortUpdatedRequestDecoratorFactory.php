@@ -2,15 +2,13 @@
 
 namespace AppBundle\RequestDecorator\Factory;
 
+use AppBundle\RequestDecorator\Decorator\QueryDecorator;
 use AppBundle\RequestDecorator\Decorator\SortUpdatedQueryDecorator;
 use Symfony\Component\HttpFoundation\Request;
 
 class SortUpdatedRequestDecoratorFactory implements RequestDecoratorFactory
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function createQueryDecorator(Request $request)
+    public function createQueryDecorator(Request $request): ?QueryDecorator
     {
         $direction = strtolower($request->query->get('sortUpdated'));
 

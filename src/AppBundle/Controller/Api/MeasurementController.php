@@ -18,9 +18,6 @@ use Symfony\Component\Validator\Constraints\GreaterThan;
  */
 class MeasurementController extends FOSRestController implements ClassResourceInterface
 {
-    /**
-     * @return View
-     */
     public function newAction(): View
     {
         return $this->view($this->createForm(MeasurementType::class));
@@ -28,10 +25,6 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
 
     /**
      * @QueryParam(name="page", requirements=@GreaterThan(value=0), default="1")
-     *
-     * @param int $page
-     *
-     * @return View
      */
     public function cgetAction(int $page): View
     {
@@ -40,11 +33,6 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
         return $this->view($repository->getMeasurements($page));
     }
 
-    /**
-     * @param int $id
-     *
-     * @return View
-     */
     public function getAction(int $id): View
     {
         $measurement = $this->get('app.repository.measurement')->getMeasurement($id);
@@ -54,11 +42,6 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
             : $this->view($measurement->get);
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return View
-     */
     public function postAction(Request $request): View
     {
         $form = $this->createForm(MeasurementType::class);
@@ -73,12 +56,6 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
         return $this->routeRedirectView('api_get_measurement', ['id' => $measurement->id], Response::HTTP_CREATED);
     }
 
-    /**
-     * @param Request $request
-     * @param int $id
-     *
-     * @return View
-     */
     public function putAction(Request $request, int $id): View
     {
         $measurement = $this->get('app.repository.measurement')->getMeasurement($id);
@@ -99,11 +76,6 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
         return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 
-    /**
-     * @param int $id
-     *
-     * @return View
-     */
     public function deleteAction(int $id): View
     {
         $measurement = $this->get('app.repository.measurement')->getMeasurement($id);

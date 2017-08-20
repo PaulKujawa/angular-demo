@@ -7,10 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class NameRequestDecoratorFactory implements RequestDecoratorFactory
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function createQueryDecorator(Request $request)
+    public function createQueryDecorator(Request $request): ?NameQueryDecorator
     {
         $title = $request->query->get('name');
 

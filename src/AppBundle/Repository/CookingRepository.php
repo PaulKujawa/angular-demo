@@ -12,26 +12,16 @@ class CookingRepository
      */
     private $entityManager;
 
-    /**
-     * @param EntityManager $entityManager
-     */
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager= $entityManager;
     }
 
-    /**
-     * @param int $recipeId
-     *
-     * @return int
-     */
     public function getPosition(int $recipeId): int {
         return $this->entityManager->getRepository(Cooking::class)->getNextPosition($recipeId);
     }
 
     /**
-     * @param int $recipeId
-     *
      * @return Cooking[]|array
      */
     public function getCookings(int $recipeId): array
@@ -42,22 +32,11 @@ class CookingRepository
         );
     }
 
-    /**
-     * @param int $recipeId
-     * @param int $id
-     *
-     * @return Cooking|null
-     */
-    public function getCooking(int $recipeId, int $id)
+    public function getCooking(int $recipeId, int $id): ?Cooking
     {
         return $this->entityManager->getRepository(Cooking::class)->findOneBy(['id' => $id, 'recipe' => $recipeId]);
     }
 
-    /**
-     * @param Cooking $cooking
-     *
-     * @return Cooking
-     */
     public function addCooking(Cooking $cooking): Cooking
     {
         $this->entityManager->persist($cooking);
@@ -66,18 +45,12 @@ class CookingRepository
         return $cooking;
     }
 
-    /**
-     * @param Cooking $cooking
-     */
-    public function setCooking(Cooking $cooking)
+    public function setCooking(Cooking $cooking): void
     {
         $this->entityManager->flush($cooking);
     }
 
-    /**
-     * @param Cooking $cooking
-     */
-    public function deleteCooking(Cooking $cooking)
+    public function deleteCooking(Cooking $cooking): int
     {
         $this->entityManager->remove($cooking);
         $this->entityManager->flush($cooking);

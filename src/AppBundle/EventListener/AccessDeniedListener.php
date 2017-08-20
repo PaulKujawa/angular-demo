@@ -28,12 +28,6 @@ class AccessDeniedListener extends ExceptionListener
      */
     private $challenge;
 
-    /**
-     * @param array $formats
-     * @param bool $challenge
-     * @param string $controller
-     * @param LoggerInterface|null $logger
-     */
     public function __construct(array $formats, bool $challenge, $controller, LoggerInterface $logger = null)
     {
         $this->formats = $formats;
@@ -41,12 +35,7 @@ class AccessDeniedListener extends ExceptionListener
         parent::__construct($controller, $logger);
     }
 
-    /**
-     * @param GetResponseForExceptionEvent $event
-     *
-     * @return bool
-     */
-    public function onKernelException(GetResponseForExceptionEvent $event)
+    public function onKernelException(GetResponseForExceptionEvent $event): bool
     {
         static $handling;
 
@@ -85,10 +74,7 @@ class AccessDeniedListener extends ExceptionListener
         $handling = false;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             KernelEvents::EXCEPTION => ['onKernelException', 10],

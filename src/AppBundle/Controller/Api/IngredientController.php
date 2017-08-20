@@ -17,22 +17,11 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class IngredientController extends FOSRestController implements ClassResourceInterface
 {
-    /**
-     * @param int $recipeId
-     *
-     * @return View
-     */
     public function newAction(int $recipeId): View
     {
         return $this->view($this->createForm(IngredientType::class));
     }
 
-    /**
-     * @param int $recipeId
-     * @param int $id
-     *
-     * @return View
-     */
     public function getProductAction(int $recipeId, int $id): View
     {
         $ingredient = $this->get('app.repository.ingredient')->getIngredient($recipeId, $id);
@@ -42,12 +31,6 @@ class IngredientController extends FOSRestController implements ClassResourceInt
             : $this->view($ingredient->product);
     }
 
-    /**
-     * @param int $recipeId
-     * @param int $id
-     *
-     * @return View
-     */
     public function getMeasurementAction(int $recipeId, int $id): View
     {
         $ingredient = $this->get('app.repository.ingredient')->getIngredient($recipeId, $id);
@@ -57,11 +40,6 @@ class IngredientController extends FOSRestController implements ClassResourceInt
             : $this->view($ingredient->measurement);
     }
 
-    /**
-     * @param int $recipeId
-     *
-     * @return View
-     */
     public function cgetAction(int $recipeId): View
     {
         $ingredients = $this->get('app.repository.ingredient')->getIngredients($recipeId);
@@ -69,12 +47,6 @@ class IngredientController extends FOSRestController implements ClassResourceInt
         return $this->view($ingredients);
     }
 
-    /**
-     * @param int $recipeId
-     * @param int $id
-     *
-     * @return View
-     */
     public function getAction(int $recipeId, int $id): View
     {
         $ingredient = $this->get('app.repository.ingredient')->getIngredient($recipeId, $id);
@@ -84,12 +56,6 @@ class IngredientController extends FOSRestController implements ClassResourceInt
             : $this->view($ingredient);
     }
 
-    /**
-     * @param Request $request
-     * @param int $recipeId
-     *
-     * @return View
-     */
     public function postAction(Request $request, int $recipeId): View
     {
         $recipe = $this->get('app.repository.recipe')->getRecipe($recipeId);
@@ -113,13 +79,6 @@ class IngredientController extends FOSRestController implements ClassResourceInt
         ]);
     }
 
-    /**
-     * @param Request $request
-     * @param int $recipeId
-     * @param int $id
-     *
-     * @return View
-     */
     public function putAction(Request $request, int $recipeId, int $id): View
     {
         $ingredient = $this->get('app.repository.ingredient')->getIngredient($recipeId, $id);
@@ -140,12 +99,6 @@ class IngredientController extends FOSRestController implements ClassResourceInt
         return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 
-    /**
-     * @param int $recipeId
-     * @param int $id
-     *
-     * @return View
-     */
     public function deleteAction(int $recipeId, int $id): View
     {
         $ingredient = $this->get('app.repository.ingredient')->getIngredient($recipeId, $id);

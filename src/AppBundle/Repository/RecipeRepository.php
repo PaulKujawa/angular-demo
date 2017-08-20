@@ -24,10 +24,6 @@ class RecipeRepository
      */
     private $paginationResponseFactory;
 
-    /**
-     * @param EntityManager $entityManager
-     * @param PaginationResponseFactory $paginationResponseFactory
-     */
     public function __construct(
         EntityManager $entityManager,
         PaginationResponseFactory $paginationResponseFactory
@@ -36,12 +32,6 @@ class RecipeRepository
         $this->paginationResponseFactory = $paginationResponseFactory;
     }
 
-    /**
-     * @param int $page
-     * @param QueryDecorator $queryDecorator
-     *
-     * @return PaginationResponse
-     */
     public function getRecipes(int $page, QueryDecorator $queryDecorator = null): PaginationResponse
     {
         $criteria = Criteria::create();
@@ -69,21 +59,11 @@ class RecipeRepository
         return $paginationResponse;
     }
 
-    /**
-     * @param int $id
-     *
-     * @return Recipe|null
-     */
-    public function getRecipe(int $id)
+    public function getRecipe(int $id): ?Recipe
     {
         return $this->entityManager->getRepository(Recipe::class)->find($id);
     }
 
-    /**
-     * @param Recipe $recipe
-     *
-     * @return Recipe
-     */
     public function addRecipe(Recipe $recipe): Recipe
     {
         $this->entityManager->persist($recipe);
@@ -92,18 +72,12 @@ class RecipeRepository
         return $recipe;
     }
 
-    /**
-     * @param Recipe $recipe
-     */
-    public function setRecipe(Recipe $recipe)
+    public function setRecipe(Recipe $recipe): void
     {
         $this->entityManager->flush($recipe);
     }
 
-    /**
-     * @param Recipe $recipe
-     */
-    public function deleteRecipe(Recipe $recipe)
+    public function deleteRecipe(Recipe $recipe): void
     {
         $this->entityManager->remove($recipe);
         $this->entityManager->flush($recipe);

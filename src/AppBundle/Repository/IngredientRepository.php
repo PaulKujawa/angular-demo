@@ -12,12 +12,9 @@ class IngredientRepository
      */
     private $entityManager;
 
-    /**
-     * @param EntityManager $entityManager
-     */
     public function __construct(EntityManager $entityManager)
     {
-        $this->entityManager= $entityManager;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -30,22 +27,11 @@ class IngredientRepository
         return $this->entityManager->getRepository(Ingredient::class)->findBy(['recipe' => $recipeId]);
     }
 
-    /**
-     * @param int $recipeId
-     * @param int $id
-     *
-     * @return Ingredient|null
-     */
-    public function getIngredient(int $recipeId, int $id)
+    public function getIngredient(int $recipeId, int $id): ?Ingredient
     {
         return $this->entityManager->getRepository(Ingredient::class)->findOneBy(['id' => $id, 'recipe' => $recipeId]);
     }
 
-    /**
-     * @param Ingredient $ingredient
-     *
-     * @return Ingredient
-     */
     public function addIngredient(Ingredient $ingredient): Ingredient
     {
         $this->entityManager->persist($ingredient);
@@ -54,18 +40,12 @@ class IngredientRepository
         return $ingredient;
     }
 
-    /**
-     * @param Ingredient $ingredient
-     */
-    public function setIngredient(Ingredient $ingredient)
+    public function setIngredient(Ingredient $ingredient): void
     {
         $this->entityManager->flush($ingredient);
     }
 
-    /**
-     * @param Ingredient $ingredient
-     */
-    public function deleteIngredient(Ingredient $ingredient)
+    public function deleteIngredient(Ingredient $ingredient): void
     {
         $this->entityManager->remove($ingredient);
         $this->entityManager->flush($ingredient);

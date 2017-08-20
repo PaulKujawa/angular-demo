@@ -12,9 +12,6 @@ class PhotoRepository
      */
     private $entityManager;
 
-    /**
-     * @param EntityManager $entityManager
-     */
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager= $entityManager;
@@ -30,22 +27,11 @@ class PhotoRepository
         return $this->entityManager->getRepository(Photo::class)->findBy(['recipe' => $recipeId]);
     }
 
-    /**
-     * @param int $recipeId
-     * @param int $id
-     *
-     * @return Photo|null
-     */
-    public function getPhoto(int $recipeId, int $id)
+    public function getPhoto(int $recipeId, int $id): ?Photo
     {
         return $this->entityManager->getRepository(Photo::class)->findOneBy(['recipe' => $recipeId, 'id' => $id]);
     }
 
-    /**
-     * @param Photo $photo
-     *
-     * @return Photo
-     */
     public function addPhoto(Photo $photo): Photo
     {
         $this->entityManager->persist($photo);
@@ -54,18 +40,12 @@ class PhotoRepository
         return $photo;
     }
 
-    /**
-     * @param Photo $photo
-     */
-    public function setPhoto(Photo $photo)
+    public function setPhoto(Photo $photo): void
     {
         $this->entityManager->flush($photo);
     }
 
-    /**
-     * @param Photo $photo
-     */
-    public function deletePhoto(Photo $photo)
+    public function deletePhoto(Photo $photo): void
     {
         $this->entityManager->remove($photo);
         $this->entityManager->flush($photo);

@@ -113,8 +113,6 @@ class Recipe
     /**
      * @Serializer\VirtualProperty()
      * @Serializer\SerializedName("macros")
-     *
-     * @return array
      */
     public function calculateMacros(): array
     {
@@ -144,11 +142,6 @@ class Recipe
         return array_map('intval', $macros);
     }
 
-    /**
-     * @param Ingredient $ingredient
-     *
-     * @return float
-     */
     private function getRelation(Ingredient $ingredient): float {
         $gr = $ingredient->measurement->gr ?: $ingredient->product->gr;
 

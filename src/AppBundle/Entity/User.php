@@ -23,10 +23,7 @@ class User extends BaseUser
      */
     protected $id;
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }

@@ -11,18 +11,12 @@ class SortUpdatedQueryDecorator implements QueryDecorator
      */
     private $direction;
 
-    /**
-     * @param string $direction
-     */
     public function __construct(string $direction = Criteria::ASC)
     {
         $this->direction = $direction;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function decorate(Criteria $criteria)
+    public function decorate(Criteria $criteria): void
     {
         $orderBy = array_merge(
             $criteria->getOrderings(),
