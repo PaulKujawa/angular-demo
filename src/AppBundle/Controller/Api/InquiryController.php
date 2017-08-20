@@ -11,19 +11,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class InquiryController extends FOSRestController implements ClassResourceInterface
 {
-    /**
-     * @return View
-     */
     public function newAction(): View
     {
         return $this->view($this->createForm(InquiryType::class));
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return View
-     */
     public function postAction(Request $request): View
     {
         $form = $this->createForm(InquiryType::class);

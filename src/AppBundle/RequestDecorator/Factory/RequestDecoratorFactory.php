@@ -7,10 +7,5 @@ use Symfony\Component\HttpFoundation\Request;
 
 interface RequestDecoratorFactory
 {
-    /**
-     * @param Request $request
-     *
-     * @return null|QueryDecorator
-     */
-    public function createQueryDecorator(Request $request);
+    public function createQueryDecorator(Request $request): ?QueryDecorator;
 }

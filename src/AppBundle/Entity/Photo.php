@@ -23,9 +23,6 @@ class Photo
     use ImageTrait;
     use TimestampTrait;
 
-    /**
-     * @param int $recipeId
-     */
     public function __construct(int $recipeId)
     {
         $this->recipe = $recipeId;
@@ -52,17 +49,11 @@ class Photo
      */
     private $recipe;
 
-    /**
-     * @param Recipe $recipe
-     */
-    public function setRecipe(Recipe $recipe)
+    public function setRecipe(Recipe $recipe): void
     {
         $this->recipe = $recipe;
     }
 
-    /**
-     * @return Recipe
-     */
     public function getRecipe(): Recipe
     {
         return $this->recipe;

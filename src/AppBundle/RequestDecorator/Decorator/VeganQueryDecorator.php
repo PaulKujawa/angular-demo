@@ -11,18 +11,12 @@ class VeganQueryDecorator implements QueryDecorator
      */
     private $isVegan;
 
-    /**
-     * @param bool $isVegan
-     */
     public function __construct(bool $isVegan)
     {
         $this->isVegan = $isVegan;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function decorate(Criteria $criteria)
+    public function decorate(Criteria $criteria): void
     {
         $criteria->andWhere(
             Criteria::expr()->eq('isVegan', $this->isVegan)

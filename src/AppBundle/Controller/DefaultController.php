@@ -12,8 +12,6 @@ class DefaultController extends Controller
      * @Route("/", name="app_root_i18n")
      * @Route("/recipes/{page}", name="app_recipes", defaults={"page" = 1}, requirements={"page" = "\d+"})
      * @Route("/recipes/{id}/{name}", name="app_recipe", requirements={"id" = "\d+"})
-     *
-     * @return Response
      */
     public function indexAction(): Response
     {
@@ -24,8 +22,6 @@ class DefaultController extends Controller
      * @Route("/products/{page}", name="app_products", defaults={"page" = 1}, requirements={"page" = "\d+"})
      * @Route("/products/{id}/{name}", name="app_product", requirements={"id" = "\d+"})
      * @Route("/products/new", name="app_product_new")
-     *
-     * @return Response
      */
     public function adminAction(): Response
     {

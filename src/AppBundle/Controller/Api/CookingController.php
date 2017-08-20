@@ -17,21 +17,11 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class CookingController extends FOSRestController implements ClassResourceInterface
 {
-    /**
-     * @param int $recipeId
-     *
-     * @return View
-     */
     public function newAction(int $recipeId): View
     {
         return $this->view($this->createForm(CookingType::class));
     }
 
-    /**
-     * @param int $recipeId
-     *
-     * @return View
-     */
     public function cgetAction(int $recipeId): View
     {
         $cookings = $this->get('app.repository.cooking')->getCookings($recipeId);
@@ -39,12 +29,6 @@ class CookingController extends FOSRestController implements ClassResourceInterf
         return $this->view($cookings);
     }
 
-    /**
-     * @param int $recipeId
-     * @param int $id
-     *
-     * @return View
-     */
     public function getAction(int $recipeId, int $id): View
     {
         $cooking = $this->get('app.repository.cooking')->getCooking($recipeId, $id);
@@ -54,12 +38,6 @@ class CookingController extends FOSRestController implements ClassResourceInterf
             : $this->view($cooking);
     }
 
-    /**
-     * @param Request $request
-     * @param int $recipeId
-     *
-     * @return View
-     */
     public function postAction(Request $request, int $recipeId): View
     {
         $recipe = $this->get('app.repository.recipe')->getRecipe($recipeId);
@@ -81,13 +59,6 @@ class CookingController extends FOSRestController implements ClassResourceInterf
         return $this->routeRedirectView('api_get_recipe_cooking', ['recipeId' => $recipeId, 'id' => $cooking->id]);
     }
 
-    /**
-     * @param Request $request
-     * @param int $recipeId
-     * @param int $id
-     *
-     * @return View
-     */
     public function putAction(Request $request, int $recipeId, $id): View
     {
         $cooking = $this->get('app.repository.cooking')->getCooking($recipeId, $id);
@@ -108,12 +79,6 @@ class CookingController extends FOSRestController implements ClassResourceInterf
         return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 
-    /**
-     * @param int $recipeId
-     * @param int $id
-     *
-     * @return View
-     */
     public function deleteAction(int $recipeId, int $id): View
     {
         $cooking = $this->get('app.repository.cooking')->getCooking($recipeId, $id);

@@ -14,12 +14,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints\GreaterThan;
 
 /**
+ * @Security("is_authenticated()")
  */
 class ProductController extends FOSRestController implements ClassResourceInterface
 {
-    /**
-     * @return View
-     */
     public function newAction(): View
     {
         return $this->view($this->createForm(ProductType::class));
@@ -27,11 +25,6 @@ class ProductController extends FOSRestController implements ClassResourceInterf
 
     /**
      * @QueryParam(name="page", requirements=@GreaterThan(value=0), default="1")
-     *
-     * @param Request $request
-     * @param int $page
-     *
-     * @return View
      */
     public function cgetAction(Request $request, int $page): View
     {
@@ -41,11 +34,6 @@ class ProductController extends FOSRestController implements ClassResourceInterf
         return $this->view($repository->getProducts($page, $decorator));
     }
 
-    /**
-     * @param int $id
-     *
-     * @return View
-     */
     public function getAction(int $id): View
     {
         $product = $this->get('app.repository.product')->getProduct($id);
@@ -55,11 +43,6 @@ class ProductController extends FOSRestController implements ClassResourceInterf
             : $this->view($product);
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return View
-     */
     public function postAction(Request $request): View
     {
         $form = $this->createForm(ProductType::class);
@@ -74,12 +57,6 @@ class ProductController extends FOSRestController implements ClassResourceInterf
         return $this->routeRedirectView('api_get_product', ['id' => $product->id], Response::HTTP_CREATED);
     }
 
-    /**
-     * @param Request $request
-     * @param int $id
-     *
-     * @return View
-     */
     public function putAction(Request $request, int $id): View
     {
         $product = $this->get('app.repository.product')->getProduct($id);
@@ -100,11 +77,6 @@ class ProductController extends FOSRestController implements ClassResourceInterf
         return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 
-    /**
-     * @param int $id
-     *
-     * @return View
-     */
     public function deleteAction(int $id): View
     {
         $product = $this->get('app.repository.product')->getProduct($id);

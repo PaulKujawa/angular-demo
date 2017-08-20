@@ -12,18 +12,12 @@ class InquiryService
      */
     private $mailer;
 
-    /**
-     * @param Swift_Mailer $mailer
-     */
     public function __construct(Swift_Mailer $mailer)
     {
         $this->mailer = $mailer;
     }
 
-    /**
-     * @param array $inquire
-     */
-    public function sendEmail(array $inquire)
+    public function sendEmail(array $inquire): void
     {
         $message = Swift_Message::newInstance()
             ->setSubject('vPit inquire')

@@ -12,8 +12,6 @@ class AuthenticationFailureHandler extends DefaultAuthenticationFailureHandler
 {
     /**
      * Respond JSON i.o. a redirect from api endpoint used for login_check config setting
-     *
-     * {@inheritdoc}
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): JsonResponse
     {

@@ -12,11 +12,7 @@ class CompositeRequestDecoratorFactory implements RequestDecoratorFactory
      */
     private $factories = [];
 
-    /**
-     * @param RequestDecoratorFactory $decoratorFactory
-     * @param int $priority
-     */
-    public function addFactory(RequestDecoratorFactory $decoratorFactory, int $priority = 0)
+    public function addFactory(RequestDecoratorFactory $decoratorFactory, int $priority = 0): void
     {
         $this->factories[] = [
             'factory' => $decoratorFactory,
@@ -24,9 +20,6 @@ class CompositeRequestDecoratorFactory implements RequestDecoratorFactory
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function createQueryDecorator(Request $request): CompositeQueryDecorator
     {
         $queryDecorators = array_map(function(RequestDecoratorFactory $factory) use ($request) {

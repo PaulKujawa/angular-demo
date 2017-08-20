@@ -11,18 +11,12 @@ class CompositeQueryDecorator implements QueryDecorator
      */
     private $queryDecorators;
 
-    /**
-     * @param array $queryDecorators
-     */
     public function __construct(array $queryDecorators)
     {
         $this->queryDecorators = $queryDecorators;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function decorate(Criteria $criteria)
+    public function decorate(Criteria $criteria): void
     {
         array_walk($this->queryDecorators, function(QueryDecorator $decorator) use ($criteria) {
            $decorator->decorate($criteria);

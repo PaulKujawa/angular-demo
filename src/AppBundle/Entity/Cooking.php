@@ -26,10 +26,6 @@ class Cooking
     use IdAutoTrait;
     use TimestampTrait;
 
-    /**
-     * @param int $recipeId
-     * @param int $position
-     */
     public function __construct(int $recipeId, int $position)
     {
         $this->recipe = $recipeId;

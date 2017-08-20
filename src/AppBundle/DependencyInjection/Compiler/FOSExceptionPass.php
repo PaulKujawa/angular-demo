@@ -10,10 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 class FOSExceptionPass implements CompilerPassInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $fosDefinition = $container->getDefinition('fos_rest.access_denied_listener');
         $definition = $container->getDefinition('app.event_listener.access_denied_listener');

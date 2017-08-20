@@ -11,7 +11,7 @@
 * `npm run build:prod`
 
 **TODO**
-* F: either add recipeState or make productState generic
+* F: recipeState missing
 * F: add localStorageService 
 * F: prefetch recipes (https://angular.io/docs/ts/latest/guide/router.html#!#resolve-guard)
 * F: loading icon

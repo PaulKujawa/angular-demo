@@ -9,20 +9,13 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\View;
-use JMS\Serializer\SerializationContext;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\GreaterThan;
 
 class RecipeController extends FOSRestController implements ClassResourceInterface
 {
-    const PAGE_LIMIT = 5;
-
-    /**
-     * @return View
-     */
     public function newAction()
     {
         return $this->view($this->createForm(RecipeType::class));
@@ -30,11 +23,6 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
 
     /**
      * @QueryParam(name="page", requirements=@GreaterThan(value=0), default="1")
-     *
-     * @param Request $request
-     * @param int $page
-     *
-     * @return View
      */
     public function cgetAction(Request $request, int $page): View
     {
@@ -50,11 +38,6 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
         return $view;
     }
 
-    /**
-     * @param int $id
-     *
-     * @return View
-     */
     public function getAction(int $id): View
     {
         $recipe = $this->get('app.repository.recipe')->getRecipe($id);
@@ -74,10 +57,6 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
 
     /**
      * @Security("is_authenticated()")
-     *
-     * @param Request $request
-     *
-     * @return View
      */
     public function postAction(Request $request): View
     {
@@ -95,15 +74,10 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
 
     /**
      * @Security("is_authenticated()")
-     *
-     * @param Request $request
-     * @param int $id
-     *
-     * @return View
      */
     public function putAction(Request $request, int $id): View
     {
-        $recipe = $this->get('app.repository.product')->getProduct($id);
+        $recipe = $this->get('app.repository.recipe')->getRecipe($id);
 
         if (null === $recipe) {
             return $this->view(null, Response::HTTP_NOT_FOUND);
@@ -123,10 +97,6 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
 
     /**
      * @Security("is_authenticated()")
-     *
-     * @param int $id
-     *
-     * @return View
      */
     public function deleteAction(int $id): View
     {

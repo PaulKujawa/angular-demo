@@ -52,19 +52,13 @@ trait ImageTrait
     private $file;
 
     // ### FILE PATH -----------------------------------------------------------------------------
-    /**
-     * @return null|string
-     */
-    public function getAbsolutePathWithFilename()
+    public function getAbsolutePathWithFilename(): ?string
     {
         return null === $this->filename
             ? null
             : $this->getAbsolutePath() . '/' . $this->filename;
     }
 
-    /**
-     * @return string
-     */
     public function getAbsolutePath(): string
     {
         return __DIR__ . '/../../../../../web/' . $this->getWebDirectory();
@@ -73,19 +67,14 @@ trait ImageTrait
     /**
      * @Serializer\VirtualProperty()
      * @Serializer\SerializedName("path")
-     *
-     * @return null|string
      */
-    public function getWebDirectoryWithFilename()
+    public function getWebDirectoryWithFilename(): ?string
     {
         return null === $this->filename
             ? null
             : $this->getWebDirectory() . '/' . $this->filename;
     }
 
-    /**
-     * @return string
-     */
     public function getWebDirectory(): string
     {
         return 'images/uploads';
@@ -96,7 +85,7 @@ trait ImageTrait
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
      */
-    public function generateFilename()
+    public function generateFilename(): void
     {
         if (null === $this->file) {
             return;
@@ -111,7 +100,7 @@ trait ImageTrait
      * @ORM\PostPersist()
      * @ORM\PostUpdate()
      */
-    public function saveFile()
+    public function saveFile(): void
     {
         if (null !== $this->getFile()) {
             $this->getFile()->move($this->getAbsolutePath(), $this->filename);
@@ -136,10 +125,7 @@ trait ImageTrait
     }
 
     // ### GETTER AND SETTER --------------------------------------------------------------------
-    /**
-     * @param UploadedFile $file
-     */
-    public function setFile(UploadedFile $file)
+    public function setFile(UploadedFile $file): void
     {
         if (null !== $this->filename) {
             $this->removeFile();
@@ -150,25 +136,16 @@ trait ImageTrait
         // @here you could save the original filename via $file->getClientOriginalName()
     }
 
-    /**
-     * @return UploadedFile
-     */
     public function getFile(): UploadedFile
     {
         return $this->file;
     }
 
-    /**
-     * @return string
-     */
     public function getFilename(): string
     {
         return $this->filename;
     }
 
-    /**
-     * @return int
-     */
     public function getSize(): int
     {
         return $this->size;

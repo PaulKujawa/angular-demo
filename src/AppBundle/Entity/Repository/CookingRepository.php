@@ -6,11 +6,6 @@ use Doctrine\ORM\EntityRepository;
 
 class CookingRepository extends EntityRepository
 {
-    /**
-     * @param int $recipeId
-     *
-     * @return int
-     */
     public function getNextPosition(int $recipeId): int
     {
         return $this
