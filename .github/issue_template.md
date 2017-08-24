@@ -1,7 +1,3 @@
-### Type
-- [ ] feature
-- [ ] bug
-
 ### Expected behavior
 
 ### Current behavior
