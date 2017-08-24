@@ -9,16 +9,3 @@
 
 **Build project**
 * `npm run build:prod`
-
-**TODO**
-* F: recipeState missing
-* F: add localStorageService 
-* F: prefetch recipes (https://angular.io/docs/ts/latest/guide/router.html#!#resolve-guard)
-* F: loading icon
-  * http://angularjs.blogspot.de/2017/03/angular-400-now-available.html)
-  * https://plnkr.co/edit/MryWgBPkN8WXKbjGOcZi?p=preview
-* F: add vegan label, servings and cook time
-* F: add custom ErrorHandler with sentry
-* F: HMR
-  * package.json ("build:dev": "NODE_ENV=dev webpack-dev-server -w --hot --progress")
-  * see TODOs
