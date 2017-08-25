@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {Response} from '@angular/http';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
@@ -14,9 +13,10 @@ export class AuthenticationService {
         this.isAuthenticated.next(window.appInject.authenticated);
     }
 
-    public authenticate(credentials: Credentials): Observable<Response> {
+    public authenticate(credentials: Credentials): Observable<void> {
         // on failure: authentication did not change
-        return this.authRepository.authenticate(credentials)
+        return this.authRepository
+            .authenticate(credentials)
             .do(() => this.isAuthenticated.next(true));
     }
 

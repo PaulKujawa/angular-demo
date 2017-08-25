@@ -1,7 +1,8 @@
+import {HttpParams} from '@angular/common/http';
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Subscription} from 'rxjs/Subscription';
 import {Pagination} from '../../core/model/pagination';
-import {FilterParameter, FilterState} from '../../shared/service/filter.state';
+import {FilterState} from '../../shared/service/filter.state';
 
 @Component({
     selector: 'recipe-filter',
@@ -34,14 +35,15 @@ import {FilterParameter, FilterState} from '../../shared/service/filter.state';
 })
 export class RecipeFilterComponent implements OnInit, OnDestroy {
     @Input() public pagination: Pagination;
-    @Output('filter') public eventEmitter = new EventEmitter<FilterParameter>();
+    @Output('filter') public eventEmitter = new EventEmitter<HttpParams>();
     private subscription: Subscription;
 
     public constructor(private filterState: FilterState) {
     }
 
     public ngOnInit(): void {
-        this.subscription = this.filterState.getFilter().subscribe(this.eventEmitter);
+        this.subscription = this.filterState.getFilter()
+            .subscribe(this.eventEmitter);
     }
 
     public ngOnDestroy(): void {
@@ -57,10 +59,10 @@ export class RecipeFilterComponent implements OnInit, OnDestroy {
     }
 
     public setVegan(checked: boolean): void {
-        this.filterState.setProperty('vegan', checked ? 'true' : '');
+        this.filterState.setParam('vegan', checked ? 'true' : '');
     }
 
     public setPage(page: number): void {
-        this.filterState.setProperty('page', String(page));
+        this.filterState.setParam('page', String(page));
     }
 }
