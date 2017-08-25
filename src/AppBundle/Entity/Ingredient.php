@@ -24,11 +24,6 @@ class Ingredient
     use IdAutoTrait;
     use TimestampTrait;
 
-    public function __construct(int $recipeId)
-    {
-        $this->recipe = $recipeId;
-    }
-
     /**
      * @var Recipe
      *
@@ -94,6 +89,11 @@ class Ingredient
      */
     public $measurement;
 
+    public function __construct(int $recipeId)
+    {
+        $this->recipe = $recipeId;
+    }
+
     /**
      * @Serializer\VirtualProperty()
      * @Serializer\SerializedName("kcal")
@@ -106,10 +106,11 @@ class Ingredient
 
         $kcal = $this->getRelation() * $this->product->kcal;
 
-        return (int)($kcal);
+        return (int) ($kcal);
     }
 
-    private function getRelation(): float {
+    private function getRelation(): float
+    {
         $gr = $this->measurement->gr ?: $this->product->gr;
 
         return $this->amount * $gr / 100;

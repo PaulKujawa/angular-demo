@@ -3,6 +3,7 @@
 namespace AppBundle\RequestDecorator\Factory;
 
 use AppBundle\RequestDecorator\Decorator\CompositeQueryDecorator;
+use AppBundle\RequestDecorator\Decorator\QueryDecorator;
 use Symfony\Component\HttpFoundation\Request;
 
 class CompositeRequestDecoratorFactory implements RequestDecoratorFactory
@@ -20,7 +21,7 @@ class CompositeRequestDecoratorFactory implements RequestDecoratorFactory
         ];
     }
 
-    public function createQueryDecorator(Request $request): CompositeQueryDecorator
+    public function createQueryDecorator(Request $request): QueryDecorator
     {
         $queryDecorators = array_map(function(RequestDecoratorFactory $factory) use ($request) {
             return $factory->createQueryDecorator($request);
