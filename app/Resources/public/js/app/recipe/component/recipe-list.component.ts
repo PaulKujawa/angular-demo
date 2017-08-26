@@ -1,8 +1,8 @@
+import {HttpParams} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs/Subject';
 import {Pageable} from '../../core/model/pageable';
-import {FilterParameter} from '../../shared/service/filter.state';
 import {Recipe} from '../model/recipe';
 import {RecipeRepository} from '../repository/recipe.repository';
 
@@ -36,7 +36,7 @@ import {RecipeRepository} from '../repository/recipe.repository';
 })
 export class RecipeListComponent implements OnInit {
     public pageable: Pageable<Recipe>;
-    private filterStream = new Subject<FilterParameter>();
+    private filterStream = new Subject<HttpParams>();
 
     constructor(private router: Router,
                 private recipeRepository: RecipeRepository) {
@@ -45,10 +45,10 @@ export class RecipeListComponent implements OnInit {
     public ngOnInit(): void {
         this.filterStream
             .switchMap((queryParams) => this.recipeRepository.getRecipes(queryParams))
-            .subscribe((pageable: Pageable<Recipe>) => this.pageable = pageable);
+            .subscribe((pageable) => this.pageable = pageable);
     }
 
-    public onFilter(filterMap: FilterParameter): void {
+    public onFilter(filterMap: HttpParams): void {
         this.filterStream.next(filterMap);
     }
 

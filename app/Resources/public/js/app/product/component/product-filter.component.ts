@@ -46,6 +46,6 @@ export class ProductFilterComponent implements OnInit, OnDestroy {
     }
 
     public setPage(page: number): void {
-        this.filterState.setProperty('page', String(page));
+        this.filterState.setParam('page', String(page));
     }
 }

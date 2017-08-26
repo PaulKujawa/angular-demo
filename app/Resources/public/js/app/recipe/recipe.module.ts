@@ -1,5 +1,6 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
 import {SharedModule} from '../shared/shared.module';
 import {MacroChartComponent} from './component/macro-chart.component';
 import {RecipeDetailComponent} from './component/recipe-detail.component';
@@ -12,6 +13,7 @@ import {RecipeRepository} from './repository/recipe.repository';
 @NgModule({
     imports: [
         CommonModule,
+        FormsModule,
         SharedModule,
         RecipeRoutingModule,
     ],

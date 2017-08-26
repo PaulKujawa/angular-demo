@@ -1,7 +1,7 @@
 import {CommonModule} from '@angular/common';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {RequestOptions} from '@angular/http';
 import {RouterModule} from '@angular/router';
 import {SharedModule} from '../shared/shared.module';
 import {AuthComponent} from './component/auth.component';
@@ -9,12 +9,12 @@ import {FlashMessageComponent} from './component/flash-message.component';
 import {NavBarComponent} from './component/nav-bar.component';
 import {PageableFactory} from './factory/pageable.factory';
 import {AuthRepository} from './repository/auth.repository';
-import {ApiEventHandler} from './service/api-event.handler';
 import {AuthenticationGuard} from './service/auth-guard.service';
 import {AuthenticationService} from './service/authentication.service';
-import {DefaultRequestOptions} from './service/default-request-options.service';
 import {DeviceDetectService} from './service/device-detection.service';
+import {FlashMessageInterceptor} from './service/flash-message.interceptor';
 import {FlashMessageService} from './service/flash-message.service';
+import {HeadersInterceptor} from './service/headers.interceptor';
 import {InViewportService} from './service/in-viewport.service';
 import {RoutingService} from './service/routing.service';
 import {TranslationService} from './service/translation.service';
@@ -23,6 +23,7 @@ import {TranslationService} from './service/translation.service';
     imports: [
         CommonModule,
         FormsModule,
+        HttpClientModule,
         SharedModule,
         RouterModule,
     ],
@@ -36,7 +37,6 @@ import {TranslationService} from './service/translation.service';
         NavBarComponent,
     ],
     providers: [
-        ApiEventHandler,
         AuthenticationGuard,
         AuthenticationService,
         AuthRepository,
@@ -46,7 +46,8 @@ import {TranslationService} from './service/translation.service';
         PageableFactory,
         RoutingService,
         TranslationService,
-        {provide: RequestOptions, useClass: DefaultRequestOptions},
+        {provide: HTTP_INTERCEPTORS, useClass: HeadersInterceptor, multi: true},
+        {provide: HTTP_INTERCEPTORS, useClass: FlashMessageInterceptor, multi: true},
         {provide: 'windowObject', useFactory: WindowFactory},
     ],
 })

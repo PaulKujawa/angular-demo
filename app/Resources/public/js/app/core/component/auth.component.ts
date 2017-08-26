@@ -39,7 +39,8 @@ export class AuthComponent {
     }
 
     public onSubmit(): void {
-        this.authenticationService.authenticate(this.credentials)
+        this.authenticationService
+            .authenticate(this.credentials)
             .subscribe(() => this.authenticationService.navigateToTargetUrl());
     }
 }

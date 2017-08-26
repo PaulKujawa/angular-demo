@@ -110,7 +110,7 @@ trait ImageTrait
     /**
      * @ORM\PostRemove()
      */
-    public function removeFile()
+    public function removeFile(): void
     {
         $path = $this->getAbsolutePathWithFilename();
 

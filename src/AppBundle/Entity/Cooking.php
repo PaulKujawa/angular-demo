@@ -26,12 +26,6 @@ class Cooking
     use IdAutoTrait;
     use TimestampTrait;
 
-    public function __construct(int $recipeId, int $position)
-    {
-        $this->recipe = $recipeId;
-        $this->position = $position;
-    }
-
     /**
      * @var int
      *
@@ -62,4 +56,10 @@ class Cooking
      * @ORM\OrderBy({"name" = "ASC"})
      */
     public $recipe;
+
+    public function __construct(int $recipeId, int $position)
+    {
+        $this->recipe = $recipeId;
+        $this->position = $position;
+    }
 }

@@ -2,12 +2,13 @@
 
 namespace AppBundle\RequestDecorator\Factory;
 
+use AppBundle\RequestDecorator\Decorator\QueryDecorator;
 use AppBundle\RequestDecorator\Decorator\NameQueryDecorator;
 use Symfony\Component\HttpFoundation\Request;
 
 class NameRequestDecoratorFactory implements RequestDecoratorFactory
 {
-    public function createQueryDecorator(Request $request): ?NameQueryDecorator
+    public function createQueryDecorator(Request $request): ?QueryDecorator
     {
         $title = $request->query->get('name');
 

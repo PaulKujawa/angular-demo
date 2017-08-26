@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints\GreaterThan;
 
 class RecipeController extends FOSRestController implements ClassResourceInterface
 {
-    public function newAction()
+    public function newAction(): View
     {
         return $this->view($this->createForm(RecipeType::class));
     }
