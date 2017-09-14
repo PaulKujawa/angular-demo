@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Api;
 
 use AppBundle\Form\RecipeType;
+use AppBundle\Repository\RecipeRepository;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
@@ -16,6 +17,16 @@ use Symfony\Component\Validator\Constraints\GreaterThan;
 
 class RecipeController extends FOSRestController implements ClassResourceInterface
 {
+    /**
+     * @var RecipeRepository
+     */
+    private $recipeRepository;
+
+    public function __construct(RecipeRepository $recipeRepository)
+    {
+        $this->recipeRepository = $recipeRepository;
+    }
+
     public function newAction(): View
     {
         return $this->view($this->createForm(RecipeType::class));
@@ -26,13 +37,12 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
      */
     public function cgetAction(Request $request, int $page): View
     {
-        $repository = $this->get('app.repository.recipe');
         $decorator = $this->get('app.request_decorator.recipe_composite_decorator')->createQueryDecorator($request);
 
         $context = new Context();
         $context->setGroups(['Default', 'recipeList']);
 
-        $view = $this->view($repository->getRecipes($page, $decorator));
+        $view = $this->view($this->recipeRepository->getRecipes($page, $decorator));
         $view->setContext($context);
 
         return $view;
@@ -40,7 +50,7 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
 
     public function getAction(int $id): View
     {
-        $recipe = $this->get('app.repository.recipe')->getRecipe($id);
+        $recipe = $this->recipeRepository->getRecipe($id);
 
         if (null === $recipe) {
             return $this->view(null, Response::HTTP_NOT_FOUND);
@@ -67,7 +77,7 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
             return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
 
-        $recipe = $this->get('app.repository.recipe')->addRecipe($form->getData());
+        $recipe = $this->recipeRepository->addRecipe($form->getData());
 
         return $this->routeRedirectView('api_get_recipe', ['id' => $recipe->id], Response::HTTP_CREATED);
     }
@@ -77,7 +87,7 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
      */
     public function putAction(Request $request, int $id): View
     {
-        $recipe = $this->get('app.repository.recipe')->getRecipe($id);
+        $recipe = $this->recipeRepository->getRecipe($id);
 
         if (null === $recipe) {
             return $this->view(null, Response::HTTP_NOT_FOUND);
@@ -90,7 +100,7 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
             return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
 
-        $this->get('app.repository.recipe')->setRecipe($recipe);
+        $this->recipeRepository->setRecipe($recipe);
 
         return $this->view(null, Response::HTTP_NO_CONTENT);
     }
@@ -100,14 +110,14 @@ class RecipeController extends FOSRestController implements ClassResourceInterfa
      */
     public function deleteAction(int $id): View
     {
-        $recipe = $this->get('app.repository.recipe')->getRecipe($id);
+        $recipe = $this->recipeRepository->getRecipe($id);
 
         if (null === $recipe) {
             return $this->view(null, Response::HTTP_NOT_FOUND);
         }
 
         try {
-            $this->get('app.repository.recipe')->deleteRecipe($recipe);
+            $this->recipeRepository->deleteRecipe($recipe);
         } catch (ForeignKeyConstraintViolationException $ex) {
             return $this->view(null, Response::HTTP_CONFLICT);
         }

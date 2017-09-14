@@ -13,12 +13,12 @@ use InvalidArgumentException;
 
 class LoadIngredientData extends AbstractFixture implements OrderedFixtureInterface
 {
+    /**
+     * @var Ingredient[]
+     */
     static public $members = [];
 
-    /**
-     * {@inheritdoc}
-     */
-    public function load(ObjectManager $em)
+    public function load(ObjectManager $em): void
     {
         self::$members[] = $this->instantiate(1, 'refMeasurement1', 'refRecipe1', 'refProduct1');
         self::$members[] = $this->instantiate(2, 'refMeasurement1', 'refRecipe1', 'refProduct2');
@@ -31,15 +31,7 @@ class LoadIngredientData extends AbstractFixture implements OrderedFixtureInterf
         $em->flush();
     }
 
-    /**
-     * @param int $amount
-     * @param string $refMeasurement
-     * @param string $refRecipe
-     * @param string $refProduct
-     *
-     * @return Ingredient
-     */
-    private function instantiate($amount, $refMeasurement, $refRecipe, $refProduct)
+    private function instantiate(int $amount, string $refMeasurement, string $refRecipe, string $refProduct): Ingredient
     {
         $measurement = $this->getReference($refMeasurement);
         $recipe = $this->getReference($refRecipe);
@@ -53,17 +45,14 @@ class LoadIngredientData extends AbstractFixture implements OrderedFixtureInterf
         }
 
         $ingredient = new Ingredient($recipe->getId());
-        $ingredient->setAmount($amount);
-        $ingredient->setMeasurement($measurement);
-        $ingredient->setProduct($product);
+        $ingredient->amount = $amount;
+        $ingredient->measurement = $measurement;
+        $ingredient->product = $product;
 
         return $ingredient;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getOrder()
+    public function getOrder(): int
     {
         return 8;
     }

@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Api;
 
 use AppBundle\Form\MeasurementType;
+use AppBundle\Repository\MeasurementRepository;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\FOSRestController;
@@ -18,6 +19,16 @@ use Symfony\Component\Validator\Constraints\GreaterThan;
  */
 class MeasurementController extends FOSRestController implements ClassResourceInterface
 {
+    /**
+     * @var MeasurementRepository
+     */
+    private $measurementRepository;
+
+    public function __construct(MeasurementRepository $measurementRepository)
+    {
+        $this->measurementRepository = $measurementRepository;
+    }
+
     public function newAction(): View
     {
         return $this->view($this->createForm(MeasurementType::class));
@@ -28,14 +39,14 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
      */
     public function cgetAction(int $page): View
     {
-        $repository = $this->get('app.repository.measurement');
+        $measurements = $this->measurementRepository->getMeasurements($page);
 
-        return $this->view($repository->getMeasurements($page));
+        return $this->view($measurements);
     }
 
     public function getAction(int $id): View
     {
-        $measurement = $this->get('app.repository.measurement')->getMeasurement($id);
+        $measurement = $this->measurementRepository->getMeasurement($id);
 
         return null === $measurement
             ? $this->view(null, Response::HTTP_NOT_FOUND)
@@ -51,14 +62,14 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
             return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
 
-        $measurement = $this->get('app.repository.measurement')->addMeasurement($form->getData());
+        $measurement = $this->measurementRepository->addMeasurement($form->getData());
 
         return $this->routeRedirectView('api_get_measurement', ['id' => $measurement->id], Response::HTTP_CREATED);
     }
 
     public function putAction(Request $request, int $id): View
     {
-        $measurement = $this->get('app.repository.measurement')->getMeasurement($id);
+        $measurement = $this->measurementRepository->getMeasurement($id);
 
         if (null === $measurement) {
             return $this->view(null, Response::HTTP_NOT_FOUND);
@@ -71,21 +82,21 @@ class MeasurementController extends FOSRestController implements ClassResourceIn
             return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
 
-        $this->get('app.repository.measurement')->setMeasurement($measurement);
+        $this->measurementRepository->setMeasurement($measurement);
 
         return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 
     public function deleteAction(int $id): View
     {
-        $measurement = $this->get('app.repository.measurement')->getMeasurement($id);
+        $measurement = $this->measurementRepository->getMeasurement($id);
 
         if (null === $measurement) {
             return $this->view(null, Response::HTTP_NOT_FOUND);
         }
 
         try {
-            $this->get('app.repository.measurement')->deleteMeasurement($measurement);
+            $this->measurementRepository->deleteMeasurement($measurement);
         } catch (ForeignKeyConstraintViolationException $ex) {
             return $this->view(null, Response::HTTP_CONFLICT);
         }

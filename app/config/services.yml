@@ -1,20 +1,26 @@
 imports:
     - { resource: services_request_decorator.yml }
-    - { resource: services_repositories.yml }
 
 services:
-    app.event_listener.access_denied_listener:
-        class: AppBundle\EventListener\AccessDeniedListener
-        arguments: [ '', '', '', '@logger' ]
-        tags:
-          - { name: 'kernel.event_subscriber'}
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
 
-    app.service.inquiry:
-        class: AppBundle\Service\InquiryService
-        arguments: [ "@mailer" ]
+    AppBundle\:
+        resource: '../../src/AppBundle/*'
+        exclude: '../../src/AppBundle/{Entity,DataFixtures,DependencyInjection,Form,Model}'
 
-    app.service.pagination_response_factory:
-        class: AppBundle\Service\PaginationResponseFactory
+    AppBundle\Controller\:
+        resource: '../../src/AppBundle/Controller'
+        public: true
+        tags: ['controller.service_arguments'] # allow actions(!) to get services injected
+
+    AppBundle\EventListener\AccessDeniedListener:
+        arguments:
+            $formats: ''
+            $challenge: ''
+            $controller: ''
 
     security.authentication.success_handler:
         class:  AppBundle\Service\AuthenticationSuccessHandler

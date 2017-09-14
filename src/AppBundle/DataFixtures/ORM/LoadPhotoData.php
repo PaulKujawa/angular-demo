@@ -12,12 +12,12 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class LoadPhotoData extends AbstractFixture implements OrderedFixtureInterface
 {
+    /**
+     * @var Photo[]
+     */
     static public $members = [];
 
-    /**
-     * {@inheritdoc}
-     */
-    public function load(ObjectManager $em)
+    public function load(ObjectManager $em): void
     {
         self::$members[] = $this->instantiate('refRecipe1');
         self::$members[] = $this->instantiate('refRecipe1');
@@ -31,12 +31,7 @@ class LoadPhotoData extends AbstractFixture implements OrderedFixtureInterface
         $em->flush();
     }
 
-    /**
-     * @param string $refRecipe
-     *
-     * @return Photo
-     */
-    private function instantiate($refRecipe)
+    private function instantiate(string $refRecipe): Photo
     {
         $recipe = $this->getReference($refRecipe);
 
@@ -51,12 +46,7 @@ class LoadPhotoData extends AbstractFixture implements OrderedFixtureInterface
         return $photo;
     }
 
-    /**
-     * @param Photo $entity
-     *
-     * @return UploadedFile
-     */
-    private function simulateUpload(Photo $entity)
+    private function simulateUpload(Photo $entity): UploadedFile
     {
         $filename = uniqid('tempFile') . '.jpg';
         $newFile = $entity->getAbsolutePath() . '/' . $filename;
@@ -65,10 +55,7 @@ class LoadPhotoData extends AbstractFixture implements OrderedFixtureInterface
         return new UploadedFile($newFile, $filename, 'image/jpeg', filesize($newFile), null, true);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getOrder()
+    public function getOrder(): int
     {
         return 7;
     }

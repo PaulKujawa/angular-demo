@@ -4,6 +4,7 @@ namespace AppBundle\EventListener;
 
 use FOS\RestBundle\FOSRestBundle;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\EventListener\ExceptionListener;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -16,7 +17,7 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 /**
  * @see https://github.com/FriendsOfSymfony/FOSRestBundle/issues/1538
  */
-class AccessDeniedListener extends ExceptionListener
+class AccessDeniedListener extends ExceptionListener implements EventSubscriberInterface
 {
     /**
      * @var string[]
@@ -35,7 +36,7 @@ class AccessDeniedListener extends ExceptionListener
         parent::__construct($controller, $logger);
     }
 
-    public function onKernelException(GetResponseForExceptionEvent $event): bool
+    public function onKernelException(GetResponseForExceptionEvent $event)
     {
         static $handling;
 

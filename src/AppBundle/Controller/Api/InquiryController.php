@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Api;
 
 use AppBundle\Form\InquiryType;
+use AppBundle\Service\InquiryService;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
@@ -11,6 +12,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 class InquiryController extends FOSRestController implements ClassResourceInterface
 {
+    /**
+     * @var InquiryService
+     */
+    private $inquiryService;
+
+    public function __construct(InquiryService $inquiryService)
+    {
+        $this->inquiryService = $inquiryService;
+    }
+
     public function newAction(): View
     {
         return $this->view($this->createForm(InquiryType::class));
@@ -26,7 +37,7 @@ class InquiryController extends FOSRestController implements ClassResourceInterf
         }
 
         $inquire = $form->getData();
-        $this->get('app.service.inquiry')->sendEmail($inquire);
+        $this->inquiryService->sendEmail($inquire);
 
         return $this->view(null, Response::HTTP_CREATED);
     }

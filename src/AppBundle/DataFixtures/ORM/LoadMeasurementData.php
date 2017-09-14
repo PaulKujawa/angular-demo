@@ -9,12 +9,12 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class LoadMeasurementData extends AbstractFixture implements OrderedFixtureInterface
 {
+    /**
+     * @var Measurement[]
+     */
     static public $members = [];
 
-    /**
-     * {@inheritdoc}
-     */
-    public function load(ObjectManager $em)
+    public function load(ObjectManager $em): void
     {
         self::$members[] = $this->instantiate('gr', 1);
         self::$members[] = $this->instantiate('el', 15);
@@ -27,25 +27,16 @@ class LoadMeasurementData extends AbstractFixture implements OrderedFixtureInter
         $em->flush();
     }
 
-    /**
-     * @param string $name
-     * @param int $gr
-     *
-     * @return Measurement
-     */
-    private function instantiate($name, $gr)
+    private function instantiate(string $name, int $gr): Measurement
     {
         $measurement = new Measurement();
-        $measurement->setName($name);
-        $measurement->setGr($gr);
+        $measurement->name = $name;
+        $measurement->gr = $gr;
 
         return $measurement;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getOrder()
+    public function getOrder(): int
     {
         return 3;
     }

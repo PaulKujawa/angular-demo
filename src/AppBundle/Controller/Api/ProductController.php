@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Api;
 
 use AppBundle\Form\ProductType;
+use AppBundle\Repository\ProductRepository;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\FOSRestController;
@@ -18,6 +19,16 @@ use Symfony\Component\Validator\Constraints\GreaterThan;
  */
 class ProductController extends FOSRestController implements ClassResourceInterface
 {
+    /**
+     * @var ProductRepository
+     */
+    private $productRepository;
+
+    public function __construct(ProductRepository $productRepository)
+    {
+        $this->productRepository = $productRepository;
+    }
+
     public function newAction(): View
     {
         return $this->view($this->createForm(ProductType::class));
@@ -28,15 +39,15 @@ class ProductController extends FOSRestController implements ClassResourceInterf
      */
     public function cgetAction(Request $request, int $page): View
     {
-        $repository = $this->get('app.repository.product');
         $decorator = $this->get('app.request_decorator.product_composite_decorator')->createQueryDecorator($request);
+        $products = $this->productRepository->getProducts($page, $decorator);
 
-        return $this->view($repository->getProducts($page, $decorator));
+        return $this->view($products);
     }
 
     public function getAction(int $id): View
     {
-        $product = $this->get('app.repository.product')->getProduct($id);
+        $product = $this->productRepository->getProduct($id);
 
         return null === $product
             ? $this->view(null, Response::HTTP_NOT_FOUND)
@@ -52,14 +63,14 @@ class ProductController extends FOSRestController implements ClassResourceInterf
             return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
 
-        $product = $this->get('app.repository.product')->addProduct($form->getData());
+        $product = $this->productRepository->addProduct($form->getData());
 
         return $this->routeRedirectView('api_get_product', ['id' => $product->id], Response::HTTP_CREATED);
     }
 
     public function putAction(Request $request, int $id): View
     {
-        $product = $this->get('app.repository.product')->getProduct($id);
+        $product = $this->productRepository->getProduct($id);
 
         if (null === $product) {
             return $this->view(null, Response::HTTP_NOT_FOUND);
@@ -72,21 +83,21 @@ class ProductController extends FOSRestController implements ClassResourceInterf
             return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
 
-        $this->get('app.repository.product')->setProduct($product);
+        $this->productRepository->setProduct($product);
 
         return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 
     public function deleteAction(int $id): View
     {
-        $product = $this->get('app.repository.product')->getProduct($id);
+        $product = $this->productRepository->getProduct($id);
 
         if (null === $product) {
             return $this->view(null, Response::HTTP_NOT_FOUND);
         }
 
         try {
-            $this->get('app.repository.product')->deleteProduct($product);
+            $this->productRepository->deleteProduct($product);
         } catch (ForeignKeyConstraintViolationException $ex) {
             return $this->view(null, Response::HTTP_CONFLICT);
         }
