@@ -9,12 +9,12 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
 {
+    /**
+     * @var User[]
+     */
     static public $members = [];
 
-    /**
-     * {@inheritdoc}
-     */
-    public function load(ObjectManager $em)
+    public function load(ObjectManager $em): void
     {
         self::$members[] = $this->instantiate('demoSA', 'test@gmx.de', 'testo');
 
@@ -25,14 +25,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         $em->flush();
     }
 
-    /**
-     * @param string $name
-     * @param string $email
-     * @param string $plainPsw
-     *
-     * @return User
-     */
-    protected function instantiate($name, $email, $plainPsw)
+    protected function instantiate(string $name, string $email, string $plainPsw): User
     {
         $user = new User();
         $user
@@ -44,10 +37,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         return $user;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getOrder()
+    public function getOrder(): int
     {
         return 1;
     }

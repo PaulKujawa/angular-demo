@@ -2,6 +2,7 @@
 
 namespace AppBundle\DependencyInjection\Compiler;
 
+use AppBundle\EventListener\AccessDeniedListener;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -13,10 +14,10 @@ class FOSExceptionPass implements CompilerPassInterface
     public function process(ContainerBuilder $container): void
     {
         $fosDefinition = $container->getDefinition('fos_rest.access_denied_listener');
-        $definition = $container->getDefinition('app.event_listener.access_denied_listener');
+        $definition = $container->getDefinition(AccessDeniedListener::class);
 
-        $definition->replaceArgument(0, $fosDefinition->getArgument(0));
-        $definition->replaceArgument(1, $fosDefinition->getArgument(1));
-        $definition->replaceArgument(2, 'twig.controller.exception:showAction');
+        $definition->replaceArgument('$formats', $fosDefinition->getArgument(0));
+        $definition->replaceArgument('$challenge', $fosDefinition->getArgument(1));
+        $definition->replaceArgument('$controller', 'twig.controller.exception:showAction');
     }
 }

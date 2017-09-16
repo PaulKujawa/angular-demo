@@ -11,12 +11,12 @@ use InvalidArgumentException;
 
 class LoadCookingData extends AbstractFixture implements OrderedFixtureInterface
 {
+    /**
+     * @var Cooking[]
+     */
     static public $members = [];
 
-    /**
-     * {@inheritdoc}
-     */
-    public function load(ObjectManager $em)
+    public function load(ObjectManager $em): void
     {
         self::$members[] = $this->instantiate(1, '1th step', 'refRecipe1');
         self::$members[] = $this->instantiate(2, '2th step', 'refRecipe1');
@@ -29,14 +29,7 @@ class LoadCookingData extends AbstractFixture implements OrderedFixtureInterface
         $em->flush();
     }
 
-    /**
-     * @param int $position
-     * @param string $description
-     * @param string $refRecipe
-     *
-     * @return Cooking
-     */
-    private function instantiate($position, $description, $refRecipe)
+    private function instantiate(int $position, string $description, string $refRecipe): Cooking
     {
         $recipe = $this->getReference($refRecipe);
 
@@ -45,15 +38,12 @@ class LoadCookingData extends AbstractFixture implements OrderedFixtureInterface
         }
 
         $cooking = new Cooking($recipe->getId(), $position);
-        $cooking->setDescription($description);
+        $cooking->description = $description;
 
         return $cooking;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getOrder()
+    public function getOrder(): int
     {
         return 6;
     }

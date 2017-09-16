@@ -2,21 +2,19 @@
 
 namespace AppBundle\DataFixtures\ORM;
 
-use AppBundle\Entity\Manufacturer;
 use AppBundle\Entity\Product;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use InvalidArgumentException;
 
 class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
 {
+    /**
+     * @var Product[]
+     */
     static public $members = [];
 
-    /**
-     * {@inheritdoc}
-     */
-    public function load(ObjectManager $em)
+    public function load(ObjectManager $em): void
     {
         self::$members[] = $this->instantiate('Product1', 'Rinatura', false);
         self::$members[] = $this->instantiate('Product2', 'Soja so lecker');
@@ -30,14 +28,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         $em->flush();
     }
 
-    /**
-     * @param string $name
-     * @param string $manufacturer
-     * @param bool $isVegan
-     *
-     * @return Product
-     */
-    private function instantiate($name, $manufacturer = null, $isVegan = true)
+    private function instantiate(string $name, string $manufacturer = null, bool $isVegan = true): Product
     {
         $macros = [
             'gr' => 1,
@@ -50,24 +41,21 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         ];
 
         $entity = new Product();
-        $entity->setName($name);
-        $entity->setVegan($isVegan);
-        $entity->setGr($macros['gr']);
-        $entity->setKcal($macros['kcal']);
-        $entity->setCarbs($macros['carbs']);
-        $entity->setSugar($macros['sugar']);
-        $entity->setProtein($macros['protein']);
-        $entity->setFat($macros['fat']);
-        $entity->setGfat($macros['gfat']);
-        $entity->setManufacturer($manufacturer);
+        $entity->protein = $name;
+        $entity->vegan = $isVegan;
+        $entity->gr = $macros['gr'];
+        $entity->kcal = $macros['kcal'];
+        $entity->carbs = $macros['carbs'];
+        $entity->sugar = $macros['sugar'];
+        $entity->protein = $macros['protein'];
+        $entity->fat = $macros['fat'];
+        $entity->gfat = $macros['gfat'];
+        $entity->manufacturer = $manufacturer;
 
         return $entity;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getOrder()
+    public function getOrder(): int
     {
         return 5;
     }

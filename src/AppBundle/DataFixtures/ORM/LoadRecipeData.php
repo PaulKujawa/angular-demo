@@ -9,12 +9,12 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class LoadRecipeData extends AbstractFixture implements OrderedFixtureInterface
 {
+    /**
+     * @var Recipe[]
+     */
     static public $members = [];
 
-    /**
-     * {@inheritdoc}
-     */
-    public function load(ObjectManager $em)
+    public function load(ObjectManager $em): void
     {
         self::$members[] = $this->instantiate('Recipe1');
         self::$members[] = $this->instantiate('Recipe2');
@@ -27,23 +27,15 @@ class LoadRecipeData extends AbstractFixture implements OrderedFixtureInterface
         $em->flush();
     }
 
-    /**
-     * @param string $name
-     *
-     * @return Recipe
-     */
-    protected function instantiate($name)
+    protected function instantiate(string $name): Recipe
     {
         $entity = new Recipe;
-        $entity->setName($name);
+        $entity->name = $name;
 
         return $entity;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getOrder()
+    public function getOrder(): int
     {
         return 4;
     }
