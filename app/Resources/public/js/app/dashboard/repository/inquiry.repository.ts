@@ -10,9 +10,9 @@ export class InquiryRepository {
                 private routingService: RoutingService) {
     }
 
-    public postInquiry(inquiry: Inquiry): Observable<void> {
+    public postInquiry(inquiry: Inquiry): Observable<undefined> {
         const url = this.routingService.generate('api_post_inquiry');
 
-        return this.http.post<void>(url, {inquiry: inquiry});
+        return this.http.post<undefined>(url, {inquiry: inquiry});
     }
 }

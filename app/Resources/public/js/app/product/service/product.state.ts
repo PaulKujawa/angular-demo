@@ -5,6 +5,7 @@ import {Pageable} from '../../core/model/pageable';
 import {FilterState} from '../../shared/service/filter.state';
 import {Product} from '../model/product';
 import {ProductRepository} from '../repository/product.repository';
+import {ProductRequestDto} from '../model/dto/product-request.dto';
 
 @Injectable()
 export class ProductState {
@@ -35,9 +36,9 @@ export class ProductState {
             .first();
     }
 
-    public addProduct(productLike: Product): Observable<Product> {
+    public addProduct(productDto: ProductRequestDto): Observable<Product> {
         const ajax = this.productRepository
-            .postProduct(productLike)
+            .postProduct(productDto)
             .publishReplay(1)
             .refCount();
 
@@ -51,7 +52,7 @@ export class ProductState {
         return ajax;
     }
 
-    public updateProduct(product: Product): Observable<void> {
+    public updateProduct(product: Product): Observable<undefined> {
         const ajax = this.productRepository
             .putProduct(product)
             .publishReplay(1)
@@ -67,7 +68,7 @@ export class ProductState {
         return ajax;
     }
 
-    public removeProduct(productId: number): Observable<void> {
+    public removeProduct(productId: number): Observable<undefined> {
         const ajax = this.productRepository
             .deleteProduct(productId)
             .publishReplay(1)

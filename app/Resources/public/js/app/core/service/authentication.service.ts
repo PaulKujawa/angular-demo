@@ -13,7 +13,7 @@ export class AuthenticationService {
         this.isAuthenticated.next(window.appInject.authenticated);
     }
 
-    public authenticate(credentials: Credentials): Observable<void> {
+    public authenticate(credentials: Credentials): Observable<undefined> {
         // on failure: authentication did not change
         return this.authRepository
             .authenticate(credentials)

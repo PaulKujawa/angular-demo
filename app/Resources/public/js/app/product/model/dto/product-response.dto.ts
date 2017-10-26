@@ -9,7 +9,5 @@ export interface ProductResponseDto {
     sugar: number;
     fat: number;
     gfat: number;
-    created: Date;
-    updated: Date;
     manufacturer?: string;
 }

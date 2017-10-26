@@ -1,6 +1,6 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from '../shared/shared.module';
 import {ProductDetailComponent} from './component/product-detail.component';
 import {ProductFilterComponent} from './component/product-filter.component';
@@ -15,7 +15,7 @@ import {ProductState} from './service/product.state';
 @NgModule({
     imports: [
         CommonModule,
-        FormsModule,
+        ReactiveFormsModule,
         SharedModule,
         ProductRoutingModule,
     ],
