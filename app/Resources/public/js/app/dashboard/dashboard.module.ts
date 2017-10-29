@@ -1,6 +1,6 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from '../shared/shared.module';
 import {DashboardComponent} from './component/dashboard.component';
 import {InquiryFormComponent} from './component/inquiry-form.component';
@@ -12,7 +12,7 @@ import {InquiryRepository} from './repository/inquiry.repository';
     imports: [
         CommonModule,
         DashboardRoutingModule,
-        FormsModule,
+        ReactiveFormsModule,
         SharedModule,
     ],
     declarations: [

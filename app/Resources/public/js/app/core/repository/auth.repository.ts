@@ -14,13 +14,13 @@ export class AuthRepository {
                 private routingService: RoutingService) {
     }
 
-    public authenticate(credentials: Credentials): Observable<void> {
+    public authenticate(credentials: Credentials): Observable<undefined> {
         const url = this.routingService.generate('fos_user_security_check');
         const body = {
             _username: credentials.username,
             _password: credentials.password,
         };
 
-        return this.http.post<void>(url, body);
+        return this.http.post<undefined>(url, body);
     }
 }

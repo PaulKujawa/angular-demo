@@ -11,7 +11,7 @@
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/doctrine-migrations-bundle": "^1.0",
         "doctrine/orm": "^2.5",
-        "friendsofsymfony/jsrouting-bundle": "~1.5",
+        "friendsofsymfony/jsrouting-bundle": "^1.6.3",
         "friendsofsymfony/rest-bundle": "^2.1.1",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "incenteev/composer-parameter-handler": "^2.0",

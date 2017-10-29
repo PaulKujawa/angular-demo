@@ -5,6 +5,9 @@ namespace AppBundle\Entity\Traits;
 use Doctrine\ORM\Mapping as ORM;
 use DateTime;
 
+/**
+ * TODO expose only for Recipe
+ */
 trait TimestampTrait
 {
     /**

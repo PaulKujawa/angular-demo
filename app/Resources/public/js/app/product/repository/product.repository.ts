@@ -7,6 +7,7 @@ import {RoutingService} from '../../core/service/routing.service';
 import {ProductMapper} from '../mapper/product.mapper';
 import {ProductResponseDto} from '../model/dto/product-response.dto';
 import {Product} from '../model/product';
+import {ProductRequestDto} from '../model/dto/product-request.dto';
 
 @Injectable()
 export class ProductRepository {
@@ -32,25 +33,24 @@ export class ProductRepository {
             .map((productDto) => new Product(productDto));
     }
 
-    public postProduct(productLike: Product): Observable<Product> {
+    public postProduct(product: ProductRequestDto): Observable<Product> {
         const url = this.routingService.generate('api_post_product');
-        const productDto = this.productMapper.mapRequestDto(productLike);
 
         return this.http
-            .post<ProductResponseDto>(url, {product: productDto})
+            .post<ProductResponseDto>(url, {product: product})
             .map((dto) => new Product(dto));
     }
 
-    public putProduct(product: Product): Observable<void> {
+    public putProduct(product: Product): Observable<undefined> {
         const url = this.routingService.generate('api_put_product', {id: product.id});
         const productDto = this.productMapper.mapRequestDto(product);
 
-        return this.http.put<void>(url, {product: productDto});
+        return this.http.put<undefined>(url, {product: productDto});
     }
 
-    public deleteProduct(id: number): Observable<void> {
+    public deleteProduct(id: number): Observable<undefined> {
         const url = this.routingService.generate('api_delete_product', {id: id});
 
-        return this.http.delete<void>(url);
+        return this.http.delete<undefined>(url);
     }
 }

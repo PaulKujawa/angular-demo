@@ -11,8 +11,6 @@ export class Product {
     public sugar: number;
     public fat: number;
     public gfat: number;
-    public created: Date;
-    public updated: Date;
     public manufacturer?: string;
 
     constructor(dto: ProductResponseDto) {
@@ -26,8 +24,6 @@ export class Product {
         this.sugar = dto.sugar;
         this.fat = dto.fat;
         this.gfat = dto.gfat;
-        this.created = new Date(dto.created);
-        this.updated = new Date(dto.updated);
         this.manufacturer = dto.manufacturer;
     }
 }
