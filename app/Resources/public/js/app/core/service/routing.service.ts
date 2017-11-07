@@ -1,15 +1,10 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 
 @Injectable()
 export class RoutingService {
-    private routing: FosJsRouting;
-    private requestLocale: string;
-    private baseUrl: string;
-
-    constructor() {
-        this.routing = window.Routing;
-        this.requestLocale = window.appInject.requestLocale;
-        this.baseUrl = window.appInject.baseUrl;
+    constructor(@Inject('window.Routing') private routing: FosJsRouting,
+                @Inject('window.appInject.baseUrl') private baseUrl: string,
+                @Inject('window.appInject.requestLocale') private requestLocale: string) {
     }
 
     public generate(route: string, params = {}): string {

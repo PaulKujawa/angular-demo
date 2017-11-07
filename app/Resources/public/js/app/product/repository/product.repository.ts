@@ -5,9 +5,9 @@ import {PageableFactory} from '../../core/factory/pageable.factory';
 import {Pageable} from '../../core/model/pageable';
 import {RoutingService} from '../../core/service/routing.service';
 import {ProductMapper} from '../mapper/product.mapper';
+import {ProductRequestDto} from '../model/dto/product-request.dto';
 import {ProductResponseDto} from '../model/dto/product-response.dto';
 import {Product} from '../model/product';
-import {ProductRequestDto} from '../model/dto/product-request.dto';
 
 @Injectable()
 export class ProductRepository {

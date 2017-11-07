@@ -13,7 +13,7 @@
     "module": "es6",
     "moduleResolution": "node",
     "paths": {
-      "web/*": ["./web/*"]
+      "web/*": ["../../../../web/*"]
     },
     "removeComments": true,
     "skipLibCheck": true,
@@ -21,5 +21,5 @@
     "target": "es5",
     "types": ["jasmine", "jquery", "webpack-env"]
   },
-  "exclude": ["./app/Resources/webpack", "node_modules", "vendor", "web"]
+  "exclude": ["node_modules", "vendor", "web"]
 }

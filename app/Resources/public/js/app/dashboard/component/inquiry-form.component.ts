@@ -70,7 +70,7 @@ export class InquiryFormComponent implements OnInit, OnDestroy {
     }
 
     public onSubmit(): void {
-        const inquiry = this.mapFormToModel();
+        const inquiry = this.map(this.inquiryForm.value);
 
         this.subscription = this.inquiryRepository
             .postInquiry(inquiry)
@@ -81,13 +81,11 @@ export class InquiryFormComponent implements OnInit, OnDestroy {
             });
     }
 
-    private mapFormToModel(): Inquiry {
-        const formModel = this.inquiryForm.value;
-
+    private map(model: Inquiry): Inquiry {
         return {
-            message: formModel.message,
-            email: formModel.email,
-            name: formModel.name,
+            message: model.message,
+            email: model.email,
+            name: model.name,
         };
     }
 }

@@ -1,4 +1,4 @@
 export interface WebpackArgs {
-    env: 'dev'|'test'|'prod';
+    env: 'dev' | 'test' | 'prod';
     analyze?: boolean;
 }

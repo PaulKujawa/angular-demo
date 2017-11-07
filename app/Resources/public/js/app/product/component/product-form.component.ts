@@ -166,6 +166,6 @@ export class ProductFormComponent implements OnInit {
             fat: 0,
             gfat: 0,
             manufacturer: '',
-        }
+        };
     }
 }

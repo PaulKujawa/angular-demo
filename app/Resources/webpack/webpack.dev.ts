@@ -6,8 +6,9 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-export function webpackConfig(args: WebpackArgs): Configuration {
+export const webpackConfig = (args: WebpackArgs): Configuration => {
     const rootPath = path.join(__dirname, '../../../');
+    const jsPath = path.join(__dirname, '../public/js');
     const cachePath = path.join(rootPath, 'var/cache/dev/webpack');
 
     const devConfig: Configuration = {
@@ -30,7 +31,7 @@ export function webpackConfig(args: WebpackArgs): Configuration {
                     test: /\.ts$/,
                     use: [
                         {loader: 'cache-loader', options: {cacheDirectory: cachePath + '/js'}},
-                        'awesome-typescript-loader',
+                        {loader: 'awesome-typescript-loader', options: {configFileName: `${jsPath}/tsconfig.json`}},
                         'angular2-template-loader',
                         'angular-router-loader',
                     ],
@@ -64,4 +65,4 @@ export function webpackConfig(args: WebpackArgs): Configuration {
     };
 
     return merge(getCommonConfig(args), devConfig);
-}
+};
