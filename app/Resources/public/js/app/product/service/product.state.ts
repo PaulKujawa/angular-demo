@@ -3,9 +3,9 @@ import {Observable} from 'rxjs/Observable';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {Pageable} from '../../core/model/pageable';
 import {FilterState} from '../../shared/service/filter.state';
+import {ProductRequestDto} from '../model/dto/product-request.dto';
 import {Product} from '../model/product';
 import {ProductRepository} from '../repository/product.repository';
-import {ProductRequestDto} from '../model/dto/product-request.dto';
 
 @Injectable()
 export class ProductState {

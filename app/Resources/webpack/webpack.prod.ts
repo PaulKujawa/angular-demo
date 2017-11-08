@@ -7,7 +7,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 const {AotPlugin} = require('@ngtools/webpack');
 
-export function webpackConfig(args: WebpackArgs): Configuration {
+export const webpackConfig = (args: WebpackArgs): Configuration => {
     const rootPath = path.join(__dirname, '../../..');
     const jsPath = path.join(rootPath, 'app/Resources/public/js');
     const cachePath = path.join(rootPath, 'var/cache/prod/webpack');
@@ -20,7 +20,7 @@ export function webpackConfig(args: WebpackArgs): Configuration {
                     // write templates inline and transpile ts to js TODO more precise description
                     test: /\.ts$/,
                     use: [
-                        {loader: 'cache-loader', options: {cacheDirectory: cachePath + '/js'}},
+                        {loader: 'cache-loader', options: {cacheDirectory: `${cachePath}/js`}},
                         '@ngtools/webpack',
                     ],
                 }, {
@@ -38,7 +38,7 @@ export function webpackConfig(args: WebpackArgs): Configuration {
         },
         plugins: [
             new AotPlugin({
-                tsConfigPath: 'tsconfig.json',
+                tsConfigPath: `${jsPath}/tsconfig.json`,
                 entryModule: path.join(jsPath, 'app/app.module#AppModule'),
             }),
 
@@ -54,4 +54,4 @@ export function webpackConfig(args: WebpackArgs): Configuration {
     };
 
     return merge(getCommonConfig(args), prodConfig);
-}
+};

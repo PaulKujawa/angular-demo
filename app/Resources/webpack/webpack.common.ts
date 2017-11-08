@@ -5,11 +5,12 @@ const webpack = require('webpack');
 const path = require('path');
 const {TsConfigPathsPlugin} = require('awesome-typescript-loader');
 
-export function getCommonConfig(args: WebpackArgs): Configuration {
+export const getCommonConfig = (args: WebpackArgs): Configuration => {
     const rootPath = path.join(__dirname, '../../../');
+    const jsPath = path.join(__dirname, '../public/js');
 
     const commonConfig: Configuration = {
-        context: path.join(__dirname, '../public/js'),
+        context: jsPath,
         entry: {
             main: './main.ts',
             vendor: './vendor.ts',
@@ -48,20 +49,21 @@ export function getCommonConfig(args: WebpackArgs): Configuration {
                 },
             }),
 
-            // alternative to global variables. Imports the module JIT when the variable is used
+            // when these variables are used, an ES6 import is automatically added
+            // this lets them behave like globally declared variables
+            // add module declarations via type defintions files to provide type checks
             new webpack.ProvidePlugin({
-                // e.g. for bootstrap-sass package
-                jQuery: 'jquery',
-
-                // since Bazinga's dumped translation files require Translator in global namespace
+                jQuery: 'jquery', // e.g. for bootstrap-sass package
                 Translator: 'web/bundles/bazingajstranslation/js/translator.min.js',
             }),
         ],
         resolve: {
             extensions: ['.ts', '.js', '.scss'],
             plugins: [
-                // provide support for 'paths' and 'baseUrl' settings in tsconfig.json
-                new TsConfigPathsPlugin(),
+                // plugin provides support for tsConfig's Path and BaseUrl, that are used for relative ES6 imports
+                new TsConfigPathsPlugin({
+                    configFileName: `${jsPath}/tsconfig.json`,
+                }),
             ],
         },
     };
@@ -72,4 +74,4 @@ export function getCommonConfig(args: WebpackArgs): Configuration {
     }
 
     return commonConfig;
-}
+};

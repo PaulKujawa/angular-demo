@@ -3,14 +3,19 @@ import {WebpackArgs} from './webpack-args';
 import {getCommonConfig} from './webpack.common';
 const merge = require('webpack-merge');
 
-export function webpackConfig(args: WebpackArgs): Configuration {
+// Called by commonJs module karma.conf.js
+export const webpackConfig = (args: WebpackArgs): Configuration => {
     const testConfig: Configuration = {
-        devtool: 'inline-source-map',
+        devtool: 'inline-source-map', // used by karma-sourcemap-loader plugin
         module: {
             rules: [
                 {
                     // write templates inline and transpile ts to js
-                    test: /\.ts$/, loaders: ['awesome-typescript-loader', 'angular2-template-loader'],
+                    test: /\.ts$/,
+                    use: [
+                        {loader: 'awesome-typescript-loader', options: {transpileOnly: true}},
+                        'angular2-template-loader'
+                    ],
                 }, {
                     // do not load (s)css
                     test: /\.scss$/, loader: 'null-loader',
@@ -27,4 +32,4 @@ export function webpackConfig(args: WebpackArgs): Configuration {
     };
 
     return merge(getCommonConfig(args), testConfig);
-}
+};

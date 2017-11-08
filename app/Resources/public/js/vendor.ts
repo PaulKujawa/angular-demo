@@ -7,7 +7,6 @@
 __webpack_public_path__ = '/';
 
 // polyfills
-// TODO use DLLs instead
 import 'core-js/es6/array';
 import 'core-js/es6/date';
 import 'core-js/es6/function';
