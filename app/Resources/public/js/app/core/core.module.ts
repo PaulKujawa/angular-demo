@@ -8,6 +8,12 @@ import {AuthComponent} from './component/auth.component';
 import {FlashMessageComponent} from './component/flash-message.component';
 import {NavBarComponent} from './component/nav-bar.component';
 import {PageableFactory} from './factory/pageable.factory';
+import {authenticatedProvider} from './provider/authenticated.provider';
+import {baseUrlProvider} from './provider/base-url.provider';
+import {fosJsRouterProvider} from './provider/fos-js-router.provider';
+import {requestLocaleProvider} from './provider/request-locale.provider';
+import {translatorProvider} from './provider/translator.provider';
+import {windowProvider} from './provider/window.provider';
 import {AuthRepository} from './repository/auth.repository';
 import {AuthenticationGuard} from './service/auth-guard.service';
 import {AuthenticationService} from './service/authentication.service';
@@ -48,12 +54,15 @@ import {TranslationService} from './service/translation.service';
         TranslationService,
         {provide: HTTP_INTERCEPTORS, useClass: HeadersInterceptor, multi: true},
         {provide: HTTP_INTERCEPTORS, useClass: FlashMessageInterceptor, multi: true},
-        {provide: 'windowObject', useFactory: WindowFactory},
+
+        // backend provider
+        authenticatedProvider,
+        baseUrlProvider,
+        fosJsRouterProvider,
+        requestLocaleProvider,
+        translatorProvider,
+        windowProvider,
     ],
 })
 export class CoreModule {
-}
-
-export function WindowFactory(): Window {
-    return window;
 }

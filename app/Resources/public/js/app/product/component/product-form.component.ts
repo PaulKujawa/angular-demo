@@ -111,9 +111,9 @@ export class ProductFormComponent implements OnInit {
     set productModel(product: Product | undefined) {
         this.inputProduct = product;
 
-        const config = !this.inputProduct
-            ? this.getDefaultConfig()
-            : this.map(this.inputProduct);
+        const config = this.inputProduct
+            ? this.map(this.inputProduct)
+            : this.getDefaultConfig();
 
         this.productForm.setValue(config);
     }

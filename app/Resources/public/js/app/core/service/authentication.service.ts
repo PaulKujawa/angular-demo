@@ -1,7 +1,8 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
+import {AuthenticatedInjectToken} from '../provider/authenticated.provider';
 import {AuthRepository, Credentials} from '../repository/auth.repository';
 
 @Injectable()
@@ -9,8 +10,10 @@ export class AuthenticationService {
     public isAuthenticated = new ReplaySubject<boolean>(1);
     private targetUrl: string;
 
-    constructor(private router: Router, private authRepository: AuthRepository) {
-        this.isAuthenticated.next(window.appInject.authenticated);
+    constructor(@Inject(AuthenticatedInjectToken) authenticated: boolean,
+                private router: Router,
+                private authRepository: AuthRepository) {
+        this.isAuthenticated.next(authenticated);
     }
 
     public authenticate(credentials: Credentials): Observable<undefined> {
