@@ -4,7 +4,6 @@ import {Observable} from 'rxjs/Observable';
 import {PageableFactory} from '../../core/factory/pageable.factory';
 import {Pageable} from '../../core/model/pageable';
 import {RoutingService} from '../../core/service/routing.service';
-import {ProductMapper} from '../mapper/product.mapper';
 import {ProductRequestDto} from '../model/dto/product-request.dto';
 import {ProductResponseDto} from '../model/dto/product-response.dto';
 import {Product} from '../model/product';
@@ -13,7 +12,6 @@ import {Product} from '../model/product';
 export class ProductRepository {
     constructor(private http: HttpClient,
                 private routingService: RoutingService,
-                private productMapper: ProductMapper,
                 private pageableFactory: PageableFactory) {
     }
 
@@ -43,7 +41,7 @@ export class ProductRepository {
 
     public putProduct(product: Product): Observable<undefined> {
         const url = this.routingService.generate('api_put_product', {id: product.id});
-        const productDto = this.productMapper.mapRequestDto(product);
+        const productDto = product.map();
 
         return this.http.put<undefined>(url, {product: productDto});
     }

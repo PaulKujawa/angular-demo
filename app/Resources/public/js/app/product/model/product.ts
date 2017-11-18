@@ -1,3 +1,4 @@
+import {ProductRequestDto} from './dto/product-request.dto';
 import {ProductResponseDto} from './dto/product-response.dto';
 
 export class Product {
@@ -25,5 +26,12 @@ export class Product {
         this.fat = dto.fat;
         this.gfat = dto.gfat;
         this.manufacturer = dto.manufacturer;
+    }
+
+    public map(): ProductRequestDto {
+        const copy = Object.assign({}, this);
+        delete copy.id;
+
+        return copy;
     }
 }

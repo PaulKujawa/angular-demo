@@ -12,7 +12,7 @@ interface InViewportConfig {
 @Directive({
     selector: '[in-viewport]',
 })
-export class InViewportDirective implements OnInit, OnChanges, OnDestroy {
+export class InViewportDirective implements OnChanges, OnInit, OnDestroy {
     private static sharedSource = Observable.merge(
         Observable.fromEvent(window, 'resize'),
         Observable.fromEvent(window, 'scroll'),
@@ -31,6 +31,14 @@ export class InViewportDirective implements OnInit, OnChanges, OnDestroy {
                 private inViewportService: InViewportService) {
     }
 
+    public ngOnChanges(changes: SimpleChanges): void {
+        if (changes.config) {
+            this.config = typeof changes.config.currentValue === 'string'
+                ? this.defaultConfig
+                : changes.config.currentValue;
+        }
+    }
+
     public ngOnInit(): void {
         const source = this.customEvent
             ? Observable.merge(InViewportDirective.sharedSource, this.customEvent)
@@ -40,14 +48,6 @@ export class InViewportDirective implements OnInit, OnChanges, OnDestroy {
         this.zone.runOutsideAngular(() => {
             setTimeout(() => this.check(), 1);
         });
-    }
-
-    public ngOnChanges(changes: SimpleChanges): void {
-        if (changes.config) {
-            this.config = typeof changes.config.currentValue === 'string'
-                ? this.defaultConfig
-                : changes.config.currentValue;
-        }
     }
 
     public ngOnDestroy(): void {

@@ -1,5 +1,6 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs/Observable';
 import {slideInDownAnimation} from '../../core/animations';
 import {Product} from '../model/product';
 import {ProductState} from '../service/product.state';
@@ -7,24 +8,26 @@ import {ProductState} from '../service/product.state';
 @Component({
     animations: [slideInDownAnimation],
     template: `
-        <product-form [product]="product"></product-form>
+        <product-form [product]="product|async">
+        </product-form>
     `,
 })
 export class ProductDetailComponent implements OnInit {
     @HostBinding('@routeAnimation') public routeAnimation = true;
     @HostBinding('style.display') public display = 'block';
     @HostBinding('style.position') public position = 'absolute';
-    public product?: Product;
+    public product: Observable<Product | undefined>;
 
     constructor(private productState: ProductState,
                 private route: ActivatedRoute) {
     }
 
     public ngOnInit(): void {
-        this.route.params
-            .do(() => this.product = undefined)
-            .filter((params) => !isNaN(params.id))
-            .switchMap((params) => this.productState.getProduct(+params.id))
-            .subscribe((product) => this.product = product);
+        this.product = this.route.params
+            .switchMap((params) => {
+                return !isNaN(params.id)
+                    ? this.productState.getProduct(+params.id)
+                    : Observable.of(undefined);
+            });
     }
 }
