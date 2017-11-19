@@ -46,6 +46,6 @@ app:
   recipe:
     cooking: Zubereitung
     filter:
-      vegan_only: ausschließlich vegan
+      vegan_only: Vegan
     ingredients: Zutaten
     ingredient_sorting: Nach Kcal sortiert.

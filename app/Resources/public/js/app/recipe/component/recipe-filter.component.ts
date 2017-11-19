@@ -9,14 +9,14 @@ import {FilterState} from '../../shared/service/filter.state';
     providers: [FilterState],
     template: `
         <div class="row app-filter">
-            <div class="col-xs-12 col-sm-4">
+            <div class="col-xs-5 col-sm-6">
                 <input class="form-control"
                        type="text"
                        placeholder="{{'app.common.filter.search'|trans}}"
                        #search
                        (keyup)="setName(search.value)"/>
             </div>
-            <div class="col-xs-12 col-sm-3">
+            <div class="col-xs-2 col-sm-3">
                 <div class="checkbox">
                     <label>
                         <input type="checkbox"
@@ -26,9 +26,11 @@ import {FilterState} from '../../shared/service/filter.state';
                     </label>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-5">
-                <pagination [pagination]="pagination"
-                            (clicked)="setPage($event)"></pagination>
+            <div class="col-xs-5 col-sm-3">
+                <pagination class="pull-right"
+                            [pagination]="pagination"
+                            (clicked)="setPage($event)">
+                </pagination>
             </div>
         </div>
     `,

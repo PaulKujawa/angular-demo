@@ -46,6 +46,6 @@ app:
   recipe:
     cooking: Cooking
     filter:
-      vegan_only: solely vegan
+      vegan_only: Vegan
     ingredients: Ingredients
     ingredient_sorting: Sorted by kcal.
