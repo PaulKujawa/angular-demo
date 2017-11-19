@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
@@ -98,36 +98,29 @@ import {ProductState} from '../service/product.state';
         </form>
     `,
 })
-export class ProductFormComponent implements OnInit {
+export class ProductFormComponent implements OnChanges {
+    @Input('product') public inputProduct?: Product;
     public productForm: FormGroup;
-    public inputProduct?: Product;
 
     constructor(private router: Router,
                 private formBuilder: FormBuilder,
                 private productState: ProductState) {
-    }
-
-    @Input('product')
-    set productModel(product: Product | undefined) {
-        this.inputProduct = product;
-
-        const config = !this.inputProduct
-            ? this.getDefaultConfig()
-            : this.map(this.inputProduct);
-
-        this.productForm.setValue(config);
-    }
-
-    public ngOnInit(): void {
-        const placeholder = this.getDefaultConfig();
+        const placeholder = this.getConfig();
         this.productForm = this.formBuilder.group(placeholder);
     }
 
+    public ngOnChanges(changes: SimpleChanges): void {
+        if (changes.inputProduct) {
+            const productConfig = this.getConfig();
+            this.productForm.setValue(productConfig);
+        }
+    }
+
     public onSubmit(): void {
-        const productDto = this.map(this.productForm.value);
+        const productDto: ProductRequestDto = this.productForm.value;
 
         const observable: Observable<any> = this.inputProduct
-            ? this.productState.updateProduct({id: this.inputProduct.id, ...productDto})
+            ? this.productState.updateProduct(new Product({id: this.inputProduct.id, ...productDto}))
             : this.productState.addProduct(productDto);
 
         observable.subscribe(() => this.router.navigate(['products']));
@@ -139,33 +132,20 @@ export class ProductFormComponent implements OnInit {
             .subscribe(() => this.router.navigate(['products']));
     }
 
-    private map(model: Product): ProductRequestDto {
-        return {
-            name: model.name,
-            vegan: model.vegan,
-            gr: model.gr,
-            kcal: model.kcal,
-            protein: model.protein,
-            carbs: model.carbs,
-            sugar: model.sugar,
-            fat: model.fat,
-            gfat: model.gfat,
-            manufacturer: model.manufacturer,
-        };
-    }
+    private getConfig(): object {
+        const product = this.inputProduct;
 
-    private getDefaultConfig(): ProductRequestDto {
         return {
-            name: '',
-            vegan: true,
-            gr: 0,
-            kcal: 0,
-            protein: 0,
-            carbs: 0,
-            sugar: 0,
-            fat: 0,
-            gfat: 0,
-            manufacturer: '',
+            name: (product && product.name) || '',
+            vegan: (product && product.vegan) || true,
+            gr: (product && product.gr) || 0,
+            kcal: (product && product.kcal) || 0,
+            protein: (product && product.protein) || 0,
+            carbs: (product && product.carbs) || 0,
+            sugar: (product && product.sugar) || 0,
+            fat: (product && product.fat) || 0,
+            gfat: (product && product.gfat) || 0,
+            manufacturer: (product && product.manufacturer ) || '',
         };
     }
 }

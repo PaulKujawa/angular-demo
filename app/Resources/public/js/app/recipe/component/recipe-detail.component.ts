@@ -52,13 +52,11 @@ export class RecipeDetailComponent implements OnInit {
 
     public ngOnInit(): void {
         this.activatedRoute.params
-            .switchMap((params: Params) => this.recipeRepository.getRecipe(+params[this.idQuery]))
-            .subscribe(
-                (recipe: RecipeDetail) => {
-                    recipe.ingredients.sort((a, b) => b.kcal - a.kcal);
-                    this.recipe = recipe;
-                },
-            );
+            .switchMap((params) => this.recipeRepository.getRecipe(+params[this.idQuery]))
+            .subscribe((recipeDetail) => {
+                recipeDetail.ingredients.sort((a, b) => b.kcal - a.kcal);
+                this.recipe = recipeDetail;
+            });
     }
 
     public getMeasurement(ingredient: Ingredient): string {

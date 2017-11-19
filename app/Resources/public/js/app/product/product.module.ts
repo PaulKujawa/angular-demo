@@ -7,7 +7,6 @@ import {ProductFilterComponent} from './component/product-filter.component';
 import {ProductFormComponent} from './component/product-form.component';
 import {ProductListComponent} from './component/product-list.component';
 import {ProductComponent} from './component/product.component';
-import {ProductMapper} from './mapper/product.mapper';
 import {ProductRoutingModule} from './product-routing.module';
 import {ProductRepository} from './repository/product.repository';
 import {ProductState} from './service/product.state';
@@ -29,7 +28,6 @@ import {ProductState} from './service/product.state';
     exports: [],
     providers: [
         ProductRepository,
-        ProductMapper,
         ProductState,
     ],
 })

@@ -1,8 +1,9 @@
 import {ElementRef, Inject, Injectable} from '@angular/core';
+import {WindowInjectToken} from '../provider/window.provider';
 
 @Injectable()
 export class InViewportService {
-    constructor(@Inject('windowObject') private window: any) {
+    constructor(@Inject(WindowInjectToken) private window: Window) {
     }
 
     public isVisible(element: ElementRef, percentage: number = 100): boolean {
