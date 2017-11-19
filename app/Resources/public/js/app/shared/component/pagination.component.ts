@@ -7,34 +7,20 @@ import {Pagination} from '../../core/model/pagination';
         <nav class="app-filter__nav"
              *ngIf="pagination?.pages > 1">
             <ul class="pagination app-filter__pagination">
+                <li *ngIf="showPageRange"
+                    [class.disabled]="isFirstPage()">
+                    <a class="btn"
+                       [class.disabled]="isFirstPage()"
+                       (click)="onClick(1)">1</a>
+                </li>
                 <li [class.disabled]="isFirstPage()">
                     <a class="btn"
                        [class.disabled]="isFirstPage()"
                        (click)="onClick(pagination.page - 1)">
                         <span>&laquo;</span></a>
                 </li>
-                <li [class.disabled]="isFirstPage()">
-                    <a class="btn"
-                       [class.disabled]="isFirstPage()"
-                       (click)="onClick(1)">1</a>
-                </li>
-                <li class="disabled">
-                    <a class="btn disabled">..</a>
-                </li>
-
                 <li class="active">
                     <a>{{pagination.page}}</a>
-                </li>
-
-                <li class="disabled">
-                    <a class="btn disabled">..</a>
-                </li>
-                <li [class.disabled]="isLastPage()">
-                    <a class="btn"
-                       [class.disabled]="isLastPage()"
-                       (click)="onClick(pagination.pages)">
-                        {{pagination.pages}}
-                    </a>
                 </li>
                 <li [class.disabled]="isLastPage()">
                     <a class="btn"
@@ -43,11 +29,20 @@ import {Pagination} from '../../core/model/pagination';
                         <span>&raquo;</span>
                     </a>
                 </li>
+                <li *ngIf="showPageRange"
+                    [class.disabled]="isLastPage()">
+                    <a class="btn"
+                       [class.disabled]="isLastPage()"
+                       (click)="onClick(pagination.pages)">
+                        {{pagination.pages}}
+                    </a>
+                </li>
             </ul>
         </nav>
     `,
 })
 export class PaginationComponent {
+    @Input() public showPageRange = false;
     @Input() public pagination?: Pagination;
     @Output('clicked') public eventEmitter = new EventEmitter<number>();
 
