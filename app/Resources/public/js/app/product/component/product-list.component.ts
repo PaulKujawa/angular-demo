@@ -7,12 +7,12 @@ import {ProductState} from '../service/product.state';
     template: `
         <product-filter></product-filter>
 
-        <div class="row">
+        <div class="row" *ngIf="productState.getProducts()|async as products">
             <div class="col-xs-12 col-sm-6">
                 <ul class="list-group">
                     <li class="list-group-item app-products__item"
                         (click)="onSelectProduct(product)"
-                        *ngFor="let product of (productState.getProducts()|async)?.docs">
+                        *ngFor="let product of products.docs">
                         {{product.name}}
                     </li>
                 </ul>

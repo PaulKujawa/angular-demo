@@ -6,16 +6,20 @@ import {Component} from '@angular/core';
          <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed"
-                    data-toggle="collapse" data-target="#ba-navbar__collapse">
+                    <button type="button"
+                            class="navbar-toggle collapsed"
+                            data-toggle="collapse"
+                            data-target="#ba-navbar__collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
                 </div>
-                <div id="ba-navbar__collapse" class="collapse navbar-collapse">
+                <div id="ba-navbar__collapse"
+                     class="collapse navbar-collapse">
                     <ul class="nav navbar-nav text-capitalize">
-                        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <li routerLinkActive="active"
+                            [routerLinkActiveOptions]="{exact: true}">
                             <a [routerLink]="'app_root_i18n'|route">
                                 {{'app.inquiry.inquiry'|trans}}
                             </a>
@@ -27,7 +31,9 @@ import {Component} from '@angular/core';
                         </li>
 
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href="#"
+                               class="dropdown-toggle"
+                               data-toggle="dropdown">
                                 {{'app.common.cms'|trans}}<span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">

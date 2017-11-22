@@ -43,7 +43,17 @@ export class ProductFilterComponent implements OnInit, OnDestroy {
     }
 
     public setName(name: string): void {
-        this.subscription = this.filterState.setDebouncedProperty('name', name);
+        const subscription = this.filterState.setDebouncedProperty('name', name);
+
+        if (!subscription) {
+            return;
+        }
+
+        if (!this.subscription) {
+            this.subscription = subscription;
+        }
+
+        this.subscription.add(this.subscription);
     }
 
     public setPage(page: number): void {
