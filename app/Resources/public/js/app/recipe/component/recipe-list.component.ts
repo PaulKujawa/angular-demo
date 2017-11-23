@@ -5,19 +5,22 @@ import {Subject} from 'rxjs/Subject';
 import {Pageable} from '../../core/model/pageable';
 import {Recipe} from '../model/recipe';
 import {RecipeRepository} from '../repository/recipe.repository';
+import {ReplaySubject} from 'rxjs/ReplaySubject';
 
 @Component({
     template: `
         <div class="row">
             <div class="col-xs-12">
-                <recipe-filter [pagination]="pageable?.pagination"
+                <recipe-filter [pagination]="(pageableStream|async)?.pagination"
                                (filter)="onFilter($event)">
                 </recipe-filter>
             </div>
         </div>
-        <div class="row">
+
+        <div *ngIf="pageableStream|async as pageable"
+             class="row">
             <div class="col-xs-12 col-sm-6 col-md-4"
-                 *ngFor="let recipe of pageable?.docs">
+                 *ngFor="let recipe of pageable.docs">
                 <div class="thumbnail"
                      [style.cursor]="'pointer'"
                      (click)="onSelectRecipe(recipe)">
@@ -35,7 +38,7 @@ import {RecipeRepository} from '../repository/recipe.repository';
     `,
 })
 export class RecipeListComponent implements OnInit {
-    public pageable: Pageable<Recipe>;
+    public pageableStream = new ReplaySubject<Pageable<Recipe>>(1);
     private filterStream = new Subject<HttpParams>();
 
     constructor(private router: Router,
@@ -45,7 +48,7 @@ export class RecipeListComponent implements OnInit {
     public ngOnInit(): void {
         this.filterStream
             .switchMap((queryParams) => this.recipeRepository.getRecipes(queryParams))
-            .subscribe((pageable) => this.pageable = pageable);
+            .subscribe(this.pageableStream);
     }
 
     public onFilter(filterMap: HttpParams): void {
