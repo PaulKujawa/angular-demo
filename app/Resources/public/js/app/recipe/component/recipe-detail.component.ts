@@ -1,22 +1,22 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {Ingredient} from '../model/ingredient';
 import {RecipeDetail} from '../model/recipe-detail';
 import {RecipeRepository} from '../repository/recipe.repository';
-import {ReplaySubject} from 'rxjs/ReplaySubject';
 
 @Component({
     template: `
         <div *ngIf="recipeSubject|async as recipe">
             <h1 class="text-center">{{recipe.name}}</h1>
-    
+
             <div class="row">
                 <div class="col-xs-12 col-md-6">
                     <img class="img-circle center-block img-responsive"
                          [src]="getImageUrl(recipe)">
                 </div>
             </div>
-    
+
             <div class="row">
                 <div class="col-xs-12 col-sm-5">
                     <h2>{{'app.recipe.ingredients' | trans}}*</h2>
