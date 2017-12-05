@@ -1,4 +1,4 @@
-interface FosJsRouting {
+interface FosJsRouter {
     generate(route: string, params: object): string;
     setBaseUrl(url: string): void;
     getBaseUrl(): string;

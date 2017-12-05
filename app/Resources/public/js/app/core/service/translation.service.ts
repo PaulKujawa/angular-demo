@@ -1,9 +1,8 @@
 import {Inject, Injectable} from '@angular/core';
-import {TranslatorInjectToken} from '../provider/translator.provider';
-
 // TODO load one depending on locale (maybe via JSON as well)
 import 'web/js/translations/de.js';
 import 'web/js/translations/en.js';
+import {TranslatorInjectToken} from '../core.token';
 
 @Injectable()
 export class TranslationService {

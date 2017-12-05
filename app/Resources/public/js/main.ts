@@ -15,8 +15,3 @@ if (process.env.ENV === 'prod') {
 
 // will be replaced JIT by @ngtools/webpack/src/loader.js for angular AOT in production
 platformBrowserDynamic().bootstrapModule(AppModule);
-
-/**
- * TODO to bypass zones completey
- * platformBrowserDynamic().bootstrapModule(AppModule, {ngZone: 'noop'}).then( ref => {} );
- */
