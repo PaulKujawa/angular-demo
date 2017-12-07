@@ -12,10 +12,10 @@ interface InViewportConfig {
 @Directive({
     selector: '[in-viewport]',
 })
-export class InViewportDirective implements OnChanges, OnInit, OnDestroy {
+export class InViewportDirective implements OnInit, OnChanges, OnDestroy {
     private static sharedSource = Observable.merge(
-        Observable.fromEvent(window, 'resize'),
-        Observable.fromEvent(window, 'scroll'),
+        Observable.fromEvent(window, 'resize', {passive: true}),
+        Observable.fromEvent(window, 'scroll', {passive: true}),
     )
     .auditTime(100)
     .share();
@@ -26,17 +26,9 @@ export class InViewportDirective implements OnChanges, OnInit, OnDestroy {
     private readonly defaultConfig: InViewportConfig = {percentage: 100};
     private subscription: Subscription;
 
-    constructor(private el: ElementRef,
+    constructor(private elementRef: ElementRef,
                 private zone: NgZone,
                 private inViewportService: InViewportService) {
-    }
-
-    public ngOnChanges(changes: SimpleChanges): void {
-        if (changes.config) {
-            this.config = typeof changes.config.currentValue === 'string'
-                ? this.defaultConfig
-                : changes.config.currentValue;
-        }
     }
 
     public ngOnInit(): void {
@@ -50,12 +42,20 @@ export class InViewportDirective implements OnChanges, OnInit, OnDestroy {
         });
     }
 
+    public ngOnChanges(changes: SimpleChanges): void {
+        if (changes.config) {
+            this.config = typeof changes.config.currentValue === 'string'
+                ? this.defaultConfig
+                : changes.config.currentValue;
+        }
+    }
+
     public ngOnDestroy(): void {
         this.subscription.unsubscribe();
     }
 
     private check(): void {
-        if (!this.inViewportService.isVisible(this.el, this.config!.percentage)) {
+        if (!this.inViewportService.isVisible(this.elementRef, this.config!.percentage)) {
             return;
         }
 
