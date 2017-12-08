@@ -28,12 +28,15 @@ import 'core-js/es7/reflect';
 import 'zone.js/dist/zone';
 
 // RxJS
+import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/observable/concat';
 import 'rxjs/add/observable/empty';
+import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 
+import 'rxjs/add/operator/auditTime';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
@@ -42,7 +45,10 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/merge';
+import 'rxjs/add/operator/publishReplay';
+import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/switchMapTo';
 import 'rxjs/add/operator/take';
 
 // see webpack ProvidePlugin
