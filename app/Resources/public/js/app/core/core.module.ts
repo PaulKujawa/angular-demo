@@ -15,7 +15,6 @@ import {PageableFactory} from './factory/pageable.factory';
 import {AuthRepository} from './repository/auth.repository';
 import {AuthenticationGuard} from './service/auth-guard.service';
 import {AuthenticationService} from './service/authentication.service';
-import {DeviceDetectService} from './service/device-detection.service';
 import {FlashMessageInterceptor} from './service/flash-message.interceptor';
 import {FlashMessageService} from './service/flash-message.service';
 import {HeadersInterceptor} from './service/headers.interceptor';
@@ -44,7 +43,6 @@ import {TranslationService} from './service/translation.service';
         AuthenticationGuard,
         AuthenticationService,
         AuthRepository,
-        DeviceDetectService,
         InViewportService,
         FlashMessageService,
         PageableFactory,
