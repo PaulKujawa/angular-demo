@@ -1,5 +1,17 @@
 @import "../import/variables";
 
-.app-inquiry__message {
-  min-height: calc(2 * #{$input-height-base} + #{$form-group-margin-bottom} );
+.app-inquiry {
+  text-align: center;
+
+  @media #{$media-query-min-sm} {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.app-inquiry__image {
+  max-width: 100%;
+  margin: 0 auto 20px;
+  height: auto;
+  border-radius: 50%;
 }

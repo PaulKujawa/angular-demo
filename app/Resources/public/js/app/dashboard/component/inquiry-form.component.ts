@@ -10,34 +10,42 @@ import {InquiryRepository} from '../repository/inquiry.repository';
 @Component({
     selector: 'inquiry-form',
     template: `
-        <form [formGroup]="inquiryForm" (ngSubmit)="onSubmit()" novalidate>
-            <div class="row flex">
+        <form class="app-inquiry-form"
+              novalidate
+              [formGroup]="inquiryForm"
+              (ngSubmit)="onSubmit()">
+            <div class="row">
                 <div class="col-xs-12 col-sm-5">
-                    <div class="form-group">
-                        <input class="form-control"
-                               placeholder="{{'app.inquiry.form.name'|trans}}"
-                               formControlName="name">
-                    </div>
-                    <div class="form-group">
-                        <input type="email"
-                               class="form-control"
-                               placeholder="{{'app.inquiry.form.email_address'|trans}}"
-                               formControlName="email">
-                    </div>
+                    <mat-form-field>
+                        <input matInput
+                               formControlName="name"
+                               [placeholder]="'app.inquiry.form.name'|trans">
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <input matInput
+                               formControlName="email"
+                               [placeholder]="'app.inquiry.form.email_address'|trans">
+                    </mat-form-field>
                 </div>
+
                 <div class="col-xs-12 col-sm-7">
-                    <div class="form-group">
-                        <textarea class="form-control app-inquiry__message"
-                                  placeholder="{{'app.inquiry.form.message'|trans}}"
-                                  formControlName="message">
+                    <mat-form-field class="app-inquiry-form__message">
+                        <textarea matInput
+                                  matTextareaAutosize
+                                  matAutosizeMinRows="5"
+                                  formControlName="message"
+                                  [placeholder]="'app.inquiry.form.message'|trans">
                         </textarea>
-                    </div>
+                    </mat-form-field>
                 </div>
             </div>
+
             <div class="row">
-                <div class="col-xs-12 col-sm-7 col-sm-offset-5">
-                    <div class="pull-right">
-                        <button class="btn btn-primary"
+                <div class="col-xs-12 col-sm-offset-5 col-sm-7">
+                    <div class="app-inquiry-form__submit">
+                        <button mat-raised-button
+                                color="primary"
                                 [disabled]="inquiryForm.invalid">
                             {{'app.common.submit' | trans}}
                         </button>

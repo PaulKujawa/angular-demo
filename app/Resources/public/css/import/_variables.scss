@@ -17,8 +17,8 @@ $barra-font-size-base: 16px;
 
 // media querries
 $media-query-min-sm: "(min-width: 768px)";
-$media-query-max-xs: "(max-width: 767px)";
-$media-query-max-xxs: "(max-width: 500px)";
+$media-query-min-md: "(max-width: 992px)";
+$media-query-min-lg: "(max-width: 1200px)";
 
 
 // override bootstrap variables
@@ -45,4 +45,6 @@ $badge-bg: inherit;
 $bootstrap-sass-asset-helper: true;
 
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/variables";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 

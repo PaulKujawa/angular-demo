@@ -1,0 +1,15 @@
+@import "../import/variables";
+
+.app-inquiry-form {
+  .mat-form-field {
+    display: block;
+  }
+}
+
+.app-inquiry-form__message {
+  width: 100%;
+}
+
+.app-inquiry-form__submit {
+  float: right;
+}
