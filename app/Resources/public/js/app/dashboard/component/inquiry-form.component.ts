@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
 import {FlashMessage} from '../../core/model/flash-message';
@@ -52,6 +52,7 @@ export class InquiryFormComponent implements OnInit, OnDestroy {
     private subscription?: Subscription;
 
     constructor(private formBuilder: FormBuilder,
+                private changeDetectorRef: ChangeDetectorRef,
                 private inquiryRepository: InquiryRepository,
                 private translationService: TranslationService,
                 private flashMessageService: FlashMessageService) {
@@ -78,6 +79,7 @@ export class InquiryFormComponent implements OnInit, OnDestroy {
                 const message = this.translationService.trans('app.api.inquiry_success');
                 const flashMessage = new FlashMessage('success', message);
                 this.flashMessageService.push(flashMessage);
+                this.changeDetectorRef.markForCheck();
             });
     }
 
