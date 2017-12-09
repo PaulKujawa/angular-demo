@@ -12,7 +12,7 @@ use Doctrine\ORM\ORMException;
 
 class ProductRepository
 {
-    const PAGE_LIMIT = 10;
+    const PAGE_SIZE = 10;
 
     /**
      * @var EntityManager
@@ -35,8 +35,8 @@ class ProductRepository
     public function getProducts(int $page, QueryDecorator $queryDecorator = null): PaginationResponse
     {
         $criteria = Criteria::create();
-        $criteria->setFirstResult(self::PAGE_LIMIT * ($page - 1));
-        $criteria->setMaxResults(self::PAGE_LIMIT);
+        $criteria->setFirstResult(self::PAGE_SIZE * ($page - 1));
+        $criteria->setMaxResults(self::PAGE_SIZE);
 
         if ($queryDecorator) {
             $queryDecorator->decorate($criteria);
@@ -53,7 +53,8 @@ class ProductRepository
         $paginationResponse = $this->paginationResponseFactory->createPaginationResponse(
             $products->toArray(),
             7, // TODO request and cache this value
-            $page
+            $page,
+            self::PAGE_SIZE
         );
 
         return $paginationResponse;

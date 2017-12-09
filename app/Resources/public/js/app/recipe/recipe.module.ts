@@ -9,6 +9,7 @@ import {RecipeListComponent} from './component/recipe-list.component';
 import {RecipeComponent} from './component/recipe.component';
 import {RecipeRoutingModule} from './recipe-routing.module';
 import {RecipeRepository} from './repository/recipe.repository';
+import {RecipeState} from './service/recipe.state';
 
 @NgModule({
     imports: [
@@ -26,6 +27,7 @@ import {RecipeRepository} from './repository/recipe.repository';
     ],
     exports: [],
     providers: [
+        RecipeState,
         RecipeRepository,
     ],
 })

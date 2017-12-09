@@ -12,12 +12,12 @@ import {AuthenticationService} from '../service/authentication.service';
                             <div class="form-group">
                                 <input type="text" required autofocus class="form-control"
                                        placeholder="{{'security.login.username'|trans}}"
-                                       name="username" [(ngModel)]="credentials.username"/>
+                                       name="username" [(ngModel)]="credentials.username">
                             </div>
                             <div class="form-group">
                                 <input type="password" required class="form-control"
                                        placeholder="{{'security.login.password'|trans}}"
-                                       name="password" [(ngModel)]="credentials.password"/>
+                                       name="password" [(ngModel)]="credentials.password">
                             </div>
                             <div class="form-group">
                                 <button type="submit" [disabled]="!authForm.form.valid"

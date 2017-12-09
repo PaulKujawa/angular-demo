@@ -7,6 +7,7 @@ import {RoutingService} from '../../core/service/routing.service';
 import {ProductRequestDto} from '../model/dto/product-request.dto';
 import {ProductResponseDto} from '../model/dto/product-response.dto';
 import {Product} from '../model/product';
+import {PageableDto} from '../../core/model/dto/pageable.dto';
 
 @Injectable()
 export class ProductRepository {
@@ -19,7 +20,7 @@ export class ProductRepository {
         const url = this.routingService.generate('api_get_products');
 
         return this.http
-            .get<Pageable<ProductResponseDto>>(url, {params: filter})
+            .get<PageableDto<ProductResponseDto>>(url, {params: filter})
             .map((pageableDto) => this.pageableFactory.getPageable<ProductResponseDto, Product>(pageableDto, Product));
     }
 

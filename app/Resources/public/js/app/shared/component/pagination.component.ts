@@ -1,60 +1,40 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
 import {Pagination} from '../../core/model/pagination';
+import {FilterState} from '../service/filter.state';
+import {PageableState} from '../model/pageable.state';
+
+interface MatPaginatorEvent {
+    pageIndex: number,
+    pageSize: number,
+    length: number,
+}
 
 @Component({
     selector: 'pagination',
     template: `
-        <nav class="app-filter__nav"
-             *ngIf="pagination?.pages > 1">
-            <ul class="pagination app-filter__pagination">
-                <li *ngIf="showPageRange"
-                    [class.disabled]="isFirstPage()">
-                    <a class="btn"
-                       [class.disabled]="isFirstPage()"
-                       (click)="onClick(1)">1</a>
-                </li>
-                <li [class.disabled]="isFirstPage()">
-                    <a class="btn"
-                       [class.disabled]="isFirstPage()"
-                       (click)="onClick(pagination.page - 1)">
-                        <span>&laquo;</span></a>
-                </li>
-                <li class="active">
-                    <a>{{pagination.page}}</a>
-                </li>
-                <li [class.disabled]="isLastPage()">
-                    <a class="btn"
-                       [class.disabled]="isLastPage()"
-                       (click)="onClick(pagination.page + 1)">
-                        <span>&raquo;</span>
-                    </a>
-                </li>
-                <li *ngIf="showPageRange"
-                    [class.disabled]="isLastPage()">
-                    <a class="btn"
-                       [class.disabled]="isLastPage()"
-                       (click)="onClick(pagination.pages)">
-                        {{pagination.pages}}
-                    </a>
-                </li>
-            </ul>
-        </nav>
+        <mat-paginator *ngIf="paginationStream|async as pagination"
+                       [pageIndex]="pagination.page"
+                       [pageSize]="pagination.pageSize"
+                       [length]="pagination.numFound"
+                       (page)="onClick($event)">
+        </mat-paginator>
     `,
 })
-export class PaginationComponent {
-    @Input() public showPageRange = false;
-    @Input() public pagination?: Pagination;
-    @Output('clicked') public eventEmitter = new EventEmitter<number>();
+export class PaginationComponent implements OnInit {
+    public paginationStream: Observable<Pagination>;
 
-    public onClick(page: number): void {
-        this.eventEmitter.emit(page);
+    public constructor(private pageableState: PageableState,
+                       private filterState: FilterState) {
     }
 
-    public isFirstPage(): boolean {
-        return !!this.pagination && this.pagination.page === 1;
+    public ngOnInit(): void {
+        this.paginationStream = this.pageableState
+            .getPageable()
+            .map((pageable) => pageable.pagination);
     }
 
-    public isLastPage(): boolean {
-        return !!this.pagination && this.pagination.page === this.pagination.pages;
+    public onClick({pageIndex}: MatPaginatorEvent): void {
+        this.filterState.setParam('page', String(pageIndex));
     }
 }

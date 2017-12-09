@@ -10,10 +10,12 @@ import {ProductComponent} from './component/product.component';
 import {ProductRoutingModule} from './product-routing.module';
 import {ProductRepository} from './repository/product.repository';
 import {ProductState} from './service/product.state';
+import {MatButtonModule} from '@angular/material';
 
 @NgModule({
     imports: [
         CommonModule,
+        MatButtonModule,
         ReactiveFormsModule,
         SharedModule,
         ProductRoutingModule,

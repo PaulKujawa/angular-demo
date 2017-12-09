@@ -6,9 +6,10 @@ import {FilterState} from '../../shared/service/filter.state';
 import {ProductRequestDto} from '../model/dto/product-request.dto';
 import {Product} from '../model/product';
 import {ProductRepository} from '../repository/product.repository';
+import {PageableState} from '../../shared/model/pageable.state';
 
 @Injectable()
-export class ProductState {
+export class ProductState implements PageableState {
     private pageable = new ReplaySubject<Pageable<Product>>(1);
 
     public constructor(private productRepository: ProductRepository,
@@ -19,7 +20,7 @@ export class ProductState {
             .subscribe(this.pageable);
     }
 
-    public getProducts(): Observable<Pageable<Product>> {
+    public getPageable(): Observable<Pageable<Product>> {
         return this.pageable.asObservable();
     }
 

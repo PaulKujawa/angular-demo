@@ -1,5 +1,6 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
+import {MatPaginatorModule} from '@angular/material/paginator';
 import {PaginationComponent} from './component/pagination.component';
 import {InViewportDirective} from './directive/in-viewport.directe';
 import {RoutePipe} from './pipe/route.pipe';
@@ -15,6 +16,7 @@ const directives = [
 @NgModule({
     imports: [
         CommonModule,
+        MatPaginatorModule,
     ],
     declarations: directives,
     exports: directives,

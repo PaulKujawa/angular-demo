@@ -1,5 +1,6 @@
 import {PageableDto} from '../model/dto/pageable.dto';
 import {Doc, Pageable} from '../model/pageable';
+import {Pagination} from '../model/pagination';
 
 /**
  * usage:
@@ -9,7 +10,7 @@ import {Doc, Pageable} from '../model/pageable';
  */
 export class PageableFactory {
     public getPageable<D, M extends Doc>(dto: PageableDto<D>, M: {new(dto: D): M}): Pageable<M> {
-        const pagination = dto.pagination;
+        const pagination = new Pagination(dto.pagination);
         const docs: M[] = dto.docs.map((doc: D) => new M(doc));
 
         return new Pageable<M>(pagination, docs);
