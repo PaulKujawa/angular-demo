@@ -12,8 +12,4 @@ export class TranslationService {
     public trans(id: string, parameters?: object, domain?: string): string {
         return this.translator.trans(id, parameters, domain);
     }
-
-    public transChoice(id: string, quantity: number, parameters?: object, domain?: string): string {
-        return Translator.transChoice(id, quantity, parameters, domain);
-    }
 }

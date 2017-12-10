@@ -1,9 +1,7 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
-import {FlashMessage} from '../../core/model/flash-message';
 import {FlashMessageService} from '../../core/service/flash-message.service';
-import {TranslationService} from '../../core/service/translation.service';
 import {Inquiry} from '../model/inquiry';
 import {InquiryRepository} from '../repository/inquiry.repository';
 
@@ -35,11 +33,11 @@ import {InquiryRepository} from '../repository/inquiry.repository';
                 </textarea>
             </mat-form-field>
 
-                <button mat-raised-button
-                        color="primary"
-                        [disabled]="inquiryForm.invalid">
-                    {{'app.common.submit' | trans}}
-                </button>
+            <button mat-raised-button
+                    color="primary"
+                    [disabled]="inquiryForm.invalid">
+                {{'app.common.submit' | trans}}
+            </button>
         </form>
     `,
 })
@@ -50,7 +48,6 @@ export class InquiryFormComponent implements OnInit, OnDestroy {
     constructor(private formBuilder: FormBuilder,
                 private changeDetectorRef: ChangeDetectorRef,
                 private inquiryRepository: InquiryRepository,
-                private translationService: TranslationService,
                 private flashMessageService: FlashMessageService) {
     }
 
@@ -72,9 +69,7 @@ export class InquiryFormComponent implements OnInit, OnDestroy {
         this.subscription = this.inquiryRepository
             .postInquiry(inquiry)
             .subscribe(() => {
-                const message = this.translationService.trans('app.api.inquiry_success');
-                const flashMessage = new FlashMessage('success', message);
-                this.flashMessageService.push(flashMessage);
+                this.flashMessageService.showSuccess({id: 'app.api.inquiry_success'}, 5000);
                 this.changeDetectorRef.markForCheck();
             });
     }

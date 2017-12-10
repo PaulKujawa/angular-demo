@@ -2,14 +2,18 @@ import {CommonModule} from '@angular/common';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {RouterModule} from '@angular/router';
 import {SharedModule} from '../shared/shared.module';
 import {AuthComponent} from './component/auth.component';
-import {FlashMessageComponent} from './component/flash-message.component';
 import {NavBarComponent} from './component/nav-bar.component';
 import {
-    AuthenticatedInjectToken, BaseUrlInjectToken, FosRouterInjectToken, RequestLocaleInjectToken,
-    TranslatorInjectToken, WindowInjectToken,
+    AuthenticatedInjectToken,
+    BaseUrlInjectToken,
+    FosRouterInjectToken,
+    RequestLocaleInjectToken,
+    TranslatorInjectToken,
+    WindowInjectToken,
 } from './core.token';
 import {PageableFactory} from './factory/pageable.factory';
 import {AuthRepository} from './repository/auth.repository';
@@ -27,16 +31,15 @@ import {TranslationService} from './service/translation.service';
         CommonModule,
         FormsModule,
         HttpClientModule,
+        MatSnackBarModule,
         SharedModule,
         RouterModule,
     ],
     declarations: [
         AuthComponent,
-        FlashMessageComponent,
         NavBarComponent,
     ],
     exports: [
-        FlashMessageComponent,
         NavBarComponent,
     ],
     providers: [

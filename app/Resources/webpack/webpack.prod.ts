@@ -19,7 +19,7 @@ export const webpackConfig = (args: WebpackArgs): Configuration => {
                 {
                     test: /\.ts$/,
                     use: [
-                        {loader: 'cache-loader', options: {cacheDirectory: `${cachePath}/js`}},
+                        {loader: 'cache-loader', options: {cacheDirectory: path.join(cachePath, 'js')}},
                         '@ngtools/webpack',
                     ],
                 }, {
@@ -27,7 +27,7 @@ export const webpackConfig = (args: WebpackArgs): Configuration => {
                     test: /\.scss$/,
                     loader: ExtractTextPlugin.extract({
                         use: [
-                            {loader: 'cache-loader', options: {cacheDirectory: cachePath + '/css'}},
+                            {loader: 'cache-loader', options: {cacheDirectory: path.join(cachePath, 'css')}},
                             {loader: 'css-loader', options: {sourceMap: true}},
                             {loader: 'sass-loader', options: {sourceMap: true}},
                         ],

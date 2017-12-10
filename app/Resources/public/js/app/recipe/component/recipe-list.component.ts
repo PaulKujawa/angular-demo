@@ -22,11 +22,11 @@ import {RecipeState} from '../service/recipe.state';
                         <mat-card-title>{{recipe.name}}</mat-card-title>
                         <mat-card-subtitle>{{recipe.updated | date}}</mat-card-subtitle>
                     </mat-card-header>
-    
+
                     <img mat-card-image
                          [src]="getImageUrl(recipe)"
                          [attr.alt]="recipe.name">
-    
+
                     <mat-card-content>
                         <macro-chart [macros]="recipe.macros">
                         </macro-chart>

@@ -9,6 +9,8 @@ app:
     post_success: Erfolgreich hinzugefügt.
     delete_success: Erfolgreich gelöscht.
     inquiry_success: Ich habe Ihre Mitteilung erfolgreich erhalten.
+    network_error: Netzwerkfehler.
+    server_error: Server error (%code%).
   auth:
     signed_in: Erfolgreich angemeldet.
   common:
