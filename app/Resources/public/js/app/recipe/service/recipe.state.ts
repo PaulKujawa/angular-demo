@@ -2,10 +2,10 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {Pageable} from '../../core/model/pageable';
+import {PageableState} from '../../shared/model/pageable.state';
 import {FilterState} from '../../shared/service/filter.state';
 import {Recipe} from '../model/recipe';
 import {RecipeRepository} from '../repository/recipe.repository';
-import {PageableState} from '../../shared/model/pageable.state';
 
 @Injectable()
 export class RecipeState implements PageableState {

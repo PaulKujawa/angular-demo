@@ -21,7 +21,6 @@ app:
     recipes: Recipes
     submit: Submit
   inquiry:
-    description: Home project about recipes.
     form:
       name: Your name
       email_address: Your email address
@@ -48,4 +47,3 @@ app:
     filter:
       vegan_only: Vegan
     ingredients: Ingredients
-    ingredient_sorting: Sorted by kcal.

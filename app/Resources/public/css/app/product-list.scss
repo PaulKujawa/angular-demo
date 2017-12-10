@@ -1,14 +1,10 @@
 @import "../import/variables";
 
 .app-product-filter {
-  margin-bottom: 10px;
+  width: 100%;
 }
 
 .app-product__create {
   margin-bottom: 10px;
   float: right;
-}
-
-.app-products__item {
-  cursor: pointer;
 }

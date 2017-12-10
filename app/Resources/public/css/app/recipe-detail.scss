@@ -1,12 +1,8 @@
 @import "../import/variables";
 
-.app-inquiry {
-  text-align: center;
-}
-
-.app-inquiry__image {
+.app-recipe-detail__image {
   max-width: 100%;
-  margin: 0 auto 20px;
   height: auto;
+  margin-bottom: 20px;
   border-radius: 50%;
 }

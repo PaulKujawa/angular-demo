@@ -13,21 +13,25 @@ import {RecipeState} from '../service/recipe.state';
 
         <div *ngIf="recipeState.getPageable()|async as recipes"
              class="row">
+
             <div *ngFor="let recipe of recipes.docs"
-                 class="col-xs-12 col-sm-6 col-md-4">
-                <div class="thumbnail"
-                     [style.cursor]="'pointer'"
-                     (click)="onSelectRecipe(recipe)">
-                    <h2 class="media-heading">{{recipe.name}}</h2>
-
-                    <img [src]="getImageUrl(recipe)">
-
-                    <macro-chart [macros]="recipe.macros"></macro-chart>
-
-                    <div class="caption">
-                        <span><i>{{recipe.updated | date}}</i></span>
-                    </div>
-                </div>
+                  class="col-xs-12 col-sm-6 col-md-3" style="margin-bottom: 30px">
+                <mat-card (click)="onClick(recipe)"
+                          [style.cursor]="'pointer'">
+                    <mat-card-header>
+                        <mat-card-title>{{recipe.name}}</mat-card-title>
+                        <mat-card-subtitle>{{recipe.updated | date}}</mat-card-subtitle>
+                    </mat-card-header>
+    
+                    <img mat-card-image
+                         [src]="getImageUrl(recipe)"
+                         [attr.alt]="recipe.name">
+    
+                    <mat-card-content>
+                        <macro-chart [macros]="recipe.macros">
+                        </macro-chart>
+                    </mat-card-content>
+                </mat-card>
             </div>
 
             <div class="col-xs-12">
@@ -42,7 +46,7 @@ export class RecipeListComponent {
                 private router: Router) {
     }
 
-    public onSelectRecipe(recipe: Recipe): void {
+    public onClick(recipe: Recipe): void {
         const recipeName = recipe.name.replace(' ', '-');
         this.router.navigate(['/recipes', recipe.id, recipeName]);
     }

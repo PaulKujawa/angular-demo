@@ -6,23 +6,22 @@ import {FilterState} from '../../shared/service/filter.state';
     selector: 'recipe-filter',
     template: `
         <div class="row app-filter">
-            <div class="col-xs-5 col-sm-6">
-                <input #search
-                       [placeholder]="'app.common.filter.search'|trans"
-                       (keyup)="setName(search.value)"
-                       type="text"
-                       class="form-control">
+            <div class="col-xs-12 col-sm-6">
+                <mat-form-field style="width: 100%">
+                    <input #search
+                           matInput
+                           (keyup)="setName(search.value)"
+                           [placeholder]="'app.common.filter.search'|trans">
+                </mat-form-field>
             </div>
 
             <div class="col-xs-2 col-sm-3">
-                <div class="checkbox">
-                    <label>
-                        <input #veganOnly
-                               (change)="setVegan(veganOnly.checked)"
-                               type="checkbox">
-                        {{'app.recipe.filter.vegan_only' | trans}}
-                    </label>
-                </div>
+                <section>
+                    <mat-checkbox #veganOnly
+                                  (change)="setVegan(veganOnly.checked)">
+                        {{'app.recipe.filter.vegan_only'|trans}}
+                    </mat-checkbox>
+                </section>
             </div>
         </div>
     `,

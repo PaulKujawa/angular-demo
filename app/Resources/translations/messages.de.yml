@@ -21,7 +21,6 @@ app:
     recipes: Rezepte
     submit: Absenden
   inquiry:
-    description: Heimprojekt mit ein paar Rezepten.
     form:
       name: Ihr Name
       email_address: Ihre E-Mail
@@ -48,4 +47,3 @@ app:
     filter:
       vegan_only: Vegan
     ingredients: Zutaten
-    ingredient_sorting: Nach Kcal sortiert.

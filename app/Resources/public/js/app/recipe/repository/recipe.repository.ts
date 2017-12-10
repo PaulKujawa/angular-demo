@@ -2,6 +2,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {PageableFactory} from '../../core/factory/pageable.factory';
+import {PageableDto} from '../../core/model/dto/pageable.dto';
 import {Pageable} from '../../core/model/pageable';
 import {RoutingService} from '../../core/service/routing.service';
 import {RecipeDetailResponseDto} from '../model/dto/recipe-detail-response.dto';
@@ -20,7 +21,7 @@ export class RecipeRepository {
         const url = this.routingService.generate('api_get_recipes');
 
         return this.http
-            .get<Pageable<RecipeResponseDto>>(url, {params: filter})
+            .get<PageableDto<RecipeResponseDto>>(url, {params: filter})
             .map((pageableDto) => this.pageableFactory.getPageable<RecipeResponseDto, Recipe>(pageableDto, Recipe));
     }
 

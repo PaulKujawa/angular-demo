@@ -1,6 +1,7 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
+import {MatCardModule, MatCheckboxModule, MatInputModule, MatTabsModule, MatListModule} from '@angular/material';
 import {SharedModule} from '../shared/shared.module';
 import {MacroChartComponent} from './component/macro-chart.component';
 import {RecipeDetailComponent} from './component/recipe-detail.component';
@@ -14,6 +15,11 @@ import {RecipeState} from './service/recipe.state';
 @NgModule({
     imports: [
         CommonModule,
+        MatCardModule,
+        MatCheckboxModule,
+        MatInputModule,
+        MatListModule,
+        MatTabsModule,
         FormsModule,
         SharedModule,
         RecipeRoutingModule,
