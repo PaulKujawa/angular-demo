@@ -1,6 +1,7 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
+import {MatButtonModule, MatCheckboxModule, MatInputModule, MatListModule} from '@angular/material';
 import {SharedModule} from '../shared/shared.module';
 import {ProductDetailComponent} from './component/product-detail.component';
 import {ProductFilterComponent} from './component/product-filter.component';
@@ -10,12 +11,14 @@ import {ProductComponent} from './component/product.component';
 import {ProductRoutingModule} from './product-routing.module';
 import {ProductRepository} from './repository/product.repository';
 import {ProductState} from './service/product.state';
-import {MatButtonModule} from '@angular/material';
 
 @NgModule({
     imports: [
         CommonModule,
         MatButtonModule,
+        MatCheckboxModule,
+        MatInputModule,
+        MatListModule,
         ReactiveFormsModule,
         SharedModule,
         ProductRoutingModule,

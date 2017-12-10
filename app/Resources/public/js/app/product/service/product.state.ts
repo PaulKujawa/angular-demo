@@ -2,11 +2,11 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {Pageable} from '../../core/model/pageable';
+import {PageableState} from '../../shared/model/pageable.state';
 import {FilterState} from '../../shared/service/filter.state';
 import {ProductRequestDto} from '../model/dto/product-request.dto';
 import {Product} from '../model/product';
 import {ProductRepository} from '../repository/product.repository';
-import {PageableState} from '../../shared/model/pageable.state';
 
 @Injectable()
 export class ProductState implements PageableState {

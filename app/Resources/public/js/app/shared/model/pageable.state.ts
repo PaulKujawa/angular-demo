@@ -3,5 +3,5 @@ import {Pageable} from '../../core/model/pageable';
 import {Doc} from '../../core/interface/doc.interface';
 
 export abstract class PageableState {
-    abstract getPageable(): Observable<Pageable<Doc>>;
+    public abstract getPageable(): Observable<Pageable<Doc>>;
 }

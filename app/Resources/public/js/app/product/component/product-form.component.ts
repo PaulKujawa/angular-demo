@@ -9,91 +9,84 @@ import {ProductState} from '../service/product.state';
 @Component({
     selector: 'product-form',
     template: `
-        <form [formGroup]="productForm" (ngSubmit)="onSubmit()" novalidate>
-            <div class="row">
-                <div class="col-xs-12 col-sm-5 form-group">
-                    <label>{{'app.product.form.name' | trans}}</label>
-                    <input class="form-control"
-                           formControlName="name">
-                </div>
-                <div class="col-xs-12 col-sm-4 form-group">
-                    <label>{{'app.product.form.manufacturer' | trans}}</label>
-                    <input class="form-control"
-                           formControlName="manufacturer">
-                </div>
-                <div class="col-xs-12 col-sm-3 form-group">
-                    <label>{{'app.product.form.gr' | trans}}</label>
-                    <input type="number"
-                           class="form-control"
-                           formControlName="gr">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-4 form-group">
-                    <label>{{'app.product.form.kcal' | trans}}</label>
-                    <input type="number"
-                           class="form-control"
-                           formControlName="kcal">
-                </div>
-                <div class="col-xs-12 col-sm-4 form-group">
-                    <label>{{'app.product.form.carbs' | trans}}</label>
-                    <input type="number"
-                           step="0.1"
-                           class="form-control"
-                           formControlName="carbs">
-                </div>
-                <div class="col-xs-12 col-sm-4 form-group">
-                    <label>{{'app.product.form.fat' | trans}}</label>
-                    <input type="number"
-                           step="0.1"
-                           class="form-control"
-                           formControlName="fat">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-4 form-group">
-                    <label>{{'app.product.form.protein' | trans}}</label>
-                    <input type="number"
-                           step="0.1"
-                           class="form-control"
-                           formControlName="protein">
-                </div>
-                <div class="col-xs-12 col-sm-4 form-group">
-                    <label>{{'app.product.form.sugar' | trans}}</label>
-                    <input type="number"
-                           step="0.1"
-                           class="form-control"
-                           formControlName="sugar">
-                </div>
-                <div class="col-xs-12 col-sm-4 form-group">
-                    <label>{{'app.product.form.gfat' | trans}}</label>
-                    <input type="number"
-                           step="0.1"
-                           class="form-control"
-                           formControlName="gfat">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 checkbox">
-                    <label>
-                        <input type="checkbox"
-                               formControlName="vegan">
-                        {{'app.product.form.vegan' | trans}}
-                    </label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <button class="btn btn-danger"
-                            (click)="onDelete(inputProduct)"
-                            *ngIf="inputProduct">
-                        {{'app.common.delete' | trans}}
-                    </button>
-                    <button class="btn btn-primary"
-                            [disabled]="productForm.invalid">
-                        {{'app.common.submit' | trans}}
-                    </button>
-                </div>
+        <form [formGroup]="productForm"
+              (ngSubmit)="onSubmit()"
+              novalidate>
+            <section>
+                <mat-checkbox formControlName="vegan">
+                    {{'app.product.form.vegan'|trans}}
+                </mat-checkbox>
+            </section>
+            <mat-form-field>
+                <input matInput
+                       [placeholder]="'app.product.form.name'|trans"
+                       formControlName="name">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput
+                       [placeholder]="'app.product.form.manufacturer'|trans"
+                       formControlName="manufacturer">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput
+                       [placeholder]="'app.product.form.gr'|trans"
+                       type="number"
+                       formControlName="gr">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput
+                       [placeholder]="'app.product.form.kcal'|trans"
+                       type="number"
+                       formControlName="kcal">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput
+                       [placeholder]="'app.product.form.carbs'|trans"
+                       type="number"
+                       step="0.1"
+                       formControlName="carbs">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput
+                       [placeholder]="'app.product.form.fat'|trans"
+                       type="number"
+                       step="0.1"
+                       formControlName="fat">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput
+                       [placeholder]="'app.product.form.protein'|trans"
+                       type="number"
+                       step="0.1"
+                       formControlName="protein">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput
+                       [placeholder]="'app.product.form.sugar'|trans"
+                       type="number"
+                       step="0.1"
+                       formControlName="sugar">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput
+                       [placeholder]="'app.product.form.gfat'|trans"
+                       type="number"
+                       step="0.1"
+                       formControlName="gfat">
+            </mat-form-field>
+
+            <div>
+                <button *ngIf="inputProduct"
+                        mat-raised-button
+                        color="warn"
+                        (click)="onDelete(inputProduct)">
+                    {{'app.common.delete' | trans}}
+                </button>
+                <button mat-raised-button
+                        color="primary"
+                        [disabled]="productForm.invalid">
+                    {{'app.common.submit' | trans}}
+                </button>
             </div>
         </form>
     `,
@@ -137,7 +130,7 @@ export class ProductFormComponent implements OnChanges {
 
         return {
             name: (product && product.name) || '',
-            vegan: (product && product.vegan) || true,
+            vegan: !!product && product.vegan,
             gr: (product && product.gr) || 0,
             kcal: (product && product.kcal) || 0,
             protein: (product && product.protein) || 0,

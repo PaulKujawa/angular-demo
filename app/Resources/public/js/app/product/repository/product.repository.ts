@@ -2,12 +2,12 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {PageableFactory} from '../../core/factory/pageable.factory';
+import {PageableDto} from '../../core/model/dto/pageable.dto';
 import {Pageable} from '../../core/model/pageable';
 import {RoutingService} from '../../core/service/routing.service';
 import {ProductRequestDto} from '../model/dto/product-request.dto';
 import {ProductResponseDto} from '../model/dto/product-response.dto';
 import {Product} from '../model/product';
-import {PageableDto} from '../../core/model/dto/pageable.dto';
 
 @Injectable()
 export class ProductRepository {

@@ -1,5 +1,6 @@
+import {Doc} from '../interface/doc.interface';
 import {PageableDto} from '../model/dto/pageable.dto';
-import {Doc, Pageable} from '../model/pageable';
+import {Pageable} from '../model/pageable';
 import {Pagination} from '../model/pagination';
 
 /**

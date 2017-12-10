@@ -5,13 +5,13 @@ import {FilterState} from '../../shared/service/filter.state';
 @Component({
     selector: 'product-filter',
     template: `
-        <div class="app-product-filter">
+        <mat-form-field class="app-product-filter">
             <input #search
+                   matInput
                    [placeholder]="'app.common.filter.search'|trans"
                    (keyup)="setName(search.value)"
-                   class="form-control"
-                   type="text">
-        </div>
+                   type="search">
+        </mat-form-field>
     `,
 })
 export class ProductFilterComponent implements OnDestroy {

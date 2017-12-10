@@ -34,6 +34,7 @@ import {RecipeRepository} from '../repository/recipe.repository';
                             </mat-list>
                         </mat-tab>
                     </mat-tab-group>
+                </div>
             </div>
         </div>
     `,
