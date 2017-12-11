@@ -64,7 +64,7 @@ export class InquiryFormComponent implements OnInit, OnDestroy {
     }
 
     public onSubmit(): void {
-        const inquiry = this.map(this.inquiryForm.value);
+        const inquiry: Inquiry = this.inquiryForm.value;
 
         this.subscription = this.inquiryRepository
             .postInquiry(inquiry)
@@ -72,13 +72,5 @@ export class InquiryFormComponent implements OnInit, OnDestroy {
                 this.flashMessageService.showSuccess({id: 'app.api.inquiry_success'}, 5000);
                 this.changeDetectorRef.markForCheck();
             });
-    }
-
-    private map(model: Inquiry): Inquiry {
-        return {
-            message: model.message,
-            email: model.email,
-            name: model.name,
-        };
     }
 }

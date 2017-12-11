@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {ProductRequestDto} from '../model/dto/product-request.dto';
@@ -105,7 +105,7 @@ export class ProductFormComponent implements OnChanges {
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes.inputProduct) {
             const productConfig = this.getConfig();
-            this.productForm.setValue(productConfig);
+            this.productForm = this.formBuilder.group(productConfig);
         }
     }
 
@@ -129,16 +129,43 @@ export class ProductFormComponent implements OnChanges {
         const product = this.inputProduct;
 
         return {
-            name: (product && product.name) || '',
+            name: new FormControl(product && product.name || '', [
+                Validators.required,
+                Validators.minLength(3),
+                Validators.maxLength(40),
+            ]),
             vegan: !!product && product.vegan,
-            gr: (product && product.gr) || 0,
-            kcal: (product && product.kcal) || 0,
-            protein: (product && product.protein) || 0,
-            carbs: (product && product.carbs) || 0,
-            sugar: (product && product.sugar) || 0,
-            fat: (product && product.fat) || 0,
-            gfat: (product && product.gfat) || 0,
-            manufacturer: (product && product.manufacturer ) || '',
+            gr: new FormControl(product && product.gr || 0, [
+                Validators.min(0),
+                Validators.required,
+            ]),
+            kcal: new FormControl(product && product.kcal || 0, [
+                Validators.min(0),
+                Validators.required,
+            ]),
+            protein: new FormControl(product && product.protein || 0, [
+                Validators.min(0),
+                Validators.required,
+            ]),
+            carbs: new FormControl(product && product.carbs || 0, [
+                Validators.min(0),
+                Validators.required,
+            ]),
+            sugar: new FormControl(product && product.sugar || 0, [
+                Validators.min(0),
+                Validators.required,
+            ]),
+            fat: new FormControl(product && product.fat || 0, [
+                Validators.min(0),
+                Validators.required,
+            ]),
+            gfat: new FormControl(product && product.gfat || 0, [
+                Validators.min(0),
+                Validators.required,
+            ]),
+            manufacturer: new FormControl(product && product.manufacturer  || '', [
+                Validators.maxLength(40),
+            ]),
         };
     }
 }
