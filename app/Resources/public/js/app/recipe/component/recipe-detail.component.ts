@@ -8,7 +8,7 @@ import {RecipeRepository} from '../repository/recipe.repository';
 @Component({
     template: `
         <div *ngIf="recipeSubject|async as recipe">
-            <h1 class="text-center">{{recipe.name}}</h1>
+            <h1>{{recipe.name}}</h1>
 
             <div class="row">
                 <div class="col-xs-12 col-sm-5 col-md-6">

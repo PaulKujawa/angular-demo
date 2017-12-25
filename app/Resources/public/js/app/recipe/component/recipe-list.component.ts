@@ -15,12 +15,18 @@ import {RecipeState} from '../service/recipe.state';
              class="row">
 
             <div *ngFor="let recipe of recipes.docs"
-                  class="col-xs-12 col-sm-6 col-md-3" style="margin-bottom: 30px">
+                 class="col-xs-12 col-sm-6 col-md-3"
+                 style="margin-bottom: 30px">
                 <mat-card (click)="onClick(recipe)"
                           [style.cursor]="'pointer'">
                     <mat-card-header>
-                        <mat-card-title>{{recipe.name}}</mat-card-title>
-                        <mat-card-subtitle>{{recipe.updated | date}}</mat-card-subtitle>
+                        <mat-card-title>
+                            {{recipe.name}}
+                        </mat-card-title>
+
+                        <mat-card-subtitle>
+                            {{recipe.updated | date}}
+                        </mat-card-subtitle>
                     </mat-card-header>
 
                     <img mat-card-image

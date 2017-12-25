@@ -1,51 +1,5 @@
-// own variables
-// ---------------
-
-// colors
-$barra-black: #141414;
-$barra-white: #FFF;
-$barra-red: #F7464A;
-$barra-green: #3C948B;
-$barra-yellow: #FDB45C;
-$barra-grey-border: #DDD;
-$barra-grey-background: #F9F9F9;
-$barra-grey-font-bright: #777;
-$barra-grey-font-dark: #555;
-
-// font-sizes
-$barra-font-size-base: 16px;
-
-// media querries
 $media-query-max-xs: "(max-width: 767px)";
 $media-query-min-sm: "(min-width: 768px)";
 $media-query-min-md: "(min-width: 992px)";
 $media-query-min-lg: "(min-width: 1200px)";
-
-
-// override bootstrap variables
-// -----------------------------
-
-// common
-$border-radius-base: 1;
-
-// colors
-$brand-danger: $barra-red;
-$state-success-bg: $barra-green;
-
-// font
-$font-size-base: $barra-font-size-base;
-$alert-success-text: $barra-white;
-
-// badges
-$badge-bg: inherit;
-
-/*
- * fonts
- * see https://github.com/webpack-contrib/sass-loader/issues/40
- */
-$bootstrap-sass-asset-helper: true;
-
-@import "~bootstrap-sass/assets/stylesheets/bootstrap/variables";
-@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
-
 

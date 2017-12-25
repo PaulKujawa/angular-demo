@@ -1,0 +1,13 @@
+@import "../import/variables";
+
+.app-macro-chart {
+  overflow: hidden;
+  height: 20px;
+
+  div {
+    float: left;
+    line-height: 22px;
+    color: #fff;
+    text-align: center;
+  }
+}

@@ -1,8 +1,14 @@
 @import "import/variables";
-@import "import/components";
+@import "import/bootstrap";
+@import "import/normalize";
+
+@import "app/body";
 @import "app/filter";
 @import "app/inquiry";
 @import "app/inquiry-form";
 @import "app/nav";
 @import "app/product-list";
 @import "app/recipe-detail";
+@import "app/recipe-list";
+
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
