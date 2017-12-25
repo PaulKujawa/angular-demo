@@ -3,6 +3,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatToolbarModule} from '@angular/material/toolbar';
 import {RouterModule} from '@angular/router';
 import {SharedModule} from '../shared/shared.module';
 import {AuthComponent} from './component/auth.component';
@@ -32,6 +33,7 @@ import {TranslationService} from './service/translation.service';
         FormsModule,
         HttpClientModule,
         MatSnackBarModule,
+        MatToolbarModule,
         SharedModule,
         RouterModule,
     ],

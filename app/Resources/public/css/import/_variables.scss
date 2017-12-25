@@ -16,9 +16,10 @@ $barra-grey-font-dark: #555;
 $barra-font-size-base: 16px;
 
 // media querries
+$media-query-max-xs: "(max-width: 767px)";
 $media-query-min-sm: "(min-width: 768px)";
-$media-query-min-md: "(max-width: 992px)";
-$media-query-min-lg: "(max-width: 1200px)";
+$media-query-min-md: "(min-width: 992px)";
+$media-query-min-lg: "(min-width: 1200px)";
 
 
 // override bootstrap variables
@@ -45,6 +46,6 @@ $badge-bg: inherit;
 $bootstrap-sass-asset-helper: true;
 
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/variables";
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
 
