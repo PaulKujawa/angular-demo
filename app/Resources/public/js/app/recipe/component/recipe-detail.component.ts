@@ -8,33 +8,29 @@ import {RecipeRepository} from '../repository/recipe.repository';
 @Component({
     template: `
         <div *ngIf="recipeSubject|async as recipe">
-            <h1>{{recipe.name}}</h1>
+            <div class="app-recipe-detail">
+                <h1>{{recipe.name}}</h1>
 
-            <div class="row">
-                <div class="col-xs-12 col-sm-5 col-md-6">
-                    <img class="app-recipe-detail__image"
-                         [src]="getImageUrl(recipe)">
-                </div>
+                <img class="app-recipe-detail__image"
+                     [src]="getImageUrl(recipe)">
 
-                <div class="col-xs-12 col-sm-7 col-md-6">
-                    <mat-tab-group>
-                        <mat-tab [label]="'app.recipe.ingredients'|trans">
-                            <mat-list>
-                                <mat-list-item *ngFor="let ingredient of recipe.ingredients">
-                                    {{getMeasurement(ingredient)}} {{ingredient.product.name}}
-                                </mat-list-item>
-                            </mat-list>
-                        </mat-tab>
+                <mat-tab-group>
+                    <mat-tab [label]="'app.recipe.ingredients'|trans">
+                        <mat-list>
+                            <mat-list-item *ngFor="let ingredient of recipe.ingredients">
+                                {{getMeasurement(ingredient)}} {{ingredient.product.name}}
+                            </mat-list-item>
+                        </mat-list>
+                    </mat-tab>
 
-                        <mat-tab [label]="'app.recipe.cooking'|trans">
-                            <mat-list>
-                                <mat-list-item *ngFor="let cooking of recipe.cookings">
-                                    {{cooking.description}}
-                                </mat-list-item>
-                            </mat-list>
-                        </mat-tab>
-                    </mat-tab-group>
-                </div>
+                    <mat-tab [label]="'app.recipe.cooking'|trans">
+                        <mat-list>
+                            <mat-list-item *ngFor="let cooking of recipe.cookings">
+                                {{cooking.description}}
+                            </mat-list-item>
+                        </mat-list>
+                    </mat-tab>
+                </mat-tab-group>
             </div>
         </div>
     `,

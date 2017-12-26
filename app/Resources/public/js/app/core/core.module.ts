@@ -1,7 +1,9 @@
 import {CommonModule} from '@angular/common';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {RouterModule} from '@angular/router';
@@ -30,11 +32,13 @@ import {TranslationService} from './service/translation.service';
 @NgModule({
     imports: [
         CommonModule,
-        FormsModule,
         HttpClientModule,
+        MatButtonModule,
+        MatInputModule,
         MatSnackBarModule,
         MatToolbarModule,
         SharedModule,
+        ReactiveFormsModule,
         RouterModule,
     ],
     declarations: [

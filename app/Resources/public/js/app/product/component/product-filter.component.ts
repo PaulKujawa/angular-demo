@@ -5,7 +5,7 @@ import {FilterState} from '../../shared/service/filter.state';
 @Component({
     selector: 'product-filter',
     template: `
-        <mat-form-field class="app-product-filter">
+        <mat-form-field>
             <input #search
                    matInput
                    [placeholder]="'app.common.filter.search'|trans"

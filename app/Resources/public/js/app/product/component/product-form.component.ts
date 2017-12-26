@@ -9,9 +9,9 @@ import {ProductState} from '../service/product.state';
 @Component({
     selector: 'product-form',
     template: `
-        <form [formGroup]="productForm"
-              (ngSubmit)="onSubmit()"
-              novalidate>
+        <form novalidate
+              [formGroup]="productForm"
+              (ngSubmit)="onSubmit()">
             <section>
                 <mat-checkbox formControlName="vegan">
                     {{'app.product.form.vegan'|trans}}

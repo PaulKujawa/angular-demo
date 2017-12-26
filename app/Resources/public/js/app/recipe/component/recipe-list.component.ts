@@ -5,46 +5,31 @@ import {RecipeState} from '../service/recipe.state';
 
 @Component({
     template: `
-        <div class="row">
-            <div class="col-xs-12">
-                <recipe-filter></recipe-filter>
-            </div>
-        </div>
+        <recipe-filter></recipe-filter>
 
         <div *ngIf="recipeState.getPageable()|async as recipes"
-             class="row">
+             class="app-recipe-list">
+            <mat-card *ngFor="let recipe of recipes.docs"
+                      (click)="onClick(recipe)"
+                      class="app-recipe-list__card">
+                <mat-card-header>
+                    <mat-card-title>{{recipe.name}}</mat-card-title>
 
-            <div *ngFor="let recipe of recipes.docs"
-                 class="col-xs-12 col-sm-6 col-md-3"
-                 style="margin-bottom: 30px">
-                <mat-card (click)="onClick(recipe)"
-                          [style.cursor]="'pointer'">
-                    <mat-card-header>
-                        <mat-card-title>
-                            {{recipe.name}}
-                        </mat-card-title>
+                    <mat-card-subtitle>{{recipe.updated | date}}</mat-card-subtitle>
+                </mat-card-header>
 
-                        <mat-card-subtitle>
-                            {{recipe.updated | date}}
-                        </mat-card-subtitle>
-                    </mat-card-header>
+                <img mat-card-image
+                     [src]="getImageUrl(recipe)"
+                     [attr.alt]="recipe.name">
 
-                    <img mat-card-image
-                         [src]="getImageUrl(recipe)"
-                         [attr.alt]="recipe.name">
-
-                    <mat-card-content>
-                        <macro-chart [macros]="recipe.macros">
-                        </macro-chart>
-                    </mat-card-content>
-                </mat-card>
-            </div>
-
-            <div class="col-xs-12">
-                <pagination class="pull-right">
-                </pagination>
-            </div>
+                <mat-card-content>
+                    <macro-chart [macros]="recipe.macros">
+                    </macro-chart>
+                </mat-card-content>
+            </mat-card>
         </div>
+
+        <pagination></pagination>
     `,
 })
 export class RecipeListComponent {
@@ -54,6 +39,7 @@ export class RecipeListComponent {
 
     public onClick(recipe: Recipe): void {
         const recipeName = recipe.name.replace(' ', '-');
+
         this.router.navigate(['/recipes', recipe.id, recipeName]);
     }
 

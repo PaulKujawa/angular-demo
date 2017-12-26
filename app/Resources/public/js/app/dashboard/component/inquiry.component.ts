@@ -2,15 +2,13 @@ import {Component} from '@angular/core';
 
 @Component({
     template: `
-        <div class="row">
-            <div class="col-xs-12 col-sm-5 app-inquiry">
-                <img class="app-inquiry__image"
+        <div class="app-inquiry">
+            <div class="app-inquiry__image">
+                <img class="app-inquiry-image__item"
                      src="../../images/kujawa.jpg">
             </div>
 
-            <div class="col-xs-12 col-sm-7">
-                <inquiry-form></inquiry-form>
-            </div>
+            <inquiry-form></inquiry-form>
         </div>
     `,
 })

@@ -5,24 +5,20 @@ import {FilterState} from '../../shared/service/filter.state';
 @Component({
     selector: 'recipe-filter',
     template: `
-        <div class="row app-filter">
-            <div class="col-xs-12 col-sm-6">
-                <mat-form-field style="width: 100%">
-                    <input #search
-                           matInput
-                           (keyup)="setName(search.value)"
-                           [placeholder]="'app.common.filter.search'|trans">
-                </mat-form-field>
-            </div>
+        <div class="app-recipe-list__filter">
+            <mat-form-field class="app-recipe-list-filter__search">
+                <input #search
+                       matInput
+                       (keyup)="setName(search.value)"
+                       [placeholder]="'app.common.filter.search'|trans">
+            </mat-form-field>
 
-            <div class="col-xs-2 col-sm-3">
-                <section>
-                    <mat-checkbox #veganOnly
-                                  (change)="setVegan(veganOnly.checked)">
-                        {{'app.recipe.filter.vegan_only'|trans}}
-                    </mat-checkbox>
-                </section>
-            </div>
+            <section class="app-recipe-list-filter__vegan">
+                <mat-checkbox #veganOnly
+                              (change)="setVegan(veganOnly.checked)">
+                    {{'app.recipe.filter.vegan_only'|trans}}
+                </mat-checkbox>
+            </section>
         </div>
     `,
 })

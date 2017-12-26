@@ -1,12 +1,21 @@
 @import "../import/variables";
 
 .app-inquiry {
-  text-align: center;
+  @media #{$media-query-min-sm} {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+  }
 }
 
 .app-inquiry__image {
-  max-width: 100%;
-  margin: 0 auto 20px;
-  height: auto;
+  text-align: center;
+
+  @media #{$media-query-min-sm} {
+    align-self: center;
+    justify-self: center;
+  }
+}
+
+.app-inquiry-image__item {
   border-radius: 50%;
 }

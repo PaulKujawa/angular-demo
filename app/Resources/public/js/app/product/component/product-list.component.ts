@@ -5,38 +5,34 @@ import {ProductState} from '../service/product.state';
 
 @Component({
     template: `
-        <div class="row">
-            <div class="col-xs-8 col-sm-4 col-md-3">
-                <product-filter></product-filter>
-            </div>
-
-            <div class="col-xs-4 col-sm-2 col-md-1">
+        <div class="app-product-list">
+            <div class="app-product-list__filter">
                 <button mat-raised-button
                         color="accent"
                         (click)="onAddProduct()"
-                        class="app-product__create">
+                        class="app-product-list-filter__create">
                     {{'app.common.new' | trans}}
                 </button>
-            </div>
-        </div>
 
-        <div *ngIf="productState.getPageable()|async as products"
-             class="row">
-            <div class="col-xs-12 col-sm-6 col-md-4">
-                <mat-nav-list>
-                    <a *ngFor="let product of products.docs"
-                       mat-list-item
-                       (click)="onSelectProduct(product)">
-                        {{product.name}}
-                    </a>
-                </mat-nav-list>
-
-                <pagination></pagination>
+                <product-filter></product-filter>
             </div>
 
-            <div class="col-xs-12 col-sm-6 col-md-8">
-                <router-outlet></router-outlet>
+            <mat-nav-list *ngIf="productState.getPageable()|async as products"
+                          class="app-product-list">
+                <a *ngFor="let product of products.docs"
+                   mat-list-item
+                   (click)="onSelectProduct(product)">
+                    {{product.name}}
+                </a>
+            </mat-nav-list>
+
+            <pagination></pagination>
+
+            <div class="app-product-list__outlet">
+                <router-outlet>
+                </router-outlet>
             </div>
+
         </div>
     `,
 })

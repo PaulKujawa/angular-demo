@@ -1,46 +1,52 @@
 import {Component} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Credentials} from '../repository/auth.repository';
 import {AuthenticationService} from '../service/authentication.service';
 
 @Component({
     template: `
-        <div class="row">
-            <div id="loginPage">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
-                        <form #authForm="ngForm" (ngSubmit)="onSubmit()">
-                            <div class="form-group">
-                                <input type="text" required autofocus class="form-control"
-                                       placeholder="{{'security.login.username'|trans}}"
-                                       name="username" [(ngModel)]="credentials.username">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" required class="form-control"
-                                       placeholder="{{'security.login.password'|trans}}"
-                                       name="password" [(ngModel)]="credentials.password">
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" [disabled]="!authForm.form.valid"
-                                        class="btn btn-primary btn-block">
-                                    {{'app.common.submit' | trans}}
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <form novalidate
+              [formGroup]="authForm"
+              (ngSubmit)="onSubmit()"
+              class="app-auth">
+            <mat-form-field>
+                <input autofocus
+                       matInput
+                       [placeholder]="'security.login.username'|trans"
+                       formControlName="username">
+            </mat-form-field>
+
+            <mat-form-field>
+                <input type="password"
+                        matInput
+                       [placeholder]="'security.login.password'|trans"
+                       formControlName="password">
+            </mat-form-field>
+
+            <button mat-raised-button
+                    color="primary"
+                    [disabled]="authForm.invalid">
+                {{'app.common.submit' | trans}}
+            </button>
+        </form>
     `,
 })
 export class AuthComponent {
-    public credentials: Credentials = {username: '', password: ''};
+    public authForm: FormGroup;
 
-    constructor(private authenticationService: AuthenticationService) {
+    constructor(private authenticationService: AuthenticationService,
+                formBuilder: FormBuilder) {
+        this.authForm = formBuilder.group({
+            username: new FormControl('', Validators.required),
+            password: new FormControl('', Validators.required),
+        });
     }
 
     public onSubmit(): void {
+        const credentials: Credentials = this.authForm.value;
+
         this.authenticationService
-            .authenticate(this.credentials)
+            .authenticate(credentials)
             .subscribe(() => this.authenticationService.navigateToTargetUrl());
     }
 }
