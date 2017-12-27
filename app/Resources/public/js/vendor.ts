@@ -50,8 +50,3 @@ import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/switchMapTo';
 import 'rxjs/add/operator/take';
-
-// see webpack ProvidePlugin
-import 'jquery';
-// tslint:disable-next-line:ordered-imports
-import 'bootstrap-sass/assets/javascripts/bootstrap';

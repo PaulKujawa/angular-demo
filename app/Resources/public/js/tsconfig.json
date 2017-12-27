@@ -20,6 +20,6 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "es5",
-    "types": ["jasmine", "jquery", "webpack-env"]
+    "types": ["jasmine", "webpack-env"]
   }
 }

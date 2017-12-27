@@ -53,7 +53,6 @@ export const getCommonConfig = (args: WebpackArgs): Configuration => {
             // this lets them behave like globally declared variables
             // add module declarations via type defintions files to provide type checks
             new webpack.ProvidePlugin({
-                jQuery: 'jquery', // e.g. for bootstr   ap-sass package
                 Translator: 'web/bundles/bazingajstranslation/js/translator.min.js',
             }),
         ],
