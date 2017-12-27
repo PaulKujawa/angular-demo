@@ -1,11 +1,9 @@
 import {Inject, Injectable} from '@angular/core';
-import {BaseUrlInjectToken} from '../provider/base-url.provider';
-import {FosJsRouter} from '../provider/fos-js-router.provider';
-import {RequestLocaleInjectToken} from '../provider/request-locale.provider';
+import {BaseUrlInjectToken, FosRouterInjectToken, RequestLocaleInjectToken} from '../core.token';
 
 @Injectable()
 export class RoutingService {
-    constructor(private fosJsRouter: FosJsRouter,
+    constructor(@Inject(FosRouterInjectToken) private fosJsRouter: FosJsRouter,
                 @Inject(BaseUrlInjectToken) private baseUrl: string,
                 @Inject(RequestLocaleInjectToken) private requestLocale: string) {
     }

@@ -1,5 +1,6 @@
 {
   "angularCompilerOptions": {
+    "preserveWhitespaces": false,
     "debug": false,
     "skipMetadataEmit": true,
     "trace": true
@@ -20,6 +21,5 @@
     "strict": true,
     "target": "es5",
     "types": ["jasmine", "jquery", "webpack-env"]
-  },
-  "exclude": ["node_modules", "web"]
+  }
 }

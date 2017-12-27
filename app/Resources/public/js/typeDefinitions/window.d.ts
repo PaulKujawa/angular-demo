@@ -4,7 +4,7 @@
 
 interface Window {
     readonly appInject: AppInject;
-    readonly Routing: FosJsRouting;
+    readonly Routing: FosJsRouter;
 }
 
 declare module 'window' {

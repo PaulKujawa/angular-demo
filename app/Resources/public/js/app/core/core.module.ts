@@ -7,17 +7,14 @@ import {SharedModule} from '../shared/shared.module';
 import {AuthComponent} from './component/auth.component';
 import {FlashMessageComponent} from './component/flash-message.component';
 import {NavBarComponent} from './component/nav-bar.component';
+import {
+    AuthenticatedInjectToken, BaseUrlInjectToken, FosRouterInjectToken, RequestLocaleInjectToken,
+    TranslatorInjectToken, WindowInjectToken,
+} from './core.token';
 import {PageableFactory} from './factory/pageable.factory';
-import {authenticatedProvider} from './provider/authenticated.provider';
-import {baseUrlProvider} from './provider/base-url.provider';
-import {fosJsRouterProvider} from './provider/fos-js-router.provider';
-import {requestLocaleProvider} from './provider/request-locale.provider';
-import {translatorProvider} from './provider/translator.provider';
-import {windowProvider} from './provider/window.provider';
 import {AuthRepository} from './repository/auth.repository';
 import {AuthenticationGuard} from './service/auth-guard.service';
 import {AuthenticationService} from './service/authentication.service';
-import {DeviceDetectService} from './service/device-detection.service';
 import {FlashMessageInterceptor} from './service/flash-message.interceptor';
 import {FlashMessageService} from './service/flash-message.service';
 import {HeadersInterceptor} from './service/headers.interceptor';
@@ -46,7 +43,6 @@ import {TranslationService} from './service/translation.service';
         AuthenticationGuard,
         AuthenticationService,
         AuthRepository,
-        DeviceDetectService,
         InViewportService,
         FlashMessageService,
         PageableFactory,
@@ -54,14 +50,12 @@ import {TranslationService} from './service/translation.service';
         TranslationService,
         {provide: HTTP_INTERCEPTORS, useClass: HeadersInterceptor, multi: true},
         {provide: HTTP_INTERCEPTORS, useClass: FlashMessageInterceptor, multi: true},
-
-        // backend provider
-        authenticatedProvider,
-        baseUrlProvider,
-        fosJsRouterProvider,
-        requestLocaleProvider,
-        translatorProvider,
-        windowProvider,
+        {provide: AuthenticatedInjectToken, useFactory: () => window.appInject.authenticated},
+        {provide: BaseUrlInjectToken, useFactory: () => window.appInject.baseUrl},
+        {provide: FosRouterInjectToken, useFactory: () => window.Routing},
+        {provide: RequestLocaleInjectToken, useFactory: () => window.appInject.requestLocale},
+        {provide: TranslatorInjectToken, useFactory: () => Translator},
+        {provide: WindowInjectToken, useFactory: () => window},
     ],
 })
 export class CoreModule {

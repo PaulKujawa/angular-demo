@@ -58,7 +58,7 @@ export const webpackConfig = (args: WebpackArgs): Configuration => {
 
             // @see https://github.com/angular/angular/issues/11580
             new webpack.ContextReplacementPlugin(
-                /angular(\\|\/)core(\\|\/)@angular/,
+                /(.+)?angular(\\|\/)core(.+)?/,
                 path.resolve(__dirname, '../src'),
             ),
         ],

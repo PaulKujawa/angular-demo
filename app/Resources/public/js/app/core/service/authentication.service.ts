@@ -2,7 +2,7 @@ import {Inject, Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
-import {AuthenticatedInjectToken} from '../provider/authenticated.provider';
+import {AuthenticatedInjectToken} from '../core.token';
 import {AuthRepository, Credentials} from '../repository/auth.repository';
 
 @Injectable()

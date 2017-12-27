@@ -5,7 +5,7 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
-const {AotPlugin} = require('@ngtools/webpack');
+const {AngularCompilerPlugin} = require('@ngtools/webpack');
 
 export const webpackConfig = (args: WebpackArgs): Configuration => {
     const rootPath = path.join(__dirname, '../../..');
@@ -17,7 +17,6 @@ export const webpackConfig = (args: WebpackArgs): Configuration => {
         module: {
             rules: [
                 {
-                    // write templates inline and transpile ts to js TODO more precise description
                     test: /\.ts$/,
                     use: [
                         {loader: 'cache-loader', options: {cacheDirectory: `${cachePath}/js`}},
@@ -37,8 +36,8 @@ export const webpackConfig = (args: WebpackArgs): Configuration => {
             ],
         },
         plugins: [
-            new AotPlugin({
-                tsConfigPath: `${jsPath}/tsconfig.json`,
+            new AngularCompilerPlugin({
+                tsConfigPath: path.join(jsPath, 'tsconfig.json'),
                 entryModule: path.join(jsPath, 'app/app.module#AppModule'),
             }),
 
