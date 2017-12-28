@@ -3,19 +3,3 @@ $media-query-min-sm: "(min-width: 768px)";
 $media-query-min-md: "(min-width: 992px)";
 $media-query-min-lg: "(min-width: 1200px)";
 
-// TODO evaluate if this should be replaced with a material design
-.container {
-  margin-right: auto;
-  margin-left: auto;
-  padding-left: 15px;
-  padding-right: 15px;
-
-  @media #{$media-query-min-sm} {
-    width: 750px;
-  }
-
-  @media #{$media-query-min-md} {
-    width: 970px;
-  }
-}
-

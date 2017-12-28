@@ -1,0 +1,24 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 14px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1.42857;
+}
+
+spa > section {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+
+  @media #{$media-query-min-sm} {
+    width: 750px;
+  }
+
+  @media #{$media-query-min-md} {
+    width: 970px;
+  }
+}
