@@ -1,5 +1,5 @@
 @import "import/normalize";
-@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "import/material";
 @import "import/variables";
 
 @import "app/auth";
@@ -10,4 +10,3 @@
 @import "app/product-list";
 @import "app/recipe-detail";
 @import "app/recipe-list";
-
