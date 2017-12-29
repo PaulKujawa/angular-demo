@@ -1,11 +1,12 @@
 @import "../import/variables";
+@import "../mixin/recipe-list-theme";
 
-$app-recipe-list_grid-gap: 30px;
+@include app-recipe-list_macro-theme($app-mat_theme);
 
 .app-recipe-list {
   display: grid;
-  grid-column-gap: $app-recipe-list_grid-gap;
-  grid-row-gap: $app-recipe-list_grid-gap;
+  grid-column-gap: $app-shared_grid-gap;
+  grid-row-gap: $app-shared_grid-gap;
 
   @media #{$media-query-min-sm} {
     grid-template-columns: 1fr 1fr;
@@ -35,7 +36,7 @@ $app-recipe-list_grid-gap: 30px;
   margin-left: 15px;
 }
 
-.app-macro-chart {
+.app-recipe-list_macro {
   overflow: hidden;
   height: 20px;
 

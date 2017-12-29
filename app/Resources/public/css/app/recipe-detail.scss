@@ -1,11 +1,9 @@
 @import "../import/variables";
 
-$app-recipe-detail_grid-gap: 30px;
-
 .app-recipe-detail {
   display: grid;
-  grid-column-gap: $app-recipe-detail_grid-gap;
-  grid-row-gap: $app-recipe-detail_grid-gap;
+  grid-column-gap: $app-shared_grid-gap;
+  grid-row-gap: $app-shared_grid-gap;
 
   @media #{$media-query-min-sm} {
     grid-template-columns: 1fr 1fr;

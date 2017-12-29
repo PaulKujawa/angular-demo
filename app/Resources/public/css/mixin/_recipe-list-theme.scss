@@ -1,0 +1,19 @@
+@mixin app-recipe-list_macro-theme($theme) {
+  $carbs: map-get($theme, accent);
+  $protein: map-get($theme, primary);
+  $fat: map-get($theme, warn);
+
+  .app-recipe-list_macro {
+    div:first-child {
+      background-color: mat-color($carbs);
+    }
+
+    div:nth-child(2) {
+      background-color: mat-color($protein);
+    }
+
+    div:nth-child(3) {
+      background-color: mat-color($fat);
+    }
+  }
+}

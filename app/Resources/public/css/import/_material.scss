@@ -1,11 +1,11 @@
 @import '~@angular/material/theming';
+
 @include mat-core();
 
-$app-mat_primary: mat-palette($mat-deep-purple);
-$app-mat_accent: mat-palette($mat-amber);
-$app-mat_theme: mat-light-theme($app-mat_primary, $app-mat_accent);
+@import "variables";
 
-// angular-material-theme($app-mat_theme) // would include all components
+// angular-material-theme($app-mat_theme) would include styling for all components
+@include mat-core-theme($app-mat_theme);
 @include mat-button-theme($app-mat_theme);
 @include mat-card-theme($app-mat_theme);
 @include mat-checkbox-theme($app-mat_theme);

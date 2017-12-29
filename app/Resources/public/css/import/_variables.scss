@@ -3,3 +3,9 @@ $media-query-min-sm: "(min-width: 768px)";
 $media-query-min-md: "(min-width: 992px)";
 $media-query-min-lg: "(min-width: 1200px)";
 
+$app-shared_grid-gap: 30px;
+
+// variables are provided by include of mat-core() in _material.scss, which gets imported beforehand by main.scss
+$app-mat_primary: mat-palette($mat-deep-purple);
+$app-mat_accent: mat-palette($mat-amber);
+$app-mat_theme: mat-light-theme($app-mat_primary, $app-mat_accent);

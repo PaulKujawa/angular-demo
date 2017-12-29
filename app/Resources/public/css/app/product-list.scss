@@ -1,10 +1,8 @@
 @import "../import/variables";
 
-$app-product-list_grid-gap: 30px;
-
 .app-product-list {
   display: grid;
-  grid-column-gap: $app-product-list_grid-gap;
+  grid-column-gap: $app-shared_grid-gap;
 
   @media #{$media-query-min-sm} {
     grid-template-columns: 2fr 3fr;
@@ -20,7 +18,7 @@ $app-product-list_grid-gap: 30px;
 
 .app-product-list__filter {
   display: grid;
-  grid-column-gap: $app-product-list_grid-gap;
+  grid-column-gap: $app-shared_grid-gap;
 
   @media #{$media-query-min-sm} {
     grid-template-columns: 1fr 1fr;
