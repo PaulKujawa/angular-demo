@@ -1,0 +1,22 @@
+@import "../import/variables";
+
+.app-recipe-detail {
+  display: grid;
+  grid-column-gap: $app-shared_grid-gap;
+  grid-row-gap: $app-shared_grid-gap;
+
+  @media #{$media-query-min-sm} {
+    grid-template-columns: 1fr 1fr;
+
+    .app-recipe-detail__image {
+      grid-column: 1;
+      grid-row: 1 / 3;
+    }
+  }
+}
+
+.app-recipe-detail__image {
+  justify-self: center;
+  max-width: 100%;
+  border-radius: 50%;
+}

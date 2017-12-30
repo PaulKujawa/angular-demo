@@ -12,7 +12,7 @@ use Doctrine\ORM\ORMException;
 
 class MeasurementRepository
 {
-    const PAGE_LIMIT = 5;
+    const PAGE_SIZE = 5;
 
     /**
      * @var EntityManager
@@ -35,8 +35,8 @@ class MeasurementRepository
     public function getMeasurements(int $page, QueryDecorator $queryDecorator = null): PaginationResponse
     {
         $criteria = Criteria::create();
-        $criteria->setFirstResult(self::PAGE_LIMIT * ($page - 1));
-        $criteria->setMaxResults(self::PAGE_LIMIT);
+        $criteria->setFirstResult(self::PAGE_SIZE * ($page - 1));
+        $criteria->setMaxResults(self::PAGE_SIZE);
 
         if ($queryDecorator) {
             $queryDecorator->decorate($criteria);
@@ -53,7 +53,8 @@ class MeasurementRepository
         $paginationResponse = $this->paginationResponseFactory->createPaginationResponse(
             $measurements->toArray(),
             1, // todo mocked
-            $page
+            $page,
+            self::PAGE_SIZE
         );
 
         return $paginationResponse;

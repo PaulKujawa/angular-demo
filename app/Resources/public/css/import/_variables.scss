@@ -1,48 +1,11 @@
-// own variables
-// ---------------
-
-// colors
-$barra-black: #141414;
-$barra-white: #FFF;
-$barra-red: #F7464A;
-$barra-green: #3C948B;
-$barra-yellow: #FDB45C;
-$barra-grey-border: #DDD;
-$barra-grey-background: #F9F9F9;
-$barra-grey-font-bright: #777;
-$barra-grey-font-dark: #555;
-
-// font-sizes
-$barra-font-size-base: 16px;
-
-// media querries
-$media-query-min-sm: "(min-width: 768px)";
 $media-query-max-xs: "(max-width: 767px)";
-$media-query-max-xxs: "(max-width: 500px)";
+$media-query-min-sm: "(min-width: 768px)";
+$media-query-min-md: "(min-width: 992px)";
+$media-query-min-lg: "(min-width: 1200px)";
 
+$app-shared_grid-gap: 30px;
 
-// override bootstrap variables
-// -----------------------------
-
-// common
-$border-radius-base: 1;
-
-// colors
-$brand-danger: $barra-red;
-$state-success-bg: $barra-green;
-
-// font
-$font-size-base: $barra-font-size-base;
-$alert-success-text: $barra-white;
-
-// badges
-$badge-bg: inherit;
-
-/*
- * fonts
- * see https://github.com/webpack-contrib/sass-loader/issues/40
- */
-$bootstrap-sass-asset-helper: true;
-
-@import "~bootstrap-sass/assets/stylesheets/bootstrap/variables";
-
+// variables are provided by include of mat-core() in _material.scss, which gets imported beforehand by main.scss
+$app-mat_primary: mat-palette($mat-deep-purple);
+$app-mat_accent: mat-palette($mat-amber);
+$app-mat_theme: mat-light-theme($app-mat_primary, $app-mat_accent);

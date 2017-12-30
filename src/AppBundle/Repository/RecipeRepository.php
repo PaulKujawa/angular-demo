@@ -12,7 +12,7 @@ use Doctrine\ORM\ORMException;
 
 class RecipeRepository
 {
-    const PAGE_LIMIT = 20;
+    const PAGE_SIZE = 20;
 
     /**
      * @var EntityManager
@@ -35,8 +35,8 @@ class RecipeRepository
     public function getRecipes(int $page, QueryDecorator $queryDecorator = null): PaginationResponse
     {
         $criteria = Criteria::create();
-        $criteria->setFirstResult(self::PAGE_LIMIT * ($page - 1));
-        $criteria->setMaxResults(self::PAGE_LIMIT);
+        $criteria->setFirstResult(self::PAGE_SIZE * ($page - 1));
+        $criteria->setMaxResults(self::PAGE_SIZE);
 
         if ($queryDecorator) {
             $queryDecorator->decorate($criteria);
@@ -53,7 +53,8 @@ class RecipeRepository
         $paginationResponse = $this->paginationResponseFactory->createPaginationResponse(
             $recipes->toArray(),
             1, // todo mocked
-            $page
+            $page,
+            self::PAGE_SIZE
         );
 
         return $paginationResponse;

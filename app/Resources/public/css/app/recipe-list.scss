@@ -1,0 +1,49 @@
+@import "../import/variables";
+@import "../mixin/recipe-list-theme";
+
+@include app-recipe-list_macro-theme($app-mat_theme);
+
+.app-recipe-list {
+  display: grid;
+  grid-column-gap: $app-shared_grid-gap;
+  grid-row-gap: $app-shared_grid-gap;
+
+  @media #{$media-query-min-sm} {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media #{$media-query-min-md} {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+.app-recipe-list__card {
+  cursor: pointer;
+}
+
+.app-recipe-list__filter {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.app-recipe-list-filter__search {
+  flex-grow: 1;
+}
+
+.app-recipe-list-filter__vegan {
+  flex-grow: 2;
+  margin-left: 15px;
+}
+
+.app-recipe-list_macro {
+  overflow: hidden;
+  height: 20px;
+
+  div {
+    float: left;
+    line-height: 22px;
+    color: #fff;
+    text-align: center;
+  }
+}

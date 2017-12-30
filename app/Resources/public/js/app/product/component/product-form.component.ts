@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {ProductRequestDto} from '../model/dto/product-request.dto';
@@ -9,91 +9,84 @@ import {ProductState} from '../service/product.state';
 @Component({
     selector: 'product-form',
     template: `
-        <form [formGroup]="productForm" (ngSubmit)="onSubmit()" novalidate>
-            <div class="row">
-                <div class="col-xs-12 col-sm-5 form-group">
-                    <label>{{'app.product.form.name' | trans}}</label>
-                    <input class="form-control"
-                           formControlName="name">
-                </div>
-                <div class="col-xs-12 col-sm-4 form-group">
-                    <label>{{'app.product.form.manufacturer' | trans}}</label>
-                    <input class="form-control"
-                           formControlName="manufacturer">
-                </div>
-                <div class="col-xs-12 col-sm-3 form-group">
-                    <label>{{'app.product.form.gr' | trans}}</label>
-                    <input type="number"
-                           class="form-control"
-                           formControlName="gr">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-4 form-group">
-                    <label>{{'app.product.form.kcal' | trans}}</label>
-                    <input type="number"
-                           class="form-control"
-                           formControlName="kcal">
-                </div>
-                <div class="col-xs-12 col-sm-4 form-group">
-                    <label>{{'app.product.form.carbs' | trans}}</label>
-                    <input type="number"
-                           step="0.1"
-                           class="form-control"
-                           formControlName="carbs">
-                </div>
-                <div class="col-xs-12 col-sm-4 form-group">
-                    <label>{{'app.product.form.fat' | trans}}</label>
-                    <input type="number"
-                           step="0.1"
-                           class="form-control"
-                           formControlName="fat">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-4 form-group">
-                    <label>{{'app.product.form.protein' | trans}}</label>
-                    <input type="number"
-                           step="0.1"
-                           class="form-control"
-                           formControlName="protein">
-                </div>
-                <div class="col-xs-12 col-sm-4 form-group">
-                    <label>{{'app.product.form.sugar' | trans}}</label>
-                    <input type="number"
-                           step="0.1"
-                           class="form-control"
-                           formControlName="sugar">
-                </div>
-                <div class="col-xs-12 col-sm-4 form-group">
-                    <label>{{'app.product.form.gfat' | trans}}</label>
-                    <input type="number"
-                           step="0.1"
-                           class="form-control"
-                           formControlName="gfat">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 checkbox">
-                    <label>
-                        <input type="checkbox"
-                               formControlName="vegan">
-                        {{'app.product.form.vegan' | trans}}
-                    </label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <button class="btn btn-danger"
-                            (click)="onDelete(inputProduct)"
-                            *ngIf="inputProduct">
-                        {{'app.common.delete' | trans}}
-                    </button>
-                    <button class="btn btn-primary"
-                            [disabled]="productForm.invalid">
-                        {{'app.common.submit' | trans}}
-                    </button>
-                </div>
+        <form novalidate
+              [formGroup]="productForm"
+              (ngSubmit)="onSubmit()">
+            <section>
+                <mat-checkbox formControlName="vegan">
+                    {{'app.product.form.vegan'|trans}}
+                </mat-checkbox>
+            </section>
+            <mat-form-field>
+                <input matInput
+                       [placeholder]="'app.product.form.name'|trans"
+                       formControlName="name">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput
+                       [placeholder]="'app.product.form.manufacturer'|trans"
+                       formControlName="manufacturer">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput
+                       [placeholder]="'app.product.form.gr'|trans"
+                       type="number"
+                       formControlName="gr">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput
+                       [placeholder]="'app.product.form.kcal'|trans"
+                       type="number"
+                       formControlName="kcal">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput
+                       [placeholder]="'app.product.form.carbs'|trans"
+                       type="number"
+                       step="0.1"
+                       formControlName="carbs">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput
+                       [placeholder]="'app.product.form.fat'|trans"
+                       type="number"
+                       step="0.1"
+                       formControlName="fat">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput
+                       [placeholder]="'app.product.form.protein'|trans"
+                       type="number"
+                       step="0.1"
+                       formControlName="protein">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput
+                       [placeholder]="'app.product.form.sugar'|trans"
+                       type="number"
+                       step="0.1"
+                       formControlName="sugar">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput
+                       [placeholder]="'app.product.form.gfat'|trans"
+                       type="number"
+                       step="0.1"
+                       formControlName="gfat">
+            </mat-form-field>
+
+            <div>
+                <button *ngIf="inputProduct"
+                        mat-raised-button
+                        color="warn"
+                        (click)="onDelete(inputProduct)">
+                    {{'app.common.delete' | trans}}
+                </button>
+                <button mat-raised-button
+                        color="primary"
+                        [disabled]="productForm.invalid">
+                    {{'app.common.submit' | trans}}
+                </button>
             </div>
         </form>
     `,
@@ -112,7 +105,7 @@ export class ProductFormComponent implements OnChanges {
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes.inputProduct) {
             const productConfig = this.getConfig();
-            this.productForm.setValue(productConfig);
+            this.productForm = this.formBuilder.group(productConfig);
         }
     }
 
@@ -136,16 +129,43 @@ export class ProductFormComponent implements OnChanges {
         const product = this.inputProduct;
 
         return {
-            name: (product && product.name) || '',
-            vegan: (product && product.vegan) || true,
-            gr: (product && product.gr) || 0,
-            kcal: (product && product.kcal) || 0,
-            protein: (product && product.protein) || 0,
-            carbs: (product && product.carbs) || 0,
-            sugar: (product && product.sugar) || 0,
-            fat: (product && product.fat) || 0,
-            gfat: (product && product.gfat) || 0,
-            manufacturer: (product && product.manufacturer ) || '',
+            name: new FormControl(product && product.name || '', [
+                Validators.required,
+                Validators.minLength(3),
+                Validators.maxLength(40),
+            ]),
+            vegan: !!product && product.vegan,
+            gr: new FormControl(product && product.gr || 0, [
+                Validators.min(0),
+                Validators.required,
+            ]),
+            kcal: new FormControl(product && product.kcal || 0, [
+                Validators.min(0),
+                Validators.required,
+            ]),
+            protein: new FormControl(product && product.protein || 0, [
+                Validators.min(0),
+                Validators.required,
+            ]),
+            carbs: new FormControl(product && product.carbs || 0, [
+                Validators.min(0),
+                Validators.required,
+            ]),
+            sugar: new FormControl(product && product.sugar || 0, [
+                Validators.min(0),
+                Validators.required,
+            ]),
+            fat: new FormControl(product && product.fat || 0, [
+                Validators.min(0),
+                Validators.required,
+            ]),
+            gfat: new FormControl(product && product.gfat || 0, [
+                Validators.min(0),
+                Validators.required,
+            ]),
+            manufacturer: new FormControl(product && product.manufacturer  || '', [
+                Validators.maxLength(40),
+            ]),
         };
     }
 }

@@ -9,6 +9,8 @@ app:
     post_success: Erfolgreich hinzugefügt.
     delete_success: Erfolgreich gelöscht.
     inquiry_success: I sucessfully received your inquiry.
+    network_error: Network error.
+    server_error: Server error (%code%).
   auth:
     signed_in: Successfully signed in.
   common:
@@ -21,7 +23,6 @@ app:
     recipes: Recipes
     submit: Submit
   inquiry:
-    description: Home project about recipes.
     form:
       name: Your name
       email_address: Your email address
@@ -48,4 +49,3 @@ app:
     filter:
       vegan_only: Vegan
     ingredients: Ingredients
-    ingredient_sorting: Sorted by kcal.

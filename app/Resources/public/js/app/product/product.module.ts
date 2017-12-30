@@ -1,6 +1,10 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatInputModule} from '@angular/material/input';
+import {MatListModule} from '@angular/material/list';
 import {SharedModule} from '../shared/shared.module';
 import {ProductDetailComponent} from './component/product-detail.component';
 import {ProductFilterComponent} from './component/product-filter.component';
@@ -14,6 +18,10 @@ import {ProductState} from './service/product.state';
 @NgModule({
     imports: [
         CommonModule,
+        MatButtonModule,
+        MatCheckboxModule,
+        MatInputModule,
+        MatListModule,
         ReactiveFormsModule,
         SharedModule,
         ProductRoutingModule,

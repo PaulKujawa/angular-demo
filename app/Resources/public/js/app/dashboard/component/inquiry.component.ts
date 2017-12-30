@@ -2,16 +2,14 @@ import {Component} from '@angular/core';
 
 @Component({
     template: `
-        <div class="row flex flex-align-v text-center">
-            <div class="col-xs-12 col-sm-5">
-                <img class="img-circle center-block img-responsive" src="../../images/kujawa.jpg">
+        <div class="app-inquiry">
+            <div class="app-inquiry__image">
+                <img class="app-inquiry-image__item"
+                     src="../../images/kujawa.jpg">
             </div>
-            <div class="col-xs-12 col-sm-7">
-                <p>{{'app.inquiry.description'|trans}}</p>
-            </div>
+
+            <inquiry-form></inquiry-form>
         </div>
-        <hr>
-        <inquiry-form></inquiry-form>
     `,
 })
 export class InquiryComponent {

@@ -1,8 +1,5 @@
+import {Doc} from '../interface/doc.interface';
 import {Pagination} from './pagination';
-
-export interface Doc {
-    id: number;
-}
 
 /**
  * @see PageableFactory

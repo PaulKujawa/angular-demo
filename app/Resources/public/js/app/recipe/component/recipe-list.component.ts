@@ -1,62 +1,45 @@
-import {HttpParams} from '@angular/common/http';
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Router} from '@angular/router';
-import {Subject} from 'rxjs/Subject';
-import {Pageable} from '../../core/model/pageable';
 import {Recipe} from '../model/recipe';
-import {RecipeRepository} from '../repository/recipe.repository';
-import {ReplaySubject} from 'rxjs/ReplaySubject';
+import {RecipeState} from '../service/recipe.state';
 
 @Component({
     template: `
-        <div class="row">
-            <div class="col-xs-12">
-                <recipe-filter [pagination]="(pageableStream|async)?.pagination"
-                               (filter)="onFilter($event)">
-                </recipe-filter>
-            </div>
+        <recipe-filter></recipe-filter>
+
+        <div *ngIf="recipeState.getPageable()|async as recipes"
+             class="app-recipe-list">
+            <mat-card *ngFor="let recipe of recipes.docs"
+                      (click)="onClick(recipe)"
+                      class="app-recipe-list__card">
+                <mat-card-header>
+                    <mat-card-title>{{recipe.name}}</mat-card-title>
+
+                    <mat-card-subtitle>{{recipe.updated | date}}</mat-card-subtitle>
+                </mat-card-header>
+
+                <img mat-card-image
+                     [src]="getImageUrl(recipe)"
+                     [attr.alt]="recipe.name">
+
+                <mat-card-content>
+                    <macro-chart [macros]="recipe.macros">
+                    </macro-chart>
+                </mat-card-content>
+            </mat-card>
         </div>
 
-        <div *ngIf="pageableStream|async as pageable"
-             class="row">
-            <div class="col-xs-12 col-sm-6 col-md-4"
-                 *ngFor="let recipe of pageable.docs">
-                <div class="thumbnail"
-                     [style.cursor]="'pointer'"
-                     (click)="onSelectRecipe(recipe)">
-                    <h2 class="media-heading">{{recipe.name}}</h2>
-                    <img [src]="getImageUrl(recipe)">
-                    <macro-chart [macros]="recipe.macros"></macro-chart>
-                    <div class="caption">
-                        <span>
-                            <i>{{recipe.updated | date}}</i>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <pagination></pagination>
     `,
 })
-export class RecipeListComponent implements OnInit {
-    public pageableStream = new ReplaySubject<Pageable<Recipe>>(1);
-    private filterStream = new Subject<HttpParams>();
-
-    constructor(private router: Router,
-                private recipeRepository: RecipeRepository) {
+export class RecipeListComponent {
+    constructor(public recipeState: RecipeState,
+                private router: Router) {
     }
 
-    public ngOnInit(): void {
-        this.filterStream
-            .switchMap((queryParams) => this.recipeRepository.getRecipes(queryParams))
-            .subscribe(this.pageableStream);
-    }
-
-    public onFilter(filterMap: HttpParams): void {
-        this.filterStream.next(filterMap);
-    }
-
-    public onSelectRecipe(recipe: Recipe): void {
+    public onClick(recipe: Recipe): void {
         const recipeName = recipe.name.replace(' ', '-');
+
         this.router.navigate(['/recipes', recipe.id, recipeName]);
     }
 

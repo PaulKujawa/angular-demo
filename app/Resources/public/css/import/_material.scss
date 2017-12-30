@@ -1,0 +1,19 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+@import "variables";
+
+// angular-material-theme($app-mat_theme) would include styling for all components
+@include mat-core-theme($app-mat_theme);
+@include mat-button-theme($app-mat_theme);
+@include mat-card-theme($app-mat_theme);
+@include mat-checkbox-theme($app-mat_theme);
+@include mat-form-field-theme($app-mat_theme);
+@include mat-input-theme($app-mat_theme);
+@include mat-list-theme($app-mat_theme);
+@include mat-paginator-theme($app-mat_theme);
+@include mat-snack-bar-theme($app-mat_theme);
+@include mat-tabs-theme($app-mat_theme);
+@include mat-toolbar-theme($app-mat_theme);
+@include mat-tooltip-theme($app-mat_theme);

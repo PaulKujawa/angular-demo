@@ -1,0 +1,13 @@
+@import "../import/variables";
+
+.app-auth {
+  display: grid;
+
+  @media #{$media-query-min-sm} {
+    grid-template-columns: 1fr 30% 1fr;
+
+    > * {
+      grid-column: 2;
+    }
+  }
+}

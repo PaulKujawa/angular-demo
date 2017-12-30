@@ -6,8 +6,7 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
     template: `
         <nav-bar></nav-bar>
 
-        <section class="container">
-            <flash-messages></flash-messages>
+        <section>
             <router-outlet></router-outlet>
         </section>
     `,

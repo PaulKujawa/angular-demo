@@ -13,4 +13,14 @@ class Pagination
      * @var int
      */
     public $pages;
+
+    /**
+     * @var int
+     */
+    public $pageSize;
+
+    /**
+     * @var int
+     */
+    public $numFound;
 }

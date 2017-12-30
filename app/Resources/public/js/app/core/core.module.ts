@@ -1,15 +1,22 @@
 import {CommonModule} from '@angular/common';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatToolbarModule} from '@angular/material/toolbar';
 import {RouterModule} from '@angular/router';
 import {SharedModule} from '../shared/shared.module';
 import {AuthComponent} from './component/auth.component';
-import {FlashMessageComponent} from './component/flash-message.component';
 import {NavBarComponent} from './component/nav-bar.component';
 import {
-    AuthenticatedInjectToken, BaseUrlInjectToken, FosRouterInjectToken, RequestLocaleInjectToken,
-    TranslatorInjectToken, WindowInjectToken,
+    AuthenticatedInjectToken,
+    BaseUrlInjectToken,
+    FosRouterInjectToken,
+    RequestLocaleInjectToken,
+    TranslatorInjectToken,
+    WindowInjectToken,
 } from './core.token';
 import {PageableFactory} from './factory/pageable.factory';
 import {AuthRepository} from './repository/auth.repository';
@@ -25,18 +32,20 @@ import {TranslationService} from './service/translation.service';
 @NgModule({
     imports: [
         CommonModule,
-        FormsModule,
         HttpClientModule,
+        MatButtonModule,
+        MatInputModule,
+        MatSnackBarModule,
+        MatToolbarModule,
         SharedModule,
+        ReactiveFormsModule,
         RouterModule,
     ],
     declarations: [
         AuthComponent,
-        FlashMessageComponent,
         NavBarComponent,
     ],
     exports: [
-        FlashMessageComponent,
         NavBarComponent,
     ],
     providers: [

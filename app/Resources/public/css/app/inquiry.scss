@@ -1,5 +1,21 @@
 @import "../import/variables";
 
-.app-inquiry__message {
-  min-height: calc(2 * #{$input-height-base} + #{$form-group-margin-bottom} );
+.app-inquiry {
+  @media #{$media-query-min-sm} {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+  }
+}
+
+.app-inquiry__image {
+  text-align: center;
+
+  @media #{$media-query-min-sm} {
+    align-self: center;
+    justify-self: center;
+  }
+}
+
+.app-inquiry-image__item {
+  border-radius: 50%;
 }
