@@ -19,11 +19,11 @@ export class ProductDetailComponent implements OnInit {
     public product: Observable<Product | undefined>;
 
     constructor(private productState: ProductState,
-                private route: ActivatedRoute) {
+                private activatedRoute: ActivatedRoute) {
     }
 
     public ngOnInit(): void {
-        this.product = this.route.params
+        this.product = this.activatedRoute.params
             .switchMap((params) => {
                 return !isNaN(params.id)
                     ? this.productState.getProduct(+params.id)

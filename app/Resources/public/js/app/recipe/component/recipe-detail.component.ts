@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {ReplaySubject} from 'rxjs/ReplaySubject';
+import {Observable} from 'rxjs/Observable';
 import {Ingredient} from '../model/ingredient';
 import {RecipeDetail} from '../model/recipe-detail';
-import {RecipeRepository} from '../repository/recipe.repository';
+import {RecipeState} from '../service/recipe.state';
 
 @Component({
     template: `
-        <div *ngIf="recipeSubject|async as recipe">
+        <div *ngIf="recipeObservable|async as recipe">
             <div class="app-recipe-detail">
                 <h1>{{recipe.name}}</h1>
 
@@ -36,18 +36,16 @@ import {RecipeRepository} from '../repository/recipe.repository';
     `,
 })
 export class RecipeDetailComponent implements OnInit {
-    public recipeSubject = new ReplaySubject<RecipeDetail>(1);
-    private readonly idQuery = 'id';
+    public recipeObservable: Observable<RecipeDetail>;
 
-    constructor(private recipeRepository: RecipeRepository,
+    constructor(private recipeState: RecipeState,
                 private activatedRoute: ActivatedRoute) {
     }
 
     public ngOnInit(): void {
-        this.activatedRoute.params
-            .switchMap((params) => this.recipeRepository.getRecipe(+params[this.idQuery]))
-            .do((recipe) => recipe.ingredients.sort((a, b) => b.kcal - a.kcal))
-            .subscribe(this.recipeSubject);
+        this.recipeObservable = this.activatedRoute.params
+            .switchMap((params) => this.recipeState.getRecipe(params.id))
+            .do((recipe) => recipe.ingredients.sort((a, b) => b.kcal - a.kcal));
     }
 
     public getMeasurement(ingredient: Ingredient): string {
