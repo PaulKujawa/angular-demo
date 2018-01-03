@@ -4,6 +4,7 @@ export const slideInDownAnimation = trigger('routeAnimation', [
     state('*', style({
         opacity: 1,
         transform: 'translateY(0)',
+        position: 'static',
     })),
     transition(':enter', [
         style({

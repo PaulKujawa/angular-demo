@@ -6,7 +6,7 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
     template: `
         <nav-bar></nav-bar>
 
-        <section>
+        <section class="app-section">
             <router-outlet></router-outlet>
         </section>
     `,
