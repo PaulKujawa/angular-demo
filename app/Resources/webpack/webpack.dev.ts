@@ -25,13 +25,22 @@ export const webpackConfig = (args: WebpackArgs): Configuration => {
                 {
                     test: /\/public\/js\/.+\.ts$/,
                     enforce: 'pre',
-                    use: 'tslint-loader',
+                    use: {
+                        loader: 'tslint-loader',
+                        options: {configFile: path.join(jsPath, 'tslint', 'main.json')},
+                    },
                 }, {
                     // write templates inline and transpile ts to js
                     test: /\.ts$/,
                     use: [
-                        {loader: 'cache-loader', options: {cacheDirectory: cachePath + '/js'}},
-                        {loader: 'awesome-typescript-loader', options: {configFileName: `${jsPath}/tsconfig.json`}},
+                        {
+                            loader: 'cache-loader',
+                            options: {cacheDirectory: path.join(cachePath, 'js')},
+                        },
+                        {
+                            loader: 'awesome-typescript-loader',
+                            options: {configFileName: path.join(jsPath, 'tsconfig.json')},
+                        },
                         'angular2-template-loader',
                         'angular-router-loader',
                     ],
@@ -40,10 +49,19 @@ export const webpackConfig = (args: WebpackArgs): Configuration => {
                     test: /\.scss$/,
                     loader: ExtractTextPlugin.extract({ // TODO remove this line for HMR
                         use: [
-                            {loader: 'cache-loader', options: {cacheDirectory: cachePath + '/css'}},
+                            {
+                                loader: 'cache-loader',
+                                options: {cacheDirectory: cachePath + '/css'},
+                            },
                             // {loader: "style-loader"}, TODO add this line for HMR
-                            {loader: 'css-loader', options: {sourceMap: true}},
-                            {loader: 'sass-loader', options: {sourceMap: true}},
+                            {
+                                loader: 'css-loader',
+                                options: {sourceMap: true},
+                            },
+                            {
+                                loader: 'sass-loader',
+                                options: {sourceMap: true},
+                            },
                         ],
                     }),
                 },

@@ -14,31 +14,36 @@ import {ProductState} from '../service/product.state';
               (ngSubmit)="onSubmit()">
             <section>
                 <mat-checkbox formControlName="vegan">
-                    {{'app.product.form.vegan'|trans}}
+                    {{ 'app.product.form.vegan'|trans }}
                 </mat-checkbox>
             </section>
+
             <mat-form-field>
                 <input matInput
                        [placeholder]="'app.product.form.name'|trans"
                        formControlName="name">
             </mat-form-field>
+
             <mat-form-field>
                 <input matInput
                        [placeholder]="'app.product.form.manufacturer'|trans"
                        formControlName="manufacturer">
             </mat-form-field>
+
             <mat-form-field>
                 <input matInput
                        [placeholder]="'app.product.form.gr'|trans"
                        type="number"
                        formControlName="gr">
             </mat-form-field>
+
             <mat-form-field>
                 <input matInput
                        [placeholder]="'app.product.form.kcal'|trans"
                        type="number"
                        formControlName="kcal">
             </mat-form-field>
+
             <mat-form-field>
                 <input matInput
                        [placeholder]="'app.product.form.carbs'|trans"
@@ -46,6 +51,7 @@ import {ProductState} from '../service/product.state';
                        step="0.1"
                        formControlName="carbs">
             </mat-form-field>
+
             <mat-form-field>
                 <input matInput
                        [placeholder]="'app.product.form.fat'|trans"
@@ -53,6 +59,7 @@ import {ProductState} from '../service/product.state';
                        step="0.1"
                        formControlName="fat">
             </mat-form-field>
+
             <mat-form-field>
                 <input matInput
                        [placeholder]="'app.product.form.protein'|trans"
@@ -60,6 +67,7 @@ import {ProductState} from '../service/product.state';
                        step="0.1"
                        formControlName="protein">
             </mat-form-field>
+
             <mat-form-field>
                 <input matInput
                        [placeholder]="'app.product.form.sugar'|trans"
@@ -67,6 +75,7 @@ import {ProductState} from '../service/product.state';
                        step="0.1"
                        formControlName="sugar">
             </mat-form-field>
+
             <mat-form-field>
                 <input matInput
                        [placeholder]="'app.product.form.gfat'|trans"
@@ -80,12 +89,13 @@ import {ProductState} from '../service/product.state';
                         mat-raised-button
                         color="warn"
                         (click)="onDelete(inputProduct)">
-                    {{'app.common.delete' | trans}}
+                    {{ 'app.common.delete' | trans }}
                 </button>
+
                 <button mat-raised-button
                         color="primary"
                         [disabled]="productForm.invalid">
-                    {{'app.common.submit' | trans}}
+                    {{ 'app.common.submit' | trans }}
                 </button>
             </div>
         </form>
@@ -129,29 +139,7 @@ export class ProductFormComponent implements OnChanges {
         const product = this.inputProduct;
 
         return {
-            name: new FormControl(product && product.name || '', [
-                Validators.required,
-                Validators.minLength(3),
-                Validators.maxLength(40),
-            ]),
-            vegan: !!product && product.vegan,
-            gr: new FormControl(product && product.gr || 0, [
-                Validators.min(0),
-                Validators.required,
-            ]),
-            kcal: new FormControl(product && product.kcal || 0, [
-                Validators.min(0),
-                Validators.required,
-            ]),
-            protein: new FormControl(product && product.protein || 0, [
-                Validators.min(0),
-                Validators.required,
-            ]),
             carbs: new FormControl(product && product.carbs || 0, [
-                Validators.min(0),
-                Validators.required,
-            ]),
-            sugar: new FormControl(product && product.sugar || 0, [
                 Validators.min(0),
                 Validators.required,
             ]),
@@ -163,9 +151,31 @@ export class ProductFormComponent implements OnChanges {
                 Validators.min(0),
                 Validators.required,
             ]),
+            gr: new FormControl(product && product.gr || 0, [
+                Validators.min(0),
+                Validators.required,
+            ]),
+            kcal: new FormControl(product && product.kcal || 0, [
+                Validators.min(0),
+                Validators.required,
+            ]),
             manufacturer: new FormControl(product && product.manufacturer  || '', [
                 Validators.maxLength(40),
             ]),
+            name: new FormControl(product && product.name || '', [
+                Validators.required,
+                Validators.minLength(3),
+                Validators.maxLength(40),
+            ]),
+            protein: new FormControl(product && product.protein || 0, [
+                Validators.min(0),
+                Validators.required,
+            ]),
+            sugar: new FormControl(product && product.sugar || 0, [
+                Validators.min(0),
+                Validators.required,
+            ]),
+            vegan: !!product && product.vegan,
         };
     }
 }
