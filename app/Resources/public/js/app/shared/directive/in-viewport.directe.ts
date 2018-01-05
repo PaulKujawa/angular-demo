@@ -11,7 +11,7 @@ interface InViewportConfig {
 }
 
 @Directive({
-    selector: '[in-viewport]',
+    selector: '[appInViewport]',
 })
 export class InViewportDirective implements OnInit, OnChanges, OnDestroy {
     private static sharedSource = Observable.merge(
