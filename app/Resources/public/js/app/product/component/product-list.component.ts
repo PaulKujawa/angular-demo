@@ -11,7 +11,7 @@ import {ProductState} from '../service/product.state';
                         color="accent"
                         (click)="onAddProduct()"
                         class="app-product-list-filter__create">
-                    {{ 'app.common.new' | trans }}
+                    {{ 'app.common.new'|appTrans }}
                 </button>
 
                 <app-product-filter></app-product-filter>

@@ -26,7 +26,7 @@ import {AuthenticationService} from '../service/authentication.service';
             <button mat-raised-button
                     color="primary"
                     [disabled]="authForm.invalid">
-                {{ 'app.common.submit' | trans }}
+                {{ 'app.common.submit'|appTrans }}
             </button>
         </form>
     `,

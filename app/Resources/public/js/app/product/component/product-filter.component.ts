@@ -21,7 +21,9 @@ export class ProductFilterComponent implements OnDestroy {
     }
 
     public ngOnDestroy(): void {
-        this.subscription && this.subscription.unsubscribe();
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 
     public setName(name: string): void {

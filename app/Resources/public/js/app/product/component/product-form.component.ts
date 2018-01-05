@@ -14,7 +14,7 @@ import {ProductState} from '../service/product.state';
               (ngSubmit)="onSubmit()">
             <section>
                 <mat-checkbox formControlName="vegan">
-                    {{ 'app.product.form.vegan' | trans }}
+                    {{ 'app.product.form.vegan'|appTrans }}
                 </mat-checkbox>
             </section>
 
@@ -89,13 +89,13 @@ import {ProductState} from '../service/product.state';
                         mat-raised-button
                         color="warn"
                         (click)="onDelete(product)">
-                    {{ 'app.common.delete' | trans }}
+                    {{ 'app.common.delete'|appTrans }}
                 </button>
 
                 <button mat-raised-button
                         color="primary"
                         [disabled]="productForm.invalid">
-                    {{ 'app.common.submit' | trans }}
+                    {{ 'app.common.submit'|appTrans }}
                 </button>
             </div>
         </form>

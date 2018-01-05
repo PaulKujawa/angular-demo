@@ -36,7 +36,7 @@ import {InquiryRepository} from '../repository/inquiry.repository';
             <button mat-raised-button
                     color="primary"
                     [disabled]="inquiryForm.invalid">
-                {{ 'app.common.submit' | trans }}
+                {{ 'app.common.submit'|appTrans }}
             </button>
         </form>
     `,
@@ -60,7 +60,9 @@ export class InquiryFormComponent implements OnInit, OnDestroy {
     }
 
     public ngOnDestroy(): void {
-        this.subscription && this.subscription.unsubscribe();
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 
     public onSubmit(): void {
