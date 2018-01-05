@@ -12,12 +12,12 @@ import {Component} from '@angular/core';
 
                 <a mat-button
                         [routerLink]="'app_recipes'|route">
-                    {{'app.common.recipes'|trans}}
+                    {{ 'app.common.recipes'|trans }}
                 </a>
 
                 <a mat-button
                         [routerLink]="'app_products'|route">
-                    {{'app.common.products'|trans}}
+                    {{ 'app.common.products'|trans }}
                 </a>
             </mat-toolbar>
         </nav>

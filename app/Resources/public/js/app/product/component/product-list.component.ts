@@ -11,7 +11,7 @@ import {ProductState} from '../service/product.state';
                         color="accent"
                         (click)="onAddProduct()"
                         class="app-product-list-filter__create">
-                    {{'app.common.new' | trans}}
+                    {{ 'app.common.new' | trans }}
                 </button>
 
                 <product-filter></product-filter>
@@ -22,7 +22,7 @@ import {ProductState} from '../service/product.state';
                 <a *ngFor="let product of products.docs"
                    mat-list-item
                    (click)="onSelectProduct(product)">
-                    {{product.name}}
+                    {{ product.name }}
                 </a>
             </mat-nav-list>
 

@@ -13,9 +13,9 @@ import {RecipeState} from '../service/recipe.state';
                       (click)="onClick(recipe)"
                       class="app-recipe-list__card">
                 <mat-card-header>
-                    <mat-card-title>{{recipe.name}}</mat-card-title>
+                    <mat-card-title>{{ recipe.name }}</mat-card-title>
 
-                    <mat-card-subtitle>{{recipe.updated | date}}</mat-card-subtitle>
+                    <mat-card-subtitle>{{ recipe.updated | date }}</mat-card-subtitle>
                 </mat-card-header>
 
                 <img mat-card-image

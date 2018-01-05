@@ -36,7 +36,7 @@ import {InquiryRepository} from '../repository/inquiry.repository';
             <button mat-raised-button
                     color="primary"
                     [disabled]="inquiryForm.invalid">
-                {{'app.common.submit' | trans}}
+                {{ 'app.common.submit' | trans }}
             </button>
         </form>
     `,

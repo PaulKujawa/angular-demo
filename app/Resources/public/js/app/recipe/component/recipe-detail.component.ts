@@ -9,7 +9,7 @@ import {RecipeState} from '../service/recipe.state';
     template: `
         <div *ngIf="recipeObservable|async as recipe">
             <div class="app-recipe-detail">
-                <h1>{{recipe.name}}</h1>
+                <h1>{{ recipe.name }}</h1>
 
                 <img class="app-recipe-detail__image"
                      [src]="getImageUrl(recipe)">
@@ -18,7 +18,7 @@ import {RecipeState} from '../service/recipe.state';
                     <mat-tab [label]="'app.recipe.ingredients'|trans">
                         <mat-list>
                             <mat-list-item *ngFor="let ingredient of recipe.ingredients">
-                                {{getMeasurement(ingredient)}} {{ingredient.product.name}}
+                                {{ getMeasurement(ingredient) }} {{ ingredient.product.name }}
                             </mat-list-item>
                         </mat-list>
                     </mat-tab>
@@ -26,7 +26,7 @@ import {RecipeState} from '../service/recipe.state';
                     <mat-tab [label]="'app.recipe.cooking'|trans">
                         <mat-list>
                             <mat-list-item *ngFor="let cooking of recipe.cookings">
-                                {{cooking.description}}
+                                {{ cooking.description }}
                             </mat-list-item>
                         </mat-list>
                     </mat-tab>

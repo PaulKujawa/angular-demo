@@ -18,7 +18,7 @@ import {AuthenticationService} from '../service/authentication.service';
 
             <mat-form-field>
                 <input type="password"
-                        matInput
+                       matInput
                        [placeholder]="'security.login.password'|trans"
                        formControlName="password">
             </mat-form-field>
@@ -26,7 +26,7 @@ import {AuthenticationService} from '../service/authentication.service';
             <button mat-raised-button
                     color="primary"
                     [disabled]="authForm.invalid">
-                {{'app.common.submit' | trans}}
+                {{ 'app.common.submit' | trans }}
             </button>
         </form>
     `,
