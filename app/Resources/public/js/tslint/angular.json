@@ -14,7 +14,7 @@
         "no-output-on-prefix": true,
         "no-output-rename": true,
         "pipe-impure": true,
-        "pipe-naming": [true, "camelCase", "sg"],
+        "pipe-naming": [true, "camelCase", "app"],
         "templates-no-negated-async": true,
         "trackBy-function": true,
         "use-host-property-decorator": true,

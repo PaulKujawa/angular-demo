@@ -11,7 +11,7 @@ interface MatPaginatorEvent {
 }
 
 @Component({
-    selector: 'pagination',
+    selector: 'app-pagination',
     template: `
         <mat-paginator *ngIf="paginationStream|async as pagination"
                        [pageIndex]="pagination.page - 1"

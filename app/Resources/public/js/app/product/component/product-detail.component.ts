@@ -8,8 +8,8 @@ import {ProductState} from '../service/product.state';
 @Component({
     animations: [slideInDownAnimation],
     template: `
-        <product-form [product]="product|async">
-        </product-form>
+        <app-product-form [product]="product|async">
+        </app-product-form>
     `,
 })
 export class ProductDetailComponent implements OnInit {

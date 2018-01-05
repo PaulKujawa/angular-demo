@@ -7,7 +7,7 @@ import {Product} from '../model/product';
 import {ProductState} from '../service/product.state';
 
 @Component({
-    selector: 'product-form',
+    selector: 'app-product-form',
     template: `
         <form novalidate
               [formGroup]="productForm"

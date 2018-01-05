@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 
 @Component({
-    selector: 'spa',
+    selector: 'app-spa',
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
-        <nav-bar></nav-bar>
+        <app-nav-bar></app-nav-bar>
 
         <section class="app-section">
             <router-outlet></router-outlet>

@@ -2,7 +2,7 @@ import {Component, Input, OnChanges} from '@angular/core';
 import {Macros} from '../model/macros';
 
 @Component({
-    selector: 'macro-chart',
+    selector: 'app-macro-chart',
     template: `
         <div class="app-recipe-list_macro">
             <div [style.width.%]="getProportion(macros.carbs)">

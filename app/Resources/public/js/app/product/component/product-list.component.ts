@@ -14,7 +14,7 @@ import {ProductState} from '../service/product.state';
                     {{ 'app.common.new' | trans }}
                 </button>
 
-                <product-filter></product-filter>
+                <app-product-filter></app-product-filter>
             </div>
 
             <mat-nav-list *ngIf="productState.getPageable()|async as products"
@@ -26,7 +26,7 @@ import {ProductState} from '../service/product.state';
                 </a>
             </mat-nav-list>
 
-            <pagination></pagination>
+            <app-pagination></app-pagination>
 
             <div class="app-product-list__outlet">
                 <router-outlet>

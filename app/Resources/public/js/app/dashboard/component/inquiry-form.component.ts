@@ -6,7 +6,7 @@ import {Inquiry} from '../model/inquiry';
 import {InquiryRepository} from '../repository/inquiry.repository';
 
 @Component({
-    selector: 'inquiry-form',
+    selector: 'app-inquiry-form',
     template: `
         <form class="app-inquiry-form"
               novalidate

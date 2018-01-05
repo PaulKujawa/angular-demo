@@ -3,7 +3,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {FilterState} from '../../shared/service/filter.state';
 
 @Component({
-    selector: 'product-filter',
+    selector: 'app-product-filter',
     template: `
         <mat-form-field>
             <input #search

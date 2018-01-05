@@ -3,7 +3,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {FilterState} from '../../shared/service/filter.state';
 
 @Component({
-    selector: 'recipe-filter',
+    selector: 'app-recipe-filter',
     template: `
         <div class="app-recipe-list__filter">
             <mat-form-field class="app-recipe-list-filter__search">

@@ -8,7 +8,7 @@ import {Component} from '@angular/core';
                      src="../../images/kujawa.jpg">
             </div>
 
-            <inquiry-form></inquiry-form>
+            <app-inquiry-form></app-inquiry-form>
         </div>
     `,
 })
