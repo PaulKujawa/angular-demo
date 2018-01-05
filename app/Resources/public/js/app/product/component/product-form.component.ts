@@ -14,7 +14,7 @@ import {ProductState} from '../service/product.state';
               (ngSubmit)="onSubmit()">
             <section>
                 <mat-checkbox formControlName="vegan">
-                    {{ 'app.product.form.vegan'|trans }}
+                    {{ 'app.product.form.vegan' | trans }}
                 </mat-checkbox>
             </section>
 
@@ -85,10 +85,10 @@ import {ProductState} from '../service/product.state';
             </mat-form-field>
 
             <div>
-                <button *ngIf="inputProduct"
+                <button *ngIf="product"
                         mat-raised-button
                         color="warn"
-                        (click)="onDelete(inputProduct)">
+                        (click)="onDelete(product)">
                     {{ 'app.common.delete' | trans }}
                 </button>
 
@@ -102,7 +102,7 @@ import {ProductState} from '../service/product.state';
     `,
 })
 export class ProductFormComponent implements OnChanges {
-    @Input('product') public inputProduct?: Product;
+    @Input() public product?: Product;
     public productForm: FormGroup;
 
     constructor(private router: Router,
@@ -122,8 +122,8 @@ export class ProductFormComponent implements OnChanges {
     public onSubmit(): void {
         const productDto: ProductRequestDto = this.productForm.value;
 
-        const observable: Observable<any> = this.inputProduct
-            ? this.productState.updateProduct(new Product({id: this.inputProduct.id, ...productDto}))
+        const observable: Observable<any> = this.product
+            ? this.productState.updateProduct(new Product({id: this.product.id, ...productDto}))
             : this.productState.addProduct(productDto);
 
         observable.subscribe(() => this.router.navigate(['products']));
@@ -136,7 +136,7 @@ export class ProductFormComponent implements OnChanges {
     }
 
     private getConfig(): object {
-        const product = this.inputProduct;
+        const product = this.product;
 
         return {
             carbs: new FormControl(product && product.carbs || 0, [
