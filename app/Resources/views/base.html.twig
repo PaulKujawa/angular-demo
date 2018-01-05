@@ -20,6 +20,9 @@
             {% if app.environment != 'test' %}
                 <link rel="stylesheet" href="{{ asset('css/main.css') }}">
             {% endif %}
+
+            <link rel="preload" as="script" href="{{ asset('js/bundle/vendor.js') }}">
+            <link rel="preload" as="script" href="{{ asset('js/bundle/main.js') }}">
         {% endblock %}
     </head>
 
