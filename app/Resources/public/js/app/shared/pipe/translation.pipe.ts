@@ -6,14 +6,14 @@ import {TranslationService} from '../../core/service/translation.service';
  * Translate message
  *
  * Usage
- *  value|trans:params:domain
+ *  value|appTrans:params:domain
  * Example
- *  {{ 'app.common.submit'|trans }}
- *  {{ 'app.product.title'|trans:{title:'cookie'}:'messages' }}
+ *  {{ 'app.common.submit'|appTrans }}
+ *  {{ 'app.product.title'|appTrans:{title:'cookie'}:'messages' }}
  */
 
 @Pipe({
-    name: 'trans',
+    name: 'appTrans',
 })
 export class TranslationPipe implements PipeTransform {
     constructor(private translationService: TranslationService) {

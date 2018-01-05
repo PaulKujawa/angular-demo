@@ -15,7 +15,7 @@ import {RecipeState} from '../service/recipe.state';
                      [src]="getImageUrl(recipe)">
 
                 <mat-tab-group>
-                    <mat-tab [label]="'app.recipe.ingredients'|trans">
+                    <mat-tab [label]="'app.recipe.ingredients'|appTrans">
                         <mat-list>
                             <mat-list-item *ngFor="let ingredient of recipe.ingredients">
                                 {{ getMeasurement(ingredient) }} {{ ingredient.product.name }}
@@ -23,7 +23,7 @@ import {RecipeState} from '../service/recipe.state';
                         </mat-list>
                     </mat-tab>
 
-                    <mat-tab [label]="'app.recipe.cooking'|trans">
+                    <mat-tab [label]="'app.recipe.cooking'|appTrans">
                         <mat-list>
                             <mat-list-item *ngFor="let cooking of recipe.cookings">
                                 {{ cooking.description }}

@@ -8,7 +8,7 @@ import {FilterState} from '../../shared/service/filter.state';
         <mat-form-field>
             <input #search
                    matInput
-                   [placeholder]="'app.common.filter.search'|trans"
+                   [placeholder]="'app.common.filter.search'|appTrans"
                    (keyup)="setName(search.value)"
                    type="search">
         </mat-form-field>

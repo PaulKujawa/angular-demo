@@ -20,33 +20,33 @@ import {ProductState} from '../service/product.state';
 
             <mat-form-field>
                 <input matInput
-                       [placeholder]="'app.product.form.name'|trans"
+                       [placeholder]="'app.product.form.name'|appTrans"
                        formControlName="name">
             </mat-form-field>
 
             <mat-form-field>
                 <input matInput
-                       [placeholder]="'app.product.form.manufacturer'|trans"
+                       [placeholder]="'app.product.form.manufacturer'|appTrans"
                        formControlName="manufacturer">
             </mat-form-field>
 
             <mat-form-field>
                 <input matInput
-                       [placeholder]="'app.product.form.gr'|trans"
+                       [placeholder]="'app.product.form.gr'|appTrans"
                        type="number"
                        formControlName="gr">
             </mat-form-field>
 
             <mat-form-field>
                 <input matInput
-                       [placeholder]="'app.product.form.kcal'|trans"
+                       [placeholder]="'app.product.form.kcal'|appTrans"
                        type="number"
                        formControlName="kcal">
             </mat-form-field>
 
             <mat-form-field>
                 <input matInput
-                       [placeholder]="'app.product.form.carbs'|trans"
+                       [placeholder]="'app.product.form.carbs'|appTrans"
                        type="number"
                        step="0.1"
                        formControlName="carbs">
@@ -54,7 +54,7 @@ import {ProductState} from '../service/product.state';
 
             <mat-form-field>
                 <input matInput
-                       [placeholder]="'app.product.form.fat'|trans"
+                       [placeholder]="'app.product.form.fat'|appTrans"
                        type="number"
                        step="0.1"
                        formControlName="fat">
@@ -62,7 +62,7 @@ import {ProductState} from '../service/product.state';
 
             <mat-form-field>
                 <input matInput
-                       [placeholder]="'app.product.form.protein'|trans"
+                       [placeholder]="'app.product.form.protein'|appTrans"
                        type="number"
                        step="0.1"
                        formControlName="protein">
@@ -70,7 +70,7 @@ import {ProductState} from '../service/product.state';
 
             <mat-form-field>
                 <input matInput
-                       [placeholder]="'app.product.form.sugar'|trans"
+                       [placeholder]="'app.product.form.sugar'|appTrans"
                        type="number"
                        step="0.1"
                        formControlName="sugar">
@@ -78,7 +78,7 @@ import {ProductState} from '../service/product.state';
 
             <mat-form-field>
                 <input matInput
-                       [placeholder]="'app.product.form.gfat'|trans"
+                       [placeholder]="'app.product.form.gfat'|appTrans"
                        type="number"
                        step="0.1"
                        formControlName="gfat">

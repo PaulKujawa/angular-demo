@@ -10,13 +10,13 @@ import {FilterState} from '../../shared/service/filter.state';
                 <input #search
                        matInput
                        (keyup)="setName(search.value)"
-                       [placeholder]="'app.common.filter.search'|trans">
+                       [placeholder]="'app.common.filter.search'|appTrans">
             </mat-form-field>
 
             <section class="app-recipe-list-filter__vegan">
                 <mat-checkbox #veganOnly
                               (change)="setVegan(veganOnly.checked)">
-                    {{ 'app.recipe.filter.vegan_only'|trans }}
+                    {{ 'app.recipe.filter.vegan_only'|appTrans }}
                 </mat-checkbox>
             </section>
         </div>

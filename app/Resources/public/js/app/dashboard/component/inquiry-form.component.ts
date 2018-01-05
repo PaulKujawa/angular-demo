@@ -15,13 +15,13 @@ import {InquiryRepository} from '../repository/inquiry.repository';
             <mat-form-field>
                 <input matInput
                        formControlName="name"
-                       [placeholder]="'app.inquiry.form.name'|trans">
+                       [placeholder]="'app.inquiry.form.name'|appTrans">
             </mat-form-field>
 
             <mat-form-field>
                 <input matInput
                        formControlName="email"
-                       [placeholder]="'app.inquiry.form.email_address'|trans">
+                       [placeholder]="'app.inquiry.form.email_address'|appTrans">
             </mat-form-field>
 
             <mat-form-field class="app-inquiry-form__message">
@@ -29,7 +29,7 @@ import {InquiryRepository} from '../repository/inquiry.repository';
                           matTextareaAutosize
                           matAutosizeMinRows="5"
                           formControlName="message"
-                          [placeholder]="'app.inquiry.form.message'|trans">
+                          [placeholder]="'app.inquiry.form.message'|appTrans">
                 </textarea>
             </mat-form-field>
 
