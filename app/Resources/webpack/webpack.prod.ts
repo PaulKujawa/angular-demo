@@ -1,3 +1,4 @@
+import {AngularCompilerPlugin} from '@ngtools/webpack';
 import {Configuration} from 'webpack';
 import {WebpackArgs} from './webpack-args';
 import {getCommonConfig} from './webpack.common';
@@ -5,12 +6,10 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
-const {AngularCompilerPlugin} = require('@ngtools/webpack');
 
 export const webpackConfig = (args: WebpackArgs): Configuration => {
     const rootPath = path.join(__dirname, '../../..');
     const jsPath = path.join(rootPath, 'app/Resources/public/js');
-    const cachePath = path.join(rootPath, 'var/cache/prod/webpack');
 
     const prodConfig: Configuration = {
         devtool: 'source-map',
@@ -18,22 +17,12 @@ export const webpackConfig = (args: WebpackArgs): Configuration => {
             rules: [
                 {
                     test: /\.ts$/,
-                    use: [
-                        {
-                            loader: 'cache-loader',
-                            options: {cacheDirectory: path.join(cachePath, 'js')},
-                        },
-                        '@ngtools/webpack',
-                    ],
+                    loader: '@ngtools/webpack',
                 }, {
                     // transpile sass to css and load it as extra file separately
                     test: /\.scss$/,
                     loader: ExtractTextPlugin.extract({
                         use: [
-                            {
-                                loader: 'cache-loader',
-                                options: {cacheDirectory: path.join(cachePath, 'css')},
-                            },
                             {
                                 loader: 'css-loader',
                                 options: {sourceMap: true},
@@ -50,11 +39,14 @@ export const webpackConfig = (args: WebpackArgs): Configuration => {
         plugins: [
             new AngularCompilerPlugin({
                 tsConfigPath: path.join(jsPath, 'tsconfig.json'),
-                entryModule: path.join(jsPath, 'app', 'app.module#AppModule'),
+                entryModule: path.join(jsPath, 'app/app.module#AppModule'),
             }),
 
             // generate separate css file to load, based on output.path
-            new ExtractTextPlugin('css/main.css'),
+            new ExtractTextPlugin(path.join('css/main.css')),
+
+            // scope hoisting
+            new webpack.optimize.ModuleConcatenationPlugin(),
 
             // stop the build if there is an error
             new webpack.NoEmitOnErrorsPlugin(),

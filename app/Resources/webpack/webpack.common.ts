@@ -28,18 +28,9 @@ export const getCommonConfig = (args: WebpackArgs): Configuration => {
             chunkFilename: 'js/chunk/[name].js',
         },
         plugins: [
-            /**
-             * Creates bundles and chunks.
-             *
-             * A bundle emerges from an entry point, containing all its files
-             * A chunk is used:
-             *  - by angular for lazy loaded ng-modules
-             *  - by webpack for modules, that are shared among entry points (e.g. vendors)
-             */
             new webpack.optimize.CommonsChunkPlugin({
-                name: 'vendor', // common chunk, where shared modules get imported
-                chunks: ['main'], // source chunks, child of common chunk
-                minChunks: (module) => /(node_modules|web\/js|web\/)\//.test(module.resource),
+                name: 'vendor',
+                chunks: ['main'],
             }),
 
             // set global variables
@@ -53,13 +44,13 @@ export const getCommonConfig = (args: WebpackArgs): Configuration => {
             // this lets them behave like globally declared variables
             // add module declarations via type defintions files to provide type checks
             new webpack.ProvidePlugin({
-                Translator: 'web/bundles/bazingajstranslation/js/translator.min.js',
+                Translator: path.join('web/bundles/bazingajstranslation/js/translator.min.js'),
             }),
         ],
         resolve: {
             extensions: ['.ts', '.js', '.scss'],
             plugins: [
-                // plugin provides support for tsConfig's Path and BaseUrl, that are used for relative ES6 imports
+                // plugin provides support for tsConfig's BaseUrl & Path, that are used for relative ES6 imports
                 new TsConfigPathsPlugin({
                     configFileName: `${jsPath}/tsconfig.json`,
                 }),
@@ -68,7 +59,6 @@ export const getCommonConfig = (args: WebpackArgs): Configuration => {
     };
 
     if (args.analyze) {
-        // chunk analyzation
         commonConfig.plugins.push(new BundleAnalyzerPlugin());
     }
 
