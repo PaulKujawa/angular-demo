@@ -6,7 +6,7 @@ import {Inquiry} from '../model/inquiry';
 import {InquiryRepository} from '../repository/inquiry.repository';
 
 @Component({
-    selector: 'inquiry-form',
+    selector: 'app-inquiry-form',
     template: `
         <form class="app-inquiry-form"
               novalidate
@@ -15,13 +15,13 @@ import {InquiryRepository} from '../repository/inquiry.repository';
             <mat-form-field>
                 <input matInput
                        formControlName="name"
-                       [placeholder]="'app.inquiry.form.name'|trans">
+                       [placeholder]="'app.inquiry.form.name'|appTrans">
             </mat-form-field>
 
             <mat-form-field>
                 <input matInput
                        formControlName="email"
-                       [placeholder]="'app.inquiry.form.email_address'|trans">
+                       [placeholder]="'app.inquiry.form.email_address'|appTrans">
             </mat-form-field>
 
             <mat-form-field class="app-inquiry-form__message">
@@ -29,14 +29,14 @@ import {InquiryRepository} from '../repository/inquiry.repository';
                           matTextareaAutosize
                           matAutosizeMinRows="5"
                           formControlName="message"
-                          [placeholder]="'app.inquiry.form.message'|trans">
+                          [placeholder]="'app.inquiry.form.message'|appTrans">
                 </textarea>
             </mat-form-field>
 
             <button mat-raised-button
                     color="primary"
                     [disabled]="inquiryForm.invalid">
-                {{'app.common.submit' | trans}}
+                {{ 'app.common.submit'|appTrans }}
             </button>
         </form>
     `,
@@ -60,7 +60,9 @@ export class InquiryFormComponent implements OnInit, OnDestroy {
     }
 
     public ngOnDestroy(): void {
-        this.subscription && this.subscription.unsubscribe();
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 
     public onSubmit(): void {

@@ -13,15 +13,20 @@ export const webpackConfig = (args: WebpackArgs): Configuration => {
                     // write templates inline and transpile ts to js
                     test: /\.ts$/,
                     use: [
-                        {loader: 'awesome-typescript-loader', options: {transpileOnly: true}},
-                        'angular2-template-loader'
+                        {
+                            loader: 'awesome-typescript-loader',
+                            options: {transpileOnly: true},
+                        },
+                        'angular2-template-loader',
                     ],
                 }, {
                     // do not load (s)css
-                    test: /\.scss$/, loader: 'null-loader',
+                    test: /\.scss$/,
+                    loader: 'null-loader',
                 }, {
                     // do not load images
-                    test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/, loader: 'null-loader',
+                    test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
+                    loader: 'null-loader',
                 },
             ],
         },

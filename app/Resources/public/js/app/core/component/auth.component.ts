@@ -12,21 +12,21 @@ import {AuthenticationService} from '../service/authentication.service';
             <mat-form-field>
                 <input autofocus
                        matInput
-                       [placeholder]="'security.login.username'|trans"
+                       [placeholder]="'security.login.username'|appTrans"
                        formControlName="username">
             </mat-form-field>
 
             <mat-form-field>
                 <input type="password"
-                        matInput
-                       [placeholder]="'security.login.password'|trans"
+                       matInput
+                       [placeholder]="'security.login.password'|appTrans"
                        formControlName="password">
             </mat-form-field>
 
             <button mat-raised-button
                     color="primary"
                     [disabled]="authForm.invalid">
-                {{'app.common.submit' | trans}}
+                {{ 'app.common.submit'|appTrans }}
             </button>
         </form>
     `,

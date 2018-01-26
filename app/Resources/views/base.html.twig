@@ -20,11 +20,14 @@
             {% if app.environment != 'test' %}
                 <link rel="stylesheet" href="{{ asset('css/main.css') }}">
             {% endif %}
+
+            <link rel="preload" as="script" href="{{ asset('js/bundle/vendor.js') }}">
+            <link rel="preload" as="script" href="{{ asset('js/bundle/main.js') }}">
         {% endblock %}
     </head>
 
     <body class="mat-app-background">
-        <spa></spa>
+        <app-spa></app-spa>
         <script>
             window.appInject = {
                 baseUrl: {{ path('app_root_i18n')|json_encode|raw }},

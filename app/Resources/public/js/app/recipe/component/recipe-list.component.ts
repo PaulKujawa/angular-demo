@@ -5,7 +5,7 @@ import {RecipeState} from '../service/recipe.state';
 
 @Component({
     template: `
-        <recipe-filter></recipe-filter>
+        <app-recipe-filter></app-recipe-filter>
 
         <div *ngIf="recipeState.getPageable()|async as recipes"
              class="app-recipe-list">
@@ -13,9 +13,9 @@ import {RecipeState} from '../service/recipe.state';
                       (click)="onClick(recipe)"
                       class="app-recipe-list__card">
                 <mat-card-header>
-                    <mat-card-title>{{recipe.name}}</mat-card-title>
+                    <mat-card-title>{{ recipe.name }}</mat-card-title>
 
-                    <mat-card-subtitle>{{recipe.updated | date}}</mat-card-subtitle>
+                    <mat-card-subtitle>{{ recipe.updated | date }}</mat-card-subtitle>
                 </mat-card-header>
 
                 <img mat-card-image
@@ -23,13 +23,13 @@ import {RecipeState} from '../service/recipe.state';
                      [attr.alt]="recipe.name">
 
                 <mat-card-content>
-                    <macro-chart [macros]="recipe.macros">
-                    </macro-chart>
+                    <app-macro-chart [macros]="recipe.macros">
+                    </app-macro-chart>
                 </mat-card-content>
             </mat-card>
         </div>
 
-        <pagination></pagination>
+        <app-pagination></app-pagination>
     `,
 })
 export class RecipeListComponent {

@@ -11,7 +11,7 @@ interface InViewportConfig {
 }
 
 @Directive({
-    selector: '[in-viewport]',
+    selector: '[appInViewport]',
 })
 export class InViewportDirective implements OnInit, OnChanges, OnDestroy {
     private static sharedSource = Observable.merge(
@@ -21,7 +21,7 @@ export class InViewportDirective implements OnInit, OnChanges, OnDestroy {
     .auditTime(100)
     .share();
 
-    @Input('in-viewport') public config?: InViewportConfig;
+    @Input() public config?: InViewportConfig;
     @Input() public customEvent?: Observable<any>;
     @Output() public visible = new EventEmitter<boolean>();
     private readonly defaultConfig: InViewportConfig = {percentage: 100};

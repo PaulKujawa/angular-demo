@@ -3,12 +3,12 @@ import {Subscription} from 'rxjs/Subscription';
 import {FilterState} from '../../shared/service/filter.state';
 
 @Component({
-    selector: 'product-filter',
+    selector: 'app-product-filter',
     template: `
         <mat-form-field>
             <input #search
                    matInput
-                   [placeholder]="'app.common.filter.search'|trans"
+                   [placeholder]="'app.common.filter.search'|appTrans"
                    (keyup)="setName(search.value)"
                    type="search">
         </mat-form-field>
@@ -21,7 +21,9 @@ export class ProductFilterComponent implements OnDestroy {
     }
 
     public ngOnDestroy(): void {
-        this.subscription && this.subscription.unsubscribe();
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 
     public setName(name: string): void {

@@ -6,14 +6,14 @@ import {RoutingService} from '../../core/service/routing.service';
  * Generates a route, based on the base url
  *
  * Usage
- *  value|route:params
+ *  value|appRoute:params
  * Example
- *  {{ 'app_root_i18n'|route }}
- *  {{ 'app_recipes'|route:{page:'1'}:false }}
+ *  {{ 'app_root_i18n'|appRoute }}
+ *  {{ 'app_recipes'|appRoute:{page:'1'}:false }}
  */
 
 @Pipe({
-    name: 'route',
+    name: 'appRoute',
 })
 export class RoutePipe implements PipeTransform {
     constructor(private routingService: RoutingService) {

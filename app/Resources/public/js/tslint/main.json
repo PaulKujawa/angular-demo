@@ -1,0 +1,6 @@
+{
+    "extends": [
+        "./custom.json",
+        "./angular.json"
+    ]
+}

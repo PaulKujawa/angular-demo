@@ -11,10 +11,10 @@ import {ProductState} from '../service/product.state';
                         color="accent"
                         (click)="onAddProduct()"
                         class="app-product-list-filter__create">
-                    {{'app.common.new' | trans}}
+                    {{ 'app.common.new'|appTrans }}
                 </button>
 
-                <product-filter></product-filter>
+                <app-product-filter></app-product-filter>
             </div>
 
             <mat-nav-list *ngIf="productState.getPageable()|async as products"
@@ -22,11 +22,11 @@ import {ProductState} from '../service/product.state';
                 <a *ngFor="let product of products.docs"
                    mat-list-item
                    (click)="onSelectProduct(product)">
-                    {{product.name}}
+                    {{ product.name }}
                 </a>
             </mat-nav-list>
 
-            <pagination></pagination>
+            <app-pagination></app-pagination>
 
             <div class="app-product-list__outlet">
                 <router-outlet>

@@ -19,7 +19,10 @@ export const webpackConfig = (args: WebpackArgs): Configuration => {
                 {
                     test: /\.ts$/,
                     use: [
-                        {loader: 'cache-loader', options: {cacheDirectory: path.join(cachePath, 'js')}},
+                        {
+                            loader: 'cache-loader',
+                            options: {cacheDirectory: path.join(cachePath, 'js')},
+                        },
                         '@ngtools/webpack',
                     ],
                 }, {
@@ -27,9 +30,18 @@ export const webpackConfig = (args: WebpackArgs): Configuration => {
                     test: /\.scss$/,
                     loader: ExtractTextPlugin.extract({
                         use: [
-                            {loader: 'cache-loader', options: {cacheDirectory: path.join(cachePath, 'css')}},
-                            {loader: 'css-loader', options: {sourceMap: true}},
-                            {loader: 'sass-loader', options: {sourceMap: true}},
+                            {
+                                loader: 'cache-loader',
+                                options: {cacheDirectory: path.join(cachePath, 'css')},
+                            },
+                            {
+                                loader: 'css-loader',
+                                options: {sourceMap: true},
+                            },
+                            {
+                                loader: 'sass-loader',
+                                options: {sourceMap: true},
+                            },
                         ],
                     }),
                 },
@@ -38,7 +50,7 @@ export const webpackConfig = (args: WebpackArgs): Configuration => {
         plugins: [
             new AngularCompilerPlugin({
                 tsConfigPath: path.join(jsPath, 'tsconfig.json'),
-                entryModule: path.join(jsPath, 'app/app.module#AppModule'),
+                entryModule: path.join(jsPath, 'app', 'app.module#AppModule'),
             }),
 
             // generate separate css file to load, based on output.path

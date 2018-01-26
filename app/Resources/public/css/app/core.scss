@@ -8,7 +8,7 @@ body {
   line-height: 1.42857;
 }
 
-spa > section {
+.app-section {
   margin-right: auto;
   margin-left: auto;
   padding-left: 15px;
@@ -20,5 +20,9 @@ spa > section {
 
   @media #{$media-query-min-md} {
     width: 970px;
+  }
+
+  @media #{$media-query-min-lg} {
+    width: 1170px;
   }
 }
