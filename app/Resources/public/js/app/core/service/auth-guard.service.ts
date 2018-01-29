@@ -17,6 +17,7 @@ export class AuthenticationGuard implements CanActivate, CanActivateChild, CanLo
         return this.isAuthenticated(targetUrl);
     }
 
+    // @ts-ignore
     public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
         return this.isAuthenticated(state.url);
     }

@@ -13,6 +13,8 @@
     "importHelpers": true,
     "module": "es6",
     "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "paths": {
       "web/*": ["../../../../web/*"]
     },

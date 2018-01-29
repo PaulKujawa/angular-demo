@@ -10,21 +10,12 @@ export const webpackConfig = (args: WebpackArgs): Configuration => {
         module: {
             rules: [
                 {
-                    // write templates inline and transpile ts to js
                     test: /\.ts$/,
-                    use: [
-                        {
-                            loader: 'awesome-typescript-loader',
-                            options: {transpileOnly: true},
-                        },
-                        'angular2-template-loader',
-                    ],
+                    loader: '@ngtools/webpack',
                 }, {
-                    // do not load (s)css
                     test: /\.scss$/,
                     loader: 'null-loader',
                 }, {
-                    // do not load images
                     test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
                     loader: 'null-loader',
                 },

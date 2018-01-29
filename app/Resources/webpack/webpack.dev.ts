@@ -1,3 +1,4 @@
+import {AngularCompilerPlugin} from '@ngtools/webpack';
 import {Configuration} from 'webpack';
 import {WebpackArgs} from './webpack-args';
 import {getCommonConfig} from './webpack.common';
@@ -7,9 +8,7 @@ const merge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 export const webpackConfig = (args: WebpackArgs): Configuration => {
-    const rootPath = path.join(__dirname, '../../../');
     const jsPath = path.join(__dirname, '../public/js');
-    const cachePath = path.join(rootPath, 'var/cache/dev/webpack');
 
     const devConfig: Configuration = {
         devServer: {
@@ -30,29 +29,13 @@ export const webpackConfig = (args: WebpackArgs): Configuration => {
                         options: {configFile: path.join(jsPath, 'tslint', 'main.json')},
                     },
                 }, {
-                    // write templates inline and transpile ts to js
                     test: /\.ts$/,
-                    use: [
-                        {
-                            loader: 'cache-loader',
-                            options: {cacheDirectory: path.join(cachePath, 'js')},
-                        },
-                        {
-                            loader: 'awesome-typescript-loader',
-                            options: {configFileName: path.join(jsPath, 'tsconfig.json')},
-                        },
-                        'angular2-template-loader',
-                        'angular-router-loader',
-                    ],
+                    loader: '@ngtools/webpack',
                 }, {
                     // transpile sass to css and load it inline
                     test: /\.scss$/,
                     loader: ExtractTextPlugin.extract({ // TODO remove this line for HMR
                         use: [
-                            {
-                                loader: 'cache-loader',
-                                options: {cacheDirectory: cachePath + '/css'},
-                            },
                             // {loader: "style-loader"}, TODO add this line for HMR
                             {
                                 loader: 'css-loader',
@@ -68,6 +51,11 @@ export const webpackConfig = (args: WebpackArgs): Configuration => {
             ],
         },
         plugins: [
+            new AngularCompilerPlugin({
+                tsConfigPath: path.join(jsPath, 'tsconfig.json'),
+                entryModule: path.join(jsPath, 'app', 'app.module#AppModule'),
+            }),
+
             // live chunk replacement via webpack's dev-server
             //  new webpack.HotModuleReplacementPlugin(), TODO HMR
 
