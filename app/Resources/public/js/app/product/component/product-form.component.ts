@@ -26,12 +26,6 @@ import {ProductState} from '../service/product.state';
 
             <mat-form-field>
                 <input matInput
-                       [placeholder]="'app.product.form.manufacturer'|appTrans"
-                       formControlName="manufacturer">
-            </mat-form-field>
-
-            <mat-form-field>
-                <input matInput
                        [placeholder]="'app.product.form.gr'|appTrans"
                        type="number"
                        formControlName="gr">
@@ -158,9 +152,6 @@ export class ProductFormComponent implements OnChanges {
             kcal: new FormControl(product && product.kcal || 0, [
                 Validators.min(0),
                 Validators.required,
-            ]),
-            manufacturer: new FormControl(product && product.manufacturer  || '', [
-                Validators.maxLength(40),
             ]),
             name: new FormControl(product && product.name || '', [
                 Validators.required,

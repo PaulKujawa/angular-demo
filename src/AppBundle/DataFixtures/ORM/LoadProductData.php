@@ -16,9 +16,9 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
 
     public function load(ObjectManager $em): void
     {
-        self::$members[] = $this->instantiate('Product1', 'Rinatura', false);
-        self::$members[] = $this->instantiate('Product2', 'Soja so lecker');
-        self::$members[] = $this->instantiate('Product3', 'Vitam');
+        self::$members[] = $this->instantiate('Product1', false);
+        self::$members[] = $this->instantiate('Product2');
+        self::$members[] = $this->instantiate('Product3');
         self::$members[] = $this->instantiate('Product4');
 
         array_walk(self::$members, function(Product $member, $i) use ($em) {
@@ -28,7 +28,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         $em->flush();
     }
 
-    private function instantiate(string $name, string $manufacturer = null, bool $isVegan = true): Product
+    private function instantiate(string $name, bool $isVegan = true): Product
     {
         $macros = [
             'gr' => 1,
@@ -50,7 +50,6 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         $entity->protein = $macros['protein'];
         $entity->fat = $macros['fat'];
         $entity->gfat = $macros['gfat'];
-        $entity->manufacturer = $manufacturer;
 
         return $entity;
     }

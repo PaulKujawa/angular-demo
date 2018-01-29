@@ -22,9 +22,18 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Cooking
 {
-    use DescriptionTrait;
     use IdAutoTrait;
     use TimestampTrait;
+
+    /**
+     * @var string
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 5, max = 200)
+     *
+     * @ORM\Column(type = "string", length = 200)
+     */
+    public $description;
 
     /**
      * @var int
