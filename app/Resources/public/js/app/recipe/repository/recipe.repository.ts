@@ -6,7 +6,7 @@ import {PageableDto} from '../../core/model/dto/pageable.dto';
 import {Pageable} from '../../core/model/pageable';
 import {RoutingService} from '../../core/service/routing.service';
 import {RecipeDetailResponseDto} from '../model/dto/recipe-detail-response.dto';
-import {RecipeResponseDto} from '../model/dto/recipe-list-response.dto';
+import {RecipeResponseDto} from '../model/dto/recipe-response.dto';
 import {Recipe} from '../model/recipe';
 import {RecipeDetail} from '../model/recipe-detail';
 

@@ -16,7 +16,7 @@
         "pipe-impure": true,
         "pipe-naming": [true, "camelCase", "app"],
         "templates-no-negated-async": true,
-        "trackBy-function": true,
+        "trackBy-function": false,
         "use-host-property-decorator": true,
         "use-input-property-decorator": true,
         "use-life-cycle-interface": true,

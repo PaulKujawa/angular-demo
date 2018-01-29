@@ -6,6 +6,8 @@ export interface RecipeResponseDto {
     name: string;
     isVegan: boolean;
     macros: Macros;
+    servings?: number;
+    preparationTime?: number;
     thumbnail?: Photo;
     created: string;
     updated: string;

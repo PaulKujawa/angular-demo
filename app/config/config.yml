@@ -49,7 +49,7 @@ fos_user:
 framework:
     assets: ~
     csrf_protection: ~
-    default_locale: de
+    default_locale: '%locale%'
 #    esi: ~
     form: ~
     fragments: ~

@@ -37,7 +37,32 @@ class Recipe
     public $isVegan;
 
     /**
-     * @var Photo
+     * @var int|null
+     *
+     * @Assert\NotNull()
+     *
+     * @ORM\Column(
+     *     type = "integer",
+     *     nullable = true
+     * )
+     */
+    public $servings;
+
+    /**
+     * @var int|null
+     *
+     * @Assert\NotNull()
+     *
+     * @ORM\Column(
+     *     type = "integer",
+     *     nullable = true
+     * )
+     */
+    public $preparationTime;
+
+
+    /**
+     * @var Photo|null
      *
      * @Assert\NotNull()
      *

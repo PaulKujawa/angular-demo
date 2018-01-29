@@ -14,12 +14,10 @@ import {RecipeState} from '../service/recipe.state';
                       class="app-recipe-list__card">
                 <mat-card-header>
                     <mat-card-title>{{ recipe.name }}</mat-card-title>
-
-                    <mat-card-subtitle>{{ recipe.updated | date }}</mat-card-subtitle>
                 </mat-card-header>
 
                 <img mat-card-image
-                     [src]="getImageUrl(recipe)"
+                     [src]="getThumbnail(recipe)"
                      [attr.alt]="recipe.name">
 
                 <mat-card-content>
@@ -43,7 +41,7 @@ export class RecipeListComponent {
         this.router.navigate(['/recipes', recipe.id, recipeName]);
     }
 
-    public getImageUrl(recipe: Recipe): string {
+    public getThumbnail(recipe: Recipe): string {
         return recipe.thumbnail
             ? recipe.thumbnail.path
             : 'http://placehold.it/400x300';

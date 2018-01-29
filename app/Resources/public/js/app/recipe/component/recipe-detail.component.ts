@@ -12,7 +12,7 @@ import {RecipeState} from '../service/recipe.state';
                 <h1>{{ recipe.name }}</h1>
 
                 <img class="app-recipe-detail__image"
-                     [src]="getImageUrl(recipe)">
+                     [src]="getPhotos(recipe)">
 
                 <mat-tab-group>
                     <mat-tab [label]="'app.recipe.ingredients'|appTrans">
@@ -56,7 +56,12 @@ export class RecipeDetailComponent implements OnInit {
         return ingredient.amount + ingredient.measurement.name;
     }
 
-    public getImageUrl(recipe: RecipeDetail): string {
-        return (recipe.thumbnail && recipe.thumbnail.path) || 'http://placehold.it/400x400';
+    // TODO will have to handle and render a collection of photos when real ones get actually shot
+    public getPhotos(recipe: RecipeDetail): string {
+        if (recipe.photos.length) {
+            return recipe.photos[0].path;
+        }
+
+        return 'http://placehold.it/400x400';
     }
 }

@@ -31,7 +31,10 @@ class Cooking
      * @Assert\NotBlank()
      * @Assert\Length(min = 5, max = 200)
      *
-     * @ORM\Column(type = "string", length = 200)
+     * @ORM\Column(
+     *     type = "string",
+     *     length = 200
+     * )
      */
     public $description;
 
