@@ -7,7 +7,6 @@ import {MatInputModule} from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
 import {MatTabsModule} from '@angular/material/tabs';
 import {SharedModule} from '../shared/shared.module';
-import {MacroChartComponent} from './component/macro-chart.component';
 import {RecipeDetailComponent} from './component/recipe-detail.component';
 import {RecipeFilterComponent} from './component/recipe-filter.component';
 import {RecipeListComponent} from './component/recipe-list.component';
@@ -29,7 +28,6 @@ import {RecipeState} from './service/recipe.state';
         RecipeRoutingModule,
     ],
     declarations: [
-        MacroChartComponent,
         RecipeComponent,
         RecipeDetailComponent,
         RecipeFilterComponent,

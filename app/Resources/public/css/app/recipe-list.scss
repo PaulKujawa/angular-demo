@@ -1,7 +1,4 @@
 @import "../import/variables";
-@import "../mixin/recipe-list-theme";
-
-@include app-recipe-list_macro-theme($app-mat_theme);
 
 .app-recipe-list {
   display: grid;
@@ -34,16 +31,4 @@
 .app-recipe-list-filter__vegan {
   flex-grow: 2;
   margin-left: 15px;
-}
-
-.app-recipe-list_macro {
-  overflow: hidden;
-  height: 20px;
-
-  div {
-    float: left;
-    line-height: 22px;
-    color: #fff;
-    text-align: center;
-  }
 }

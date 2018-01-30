@@ -21,8 +21,7 @@ import {RecipeState} from '../service/recipe.state';
                      [attr.alt]="recipe.name">
 
                 <mat-card-content>
-                    <app-macro-chart [macros]="recipe.macros">
-                    </app-macro-chart>
+                    
                 </mat-card-content>
             </mat-card>
         </div>
