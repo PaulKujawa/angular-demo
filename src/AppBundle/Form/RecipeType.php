@@ -20,6 +20,7 @@ class RecipeType extends AbstractType
             ->add('isVegan', Boolean::class)
             ->add('servings', IntegerType::class)
             ->add('preparationTime', IntegerType::class)
+            ->add('cookTime', IntegerType::class)
             ->add('submit', SubmitType::class)
             ->getForm();
     }

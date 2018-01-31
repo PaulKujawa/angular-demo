@@ -67,6 +67,7 @@ class Ingredient
      *
      * @Assert\GreaterThan(value = 0)
      *
+     * TODO make float for e.g. 1.2 liter
      * @ORM\Column(
      *      type = "smallint",
      *      nullable = true

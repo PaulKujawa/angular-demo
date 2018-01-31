@@ -4,10 +4,11 @@ import {Photo} from '../photo';
 export interface RecipeResponseDto {
     id: number;
     name: string;
-    isVegan: boolean;
+    is_vegan: boolean;
     macros: Macros;
     servings?: number;
-    preparationTime?: number;
+    preparation_time?: number;
+    cook_time?: number;
     thumbnail?: Photo;
     created: string;
     updated: string;

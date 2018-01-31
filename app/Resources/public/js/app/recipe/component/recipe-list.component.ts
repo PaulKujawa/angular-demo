@@ -20,8 +20,24 @@ import {RecipeState} from '../service/recipe.state';
                      [src]="getThumbnail(recipe)"
                      [attr.alt]="recipe.name">
 
-                <mat-card-content>
-                    
+                <mat-card-content class="app-recipe-list-card__content">
+                    <span>
+                        <i *ngIf="recipe.isVegan"
+                           class="material-icons">
+                            local_florist
+                        </i>
+                    </span>
+
+                    <span>
+                        <i *ngIf="recipe.servings"
+                           class="material-icons md-dark">bubble_chart</i>
+                        <span>{{ recipe.servings }}</span>
+                    </span>
+
+                    <div *ngIf="recipe.hasTime()">
+                        <i class="material-icons md-dark">schedule</i>
+                        <span>{{ getTime(recipe) }}</span>
+                    </div>
                 </mat-card-content>
             </mat-card>
         </div>
@@ -38,6 +54,14 @@ export class RecipeListComponent {
         const recipeName = recipe.name.replace(' ', '-');
 
         this.router.navigate(['/recipes', recipe.id, recipeName]);
+    }
+
+    public getTime(recipe: Recipe): string {
+        if (recipe.preparationTime && recipe.cookTime) {
+            return `${recipe.preparationTime} / ${recipe.preparationTime + recipe.cookTime}`;
+        }
+
+        return String(recipe.preparationTime || recipe.cookTime);
     }
 
     public getThumbnail(recipe: Recipe): string {

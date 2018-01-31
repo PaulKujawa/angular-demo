@@ -34,6 +34,7 @@ class LoadRecipeData extends AbstractFixture implements OrderedFixtureInterface
         $entity->isVegan = true;
         $entity->servings = $servings;
         $entity->preparationTime = $preparationTime;
+        $entity->cookTime = 20;
 
         return $entity;
     }

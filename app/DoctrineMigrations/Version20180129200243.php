@@ -18,7 +18,7 @@ class Version20180129200243 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE recipe ADD preparation_time INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE recipe ADD preparationTime INT DEFAULT NULL, ADD cookTime INT DEFAULT NULL');
     }
 
     /**
@@ -29,6 +29,6 @@ class Version20180129200243 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE recipe DROP preparation_time');
+        $this->addSql('ALTER TABLE recipe DROP preparationTime, DROP cookTime');
     }
 }

@@ -51,22 +51,30 @@ class Recipe
     /**
      * @var int|null
      *
-     * @Assert\NotNull()
-     *
      * @ORM\Column(
+     *     name = "preparationTime",
      *     type = "integer",
      *     nullable = true
      * )
      */
     public $preparationTime;
 
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(
+     *     name = "cookTime",
+     *     type = "integer",
+     *     nullable = true
+     * )
+     */
+    public $cookTime;
+
 
     /**
      * @var Photo|null
      *
      * @Assert\NotNull()
-     *
-     * @Serializer\Groups({"recipeList"})
      *
      * @ORM\OneToOne(targetEntity = "Photo")
      * @ORM\JoinColumn(
