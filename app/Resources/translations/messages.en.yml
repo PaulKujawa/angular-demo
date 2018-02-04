@@ -47,4 +47,7 @@ app:
     cooking: Cooking
     filter:
       vegan_only: Vegan
+  recipe_detail:
     ingredients: Ingredients
+    instruction: Instruction
+    nutrition: Nutrition per serving

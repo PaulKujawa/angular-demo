@@ -1,15 +1,15 @@
-import {Macros} from '../macros';
-import {Photo} from '../photo';
+import {MacrosDto} from './macros.dto';
+import {PhotoDto} from './photo.dto';
 
 export interface RecipeResponseDto {
     id: number;
     name: string;
     is_vegan: boolean;
-    macros: Macros;
-    servings?: number;
+    macros: MacrosDto;
+    servings: number;
     preparation_time?: number;
     cook_time?: number;
-    thumbnail?: Photo;
+    thumbnail?: PhotoDto;
     created: string;
     updated: string;
 }

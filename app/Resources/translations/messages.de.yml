@@ -44,7 +44,9 @@ app:
       sugar: Zucker
       vegan: Vegan
   recipe:
-    cooking: Zubereitung
     filter:
       vegan_only: Vegan
+  recipe_detail:
     ingredients: Zutaten
+    instruction: Anleitung
+    nutrition: Nährwerte pro Portion

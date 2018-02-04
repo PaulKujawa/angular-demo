@@ -1,15 +1,23 @@
 import {MacrosDto} from './dto/macros.dto';
 
-export class Macros {
-    public kcal: number;
-    public carbs: number;
-    public protein: number;
-    public fat: number;
+interface MacrosInterface {
+    kcal: number;
+    carbs: number;
+    protein: number;
+    fat: number;
+}
 
-    constructor(dto: MacrosDto) {
-        this.kcal = dto.kcal;
-        this.carbs = dto.carbs;
-        this.protein = dto.protein;
-        this.fat = dto.fat;
+export class Macros {
+    public total: MacrosInterface;
+    public perServing: MacrosInterface;
+
+    constructor(dto: MacrosDto, servings: number) {
+        this.total = dto;
+        this.perServing = dto;
+
+        this.perServing.kcal = Math.round(dto.kcal / servings);
+        this.perServing.carbs = Math.round(dto.carbs / servings);
+        this.perServing.protein = Math.round(dto.protein / servings);
+        this.perServing.fat = Math.round(dto.fat / servings);
     }
 }

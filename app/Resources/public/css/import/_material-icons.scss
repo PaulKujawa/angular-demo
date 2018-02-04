@@ -3,10 +3,10 @@
 .material-icons {
   $is-dark-theme: map-get($app-mat_theme, is-dark);
 
-  color: if($is-dark-theme, rgba(255, 255, 255, 1), rgba(0, 0, 0, 0.54));
+  color: if($is-dark-theme, rgba(255, 255, 255, 1), $app-shared-color_black--brighter);
 
   &.md-inactive {
-    color: if($is-dark-theme, rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0.26));
+    color: if($is-dark-theme, rgba(255, 255, 255, 0.3), $app-shared-color_black--bright);
   }
 }
 

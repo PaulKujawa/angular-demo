@@ -18,21 +18,6 @@
   cursor: pointer;
 }
 
-.app-recipe-list-card__content {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr 1fr;
-
-  .material-icons {
-    position: relative;
-    bottom: -7px;
-    margin-right: 1px;
-  }
-
-  span {
-    justify-self: center;
-  }
-}
-
 .app-recipe-list__filter {
   display: flex;
   align-items: center;

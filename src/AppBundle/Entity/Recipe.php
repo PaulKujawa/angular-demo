@@ -37,14 +37,11 @@ class Recipe
     public $isVegan;
 
     /**
-     * @var int|null
+     * @var int
      *
      * @Assert\NotNull()
      *
-     * @ORM\Column(
-     *     type = "integer",
-     *     nullable = true
-     * )
+     * @ORM\Column(type = "integer")
      */
     public $servings;
 

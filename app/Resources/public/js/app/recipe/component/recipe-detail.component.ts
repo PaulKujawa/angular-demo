@@ -7,36 +7,64 @@ import {RecipeState} from '../service/recipe.state';
 
 @Component({
     template: `
-        <div *ngIf="recipeObservable|async as recipe">
-            <div class="app-recipe-detail">
-                <h1>{{ recipe.name }}</h1>
+        <div *ngIf="recipeObservable|async as recipe"
+             class="app-recipe-detail">
+            <div class="app-recipe-wrapper">
+                <img [src]="getPhotos(recipe)"
+                     class="app-recipe-image">
 
-                <img class="app-recipe-detail__image"
-                     [src]="getPhotos(recipe)">
+                <div class="app-recipe-content">
+                    <h1>{{ recipe.name }}</h1>
 
-                <mat-tab-group>
-                    <mat-tab [label]="'app.recipe.ingredients'|appTrans">
-                        <mat-list>
-                            <mat-list-item *ngFor="let ingredient of recipe.ingredients">
-                                {{ getMeasurement(ingredient) }} {{ ingredient.product.name }}
-                            </mat-list-item>
-                        </mat-list>
-                    </mat-tab>
+                    <app-recipe-facts [recipe]="recipe"
+                                      [cssModifier]="['app-recipe-facts--big', 'app-recipe-facts--white']">
+                    </app-recipe-facts>
 
-                    <mat-tab [label]="'app.recipe.cooking'|appTrans">
-                        <mat-list>
-                            <mat-list-item *ngFor="let cooking of recipe.cookings">
-                                {{ cooking.description }}
-                            </mat-list-item>
-                        </mat-list>
-                    </mat-tab>
-                </mat-tab-group>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                        sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+                        anim id est laborum.
+                    </p>
+
+                    <span class="app-recipe-content_macros">{{ 'app.recipe_detail.nutrition'|appTrans }}</span>
+
+                    <ul class="app-recipe-content_macro-list">
+                        <li>Kcal {{ recipe.macros.perServing.kcal }}</li>
+                        <li>Carbs {{ recipe.macros.perServing.carbs }}</li>
+                        <li>Protein {{ recipe.macros.perServing.protein }}</li>
+                        <li>Fat {{ recipe.macros.perServing.fat }}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div>
+                <h2>{{ 'app.recipe_detail.ingredients'|appTrans }}</h2>
+
+                <ul class="app-recipe_ingredients">
+                    <li *ngFor="let ingredient of recipe.ingredients">
+                        {{ getMeasurement(ingredient) }} {{ ingredient.product.name }}
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h2>{{ 'app.recipe_detail.instruction'|appTrans }}</h2>
+
+                <ol class="app-recipe_instruction">
+                    <li *ngFor="let cooking of recipe.cookings">
+                        {{ cooking.description }}
+                    </li>
+                </ol>
             </div>
         </div>
     `,
 })
 export class RecipeDetailComponent implements OnInit {
     public recipeObservable: Observable<RecipeDetail>;
+    private placeholderColor = Math.floor(Math.random() * 16777215).toString(16);
 
     constructor(private recipeState: RecipeState,
                 private activatedRoute: ActivatedRoute) {
@@ -62,6 +90,6 @@ export class RecipeDetailComponent implements OnInit {
             return recipe.photos[0].path;
         }
 
-        return 'http://placehold.it/400x400';
+        return `http://placehold.it/400x400/${this.placeholderColor}/fff`;
     }
 }

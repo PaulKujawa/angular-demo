@@ -1,0 +1,39 @@
+@import "../import/variables";
+
+.app-recipe-facts {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr 1fr;
+  color: $app-shared-color_black--brighter;
+
+  .material-icons {
+    position: relative;
+    margin-right: 1px;
+    bottom: -4px;
+
+    @media #{$media-query-min-sm} {
+      bottom: -6px;
+    }
+  }
+
+  span {
+    justify-self: center;
+  }
+}
+
+.app-recipe-facts--big {
+  @media #{$media-query-min-md} {
+    font-size: 36px;
+
+    .material-icons {
+      font-size: 36px; // TODO use css-prefixer instead
+    }
+  }
+}
+
+.app-recipe-facts--white {
+  color: #fff !important;
+
+  .material-icons {
+    color: #fff !important; // TODO use css-prefixer instead
+  }
+}

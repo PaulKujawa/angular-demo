@@ -7,7 +7,7 @@ export class Recipe {
     public name: string;
     public isVegan: boolean;
     public macros: Macros;
-    public servings?: number;
+    public servings: number;
     public preparationTime?: number; // TODO mark as required ASAP
     public cookTime?: number; // TODO mark as required ASAP
     public thumbnail?: Photo;
@@ -18,7 +18,7 @@ export class Recipe {
         this.id = dto.id;
         this.name = dto.name;
         this.isVegan = dto.is_vegan;
-        this.macros = dto.macros;
+        this.macros = new Macros(dto.macros, dto.servings);
         this.servings = dto.servings;
         this.preparationTime = dto.preparation_time;
         this.cookTime = dto.cook_time;
