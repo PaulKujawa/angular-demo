@@ -4,7 +4,7 @@ namespace AppBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
-class CookingRepository extends EntityRepository
+class InstructionRepository extends EntityRepository
 {
     public function getNextPosition(int $recipeId): int
     {

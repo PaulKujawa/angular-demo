@@ -43,7 +43,7 @@ app:
       protein: Eiweiß
       sugar: Zucker
       vegan: Vegan
-  recipe:
+  recipe_list:
     filter:
       vegan_only: Vegan
   recipe_detail:

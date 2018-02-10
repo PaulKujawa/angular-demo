@@ -29,7 +29,7 @@ import {RecipeState} from '../service/recipe.state';
                         anim id est laborum.
                     </p>
 
-                    <span class="app-recipe-content_macros">{{ 'app.recipe_detail.nutrition'|appTrans }}</span>
+                    <span class="app-recipe-content_macros">{{ 'app.recipe_detail.nutrition' | appTrans }}</span>
 
                     <ul class="app-recipe-content_macro-list">
                         <li>Kcal {{ recipe.macros.perServing.kcal }}</li>
@@ -41,7 +41,7 @@ import {RecipeState} from '../service/recipe.state';
             </div>
 
             <div>
-                <h2>{{ 'app.recipe_detail.ingredients'|appTrans }}</h2>
+                <h2>{{ 'app.recipe_detail.ingredients' | appTrans }}</h2>
 
                 <ul class="app-recipe_ingredients">
                     <li *ngFor="let ingredient of recipe.ingredients">
@@ -51,11 +51,11 @@ import {RecipeState} from '../service/recipe.state';
             </div>
 
             <div>
-                <h2>{{ 'app.recipe_detail.instruction'|appTrans }}</h2>
+                <h2>{{ 'app.recipe_detail.instruction' | appTrans }}</h2>
 
-                <ol class="app-recipe_instruction">
-                    <li *ngFor="let cooking of recipe.cookings">
-                        {{ cooking.description }}
+                <ol class="app-recipe_instructions">
+                    <li *ngFor="let instruction of recipe.instructions">
+                        {{ instruction.description }}
                     </li>
                 </ol>
             </div>

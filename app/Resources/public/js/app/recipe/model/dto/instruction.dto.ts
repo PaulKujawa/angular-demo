@@ -1,4 +1,4 @@
-export interface CookingDto {
+export interface InstructionDto {
     id: number;
     position: number;
     description: string;

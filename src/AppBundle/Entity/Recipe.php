@@ -99,12 +99,12 @@ class Recipe
      * @Serializer\Groups({"recipeDetail"})
      *
      * @ORM\OneToMany(
-     *      targetEntity = "Cooking",
+     *      targetEntity = "Instruction",
      *      mappedBy = "recipe"
      * )
      * @ORM\OrderBy({"position" = "ASC"})
      */
-    public $cookings;
+    public $instructions;
 
     /**
      * @var ArrayCollection
@@ -123,7 +123,7 @@ class Recipe
     public function __construct()
     {
         $this->photos = new ArrayCollection();
-        $this->cookings = new ArrayCollection();
+        $this->instructions = new ArrayCollection();
         $this->ingredients = new ArrayCollection();
     }
 

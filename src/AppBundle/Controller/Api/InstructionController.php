@@ -2,9 +2,9 @@
 
 namespace AppBundle\Controller\Api;
 
-use AppBundle\Entity\Cooking;
-use AppBundle\Form\CookingType;
-use AppBundle\Repository\CookingRepository;
+use AppBundle\Entity\Instruction;
+use AppBundle\Form\InstructionType;
+use AppBundle\Repository\InstructionRepository;
 use AppBundle\Repository\RecipeRepository;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use FOS\RestBundle\View\View;
@@ -17,37 +17,37 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * @Security("is_authenticated()")
  */
-class CookingController extends FOSRestController implements ClassResourceInterface
+class InstructionController extends FOSRestController implements ClassResourceInterface
 {
     /**
-     * @var CookingRepository
+     * @var InstructionRepository
      */
-    private $cookingRepository;
+    private $instructionRepository;
 
-    public function __construct(CookingRepository $cookingRepository)
+    public function __construct(InstructionRepository $instructionRepository)
     {
-        $this->cookingRepository = $cookingRepository;
+        $this->instructionRepository = $instructionRepository;
     }
 
     public function newAction(int $recipeId): View
     {
-        return $this->view($this->createForm(CookingType::class));
+        return $this->view($this->createForm(InstructionType::class));
     }
 
     public function cgetAction(int $recipeId): View
     {
-        $cookings = $this->cookingRepository->getCookings($recipeId);
+        $instructions = $this->instructionRepository->getInstructions($recipeId);
 
-        return $this->view($cookings);
+        return $this->view($instructions);
     }
 
     public function getAction(int $recipeId, int $id): View
     {
-        $cooking = $this->cookingRepository->getCooking($recipeId, $id);
+        $instruction = $this->instructionRepository->getInstruction($recipeId, $id);
 
-        return null === $cooking
+        return null === $instruction
             ? $this->view(null, Response::HTTP_NOT_FOUND)
-            : $this->view($cooking);
+            : $this->view($instruction);
     }
 
     public function postAction(Request $request, int $recipeId): View
@@ -57,50 +57,50 @@ class CookingController extends FOSRestController implements ClassResourceInterf
             return $this->view(null, Response::HTTP_NOT_FOUND);
         }
 
-        $position = $this->cookingRepository->getPosition($recipeId);
-        $cooking = new Cooking($recipeId, $position);
-        $form = $this->createForm(CookingType::class, $cooking);
+        $position = $this->instructionRepository->getPosition($recipeId);
+        $instruction = new Instruction($recipeId, $position);
+        $form = $this->createForm(InstructionType::class, $instruction);
         $form->handleRequest($request);
 
         if (!$form->isSubmitted() || !$form->isValid()) {
             return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
 
-        $cooking = $this->cookingRepository->addCooking($cooking);
+        $instruction = $this->instructionRepository->addInstruction($instruction);
 
-        return $this->routeRedirectView('api_get_recipe_cooking', ['recipeId' => $recipeId, 'id' => $cooking->id]);
+        return $this->routeRedirectView('api_get_recipe_instruction', ['recipeId' => $recipeId, 'id' => $instruction->id]);
     }
 
     public function putAction(Request $request, int $recipeId, $id): View
     {
-        $cooking = $this->cookingRepository->getCooking($recipeId, $id);
+        $instruction = $this->instructionRepository->getInstruction($recipeId, $id);
 
-        if (null === $cooking) {
+        if (null === $instruction) {
             return $this->view(null, Response::HTTP_NOT_FOUND);
         }
 
-        $form = $this->createForm(CookingType::class, $cooking, ['method' => $request->getMethod()]);
+        $form = $this->createForm(InstructionType::class, $instruction, ['method' => $request->getMethod()]);
         $form->handleRequest($request);
 
         if (!$form->isSubmitted() || !$form->isValid()) {
             return $this->view($form, Response::HTTP_BAD_REQUEST);
         }
 
-        $this->cookingRepository->setCooking($cooking);
+        $this->instructionRepository->setInstruction($instruction);
 
         return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 
     public function deleteAction(int $recipeId, int $id): View
     {
-        $cooking = $this->cookingRepository->getCooking($recipeId, $id);
+        $instruction = $this->instructionRepository->getInstruction($recipeId, $id);
 
-        if (null === $cooking) {
+        if (null === $instruction) {
             return $this->view(null, Response::HTTP_NOT_FOUND);
         }
 
         try {
-            $this->cookingRepository->deleteCooking($cooking);
+            $this->instructionRepository->deleteInstruction($instruction);
         } catch (ForeignKeyConstraintViolationException $ex) {
             return $this->view(null, Response::HTTP_CONFLICT);
         }

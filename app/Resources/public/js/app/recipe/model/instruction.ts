@@ -1,13 +1,13 @@
-import {CookingDto} from './dto/cooking.dto';
+import {InstructionDto} from './dto/instruction.dto';
 
-export class Cooking {
+export class Instruction {
     public id: number;
     public position: number;
     public description: string;
     public created: Date;
     public updated: Date;
 
-    constructor(dto: CookingDto) {
+    constructor(dto: InstructionDto) {
         this.id = dto.id;
         this.position = dto.position;
         this.description = dto.description;

@@ -43,8 +43,7 @@ app:
       protein: Protein
       sugar: Sugar
       vegan: Vegan
-  recipe:
-    cooking: Cooking
+  recipe_list:
     filter:
       vegan_only: Vegan
   recipe_detail:
