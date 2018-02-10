@@ -5,6 +5,18 @@ $media-query-min-lg: "(min-width: 1200px)";
 
 $app-shared_grid-gap: 30px;
 
+// TODO check material for these values
+$app-shared_border: rgba(0, 0, 0, 0.12);
+$app-shared_shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+
+// colors
+$app-shared-color_black--brighter: rgba(0,0,0,0.54); // TODO see above
+$app-shared-color_black--bright: rgba(0, 0, 0, 0.26); // TODO see above
+
+// font
+$app-shared-font_size--default: 12px;
+$app-shared-font_size--larger: 16px;
+
 // variables are provided by include of mat-core() in _material.scss, which gets imported beforehand by main.scss
 $app-mat_primary: mat-palette($mat-deep-purple);
 $app-mat_accent: mat-palette($mat-amber);

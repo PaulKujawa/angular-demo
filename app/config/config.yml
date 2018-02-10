@@ -22,6 +22,7 @@ fos_rest:
         json: true
     allowed_methods_listener: true
     body_listener: # normalises requests' body
+        array_normalizer: fos_rest.normalizer.camel_keys # serialize model properties in camelCase
         default_format: 'json'
         decoders:
           json: fos_rest.decoder.json
@@ -49,7 +50,7 @@ fos_user:
 framework:
     assets: ~
     csrf_protection: ~
-    default_locale: de
+    default_locale: '%locale%'
 #    esi: ~
     form: ~
     fragments: ~

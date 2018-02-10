@@ -17,6 +17,7 @@ interface MatPaginatorEvent {
                        [pageIndex]="pagination.page - 1"
                        [pageSize]="pagination.pageSize"
                        [length]="pagination.numFound"
+                       [hidePageSize]="true"
                        (page)="onClick($event)">
         </mat-paginator>
     `,

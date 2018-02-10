@@ -5,8 +5,8 @@ import {PageableFactory} from '../../core/factory/pageable.factory';
 import {PageableDto} from '../../core/model/dto/pageable.dto';
 import {Pageable} from '../../core/model/pageable';
 import {RoutingService} from '../../core/service/routing.service';
-import {RecipeDetailResponseDto} from '../model/dto/recipe-detail-response.dto';
-import {RecipeResponseDto} from '../model/dto/recipe-list-response.dto';
+import {RecipeDetailDto} from '../model/dto/recipe-detail.dto';
+import {RecipeResponseDto} from '../model/dto/recipe-response.dto';
 import {Recipe} from '../model/recipe';
 import {RecipeDetail} from '../model/recipe-detail';
 
@@ -29,7 +29,7 @@ export class RecipeRepository {
         const url = this.routingService.generate('api_get_recipe', {id: id});
 
         return this.http
-            .get<RecipeDetailResponseDto>(url)
+            .get<RecipeDetailDto>(url)
             .map((recipeDto) => new RecipeDetail(recipeDto));
     }
 }

@@ -37,11 +37,47 @@ class Recipe
     public $isVegan;
 
     /**
-     * @var Photo
+     * @var int
      *
      * @Assert\NotNull()
      *
-     * @Serializer\Groups({"recipeList"})
+     * @ORM\Column(type = "integer")
+     */
+    public $servings;
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(
+     *     name = "preparationTime",
+     *     type = "integer",
+     *     nullable = true
+     * )
+     */
+    public $preparationTime;
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(
+     *     name = "cookTime",
+     *     type = "integer",
+     *     nullable = true
+     * )
+     */
+    public $cookTime;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type = "text")
+     */
+    public $description;
+
+    /**
+     * @var Photo|null
+     *
+     * @Assert\NotNull()
      *
      * @ORM\OneToOne(targetEntity = "Photo")
      * @ORM\JoinColumn(
@@ -69,12 +105,12 @@ class Recipe
      * @Serializer\Groups({"recipeDetail"})
      *
      * @ORM\OneToMany(
-     *      targetEntity = "Cooking",
+     *      targetEntity = "Instruction",
      *      mappedBy = "recipe"
      * )
      * @ORM\OrderBy({"position" = "ASC"})
      */
-    public $cookings;
+    public $instructions;
 
     /**
      * @var ArrayCollection
@@ -93,7 +129,7 @@ class Recipe
     public function __construct()
     {
         $this->photos = new ArrayCollection();
-        $this->cookings = new ArrayCollection();
+        $this->instructions = new ArrayCollection();
         $this->ingredients = new ArrayCollection();
     }
 

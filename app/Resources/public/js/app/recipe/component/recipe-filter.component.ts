@@ -16,7 +16,7 @@ import {FilterState} from '../../shared/service/filter.state';
             <section class="app-recipe-list-filter__vegan">
                 <mat-checkbox #veganOnly
                               (change)="setVegan(veganOnly.checked)">
-                    {{ 'app.recipe.filter.vegan_only'|appTrans }}
+                    {{ 'app.recipe_list.filter.vegan_only'|appTrans }}
                 </mat-checkbox>
             </section>
         </div>

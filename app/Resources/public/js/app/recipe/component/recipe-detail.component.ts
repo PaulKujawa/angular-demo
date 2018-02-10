@@ -7,36 +7,57 @@ import {RecipeState} from '../service/recipe.state';
 
 @Component({
     template: `
-        <div *ngIf="recipeObservable|async as recipe">
-            <div class="app-recipe-detail">
-                <h1>{{ recipe.name }}</h1>
+        <div *ngIf="recipeObservable|async as recipe"
+             class="app-recipe-detail">
+            <div class="app-recipe-wrapper">
+                <img [src]="getPhotos(recipe)"
+                     class="app-recipe-image">
 
-                <img class="app-recipe-detail__image"
-                     [src]="getImageUrl(recipe)">
+                <div class="app-recipe-content">
+                    <h1>{{ recipe.name }}</h1>
 
-                <mat-tab-group>
-                    <mat-tab [label]="'app.recipe.ingredients'|appTrans">
-                        <mat-list>
-                            <mat-list-item *ngFor="let ingredient of recipe.ingredients">
-                                {{ getMeasurement(ingredient) }} {{ ingredient.product.name }}
-                            </mat-list-item>
-                        </mat-list>
-                    </mat-tab>
+                    <app-recipe-facts [recipe]="recipe"
+                                      [cssModifier]="['app-recipe-facts--big', 'app-recipe-facts--white']">
+                    </app-recipe-facts>
 
-                    <mat-tab [label]="'app.recipe.cooking'|appTrans">
-                        <mat-list>
-                            <mat-list-item *ngFor="let cooking of recipe.cookings">
-                                {{ cooking.description }}
-                            </mat-list-item>
-                        </mat-list>
-                    </mat-tab>
-                </mat-tab-group>
+                    <p>{{ recipe.description }}</p>
+
+                    <span class="app-recipe-content_macros">{{ 'app.recipe_detail.nutrition' | appTrans }}</span>
+
+                    <ul class="app-recipe-content_macro-list">
+                        <li>Kcal {{ recipe.macros.perServing.kcal }}</li>
+                        <li>Carbs {{ recipe.macros.perServing.carbs }}</li>
+                        <li>Protein {{ recipe.macros.perServing.protein }}</li>
+                        <li>Fat {{ recipe.macros.perServing.fat }}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div>
+                <h2>{{ 'app.recipe_detail.ingredients' | appTrans }}</h2>
+
+                <ul class="app-recipe_ingredients">
+                    <li *ngFor="let ingredient of recipe.ingredients">
+                        {{ getMeasurement(ingredient) }} {{ ingredient.product.name }}
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h2>{{ 'app.recipe_detail.instruction' | appTrans }}</h2>
+
+                <ol class="app-recipe_instructions">
+                    <li *ngFor="let instruction of recipe.instructions">
+                        {{ instruction.description }}
+                    </li>
+                </ol>
             </div>
         </div>
     `,
 })
 export class RecipeDetailComponent implements OnInit {
     public recipeObservable: Observable<RecipeDetail>;
+    private placeholderColor = Math.floor(Math.random() * 16777215).toString(16);
 
     constructor(private recipeState: RecipeState,
                 private activatedRoute: ActivatedRoute) {
@@ -56,7 +77,12 @@ export class RecipeDetailComponent implements OnInit {
         return ingredient.amount + ingredient.measurement.name;
     }
 
-    public getImageUrl(recipe: RecipeDetail): string {
-        return (recipe.thumbnail && recipe.thumbnail.path) || 'http://placehold.it/400x400';
+    // TODO will have to handle and render a collection of photos when real ones get actually shot
+    public getPhotos(recipe: RecipeDetail): string {
+        if (recipe.photos.length) {
+            return recipe.photos[0].path;
+        }
+
+        return `http://placehold.it/400x400/${this.placeholderColor}/fff`;
     }
 }

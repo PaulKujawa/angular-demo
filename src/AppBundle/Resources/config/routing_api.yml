@@ -21,10 +21,10 @@ api_ingredients:
   resource: "@AppBundle/Controller/Api/IngredientController.php"
   name_prefix: api_
 
-api_cookings:
+api_instructions:
   type: rest
   parent: api_recipes
-  resource: "@AppBundle/Controller/Api/CookingController.php"
+  resource: "@AppBundle/Controller/Api/InstructionController.php"
   name_prefix: api_
 
 

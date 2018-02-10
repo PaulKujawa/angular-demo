@@ -14,17 +14,15 @@ import {RecipeState} from '../service/recipe.state';
                       class="app-recipe-list__card">
                 <mat-card-header>
                     <mat-card-title>{{ recipe.name }}</mat-card-title>
-
-                    <mat-card-subtitle>{{ recipe.updated | date }}</mat-card-subtitle>
                 </mat-card-header>
 
                 <img mat-card-image
-                     [src]="getImageUrl(recipe)"
+                     [src]="getThumbnail(recipe)"
                      [attr.alt]="recipe.name">
 
                 <mat-card-content>
-                    <app-macro-chart [macros]="recipe.macros">
-                    </app-macro-chart>
+                    <app-recipe-facts [recipe]="recipe">
+                    </app-recipe-facts>
                 </mat-card-content>
             </mat-card>
         </div>
@@ -43,9 +41,13 @@ export class RecipeListComponent {
         this.router.navigate(['/recipes', recipe.id, recipeName]);
     }
 
-    public getImageUrl(recipe: Recipe): string {
-        return recipe.thumbnail
-            ? recipe.thumbnail.path
-            : 'http://placehold.it/400x300';
+    public getThumbnail(recipe: Recipe): string {
+        if (recipe.thumbnail) {
+            return recipe.thumbnail.path;
+        }
+
+        const placeholderColor = Math.floor(Math.random() * 16777215).toString(16);
+
+        return `http://placehold.it/400x400/${placeholderColor}/fff`;
     }
 }

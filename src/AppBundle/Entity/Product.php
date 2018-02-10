@@ -115,17 +115,4 @@ class Product
      * )
      */
     public $gfat;
-
-    /**
-     * @var string
-     *
-     * @Assert\Length(max = 40)
-     *
-     * @ORM\Column(
-     *     type = "string",
-     *     length = 40,
-     *     nullable = true
-     * )
-     */
-    public $manufacturer;
 }

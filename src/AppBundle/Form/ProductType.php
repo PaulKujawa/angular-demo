@@ -38,9 +38,6 @@ class ProductType extends AbstractType
             ->add('gfat', NumberType::class, [
                 'scale' => 2,
             ])
-            ->add('manufacturer', TextType::class, [
-                'required' => false,
-            ])
             ->add('submit', SubmitType::class)
             ->getForm();
     }

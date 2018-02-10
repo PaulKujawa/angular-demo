@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Traits\DescriptionTrait;
 use AppBundle\Entity\Traits\IdAutoTrait;
 use AppBundle\Entity\Traits\TimestampTrait;
 use Doctrine\ORM\Mapping as ORM;
@@ -18,13 +17,22 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table()
  * @ORM\HasLifecycleCallbacks()
- * @ORM\Entity(repositoryClass = "AppBundle\Entity\Repository\CookingRepository")
+ * @ORM\Entity(repositoryClass = "AppBundle\Entity\Repository\InstructionRepository")
  */
-class Cooking
+class Instruction
 {
-    use DescriptionTrait;
     use IdAutoTrait;
     use TimestampTrait;
+
+    /**
+     * @var string
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 5)
+     *
+     * @ORM\Column(type = "text")
+     */
+    public $description;
 
     /**
      * @var int
@@ -45,7 +53,7 @@ class Cooking
      *
      * @ORM\ManyToOne(
      *      targetEntity = "Recipe",
-     *      inversedBy = "cookings"
+     *      inversedBy = "instructions"
      * )
      * @ORM\JoinColumn(
      *      name = "recipe",

@@ -3,7 +3,9 @@
 namespace AppBundle\Form;
 
 use AppBundle\Entity\Recipe;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,6 +17,11 @@ class RecipeType extends AbstractType
     {
         $builder
             ->add('name', TextType::class)
+            ->add('isVegan', Boolean::class)
+            ->add('servings', IntegerType::class)
+            ->add('preparationTime', IntegerType::class)
+            ->add('cookTime', IntegerType::class)
+            ->add('description', TextType::class)
             ->add('submit', SubmitType::class)
             ->getForm();
     }

@@ -39,13 +39,14 @@ app:
       gfat: ges. Fett
       gr: Gr
       kcal: Kcal
-      manufacturer: Hersteller
       name: Name
       protein: Eiweiß
       sugar: Zucker
       vegan: Vegan
-  recipe:
-    cooking: Zubereitung
+  recipe_list:
     filter:
       vegan_only: Vegan
+  recipe_detail:
     ingredients: Zutaten
+    instruction: Anleitung
+    nutrition: Nährwerte pro Portion

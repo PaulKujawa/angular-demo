@@ -16,9 +16,9 @@ class LoadRecipeData extends AbstractFixture implements OrderedFixtureInterface
 
     public function load(ObjectManager $em): void
     {
-        self::$members[] = $this->instantiate('Recipe1');
-        self::$members[] = $this->instantiate('Recipe2');
-        self::$members[] = $this->instantiate('Recipe3');
+        self::$members[] = $this->instantiate('Recipe1', 1, 20);
+        self::$members[] = $this->instantiate('Recipe2', 2, 40);
+        self::$members[] = $this->instantiate('Recipe3', 3, 120);
 
         array_walk(self::$members, function(Recipe $member, $i) use ($em) {
             $this->addReference('refRecipe' . ($i + 1), $member);
@@ -27,10 +27,15 @@ class LoadRecipeData extends AbstractFixture implements OrderedFixtureInterface
         $em->flush();
     }
 
-    protected function instantiate(string $name): Recipe
+    protected function instantiate(string $name, int $servings, int $preparationTime): Recipe
     {
         $entity = new Recipe;
         $entity->name = $name;
+        $entity->isVegan = true;
+        $entity->servings = $servings;
+        $entity->preparationTime = $preparationTime;
+        $entity->cookTime = 20;
+        $entity->description = 'Lorum ipsum';
 
         return $entity;
     }

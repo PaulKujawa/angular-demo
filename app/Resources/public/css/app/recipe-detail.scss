@@ -7,16 +7,64 @@
 
   @media #{$media-query-min-sm} {
     grid-template-columns: 1fr 1fr;
-
-    .app-recipe-detail__image {
-      grid-column: 1;
-      grid-row: 1 / 3;
-    }
   }
 }
 
-.app-recipe-detail__image {
-  justify-self: center;
+.app-recipe-wrapper {
+  padding: 20px;
+  background-color: #673ab7; // TODO use mixin instead
+  color: #fff;
+  box-shadow: $app-shared_shadow;
+
+  @media #{$media-query-min-sm} {
+    grid-column: 1 / 3;
+
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+  }
+}
+
+.app-recipe-image {
   max-width: 100%;
-  border-radius: 50%;
+}
+
+.app-recipe_ingredients {
+  list-style: none;
+  padding-left: 20px;
+}
+
+.app-recipe_ingredients,
+.app-recipe_instructions {
+  li {
+    font-size: $app-shared-font_size--larger;
+    padding: 12px 0;
+  }
+}
+
+.app-recipe-content {
+  @media #{$media-query-min-sm} {
+    padding-left: 20px;
+  }
+}
+
+.app-recipe-content_macros {
+  display: inline-block;
+  margin-top: 20px;
+
+  @media #{$media-query-min-sm} {
+    margin-top: 60px;
+  }
+}
+
+.app-recipe-content_macro-list {
+  display: flex;
+  padding-top: 10px;
+  padding-left: 0;
+  font-weight: 800;
+  list-style: none;
+  border-top: 1px solid #fff;
+
+  li {
+    flex-grow: 1;
+  }
 }

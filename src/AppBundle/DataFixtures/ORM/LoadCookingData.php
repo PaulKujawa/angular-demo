@@ -2,17 +2,17 @@
 
 namespace AppBundle\DataFixtures\ORM;
 
-use AppBundle\Entity\Cooking;
+use AppBundle\Entity\Instruction;
 use AppBundle\Entity\Recipe;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use InvalidArgumentException;
 
-class LoadCookingData extends AbstractFixture implements OrderedFixtureInterface
+class LoadInstructionData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
-     * @var Cooking[]
+     * @var Instruction[]
      */
     static public $members = [];
 
@@ -22,14 +22,14 @@ class LoadCookingData extends AbstractFixture implements OrderedFixtureInterface
         self::$members[] = $this->instantiate(2, '2th step', 'refRecipe1');
         self::$members[] = $this->instantiate(3, '3th step', 'refRecipe1');
 
-        array_walk(self::$members, function(Cooking $member, $i) use ($em) {
-            $this->addReference('refCooking' . ($i + 1), $member);
+        array_walk(self::$members, function(Instruction $member, $i) use ($em) {
+            $this->addReference('refInstruction' . ($i + 1), $member);
             $em->persist($member);
         });
         $em->flush();
     }
 
-    private function instantiate(int $position, string $description, string $refRecipe): Cooking
+    private function instantiate(int $position, string $description, string $refRecipe): Instruction
     {
         $recipe = $this->getReference($refRecipe);
 
@@ -37,10 +37,10 @@ class LoadCookingData extends AbstractFixture implements OrderedFixtureInterface
             throw new InvalidArgumentException();
         }
 
-        $cooking = new Cooking($recipe->getId(), $position);
-        $cooking->description = $description;
+        $instruction = new Instruction($recipe->getId(), $position);
+        $instruction->description = $description;
 
-        return $cooking;
+        return $instruction;
     }
 
     public function getOrder(): int

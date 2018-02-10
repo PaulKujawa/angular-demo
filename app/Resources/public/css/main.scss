@@ -1,5 +1,6 @@
 @import "import/normalize";
 @import "import/material";
+@import "import/_material-icons.scss";
 
 @import "app/auth";
 @import "app/core";
@@ -8,4 +9,5 @@
 @import "app/nav";
 @import "app/product-list";
 @import "app/recipe-detail";
+@import "app/recipe-facts";
 @import "app/recipe-list";
