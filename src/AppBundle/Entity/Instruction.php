@@ -28,12 +28,9 @@ class Instruction
      * @var string
      *
      * @Assert\NotBlank()
-     * @Assert\Length(min = 5, max = 200)
+     * @Assert\Length(min = 5)
      *
-     * @ORM\Column(
-     *     type = "string",
-     *     length = 200
-     * )
+     * @ORM\Column(type = "text")
      */
     public $description;
 

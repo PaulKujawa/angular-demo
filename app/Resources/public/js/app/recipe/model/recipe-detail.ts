@@ -8,6 +8,7 @@ export class RecipeDetail extends Recipe {
     public ingredients: Ingredient[];
     public instructions: Instruction[];
     public photos: Photo[];
+    public description: string;
 
     constructor(dto: RecipeDetailDto) {
         super(dto);
@@ -15,5 +16,6 @@ export class RecipeDetail extends Recipe {
         this.ingredients = dto.ingredients.map((ingredientDto) => new Ingredient(ingredientDto));
         this.instructions = dto.instructions.map((instructionDto) => new Instruction(instructionDto));
         this.photos = dto.photos.map((photoDto) => new Photo(photoDto));
+        this.description = dto.description;
     }
 }

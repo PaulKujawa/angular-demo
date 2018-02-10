@@ -21,6 +21,7 @@ class RecipeType extends AbstractType
             ->add('servings', IntegerType::class)
             ->add('preparationTime', IntegerType::class)
             ->add('cookTime', IntegerType::class)
+            ->add('description', TextType::class)
             ->add('submit', SubmitType::class)
             ->getForm();
     }

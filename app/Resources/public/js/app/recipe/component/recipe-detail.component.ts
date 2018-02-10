@@ -20,14 +20,7 @@ import {RecipeState} from '../service/recipe.state';
                                       [cssModifier]="['app-recipe-facts--big', 'app-recipe-facts--white']">
                     </app-recipe-facts>
 
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-                        sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-                        anim id est laborum.
-                    </p>
+                    <p>{{ recipe.description }}</p>
 
                     <span class="app-recipe-content_macros">{{ 'app.recipe_detail.nutrition' | appTrans }}</span>
 

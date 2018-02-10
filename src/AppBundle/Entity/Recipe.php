@@ -67,6 +67,12 @@ class Recipe
      */
     public $cookTime;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(type = "text")
+     */
+    public $description;
 
     /**
      * @var Photo|null

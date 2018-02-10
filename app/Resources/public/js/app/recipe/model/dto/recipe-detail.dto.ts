@@ -7,4 +7,5 @@ export interface RecipeDetailDto extends RecipeResponseDto {
     photos: PhotoDto[];
     ingredients: IngredientDto[];
     instructions: InstructionDto[];
+    description: string;
 }

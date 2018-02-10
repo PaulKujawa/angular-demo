@@ -1,7 +1,8 @@
 {
   "angularCompilerOptions": {
-    "preserveWhitespaces": false,
     "debug": false,
+    "fullTemplateTypeCheck": true,
+    "preserveWhitespaces": false,
     "skipMetadataEmit": true,
     "trace": true
   },
