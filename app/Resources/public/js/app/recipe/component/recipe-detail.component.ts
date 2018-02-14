@@ -74,7 +74,7 @@ export class RecipeDetailComponent implements OnInit {
             return '';
         }
 
-        return ingredient.amount + ingredient.measurement.name;
+        return `${ingredient.amount} ${ingredient.measurement.name}`;
     }
 
     // TODO will have to handle and render a collection of photos when real ones get actually shot
