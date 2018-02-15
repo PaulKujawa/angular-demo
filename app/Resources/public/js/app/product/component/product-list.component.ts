@@ -46,7 +46,8 @@ export class ProductListComponent {
     }
 
     public onSelectProduct(product: Product): void {
-        const productName = product.name.replace(' ', '-');
+        const productName = product.name.replace(/\s/g, '-');
+
         this.router.navigate(['products', product.id, productName]);
     }
 }
