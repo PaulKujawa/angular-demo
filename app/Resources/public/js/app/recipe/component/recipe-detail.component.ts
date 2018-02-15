@@ -8,7 +8,7 @@ import {RecipeState} from '../service/recipe.state';
 @Component({
     template: `
         <div *ngIf="recipeObservable|async as recipe"
-             class="app-recipe-detail">
+             class="app-recipe">
             <div class="app-recipe-wrapper">
                 <img [src]="getPhotos(recipe)"
                      class="app-recipe-image">

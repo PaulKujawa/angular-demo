@@ -1,0 +1,23 @@
+@import "../import/variables";
+
+.app-product-form {
+  display: grid;
+  grid-column-gap: $app-shared_grid-gap;
+
+  @media #{$media-query-min-sm} {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.app-product-form__section,
+.app-product-form__buttons {
+  @media #{$media-query-min-sm} {
+    grid-column: 1 / 3;
+
+  }
+
+  button:first-child {
+    margin-right: 5px;
+  }
+}
+

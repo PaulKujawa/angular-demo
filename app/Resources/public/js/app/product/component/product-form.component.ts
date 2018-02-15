@@ -11,8 +11,9 @@ import {ProductState} from '../service/product.state';
     template: `
         <form novalidate
               [formGroup]="productForm"
-              (ngSubmit)="onSubmit()">
-            <section>
+              (ngSubmit)="onSubmit()"
+              class="app-product-form">
+            <section class="app-product-form__section">
                 <mat-checkbox formControlName="vegan">
                     {{ 'app.product.form.vegan'|appTrans }}
                 </mat-checkbox>
@@ -78,7 +79,7 @@ import {ProductState} from '../service/product.state';
                        formControlName="gfat">
             </mat-form-field>
 
-            <div>
+            <div class="app-product-form__buttons">
                 <button *ngIf="product"
                         mat-raised-button
                         color="warn"
