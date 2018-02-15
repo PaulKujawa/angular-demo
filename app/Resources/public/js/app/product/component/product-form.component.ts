@@ -108,7 +108,7 @@ export class ProductFormComponent implements OnChanges {
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
-        if (changes.inputProduct) {
+        if (changes.product) {
             const productConfig = this.getConfig();
             this.productForm = this.formBuilder.group(productConfig);
         }
