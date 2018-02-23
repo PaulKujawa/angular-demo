@@ -1,5 +1,6 @@
 import {AngularCompilerPlugin} from '@ngtools/webpack';
 import {Configuration} from 'webpack';
+import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer';
 import {WebpackArgs} from './webpack-args';
 import {getCommonConfig} from './webpack.common';
 const webpack = require('webpack');
@@ -8,41 +9,31 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 
 export const webpackConfig = (args: WebpackArgs): Configuration => {
-    const rootPath = path.join(__dirname, '../../..');
-    const jsPath = path.join(rootPath, 'app/Resources/public/js');
-
     const prodConfig: Configuration = {
-        devtool: 'source-map',
         module: {
             rules: [
                 {
-                    test: /\.ts$/,
+                    test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
                     loader: '@ngtools/webpack',
                 }, {
                     // transpile sass to css and load it as extra file separately
                     test: /\.scss$/,
-                    loader: ExtractTextPlugin.extract({
-                        use: [
-                            {
-                                loader: 'css-loader',
-                                options: {sourceMap: true},
-                            },
-                            {
-                                loader: 'sass-loader',
-                                options: {sourceMap: true},
-                            },
-                        ],
-                    }),
+                    loader: ExtractTextPlugin.extract([
+                        'css-loader',
+                        'sass-loader',
+                    ]),
                 },
             ],
         },
         plugins: [
             new AngularCompilerPlugin({
-                tsConfigPath: path.join(jsPath, 'tsconfig.json'),
-                entryModule: path.join(jsPath, 'app/app.module#AppModule'),
+                tsConfigPath: path.resolve(__dirname, '../public/js/tsconfig.json'),
+                entryModule: path.resolve(__dirname, '../public/js/app/app.module#AppModule'),
             }),
 
-            // generate separate css file to load, based on output.path
+            new BundleAnalyzerPlugin(),
+
+            // based on output.path
             new ExtractTextPlugin(path.join('css/main.css')),
 
             // scope hoisting

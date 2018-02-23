@@ -8,7 +8,7 @@ import {RecipeState} from '../service/recipe.state';
 @Component({
     template: `
         <div *ngIf="recipeObservable|async as recipe"
-             class="app-recipe-detail">
+             class="app-recipe">
             <div class="app-recipe-wrapper">
                 <img [src]="getPhotos(recipe)"
                      class="app-recipe-image">
@@ -20,7 +20,7 @@ import {RecipeState} from '../service/recipe.state';
                                       [cssModifier]="['app-recipe-facts--big', 'app-recipe-facts--white']">
                     </app-recipe-facts>
 
-                    <p>{{ recipe.description }}</p>
+                    <p [innerHTML]="recipe.description"></p>
 
                     <span class="app-recipe-content_macros">{{ 'app.recipe_detail.nutrition' | appTrans }}</span>
 
@@ -66,7 +66,8 @@ export class RecipeDetailComponent implements OnInit {
     public ngOnInit(): void {
         this.recipeObservable = this.activatedRoute.params
             .switchMap((params) => this.recipeState.getRecipe(params.id))
-            .do((recipe) => recipe.ingredients.sort((a, b) => b.kcal - a.kcal));
+            .do((recipe) => recipe.ingredients.sort((a, b) => b.kcal - a.kcal))
+            .do((recipe) => recipe.description = recipe.description.replace(/\n/g, '<br />'));
     }
 
     public getMeasurement(ingredient: Ingredient): string {
@@ -74,7 +75,7 @@ export class RecipeDetailComponent implements OnInit {
             return '';
         }
 
-        return ingredient.amount + ingredient.measurement.name;
+        return `${ingredient.amount} ${ingredient.measurement.name}`;
     }
 
     // TODO will have to handle and render a collection of photos when real ones get actually shot

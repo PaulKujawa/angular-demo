@@ -3,7 +3,6 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\IdAutoTrait;
-use AppBundle\Entity\Traits\NameTrait;
 use AppBundle\Entity\Traits\TimestampTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -19,8 +18,22 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Measurement
 {
     use IdAutoTrait;
-    use NameTrait;
     use TimestampTrait;
+
+    /**
+     * @var string
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 3, max = 40)
+     *
+     * @ORM\Column(
+     *      type = "string",
+     *      length = 40,
+     *      unique = true,
+     *      options = {"collation": "utf8_bin"}
+     * )
+     */
+    public $name;
 
     /**
      * @var int

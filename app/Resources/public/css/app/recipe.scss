@@ -1,6 +1,6 @@
 @import "../import/variables";
 
-.app-recipe-detail {
+.app-recipe {
   display: grid;
   grid-column-gap: $app-shared_grid-gap;
   grid-row-gap: $app-shared_grid-gap;
@@ -50,10 +50,6 @@
 .app-recipe-content_macros {
   display: inline-block;
   margin-top: 20px;
-
-  @media #{$media-query-min-sm} {
-    margin-top: 60px;
-  }
 }
 
 .app-recipe-content_macro-list {

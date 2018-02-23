@@ -36,7 +36,7 @@ export class RecipeListComponent {
     }
 
     public onClick(recipe: Recipe): void {
-        const recipeName = recipe.name.replace(' ', '-');
+        const recipeName = recipe.name.replace(/\s/g, '-');
 
         this.router.navigate(['/recipes', recipe.id, recipeName]);
     }

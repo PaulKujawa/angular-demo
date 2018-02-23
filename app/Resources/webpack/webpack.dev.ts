@@ -8,16 +8,7 @@ const merge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 export const webpackConfig = (args: WebpackArgs): Configuration => {
-    const jsPath = path.join(__dirname, '../public/js');
-
     const devConfig: Configuration = {
-        devServer: {
-            historyApiFallback: true,
-            watchOptions: {
-                aggregateTimeout: 300,
-                poll: 1000,
-            },
-        },
         devtool: 'source-map',
         module: {
             rules: [
@@ -26,24 +17,30 @@ export const webpackConfig = (args: WebpackArgs): Configuration => {
                     enforce: 'pre',
                     use: {
                         loader: 'tslint-loader',
-                        options: {configFile: path.join(jsPath, 'tslint', 'main.json')},
+                        options: {
+                            configFile: path.resolve(__dirname, '../public/js/tslint/main.json'),
+                        },
                     },
-                }, {
-                    test: /\.ts$/,
+                },
+                {
+                    test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
                     loader: '@ngtools/webpack',
-                }, {
-                    // transpile sass to css and load it inline
+                },
+                {
                     test: /\.scss$/,
-                    loader: ExtractTextPlugin.extract({ // TODO remove this line for HMR
+                    loader: ExtractTextPlugin.extract({
                         use: [
-                            // {loader: "style-loader"}, TODO add this line for HMR
                             {
                                 loader: 'css-loader',
-                                options: {sourceMap: true},
+                                options: {
+                                    sourceMap: true,
+                                },
                             },
                             {
                                 loader: 'sass-loader',
-                                options: {sourceMap: true},
+                                options: {
+                                    sourceMap: true,
+                                },
                             },
                         ],
                     }),
@@ -52,20 +49,18 @@ export const webpackConfig = (args: WebpackArgs): Configuration => {
         },
         plugins: [
             new AngularCompilerPlugin({
-                tsConfigPath: path.join(jsPath, 'tsconfig.json'),
-                entryModule: path.join(jsPath, 'app', 'app.module#AppModule'),
+                tsConfigPath: path.resolve(__dirname, '../public/js/tsconfig.json'),
+                entryModule: path.resolve(__dirname, '../public/js/app/app.module#AppModule'),
+                sourceMap: true,
             }),
 
-            // live chunk replacement via webpack's dev-server
-            //  new webpack.HotModuleReplacementPlugin(), TODO HMR
-
-            // generate separate css file to load see to do above, based on output.path
+            // based on output.path
             new ExtractTextPlugin('css/main.css'),
 
             // @see https://github.com/angular/angular/issues/11580
             new webpack.ContextReplacementPlugin(
                 /(.+)?angular(\\|\/)core(.+)?/,
-                path.resolve(__dirname, '../src'),
+                path.resolve(__dirname, '../public/js/app'),
             ),
         ],
     };
