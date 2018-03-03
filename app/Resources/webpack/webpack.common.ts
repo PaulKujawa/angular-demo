@@ -2,6 +2,7 @@ import {Configuration} from 'webpack';
 import {WebpackArgs} from './webpack-args';
 const webpack = require('webpack');
 const path = require('path');
+var ManifestPlugin = require('webpack-manifest-plugin');
 
 export const getCommonConfig = (args: WebpackArgs): Configuration => {
     return {
@@ -12,10 +13,12 @@ export const getCommonConfig = (args: WebpackArgs): Configuration => {
         },
         output: {
             path: path.resolve(__dirname, '../../../web'),
-            filename: 'js/bundle/[name].js',
-            chunkFilename: 'js/chunk/[name].js',
+            filename: 'js/bundle/[name].[hash].js',
+            chunkFilename: 'js/chunk/[name].[chunkhash].js',
         },
         plugins: [
+            new ManifestPlugin(),
+
             new webpack.optimize.CommonsChunkPlugin({
                 name: 'vendor',
                 chunks: ['main'],

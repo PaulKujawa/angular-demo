@@ -23,6 +23,7 @@
 !/web/images/kujawa.jpg
 !web/images/uploads
 !/web/images/uploads/fixture.jpg
+/web/manifest.json
 /web/js
 
 # Mix

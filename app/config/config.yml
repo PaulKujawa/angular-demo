@@ -48,7 +48,8 @@ fos_user:
     user_class: AppBundle\Entity\User
 
 framework:
-    assets: ~
+    assets:
+        json_manifest_path: '%kernel.root_dir%/../web/manifest.json'
     csrf_protection: ~
     default_locale: '%locale%'
 #    esi: ~

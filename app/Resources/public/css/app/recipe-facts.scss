@@ -6,9 +6,9 @@
   color: $app-shared-color_black--brighter;
 
   .material-icons {
-    position: relative;
+    display: inline-block;
+    vertical-align: middle;
     margin-right: 1px;
-    bottom: -4px;
 
     @media #{$media-query-min-sm} {
       bottom: -6px;
@@ -17,6 +17,8 @@
 
   span {
     justify-self: center;
+    display: inline-block;
+    vertical-align: middle;
   }
 }
 

@@ -17,13 +17,13 @@
                 <base href="{{ path('app_root_i18n') }}">
             {% endblock %}
 
-            <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+            <link rel="stylesheet" href="{{ asset('main.css') }}">
 
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
             <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-            <link rel="preload" as="script" href="{{ asset('js/bundle/vendor.js') }}">
-            <link rel="preload" as="script" href="{{ asset('js/bundle/main.js') }}">
+            <link rel="preload" as="script" href="{{ asset('vendor.js') }}">
+            <link rel="preload" as="script" href="{{ asset('main.js') }}">
         {% endblock %}
     </head>
 
@@ -36,7 +36,7 @@
                 authenticated: {{ app.user ? 'true' : 'false' }}
             };
         </script>
-        <script src="{{ asset('js/bundle/vendor.js') }}"></script>
-        <script src="{{ asset('js/bundle/main.js') }}"></script>
+        <script src="{{ asset('vendor.js') }}"></script>
+        <script src="{{ asset('main.js') }}"></script>
     </body>
 </html>
