@@ -2,7 +2,7 @@ import {Configuration} from 'webpack';
 import {WebpackArgs} from './webpack-args';
 const webpack = require('webpack');
 const path = require('path');
-var ManifestPlugin = require('webpack-manifest-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
 
 export const getCommonConfig = (args: WebpackArgs): Configuration => {
     return {
