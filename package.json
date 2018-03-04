@@ -50,18 +50,20 @@
     "ts-node": "^3.3.0",
     "webpack": "^3.11.0",
     "webpack-bundle-analyzer": "^2.9.1",
+    "webpack-manifest-plugin": "^2.0.0-rc.2",
     "webpack-merge": "^4.1.0"
   },
   "scripts": {
-    "build:dev": "npm run prepare-assets && npm run webpack:dev",
+    "build:dev": "npm run assets-prepare && npm run webpack:dev",
     "build:test": "karma start",
-    "build:prod": "npm run prepare-assets && npm run webpack:prod",
-    "prepare-assets": "composer install && npm install && npm run symfony:exposure",
+    "build:prod": "npm run assets-prepare && npm run webpack:prod",
+    "assets-clean": "rm -rf web/css web/js/bundle web/js/chunk",
+    "assets-prepare": "composer install && npm install && npm run symfony:exposure",
     "symfony:exposure": "npm run symfony:link && npm run symfony:routes && npm run symfony:trans",
     "symfony:link": "bin/console assets:install --symlink",
     "symfony:routes": "bin/console fos:js-routing:dump --no-debug --env=prod",
     "symfony:trans": "bin/console bazinga:js-translation:dump --format=js --merge-domains --no-debug --env=prod",
-    "webpack:dev": "webpack -w --progress --env.env=dev",
-    "webpack:prod": "webpack --bail --progress --env.env=prod"
+    "webpack:dev": "npm run assets-clean && webpack -w --progress --env.env=dev",
+    "webpack:prod": "npm run assets-clean && webpack --bail --progress --env.env=prod"
   }
 }

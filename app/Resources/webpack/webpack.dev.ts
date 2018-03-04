@@ -55,7 +55,7 @@ export const webpackConfig = (args: WebpackArgs): Configuration => {
             }),
 
             // based on output.path
-            new ExtractTextPlugin('css/main.css'),
+            new ExtractTextPlugin('css/main.[contenthash].css'),
 
             // @see https://github.com/angular/angular/issues/11580
             new webpack.ContextReplacementPlugin(
