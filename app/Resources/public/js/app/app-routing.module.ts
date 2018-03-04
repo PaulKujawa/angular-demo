@@ -3,14 +3,14 @@ import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {AuthComponent} from './core/component/auth.component';
 import {AuthenticationGuard} from './core/service/auth-guard.service';
 
-const appRoutes: Routes = [
+const routes: Routes = [
     {
         path: 'login',
         component: AuthComponent,
     },
     {
-        path: 'products',
-        loadChildren: './product/product.module#ProductModule',
+        path: 'dashboard',
+        loadChildren: './dashboard/dashboard.module#DashboardModule',
         canLoad: [AuthenticationGuard],
     },
     {
@@ -21,7 +21,7 @@ const appRoutes: Routes = [
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(appRoutes, {
+        RouterModule.forRoot(routes, {
             preloadingStrategy: PreloadAllModules,
         }),
     ],

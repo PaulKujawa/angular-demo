@@ -19,6 +19,7 @@ export class Pageable<T extends Doc> {
 
     public replaceDoc(doc: T): void {
         const i = this.getIndex(doc.id);
+
         if (i === -1) {
             return;
         }
@@ -28,6 +29,7 @@ export class Pageable<T extends Doc> {
 
     public removeDoc(id: number): void {
         const i = this.getIndex(id);
+
         if (i === -1) {
             return;
         }

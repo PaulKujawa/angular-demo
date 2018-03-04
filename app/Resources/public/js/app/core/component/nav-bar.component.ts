@@ -16,8 +16,8 @@ import {Component} from '@angular/core';
                 </a>
 
                 <a mat-button
-                        [routerLink]="'app_products'|appRoute">
-                    {{ 'app.common.products'|appTrans }}
+                        [routerLink]="'app_dashboard'|appRoute">
+                    {{ 'app.common.dashboard'|appTrans }}
                 </a>
             </mat-toolbar>
         </nav>

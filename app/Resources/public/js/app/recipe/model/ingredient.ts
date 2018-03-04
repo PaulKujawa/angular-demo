@@ -1,6 +1,6 @@
-import {Product} from '../../product/model/product';
 import {IngredientDto} from './dto/ingredient.dto';
 import {Measurement} from './measurement';
+import {Product} from './product';
 
 export class Ingredient {
     public id: number;

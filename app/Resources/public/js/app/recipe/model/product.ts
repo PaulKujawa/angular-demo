@@ -1,5 +1,4 @@
-import {ProductRequestDto} from './dto/product-request.dto';
-import {ProductResponseDto} from './dto/product-response.dto';
+import {ProductDto} from './dto/product.dto';
 
 export class Product {
     public id: number;
@@ -13,7 +12,7 @@ export class Product {
     public fat: number;
     public gfat: number;
 
-    constructor(dto: ProductResponseDto) {
+    constructor(dto: ProductDto) {
         this.id = dto.id;
         this.name = dto.name;
         this.vegan = dto.vegan;
@@ -24,12 +23,5 @@ export class Product {
         this.sugar = dto.sugar;
         this.fat = dto.fat;
         this.gfat = dto.gfat;
-    }
-
-    public map(): ProductRequestDto {
-        const copy = Object.assign({}, this);
-        delete copy.id;
-
-        return copy;
     }
 }

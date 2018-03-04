@@ -52,11 +52,8 @@ export class InquiryFormComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit(): void {
-        this.inquiryForm = this.formBuilder.group({
-            name: '',
-            email: new FormControl('', [Validators.required, Validators.email]),
-            message: ['', Validators.required],
-        });
+        const config = this.getConfig();
+        this.inquiryForm = this.formBuilder.group(config);
     }
 
     public ngOnDestroy(): void {
@@ -74,5 +71,16 @@ export class InquiryFormComponent implements OnInit, OnDestroy {
                 this.flashMessageService.showSuccess({id: 'app.api.inquiry_success'}, 5000);
                 this.changeDetectorRef.markForCheck();
             });
+    }
+
+    private getConfig(): object {
+        return {
+            name: '',
+            email: new FormControl('', [
+                Validators.required,
+                Validators.email],
+            ),
+            message: ['', Validators.required],
+        };
     }
 }
