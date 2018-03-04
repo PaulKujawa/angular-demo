@@ -1,17 +1,19 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+import {AuthenticationGuard} from '../core/service/auth-guard.service';
 import {DashboardComponent} from './component/dashboard.component';
-import {InquiryComponent} from './component/inquiry.component';
+import {PlaceholderComponent} from './component/placeholder.component';
 
-const recipeRoutes: Routes = [
+const routes: Routes = [
     {
         path: '',
         component: DashboardComponent,
-        pathMatch: 'full',
+        canActivate: [AuthenticationGuard],
         children: [
             {
                 path: '',
-                component: InquiryComponent,
+                component: PlaceholderComponent,
+                canActivateChild: [AuthenticationGuard],
             },
         ],
     },
@@ -19,7 +21,7 @@ const recipeRoutes: Routes = [
 
 @NgModule({
     imports: [
-        RouterModule.forChild(recipeRoutes),
+        RouterModule.forChild(routes),
     ],
     exports: [RouterModule],
 })

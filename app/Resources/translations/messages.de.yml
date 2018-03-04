@@ -15,6 +15,7 @@ app:
     signed_in: Erfolgreich angemeldet.
   common:
     cms: CMS
+    dashboard: Dashboard
     delete: Löschen
     filter:
       search: Suche...
@@ -32,17 +33,6 @@ app:
     carbs: Kohlenhydrate
     protein: Eiweiß
     fat: Fett
-  product:
-    form:
-      carbs: Kohlenhydrate
-      fat: Fett
-      gfat: ges. Fett
-      gr: Gr
-      kcal: Kcal
-      name: Name
-      protein: Eiweiß
-      sugar: Zucker
-      vegan: Vegan
   recipe_list:
     filter:
       vegan_only: Vegan

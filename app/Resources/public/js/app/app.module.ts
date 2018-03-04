@@ -4,7 +4,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {CoreModule} from './core/core.module';
-import {DashboardModule} from './dashboard/dashboard.module';
+import {StartPageModule} from './start-page/start-page.module';
 
 @NgModule({
     imports: [
@@ -13,7 +13,7 @@ import {DashboardModule} from './dashboard/dashboard.module';
         BrowserAnimationsModule,
         BrowserModule,
         CoreModule,
-        DashboardModule,
+        StartPageModule,
     ],
     declarations: [AppComponent],
     exports: [AppComponent],

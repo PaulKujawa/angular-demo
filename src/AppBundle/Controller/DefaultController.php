@@ -19,9 +19,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/products/{page}", name="app_products", defaults={"page" = 1}, requirements={"page" = "\d+"})
-     * @Route("/products/{id}/{name}", name="app_product", requirements={"id" = "\d+"})
-     * @Route("/products/new", name="app_product_new")
+     * @Route("/dashboard", name="app_dashboard")
      */
     public function adminAction(): Response
     {

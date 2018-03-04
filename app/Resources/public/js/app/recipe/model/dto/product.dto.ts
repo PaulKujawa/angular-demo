@@ -1,4 +1,4 @@
-export interface ProductResponseDto {
+export interface ProductDto {
     id: number;
     name: string;
     vegan: boolean;

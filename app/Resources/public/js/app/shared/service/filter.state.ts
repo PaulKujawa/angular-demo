@@ -3,6 +3,7 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
 import {Subscription} from 'rxjs/Subscription';
 
+// TODO rewrite
 export class FilterState {
     private filter = new BehaviorSubject<HttpParams>(new HttpParams().set('sortUpdated', 'desc'));
     private buffer: {[key: string]: BehaviorSubject<string>} = {};

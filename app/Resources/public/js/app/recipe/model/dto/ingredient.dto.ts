@@ -1,10 +1,10 @@
-import {ProductResponseDto} from '../../../product/model/dto/product-response.dto';
 import {MeasurementDto} from './measurement.dto';
+import {ProductDto} from './product.dto';
 
 export interface IngredientDto {
     id: number;
     amount?: number;
-    product: ProductResponseDto;
+    product: ProductDto;
     measurement?: MeasurementDto;
     kcal: number;
     created: Date;
