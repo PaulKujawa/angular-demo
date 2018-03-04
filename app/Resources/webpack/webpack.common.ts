@@ -7,10 +7,7 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 export const getCommonConfig = (args: WebpackArgs): Configuration => {
     return {
         context: path.resolve(__dirname, '../public/js'),
-        entry: {
-            main: './main.ts',
-            vendor: './vendor.ts',
-        },
+        entry: './main.ts',
         output: {
             path: path.resolve(__dirname, '../../../web'),
             filename: 'js/bundle/[name].[hash].js',
@@ -18,11 +15,6 @@ export const getCommonConfig = (args: WebpackArgs): Configuration => {
         },
         plugins: [
             new ManifestPlugin(),
-
-            new webpack.optimize.CommonsChunkPlugin({
-                name: 'vendor',
-                chunks: ['main'],
-            }),
 
             // set global variables
             new webpack.DefinePlugin({
@@ -37,6 +29,18 @@ export const getCommonConfig = (args: WebpackArgs): Configuration => {
                 Translator: path.join('web/bundles/bazingajstranslation/js/translator.min.js'),
             }),
         ],
+        // @ts-ignore
+        optimization: {
+            splitChunks: {
+                cacheGroups: {
+                    commons: {
+                        test: /[\\/]node_modules[\\/]/,
+                        name: 'vendor',
+                        chunks: 'all',
+                    },
+                },
+            },
+        },
         resolve: {
             extensions: ['.ts', '.js', '.scss'],
         },

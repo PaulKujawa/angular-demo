@@ -10,6 +10,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 export const webpackConfig = (args: WebpackArgs): Configuration => {
     const devConfig: Configuration = {
         devtool: 'source-map',
+        // @ts-ignore
+        mode: 'development',
         module: {
             rules: [
                 {
@@ -54,7 +56,6 @@ export const webpackConfig = (args: WebpackArgs): Configuration => {
                 sourceMap: true,
             }),
 
-            // based on output.path
             new ExtractTextPlugin('css/main.[contenthash].css'),
 
             // @see https://github.com/angular/angular/issues/11580
