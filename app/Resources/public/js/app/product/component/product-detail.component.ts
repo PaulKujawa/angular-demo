@@ -1,4 +1,4 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {Product} from '../model/product';
@@ -11,8 +11,6 @@ import {ProductState} from '../service/product.state';
     `,
 })
 export class ProductDetailComponent implements OnInit {
-    @HostBinding('style.display') public display = 'block';
-    @HostBinding('style.position') public position = 'absolute';
     public product: Observable<Product | undefined>;
 
     constructor(private productState: ProductState,
