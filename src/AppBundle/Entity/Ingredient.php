@@ -63,13 +63,13 @@ class Ingredient
     public $product;
 
     /**
-     * @var int
+     * @var float
      *
      * @Assert\GreaterThan(value = 0)
      *
-     * TODO make float for e.g. 1.2 liter
      * @ORM\Column(
-     *      type = "smallint",
+     *      type = "decimal",
+     *      scale=1,
      *      nullable = true
      * )
      */
