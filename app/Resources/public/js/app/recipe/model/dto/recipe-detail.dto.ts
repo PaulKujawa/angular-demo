@@ -1,10 +1,8 @@
 import {IngredientDto} from './ingredient.dto';
 import {InstructionDto} from './instruction.dto';
-import {PhotoDto} from './photo.dto';
-import {RecipeResponseDto} from './recipe-response.dto';
+import {RecipeDto} from './recipe.dto';
 
-export interface RecipeDetailDto extends RecipeResponseDto {
-    photos: PhotoDto[];
+export interface RecipeDetailDto extends RecipeDto {
     ingredients: IngredientDto[];
     instructions: InstructionDto[];
     description: string;

@@ -1,6 +1,5 @@
-import {RecipeResponseDto} from './dto/recipe-response.dto';
+import {RecipeDto} from './dto/recipe.dto';
 import {Macros} from './macros';
-import {Photo} from './photo';
 
 export class Recipe {
     public id: number;
@@ -10,11 +9,11 @@ export class Recipe {
     public servings: number;
     public preparationTime?: number; // TODO mark as required ASAP
     public cookTime?: number; // TODO mark as required ASAP
-    public thumbnail?: Photo;
+    public photos: string[];
     public created: Date;
     public updated: Date;
 
-    constructor(dto: RecipeResponseDto) {
+    constructor(dto: RecipeDto) {
         this.id = dto.id;
         this.name = dto.name;
         this.isVegan = dto.is_vegan;
@@ -22,9 +21,11 @@ export class Recipe {
         this.servings = dto.servings;
         this.preparationTime = dto.preparation_time;
         this.cookTime = dto.cook_time;
-        this.thumbnail = dto.thumbnail;
         this.created = new Date(dto.created);
         this.updated = new Date(dto.updated);
+
+        // workaround as the image folder works w/o the base url (_locale).
+        this.photos = dto.photos.map((photo) => `../${photo}`);
     }
 
     public hasTime(): boolean {

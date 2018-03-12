@@ -75,17 +75,18 @@ class Recipe
     public $description;
 
     /**
-     * @var Photo|null
+     * @var int
+     *
+     * @Serializer\Exclude()
      *
      * @Assert\NotNull()
      *
-     * @ORM\OneToOne(targetEntity = "Photo")
-     * @ORM\JoinColumn(
-     *      name = "thumbnail",
-     *      referencedColumnName = "id"
+     * @ORM\Column(
+     *     type = "integer",
+     *     name = "photosAmount"
      * )
      */
-    public $thumbnail;
+    public $photosAmount;
 
     /**
      * @var ArrayCollection
@@ -112,23 +113,8 @@ class Recipe
      */
     public $instructions;
 
-    /**
-     * @var ArrayCollection
-     *
-     * @Serializer\Groups({"recipeDetail"})
-
-     * @ORM\OneToMany(
-     *      targetEntity = "Photo",
-     *      mappedBy = "recipe",
-     *      cascade = {"remove"}
-     * )
-     * @ORM\OrderBy({"id" = "ASC"})
-     */
-    public $photos;
-
     public function __construct()
     {
-        $this->photos = new ArrayCollection();
         $this->instructions = new ArrayCollection();
         $this->ingredients = new ArrayCollection();
     }
@@ -148,9 +134,24 @@ class Recipe
 
     /**
      * @Serializer\VirtualProperty()
+     * @Serializer\SerializedName("photos")
+     */
+    public function getPhotos(): array
+    {
+        $photos = [];
+
+        for ($i = 1; $i <= $this->photosAmount; $i++) {
+            $photos[] = sprintf('images/recipes/%d/%d.jpg', $this->id, $i);
+        }
+
+        return $photos;
+    }
+
+    /**
+     * @Serializer\VirtualProperty()
      * @Serializer\SerializedName("macros")
      */
-    public function calculateMacros(): array
+    public function getMacros(): array
     {
         $macros = [
             'kcal' => 0,
