@@ -42,8 +42,8 @@ export class RecipeListComponent {
     }
 
     public getThumbnail(recipe: Recipe): string {
-        if (recipe.thumbnail) {
-            return recipe.thumbnail.path;
+        if (recipe.photos.length) {
+            return recipe.photos[0];
         }
 
         const placeholderColor = Math.floor(Math.random() * 16777215).toString(16);

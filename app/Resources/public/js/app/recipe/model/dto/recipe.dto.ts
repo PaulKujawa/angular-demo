@@ -1,7 +1,6 @@
 import {MacrosDto} from './macros.dto';
-import {PhotoDto} from './photo.dto';
 
-export interface RecipeResponseDto {
+export interface RecipeDto {
     id: number;
     name: string;
     is_vegan: boolean;
@@ -9,7 +8,7 @@ export interface RecipeResponseDto {
     servings: number;
     preparation_time?: number;
     cook_time?: number;
-    thumbnail?: PhotoDto;
+    photos: string[];
     created: string;
     updated: string;
 }

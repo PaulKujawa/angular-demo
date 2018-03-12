@@ -1,16 +1,16 @@
-root:
+redirect_root:
     path: /
     defaults:
-      _controller: FrameworkBundle:Redirect:redirect
-      route: app_root_i18n
-      permanent: true
-    options:
-        expose: true
+        _controller: FrameworkBundle:Redirect:redirect
+        route: app_root_i18n
+        permanent: true
 
 api:
     type: rest
     resource: "@AppBundle/Resources/config/routing_api.yml"
     prefix: /{_locale}/api
+    requirements:
+        _locale: "[a-z]{2}"
     options:
         expose: true
 
@@ -18,12 +18,16 @@ app:
     resource: "@AppBundle/Controller"
     type: annotation
     prefix: /{_locale}
+    requirements:
+        _locale: "[a-z]{2}"
     options:
         expose: true
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
     prefix: /{_locale}
+    requirements:
+        _locale: "[a-z]{2}"
     options:
         expose: true
 

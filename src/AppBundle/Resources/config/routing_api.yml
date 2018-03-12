@@ -9,12 +9,6 @@ api_recipes:
   resource: "@AppBundle/Controller/Api/RecipeController.php"
   name_prefix: api_
 
-api_photos:
-  type: rest
-  parent: api_recipes
-  resource: "@AppBundle/Controller/Api/PhotoController.php"
-  name_prefix: api_
-
 api_ingredients:
   type: rest
   parent: api_recipes
