@@ -81,7 +81,7 @@ export class RecipeDetailComponent implements OnInit {
     // TODO will have to handle and render a collection of photos when real ones get actually shot
     public getPhotos(recipe: RecipeDetail): string {
         if (recipe.photos.length) {
-            return recipe.photos[0].path;
+            return recipe.photos[0];
         }
 
         return `http://placehold.it/400x400/${this.placeholderColor}/fff`;
