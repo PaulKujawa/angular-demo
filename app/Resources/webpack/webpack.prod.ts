@@ -5,23 +5,25 @@ import {WebpackArgs} from './webpack-args';
 import {getCommonConfig} from './webpack.common';
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
 export const webpackConfig = (args: WebpackArgs): Configuration => {
     const prodConfig: Configuration = {
+        // @ts-ignore
+        mode: 'production',
         module: {
             rules: [
                 {
                     test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
                     loader: '@ngtools/webpack',
                 }, {
-                    // transpile sass to css and load it as extra file separately
                     test: /\.scss$/,
-                    loader: ExtractTextPlugin.extract([
+                    use: [
+                        MiniCssExtractPlugin.loader,
                         'css-loader',
                         'sass-loader',
-                    ]),
+                    ],
                 },
             ],
         },
@@ -33,17 +35,11 @@ export const webpackConfig = (args: WebpackArgs): Configuration => {
 
             new BundleAnalyzerPlugin(),
 
-            // based on output.path
-            new ExtractTextPlugin(path.join('css/main.css')),
+            new MiniCssExtractPlugin({
+                filename: 'css/main.[hash].css',
+            }),
 
-            // scope hoisting
-            new webpack.optimize.ModuleConcatenationPlugin(),
-
-            // stop the build if there is an error
             new webpack.NoEmitOnErrorsPlugin(),
-
-            // minimizer
-            new webpack.optimize.UglifyJsPlugin(),
         ],
     };
 
