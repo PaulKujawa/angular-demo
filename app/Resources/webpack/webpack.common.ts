@@ -16,13 +16,6 @@ export const getCommonConfig = (args: WebpackArgs): Configuration => {
         plugins: [
             new ManifestPlugin(),
 
-            // set global variables
-            new webpack.DefinePlugin({
-                'process.env': {
-                    ENV: JSON.stringify(args.env),
-                },
-            }),
-
             // when these variables are used, an ES6 import is automatically added
             // add module declarations via type definitions files to provide type checks
             new webpack.ProvidePlugin({
