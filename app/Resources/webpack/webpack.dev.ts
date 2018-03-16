@@ -5,7 +5,7 @@ import {getCommonConfig} from './webpack.common';
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 export const webpackConfig = (args: WebpackArgs): Configuration => {
     const devConfig: Configuration = {
@@ -30,22 +30,21 @@ export const webpackConfig = (args: WebpackArgs): Configuration => {
                 },
                 {
                     test: /\.scss$/,
-                    loader: ExtractTextPlugin.extract({
-                        use: [
-                            {
-                                loader: 'css-loader',
-                                options: {
-                                    sourceMap: true,
-                                },
+                    use: [
+                        MiniCssExtractPlugin.loader,
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                sourceMap: true,
                             },
-                            {
-                                loader: 'sass-loader',
-                                options: {
-                                    sourceMap: true,
-                                },
+                        },
+                        {
+                            loader: 'sass-loader',
+                            options: {
+                                sourceMap: true,
                             },
-                        ],
-                    }),
+                        },
+                    ],
                 },
             ],
         },
@@ -56,7 +55,9 @@ export const webpackConfig = (args: WebpackArgs): Configuration => {
                 sourceMap: true,
             }),
 
-            new ExtractTextPlugin('css/main.[contenthash].css'),
+            new MiniCssExtractPlugin({
+                filename: 'css/main.[hash].css',
+            }),
 
             // @see https://github.com/angular/angular/issues/11580
             new webpack.ContextReplacementPlugin(

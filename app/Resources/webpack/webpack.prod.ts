@@ -5,7 +5,7 @@ import {WebpackArgs} from './webpack-args';
 import {getCommonConfig} from './webpack.common';
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
 export const webpackConfig = (args: WebpackArgs): Configuration => {
@@ -19,10 +19,11 @@ export const webpackConfig = (args: WebpackArgs): Configuration => {
                     loader: '@ngtools/webpack',
                 }, {
                     test: /\.scss$/,
-                    loader: ExtractTextPlugin.extract([
+                    use: [
+                        MiniCssExtractPlugin.loader,
                         'css-loader',
                         'sass-loader',
-                    ]),
+                    ],
                 },
             ],
         },
@@ -34,7 +35,9 @@ export const webpackConfig = (args: WebpackArgs): Configuration => {
 
             new BundleAnalyzerPlugin(),
 
-            new ExtractTextPlugin(path.join('css/main.css')),
+            new MiniCssExtractPlugin({
+                filename: 'css/main.[hash].css',
+            }),
 
             new webpack.NoEmitOnErrorsPlugin(),
         ],
