@@ -1,3 +1,3 @@
-export interface WebpackArgs {
+export interface WebpackConfigArgs {
     env: 'dev' | 'test' | 'prod';
 }

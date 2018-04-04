@@ -1,13 +1,16 @@
 import {Configuration} from 'webpack';
-import {WebpackArgs} from './webpack-args';
+import {WebpackConfigArgs} from './webpack-args';
 const webpack = require('webpack');
 const path = require('path');
 const ManifestPlugin = require('webpack-manifest-plugin');
 
-export const getCommonConfig = (args: WebpackArgs): Configuration => {
+export const getCommonConfig = (args: WebpackConfigArgs): Configuration => {
     return {
         context: path.resolve(__dirname, '../public/js'),
-        entry: './main.ts',
+        entry: {
+            main: './main.ts',
+            css: '../css/main.scss',
+        },
         output: {
             path: path.resolve(__dirname, '../../../web'),
             filename: 'js/bundle/[name].[hash].js',
@@ -35,7 +38,7 @@ export const getCommonConfig = (args: WebpackArgs): Configuration => {
             },
         },
         resolve: {
-            extensions: ['.ts', '.js', '.scss'],
+            extensions: ['.ts', '.js'],
         },
     };
 };
