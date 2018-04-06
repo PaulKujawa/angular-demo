@@ -9,9 +9,8 @@ import {AppModule} from './app/app.module';
  */
 import 'web/bundles/fosjsrouting/js/router';
 import 'web/js/fos_js_routes';
-require('../css/main.scss');
 
-if (process.env.ENV === 'prod') {
+if (process.env.NODE_ENV === 'production') {
     enableProdMode();
 }
 

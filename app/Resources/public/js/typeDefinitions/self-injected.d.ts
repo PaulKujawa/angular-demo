@@ -1,11 +1,11 @@
-// see webpack DefinePlugin
+// dev and prod are set by webpack while test comes from karma.conf.js
 declare var process: {
     readonly env: {
-        readonly ENV: 'dev'|'test'|'prod',
+        readonly NODE_ENV: 'production' | 'test' | 'production',
     },
 };
 
-// backend template 'base.html.twig'
+// base template 'base.html.twig'
 interface AppInject {
     readonly baseUrl: string;
     readonly requestLocale: string;

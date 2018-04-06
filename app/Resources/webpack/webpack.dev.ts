@@ -1,13 +1,13 @@
 import {AngularCompilerPlugin} from '@ngtools/webpack';
 import {Configuration} from 'webpack';
-import {WebpackArgs} from './webpack-args';
+import {WebpackConfigArgs} from './webpack-args';
 import {getCommonConfig} from './webpack.common';
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-export const webpackConfig = (args: WebpackArgs): Configuration => {
+export const webpackConfig = (args: WebpackConfigArgs): Configuration => {
     const devConfig: Configuration = {
         devtool: 'source-map',
         // @ts-ignore
@@ -38,6 +38,7 @@ export const webpackConfig = (args: WebpackArgs): Configuration => {
                                 sourceMap: true,
                             },
                         },
+                        // TODO use postcss-loader for autoprefixer
                         {
                             loader: 'sass-loader',
                             options: {

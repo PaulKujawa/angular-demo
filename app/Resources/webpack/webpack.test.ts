@@ -1,10 +1,10 @@
 import {Configuration} from 'webpack';
-import {WebpackArgs} from './webpack-args';
+import {WebpackConfigArgs} from './webpack-args';
 import {getCommonConfig} from './webpack.common';
 const merge = require('webpack-merge');
 
 // Called by commonJs module karma.conf.js
-export const webpackConfig = (args: WebpackArgs): Configuration => {
+export const webpackConfig = (args: WebpackConfigArgs): Configuration => {
     const testConfig: Configuration = {
         devtool: 'inline-source-map', // used by karma-sourcemap-loader plugin
         module: {
