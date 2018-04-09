@@ -9,7 +9,7 @@ export const getCommonConfig = (args: WebpackConfigArgs): Configuration => {
         context: path.resolve(__dirname, '../public/js'),
         entry: {
             main: './main.ts',
-            css: '../css/main.scss',
+            styles: '../css/styles.scss',
         },
         output: {
             path: path.resolve(__dirname, '../../../web'),
@@ -19,10 +19,13 @@ export const getCommonConfig = (args: WebpackConfigArgs): Configuration => {
         plugins: [
             new ManifestPlugin(),
 
-            // when these variables are used, an ES6 import is automatically added
-            // add module declarations via type definitions files to provide type checks
+            /*
+             * To have access to variables like they are globally provided
+             * Add module declarations via type definitions files to provide type checks
+             */
             new webpack.ProvidePlugin({
                 Translator: path.join('web/bundles/bazingajstranslation/js/translator.min.js'),
+                // Routing from symfony writes itself into window.
             }),
         ],
         // @ts-ignore

@@ -8,6 +8,8 @@ import 'zone.js/dist/fake-async-test';
 import {TestBed} from '@angular/core/testing';
 import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing';
 
+window.appInject = {}; // set symfony imports
+
 Error.stackTraceLimit = Infinity;
 
 __karma__.loaded = function() {};
