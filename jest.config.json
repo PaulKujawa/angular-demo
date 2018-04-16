@@ -1,0 +1,13 @@
+{
+    "preset": "jest-preset-angular",
+    "globals": {
+        "ts-jest": {
+            "tsConfigFile": "app/Resources/public/js/tests/tsconfig.json"
+        },
+        "__TRANSFORM_HTML__": true
+    },
+    "setupTestFrameworkScriptFile": "./app/Resources/public/js/tests/jest/setup.ts",
+    "testMatch": [
+        "**/app/Resources/public/js/tests/app/**/*.spec.ts"
+    ]
+}
