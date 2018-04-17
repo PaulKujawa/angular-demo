@@ -38,7 +38,6 @@
     "loader-utils": "^1.1.0",
     "mini-css-extract-plugin": "^0.2.0",
     "node-sass": "4.5.3",
-    "null-loader": "0.1.1",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.18.2",
     "ts-node": "^3.3.0",
@@ -52,7 +51,7 @@
   },
   "scripts": {
     "build:dev": "npm run assets-prepare && npm run webpack:dev",
-    "build:test": "jest --watch --config jest.config.json",
+    "build:test": "rm -rf coverage && jest --no-cache --watch --config jest.config.json",
     "build:prod": "npm run assets-prepare && npm run webpack:prod",
     "assets-clean": "rm -rf web/css web/js/bundle web/js/chunk",
     "assets-prepare": "composer install && npm install && npm run symfony:exposure",

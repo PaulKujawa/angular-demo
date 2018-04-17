@@ -1,5 +1,4 @@
 import {Configuration} from 'webpack';
-import {WebpackConfigArgs} from './webpack-args';
 const webpack = require('webpack');
 const path = require('path');
 const ManifestPlugin = require('webpack-manifest-plugin');
@@ -7,7 +6,7 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 /*
  * merged with configuration for development or production
  */
-export const getCommonConfig = (args: WebpackConfigArgs): Configuration => ({
+export const getCommonConfig = (): Configuration => ({
     context: path.resolve(__dirname, '../public/js'),
     entry: {
         main: './main.ts',

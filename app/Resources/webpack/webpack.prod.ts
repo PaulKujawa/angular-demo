@@ -1,13 +1,12 @@
 import {AngularCompilerPlugin} from '@ngtools/webpack';
 import {Configuration} from 'webpack';
 import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer';
-import {WebpackConfigArgs} from './webpack-args';
 import {getCommonConfig} from './webpack.common';
 const merge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
-export const webpackConfig = (args: WebpackConfigArgs): Configuration => {
+export const webpackConfig = (): Configuration => {
     const prodConfig: Configuration = {
         // @ts-ignore
         mode: 'production',
@@ -40,5 +39,5 @@ export const webpackConfig = (args: WebpackConfigArgs): Configuration => {
         ],
     };
 
-    return merge(getCommonConfig(args), prodConfig);
+    return merge(getCommonConfig(), prodConfig);
 };

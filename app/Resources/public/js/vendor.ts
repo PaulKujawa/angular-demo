@@ -7,7 +7,9 @@
  * Override baseUrl for lazy loaded assets like images and js-chunks
  * Original baseUrl is set in base template
  */
-__webpack_public_path__ = '/';
+if (process.env.NODE_ENV !== 'test') {
+    __webpack_public_path__ = '/';
+}
 
 // polyfills
 import 'core-js/es6/array';
