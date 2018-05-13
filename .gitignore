@@ -24,5 +24,6 @@
 /web/js
 
 # Mix
+coverage
 .idea/
 .htaccess

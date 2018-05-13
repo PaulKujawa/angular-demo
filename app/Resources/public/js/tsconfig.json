@@ -22,7 +22,6 @@
     "removeComments": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "es5",
-    "types": ["jasmine", "webpack-env"]
+    "target": "es5"
   }
 }

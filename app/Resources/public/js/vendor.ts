@@ -3,8 +3,13 @@
  * These modules are obviously loaded enitely and therefore not optimized by tree shaking.
  */
 
-// override lazy loading baseUrl at runtime to expunge locale in base url
-__webpack_public_path__ = '/';
+/*
+ * Override baseUrl for lazy loaded assets like images and js-chunks
+ * Original baseUrl is set in base template
+ */
+if (process.env.NODE_ENV !== 'test') {
+    __webpack_public_path__ = '/';
+}
 
 // polyfills
 import 'core-js/es6/array';
