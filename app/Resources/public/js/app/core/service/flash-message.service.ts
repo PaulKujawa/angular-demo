@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {TranslationService} from './translation.service';
+import {TranslationService} from 'app/core/service/translation.service';
 
 interface TranslateMethod {
     id: string;

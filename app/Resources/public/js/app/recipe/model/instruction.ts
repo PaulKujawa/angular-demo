@@ -1,4 +1,4 @@
-import {InstructionDto} from './dto/instruction.dto';
+import {InstructionDto} from 'app/recipe/model/dto/instruction.dto';
 
 export class Instruction {
     public id: number;

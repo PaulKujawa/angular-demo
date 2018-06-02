@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {RoutingService} from '../service/routing.service';
+import {RoutingService} from 'app/core/service/routing.service';
+import {Observable} from 'rxjs';
 
 export interface Credentials {
     username: string;

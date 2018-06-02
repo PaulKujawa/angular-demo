@@ -1,6 +1,6 @@
 import {Pipe} from '@angular/core';
 import {PipeTransform} from '@angular/core';
-import {RoutingService} from '../../core/service/routing.service';
+import {RoutingService} from 'app/core/service/routing.service';
 
 /*
  * Generates a route, based on the base url

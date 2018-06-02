@@ -1,7 +1,7 @@
-import {RecipeDetailDto} from './dto/recipe-detail.dto';
-import {Ingredient} from './ingredient';
-import {Instruction} from './instruction';
-import {Recipe} from './recipe';
+import {RecipeDetailDto} from 'app/recipe/model/dto/recipe-detail.dto';
+import {Ingredient} from 'app/recipe/model/ingredient';
+import {Instruction} from 'app/recipe/model/instruction';
+import {Recipe} from 'app/recipe/model/recipe';
 
 export class RecipeDetail extends Recipe {
     public ingredients: Ingredient[];

@@ -1,6 +1,6 @@
 import {Component, OnDestroy} from '@angular/core';
-import {Subscription} from 'rxjs/Subscription';
-import {FilterState} from '../../shared/service/filter.state';
+import {Subscription} from 'rxjs';
+import {FilterState} from 'app/shared/service/filter.state';
 
 @Component({
     selector: 'app-recipe-filter',

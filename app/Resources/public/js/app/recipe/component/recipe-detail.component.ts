@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
-import {Ingredient} from '../model/ingredient';
-import {RecipeDetail} from '../model/recipe-detail';
-import {RecipeState} from '../service/recipe.state';
+import {Ingredient} from 'app/recipe/model/ingredient';
+import {RecipeDetail} from 'app/recipe/model/recipe-detail';
+import {RecipeState} from 'app/recipe/service/recipe.state';
+import {Observable} from 'rxjs';
+import {switchMap, tap} from 'rxjs/operators';
 
 @Component({
     template: `
@@ -65,9 +66,11 @@ export class RecipeDetailComponent implements OnInit {
 
     public ngOnInit(): void {
         this.recipeObservable = this.activatedRoute.params
-            .switchMap((params) => this.recipeState.getRecipe(params.id))
-            .do((recipe) => recipe.ingredients.sort((a, b) => b.kcal - a.kcal))
-            .do((recipe) => recipe.description = recipe.description.replace(/\n/g, '<br />'));
+            .pipe(
+                switchMap((params) => this.recipeState.getRecipe(params.id)),
+                tap((recipe) => recipe.ingredients.sort((a, b) => b.kcal - a.kcal)),
+                tap((recipe) => recipe.description = recipe.description.replace(/\n/g, '<br />')),
+            );
     }
 
     public getMeasurement(ingredient: Ingredient): string {

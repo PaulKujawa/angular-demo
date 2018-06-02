@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Credentials} from '../repository/auth.repository';
-import {AuthenticationService} from '../service/authentication.service';
+import {Credentials} from 'app/core/repository/auth.repository';
+import {AuthenticationService} from 'app/core/service/authentication.service';
 
 @Component({
     template: `
@@ -26,7 +26,7 @@ import {AuthenticationService} from '../service/authentication.service';
             <button mat-raised-button
                     color="primary"
                     [disabled]="authForm.invalid">
-                {{ 'app.common.submit'|appTrans }}
+                {{ 'app.common.submit' | appTrans }}
             </button>
         </form>
     `,

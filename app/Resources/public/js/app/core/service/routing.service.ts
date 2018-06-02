@@ -1,5 +1,5 @@
 import {Inject, Injectable} from '@angular/core';
-import {BaseUrlInjectToken, FosRouterInjectToken, RequestLocaleInjectToken} from '../core.token';
+import {BaseUrlInjectToken, FosRouterInjectToken, RequestLocaleInjectToken} from 'app/core/core.token';
 
 @Injectable()
 export class RoutingService {

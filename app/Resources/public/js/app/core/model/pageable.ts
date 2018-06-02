@@ -1,5 +1,5 @@
-import {Doc} from '../interface/doc.interface';
-import {Pagination} from './pagination';
+import {Doc} from 'app/core/interface/doc.interface';
+import {Pagination} from 'app/core/model/pagination';
 
 /**
  * @see PageableFactory

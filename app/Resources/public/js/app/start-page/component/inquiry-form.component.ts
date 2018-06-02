@@ -1,9 +1,9 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Subscription} from 'rxjs/Subscription';
-import {FlashMessageService} from '../../core/service/flash-message.service';
-import {Inquiry} from '../model/inquiry';
-import {InquiryRepository} from '../repository/inquiry.repository';
+import {FlashMessageService} from 'app/core/service/flash-message.service';
+import {Inquiry} from 'app/start-page/model/inquiry';
+import {InquiryRepository} from 'app/start-page/repository/inquiry.repository';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-inquiry-form',
@@ -36,7 +36,7 @@ import {InquiryRepository} from '../repository/inquiry.repository';
             <button mat-raised-button
                     color="primary"
                     [disabled]="inquiryForm.invalid">
-                {{ 'app.common.submit'|appTrans }}
+                {{ 'app.common.submit' | appTrans }}
             </button>
         </form>
     `,

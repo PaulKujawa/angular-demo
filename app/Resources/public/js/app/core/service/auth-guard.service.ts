@@ -3,12 +3,14 @@ import {
     ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanLoad, Route, Router,
     RouterStateSnapshot,
 } from '@angular/router';
-import {Observable} from 'rxjs/Observable';
-import {AuthenticationService} from './authentication.service';
+import {AuthenticationService} from 'app/core/service/authentication.service';
+import {Observable} from 'rxjs';
+import {take, tap} from 'rxjs/operators';
 
 @Injectable()
 export class AuthenticationGuard implements CanActivate, CanActivateChild, CanLoad {
-    constructor(private authenticationService: AuthenticationService, private router: Router) {
+    constructor(private authenticationService: AuthenticationService,
+                private router: Router) {
     }
 
     public canLoad(route: Route): Observable<boolean> {
@@ -28,12 +30,14 @@ export class AuthenticationGuard implements CanActivate, CanActivateChild, CanLo
 
     private isAuthenticated(targetUrl: string): Observable<boolean> {
         return this.authenticationService.isAuthenticated
-            .take(1)
-            .do((isAuthenticated) => {
-                if (!isAuthenticated) {
-                    this.authenticationService.setTargetUrl(targetUrl);
-                    this.router.navigate(['/login']);
-                }
-            });
+            .pipe(
+                take(1),
+                tap((isAuthenticated) => {
+                    if (!isAuthenticated) {
+                        this.authenticationService.setTargetUrl(targetUrl);
+                        this.router.navigate(['/login']);
+                    }
+                }),
+            );
     }
 }

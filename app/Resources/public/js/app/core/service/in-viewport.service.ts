@@ -1,5 +1,5 @@
 import {ElementRef, Inject, Injectable} from '@angular/core';
-import {WindowInjectToken} from '../core.token';
+import {WindowInjectToken} from 'app/core/core.token';
 
 @Injectable()
 export class InViewportService {

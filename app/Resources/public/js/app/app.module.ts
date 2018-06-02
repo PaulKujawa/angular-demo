@@ -1,10 +1,10 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
-import {CoreModule} from './core/core.module';
-import {StartPageModule} from './start-page/start-page.module';
+import {AppRoutingModule} from 'app/app-routing.module';
+import {AppComponent} from 'app/app.component';
+import {CoreModule} from 'app/core/core.module';
+import {StartPageModule} from 'app/start-page/start-page.module';
 
 @NgModule({
     imports: [

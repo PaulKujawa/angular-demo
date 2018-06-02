@@ -1,7 +1,7 @@
-import {Doc} from '../interface/doc.interface';
-import {PageableDto} from '../model/dto/pageable.dto';
-import {Pageable} from '../model/pageable';
-import {Pagination} from '../model/pagination';
+import {Doc} from 'app/core/interface/doc.interface';
+import {PageableDto} from 'app/core/model/dto/pageable.dto';
+import {Pageable} from 'app/core/model/pageable';
+import {Pagination} from 'app/core/model/pagination';
 
 /**
  * usage:

@@ -1,7 +1,6 @@
 import {HttpParams} from '@angular/common/http';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {Observable} from 'rxjs/Observable';
-import {Subscription} from 'rxjs/Subscription';
+import {BehaviorSubject, Observable, Subscription} from 'rxjs';
+import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 // TODO rewrite
 export class FilterState {
@@ -41,8 +40,10 @@ export class FilterState {
         this.buffer[param] = new BehaviorSubject<string>(value);
 
         return this.buffer[param]
-            .debounceTime(300)
-            .distinctUntilChanged()
+            .pipe(
+                debounceTime(300),
+                distinctUntilChanged(),
+            )
             .subscribe((finalValue) => this.setParam(param, finalValue));
     }
 }

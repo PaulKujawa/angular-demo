@@ -1,4 +1,4 @@
-import {MeasurementDto} from './dto/measurement.dto';
+import {MeasurementDto} from 'app/recipe/model/dto/measurement.dto';
 
 export class Measurement {
     public id: number;

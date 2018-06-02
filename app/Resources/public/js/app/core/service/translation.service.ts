@@ -1,5 +1,5 @@
 import {Inject, Injectable} from '@angular/core';
-import {TranslatorInjectToken} from '../core.token';
+import {TranslatorInjectToken} from 'app/core/core.token';
 
 @Injectable()
 export class TranslationService {

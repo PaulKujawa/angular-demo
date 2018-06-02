@@ -1,4 +1,4 @@
-import {MacrosDto} from './macros.dto';
+import {MacrosDto} from 'app/recipe/model/dto/macros.dto';
 
 export interface RecipeDto {
     id: number;

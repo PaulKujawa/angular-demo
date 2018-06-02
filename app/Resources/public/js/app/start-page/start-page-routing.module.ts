@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {InquiryComponent} from './component/inquiry.component';
-import {StartPageComponent} from './component/start-page.component';
+import {InquiryComponent} from 'app/start-page/component/inquiry.component';
+import {StartPageComponent} from 'app/start-page/component/start-page.component';
 
 const routes: Routes = [
     {
