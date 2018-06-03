@@ -1,11 +1,14 @@
 import {Inject, Injectable} from '@angular/core';
 import {Router} from '@angular/router';
+import {CoreModule} from 'app/core/core.module';
 import {AuthenticatedInjectToken} from 'app/core/core.token';
 import {AuthRepository, Credentials} from 'app/core/repository/auth.repository';
 import {Observable, ReplaySubject} from 'rxjs';
 import {tap} from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+    providedIn: CoreModule,
+})
 export class AuthenticationService {
     public isAuthenticated = new ReplaySubject<boolean>(1);
     private targetUrl: string;

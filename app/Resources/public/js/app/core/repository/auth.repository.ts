@@ -1,5 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
+import {CoreModule} from 'app/core/core.module';
 import {RoutingService} from 'app/core/service/routing.service';
 import {Observable} from 'rxjs';
 
@@ -8,7 +9,9 @@ export interface Credentials {
     password: string;
 }
 
-@Injectable()
+@Injectable({
+    providedIn: CoreModule,
+})
 export class AuthRepository {
     constructor(private http: HttpClient,
                 private routingService: RoutingService) {

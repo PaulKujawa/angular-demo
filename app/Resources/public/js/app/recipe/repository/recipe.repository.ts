@@ -8,10 +8,13 @@ import {RecipeDetailDto} from 'app/recipe/model/dto/recipe-detail.dto';
 import {RecipeDto} from 'app/recipe/model/dto/recipe.dto';
 import {Recipe} from 'app/recipe/model/recipe';
 import {RecipeDetail} from 'app/recipe/model/recipe-detail';
+import {RecipeModule} from 'app/recipe/recipe.module';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+    providedIn: RecipeModule,
+})
 export class RecipeRepository {
     constructor(private http: HttpClient,
                 private routingService: RoutingService,

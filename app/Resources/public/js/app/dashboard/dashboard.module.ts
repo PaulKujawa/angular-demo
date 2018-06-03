@@ -13,8 +13,6 @@ import {DashboardRoutingModule} from 'app/dashboard/dashboard-routing.module';
         DashboardComponent,
         PlaceholderComponent,
     ],
-    exports: [],
-    providers: [],
 })
 export class DashboardModule {
 }

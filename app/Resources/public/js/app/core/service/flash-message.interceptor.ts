@@ -1,10 +1,13 @@
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Injectable} from '@angular/core';
+import {CoreModule} from 'app/core/core.module';
 import {FlashMessageService} from 'app/core/service/flash-message.service';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+    providedIn: CoreModule,
+})
 export class FlashMessageInterceptor implements HttpInterceptor {
     constructor(private flashMessageService: FlashMessageService) {
     }

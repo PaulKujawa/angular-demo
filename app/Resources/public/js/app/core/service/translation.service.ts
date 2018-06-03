@@ -1,7 +1,10 @@
 import {Inject, Injectable} from '@angular/core';
+import {CoreModule} from 'app/core/core.module';
 import {TranslatorInjectToken} from 'app/core/core.token';
 
-@Injectable()
+@Injectable({
+    providedIn: CoreModule,
+})
 export class TranslationService {
     public constructor(@Inject(TranslatorInjectToken) private translator: BazingaJsTranslationBundle) {
     }

@@ -1,7 +1,10 @@
 import {ElementRef, Inject, Injectable} from '@angular/core';
+import {CoreModule} from 'app/core/core.module';
 import {WindowInjectToken} from 'app/core/core.token';
 
-@Injectable()
+@Injectable({
+    providedIn: CoreModule,
+})
 export class InViewportService {
     constructor(@Inject(WindowInjectToken) private window: Window) {
     }

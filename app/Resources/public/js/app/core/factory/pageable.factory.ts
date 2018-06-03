@@ -1,3 +1,5 @@
+import {Injectable} from '@angular/core';
+import {CoreModule} from 'app/core/core.module';
 import {Doc} from 'app/core/interface/doc.interface';
 import {PageableDto} from 'app/core/model/dto/pageable.dto';
 import {Pageable} from 'app/core/model/pageable';
@@ -9,6 +11,9 @@ import {Pagination} from 'app/core/model/pagination';
  *  const dto: PageableDto<RecipeResponseDto> = serverResponse.json();
  *  const recipePageable: Pageable<Recipe> = pageableFactory.getPageable<RecipeResponseDto, Recipe>(dto, Recipe);
  */
+@Injectable({
+    providedIn: CoreModule,
+})
 export class PageableFactory {
     public getPageable<D, M extends Doc>(dto: PageableDto<D>, M: {new(dto: D): M}): Pageable<M> {
         const pagination = new Pagination(dto.pagination);

@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {CoreModule} from 'app/core/core.module';
 import {TranslationService} from 'app/core/service/translation.service';
 
 interface TranslateMethod {
@@ -8,7 +9,9 @@ interface TranslateMethod {
     domain?: string;
 }
 
-@Injectable()
+@Injectable({
+    providedIn: CoreModule,
+})
 export class FlashMessageService {
     public constructor(private translationService: TranslationService,
                        private matSnackBar: MatSnackBar) {

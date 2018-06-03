@@ -10,8 +10,6 @@ import {RecipeFilterComponent} from 'app/recipe/component/recipe-filter.componen
 import {RecipeListComponent} from 'app/recipe/component/recipe-list.component';
 import {RecipeComponent} from 'app/recipe/component/recipe.component';
 import {RecipeRoutingModule} from 'app/recipe/recipe-routing.module';
-import {RecipeRepository} from 'app/recipe/repository/recipe.repository';
-import {RecipeState} from 'app/recipe/service/recipe.state';
 import {SharedModule} from 'app/shared/shared.module';
 
 @NgModule({
@@ -30,11 +28,6 @@ import {SharedModule} from 'app/shared/shared.module';
         RecipeFactsComponent,
         RecipeFilterComponent,
         RecipeListComponent,
-    ],
-    exports: [],
-    providers: [
-        RecipeState,
-        RecipeRepository,
     ],
 })
 export class RecipeModule {

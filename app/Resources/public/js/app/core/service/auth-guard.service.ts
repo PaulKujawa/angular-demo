@@ -3,11 +3,14 @@ import {
     ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanLoad, Route, Router,
     RouterStateSnapshot,
 } from '@angular/router';
+import {CoreModule} from 'app/core/core.module';
 import {AuthenticationService} from 'app/core/service/authentication.service';
 import {Observable} from 'rxjs';
 import {take, tap} from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+    providedIn: CoreModule,
+})
 export class AuthenticationGuard implements CanActivate, CanActivateChild, CanLoad {
     constructor(private authenticationService: AuthenticationService,
                 private router: Router) {

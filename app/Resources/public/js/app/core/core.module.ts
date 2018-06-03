@@ -17,16 +17,8 @@ import {
     TranslatorInjectToken,
     WindowInjectToken,
 } from 'app/core/core.token';
-import {PageableFactory} from 'app/core/factory/pageable.factory';
-import {AuthRepository} from 'app/core/repository/auth.repository';
-import {AuthenticationGuard} from 'app/core/service/auth-guard.service';
-import {AuthenticationService} from 'app/core/service/authentication.service';
 import {FlashMessageInterceptor} from 'app/core/service/flash-message.interceptor';
-import {FlashMessageService} from 'app/core/service/flash-message.service';
 import {HeadersInterceptor} from 'app/core/service/headers.interceptor';
-import {InViewportService} from 'app/core/service/in-viewport.service';
-import {RoutingService} from 'app/core/service/routing.service';
-import {TranslationService} from 'app/core/service/translation.service';
 import {SharedModule} from 'app/shared/shared.module';
 
 @NgModule({
@@ -49,14 +41,6 @@ import {SharedModule} from 'app/shared/shared.module';
         NavBarComponent,
     ],
     providers: [
-        AuthenticationGuard,
-        AuthenticationService,
-        AuthRepository,
-        InViewportService,
-        FlashMessageService,
-        PageableFactory,
-        RoutingService,
-        TranslationService,
         {provide: HTTP_INTERCEPTORS, useClass: HeadersInterceptor, multi: true},
         {provide: HTTP_INTERCEPTORS, useClass: FlashMessageInterceptor, multi: true},
         {provide: AuthenticatedInjectToken, useFactory: () => window.appInject.authenticated},
