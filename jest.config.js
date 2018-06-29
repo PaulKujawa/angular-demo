@@ -1,4 +1,4 @@
-{
+module.exports = {
     "preset": "jest-preset-angular",
     "collectCoverage": true,
     "coverageReporters": [
@@ -10,7 +10,7 @@
         "<rootDir>/node_modules/"
     ],
     "collectCoverageFrom": [
-        "**/app/Resources/public/js/application/**/*.ts"
+        "**/app/Resources/public/js/app/**/*.ts"
     ],
     "globals": {
         "ts-jest": {
@@ -19,6 +19,7 @@
         "__TRANSFORM_HTML__": true
     },
     "moduleNameMapper": {
+        "^app/(.*)": "<rootDir>/app/Resources/public/js/app/$1",
         "^web/bundles/.*": "<rootDir>/app/Resources/public/js/tests/jest/empty.js",
         "^web/js/.*": "<rootDir>/app/Resources/public/js/tests/jest/empty.js"
     },
@@ -26,4 +27,4 @@
     "testMatch": [
         "**/app/Resources/public/js/tests/app/**/*.spec.ts"
     ]
-}
+};

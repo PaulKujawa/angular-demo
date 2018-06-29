@@ -52,7 +52,7 @@
   },
   "scripts": {
     "build:dev": "npm run assets-prepare && npm run webpack:dev",
-    "build:test": "rm -rf coverage && jest --no-cache --watch --config jest.config.json",
+    "build:test": "rm -rf coverage && jest --watch",
     "build:prod": "npm run assets-prepare && npm run webpack:prod",
     "assets-clean": "rm -rf web/css web/js/bundle web/js/chunk",
     "assets-prepare": "composer install && npm install && npm run symfony:exposure",
