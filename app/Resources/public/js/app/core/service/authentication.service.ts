@@ -1,11 +1,14 @@
 import {Inject, Injectable} from '@angular/core';
 import {Router} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
-import {ReplaySubject} from 'rxjs/ReplaySubject';
-import {AuthenticatedInjectToken} from '../core.token';
-import {AuthRepository, Credentials} from '../repository/auth.repository';
+import {CoreModule} from 'app/core/core.module';
+import {AuthenticatedInjectToken} from 'app/core/core.token';
+import {AuthRepository, Credentials} from 'app/core/repository/auth.repository';
+import {Observable, ReplaySubject} from 'rxjs';
+import {tap} from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+    providedIn: CoreModule,
+})
 export class AuthenticationService {
     public isAuthenticated = new ReplaySubject<boolean>(1);
     private targetUrl: string;
@@ -18,9 +21,10 @@ export class AuthenticationService {
 
     public authenticate(credentials: Credentials): Observable<undefined> {
         // on failure: authentication did not change
-        return this.authRepository
-            .authenticate(credentials)
-            .do(() => this.isAuthenticated.next(true));
+        return this.authRepository.authenticate(credentials)
+            .pipe(
+                tap(() => this.isAuthenticated.next(true)),
+            );
     }
 
     public setTargetUrl(url: string): void {

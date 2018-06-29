@@ -1,5 +1,5 @@
-import {RecipeDto} from './dto/recipe.dto';
-import {Macros} from './macros';
+import {RecipeDto} from 'app/recipe/model/dto/recipe.dto';
+import {Macros} from 'app/recipe/model/macros';
 
 export class Recipe {
     public id: number;

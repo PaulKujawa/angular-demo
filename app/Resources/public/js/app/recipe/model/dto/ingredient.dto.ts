@@ -1,5 +1,5 @@
-import {MeasurementDto} from './measurement.dto';
-import {ProductDto} from './product.dto';
+import {MeasurementDto} from 'app/recipe/model/dto/measurement.dto';
+import {ProductDto} from 'app/recipe/model/dto/product.dto';
 
 export interface IngredientDto {
     id: number;

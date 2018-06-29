@@ -1,6 +1,6 @@
-import {IngredientDto} from './dto/ingredient.dto';
-import {Measurement} from './measurement';
-import {Product} from './product';
+import {IngredientDto} from 'app/recipe/model/dto/ingredient.dto';
+import {Measurement} from 'app/recipe/model/measurement';
+import {Product} from 'app/recipe/model/product';
 
 export class Ingredient {
     public id: number;

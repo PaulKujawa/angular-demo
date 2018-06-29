@@ -1,4 +1,4 @@
-import {MacrosDto} from './dto/macros.dto';
+import {MacrosDto} from 'app/recipe/model/dto/macros.dto';
 
 interface MacrosInterface {
     kcal: number;

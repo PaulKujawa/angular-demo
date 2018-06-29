@@ -1,22 +1,26 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {ReplaySubject} from 'rxjs/ReplaySubject';
-import {Pageable} from '../../core/model/pageable';
-import {PageableState} from '../../shared/model/pageable.state';
-import {FilterState} from '../../shared/service/filter.state';
-import {Recipe} from '../model/recipe';
-import {RecipeDetail} from '../model/recipe-detail';
-import {RecipeRepository} from '../repository/recipe.repository';
+import {Pageable} from 'app/core/model/pageable';
+import {Recipe} from 'app/recipe/model/recipe';
+import {RecipeDetail} from 'app/recipe/model/recipe-detail';
+import {RecipeModule} from 'app/recipe/recipe.module';
+import {RecipeRepository} from 'app/recipe/repository/recipe.repository';
+import {PageableState} from 'app/shared/model/pageable.state';
+import {FilterState} from 'app/shared/service/filter.state';
+import {Observable, ReplaySubject} from 'rxjs';
+import {first, switchMap} from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+    providedIn: RecipeModule,
+})
 export class RecipeState implements PageableState {
     private listPageable = new ReplaySubject<Pageable<Recipe>>(1);
 
     public constructor(private recipeRepository: RecipeRepository,
                        private filterState: FilterState) {
-        this.filterState
-            .getFilter()
-            .switchMap((params) => this.recipeRepository.getRecipes(params))
+        this.filterState.getFilter()
+            .pipe(
+                switchMap((params) => this.recipeRepository.getRecipes(params)),
+            )
             .subscribe(this.listPageable);
     }
 
@@ -25,6 +29,9 @@ export class RecipeState implements PageableState {
     }
 
     public getRecipe(recipeId: number): Observable<RecipeDetail> {
-        return this.recipeRepository.getRecipe(recipeId).first();
+        return this.recipeRepository.getRecipe(recipeId)
+            .pipe(
+                first(),
+            );
     }
 }

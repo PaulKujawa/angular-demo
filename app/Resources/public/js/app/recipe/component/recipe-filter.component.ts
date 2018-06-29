@@ -1,6 +1,6 @@
 import {Component, OnDestroy} from '@angular/core';
-import {Subscription} from 'rxjs/Subscription';
-import {FilterState} from '../../shared/service/filter.state';
+import {FilterState} from 'app/shared/service/filter.state';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-recipe-filter',
@@ -16,7 +16,7 @@ import {FilterState} from '../../shared/service/filter.state';
             <section class="app-recipe-list-filter__vegan">
                 <mat-checkbox #veganOnly
                               (change)="setVegan(veganOnly.checked)">
-                    {{ 'app.recipe_list.filter.vegan_only'|appTrans }}
+                    {{ 'app.recipe_list.filter.vegan_only' | appTrans }}
                 </mat-checkbox>
             </section>
         </div>

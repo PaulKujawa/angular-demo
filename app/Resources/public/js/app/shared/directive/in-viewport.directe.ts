@@ -1,10 +1,18 @@
 import {
-    Directive, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnDestroy, OnInit, Output,
+    Directive,
+    ElementRef,
+    EventEmitter,
+    Input,
+    NgZone,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    Output,
     SimpleChanges,
 } from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {Subscription} from 'rxjs/Subscription';
-import {InViewportService} from '../../core/service/in-viewport.service';
+import {InViewportService} from 'app/core/service/in-viewport.service';
+import {fromEvent, merge, Observable, Subscription} from 'rxjs';
+import {auditTime, share} from 'rxjs/operators';
 
 interface InViewportConfig {
     percentage: number;
@@ -14,12 +22,13 @@ interface InViewportConfig {
     selector: '[appInViewport]',
 })
 export class InViewportDirective implements OnInit, OnChanges, OnDestroy {
-    private static sharedSource = Observable.merge(
-        Observable.fromEvent(window, 'resize', {passive: true}),
-        Observable.fromEvent(window, 'scroll', {passive: true}),
-    )
-    .auditTime(100)
-    .share();
+    private static sharedSource = merge(
+        fromEvent(window, 'resize', {passive: true}),
+        fromEvent(window, 'scroll', {passive: true}),
+    ).pipe(
+        auditTime(100),
+        share(),
+    );
 
     @Input() public config?: InViewportConfig;
     @Input() public customEvent?: Observable<any>;
@@ -34,7 +43,7 @@ export class InViewportDirective implements OnInit, OnChanges, OnDestroy {
 
     public ngOnInit(): void {
         const source = this.customEvent
-            ? Observable.merge(InViewportDirective.sharedSource, this.customEvent)
+            ? merge(InViewportDirective.sharedSource, this.customEvent)
             : InViewportDirective.sharedSource;
 
         this.subscription = source.subscribe(() => this.check());

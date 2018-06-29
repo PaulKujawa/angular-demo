@@ -5,6 +5,11 @@
  *  - AngularSnapshotSerializer & HTMLCommentSerializer TODO clarify
  */
 import 'jest-preset-angular';
-import '../../vendor.ts';
+
+// to go along with webpack
+declare let global: any;
+global.environment = {
+    test: true,
+};
 
 Object.defineProperty(window, 'appInject', {value: () => ({})});

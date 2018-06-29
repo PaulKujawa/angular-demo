@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {Pagination} from '../../core/model/pagination';
-import {PageableState} from '../model/pageable.state';
-import {FilterState} from '../service/filter.state';
+import {Pagination} from 'app/core/model/pagination';
+import {PageableState} from 'app/shared/model/pageable.state';
+import {FilterState} from 'app/shared/service/filter.state';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 interface MatPaginatorEvent {
     pageIndex: number;
@@ -30,9 +31,10 @@ export class PaginationComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        this.paginationStream = this.pageableState
-            .getPageable()
-            .map((pageable) => pageable.pagination);
+        this.paginationStream = this.pageableState.getPageable()
+            .pipe(
+                map((pageable) => pageable.pagination),
+            );
     }
 
     public onClick({pageIndex}: MatPaginatorEvent): void {

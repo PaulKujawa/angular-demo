@@ -4,15 +4,13 @@ import {FormsModule} from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatInputModule} from '@angular/material/input';
-import {SharedModule} from '../shared/shared.module';
-import {RecipeDetailComponent} from './component/recipe-detail.component';
-import {RecipeFactsComponent} from './component/recipe-facts.component';
-import {RecipeFilterComponent} from './component/recipe-filter.component';
-import {RecipeListComponent} from './component/recipe-list.component';
-import {RecipeComponent} from './component/recipe.component';
-import {RecipeRoutingModule} from './recipe-routing.module';
-import {RecipeRepository} from './repository/recipe.repository';
-import {RecipeState} from './service/recipe.state';
+import {RecipeDetailComponent} from 'app/recipe/component/recipe-detail.component';
+import {RecipeFactsComponent} from 'app/recipe/component/recipe-facts.component';
+import {RecipeFilterComponent} from 'app/recipe/component/recipe-filter.component';
+import {RecipeListComponent} from 'app/recipe/component/recipe-list.component';
+import {RecipeComponent} from 'app/recipe/component/recipe.component';
+import {RecipeRoutingModule} from 'app/recipe/recipe-routing.module';
+import {SharedModule} from 'app/shared/shared.module';
 
 @NgModule({
     imports: [
@@ -30,11 +28,6 @@ import {RecipeState} from './service/recipe.state';
         RecipeFactsComponent,
         RecipeFilterComponent,
         RecipeListComponent,
-    ],
-    exports: [],
-    providers: [
-        RecipeState,
-        RecipeRepository,
     ],
 })
 export class RecipeModule {

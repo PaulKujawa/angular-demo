@@ -1,6 +1,7 @@
 {
     "extends": [
-        "./custom.json",
-        "./angular.json"
+        "./angular.json",
+        "./rxjs.json",
+        "./typescript.json"
     ]
 }

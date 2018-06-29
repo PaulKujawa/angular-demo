@@ -17,11 +17,13 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "paths": {
+      "app/*": ["./app/*"],
       "web/*": ["../../../../web/*"]
     },
     "removeComments": true,
     "skipLibCheck": true,
     "strict": true,
+    "strictPropertyInitialization": false,
     "target": "es5"
   }
 }

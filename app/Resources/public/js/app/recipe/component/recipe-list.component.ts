@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
-import {Recipe} from '../model/recipe';
-import {RecipeState} from '../service/recipe.state';
+import {Recipe} from 'app/recipe/model/recipe';
+import {RecipeState} from 'app/recipe/service/recipe.state';
 
 @Component({
     template: `

@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {PageableState} from '../../shared/model/pageable.state';
-import {FilterState} from '../../shared/service/filter.state';
-import {RecipeState} from '../service/recipe.state';
+import {RecipeState} from 'app/recipe/service/recipe.state';
+import {PageableState} from 'app/shared/model/pageable.state';
+import {FilterState} from 'app/shared/service/filter.state';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,

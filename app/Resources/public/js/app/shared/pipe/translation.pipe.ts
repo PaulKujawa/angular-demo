@@ -1,6 +1,6 @@
 import {Pipe} from '@angular/core';
 import {PipeTransform} from '@angular/core';
-import {TranslationService} from '../../core/service/translation.service';
+import {TranslationService} from 'app/core/service/translation.service';
 
 /*
  * Translate message

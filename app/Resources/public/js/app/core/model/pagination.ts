@@ -1,4 +1,4 @@
-import {PaginationDto} from './dto/pagination.dto';
+import {PaginationDto} from 'app/core/model/dto/pagination.dto';
 
 export class Pagination {
     public page: number;

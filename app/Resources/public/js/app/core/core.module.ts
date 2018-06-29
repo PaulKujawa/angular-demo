@@ -7,9 +7,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {RouterModule} from '@angular/router';
-import {SharedModule} from '../shared/shared.module';
-import {AuthComponent} from './component/auth.component';
-import {NavBarComponent} from './component/nav-bar.component';
+import {AuthComponent} from 'app/core/component/auth.component';
+import {NavBarComponent} from 'app/core/component/nav-bar.component';
 import {
     AuthenticatedInjectToken,
     BaseUrlInjectToken,
@@ -17,17 +16,10 @@ import {
     RequestLocaleInjectToken,
     TranslatorInjectToken,
     WindowInjectToken,
-} from './core.token';
-import {PageableFactory} from './factory/pageable.factory';
-import {AuthRepository} from './repository/auth.repository';
-import {AuthenticationGuard} from './service/auth-guard.service';
-import {AuthenticationService} from './service/authentication.service';
-import {FlashMessageInterceptor} from './service/flash-message.interceptor';
-import {FlashMessageService} from './service/flash-message.service';
-import {HeadersInterceptor} from './service/headers.interceptor';
-import {InViewportService} from './service/in-viewport.service';
-import {RoutingService} from './service/routing.service';
-import {TranslationService} from './service/translation.service';
+} from 'app/core/core.token';
+import {FlashMessageInterceptor} from 'app/core/service/flash-message.interceptor';
+import {HeadersInterceptor} from 'app/core/service/headers.interceptor';
+import {SharedModule} from 'app/shared/shared.module';
 
 @NgModule({
     imports: [
@@ -49,14 +41,6 @@ import {TranslationService} from './service/translation.service';
         NavBarComponent,
     ],
     providers: [
-        AuthenticationGuard,
-        AuthenticationService,
-        AuthRepository,
-        InViewportService,
-        FlashMessageService,
-        PageableFactory,
-        RoutingService,
-        TranslationService,
         {provide: HTTP_INTERCEPTORS, useClass: HeadersInterceptor, multi: true},
         {provide: HTTP_INTERCEPTORS, useClass: FlashMessageInterceptor, multi: true},
         {provide: AuthenticatedInjectToken, useFactory: () => window.appInject.authenticated},

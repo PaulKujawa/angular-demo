@@ -1,10 +1,13 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {RoutingService} from '../../core/service/routing.service';
-import {Inquiry} from '../model/inquiry';
+import {RoutingService} from 'app/core/service/routing.service';
+import {Inquiry} from 'app/start-page/model/inquiry';
+import {StartPageModule} from 'app/start-page/start-page.module';
+import {Observable} from 'rxjs';
 
-@Injectable()
+@Injectable({
+    providedIn: StartPageModule,
+})
 export class InquiryRepository {
     constructor(private http: HttpClient,
                 private routingService: RoutingService) {
