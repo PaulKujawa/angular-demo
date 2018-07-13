@@ -46,6 +46,11 @@ export const webpackConfig = (): Configuration => {
                         },
                     ],
                 },
+                {
+                    // https://github.com/angular/universal-starter/issues/579#issuecomment-390357680
+                    test: /(\\|\/)@angular(\\|\/)core(\\|\/).+\.js$/,
+                    parser: { system: true },
+                },
             ],
         },
         plugins: [
