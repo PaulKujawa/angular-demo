@@ -16,7 +16,6 @@
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/platform-server": "^6.0.3",
     "@angular/router": "^6.0.3",
-    "@angular/tsc-wrapped": "^5.0.0-beta.7",
     "core-js": "^2.5.1",
     "rxjs": "^6.2.0",
     "tslib": "^1.9.0",
@@ -26,8 +25,7 @@
   "devDependencies": {
     "@ngtools/webpack": "^6.0.0-beta.4",
     "@types/jest": "^22.2.3",
-    "@types/node": "^8.0.14",
-    "@types/webpack": "^3.8.8",
+    "@types/webpack": "^4.4.5",
     "@types/webpack-env": "1.13.0",
     "bazinga-translator": "^2.6.4",
     "codelyzer": "^4.3.0",

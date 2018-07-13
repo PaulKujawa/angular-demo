@@ -24,6 +24,10 @@
     "skipLibCheck": true,
     "strict": true,
     "strictPropertyInitialization": false,
-    "target": "es5"
+    "target": "es5",
+    "types": [
+      "jest",
+      "webpack-env"
+    ]
   }
 }
