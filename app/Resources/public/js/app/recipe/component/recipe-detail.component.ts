@@ -18,7 +18,7 @@ import {switchMap, tap} from 'rxjs/operators';
                     <h1>{{ recipe.name }}</h1>
 
                     <app-recipe-facts [recipe]="recipe"
-                                      [cssModifier]="['app-recipe-facts--big', 'app-recipe-facts--white']">
+                                      [cssModifier]="['mat-title', 'app-recipe-facts--white']">
                     </app-recipe-facts>
 
                     <p [innerHTML]="recipe.description"></p>
