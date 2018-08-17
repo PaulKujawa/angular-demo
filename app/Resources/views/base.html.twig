@@ -8,8 +8,6 @@
         <link rel="preload" as="script" href="{{ asset('angular.js') }}">
         <link rel="preload" as="script" href="{{ asset('angular-material.js') }}">
         <link rel="preload" as="script" href="{{ asset('main.js') }}">
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-
         <title>Kujawa</title>
 
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,9 +22,8 @@
 
         <base href="{{ path('app_root_i18n') }}">
 
+        {% include '::fonts.html.twig' %}
         <link rel="stylesheet" href="{{ asset('styles.css') }}">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
     </head>
 
     <body class="mat-app-background mat-typography">

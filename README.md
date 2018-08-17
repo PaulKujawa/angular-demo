@@ -6,7 +6,14 @@
 * `composer install`
 * `bin/console doctrine:database:create`
 
-Contribute
+**Browser support**
+* IE: no, due to font-display
+* Edge: no, due to font-display
+* Firefox: 61
+* Chrome: 63
+* Safari: no, due to intersectionObserver
+
+**Contribute**
 * build `npm run build:prod`
 * update DB
   * `bin/console doctrine:migrations:diff` to generate migration file
