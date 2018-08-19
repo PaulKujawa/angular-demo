@@ -2,34 +2,31 @@
 {% set locale = app.request.locale %}
 <html lang="{{ locale }}">
     <head>
-        {% block head %}
-            <title>{% block title %}Kujawa{% endblock %}</title>
-            {% block metaData %}
-                <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                <meta http-equiv="content-type" content="text/html; charset=utf-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-                <meta name="language" content="{{ locale }}">
-                <meta name="author" content="Paul Kujawa">
-                <meta name="copyright" content="Paul Kujawa">
-                <meta name="publisher" content="Paul Kujawa">
-                <meta name="description" content="vegan recipes with high calories">
-                <meta name="keywords" content="vegan, vegetarian, recipe, calories">
+        <link rel="preload" as="script" href="{{ asset('core-js.js') }}">
+        <link rel="preload" as="script" href="{{ asset('zone-js.js') }}">
+        <link rel="preload" as="script" href="{{ asset('rxjs.js') }}">
+        <link rel="preload" as="script" href="{{ asset('angular.js') }}">
+        <link rel="preload" as="script" href="{{ asset('angular-material.js') }}">
+        <link rel="preload" as="script" href="{{ asset('main.js') }}">
+        <title>Kujawa</title>
 
-                <base href="{{ path('app_root_i18n') }}">
-            {% endblock %}
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="language" content="{{ locale }}">
+        <meta name="author" content="Paul Kujawa">
+        <meta name="copyright" content="Paul Kujawa">
+        <meta name="publisher" content="Paul Kujawa">
+        <meta name="description" content="vegan recipes with high calories">
+        <meta name="keywords" content="vegan, vegetarian, recipe, calories">
 
-            <link rel="stylesheet" href="{{ asset('styles.css') }}">
+        <base href="{{ path('app_root_i18n') }}">
 
-            <link rel="preconnect" href="https://fonts.gstatic.com">
-            <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
-
-            <link rel="preload" as="script" href="{{ asset('vendor.js') }}">
-            <link rel="preload" as="script" href="{{ asset('main.js') }}">
-        {% endblock %}
+        {% include '::fonts.html.twig' %}
+        <link rel="stylesheet" href="{{ asset('styles.css') }}">
     </head>
 
-    <body class="mat-app-background">
+    <body class="mat-app-background mat-typography">
         <app-spa></app-spa>
         <script>
             window.appInject = {
@@ -38,7 +35,11 @@
                 authenticated: {{ app.user ? 'true' : 'false' }}
             };
         </script>
-        <script src="{{ asset('vendor.js') }}"></script>
+        <script src="{{ asset('core-js.js') }}"></script>
+        <script src="{{ asset('zone-js.js') }}"></script>
+        <script src="{{ asset('rxjs.js') }}"></script>
+        <script src="{{ asset('angular.js') }}"></script>
+        <script src="{{ asset('angular-material.js') }}"></script>
         <script src="{{ asset('main.js') }}"></script>
     </body>
 </html>

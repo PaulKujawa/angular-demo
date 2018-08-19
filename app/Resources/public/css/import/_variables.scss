@@ -18,6 +18,6 @@ $app-shared-font_size--default: 12px;
 $app-shared-font_size--larger: 16px;
 
 // variables are provided by include of mat-core() in _material.scss, which gets imported beforehand by main.scss
-$app-mat_primary: mat-palette($mat-deep-purple);
+$app-mat_primary: mat-palette($mat-teal);
 $app-mat_accent: mat-palette($mat-amber);
 $app-mat_theme: mat-light-theme($app-mat_primary, $app-mat_accent);

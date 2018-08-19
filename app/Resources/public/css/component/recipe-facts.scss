@@ -22,16 +22,6 @@
   }
 }
 
-.app-recipe-facts--big {
-  @media #{$media-query-min-md} {
-    font-size: 36px;
-
-    .material-icons {
-      font-size: 36px; // TODO use css-prefixer instead
-    }
-  }
-}
-
 .app-recipe-facts--white {
   color: #fff !important;
 
