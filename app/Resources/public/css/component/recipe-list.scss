@@ -15,6 +15,7 @@
 }
 
 .app-recipe-list__card {
+  min-height: 440px; // for lazy loaded images
   cursor: pointer;
 }
 

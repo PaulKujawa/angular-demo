@@ -10,7 +10,7 @@ import {RecipeState} from 'app/recipe/service/recipe.state';
         <div *ngIf="recipeState.getPageable()|async as recipes"
              class="app-recipe-list">
             <mat-card *ngFor="let recipe of recipes.docs"
-                      (click)="onClick(recipe)" style="min-height: 440px"
+                      (click)="onClick(recipe)"
                       class="app-recipe-list__card">
                 <mat-card-header>
                     <mat-card-title>{{ recipe.name }}</mat-card-title>
