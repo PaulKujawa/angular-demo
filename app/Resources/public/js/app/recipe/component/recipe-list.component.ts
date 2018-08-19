@@ -10,14 +10,15 @@ import {RecipeState} from 'app/recipe/service/recipe.state';
         <div *ngIf="recipeState.getPageable()|async as recipes"
              class="app-recipe-list">
             <mat-card *ngFor="let recipe of recipes.docs"
-                      (click)="onClick(recipe)"
+                      (click)="onClick(recipe)" style="min-height: 440px"
                       class="app-recipe-list__card">
                 <mat-card-header>
                     <mat-card-title>{{ recipe.name }}</mat-card-title>
                 </mat-card-header>
 
-                <img mat-card-image
-                     [src]="getThumbnail(recipe)"
+                <img appLazyImg
+                     [lazyImgSrc]="getThumbnail(recipe)"
+                     mat-card-image
                      [attr.alt]="recipe.name">
 
                 <mat-card-content>
@@ -31,6 +32,8 @@ import {RecipeState} from 'app/recipe/service/recipe.state';
     `,
 })
 export class RecipeListComponent {
+    public readonly placeholderUrl = 'http://placehold.it/400x400/b2dfdb/fff';
+
     constructor(public recipeState: RecipeState,
                 private router: Router) {
     }
@@ -46,8 +49,6 @@ export class RecipeListComponent {
             return recipe.photos[0];
         }
 
-        const placeholderColor = Math.floor(Math.random() * 16777215).toString(16);
-
-        return `http://placehold.it/400x400/${placeholderColor}/fff`;
+        return this.placeholderUrl;
     }
 }
